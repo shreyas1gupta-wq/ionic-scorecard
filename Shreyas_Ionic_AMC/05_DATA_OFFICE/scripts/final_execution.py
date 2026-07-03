@@ -184,6 +184,16 @@ for strat, title in [("FF_Calendar", "FF Calendars (enter Mon 6-Jul) - by convic
         sub = sub[sub["symbol"].isin(top["symbol"])]
     tbl(sub, title)
 
+doc.add_heading("EVENT-GATE BLOCKED (RISK_LIMITS: no naked short-vol through a binary)", 1)
+blk = trades[trades["blocked"]]
+if len(blk):
+    doc.add_paragraph(f"{len(blk)} strangle/IVRV trades BLOCKED (earnings inside holding window) - do NOT enter:")
+    for _, x in blk.sort_values(["strategy", "symbol"]).iterrows():
+        doc.add_paragraph(f"{x['strategy']} {x['symbol']} ({x['sector']}) - conviction capped at {x['conviction']}",
+                          style="List Bullet")
+else:
+    doc.add_paragraph("No trades blocked by the event gate in this scan.")
+
 doc.add_heading("Per-stock news & risk flags", 1)
 tr = trades.sort_values("conviction")
 t = doc.add_table(rows=1, cols=5); t.style = "Light Grid Accent 1"
@@ -206,6 +216,20 @@ for b in [IT_NOTE + ".",
 doc.save(EXD / "EXECUTION_PLAN.docx")
 
 print(f"scored {len(out)} legs / {len(trades)} trades -> execution_scored.csv + EXECUTION_PLAN.docx")
+
+# --- ex-ante risk gate evidence (before/after) ---
+sv_tr = trades[trades["strategy"].map(_gated_strat)]
+print("\n=== EVENT GATE + INVERSE-IV SIZING (RISK_LIMITS D-021) - trade level ===")
+print(f"short-vol trades in scope   : {len(sv_tr)}")
+print(f"  downsized (size_x < 1.0)  : {(sv_tr['size_x'] < 1).sum()}   (before: all 1.00x)")
+print(f"  upsized   (size_x > 1.0)  : {(sv_tr['size_x'] > 1).sum()}")
+print(f"  tail_tier HIGH (x0.6)     : {(sv_tr['tail_tier'] == 'HIGH').sum()}")
+print(f"  BLOCKED by event gate     : {len(blocked_log)}   (before: deduction only, no block)")
+if blocked_log:
+    print("  blocked trades (conviction before -> after cap 35):")
+    for st, sym, ged, cb, ca in sorted(blocked_log):
+        print(f"    {st:16s} {sym:12s} earnings {ged}  conv {cb} -> {ca}")
+
 print("\n=== TOP 10 by conviction ===")
 print(trades.sort_values("conviction", ascending=False).head(10)[
     ["entry_date", "strategy", "symbol", "sector", "conviction", "news_risk"]].to_string(index=False))
