@@ -1,6 +1,6 @@
 # Scout: HuggingFace Models + Kaggle Resources (Beyond Raw Data) — 2026
 
-Status: IN PROGRESS. Checkpoint discipline (D-023) — findings appended incrementally as researched.
+Status: COMPLETE (2026-07-04). Checkpoint discipline (D-023) — findings appended incrementally as researched.
 Constraint recap (D-011): no local deep-learning TRAINING; sklearn/LightGBM locally; pretrained-model INFERENCE locally OK if CPU-viable; Kaggle 2xT4 (~30h/wk) is the GPU escape hatch.
 Mission: find HF models + Kaggle methods that unlock NEW firm capability beyond what we already use (ProsusAI/finbert planned, sklearn/LightGBM cross-sectional).
 
@@ -61,5 +61,26 @@ Our KNOWLEDGE_BASE.md / IDEA_PIPELINE / memo corpus is small (markdown files, lo
 
 ## RANKED TABLE (max 10 NOW/WATCH items)
 
-_(pending)_
+| # | Item | Type | Size/CPU | Capability unlocked | Verdict |
+|---|------|------|----------|---------------------|---------|
+| 1 | JPX-style top-K/bottom-K spread evaluation metric | Kaggle method | N/A (metric, not model) | Correct fitness function for cross-sectional ranking (Track-2 momentum) — measures long-short spread instead of pointwise R² | **NOW** |
+| 2 | LightGBM `LGBMRanker` (lambdarank objective) / Rank-IC custom objective | Kaggle/paper method | Zero new infra — built into existing LightGBM | Rank-optimized cross-sectional stock scoring, drop-in replacement for regression head on momentum machine | **NOW** |
+| 3 | Optiver-style multi-sub-window realized-vol features | Kaggle method | N/A (feature engineering) | Free upgrade to IV/RV sleeve — richer intraday vol-clustering features for existing validated strategy | **NOW** |
+| 4 | Combinatorial Purged CV (mlfinlab CPCV, not just purged K-fold) | Method/library (already referenced) | CPU, lightweight | Stronger overfitting check for Gate-4 — full OOS path distribution vs single split | **NOW** |
+| 5 | all-MiniLM-L6-v2 | HF embedding model | 22M params, ~46-90MB, CPU ms-latency | Fast local semantic search over KNOWLEDGE_BASE/memo corpus, zero infra (flat cosine sim) | **NOW** |
+| 6 | Chronos-Bolt-mini/small (Amazon) | HF time-series foundation model | 21M-48M params, explicitly CPU-inference-capable (up to 250x faster than original Chronos) | Cheap-testable realized-vol / synthetic-OHLCV-augmentation input for IV/RV sleeve or thin-history backtests | **WATCH** — cheap-test before trusting |
+| 7 | Kronos (financial K-line foundation model) | HF/GitHub model | Multiple sizes (mini/small/base); smallest plausibly CPU-viable | Largest claimed edge (+93% RankIC) on OHLCV forecasting/realized-vol — but single-paper, author-benchmarked, unreplicated | **WATCH** — needs independent/our-own cheap-test, Red-Team-flavored skepticism warranted |
+| 8 | nomic-embed-text-v1.5 | HF embedding model | 137M params, ~274MB, CPU-viable, 8192-token context | Upgrade path over MiniLM if long IC-memos/deep-dives need whole-doc (unchunked) embedding | **WATCH** — only if MiniLM retrieval quality proves insufficient |
+| 9 | India-tuned FinBERT variants (Vansh180/FinBERT-India-v1, kdave/FineTuned_Finbert) | HF NLP model | 110M, CPU-trivial | Possible tone-accuracy lift on Indian financial headlines vs plain ProsusAI/finbert | **WATCH** — low-provenance community models, needs 100-headline hand-eval vs baseline before trusting |
+| 10 | FinTwitBERT-sentiment | HF NLP model | ~110M, CPU-trivial | Tone model for social/fintwit-style short text — unlocks a NEW input type only if we ever ingest StockTwits/X data | **WATCH** — no data source yet; revisit if social data gets ingested |
+
+**SKIP (researched, explicitly rejected, with reason):**
+- Fin-E5 (7B) — best finance-embedding quality but CPU-infeasible for our latency needs; mismatched to small internal memo corpus anyway.
+- bge-small-en — redundant with all-MiniLM-L6-v2 pick, no edge.
+- Indian-market Kaggle datasets/notebooks (adritpal08, andrewmvd, sameerprogrammer, etc.) — we already have richer raw NSE bhavcopy access; these are stale upload-and-forget mirrors, not a methods source.
+- BhashaBench-Finance, L3Cube HindBERT/DevBERT — Hindi-language tooling; our source documents (NSE/BSE filings, screener.in, trendlyne) are English-only. No current need.
+- sweatSmile/phi3-mini-finance-nlp (filing summarization) — low-provenance fine-tune; a generic small instruct LLM (Phi-3-mini/Qwen2.5-3B base) with a good prompt likely matches it without the provenance risk.
+- Dedicated Indian-ticker NER model — none found with credible quality; a hand-built alias/fuzzy-match dictionary (RIL/Reliance/Reliance Industries Ltd → one entity) is cheaper and more reliable than any pretrained NER model for this narrow need.
+
+**Status: COMPLETE.** All 4 mission areas researched and written up above.
 
