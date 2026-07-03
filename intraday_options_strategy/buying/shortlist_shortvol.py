@@ -40,16 +40,40 @@ def near(strikes, target):
     return min(strikes, key=lambda x: abs(x - target)) if strikes else None
 
 
-def run():
+def combined_close():
+    """HF daily panel (ends 2026-01-22) UNION Angel 2026 daily bulk (Feb-Jul 2026, 477 syms).
+    Fix for the S-04 corruption (2026-07-04): stale spot.asof beyond the HF panel fabricated
+    settlement wins. Symbols without Angel data get NO post-Jan-2026 settlements (dropped, not faked)."""
     C = ds.stock_close()
+    import glob as _g
+    frames = []
+    for f in _g.glob(str(ROOT / "datasets/angel_daily_2026/*.parquet")):
+        try:
+            a = pd.read_parquet(f)
+            a["date"] = pd.to_datetime(a["timestamp"]).dt.tz_localize(None).dt.normalize()
+            frames.append(a[["date", "symbol", "close"]])
+        except Exception:
+            continue
+    if frames:
+        A = pd.concat(frames).pivot_table("close", "date", "symbol")
+        A = A[A.index > C.index.max()]                 # no overlap: append after HF panel end
+        C = pd.concat([C, A]).sort_index()
+    return C
+
+
+def run():
+    C = combined_close()
     stocks = sorted({p.name for p in SOPT.iterdir() if p.is_dir()})
     recs = []
     for sym in stocks:
         if sym not in C.columns:
             continue
         cser = C[sym].dropna()
+        data_end = cser.index.max().date()             # L7: last REAL spot for this symbol
         for p in sorted((SOPT / sym).glob("*.parquet")):
             exp = dt.date.fromisoformat(p.stem)
+            if exp > data_end:                          # L7 guard: never settle beyond real data
+                continue
             try:
                 df = pq.read_table(p).to_pandas()
                 df["trading_day"] = pd.to_datetime(df["trading_day"].astype(str))
@@ -139,7 +163,19 @@ if __name__ == "__main__":
     D = run()
     if D.empty:
         print("0 trades"); raise SystemExit
+    # L7b physical bounds: a 5% OTM strangle cannot earn > ~premium (~3-4% spot); 6% = generous.
+    viol = D[(D["strangle_managed"] > 0.06) | (D["strangle_hold"] > 0.06)]
+    if len(viol):
+        print(f"[L7b] DROPPING {len(viol)} physics-violating rows (>6% of spot 'profit' = corrupted marks):")
+        print(viol.groupby(D["exp"].astype(str).str[:7]).size().to_string())
+        D = D.drop(viol.index)
     D.to_parquet(ROOT / "intraday_options_strategy/buying/shortlist_shortvol.parquet")
+    # rebuild validation: 2026 months must normalize (was 19-100% impossible-winner rates)
+    D2 = D.copy(); D2["ym"] = pd.to_datetime(D2["exp"]).dt.to_period("M").astype(str)
+    m26 = D2[D2["ym"] >= "2026-01"].groupby("ym")["strangle_managed"].agg(["size", "mean", lambda x: (x > 0).mean()])
+    m26.columns = ["n", "mean", "hit"]
+    print("\n[rebuild check] 2026 by exit month:")
+    print(m26.to_string(formatters={"mean": "{:+.3%}".format, "hit": "{:.0%}".format}))
     print(f"[events] {len(D)} trades  {D['exp'].min()}..{D['exp'].max()}  "
           f"avg entry DTE={(pd.to_datetime(D['exp'])-pd.to_datetime(D['entry'])).dt.days.mean():.0f}")
     print(f"  jade lizards with NO upside risk (credit>=width): {D['jl_no_upside_risk'].mean():.0%}\n")

@@ -38,3 +38,5 @@ Columns: date · work item · agent (model tier) · **tokens** (subagent total, 
 | Org-practices deep-research (105 agents, PARTIAL — spend wall in verify) | workflow (opus) | 1,748,739 | 384 | elite-firm + AI-org practices | 08_BOARD_ROOM/RESEARCH_ORG_PRACTICES_2026-07.md (9 verified adoptions + leads) | — |
 | Gold cheap-test spawn | Devika (opus) | 40 | 9 | ABORTED at spawn — spend limit | none; RE-RUN next session (data ready, one-pager has kill criteria) | — |
 | S-04 pipeline rebuild spawn | eng (sonnet) | 205 | 15 | ABORTED at spawn — spend limit | none; RE-RUN next session (fix spec in register row + journal) | — |
+| Gold cheap-test (gate 3) — MAIN LOOP (D-023 no-spawn mode) | DESK-100 direct | (main loop) | 4 | pre-registered kill test on D-009 data | **KILL (K-011)** — gold not reliably positive on worst days; results/gold_silver/20260704_cheaptest | — |
+| S-04 pipeline fix — MAIN LOOP | DESK-100 direct | (main loop) | 3 | combined_close (HF∪Angel-2026) + L7 skip + L7b drop | shortlist_shortvol.py fixed; regen RUNNING in background | — |

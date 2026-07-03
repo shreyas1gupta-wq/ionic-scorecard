@@ -1,0 +1,11 @@
+{
+ "date": "2026-07-04",
+ "test": "gold_silver_cheaptest_gate3",
+ "kill_criteria": "gold mean return on worst equity-decile days < 0 OR tail corr > +0.3 (pre-registered in one-pager)",
+ "data": {
+  "gold": "datasets/etf_gold_silver/goldbees_daily.parquet (D-009 PASS)",
+  "silver": "datasets/etf_gold_silver/silverbees_daily.parquet",
+  "equity_proxy": "equal-weight mean of combined HF+Angel2026 panel, >90% coverage syms",
+  "limitation": "proxy not NIFTY TR index; HF panel ends 2026-01-22, Angel extends to 2026-07-03"
+ }
+}
