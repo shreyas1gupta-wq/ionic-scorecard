@@ -3,6 +3,15 @@ Format per entry: date, account (DESK-20/DESK-100), summary, files touched, hand
 Newest entries at TOP.
 
 ---
+## 2026-07-04 (night) — DESK-100 — ALL FOUR ORIGINAL SLEEVES NOW EXAMINED; the honest ledger is complete
+- **S-01** SEND-BACK (+11.4pts incremental; DSR/PBO FAIL) · **S-02** KILLED (denominator artifact #2) · **S-03 KILLED (K-012 — denominator artifact #3: pnl/back-premium; rupee-points truth = build +5.85 → forward −9.30, loses money 2024 AND 2025; D-M2 IC cancelled)** · **S-04 SURVIVES 2× costs 12/12 cells (+0.147%/spot worst cell) → PAPER-WATCH per D-M1.** Denominator disease is now a HARD RULE (KNOWLEDGE_BASE #8 + RESEARCH_SOP: every edge in rupee points + %spot). purgedcv ADOPTED (0.8% agreement; bars_per_year units guard). Arjun +20 AP.
+- Hires E-026 Tanvi (Product — Execution-Sheet v2 shipped: 258 trades in decision blocks, 4 data catches) + E-027 Dr. Sameer Bhat (Overfit/Sensitivity — Gate-4 now requires his report). Team 27, skills 49.
+- Principal rulings this session: D-024 (blanket approve) · D-025 (CEO+CIO joint approvals, Principal = tie-break + LIVE only) · D-026 (paper book ₹1cr) · **D-027 (standing approval; dontAsk permissions; BACKUP vault live** → C:\Users\Shreyas.1Gupta\ShreyasIonicAMC_BACKUP, weekly task, keeps 5, outside OneDrive).
+- Data: Angel index-token bypass of the niftyindices proxy block → INDIA VIX 2016→ + LOWVOL30/ALPHA50/VALUE20 + NIFTY50/500/BankNifty/Midcap150 + 5 momentum-ETF proxies in `datasets/index_daily/`. Factor-replication first cut: corr 0.90 / TE 5.9% in 2024 (13.4% overall — methodology gap, not data) → D-M4 path to <3%.
+- Track-2 SIG-11 built (10/10 PIT tests; criterion-7 bug caught by tests). Risk ceiling live at ₹1cr (median 5 lots). final_execution.py import bug fixed.
+- **Next session:** S-04+S-05 paper start · Sameer's first /sensitivity on S-04 · blank-PE backfill (8 legs) · /macro-calendar first run · results-dir consolidation · home-net day (factsheets, niftyindices, SSRN VRP paper) · board pack Jul-31.
+
+---
 ## 2026-07-04 (later) — CEO (Meher) — LEADERS' MEETING chaired (Principal-directed); 3 sub-meetings + 10 decisions filed
 - Written meeting (no agents spawned; token law). CEO spokesperson for CIO+3 FMs+Ops+Data+TCA+Compliance+Red-Team. Verdicts: S-04→paper-watch after 2×-cost cert (no full re-shuffle/IC); S-03 FF calendar = next IC; Track-2 SIG-11 proceeds; factor-replication = flagship validation (Devika+Arjun+Kavya, home-net); Sanjay screen v1 gated on Kavya PIT ruling; purgedcv installs first / openalgo scoped eval; honesty-probe #1 + compliance-audit #1; board 2026-07-31 (CEO pack owner). Decisions table D-M1..M10.
 - Minutes: `Shreyas_Ionic_AMC/08_BOARD_ROOM/minutes/2026-07-04_leaders_meeting.md`. Flagged CURRENT_STATE.md lag (17/22 → 25/48/60) for same-session refresh (D-M10).
