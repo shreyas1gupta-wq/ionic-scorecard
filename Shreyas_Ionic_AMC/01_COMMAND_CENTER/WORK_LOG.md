@@ -57,3 +57,4 @@ Columns: date · work item · agent (model tier) · **tokens** (subagent total, 
 | Permissions dontAsk + wildcard allows; BACKUP system | DESK-100 direct | (main loop) | 4 | Principal orders | settings.local.json; 99_OPS/backup_firm.py + weekly task; backup #1 DONE (bundle+tree+25MB) OUTSIDE OneDrive | — |
 | Index pull via Angel (proxy-bypass!) | background script | (script) | 1 | official closes | datasets/index_daily/: VIX 2016→, LOWVOL30, ALPHA50, VALUE20, broad + 5 mom-ETFs | — |
 | LOWVOL30 first-cut replication — MAIN LOOP | DESK-100 direct | (main loop) | 2 | show the error | corr 0.54/TE 13.4% overall; 0.90/5.9% in 2024 → data validated, methodology gap identified; D-M4 path to <3% | — |
+| Execution-Sheet v2 (product #2) + chain refresh | Tanvi (sonnet) + DESK-100 | 99,713 + main | 38+6 | decision-ready trade product | EXECUTION_SHEET_V2.md regenerated with max_lots (med 5 @1cr book) + import-path fix in final_execution.py | +10 |

@@ -1,0 +1,35 @@
+{
+  "purgedcv_version": "0.1.2",
+  "slice_rows": 1583,
+  "T_months": 47,
+  "sr_per_period": 0.5390347024766878,
+  "n_trials": 13,
+  "var_sharpe_grid": 0.051702460759350775,
+  "var_sharpe_handrolled": 0.0517,
+  "dsr_purgedcv_grid_var": 0.9166656961448232,
+  "dsr_purgedcv_handrolled_var": 0.9166669988657614,
+  "dsr_handrolled": 0.687,
+  "dsr_full_diagnostics": {
+    "dsr": 0.9166669988657614,
+    "expected_max_z": 1.703333547149684,
+    "kurt": 20.864109799583847,
+    "n_obs": 47.0,
+    "n_trials": 13.0,
+    "observed_sr": 0.5448622740274386,
+    "skew": -3.7368321117427272,
+    "sr_star": 0.1118032294689028,
+    "var_sharpe": 0.004308333333333333
+  },
+  "pbo_purgedcv": {
+    "16": {
+      "err": "ValueError('returns has n_obs=9 columns, fewer than n_splits=16; CSCV requires non-empty blocks.')"
+    },
+    "12": {
+      "err": "ValueError('returns has n_obs=9 columns, fewer than n_splits=12; CSCV requires non-empty blocks.')"
+    },
+    "10": {
+      "err": "ValueError('returns has n_obs=9 columns, fewer than n_splits=10; CSCV requires non-empty blocks.')"
+    }
+  },
+  "pbo_handrolled": 0.553
+}

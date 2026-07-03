@@ -1,0 +1,19 @@
+==========================================================================
+S-01 purgedcv v0.1.2 ACCEPTANCE — DSR + PBO recompute
+==========================================================================
+slice iv_rv>=1.4 & iv<1.0 : rows=1583  months(T)=47  SR/period=0.5390
+grid trial SRs (n=9): var_sharpe(grid)=0.0517  handrolled used=0.0517
+
+--- DEFLATED SHARPE ---
+  purgedcv DSR (var_sharpe=grid 0.0517) = 0.9167
+  purgedcv DSR (var_sharpe=handrolled 0.0517) = 0.9167
+  hand-rolled DSR                                = 0.6870
+  diagnostics: {"dsr": 0.9166669988657614, "expected_max_z": 1.703333547149684, "kurt": 20.864109799583847, "n_obs": 47.0, "n_trials": 13.0, "observed_sr": 0.5448622740274386, "skew": -3.7368321117427272, "sr_star": 0.1118032294689028, "var_sharpe": 0.004308333333333333}
+
+--- PBO n_splits=16: ERROR ValueError('returns has n_obs=9 columns, fewer than n_splits=16; CSCV requires non-empty blocks.')
+
+--- PBO n_splits=12: ERROR ValueError('returns has n_obs=9 columns, fewer than n_splits=12; CSCV requires non-empty blocks.')
+
+--- PBO n_splits=10: ERROR ValueError('returns has n_obs=9 columns, fewer than n_splits=10; CSCV requires non-empty blocks.')
+
+  hand-rolled PBO (CSCV, S=12, ranking-logit) = 0.5530

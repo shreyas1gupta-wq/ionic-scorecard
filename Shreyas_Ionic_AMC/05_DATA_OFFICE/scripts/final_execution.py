@@ -34,7 +34,7 @@ for _, r in FWD.dropna(subset=["d"]).iterrows():
 FRONT_EXP = dt.date(2026, 7, 28)
 
 import importlib.util
-spec = importlib.util.spec_from_file_location("cs", str(Path("conviction_scorer.py")))
+spec = importlib.util.spec_from_file_location("cs", str(Path(__file__).resolve().parent / "conviction_scorer.py"))
 cs = importlib.util.module_from_spec(spec); spec.loader.exec_module(cs)   # reuse SECTOR + score_trade
 
 # --- NEWS overlay (from 6-sector research sweep). (flag, note, conviction_adj) ---
