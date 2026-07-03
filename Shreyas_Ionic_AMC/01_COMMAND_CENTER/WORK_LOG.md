@@ -53,3 +53,7 @@ Columns: date · work item · agent (model tier) · **tokens** (subagent total, 
 | Ops bundle: stragglers + risk ceiling + openalgo | Manoj Pillai (sonnet) | 161,691 | 96 | 3 ledger items | 23 parquets + n500 regenerated (500/500); enforce_risk_ceiling() live; openalgo_eval.md PILOT-on-S-05 (margin-sim doc conflict flagged — pilot settles empirically) | +15 |
 | Index history pull (VIX + factor indices + mom ETFs) | background script | (script) | 1 | official closes via Angel | datasets/index_daily/ (running) | — |
 | Data sanity sweep | DESK-100 direct | (main loop) | 1 | catalog freshness table | CLEAN; 1 accessor-union TODO | — |
+| SIG-11 build (Track-2) | eng agent (sonnet) | 92,031 | 48 | signal stack + PIT tests | track2/{data11,sig11,test_sig11}.py — 10/10 tests; REAL BUG caught+fixed (criterion-7 no-op); breadth sanity investigated | — |
+| Permissions dontAsk + wildcard allows; BACKUP system | DESK-100 direct | (main loop) | 4 | Principal orders | settings.local.json; 99_OPS/backup_firm.py + weekly task; backup #1 DONE (bundle+tree+25MB) OUTSIDE OneDrive | — |
+| Index pull via Angel (proxy-bypass!) | background script | (script) | 1 | official closes | datasets/index_daily/: VIX 2016→, LOWVOL30, ALPHA50, VALUE20, broad + 5 mom-ETFs | — |
+| LOWVOL30 first-cut replication — MAIN LOOP | DESK-100 direct | (main loop) | 2 | show the error | corr 0.54/TE 13.4% overall; 0.90/5.9% in 2024 → data validated, methodology gap identified; D-M4 path to <3% | — |

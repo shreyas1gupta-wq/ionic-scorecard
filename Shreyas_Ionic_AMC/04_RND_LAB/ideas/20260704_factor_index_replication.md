@@ -22,3 +22,6 @@ Retail-adapted variant fails to beat the replicated index by >2%/yr net of APPRO
 - **Fallback/hacks:** Wayback Machine for historical factsheets; AMFI NAVs for factor mutual funds as cross-check.
 
 ## Trials ledger: 0 (fresh family). /prior-art check pending (Lakshmi).
+
+## PROGRESS 2026-07-04 — first-cut tracer bullet (results/factor_replication/20260704_lowvol30_firstcut/)
+LOWVOL30 vs official (via ANGEL index token — proxy-block bypassed!): 745d overlap; corr 0.538 / TE 13.4% overall, **corr 0.896 / TE 5.9% in 2024** (the well-instrumented year). Verdict: data pipeline PASSES the tracer test; error is methodological (price-level N100 proxy — the main offender; uncapped inv-vol; guessed rebalance dates). Path to <3%: real N100 membership (factsheets, home-net) + exact NSE methodology + weight caps = the D-M4 Aug-15 deliverable. BONUS data now on disk: INDIA VIX 2016→ (regime work), ALPHA50, VALUE20, 5 momentum-ETF proxies (datasets/index_daily/).

@@ -1,0 +1,50 @@
+{
+  "universe": "large-cap (pre-2024 option data)",
+  "n_symbols": 54,
+  "slice_rows": 673,
+  "ff_min": 0.25,
+  "slip": 0.015,
+  "n_shuffles": 1000,
+  "base_per_trade_wmean": 0.14100848592236306,
+  "base_n": 673,
+  "build_wmean": 0.15247302528620274,
+  "fwd_wmean": 0.11373272908005004,
+  "top_symbol": "APOLLOHOSP",
+  "top_symbol_frac_pnl": 0.0740702036388466,
+  "neg_without_top5": false,
+  "nulls": [
+    {
+      "name": "N1 within-month FF shuffle",
+      "null_mean": -4.26441790823362e-06,
+      "null_sd": 0.013188679566277589,
+      "incremental": 0.1410127503402713,
+      "p_value": 0.0,
+      "adds": true,
+      "n_shuffles": 1000
+    },
+    {
+      "name": "N2 global FF shuffle",
+      "null_mean": 0.004567604650084209,
+      "null_sd": 0.013729153926663266,
+      "incremental": 0.13644088127227885,
+      "p_value": 0.0,
+      "adds": true,
+      "n_shuffles": 1000
+    },
+    {
+      "name": "N3 random-entry (no FF filter)",
+      "null_mean": 0.004055559806312823,
+      "null_sd": 1.734723475976807e-18,
+      "incremental": 0.13695292611605023,
+      "p_value": 0.0,
+      "adds": true,
+      "n_shuffles": 1000
+    }
+  ],
+  "kills": {
+    "K1_selection_adds": true,
+    "K2_not_neg_both": true,
+    "K3_fwd_positive": true,
+    "K4_no_concentration": true
+  }
+}

@@ -1,0 +1,45 @@
+==============================================================================
+S-03 FF-CALENDAR INCREMENTAL SHUFFLE (D-M2) — LARGE-CAP GATE
+==============================================================================
+full universe rows 4585 | large-cap (pre-2024 options) symbols 54 rows 2175
+large-cap FF>=0.25 slice: 673 trades, 54 symbols  [DATA]
+
+BASE (actual FF selection, FF>=0.25, tier-sized):
+  per-trade weighted mean ret = +14.1008%  (n=673)
+  monthly-mean of monthly-wmean = +16.7707%  over 56 months
+
+------------------------------------------------------------------------------
+(b) PER-YEAR + BUILD/FORWARD  (large-cap FF>=0.25 slice)
+------------------------------------------------------------------------------
+    year     n     wmean    hit       med
+    2021    27  +13.832%    67%  +19.071%
+    2022   126  +15.124%    69%  +11.991%
+    2023   120  +25.882%    74%  +18.456%
+    2024   196   +8.927%    71%  +17.598%
+    2025   176  +12.471%    76%  +18.269%
+    2026    28   +7.279%    61%   +4.910%
+  BUILD  (entry<=2024-12-31): n= 474 wmean +15.247% hit 71%
+  FWD    (entry> 2024-12-31): n= 199 wmean +11.373% hit 73%
+
+------------------------------------------------------------------------------
+DEGENERATE CHECKS (large-cap FF>=0.25 slice)
+------------------------------------------------------------------------------
+  top symbol APOLLOHOSP: 7% of |weighted P&L|  ok
+  sum contrib +97.084 | without top-5 = +88.366  ok
+
+------------------------------------------------------------------------------
+(a) INCREMENTAL SHUFFLE — does FF SELECTION beat random calendar entry?
+------------------------------------------------------------------------------
+
+  BASE per-trade weighted mean (actual FF) = +14.1008%
+  N1 within-month FF shuffle       null mean -0.0004% sd 1.3189% | incremental +14.1013% | p(null>=actual)=0.000  ADD
+  N2 global FF shuffle             null mean +0.4568% sd 1.3729% | incremental +13.6441% | p(null>=actual)=0.000  ADD
+  N3 random-entry (no FF filter)   null mean +0.4056% sd 0.0000% | incremental +13.6953% | p(null>=actual)=0.000  ADD
+
+==============================================================================
+VERDICT vs PRE-REGISTERED KILLS
+==============================================================================
+  K1 FF within-month selection adds (p<0.05):     PASS  (p=0.000)
+  K2 base edge not negative both build&fwd:        PASS  (build +15.247% fwd +11.373%)
+  K3 forward (2025-26) mean > 0:                   PASS  (fwd +11.373%)
+  K4 no P&L concentration:                         PASS

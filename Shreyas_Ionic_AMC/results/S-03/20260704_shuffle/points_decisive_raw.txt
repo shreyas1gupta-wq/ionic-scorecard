@@ -1,0 +1,37 @@
+==============================================================================
+S-03 DECISIVE — FF calendar booked on P&L POINTS (denominator-free)
+==============================================================================
+large-cap FF>=0.25 slice: 673 trades, 54 symbols
+
+--- ratio metric (pnl/CE_be) vs points metric, by year ---
+      yr    n      ret%   pnl_pts    hit
+    2021   27   +13.83%    +6.841    67%
+    2022  126   +15.12%    +9.233    69%
+    2023  120   +25.88%   +15.233    74%
+    2024  196    +8.93%    -2.159    71%
+    2025  176   +12.47%   -10.840    76%
+    2026   28    +7.28%    +3.045    61%
+
+  BUILD  ret +15.25%  pts +5.849  n=474
+  FWD    ret +11.37%  pts -9.304  n=199   <<< FORWARD POINTS NEGATIVE
+
+--- denominator-inflation evidence ---
+  corr(1/CE_be, ret) = 0.097  (ratio driven by small back-leg premium)
+  CE_be 5th pct = 8.68  median = 50.00
+  4 trades with CE_be<2 carry mean-ret +29.6% vs pts +0.03
+
+--- (a) INCREMENTAL SHUFFLE on P&L POINTS (the honest test) ---
+  BASE pts +1.3647
+  N1 within-month FF shuffle: null -9.0377 sd 4.3081 incr +10.4024 p=0.003
+  NOTE: N3 random-entry null is DEGENERATE on this file — parquet stores only the
+  peak-FF entry per (sym,cycle), so each (sym,month) group has 1 candidate (sd=0).
+  The shuffle can test FF-VALUE reassignment but NOT alternative entry-timing.
+
+==============================================================================
+REVISED VERDICT vs PRE-REGISTERED KILLS (points-based)
+==============================================================================
+  K1 within-month selection adds (p<0.05): PASS in points (p=0.003) BUT build-only artifact
+  K2 base not neg both build&fwd:          PASS (build +5.85 fwd -9.30 pts)
+  K3 FORWARD (2025-26) mean > 0 IN POINTS:  KILL  (fwd -9.304 pts)  <<< TRIGGERED
+  ==> KILL K3 fires: the +11% forward RETURN was a denominator artifact; forward
+      P&L in rupees is NEGATIVE. FF SELECTION does not carry a forward timing edge.

@@ -41,8 +41,9 @@ def tierw(f):
 def load():
     ff = pd.read_parquet(FF)
     ff["entry"] = pd.to_datetime(ff["entry"]); ff["m1_exp"] = pd.to_datetime(ff["m1_exp"])
-    ff["ret"] = (ff["CE_fe"] * (1 - SLIP) - ff["CE_be"] * (1 + SLIP)
-                 - ff["CE_fx"] * (1 + SLIP) + ff["CE_bx"] * (1 - SLIP)) / ff["CE_be"]
+    ff["pnl"] = (ff["CE_fe"] * (1 - SLIP) - ff["CE_be"] * (1 + SLIP)
+                 - ff["CE_fx"] * (1 + SLIP) + ff["CE_bx"] * (1 - SLIP))   # denominator-free rupees
+    ff["ret"] = ff["pnl"] / ff["CE_be"]                                    # ratio (denom-inflated)
     ff["month"] = ff["m1_exp"].dt.to_period("M")
     return ff
 
