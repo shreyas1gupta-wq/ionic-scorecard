@@ -16,6 +16,8 @@ Append-only. Every kill: what, when, WHY (evidence), and the SPECIFIC condition 
 
 | K-011 | Gold/Silver ETF as SAME-DAY crash hedge | 2026-07-04 | Pre-registered kill tripped: gold mean on worst equity-decile days −0.017% (<0), 39% hit; 2021-23 −0.05%. Uncorrelated (tail corr −0.05) but NOT reliably positive when equities bleed; 85/15 overlay worsened worst-month (−1.83%→−2.40%) despite raising ann. return (+5.1%→+7.6%). No true crash in window; equal-weight proxy smooths stress days. results/gold_silver/20260704_cheaptest | (a) retest vs TRUE NIFTY index incl. a real crash (extend GOLDBEES pre-2021 via NSE bhavcopy/second source, cover 2020 COVID); (b) the DIFFERENT hypothesis "strategic low-corr return sleeve" (corr +0.07, gold rallying) needs its own one-pager — not killed, not claimed |
 
+| K-012 | FF calendar single-CE (FF≥0.25, the last original sleeve) | 2026-07-04 | THIRD denominator artifact (pnl/CE_be back-premium); denominator-free RUPEE POINTS, large-cap gate: build +5.85pts → forward **−9.30pts** (2024 −2.2, 2025 −10.8 — loses real money); confirms the FF-decay observation from pre-firm memory; honest trials ≥20 | Points-denominated edge positive across 2 consecutive forward years + Sameer sensitivity report + Red Team placebo |
+
 ## Watch-list (not killed, demoted pending proof)
 - FF calendar on MID-CAPS: fwd edge thins (+6-7%) and single trades hit −141% (KAYNES) — demoted to large-cap-only until liquid-back-month gate is coded.
 - Mid-cap earnings short-vol: lottery-like (+150%/−31% swings) — large-cap gate + DTE≥7-to-expiry rule pending codification.

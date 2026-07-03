@@ -79,3 +79,4 @@ Quarterly bonus = AP × ₹1L (virtual). League table announced at review; top s
 | 2026-07-04 | Manoj Pillai (E-023) | Ops bundle 3/3 + policy catch | +15 | 23/23 stragglers (500/500 coverage), risk ceiling live, openalgo PILOT verdict; caught the 10L-book/1%-rule lot-size impossibility (CIO escalation) |
 | 2026-07-04 | Dr. Sameer Bhat (E-027) | FOUNDING BONUS (Principal-ordered hire) | +10 | Overfit/sensitivity specialist joins risk office |
 | 2026-07-04 | Tanvi Desai (E-026) | Product ship (ahead of target) + 4 data catches | +10 | Execution-Sheet v2; blank-PE-price/max_lots/macro-calendar gaps routed; anti-data-dump self-edit |
+| 2026-07-04 | Arjun Rao (E-004) | Artifact catch #3 (S-03) + S-04 certification + purgedcv adoption + honest self-correction (units trap) | +20 | The last original sleeve examined; denominator disease made a hard rule |

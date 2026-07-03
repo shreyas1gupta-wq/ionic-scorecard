@@ -6,29 +6,50 @@
   "n_trials": 13,
   "var_sharpe_grid": 0.051702460759350775,
   "var_sharpe_handrolled": 0.0517,
-  "dsr_purgedcv_grid_var": 0.9166656961448232,
-  "dsr_purgedcv_handrolled_var": 0.9166669988657614,
+  "dsr_purgedcv_correct": 0.6925744482899678,
+  "dsr_purgedcv_wrong_bars_per_year": 0.9166656961448232,
   "dsr_handrolled": 0.687,
   "dsr_full_diagnostics": {
-    "dsr": 0.9166669988657614,
+    "dsr": 0.6925744482899678,
     "expected_max_z": 1.703333547149684,
     "kurt": 20.864109799583847,
     "n_obs": 47.0,
     "n_trials": 13.0,
     "observed_sr": 0.5448622740274386,
     "skew": -3.7368321117427272,
-    "sr_star": 0.1118032294689028,
-    "var_sharpe": 0.004308333333333333
+    "sr_star": 0.38730696475583487,
+    "var_sharpe": 0.051702460759350775
   },
   "pbo_purgedcv": {
     "16": {
-      "err": "ValueError('returns has n_obs=9 columns, fewer than n_splits=16; CSCV requires non-empty blocks.')"
+      "pbo": 0.4383838383838384,
+      "attrs": [
+        "is_oos_performance",
+        "logits",
+        "n_combos",
+        "pbo",
+        "slope"
+      ]
     },
     "12": {
-      "err": "ValueError('returns has n_obs=9 columns, fewer than n_splits=12; CSCV requires non-empty blocks.')"
+      "pbo": 0.4653679653679654,
+      "attrs": [
+        "is_oos_performance",
+        "logits",
+        "n_combos",
+        "pbo",
+        "slope"
+      ]
     },
-    "10": {
-      "err": "ValueError('returns has n_obs=9 columns, fewer than n_splits=10; CSCV requires non-empty blocks.')"
+    "8": {
+      "pbo": 0.44285714285714284,
+      "attrs": [
+        "is_oos_performance",
+        "logits",
+        "n_combos",
+        "pbo",
+        "slope"
+      ]
     }
   },
   "pbo_handrolled": 0.553

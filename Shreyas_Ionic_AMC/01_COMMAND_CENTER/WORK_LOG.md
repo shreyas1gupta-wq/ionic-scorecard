@@ -58,3 +58,4 @@ Columns: date · work item · agent (model tier) · **tokens** (subagent total, 
 | Index pull via Angel (proxy-bypass!) | background script | (script) | 1 | official closes | datasets/index_daily/: VIX 2016→, LOWVOL30, ALPHA50, VALUE20, broad + 5 mom-ETFs | — |
 | LOWVOL30 first-cut replication — MAIN LOOP | DESK-100 direct | (main loop) | 2 | show the error | corr 0.54/TE 13.4% overall; 0.90/5.9% in 2024 → data validated, methodology gap identified; D-M4 path to <3% | — |
 | Execution-Sheet v2 (product #2) + chain refresh | Tanvi (sonnet) + DESK-100 | 99,713 + main | 38+6 | decision-ready trade product | EXECUTION_SHEET_V2.md regenerated with max_lots (med 5 @1cr book) + import-path fix in final_execution.py | +10 |
+| Arjun triple: S-04 cost-cert + S-03 shuffle + purgedcv | Arjun Rao (opus) | 141,856 | 61 | 3 leaders'-meeting tasks | S-04 SURVIVES 2× (paper-watch); **S-03 KILLED (K-012, denominator artifact #3, fwd −9.3pts)**; purgedcv ADOPTED into SOP | +20 |
