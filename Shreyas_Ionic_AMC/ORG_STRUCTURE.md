@@ -4,7 +4,10 @@
 ```
 PRINCIPAL (Shreyas) — owner, board chair, LIVE gate, approvals (D-series)
 └── BOARD (monthly, 08_BOARD_ROOM): Principal chairs; CIO presents; FMs report books
-    └── Rajan Mehta — CIO (E-001): capital protection, tail-risk veto, arbitrates the 3 books
+    ├── Meher Kapadia — CEO (E-018): OPERATIONS — cadences, budget/tokens, HR/AP, board secretary
+    │    ├── Farhan Qureshi (E-019) Compliance · Manoj Pillai (E-023) Ops-Eng · Lakshmi N. (E-024) Librarian
+    └── Rajan Mehta — CIO (E-001): INVESTMENTS — capital protection, tail-risk veto, arbitrates the 3 books
+        ├── Ritika Sharma (E-020) Portfolio Risk Mgr · Cyrus Daruwalla (E-021) Macro · Aakash Jain (E-022) Structurer · Neel Basu (E-025) Attribution
         ├── Vikram Shah (E-002) — FM DERIVATIVES & SHORT-VOL book (S-01..S-05)
         ├── Devika Menon (E-016) — FM EQUITIES & MOMENTUM book (Track-2, factor sleeves, gold/silver)
         ├── Sanjay Kulkarni (E-017) — FM FUNDAMENTAL QUALITY & VALUE book (screens→coverage→watchlist)

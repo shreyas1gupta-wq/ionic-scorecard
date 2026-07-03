@@ -25,3 +25,11 @@ Rules:
 - Escalate one tier when a task will directly drive a capital-allocation decision.
 - De-escalate for drafts/mechanical passes.
 - Model changes are logged in EVOLUTION_LOG.md (who, when, why).
+| Meher Kapadia (CEO) | Judgment | Opus 4.8 | Sonnet 5 | opus |
+| Farhan Qureshi (Compliance & Governance Officer) | Analysis | Sonnet 5 | Haiku 4.5 | sonnet |
+| Ritika Sharma (Portfolio Risk Manager) | Analysis | Sonnet 5 | Haiku 4.5 | sonnet |
+| Cyrus Daruwalla (Macro & Events Strategist) | Analysis | Sonnet 5 | Haiku 4.5 | sonnet |
+| Aakash Jain (Derivatives Structurer) | Analysis | Sonnet 5 | Haiku 4.5 | sonnet |
+| Manoj Pillai (Ops & Platform Engineer) | Analysis | Sonnet 5 | Haiku 4.5 | sonnet |
+| Lakshmi Narayanan (Knowledge Curator / Librarian) | Mechanical | Haiku 4.5 | Sonnet 5 | haiku |
+| Neel Basu (Performance Attribution Analyst) | Analysis | Sonnet 5 | Haiku 4.5 | sonnet |

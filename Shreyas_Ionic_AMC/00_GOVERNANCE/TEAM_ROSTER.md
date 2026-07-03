@@ -21,6 +21,14 @@ All compensation is **virtual** — a gamified performance ledger. Salaries are 
 | E-015 | Tara Singh | Execution & TCA Analyst | 0.90 Cr | 0 | Active |
 | E-016 | Devika Menon | Fund Manager — Equities & Momentum book, 15+yr | 2.20 Cr | 0 | Active |
 | E-017 | Sanjay Kulkarni | Fund Manager — Fundamental Quality & Value book, 18+yr | 2.20 Cr | 0 | Active |
+| E-018 | Meher Kapadia | CEO — firm operations, cadence, budget, HR (20+yr) | 2.50 Cr | 0 | Active |
+| E-019 | Farhan Qureshi | Compliance & Governance Officer (12+yr SEBI) | 1.00 Cr | 0 | Active |
+| E-020 | Ritika Sharma | Portfolio Risk Manager (10+yr, reports to CIO) | 1.20 Cr | 0 | Active |
+| E-021 | Cyrus Daruwalla | Macro & Events Strategist (15+yr) | 1.30 Cr | 0 | Active |
+| E-022 | Aakash Jain | Derivatives Structurer (12+yr) | 1.10 Cr | 0 | Active |
+| E-023 | Manoj Pillai | Ops & Platform Engineer (10+yr) | 1.00 Cr | 0 | Active |
+| E-024 | Lakshmi Narayanan | Knowledge Curator / Librarian | 0.70 Cr | 0 | Active |
+| E-025 | Neel Basu | Performance Attribution Analyst (8+yr) | 1.00 Cr | 0 | Active |
 
 ## AlphaPoints scoring (append events to the ledger below)
 | Event | AP |
@@ -64,3 +72,4 @@ Quarterly bonus = AP × ₹1L (virtual). League table announced at review; top s
 | 2026-07-04 | Tara Singh (E-015) | Confirmed guardrail-gap closure (P1, adversarially proven) | +15 | 6 unguarded IV paths -> sane_iv() everywhere; garbage-injection test rejected 3/3; zero regression on real data. Q3 blocking item CLEAR day 1 |
 | 2026-07-04 | Arjun Rao (E-004) | Confirmed DATA-CORRUPTION catch (pre-IC shuffle #2) | +15 | S-04 future-expiry fabricated wins; physical-impossibility bound (max profit = premium) beat the generic explosion guard |
 | 2026-07-04 | Kavya Reddy (E-013) | Clean D-009 gate (gold/silver) | +5 | 2 ETF series fetched, 7/7 checks, catalog-ready; cheap-test unblocked |
+| 2026-07-04 | E-018..E-025 (8 new hires) | FOUNDING BONUS (Principal expansion order) | +10 each | CEO + institutional bench joined |
