@@ -40,3 +40,4 @@ Columns: date · work item · agent (model tier) · **tokens** (subagent total, 
 | S-04 pipeline rebuild spawn | eng (sonnet) | 205 | 15 | ABORTED at spawn — spend limit | none; RE-RUN next session (fix spec in register row + journal) | — |
 | Gold cheap-test (gate 3) — MAIN LOOP (D-023 no-spawn mode) | DESK-100 direct | (main loop) | 4 | pre-registered kill test on D-009 data | **KILL (K-011)** — gold not reliably positive on worst days; results/gold_silver/20260704_cheaptest | — |
 | S-04 pipeline fix — MAIN LOOP | DESK-100 direct | (main loop) | 3 | combined_close (HF∪Angel-2026) + L7 skip + L7b drop | shortlist_shortvol.py fixed; regen RUNNING in background | — |
+| Track-2 DATA-11 corp-action gate — MAIN LOOP | DESK-100 direct | (main loop) | 2 | is the daily panel split-adjusted? | **PASSED: 99% adjusted-like across 307 events ≥2× — use as-is** (3 outliers noted); Devika's week-1 risk retired | — |
