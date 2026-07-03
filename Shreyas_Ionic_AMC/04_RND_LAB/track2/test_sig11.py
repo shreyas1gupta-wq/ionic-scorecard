@@ -97,12 +97,17 @@ class TestCriteriaByConstruction(unittest.TestCase):
         for i in range(6):
             panels.append(_make_series(f"WEAK_RS_{i}", _steady_uptrend(n, start=50.0, daily_ret=0.00005)))
 
-        # FAIL_MA_STACK: engineered so close is above MA150/MA200 and 200MA rising, but the
-        # 50d MA has NOT caught up above the 150d MA (recent sharp deceleration after a long
-        # uptrend) -> should fail c4 while still passing c1/c2/c3.
-        long_up = _steady_uptrend(n - 55, start=50.0, daily_ret=0.0030)
-        decel = np.linspace(long_up[-1], long_up[-1] * 0.90, 55)  # mild pullback, recent 50d avg drags down
-        panels.append(_make_series("FAIL_MA_STACK", np.concatenate([long_up, decel])))
+        # FAIL_MA_STACK: long uptrend, then a decline that dwells near the trough (fills most
+        # of the trailing 50d window with low prices, dragging MA50 down) followed by a
+        # sharp recent V-bounce that lifts the close back above MA150/MA200 before MA50 has
+        # had time to recover. Isolates c4 (50>150>200) as the failure while c1/c2/c3 hold.
+        decl_len, dwell_len, bounce_len, frac = 30, 40, 5, 0.85
+        pre_len = n - decl_len - dwell_len - bounce_len
+        long_up = _steady_uptrend(pre_len, start=50.0, daily_ret=0.0030)
+        decl = np.linspace(long_up[-1], long_up[-1] * frac, decl_len)
+        dwell = np.full(dwell_len, long_up[-1] * frac)
+        bounce = np.linspace(long_up[-1] * frac, long_up[-1] * frac * 1.15, bounce_len)
+        panels.append(_make_series("FAIL_MA_STACK", np.concatenate([long_up, decl, dwell, bounce])))
 
         cls.panel = pd.concat(panels, ignore_index=True)
         cls.asof = cls.panel["date"].max()

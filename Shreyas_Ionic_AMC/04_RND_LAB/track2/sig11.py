@@ -169,7 +169,7 @@ def compute_signals(panel: pd.DataFrame, asof_date) -> pd.DataFrame:
     c4 = (snap["ma50"] > snap["ma150"]) & (snap["ma150"] > snap["ma200"])
     c5 = snap["close"] > snap["ma50"]
     c6 = snap["close"] >= (1.0 + PCT_ABOVE_52W_LOW) * snap["lo_252"]
-    c7 = snap["close"] <= (1.0 + PCT_WITHIN_52W_HIGH) * snap["hi_252"]
+    c7 = snap["close"] >= (1.0 - PCT_WITHIN_52W_HIGH) * snap["hi_252"]
 
     # RS percentile: blended momentum score, ranked ONLY across this PIT-tradable snapshot.
     snap["mom_blend"] = RS_BLEND_W12 * snap["mom_12_1"] + (1 - RS_BLEND_W12) * snap["mom_6_1"]

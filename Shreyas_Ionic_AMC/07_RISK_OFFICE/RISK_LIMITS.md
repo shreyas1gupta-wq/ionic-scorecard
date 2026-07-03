@@ -22,3 +22,6 @@
 - Any single-day book loss > 3% → trading halted, CIO review before next entry.
 - 2 consecutive monthly sleeve losses → sleeve auto-demoted to paper (edge-decay rule).
 - Any realized trade > 2× modeled worst-case → immediate post-mortem (RP-08) + COST/RISK amendment proposal.
+
+## OPEN CIO QUESTION (2026-07-04, from risk-ceiling dry-run — Manoj)
+At BOOK_EQUITY=₹10L, the 1%-per-position rule (worst-case 2× premium proxy) caps max_lots at 0-1 for ~87% of NSE F&O single lots (₹5-7L notional each). Options for CIO ruling at the Jul-31 board: (a) set paper BOOK_EQUITY to the intended future capital (₹25-50L?), (b) restrict the paper book to defined-risk structures whose max-loss fits ₹10k/position, (c) accept 1-lot minimum as a known rule breach with explicit waiver. NO change made — policy call, not ops.

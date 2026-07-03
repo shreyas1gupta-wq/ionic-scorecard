@@ -75,3 +75,4 @@ Quarterly bonus = AP × ₹1L (virtual). League table announced at review; top s
 | 2026-07-04 | Kavya Reddy (E-013) | Clean D-009 gate (gold/silver) | +5 | 2 ETF series fetched, 7/7 checks, catalog-ready; cheap-test unblocked |
 | 2026-07-04 | E-018..E-025 (8 new hires) | FOUNDING BONUS (Principal expansion order) | +10 each | CEO + institutional bench joined |
 | 2026-07-04 | Tanvi Desai (E-026) | FOUNDING BONUS (Principal order — product team) | +10 | Head of Product joined; CEO+CIO joint approval per D-025 |
+| 2026-07-04 | Manoj Pillai (E-023) | Ops bundle 3/3 + policy catch | +15 | 23/23 stragglers (500/500 coverage), risk ceiling live, openalgo PILOT verdict; caught the 10L-book/1%-rule lot-size impossibility (CIO escalation) |

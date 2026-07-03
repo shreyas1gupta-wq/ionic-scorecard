@@ -50,3 +50,6 @@ Columns: date · work item · agent (model tier) · **tokens** (subagent total, 
 | Dead-import audit — MAIN LOOP | DESK-100 direct | (main loop) | 1 | pandas_ta/alphalens/pyfolio/mlfinlab/nsepy imports? | **CLEAN — zero dead imports** (we hand-rolled; purgedcv now replaces the hand-rolling) | — |
 | purgedcv install + API verification | DESK-100 direct | (main loop) | 2 | adoption #1 | v0.1.2 installed through proxy; API has DSR/PBO/CPCV/PSR; acceptance test delegated to Arjun (D-M6) | — |
 | Leaders' meeting (CEO chair, written-simulation format) | Meher Kapadia (opus) | 45,766 | 13 | plans + sub-meetings + assignments | 08_BOARD_ROOM/minutes/2026-07-04_leaders_meeting.md — D-M1..M10 decisions table | — |
+| Ops bundle: stragglers + risk ceiling + openalgo | Manoj Pillai (sonnet) | 161,691 | 96 | 3 ledger items | 23 parquets + n500 regenerated (500/500); enforce_risk_ceiling() live; openalgo_eval.md PILOT-on-S-05 (margin-sim doc conflict flagged — pilot settles empirically) | +15 |
+| Index history pull (VIX + factor indices + mom ETFs) | background script | (script) | 1 | official closes via Angel | datasets/index_daily/ (running) | — |
+| Data sanity sweep | DESK-100 direct | (main loop) | 1 | catalog freshness table | CLEAN; 1 accessor-union TODO | — |
