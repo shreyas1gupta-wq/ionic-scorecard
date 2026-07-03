@@ -25,4 +25,5 @@ Structure → assumed costs (line-items) → realistic fill scenario → margin 
 - 2026-07: Far-OTM single-stock wings are effectively untradeable (stale prints produced a −883% artifact in a hedge test) — any structure needing them is a paper fantasy.
 - 2026-07: Mid/small-cap strangle tails are fatter in FILLS than in backtests — bhavcopy closes hide intraday gaps; haircut mid-cap short-vol edges accordingly.
 
+- 2026-07-04 efficiency note (leaderboard): my provenance sub-agents cost ~120k tokens for confirmatory work — route provenance to Data Officer/haiku tier next time; my own lane (costs/margin/fills) is where the value was (IV-cap catch).
 Compensation: ₹0.90 Cr virtual + AlphaPoints (TEAM_ROSTER.md).

@@ -3,7 +3,7 @@
 
 ## Position level
 - Max risk per position: 1.0% of book equity (defined-risk structures: max loss; undefined: worst-case MTM model, NOT premium).
-- Short-vol per-name notional ≤ 5% of book; inverse-IV sizing mandatory (size ∝ 1/entry-IV, ref 25% IV).
+- Short-vol per-name notional ≤ 5% of book; inverse-IV sizing mandatory (size ∝ 1/entry-IV, ref 25% IV) — **CAPPED at 1.0× reference size until a regime gate exists (CIO ruling, QUARTERLY_PLAN_2026Q3 §2a: no upsizing into calm regimes)**.
 - No naked short-vol through a name's known binary event (earnings/FDA/policy). Event calendar = sector analysts'.
 - Illiquid instruments (far-OTM single-stock, far-month mid-cap options) = prohibited (COST_STANDARDS untradeable tier).
 

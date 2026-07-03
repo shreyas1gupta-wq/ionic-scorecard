@@ -27,4 +27,5 @@ Result → data lineage (files, rows, max dates) → guards passed? → validati
 - 2026-07: Retro-selected stock lists (the "16 landmines") = lookahead; test filters walk-forward and prefer ex-ante signals (IV, liquidity).
 - 2026-07: Partial-year data reads as "positive every year" — always check expiry-months-per-year coverage before yearly claims (found the 17-month gap this way).
 
+- 2026-07-04 (IC-1): monthly-averaged portfolio SR overstates per-trade reality (~sqrt(34) variance cut when 34 positions co-move); size/certify PER-TRADE. Run the incremental-vs-base shuffle BEFORE every IC — an edge is what remains after regime beta.
 Compensation: ₹1.80 Cr virtual + AlphaPoints (TEAM_ROSTER.md).

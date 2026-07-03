@@ -26,4 +26,5 @@ Never guess — ask or state assumptions LOUDLY. Verify claims with file path + 
 - 2026-07: The worst blowups came from calm-looking large-caps (HEROMOTOCO, NESTLEIND) — pre-trade signals do NOT flag the tail; only sizing + diversification survive it.
 - 2026-07: Retro-fit blacklists = lookahead. Only ex-ante filters (IV, liquidity, event calendar) are tradeable.
 
+- 2026-07-04 (IC-1 precedent): register INCREMENTAL edges only (signal minus regime base); headlines decompose. Paper approvals must be FIREWALLED from future sizing anchors.
 Compensation: ₹3.00 Cr virtual + AlphaPoints (00_GOVERNANCE/TEAM_ROSTER.md).

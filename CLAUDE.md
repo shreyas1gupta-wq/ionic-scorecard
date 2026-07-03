@@ -52,6 +52,7 @@ Legacy detail lives in `RESUME_TOMORROW.md` + `HANDOFF.md` (still valid, being s
 | cio-rajan-mehta | CIO, 20+yr, capital protection & tail risk | Final decisions, risk vetoes, portfolio-level calls |
 | fm-vikram-shah | Fund Manager — Derivatives & short-vol book, 15+yr | Idea prioritization, capital allocation, convening IC |
 | fm-equities-devika-menon | Fund Manager — Equities & Momentum book | Equity/momentum allocation, Track-2, factor sleeves, diversifier defense |
+| fm-fundamental-sanjay-kulkarni | Fund Manager — Fundamental Quality & Value book, 18+yr | Long-horizon fundamental portfolio, value/quality sleeves, forensic-gated entries |
 | equity-head-ananya-iyer | Head of Equity Research | Coordinating analyst desk, fundamental deep-dives |
 | quant-head-arjun-rao | Head of Quant (IIT/MIT/Olympiad) | Backtest design, stats validity, signal research |
 | technical-head-dhruv-kapoor | Technical, Minervini-school | Chart setups, entries/exits, trend/stage analysis |

@@ -20,6 +20,7 @@ All compensation is **virtual** — a gamified performance ledger. Salaries are 
 | E-014 | Nikhil Bose | Red Team / Devil's Advocate (reports to CIO only) | 1.30 Cr | 0 | Active |
 | E-015 | Tara Singh | Execution & TCA Analyst | 0.90 Cr | 0 | Active |
 | E-016 | Devika Menon | Fund Manager — Equities & Momentum book, 15+yr | 2.20 Cr | 0 | Active |
+| E-017 | Sanjay Kulkarni | Fund Manager — Fundamental Quality & Value book, 18+yr | 2.20 Cr | 0 | Active |
 
 ## AlphaPoints scoring (append events to the ledger below)
 | Event | AP |
@@ -53,3 +54,8 @@ Quarterly bonus = AP × ₹1L (virtual). League table announced at review; top s
 | 2026-07-03 | Prof. Aditya Verma (E-011) | Pipeline intake milestone | +5 | 4 one-pagers filed w/ pre-registered kills; intake queue cleared; honest PEAD trials=1 |
 | 2026-07-03 | Ishaan Gupta (E-012) | Confirmed data-bug catch | +15 | OI-surface 'READY' tag wrong: 31% day-coverage, BANKNIFTY stale post-2024-07, no spot/IV cols; catalog corrected |
 | 2026-07-03 | Devika Menon (E-016) | Clean, decision-useful memo | +5 | Track-2 triage PASS + engine spec (5 params, 6 kills, honest prior); corp-action adjustment flag |
+| 2026-07-04 | ALL 16 employees | FOUNDING-DAY BONUS (Principal) | +10 each | Principal's appreciation for firm build + IC-1 integrity. Excluded from efficacy ranking (gift, not output). |
+| 2026-07-04 | Nikhil Bose (E-014) | Analyst-of-the-Day | +10 | Principal + Chair citation: the regime-beta catch is the firm's quality benchmark |
+| 2026-07-04 | Vikram Shah (E-002) | Clean, decision-useful memo | +5 | Q3 book plan; pre-IC shuffle proposal adopted as firm SOP; cap-1.0× position vindicated by CIO ruling |
+| 2026-07-04 | Devika Menon (E-016) | Clean, decision-useful memo | +5 | Q3 book plan; zero-non-short-vol-exposure case won 45% book-attention + gold fast-track |
+| 2026-07-04 | Sanjay Kulkarni (E-017) | FOUNDING-DAY BONUS (Principal) | +10 | Joined day 2; same founding grant as all employees |

@@ -43,7 +43,7 @@ def prev_session(d):
 # (lookahead). Live tail filter must be EX-ANTE: IV at entry (corr -0.23 with future
 # worst-case; the ex-ante top-IV-quintile filter caught 8/12 landmines).
 IV_REF = 0.25                 # reference IV: size_x = 1.0 at 25% entry IV
-SIZE_MIN, SIZE_MAX = 0.4, 1.5 # clip band for size_x
+SIZE_MIN, SIZE_MAX = 0.4, 1.0 # clip band for size_x — CIO ruling Q3-plan 2(a): cap 1.0x until regime gate exists (no upsizing into calm)
 TAIL_Q = 0.80                 # top quintile of the scan's per-stock entry IVs -> tail_tier=HIGH
 TAIL_HAIRCUT = 0.6            # HIGH tail tier: size_x *= 0.6
 TAIL_WARN = ("HIGH ex-ante tail tier: entry IV in top quintile of this scan "
@@ -67,7 +67,7 @@ def apply_risk_overlay(df):
                 a ~5%-OTM strangle credit slightly understates ATM straddle premium, so the
                 proxy runs a touch low -- acceptable for relative sizing/quintiles.
                 (iv_source='proxy'). 'IV=xx' in the signal string is a last fallback ('signal').
-    size_x    : inverse-IV multiplier clip(0.25/entry_iv, 0.4, 1.5) on Short_Strangle/IVRV
+    size_x    : inverse-IV multiplier clip(0.25/entry_iv, 0.4, 1.0) on Short_Strangle/IVRV
                 rows only; 1.0 elsewhere. FINAL SIZE = lots * size_x.
     tail_tier : per-stock HIGH if that stock's entry IV is in the top quintile of THIS scan
                 (ex-ante, K-010-compliant -- no realized-outcome blacklists), else NORMAL;

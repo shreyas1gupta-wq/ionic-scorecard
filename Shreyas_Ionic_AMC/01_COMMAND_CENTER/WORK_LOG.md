@@ -1,0 +1,32 @@
+# WORK LOG — every agent engagement, like a company (append-only)
+Columns: date · work item · agent (model tier) · **tokens** (subagent total, from harness usage) · tool calls · input (1-line brief) · output artifact (durable path) · AP.
+**Conversation policy:** full transcripts are session-temporary (harness temp dir, GC'd). The DURABLE record = the brief here + the filed artifact (memo/spec/code/review row). Every engagement MUST file its output to the repo — an engagement with no artifact gets no AP.
+
+## 2026-07-03 — Founding day + IC-1 + R&D sprint (DESK-100 session)
+| Work item | Agent (tier) | Tokens | Tools | Input brief | Output artifact | AP |
+|---|---|---|---|---|---|---|
+| News/sector risk sweep (7-pod, pre-persona) | research pod (opus) | ~251,000 | ~93 | 26 trade stocks × news/earnings/risk flags | conviction NEWS overlay in 05_DATA_OFFICE/scripts/final_execution.py | — |
+| Data-source deep research (gap fill) | 103-agent workflow | 2,641,825 | 886 | find source for missing 2024-25 option data | NSE bhavcopy solution → gap FILLED (see journal) | — |
+| Skills batch-3 + scaffolding | build agent (sonnet) | 76,274 | 47 | 5 skills + WAR_ROOM + ideas/ + results/ + SKILLS_INDEX | .claude/skills/*, 01_COMMAND_CENTER/SKILLS_INDEX.md | — |
+| FM-2 hire package | HR agent (sonnet) | 40,304 | 12 | Devika Menon persona + roster/model/CLAUDE.md | .claude/agents/fm-equities-devika-menon.md | — |
+| Freshness ping (first firm task) | Kavya Reddy (haiku) | 43,651 | 46 | EOD_ROUTINE freshness protocol | GREEN report (journaled); catalog confidence | +5 |
+| IC-1 R1: allocation memo | Vikram Shah (opus) | 27,744 | 4 | S-01 sizing/correlation/event-gate | memos/20260703_S01 §R1-FM | +5 |
+| IC-1 R1: quant verification | Arjun Rao (opus) | 37,140 | 7 | verify S-01 edge from disk | memos/20260703_S01 §R1-Quant | (in +20) |
+| IC-1 R1: TCA memo (+2 provenance sub-checks) | Tara Singh (sonnet) | 58,742 + 119,709 | 31+48 | cost stack, margin, fill realism | memos/20260703_S01 §R1-TCA; IV-cap gap catch | +5 |
+| IC-1 R2: Red-Team attack | Nikhil Bose (opus) | 30,716 | 8 | one focused kill attempt | ADVERSARIAL_REVIEWS row: regime-beta decomposition, FRAGILE | +30 |
+| S-01 formal validation battery | Arjun Rao (opus) | 45,658 | 13 | DSR/PBO/walk-forward/bootstrap/crash | results/S-01/20260703_validation/ → NOT-CERTIFIED | +20 total |
+| IC-1 verdict | Rajan Mehta (opus) | 25,831 | 2 | chair ruling on full pack | memos/20260703_S01 §verdict: SEND-BACK | chair |
+| R&D: 4 hypothesis one-pagers | Aditya Verma (opus) | 47,145 | 17 | intake queue → one-pagers w/ kills | 04_RND_LAB/ideas/2026070{3}_* ×4 + board | +5 |
+| Track-3 GEX one-pager + data audit | Ishaan Gupta (sonnet) | 51,044 | 19 | locate/verify OI surface; GEX gate hypothesis | ideas/20260703_dealer_gamma_gex.md; CATALOG corrected | +15 |
+| Track-2 triage + engine spec | Devika Menon (opus) | 65,989 | 26 | FM triage + build spec | ideas/20260703_track2_engine_spec.md → CHEAP-TEST | +5 |
+| Scanner risk-wiring + dry-run | engineering (sonnet) | 89,653 | 31 | inverse-IV sizing, tail tiers, event hard-block | 05_DATA_OFFICE/scripts/*.py (17 blocked, 44 downsized) | — |
+| **Session totals (agent work)** | 16 engagements | **~3.61M** | — | — | 3 commits (34dbf64, 7578a8f, 2807342) + this build | +90 |
+
+## 2026-07-04 — Quarterly planning + execution (this session)
+| Work item | Agent (tier) | Tokens | Tools | Input brief | Output artifact | AP |
+|---|---|---|---|---|---|---|
+| Q3-FY27 book plan (blind) | Vikram Shah (opus) | 31,548 | 10 | 3-month derivatives-book plan | QUARTERLY_PLAN_2026Q3 §derivatives lanes + ruling request (cap 1.0×) | +5 |
+| Q3-FY27 book plan (blind) | Devika Menon (opus) | 49,391 | 14 | 3-month equities-book plan | QUARTERLY_PLAN_2026Q3 §equities lanes + diversifier case | +5 |
+| Q3-FY27 firm synthesis + 5 rulings | Rajan Mehta (opus) | 28,814 | 4 | arbitrate both books, decide contentions | **QUARTERLY_PLAN_2026Q3.md (BINDING)** — cap 1.0× / pre-IC shuffle SOP / gold D-009 / S-03 first-cut / HF-first | chair |
+| FM-3 hire package (three-book structure) | HR agent (sonnet) | pending | — | Sanjay Kulkarni E-017 persona + governance | .claude/agents/fm-fundamental-sanjay-kulkarni.md | — |
+| Logging/leaderboard/bonus/lessons infra | DESK-100 direct | (main loop) | — | WORK_LOG + LEADERBOARD + D-022 + 8 persona lessons | this file; 00_GOVERNANCE/LEADERBOARD.md | — |

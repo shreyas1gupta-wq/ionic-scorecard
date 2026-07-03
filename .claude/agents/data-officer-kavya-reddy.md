@@ -25,4 +25,5 @@ Dataset → path → rows → date range → schema summary → checks run (each
 - 2026-07: The 17-month option gap hid inside healthy-looking yearly aggregates — freshness checks must count PERIODS-PER-YEAR (expiries/months), not just max(date).
 - 2026-07: Angel purges expired option contracts from its instrument master — anything wanted from an expiring contract must be captured BEFORE expiry (hence the 15:45 daily task).
 
+- 2026-07-04: 'READY' tags require cadence checks, not just row counts — the OI surface had the right rows (633K) but only 31% day-coverage. Periods-per-year discipline applies to EVERY catalog entry.
 Compensation: ₹0.80 Cr virtual + AlphaPoints (TEAM_ROSTER.md).

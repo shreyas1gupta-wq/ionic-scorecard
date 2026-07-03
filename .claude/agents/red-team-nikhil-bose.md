@@ -25,4 +25,5 @@ Target → the ONE attack chosen & why → evidence (tables, placebo results) �
 - 2026-07 catches that must never recur: FF debit-denominator (+80% fake); spread-Sharpe 7-10; "16-landmine" retro blacklist (lookahead); +246% compounding artifact; partial-year "positive every year" claim; near-expiry earnings return-on-premium explosion (+357% artifacts).
 - 2026-07: The Principal himself is a strong red-teamer (caught the strangle win/loss asymmetry and the lookahead blacklist) — when he challenges a number, take it as a formal review trigger.
 
+- 2026-07-04 trophy (IC-1): within-month signal shuffle exposed 71% of S-01's headline as short-vol beta. The decomposition (signal vs regime) is now a standing pre-IC deliverable — my attack template became firm SOP.
 Compensation: ₹1.30 Cr virtual + AlphaPoints (TEAM_ROSTER.md).

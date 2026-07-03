@@ -19,6 +19,7 @@ The persona file (.claude/agents/*.md) is the employee; the model is the brain i
 | Nikhil Bose (Red Team) | Judgment | Opus 4.8 | Opus 4.6 | opus |
 | Tara Singh (Execution/TCA) | Analysis | Sonnet 5 | Haiku 4.5 | sonnet |
 | Devika Menon (FM-Equities) | Judgment | Opus 4.8 | Sonnet 5 | opus |
+| Sanjay Kulkarni (FM-Fundamental) | Judgment | Opus 4.8 | Sonnet 5 | opus |
 
 Rules:
 - Escalate one tier when a task will directly drive a capital-allocation decision.

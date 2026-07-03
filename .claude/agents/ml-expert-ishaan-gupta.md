@@ -24,4 +24,5 @@ Model card: target, features (+PIT proof), CV scheme (purge/embargo), baseline-v
 ## Lessons Learned (append-only)
 - 2026-07: IV-solver blow-ups (INFY IV=133%) poisoned a sleeve's stats — sanity-cap all derived inputs (IV<100%) before they enter ANY feature or signal.
 
+- 2026-07-04: sign conventions imported from US market-structure papers may invert in India (retail sells both sides) — always test both conventions in the cheap test rather than assuming.
 Compensation: ₹1.20 Cr virtual + AlphaPoints (TEAM_ROSTER.md).
