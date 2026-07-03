@@ -23,7 +23,7 @@ Rule: if it's not in here with path+range+bugs, it doesn't exist for research. C
 | PIT quarterly earnings | `datasets/earnings_pit/unified_quarterly_pit.parquet` | 86.2% exact `available_date` (2025: 95.3%, 2026: 98%) [books] | THE earnings join key |
 | Earnings calendar (historical) | `datasets/nse_earnings_dates/earnings_dates.csv` | 2020-01→2026-07 | purpose-filter "Financial Results" |
 | Forthcoming results | `datasets/nse_earnings_dates/forthcoming_results.csv` | rolling (refreshed 2026-07-03: 27 Q1-FY27 dates) | refresh via NSE api (cookie warm-up) |
-| Screener deep fundamentals | `datasets/screener_deep/` | BS 5,022 / CF 3,000 / PL 6,000 rows [books] | value/quality sleeve |
+| Screener deep fundamentals | `datasets/screener_deep/` | BS 5,022 / CF 3,000 / PL 6,000 rows (verified 2026-07-04) | **PIT WARNING (Sanjay, 2026-07-04): NO available_date col — fiscal-period cols only; naive use = LOOKAHEAD. Kavya to rule stamping method (join unified_quarterly_pit / +6mo lag) before ANY signal use** |
 | Beat/miss (SUE proxy) | `datasets/derived/earnings_beat_miss.parquet` | 31,891 rows [books] | revision-sleeve proxy |
 | Shareholding changes | `datasets/derived/shareholding_changes.parquet` | 21,713 QoQ/YoY [books] | flow sleeve (FII/DII/promoter) |
 | Corporate actions | `datasets/derived/corporate_action_factors` | 613 events [books] | + cumulative adj factors |

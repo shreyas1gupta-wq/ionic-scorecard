@@ -10,6 +10,13 @@ blocked=True and conviction capped at 35 ("no naked short-vol through a name's k
 Previously this was only a conviction deduction. Earnings_ShortVol is exempt: trading the
 binary IS that sleeve's design. New columns are APPENDED; existing names/columns unchanged.
 Run execution_scanner.py --dry-run first if execution_ALL.csv lacks the risk columns.
+
+P1 (2026Q3, IC-1 catch) NOTE: this script does NOT compute IV itself -- it only reads
+entry_iv/iv_source/size_x through from execution_ALL.csv. The IV sanity cap (sane_iv(),
+0.03 < iv < 1.0, iv_source='rejected' excluded from IVRV candidacy) lives entirely in
+execution_scanner.py's apply_risk_overlay(). As long as execution_ALL.csv was produced
+(or --dry-run re-passed) by the patched scanner, this script inherits already-clamped
+values with no further guard needed here; it does not need its own copy of sane_iv().
 """
 import datetime as dt, re
 from pathlib import Path

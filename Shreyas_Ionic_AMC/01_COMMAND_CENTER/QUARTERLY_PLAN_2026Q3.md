@@ -1,6 +1,14 @@
 # QUARTERLY PLAN — Jul→Oct 2026 (Q3-FY27)
 **Author: Rajan Mehta (CIO, E-001) · synthesized from BLIND book-plans by Vikram Shah (Derivatives) & Devika Menon (Equities) · Status: BINDING (Principal delegated, D-021/D-022) · Filed by DESK-100 2026-07-04.**
-*Addendum pending: FM-Fundamental book plan (Sanjay Kulkarni, E-017 — hired after synthesis; CIO will integrate his lane without displacing P1-P6.)*
+*FM-Fundamental addendum FILED (below, 2026-07-04) — displaces nothing in P1-P6.*
+
+---
+## ADDENDUM — Fundamental Quality & Value book (Sanjay Kulkarni, E-017)
+**Lane (DESK-20 light + analyst-desk slack only):** QUALITY/VALUE SCREEN v1 over the 42-snapshot PIT universe — F-score, 5-yr ROCE stability, net-debt/equity, accruals (CFO-vs-PAT), valuation percentile vs own history, all as-of `available_date` → 15-25 candidates → **Ananya's forensic checklist as ENTRY GATE (any single flag = automatic pass-over)** → 2-3 deep-dives per analyst → watchlist v1 with margin-of-safety bands. **NO portfolio, no capital, no paper this quarter.**
+**Milestones:** Jul = data gate cleared + screen v1 PIT-audited + candidate list frozen · Aug = deep-dives (every rejection logged with killing flag + resurrection) · Sep-Oct = watchlist v1 (8-15 names, MoS bands, thesis-break triggers) → red-team → IC presentation scheduled around GATE-11.
+**DATA CATCH (verified on disk):** `screener_deep` has NO `available_date` column (fiscal-period cols only) — naive use = LOOKAHEAD. Request to Data Officer: rule a PIT-stamping method (join to unified_quarterly_pit where mappable, else conservative +6-month lag on annuals). Until ruled, screen v1 runs on earnings_pit ratios ONLY.
+**Kill discipline:** no momentum/RS inputs, no derivatives, no narrative stocks, no buying through a forensic flag, no paid data, no headline stats without DSR/PBO.
+**Ask to CIO (first monthly review):** confirm analyst-slack claim survives event-calendar spikes; pre-agree promotion criterion — a red-team-surviving watchlist v1 earns a capital discussion in the Q4 plan, not before.
 
 ## 1. Firm priorities P1..P6 (WHO / WHERE)
 **DESK-100 contention ruling: INTERLEAVE** — derivatives IC batteries run as short bursts (days each); Track-2 engine is the primary heavy tenant between them. Front-load cheap certainty (built ideas awaiting certification), keep the expensive bet (unbuilt engine) moving. [INFERENCE]

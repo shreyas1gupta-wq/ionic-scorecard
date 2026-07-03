@@ -28,5 +28,6 @@ Columns: date · work item · agent (model tier) · **tokens** (subagent total, 
 | Q3-FY27 book plan (blind) | Vikram Shah (opus) | 31,548 | 10 | 3-month derivatives-book plan | QUARTERLY_PLAN_2026Q3 §derivatives lanes + ruling request (cap 1.0×) | +5 |
 | Q3-FY27 book plan (blind) | Devika Menon (opus) | 49,391 | 14 | 3-month equities-book plan | QUARTERLY_PLAN_2026Q3 §equities lanes + diversifier case | +5 |
 | Q3-FY27 firm synthesis + 5 rulings | Rajan Mehta (opus) | 28,814 | 4 | arbitrate both books, decide contentions | **QUARTERLY_PLAN_2026Q3.md (BINDING)** — cap 1.0× / pre-IC shuffle SOP / gold D-009 / S-03 first-cut / HF-first | chair |
-| FM-3 hire package (three-book structure) | HR agent (sonnet) | pending | — | Sanjay Kulkarni E-017 persona + governance | .claude/agents/fm-fundamental-sanjay-kulkarni.md | — |
+| FM-3 hire package (three-book structure) | HR agent (sonnet) | 56,593 | 24 | Sanjay Kulkarni E-017 persona + governance | .claude/agents/fm-fundamental-sanjay-kulkarni.md + 6 governance edits | — |
+| Fundamental book Q3 addendum (first task) | Sanjay Kulkarni (opus) | 32,664 | 6 | book lane within binding plan | plan §ADDENDUM + screener_deep PIT-warning (catalog) | +20 |
 | Logging/leaderboard/bonus/lessons infra | DESK-100 direct | (main loop) | — | WORK_LOG + LEADERBOARD + D-022 + 8 persona lessons | this file; 00_GOVERNANCE/LEADERBOARD.md | — |

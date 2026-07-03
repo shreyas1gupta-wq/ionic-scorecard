@@ -51,6 +51,32 @@ TAIL_WARN = ("HIGH ex-ante tail tier: entry IV in top quintile of this scan "
 NOIV_WARN = "no entry IV derivable -> size_x floored at 0.4 (inverse-IV sizing mandatory)"
 RISK_COLS = ["entry_iv", "iv_source", "size_x", "tail_tier", "tail_warning"]
 
+# ---- P1 (2026Q3, IC-1 catch): shared IV sanity cap ----------------------------
+# Root cause: implied_vol() solves on Brent [0.1%, 500%] with NO sanity bound of its
+# own (intraday_options_strategy/options/bs_pricing.py); the backtest had an iv<1.0
+# guardrail but call sites here only checked "0.03 < iv < 3" (FF/strangle ATM) or had
+# NO bound at all (credit-proxy, signal-regex fallback, overlay's raw ingestion of an
+# upstream entry_iv). Result: a stale/crossed print can back out IV >= 100% (e.g. the
+# INFY 132.7% seen in a live/lastmonth artifact) and flow straight into inverse-IV
+# sizing. Fix: ONE helper, applied at EVERY IV computation/ingestion point.
+IV_LO, IV_HI = 0.03, 1.0      # sane annualized-IV band: 3% .. 100%
+IV_REJECTED = "rejected"      # iv_source tag for anything that failed the sanity band
+
+
+def sane_iv(iv):
+    """Return iv if 0.03 < iv < 1.0, else NaN. Scalar-safe (None/NaN pass through as NaN).
+    This is the ONLY gate for "is this a usable IV" anywhere in this script — every
+    computation or ingestion site must route through it before the value is trusted."""
+    if iv is None:
+        return np.nan
+    try:
+        v = float(iv)
+    except (TypeError, ValueError):
+        return np.nan
+    if not np.isfinite(v) or not (IV_LO < v < IV_HI):
+        return np.nan
+    return v
+
 
 def _is_shortvol(strat):
     """Strategies covered by the inverse-IV sizing rule (naked premium-selling sleeves)."""
@@ -67,11 +93,17 @@ def apply_risk_overlay(df):
                 a ~5%-OTM strangle credit slightly understates ATM straddle premium, so the
                 proxy runs a touch low -- acceptable for relative sizing/quintiles.
                 (iv_source='proxy'). 'IV=xx' in the signal string is a last fallback ('signal').
+                EVERY one of the above must pass sane_iv() (0.03 < iv < 1.0, P1 2026Q3 /
+                IC-1 catch: no >=100% or <3% IV survives). A raw value that fails the band
+                at every stage it was tried is NOT silently kept or defaulted -- it is
+                excluded from IVRV candidacy and iv_source='rejected'.
     size_x    : inverse-IV multiplier clip(0.25/entry_iv, 0.4, 1.0) on Short_Strangle/IVRV
-                rows only; 1.0 elsewhere. FINAL SIZE = lots * size_x.
+                rows only; 1.0 elsewhere. FINAL SIZE = lots * size_x. Rows with
+                iv_source='rejected' are floored at SIZE_MIN (0.4), same as "no IV".
     tail_tier : per-stock HIGH if that stock's entry IV is in the top quintile of THIS scan
                 (ex-ante, K-010-compliant -- no realized-outcome blacklists), else NORMAL;
-                '-' for rows outside the sizing rule. HIGH -> size_x *= 0.6 + tail_warning.
+                '-' for rows outside the sizing rule OR rejected by sane_iv (excluded from
+                the ranking cross-section entirely). HIGH -> size_x *= 0.6 + tail_warning.
     """
     df = df.copy()
     # idempotency: keep only genuine ATM IVs from a previous pass, recompute the rest
@@ -82,7 +114,11 @@ def apply_risk_overlay(df):
     df = df.drop(columns=[c for c in RISK_COLS if c in df.columns and c != "entry_iv"])
 
     sv = df["strategy"].map(_is_shortvol)
-    iv = pd.to_numeric(df["entry_iv"], errors="coerce")
+    # ---- ingestion point #1: upstream entry_iv (from the live-scan ATM computation
+    # below, or a re-loaded --dry-run CSV) -- MUST pass sane_iv before being trusted.
+    iv_raw = pd.to_numeric(df["entry_iv"], errors="coerce")
+    iv = iv_raw.map(sane_iv)
+    n_atm_rejected = int((iv_raw.notna() & iv.isna()).sum())
     src = pd.Series("-", index=df.index)
     src[iv.notna()] = "atm"
 
@@ -91,28 +127,52 @@ def apply_risk_overlay(df):
     exp = df["expiry"].map(lambda s: dt.datetime.strptime(str(s), "%d%b%Y").date())
     dte = pd.Series([max((e - a).days, 1) for a, e in zip(ent, exp)], index=df.index, dtype=float)
 
-    # credit-based IV proxy for strangle-style rows (formula above; APPROXIMATE)
+    # ---- ingestion point #2: credit-based IV proxy for strangle-style rows
+    # (formula above; APPROXIMATE) -- MUST pass sane_iv before being trusted.
     credit_pct = df["signal"].astype(str).str.extract(r"([\d.]+)%spot")[0].astype(float)
-    proxy = (credit_pct / 100.0) / (0.8 * np.sqrt(dte / 365.0))
+    proxy_raw = (credit_pct / 100.0) / (0.8 * np.sqrt(dte / 365.0))
+    proxy = proxy_raw.map(sane_iv)
+    n_proxy_rejected = int((sv & iv.isna() & proxy_raw.notna() & proxy.isna()).sum())
     m = sv & iv.isna() & proxy.notna()
     iv[m], src[m] = proxy[m], "proxy"
-    # last fallback: an explicit IV=xx token in the signal (e.g. future IVRV rows)
-    sig_iv = df["signal"].astype(str).str.extract(r"IV=([\d.]+)")[0].astype(float)
-    sig_iv = sig_iv.where(sig_iv <= 3, sig_iv / 100.0)   # percent-quoted -> decimal
+    # ---- ingestion point #3: last fallback, an explicit IV=xx token in the signal
+    # (e.g. future IVRV rows) -- MUST pass sane_iv before being trusted.
+    sig_iv_raw = df["signal"].astype(str).str.extract(r"IV=([\d.]+)")[0].astype(float)
+    sig_iv_raw = sig_iv_raw.where(sig_iv_raw <= 3, sig_iv_raw / 100.0)   # percent-quoted -> decimal
+    sig_iv = sig_iv_raw.map(sane_iv)
+    n_sig_rejected = int((sv & iv.isna() & sig_iv_raw.notna() & sig_iv.isna()).sum())
     m = sv & iv.isna() & sig_iv.notna()
     iv[m], src[m] = sig_iv[m], "signal"
+
+    # any row where a raw IV existed at some stage but failed sane_iv at every stage
+    # it was tried -> explicitly marked 'rejected' (never silently coerced to "-"/1.0x)
+    ever_had_raw = (iv_raw.notna() | proxy_raw.notna() | sig_iv_raw.notna())
+    rejected = sv & iv.isna() & ever_had_raw
+    src[rejected] = IV_REJECTED
+    n_rejected_total = n_atm_rejected + n_proxy_rejected + n_sig_rejected
+    if n_rejected_total:
+        print(f"sane_iv: rejected {n_rejected_total} raw IV value(s) outside "
+              f"({IV_LO:.0%}, {IV_HI:.0%}) -- atm={n_atm_rejected} proxy={n_proxy_rejected} "
+              f"signal={n_sig_rejected}. Excluded from IVRV candidacy; iv_source='rejected', "
+              f"size_x floored at {SIZE_MIN}.")
 
     # inverse-IV sizing (RISK_LIMITS, ref 25% IV)
     size = pd.Series(1.0, index=df.index)
     ok = sv & iv.notna()
     size[ok] = np.clip(IV_REF / iv[ok], SIZE_MIN, SIZE_MAX)
     warn = pd.Series("", index=df.index)
-    noiv = sv & iv.isna()
+    noiv = sv & iv.isna() & ~rejected
     size[noiv], warn[noiv] = SIZE_MIN, NOIV_WARN         # conservative floor if IV unknown
+    size[rejected] = SIZE_MIN                            # conservative floor: IV failed sanity band
+    warn[rejected] = (f"entry IV outside sane band ({IV_LO:.0%}, {IV_HI:.0%}) -- "
+                       f"rejected & excluded from IVRV candidacy; size_x floored at {SIZE_MIN}")
 
     # ex-ante tail tier: top quintile of per-stock entry IV across THIS scan
+    # (rejected rows are excluded from the IVRV candidate ranking set entirely --
+    # they must not contribute to or benefit from the quintile threshold)
     tail = pd.Series("-", index=df.index)
     tail[sv] = "NORMAL"
+    tail[rejected] = "-"
     sym_iv = iv[ok].groupby(df.loc[ok, "symbol"]).max().dropna()
     if len(sym_iv) >= 5:                                  # need a real cross-section to rank
         thr = sym_iv.quantile(TAIL_Q)
@@ -238,9 +298,9 @@ for nm, m in plan.items():
     ce_f, ce_b = L(nm, "f_atmCE"), L(nm, "b_atmCE")
     if not (ce_f and ce_b and m["atm"]):
         continue
-    iv1 = implied_vol(ce_f, m["spot"], m["atm"], Tf, R_, Q_, True)
-    iv2 = implied_vol(ce_b, m["spot"], m["atm"], Tb, R_, Q_, True)
-    if not (iv1 and iv2 and 0.03 < iv1 < 3 and 0.03 < iv2 < 3):
+    iv1 = sane_iv(implied_vol(ce_f, m["spot"], m["atm"], Tf, R_, Q_, True))
+    iv2 = sane_iv(implied_vol(ce_b, m["spot"], m["atm"], Tb, R_, Q_, True))
+    if not (iv1 == iv1 and iv2 == iv2):   # NaN-safe truthiness (sane_iv returns NaN, not None)
         continue
     var_f = (iv2**2 * Tb - iv1**2 * Tf) / (Tb - Tf)
     if var_f <= 0:
@@ -269,7 +329,8 @@ for nm, m in plan.items():
     # where unavailable the overlay falls back to the credit-based IV proxy (see docstring)
     ce_atm = L(nm, "f_atmCE")
     iv_atm = implied_vol(ce_atm, m["spot"], m["atm"], Tf, R_, Q_, True) if (ce_atm and m["atm"]) else None
-    iv_atm = iv_atm if (iv_atm and 0.03 < iv_atm < 3) else None
+    iv_atm = sane_iv(iv_atm)
+    iv_atm = iv_atm if iv_atm == iv_atm else None   # NaN -> None so `round(iv_atm, 4) if iv_atm else None` still works below
     for act, k, ot, px in [("SELL", m["kc"], "CE", ce), ("SELL", m["kp"], "PE", pe)]:
         rows.append(dict(entry_date=STR_ENTRY, strategy="Short_Strangle", action=act, symbol=nm,
                          expiry=FRONT_S, strike=k, opt=ot, live_price=round(px, 2),
