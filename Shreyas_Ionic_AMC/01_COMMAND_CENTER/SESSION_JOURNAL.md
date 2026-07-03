@@ -3,6 +3,24 @@ Format per entry: date, account (DESK-20/DESK-100), summary, files touched, hand
 Newest entries at TOP.
 
 ---
+## 2026-07-03 (night) — DESK-100 — First briefing received; executing WORK_ORDER_DESK100_BUILD
+- Bootstrapped per Principal's pointer: read CLAUDE.md, CURRENT_STATE, journal top-2, DECISIONS_LOG, work order, ADDENDUM v1.1. Identity confirmed: DESK-100 (VS Code, execution floor).
+- Live step checklist (ticked ONLY when the files are verifiably on disk — D-013):
+  - [x] WO-1 git: repo initialized, .gitignore extended (data/binaries excluded), 166 command-layer files committed (e27a578).
+  - [x] WO-2 agents: 15 personas live in .claude/agents/ (roster names, primary+backup models per MODEL_ASSIGNMENTS, P-01..P-12 baked, Lessons sections pre-seeded with this quarter's real catches).
+  - [x] WO-3 folders 03–07+99 seeded: IC template+memos/, IDEA_PIPELINE (8 ideas boarded), KILLED_IDEAS (K-001..K-010 w/ resurrection conditions), KNOWLEDGE_BASE (8 firm lessons + refs), DATA_CATALOG + QUALITY_RULES (dual-schema warning, gap-FILLED status), COST_STANDARDS (DRAFT), STRATEGY_REGISTER (S-01..S-06 + book rules), PAPER_LEDGER, RISK_LIMITS (DRAFT), ADVERSARIAL_REVIEWS (retro-logged 4 catches), EOD_ROUTINE, BACKUP_POLICY. Scratchpad scripts rescued → 05_DATA_OFFICE/scripts/ (6 files).
+  - [x] WO-4 skills ×5: /ic-memo /red-team /data-check /idea-log /eod live (harness-registered).
+  - [x] WO-5 factor library: FACTOR_LIBRARY.md (sleeves + data-status + rules of engagement).
+  - [x] WO-6 research machinery: RESEARCH_SOP (8-step loop, validation battery, run engineering, paper DoD, cadence), CODE_CHECKS + lib/guards.py (SMOKE-TESTED: schema detect daily/minute, 0-price clean 4914→2492, tz fix, degenerate detector fires), RP-01..RP-10 drafts, ANALYST_CHECKLISTS (forensic + Minervini + call-NLP + event-calendar duty).
+  - [x] WO-7 finish: books corrected, CURRENT_STATE rewritten, final commit below.
+- **BOOKS CORRECTED (disk beats books — DESK-100 knowledge the books lacked):**
+  1. **17-month option gap FILLED** (was "HF refill pending"): HF source has identical holes; filled instead from FREE NSE UDiFF/legacy bhavcopy — 1,408 daily parquets (Apr-24→Aug-25 + Jun-26). CLAUDE.md landmine #4 rewritten → dual-schema warning.
+  2. **Universe 88→210 F&O names** (+122 with 2-yr daily history). All 4 option strategies re-backtested on 210: forward-stable, cap-tier gating learned (FF/earnings→large-cap; IV-RV/strangle→full universe, inverse-IV sizing).
+  3. **NSE not fully blocked**: archives + board-meeting/event-calendar APIs work through proxy (370+ downloads); only some /api endpoints 403. CLAUDE.md ENVIRONMENT corrected.
+  4. Conviction+news framework (6-sector research sweep) live in FINAL_STRATEGY_FORWARD_CHECK/08_Execution (516 legs scored); lookahead lesson (retro blacklist) logged as K-010 + KNOWLEDGE_BASE §A3.
+  5. Scratchpad-orphaned scripts rescued into repo: 05_DATA_OFFICE/scripts/ (backfills, execution scanner, conviction scorer, earnings refresh).
+- **Handoff:** BUILD COMPLETE — firm is operational. Pending Principal: P-01..12 + RP-01..10 approvals (one by one), COST_STANDARDS + RISK_LIMITS sign-off. Suggested first committee action: /ic-memo on S-01 (IV/RV) — the strongest validated edge.
+
 ## 2026-07-03 (late) — DESK-20 — Build-state audit + Principal's factor mandate filed
 - **AUDIT:** only CLAUDE.md + 00_GOVERNANCE + 01_COMMAND_CENTER exist on disk. The "FIRM FOUNDED" entry below overstates (no .claude/agents, no git, no folders 02–07/99) — that session died mid-build. CURRENT_STATE corrected to truth.
 - Principal supplied the factor taxonomy (traditional premia + proprietary sentiment/flow/event/ML + gold-silver sleeve) → filed with on-disk data mapping, 12 standard prompt clauses, cost-standards skeleton, reference library (books/papers/repos/links), Red-Team backtest checklist: `02_PROMPT_LIBRARY/drafts/BUILD_ADDENDUM_v1.md` (ALL DRAFT per D-020).

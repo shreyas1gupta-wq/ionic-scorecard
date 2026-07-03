@@ -19,7 +19,7 @@ Two Claude accounts run this firm on the same laptop, same folder:
 
 ## ENVIRONMENT (hard-won facts — do not re-learn)
 - Python: `C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\python.exe` (`python` alias BROKEN). Always `PYTHONIOENCODING=utf-8`, `PYTHONUNBUFFERED=1` (console is cp1252).
-- `truststore.inject_into_ssl()` before any HTTPS. Corporate proxy ~0.7MB/s; sequential `requests.Session()` only (threads stall). **NSE API fully blocked (403)** — needs home network/VPN.
+- `truststore.inject_into_ssl()` before any HTTPS. Corporate proxy ~0.7MB/s; sequential `requests.Session()` only (threads stall). **NSE partially works:** `nsearchives.nseindia.com` bhavcopy zips + corporate-board-meetings/event-calendar APIs succeed after cookie warm-up (verified 370+ downloads 2026-07-03); other `/api` endpoints (FII/DII, constituents) still 403 → home network/VPN.
 - Angel SmartAPI: rate limit AB1021; use ≥1.2s/req, retry passes. Creds: data-only account (API key 8crMtPbu, client S59047501). Angel **purges expired option contracts** from its master — daily capture task `AngelDailyOptionCapture` (15:45/20:00/23:00 IST) handles this; DESK-100 owns it.
 - PowerShell 5.1: no `&&`; write Python to .py files (here-strings break raw strings).
 
@@ -27,7 +27,7 @@ Two Claude accounts run this firm on the same laptop, same folder:
 1. **HF timezone bug:** daily timestamps 18:30 UTC = next-day 00:00 IST. Fix: `dt.tz_convert('Asia/Kolkata').dt.date`.
 2. **Pre-open auction bug:** 1-min "open" at 09:00 is auction price; real open = first bar ≥09:15.
 3. **Earnings lookahead:** use PIT dataset `datasets/earnings_pit/unified_quarterly_pit.parquet` with `available_date` (86.2% exact dates). NEVER quarter-end dates.
-4. **Option data 17-month gap:** Apr-2024→Aug-2025 missing in single-stock options (HF refill pending). June-2026 cycle purged from Angel, unfetchable.
+4. **Option data gap — FILLED 2026-07-03 (DESK-100):** Apr-2024→Aug-2025 + Jun-2026 backfilled from free NSE bhavcopy at DAILY granularity, and universe expanded 88→210 F&O names. NEW LANDMINE in its place: `stocks_options/` now has DUAL SCHEMA (HF 1-min tz-aware vs bhavcopy daily with `settle` col, 0.00-price untraded strikes) — see `05_DATA_OFFICE/DATA_QUALITY_RULES.md`; use `04_RND_LAB/lib/guards.py` schema helpers.
 5. `india_fundamentals_mc/Train.parquet` `annual_report` col corrupt at source — read other cols only.
 6. Survivorship: use `NIFTY500_TICKER_2005_2025_Final.xlsx` (42 PIT snapshots) for universe membership.
 
