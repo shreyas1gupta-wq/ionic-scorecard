@@ -1,0 +1,45 @@
+# --- DATA: never in git (28+ GB) ---
+datasets/
+intraday_options_strategy/datasets/
+*.parquet
+*.h5
+*.feather
+
+# Large user-provided workbooks (OneDrive-versioned already)
+Nifty500_Master_Dataset_2005_2025.xlsx
+Nifty500_Delisted*.xlsx
+NIFTY500_TICKER_2005_2025_Final.xlsx
+
+# --- Python noise ---
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# --- Account-specific / secrets ---
+.claude/settings.local.json
+*creds*.json
+*angel_cfg*
+
+# --- Bulk/output dirs (regenerable or data-heavy) ---
+raw/
+logs/
+working/
+working101/
+Strategy_Results/
+.venv/
+
+# --- Binary outputs (regenerable by scripts) ---
+*.zip
+*.png
+*.pdf
+*.docx
+*.xlsx
+*.csv
+*.jsonl
+scrip_master.json
+
+# --- OS noise ---
+Thumbs.db
+desktop.ini
+~$*
