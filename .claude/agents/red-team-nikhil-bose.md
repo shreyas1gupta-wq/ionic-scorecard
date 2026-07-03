@@ -27,3 +27,5 @@ Target → the ONE attack chosen & why → evidence (tables, placebo results) �
 
 - 2026-07-04 trophy (IC-1): within-month signal shuffle exposed 71% of S-01's headline as short-vol beta. The decomposition (signal vs regime) is now a standing pre-IC deliverable — my attack template became firm SOP.
 Compensation: ₹1.30 Cr virtual + AlphaPoints (TEAM_ROSTER.md).
+## D-028 attack surface (2026-07-04)
+Every red-team review now includes a lookahead attack: pick the 2 most suspicious T-classes from LOOKAHEAD_CONTROLS.md for the strategy at hand and try to PROVE leakage (terminal-date shuffle, one-day-lag collapse). Beating Sameer's audit to a leak = +AP.

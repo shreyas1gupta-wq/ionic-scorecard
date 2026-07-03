@@ -345,8 +345,11 @@ for x in opt:
     k = float(x["strike"]) / 100; ot = x["symbol"][-2:]
     chain[(x["name"], x["expiry"], ot, round(k, 2))] = x["token"]
 strikes = {}
+strikes_by_type = {}   # OPS-1: (name, expiry, ot) -> set of strikes listed for THAT opt type
+                       # (CE/PE grids can differ, e.g. M&M 25AUG2026 lists 3160 CE, not 3160 PE)
 for (nm, ex, ot, k), tok in chain.items():
     strikes.setdefault((nm, ex), set()).add(k)
+    strikes_by_type.setdefault((nm, ex, ot), set()).add(k)
 print(f"front {FRONT} back {BACK} | {len(eqtok)} stocks")
 
 
@@ -369,6 +372,27 @@ spot = {k: v for k, v in spot.items() if v}
 
 
 def near(ks, tgt): return min(ks, key=lambda x: abs(x - tgt)) if ks else None
+
+
+SNAP_TOL = 0.05  # OPS-1: max relative distance (of target strike) allowed when snapping
+
+
+def snap_strike(nm, ex_s, ot, target):
+    """OPS-1 fix: snap `target` to the nearest strike actually LISTED FOR THAT OPTION TYPE
+    (CE/PE grids can differ -- e.g. M&M 25AUG2026 lists 3160 CE but NOT 3160 PE) and assert a
+    token exists in `chain` before returning it. Returns (strike, token) or (None, None) if no
+    such listed strike is within SNAP_TOL of target (never fabricates/reuses an off-grid strike
+    or borrows a strike from the other option type's grid)."""
+    ks = sorted(strikes_by_type.get((nm, ex_s, ot), set()))
+    if not ks or target is None:
+        return None, None
+    k = near(ks, target)
+    if abs(k - target) > SNAP_TOL * target:
+        return None, None
+    tok = chain.get((nm, ex_s, ot, k))
+    if tok is None:
+        return None, None
+    return k, tok
 
 
 # collect option tokens to price
@@ -442,22 +466,43 @@ for nm, m in plan.items():
 # ---- Earnings short-vol (enter 1 session before each earnings) ----
 FWD["d"] = pd.to_datetime(FWD["date"], format="%d-%b-%Y", errors="coerce")
 up = FWD.dropna(subset=["d"]); up = up[up["d"].dt.date >= TODAY].sort_values("d")
+
+# OPS-1/OPS-2: resolve every earnings leg's strike against the LISTED chain for its OWN
+# expiry (front OR back) before pricing -- never reuse the front/back-intersection ATM
+# blindly (that off-grid strike is what shipped the M&M 25AUG 3160 PE, which doesn't
+# exist; listed grid was 3120/3150/3200). Tokens are collected up front so the bulk_ltp
+# pass below actually quotes back-month legs too (previously only front-month legs were
+# ever priced; a back-month PE was never even requested, hence the 8 blank rows).
+earn_plan = []  # (nm, ed_, exp_s, entry, lot, legs=[(ot, strike, token, blocked, reason)])
+earn_need = []
 for _, e in up.iterrows():
     nm = e["symbol"]; ed_ = e["d"].date()
     if nm not in plan:
         continue
     exp = FRONT if ed_ <= FRONT else BACK
     exp_s = exp.strftime("%d%b%Y").upper()
-    m = plan[nm]; atm = m["atm"]
-    # price ATM CE+PE in the spanning expiry (front already priced; back reuse if needed)
-    ce = L(nm, "f_atmCE") if exp == FRONT else L(nm, "b_atmCE")
-    pe = L(nm, "f_atmPE") if exp == FRONT else None
+    m = plan[nm]; target = m["atm"]
     entry = prev_session(ed_)
-    for act, ot, px in [("SELL", "CE", ce), ("SELL", "PE", pe)]:
-        rows.append(dict(entry_date=entry, strategy="Earnings_ShortVol", action=act, symbol=nm,
-                         expiry=exp_s, strike=atm, opt=ot, live_price=round(px, 2) if px else None,
-                         lots=1, lot_size=m["lot"], signal=f"earnings {ed_}",
-                         exit_rule="close 1 session AFTER the result"))
+    legs = []
+    for ot in ("CE", "PE"):
+        k, tok = snap_strike(nm, exp_s, ot, target)
+        if tok is None:
+            legs.append((ot, target, None, True, "no_listed_strike"))
+        else:
+            legs.append((ot, k, tok, False, None))
+            earn_need.append(tok)
+    earn_plan.append((nm, ed_, exp_s, entry, m["lot"], legs))
+
+earn_ltp = bulk_ltp("NFO", earn_need)
+
+for nm, ed_, exp_s, entry, lotsz, legs in earn_plan:
+    for ot, k, tok, blocked, reason in legs:
+        px = earn_ltp.get(str(tok)) if tok else None
+        rows.append(dict(entry_date=entry, strategy="Earnings_ShortVol", action="SELL", symbol=nm,
+                         expiry=exp_s, strike=k, opt=ot, live_price=round(px, 2) if px else None,
+                         lots=1, lot_size=lotsz, signal=f"earnings {ed_}",
+                         exit_rule="close 1 session AFTER the result",
+                         blocked=blocked, block_reason=reason))
 
 df = pd.DataFrame(rows).sort_values(["entry_date", "strategy", "symbol", "opt"])
 df = apply_risk_overlay(df)          # ex-ante risk columns appended (RISK_LIMITS D-021)

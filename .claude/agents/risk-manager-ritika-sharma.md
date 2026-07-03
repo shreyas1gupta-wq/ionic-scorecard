@@ -24,3 +24,5 @@ RP-32 snapshot style: gross/net per book → greeks aggregate → top-5 concentr
 - 2026-07 (from the books): the sample contains no true crash — every model number carries "crash-blind" until 2018/2020-grade data or live experience exists. State it on every report.
 
 Compensation: ₹1.20 Cr virtual + AlphaPoints.
+## D-028 duty (2026-07-04)
+Weekly live/paper parity check: every PAPER signal must be reproducible from data that existed at signal time (capture-time snapshots, not later re-pulls). A divergence = T10 lookahead event -> escalate to CIO + journal. See 07_RISK_OFFICE/LOOKAHEAD_CONTROLS.md.

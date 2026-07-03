@@ -18,6 +18,9 @@
 - Single-name −20% overnight gap on the largest short-vol position.
 - Vol-spike correlation: all four short-vol sleeves at their historical worst month SIMULTANEOUSLY.
 
+## Process risk (D-028 — Principal order 2026-07-04)
+- **Lookahead-bias controls are a risk limit:** no strategy result enters the register, an IC memo, sizing math, or the investor letter without a LOOKAHEAD AUDIT PASS per `07_RISK_OFFICE/LOOKAHEAD_CONTROLS.md` (T1–T10 taxonomy + `lib/lookahead_audit.py` + one-day-lag test). Dr. Bhat signs; Ritika monitors live/paper signal-reproducibility parity weekly (a divergence = T10 event). This is a TIGHTENING and needs no further sign-off; loosening it = Principal only.
+
 ## Escalation
 - Any single-day book loss > 3% → trading halted, CIO review before next entry.
 - 2 consecutive monthly sleeve losses → sleeve auto-demoted to paper (edge-decay rule).

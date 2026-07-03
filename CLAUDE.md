@@ -31,6 +31,7 @@ Two Claude accounts run this firm on the same laptop, same folder:
 4. **Option data gap — FILLED 2026-07-03 (DESK-100):** Apr-2024→Aug-2025 + Jun-2026 backfilled from free NSE bhavcopy at DAILY granularity, and universe expanded 88→210 F&O names. NEW LANDMINE in its place: `stocks_options/` now has DUAL SCHEMA (HF 1-min tz-aware vs bhavcopy daily with `settle` col, 0.00-price untraded strikes) — see `05_DATA_OFFICE/DATA_QUALITY_RULES.md`; use `04_RND_LAB/lib/guards.py` schema helpers.
 5. `india_fundamentals_mc/Train.parquet` `annual_report` col corrupt at source — read other cols only.
 6. Survivorship: use `NIFTY500_TICKER_2005_2025_Final.xlsx` (42 PIT snapshots) for universe membership.
+7. **Lookahead (D-028):** ALL of the above are instances of the T1–T10 lookahead taxonomy — `07_RISK_OFFICE/LOOKAHEAD_CONTROLS.md`. No Gate-4 pass, register entry, or quoted result without a LOOKAHEAD AUDIT PASS (`lib/lookahead_audit.py` + one-day-lag test).
 
 ## FIRM MAP
 ```

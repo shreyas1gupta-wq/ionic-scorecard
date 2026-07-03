@@ -34,3 +34,6 @@ n0 = len(a); m = a.merge(b, on=k, how="left"); assert len(m) == n0, "merge blew 
 - Shuffle signal cross-sectionally within each date → Sharpe ≈ 0 expected
 - Random-entry benchmark at same trade frequency → real must beat decisively
 - 2× costs rerun (COST_STANDARDS promotion rule) · bootstrap 1,000 resamples → 5th-pctile CAGR > 0
+
+## Lookahead (D-028, 2026-07-04)
+Standing code rules from LOOKAHEAD_CONTROLS.md apply to EVERY backtest/feature file: as-of comment per feature column; `.shift(-n)` only with `# LABEL:` tag; no full-sample mean/std/rank in features; merge_asof(direction='backward') for published data; run `lookahead_audit.audit_code()` on your own file before handing to review.
