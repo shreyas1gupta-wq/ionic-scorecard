@@ -50,7 +50,8 @@ Legacy detail lives in `RESUME_TOMORROW.md` + `HANDOFF.md` (still valid, being s
 | Agent | Role | Summon when |
 |---|---|---|
 | cio-rajan-mehta | CIO, 20+yr, capital protection & tail risk | Final decisions, risk vetoes, portfolio-level calls |
-| fm-vikram-shah | Fund Manager, 15+yr | Idea prioritization, capital allocation, convening IC |
+| fm-vikram-shah | Fund Manager — Derivatives & short-vol book, 15+yr | Idea prioritization, capital allocation, convening IC |
+| fm-equities-devika-menon | Fund Manager — Equities & Momentum book | Equity/momentum allocation, Track-2, factor sleeves, diversifier defense |
 | equity-head-ananya-iyer | Head of Equity Research | Coordinating analyst desk, fundamental deep-dives |
 | quant-head-arjun-rao | Head of Quant (IIT/MIT/Olympiad) | Backtest design, stats validity, signal research |
 | technical-head-dhruv-kapoor | Technical, Minervini-school | Chart setups, entries/exits, trend/stage analysis |

@@ -19,6 +19,7 @@ All compensation is **virtual** — a gamified performance ledger. Salaries are 
 | E-013 | Kavya Reddy | Data Management Officer | 0.80 Cr | 0 | Active |
 | E-014 | Nikhil Bose | Red Team / Devil's Advocate (reports to CIO only) | 1.30 Cr | 0 | Active |
 | E-015 | Tara Singh | Execution & TCA Analyst | 0.90 Cr | 0 | Active |
+| E-016 | Devika Menon | Fund Manager — Equities & Momentum book, 15+yr | 2.20 Cr | 0 | Active |
 
 ## AlphaPoints scoring (append events to the ledger below)
 | Event | AP |
@@ -44,3 +45,4 @@ Quarterly bonus = AP × ₹1L (virtual). League table announced at review; top s
 | Date | Employee | Event | AP | Notes |
 |---|---|---|---|---|
 | 2026-07-03 | — | League opens | — | Firm founded |
+| 2026-07-03 | Kavya Reddy (E-013) | Clean, decision-useful memo | +5 | First firm task: freshness ping GREEN; capture task verified live (6,681 instruments), June backfill 210/210, calendar current |

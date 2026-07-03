@@ -19,7 +19,11 @@ Newest entries at TOP.
   3. **NSE not fully blocked**: archives + board-meeting/event-calendar APIs work through proxy (370+ downloads); only some /api endpoints 403. CLAUDE.md ENVIRONMENT corrected.
   4. Conviction+news framework (6-sector research sweep) live in FINAL_STRATEGY_FORWARD_CHECK/08_Execution (516 legs scored); lookahead lesson (retro blacklist) logged as K-010 + KNOWLEDGE_BASE §A3.
   5. Scratchpad-orphaned scripts rescued into repo: 05_DATA_OFFICE/scripts/ (backfills, execution scanner, conviction scorer, earnings refresh).
-- **Handoff:** BUILD COMPLETE — firm is operational. Pending Principal: P-01..12 + RP-01..10 approvals (one by one), COST_STANDARDS + RISK_LIMITS sign-off. Suggested first committee action: /ic-memo on S-01 (IV/RV) — the strongest validated edge.
+- **EXPANSION (same session, Principal orders "whole AMC" + "2 FMs + CIO" + parallel agents):**
+  - Skills 5 → **20**: added /desk-open /signals /news-sweep /events /cheap-test /backtest /deep-dive /tech-scan /post-mortem /paper /edge-decay /review-team /hire /approve /war-room. Catalog: `01_COMMAND_CENTER/SKILLS_INDEX.md`. Scaffolding: WAR_ROOM.md, 04_RND_LAB/ideas/, results/ convention.
+  - **E-016 HIRED: Devika Menon, FM-Equities & Momentum** (Track-2, factor sleeves, gold-silver, S-06 — the diversifier book). Vikram Shah rescoped to FM-Derivatives (S-01..S-05). ONE CIO retained deliberately (single accountable tail-risk veto; redundancy = backup model). Roster/MODEL_ASSIGNMENTS/CLAUDE.md/EVOLUTION_LOG updated. Team = 16.
+  - Build executed with 3 parallel subagents (skills+scaffolding / HR hire / Data-Officer freshness ping — Kavya's first task).
+- **Handoff:** FIRM FULLY OPERATIONAL — 16 agents, 20 skills, git b71cb0f+. Pending Principal: P-01..12 + RP-01..10 approvals (one by one), COST_STANDARDS + RISK_LIMITS sign-off. Suggested first committee action: /ic-memo on S-01 (IV/RV) — the strongest validated edge.
 
 ## 2026-07-03 (late) — DESK-20 — Build-state audit + Principal's factor mandate filed
 - **AUDIT:** only CLAUDE.md + 00_GOVERNANCE + 01_COMMAND_CENTER exist on disk. The "FIRM FOUNDED" entry below overstates (no .claude/agents, no git, no folders 02–07/99) — that session died mid-build. CURRENT_STATE corrected to truth.
