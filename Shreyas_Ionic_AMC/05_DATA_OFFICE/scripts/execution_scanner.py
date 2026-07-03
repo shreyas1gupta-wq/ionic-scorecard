@@ -212,7 +212,7 @@ def overlay_report(df):
 # Nothing upstream -- conviction score, news overlay, sizing tier -- may push size_x above 1.0,
 # unblock a blocked row, or authorize more lots than the 1% book-equity risk budget allows.
 # This function is deliberately dumb: it does not re-derive risk, it only clamps.
-BOOK_EQUITY = 1_000_000       # paper-book default (RISK_LIMITS D-021: 1% max risk per position)
+BOOK_EQUITY = 10_000_000  # ₹1 crore paper book (Principal ruling D-026, 2026-07-04)       # paper-book default (RISK_LIMITS D-021: 1% max risk per position)
 POSITION_RISK_PCT = 0.01      # RISK_LIMITS "Position level": max risk per position = 1.0% of book equity
 WORST_CASE_MULT = 2.0         # APPROXIMATE conservative proxy for short structures: worst-case
                                # loss per lot ~= 2x premium collected (no real tail model here --
