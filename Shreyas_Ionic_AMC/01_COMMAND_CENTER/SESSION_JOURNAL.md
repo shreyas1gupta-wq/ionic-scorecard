@@ -3,6 +3,19 @@ Format per entry: date, account (DESK-20/DESK-100), summary, files touched, hand
 Newest entries at TOP.
 
 ---
+## 2026-07-04 — DESK-20 — Cross-desk sync audit: DESK-100 work VERIFIED; books brought current
+- Principal asked for a same-page check. Disk audit vs claims: **ALL VERIFIED** — 17 agents (`.claude/agents/`), 22 skills (SKILLS_INDEX), `approved/` P-CLAUSES + RP-01..10, `lib/guards.py`, folders 02–08/90/99, ORG_STRUCTURE.md, BOARD_ROOM, PRINCIPALS_DESK, WORK_LOG + LEADERBOARD, QUARTERLY_PLAN_2026Q3 (BINDING), 13 commits e27a578→59df9c3.
+- **Journal backfill** (DESK-100's Jul-04 session was WORK_LOG'd + committed but not journaled; source = WORK_LOG + commit messages):
+  - Q3-FY27 plan BINDING — CIO synthesis of blind FM plans; 5 rulings incl. **inverse-IV sizing capped 1.0×** (closes the open "upsize-in-calm" design question), pre-IC shuffle SOP, gold D-009, S-03 designated first-cut, HF-first.
+  - **E-017 Sanjay Kulkarni hired** (FM-Fundamental Quality & Value) → three-book structure + delegated agent/skill creation authority (D-022). Team = 17.
+  - **S-02 FAILS-PRE-IC** — +21.6% headline was a denominator artifact; honest gated +9.7%/event, **−10.1% vs calendar-matched unconditional short-vol**. Resurrection conditions registered.
+  - **S-04 FAILS-PRE-IC + DATA CORRUPTION** — 84 future-expiry rows fabricated as closed wins; guards L7/L7b added; marking pipeline bounced to Data Office for rebuild.
+  - **P1 CLEAR** — `sane_iv()` on all 6 IV paths, adversarially proven → short-vol paper track unblocked.
+  - Gold/silver ETF series cataloged (D-009 PASS) → Devika's cheap-test unblocked.
+- CURRENT_STATE rewritten to true present (was stale by 8 commits: said team 16 / 20 skills / "S-02..S-04 await ICs" / "scanner in flight").
+- **Shared-memory identity bug FIXED:** the auto-memory dir (`~/.claude/projects/<slug>/memory/`) is SHARED by both accounts; the firm memory said "I am DESK-100", which would misidentify DESK-20 sessions. Rewritten desk-neutral (identify by harness: VS Code = DESK-100, desktop app = DESK-20). Rule for both desks: never write "I am DESK-X" into shared memory.
+- Assessment [OPINION]: the pipeline is doing exactly its job — 3 of 4 headline option strategies failed honest re-examination BEFORE capital; registered edges are now per-trade and incremental. Highest-value next: S-03 IC (only untested registered strategy), then S-05 paper go-live.
+
 ## 2026-07-03 (night) — DESK-100 — First briefing received; executing WORK_ORDER_DESK100_BUILD
 - Bootstrapped per Principal's pointer: read CLAUDE.md, CURRENT_STATE, journal top-2, DECISIONS_LOG, work order, ADDENDUM v1.1. Identity confirmed: DESK-100 (VS Code, execution floor).
 - Live step checklist (ticked ONLY when the files are verifiably on disk — D-013):
