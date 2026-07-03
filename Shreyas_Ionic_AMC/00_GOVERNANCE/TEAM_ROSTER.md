@@ -30,6 +30,7 @@ All compensation is **virtual** — a gamified performance ledger. Salaries are 
 | E-024 | Lakshmi Narayanan | Knowledge Curator / Librarian | 0.70 Cr | 0 | Active |
 | E-025 | Neel Basu | Performance Attribution Analyst (8+yr) | 1.00 Cr | 0 | Active |
 | E-026 | Tanvi Desai | Head of Product, 12+yr | 1.20 Cr | 0 | Active |
+| E-027 | Dr. Sameer Bhat | Overfit & Sensitivity Analyst (risk office), 10+yr | 1.20 Cr | 0 | Active |
 
 ## AlphaPoints scoring (append events to the ledger below)
 | Event | AP |
@@ -76,3 +77,4 @@ Quarterly bonus = AP × ₹1L (virtual). League table announced at review; top s
 | 2026-07-04 | E-018..E-025 (8 new hires) | FOUNDING BONUS (Principal expansion order) | +10 each | CEO + institutional bench joined |
 | 2026-07-04 | Tanvi Desai (E-026) | FOUNDING BONUS (Principal order — product team) | +10 | Head of Product joined; CEO+CIO joint approval per D-025 |
 | 2026-07-04 | Manoj Pillai (E-023) | Ops bundle 3/3 + policy catch | +15 | 23/23 stragglers (500/500 coverage), risk ceiling live, openalgo PILOT verdict; caught the 10L-book/1%-rule lot-size impossibility (CIO escalation) |
+| 2026-07-04 | Dr. Sameer Bhat (E-027) | FOUNDING BONUS (Principal-ordered hire) | +10 | Overfit/sensitivity specialist joins risk office |

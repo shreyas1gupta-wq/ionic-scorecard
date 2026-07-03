@@ -5,7 +5,7 @@
 1. **INTAKE** — hypothesis one-pager (template below) → IDEA_PIPELINE row. No one-pager, no work.
 2. **TRIAGE** (FM + Quant, ≤30 min, cheap tier) — economic WHY plausible? data on disk (DATA_CATALOG)? capacity ≥ target? → KILL or proceed.
 3. **CHEAP TEST** — the single cheapest falsification (event study / decile spread / one-year slice). Kill threshold pre-registered BEFORE touching data.
-4. **FULL BACKTEST** — per CODE_CHECKS.md (guards imported from `lib/guards.py`) + validation battery below. Results per run-engineering rules below.
+4. **FULL BACKTEST** — per CODE_CHECKS.md (guards imported from `lib/guards.py`) + validation battery below + **mandatory /sensitivity report (Dr. Bhat, E-027): param surface, perturbation, subsample — Gate-4 cannot pass without it**. Results per run-engineering rules below.
 5. **RED TEAM** — one focused attack (D-008) + placebo battery. Verdict REAL / FRAGILE / FAKE → ADVERSARIAL_REVIEWS row.
 6. **IC MEMO** — /ic-memo skill → verdict, sizing, kill criteria, review date → STRATEGY_REGISTER.
 7. **PAPER** — ≥20 trades or 8 weeks (whichever LATER); weekly reconcile vs Angel quotes; tracking error decomposed and explained (PAPER_LEDGER).

@@ -79,6 +79,7 @@ Legacy detail lives in `RESUME_TOMORROW.md` + `HANDOFF.md` (still valid, being s
 | librarian-lakshmi-narayanan | Knowledge Curator / Librarian | KNOWLEDGE_BASE, paper summaries, prior-art checks, propagation audits |
 | attribution-analyst-neel-basu | Performance Attribution Analyst (8+yr) | P&L decomposition (beta/regime/selection), monthly attribution |
 | product-head-tanvi-desai | Head of Product | Investor letter, dashboards, execution-sheet UX, strategy packaging |
+| overfit-analyst-sameer-bhat | Overfit & Sensitivity Analyst (risk office) | Param surfaces, perturbation/subsample stability, DSR/PBO, Gate-4 sensitivity reports |
 Team = 26 (CEO runs ops; CIO runs investments). IC = CIO + FM decide who convenes (user can override). Full 5-member IC only for position-sized decisions.
 
 ## TOKEN DISCIPLINE (summary — full policy in 00_GOVERNANCE/TOKEN_POLICY.md)

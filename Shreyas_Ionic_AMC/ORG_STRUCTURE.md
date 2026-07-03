@@ -8,7 +8,7 @@ PRINCIPAL (Shreyas) — owner, board chair, LIVE gate, approvals (D-series)
     │    ├── Farhan Qureshi (E-019) Compliance · Manoj Pillai (E-023) Ops-Eng · Lakshmi N. (E-024) Librarian
     │    └── Tanvi Desai (E-026) Head of Product — investor letter, dashboards, execution-sheet UX, strategy packaging (09_PRODUCT/)
     └── Rajan Mehta — CIO (E-001): INVESTMENTS — capital protection, tail-risk veto, arbitrates the 3 books
-        ├── Ritika Sharma (E-020) Portfolio Risk Mgr · Cyrus Daruwalla (E-021) Macro · Aakash Jain (E-022) Structurer · Neel Basu (E-025) Attribution
+        ├── Ritika Sharma (E-020) Portfolio Risk Mgr · Dr. Sameer Bhat (E-027) Overfit/Sensitivity · Cyrus Daruwalla (E-021) Macro · Aakash Jain (E-022) Structurer · Neel Basu (E-025) Attribution
         ├── Vikram Shah (E-002) — FM DERIVATIVES & SHORT-VOL book (S-01..S-05)
         ├── Devika Menon (E-016) — FM EQUITIES & MOMENTUM book (Track-2, factor sleeves, gold/silver)
         ├── Sanjay Kulkarni (E-017) — FM FUNDAMENTAL QUALITY & VALUE book (screens→coverage→watchlist)

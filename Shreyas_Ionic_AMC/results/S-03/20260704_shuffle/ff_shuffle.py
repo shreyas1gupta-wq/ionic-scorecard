@@ -53,6 +53,19 @@ def large_cap(ff):
     return ff[ff["sym"].isin(lc)].copy(), lc
 
 
+def tierw_vec(f):
+    return np.where(f < 0.5, 0.75, np.where(f < 0.75, 1.0, 1.25))
+
+
+def ptw_fast(ff_arr, ret_arr):
+    """Per-trade tier-weighted mean of ret over FF>=0.25 rows. Pure-numpy, for the shuffle loop."""
+    mask = ff_arr >= FF_MIN
+    if not mask.any():
+        return np.nan
+    w = tierw_vec(ff_arr[mask])
+    return np.average(ret_arr[mask], weights=w)
+
+
 def wmean_monthly(df, ffcol, retcol="ret"):
     """FF>=0.25 filter on ffcol, tier-weight on ffcol, capital-weighted monthly mean of ret,
     then equal-weight across months (matches filtered_portfolio booking spirit). Returns
@@ -119,36 +132,34 @@ def run():
     P("(a) INCREMENTAL SHUFFLE — does FF SELECTION beat random calendar entry?")
     P("-" * 78)
 
-    # N1: within-month FF permutation
-    months = lc["month"].values
-    ff_vals = lc["ff"].values.copy()
+    ff_vals = lc["ff"].to_numpy(float)
+    ret_vals = lc["ret"].to_numpy(float)
+    # month group index arrays (precompute once)
+    month_codes = lc["month"].astype("category").cat.codes.to_numpy()
+    month_idx = [np.where(month_codes == m)[0] for m in np.unique(month_codes)]
+
+    # N1: within-month FF permutation (vectorized: permute FF within each month group)
     n1 = np.empty(NSH)
     for i in range(NSH):
         shuf = ff_vals.copy()
-        # permute within each month group
-        for m in np.unique(months):
-            idx = np.where(months == m)[0]
-            if len(idx) > 1:
-                shuf[idx] = RNG.permutation(shuf[idx])
-        tmp = lc.copy(); tmp["ff_s"] = shuf
-        ptw, _, _ = wmean_monthly(tmp, "ff_s")
-        n1[i] = ptw if np.isfinite(ptw) else np.nan
+        for idx in month_idx:
+            if idx.size > 1:
+                shuf[idx] = shuf[RNG.permutation(idx)]
+        n1[i] = ptw_fast(shuf, ret_vals)
     n1 = n1[np.isfinite(n1)]
 
     # N2: global FF permutation
     n2 = np.empty(NSH)
     for i in range(NSH):
-        tmp = lc.copy(); tmp["ff_s"] = RNG.permutation(ff_vals)
-        ptw, _, _ = wmean_monthly(tmp, "ff_s")
-        n2[i] = ptw if np.isfinite(ptw) else np.nan
+        n2[i] = ptw_fast(RNG.permutation(ff_vals), ret_vals)
     n2 = n2[np.isfinite(n2)]
 
     # N3: random calendar entry (ignore FF entirely) — random trade per (sym,month), EW, no filter
-    lc2 = lc.copy(); lc2["sm"] = lc2["sym"].astype(str) + "|" + lc2["month"].astype(str)
-    grp = lc2.groupby("sm")
+    sm_codes = (lc["sym"].astype(str) + "|" + lc["month"].astype(str)).astype("category").cat.codes.to_numpy()
+    sm_idx = [np.where(sm_codes == g)[0] for g in np.unique(sm_codes)]
     n3 = np.empty(NSH)
     for i in range(NSH):
-        picks = grp["ret"].apply(lambda x: x.iloc[RNG.integers(len(x))])
+        picks = np.array([ret_vals[idx[RNG.integers(idx.size)]] for idx in sm_idx])
         n3[i] = picks.mean()   # equal-weight random entry, no FF filter
     n3 = n3[np.isfinite(n3)]
 
