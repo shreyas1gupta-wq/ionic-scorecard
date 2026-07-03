@@ -47,3 +47,6 @@ Columns: date · work item · agent (model tier) · **tokens** (subagent total, 
 | GitHub-OSS scout | agent (sonnet) | 74,260 | 26 | tooling adoption survey | scout_github_oss.md — top: purgedcv (DSR/CPCV), openalgo (Angel paper sandbox!), pandas-ta-classic swap, dead-lib audit; whitespace: our gate pipeline beats OSS | — |
 | Papers scout (part A) | agent (sonnet) | 62,735 | 23 | India replication papers | scout_papers_agents.md §A — 8 ranked; top: Nifty-VRP 9-filter (weekend) | — |
 | to_md converter + token toolkit | DESK-100 direct | (main loop) | 3 | Principal token-optimization order | scripts/to_md.py (35x tested) + /to-md skill + TOKEN_POLICY 9 hacks + STRICT max-3 in HARD RULES + exec awareness in 5 personas | — |
+| Dead-import audit — MAIN LOOP | DESK-100 direct | (main loop) | 1 | pandas_ta/alphalens/pyfolio/mlfinlab/nsepy imports? | **CLEAN — zero dead imports** (we hand-rolled; purgedcv now replaces the hand-rolling) | — |
+| purgedcv install + API verification | DESK-100 direct | (main loop) | 2 | adoption #1 | v0.1.2 installed through proxy; API has DSR/PBO/CPCV/PSR; acceptance test delegated to Arjun (D-M6) | — |
+| Leaders' meeting (CEO chair, written-simulation format) | Meher Kapadia (opus) | 45,766 | 13 | plans + sub-meetings + assignments | 08_BOARD_ROOM/minutes/2026-07-04_leaders_meeting.md — D-M1..M10 decisions table | — |
