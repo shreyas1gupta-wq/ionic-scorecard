@@ -46,3 +46,10 @@ Quarterly bonus = AP × ₹1L (virtual). League table announced at review; top s
 |---|---|---|---|---|
 | 2026-07-03 | — | League opens | — | Firm founded |
 | 2026-07-03 | Kavya Reddy (E-013) | Clean, decision-useful memo | +5 | First firm task: freshness ping GREEN; capture task verified live (6,681 instruments), June backfill 210/210, calendar current |
+| 2026-07-03 | Nikhil Bose (E-014) | Red Team kill pre-capital + bias catch | +30 | IC-1 S-01: regime-beta decomposition (71% of +37.6% headline = beta; true edge +11.4pts); halted mis-sized sleeve |
+| 2026-07-03 | Arjun Rao (E-004) | Formal battery + honest self-withdrawal | +20 | DSR 0.687/PBO 55.3% verdict against his own R1 support; results/S-01/20260703_validation |
+| 2026-07-03 | Tara Singh (E-015) | Clean, decision-useful memo | +5 | IC-1 TCA: caught live-feed IV-cap gap + mid-cap slippage thinness |
+| 2026-07-03 | Vikram Shah (E-002) | Clean, decision-useful memo | +5 | IC-1 allocation memo; event-gate operating rule adopted |
+| 2026-07-03 | Prof. Aditya Verma (E-011) | Pipeline intake milestone | +5 | 4 one-pagers filed w/ pre-registered kills; intake queue cleared; honest PEAD trials=1 |
+| 2026-07-03 | Ishaan Gupta (E-012) | Confirmed data-bug catch | +15 | OI-surface 'READY' tag wrong: 31% day-coverage, BANKNIFTY stale post-2024-07, no spot/IV cols; catalog corrected |
+| 2026-07-03 | Devika Menon (E-016) | Clean, decision-useful memo | +5 | Track-2 triage PASS + engine spec (5 params, 6 kills, honest prior); corp-action adjustment flag |

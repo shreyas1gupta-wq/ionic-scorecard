@@ -7,7 +7,7 @@ Rule: if it's not in here with path+range+bugs, it doesn't exist for research. C
 | Single-stock options, 210 F&O names | `intraday_options_strategy/datasets/raw/hf_index_options_1m/stocks_options/{SYM}/{expiry}.parquet` | MIXED: HF 1-min + bhavcopy DAILY | 2021-07→2026-06 **continuous** (gap FILLED 2026-07-03); +122 new names 2024-07→2026-06 daily | DUAL SCHEMA — see DATA_QUALITY_RULES; 0.00-price untraded strikes in daily files; 88 legacy names have 1-min where HF had it |
 | NIFTY weekly options 1-min | `.../hf_index_options_1m/` (index dirs) | 1-min | 261 weekly expiries 2021→2026 | accessor: `buying/chain.py` |
 | Live forward capture (Angel) | `intraday_options_strategy/datasets/angel_capture_2026/{day,minute}/{SYM}/{expiry}.parquet` | 1-day full life + 1-min (front, rolling) | Jul-2026 → ongoing | fed by `AngelDailyOptionCapture` task 15:45/20:00/23:00; ±10% strikes, 2 expiries |
-| NIFTY+BANKNIFTY OI surface | [books] `datasets/derived/` OI surface | daily strikes | 633K rows [books] | max-pain/PCR/GEX inputs (Track-3) |
+| NIFTY+BANKNIFTY OI surface | `datasets/derived/nifty_oi_surface.parquet` (377,034) + `banknifty_oi_surface.parquet` (256,187) + `nifty_oi_daily_summary.parquet` (1,276) | **SPARSE snapshots** — NIFTY 402 distinct dates over 2021-06→2026-05 (~31% coverage, 3-16d gaps); BANKNIFTY **stale after 2024-07-04** | 633,221 rows total (verified 2026-07-03, Ishaan) | **PARTIALLY READY** for GEX: no spot/IV/greeks cols on disk — needs spot join + cadence fix before Track-3 gate; max-pain/PCR summary only to 2024-07 |
 
 ## 2. Equity prices
 | Dataset | Path | Granularity | Coverage | Notes |

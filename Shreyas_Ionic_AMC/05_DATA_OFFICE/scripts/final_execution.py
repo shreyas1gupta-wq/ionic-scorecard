@@ -2,6 +2,14 @@
 adjusted by a NEWS/sectoral overlay (IT pack detailed from research; other sectors flagged by
 earnings-in-window + sector cluster). Produces execution_scored.csv, conviction_summary.csv,
 and EXECUTION_PLAN.docx with conviction, sector, earnings flag, news note + a sectoral note.
+
+EX-ANTE RISK GATING (RISK_LIMITS.md - APPROVED D-021): carries through the scanner's
+entry_iv / iv_source / size_x / tail_tier / tail_warning columns and adds a hard EVENT GATE:
+any Short_Strangle / IVRV trade with earnings inside its holding window (entry -> expiry) gets
+blocked=True and conviction capped at 35 ("no naked short-vol through a name's known binary").
+Previously this was only a conviction deduction. Earnings_ShortVol is exempt: trading the
+binary IS that sleeve's design. New columns are APPENDED; existing names/columns unchanged.
+Run execution_scanner.py --dry-run first if execution_ALL.csv lacks the risk columns.
 """
 import datetime as dt, re
 from pathlib import Path
@@ -75,8 +83,29 @@ def news_for(sym, strat, entry, expiry):
 
 d = pd.read_csv(EXD / "execution_ALL.csv")
 d["entry_date"] = pd.to_datetime(d["entry_date"]).dt.date
+
+# --- ex-ante risk columns from execution_scanner (RISK_LIMITS D-021 inverse-IV sizing) ---
+RISK_DEFAULTS = {"entry_iv": np.nan, "iv_source": "-", "size_x": 1.0, "tail_tier": "-", "tail_warning": ""}
+_missing = [c for c in RISK_DEFAULTS if c not in d.columns]
+for c in _missing:
+    d[c] = RISK_DEFAULTS[c]
+if _missing:
+    print(f"WARN: execution_ALL.csv missing risk columns {_missing} -> defaults applied. "
+          "Run execution_scanner.py --dry-run first for real inverse-IV sizing.")
+
+# --- EVENT GATE (RISK_LIMITS: "No naked short-vol through a name's known binary event") ---
+BLOCK_CONV_CAP = 35   # hard block: conviction forced to <=35 (was only a -15/-18 deduction)
+
+
+def _gated_strat(strat):
+    """Sleeves under the hard event gate. Earnings_ShortVol is exempt (binary IS its edge)."""
+    s = str(strat).upper()
+    return s == "SHORT_STRANGLE" or s.startswith("IVRV")
+
+
 rows = []
 cache = {}
+blocked_log = []   # (strategy, symbol, earnings_date, conv_before, conv_after) for evidence
 for _, r in d.iterrows():
     exp = FRONT_EXP if "JUL" in str(r["expiry"]) else dt.date(2026, 8, 25)
     key = (r["strategy"], r["symbol"])
@@ -84,21 +113,35 @@ for _, r in d.iterrows():
         base, flags = cs.score_trade(r["strategy"], r["symbol"], r["signal"], r["entry_date"], exp)
         nflag, nnote, nadj = news_for(r["symbol"], r["strategy"], r["entry_date"], exp)
         conv = int(np.clip(base + nadj, 0, 100))
-        cache[key] = (conv, flags, nflag, nnote)
-    conv, flags, nflag, nnote = cache[key]
+        blocked = False
+        if _gated_strat(r["strategy"]):
+            ged = cs.has_earnings_before_expiry(r["symbol"], r["entry_date"], exp)
+            if ged:   # binary inside holding window -> HARD BLOCK, not a deduction
+                blocked = True
+                conv_pre = conv
+                conv = min(conv, BLOCK_CONV_CAP)
+                flags = list(flags) + [f"EVENT-GATE BLOCK: earnings {ged} inside holding window "
+                                       "-> DO NOT ENTER naked short-vol (RISK_LIMITS)"]
+                blocked_log.append((r["strategy"], r["symbol"], ged, conv_pre, conv))
+        cache[key] = (conv, flags, nflag, nnote, blocked)
+    conv, flags, nflag, nnote, blocked = cache[key]
     rr = r.to_dict()
     rr["sector"] = cs.sector(r["symbol"]); rr["conviction"] = conv
     rr["news_risk"] = nflag; rr["news_note"] = nnote
     rr["risk_flags"] = "; ".join(flags) if flags else "-"
+    rr["blocked"] = blocked
     rows.append(rr)
 
 out = pd.DataFrame(rows).sort_values(["entry_date", "conviction", "strategy", "symbol", "opt"],
                                      ascending=[True, False, True, True, True])
 cols = ["entry_date", "strategy", "action", "symbol", "sector", "expiry", "strike", "opt",
-        "live_price", "lots", "lot_size", "conviction", "news_risk", "signal", "risk_flags", "news_note", "exit_rule"]
+        "live_price", "lots", "lot_size", "conviction", "news_risk", "signal", "risk_flags", "news_note", "exit_rule",
+        # ex-ante risk columns APPENDED (backward compatible) - RISK_LIMITS D-021
+        "entry_iv", "iv_source", "size_x", "tail_tier", "tail_warning", "blocked"]
 out[cols].to_csv(EXD / "execution_scored.csv", index=False)
 trades = out.drop_duplicates(["strategy", "symbol", "entry_date"])
-trades[["entry_date", "strategy", "symbol", "sector", "signal", "conviction", "news_risk", "risk_flags", "news_note"]].to_csv(
+trades[["entry_date", "strategy", "symbol", "sector", "signal", "conviction", "news_risk", "risk_flags", "news_note",
+        "entry_iv", "size_x", "tail_tier", "blocked"]].to_csv(
     EXD / "execution_conviction_summary.csv", index=False)
 
 # --- Word doc ---
@@ -112,20 +155,24 @@ doc.add_heading("Conviction scoring method", 1)
 for b in ["Base by strategy: strangle 70 (89% fwd-hit), IV/RV 72, earnings 62 (+39% but 60% hit), FF 60 (71% hit).",
           "Signal: FF magnitude (0.5-1.5 best; >1.5 usually earnings-driven -> discount); strangle credit%; ",
           "Risk deductions: earnings inside the front expiry (calendars/strangles = gap risk) -15 to -18.",
-          "News overlay: HIGH RISK -12/-14, ELEVATED -4/-6, NORMAL 0 (IT pack researched; others by earnings/sector)."]:
+          "News overlay: HIGH RISK -12/-14, ELEVATED -4/-6, NORMAL 0 (IT pack researched; others by earnings/sector).",
+          "RISK_LIMITS (D-021): SzX = inverse-IV size multiplier clip(0.25/entry_IV, 0.4, 1.5) on strangle/IVRV "
+          "(final size = lots x SzX); top-quintile entry-IV names = HIGH tail tier, extra x0.6.",
+          "EVENT GATE (hard): strangle/IVRV with earnings inside the holding window = BLOCKED, conviction capped "
+          "at 35 - no naked short-vol through a binary. Blk column: X = do not enter."]:
     doc.add_paragraph(b, style="List Bullet")
 
 def tbl(df, title):
     doc.add_heading(title, 1)
-    t = doc.add_table(rows=1, cols=9); t.style = "Light Grid Accent 1"
-    hs = ["Entry", "Action", "Symbol", "Sector", "Expiry", "Strike", "CE/PE", "Px", "Conv"]
+    t = doc.add_table(rows=1, cols=11); t.style = "Light Grid Accent 1"
+    hs = ["Entry", "Action", "Symbol", "Sector", "Expiry", "Strike", "CE/PE", "Px", "Conv", "SzX", "Blk"]
     for i, h in enumerate(hs):
         rr = t.rows[0].cells[i].paragraphs[0].add_run(h); rr.bold = True; rr.font.size = Pt(8)
     for _, x in df.iterrows():
         c = t.add_row().cells
         for i, v in enumerate([str(x["entry_date"]), x["action"], x["symbol"], x["sector"], x["expiry"],
                                f"{x['strike']:g}", x["opt"], f"{x['live_price']}" if pd.notna(x['live_price']) else "-",
-                               f"{x['conviction']}"]):
+                               f"{x['conviction']}", f"{x['size_x']:.2f}", "X" if x["blocked"] else ""]):
             rr = c[i].paragraphs[0].add_run(v); rr.font.size = Pt(8)
 
 for strat, title in [("FF_Calendar", "FF Calendars (enter Mon 6-Jul) - by conviction"),

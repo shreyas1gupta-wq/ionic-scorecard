@@ -1,5 +1,5 @@
 # CURRENT STATE — read me first (updated every session end)
-**As of: 2026-07-03 (night), by DESK-100**
+**As of: 2026-07-04 (early), by DESK-100**
 
 ## Right now
 - **FIRM BUILD COMPLETE.** All of WORK_ORDER_DESK100_BUILD executed: git repo live (command layer, data ignored), 15 agents in `.claude/agents/`, 5 skills (`/ic-memo /red-team /data-check /idea-log /eod`), folders 03–07+99 fully seeded, FACTOR_LIBRARY, RESEARCH_SOP, CODE_CHECKS + `lib/guards.py` (smoke-tested on real data), RP-01..10 drafts, ANALYST_CHECKLISTS.
@@ -12,6 +12,11 @@
 1. Prompt clauses P-01..P-12 (`BUILD_ADDENDUM_v1.md §2`) — one by one → then `approved/`.
 2. Research prompts RP-01..RP-10 (drafts/) — one by one.
 3. `06_TRADING_DESK/COST_STANDARDS.md` (DRAFT) and `07_RISK_OFFICE/RISK_LIMITS.md` (DRAFT).
+
+## IC-1 outcome (read the memo: 03_RESEARCH_DESK/memos/20260703_S01_ivrv_short_straddle.md)
+- S-01 IV/RV: **SEND-BACK, no capital** (DSR 0.687/PBO 55.3%; headline = 71% regime beta; true edge +11.4pts incremental). Paper-tracking approved, firewalled. Resurrection conditions registered.
+- D-021: everything approved (P/RP clauses, COST_STANDARDS, RISK_LIMITS all binding).
+- Board: Track-2 at CHEAP-TEST (Devika spec), Track-3 + 4 new ideas at INTAKE, S-02..S-04 await their ICs.
 
 ## Next actions
 - **Either desk:** IC memos for S-01..S-04 via `/ic-memo` (owners + kill criteria formalized) — first real committee run.

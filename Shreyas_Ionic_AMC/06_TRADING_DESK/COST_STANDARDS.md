@@ -1,5 +1,5 @@
 # COST STANDARDS — retail-conservative (Tara Singh owns)
-> **STATUS: DRAFT — NOT BINDING until the Principal approves (D-020). Until approval, backtests must still USE these numbers and label results "draft-costs".**
+> **STATUS: APPROVED** (D-021, 2026-07-03 — Principal: "my approval on everything okay continue"). Binding on all backtests and paper trades; amendments only via /post-mortem evidence + Principal sign-off.
 
 ## Per-order charges
 | Item | Rate |

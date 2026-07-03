@@ -1,0 +1,99 @@
+{
+  "test1_walk_forward": {
+    "folds": [
+      {
+        "fold": "train<=2023-12-31",
+        "val": "2024",
+        "chosen_iv_rv": 1.6,
+        "chosen_iv_cap": 0.8,
+        "n_train": 24,
+        "n_val": 185,
+        "oos_mean_monthly": 0.3513
+      },
+      {
+        "fold": "train<=2024-12-31",
+        "val": "2025",
+        "chosen_iv_rv": 1.6,
+        "chosen_iv_cap": 1.0,
+        "n_train": 240,
+        "n_val": 522,
+        "oos_mean_monthly": 0.4582
+      },
+      {
+        "fold": "train<=2025-12-31",
+        "val": "2026",
+        "chosen_iv_rv": 1.6,
+        "chosen_iv_cap": 1.0,
+        "n_train": 834,
+        "n_val": 305,
+        "oos_mean_monthly": 0.2823
+      }
+    ],
+    "oos_mean_avg": 0.3639,
+    "PASS": true
+  },
+  "test2_plateau": {
+    "best_cell": [
+      1.6,
+      1.0
+    ],
+    "best_val": 0.322,
+    "neighborhood_median": 0.2375,
+    "spike_ratio": 0.3557,
+    "PASS": false
+  },
+  "test3_deflated_sharpe": {
+    "sr_perperiod": 0.539,
+    "sr_ann": 1.8673,
+    "skew": -3.7368,
+    "kurt_nonexcess": 20.8641,
+    "T": 47,
+    "n_trials": 13,
+    "emax": 1.7033,
+    "var_sr_trials": 0.0517,
+    "sr_star": 0.3873,
+    "dsr": 0.687,
+    "pass_dsr": false,
+    "PASS": false
+  },
+  "test4_pbo_cscv": {
+    "PBO": 0.553,
+    "n_combos": 924,
+    "S": 12,
+    "PASS": false
+  },
+  "test5_bootstrap": {
+    "B": 1000,
+    "p5_mean_ret": 0.363,
+    "median_mean": 0.3755,
+    "PASS": true
+  },
+  "test6_crash_proxy": {
+    "book_hits": {
+      "4pos_x2.5": 0.1,
+      "4pos_x3.0": 0.12,
+      "5pos_x2.5": 0.125,
+      "5pos_x3.0": 0.15,
+      "6pos_x2.5": 0.15,
+      "6pos_x3.0": 0.18
+    },
+    "worst_hit": 0.18,
+    "survives_20pct_DD": true,
+    "triggers_3pct_halt": true,
+    "PASS": true
+  },
+  "degenerate": {
+    "guard_flags": [
+      "Sharpe 8.6 > 4"
+    ],
+    "win_rate": 0.9046,
+    "win_loss_ratio": 1.4715
+  },
+  "slice_summary": {
+    "rows": 1583,
+    "mean_short_ret": 0.3758,
+    "std_short_ret": 0.3026,
+    "n_months_exit": 47,
+    "n_symbols": 195
+  }
+}

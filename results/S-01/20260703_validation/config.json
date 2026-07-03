@@ -1,0 +1,46 @@
+{
+  "lineage": {
+    "data_file": "c:/Users/Shreyas.1Gupta/OneDrive - Angel Broking Limited/Desktop/Backup/NIFTY 500\\intraday_options_strategy\\buying\\rv_iv_vol.parquet",
+    "data_max_bytes_mtime": "2026-07-03T12:36:36.515958",
+    "full_file_rows": 3468,
+    "s01_slice_def": "iv_rv>=1.4 AND iv<1.0",
+    "s01_slice_rows": 1583,
+    "prompt_claimed_rows_3468_is": "FULL FILE not slice; actual S-01 slice=1583",
+    "return_col": "short_ret",
+    "entry_range": [
+      "2021-06-28",
+      "2026-05-06"
+    ],
+    "exit_range": [
+      "2021-07-28",
+      "2026-06-05"
+    ],
+    "exit_year_counts": {
+      "2021": 9,
+      "2022": 7,
+      "2023": 33,
+      "2024": 314,
+      "2025": 820,
+      "2026": 400
+    },
+    "seed": 20260703,
+    "short_ret_equals_neg_long_ret_rows": 0
+  },
+  "grid": {
+    "iv_rv": [
+      1.2,
+      1.4,
+      1.6
+    ],
+    "iv_cap": [
+      0.8,
+      1.0,
+      1.2
+    ]
+  },
+  "folds": [
+    "train<=2023-12-31->2024",
+    "train<=2024-12-31->2025",
+    "train<=2025-12-31->2026"
+  ]
+}

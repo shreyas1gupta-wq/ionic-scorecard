@@ -21,3 +21,4 @@
 | D-018 | 2026-07-03 | Capital: paper now; Principal will start small retail account with a few strategies when confident. |
 | D-019 | 2026-07-03 | No fixed track priority; fresh start mindset; incorporate VS Code's FINAL_STRATEGY_FORWARD_CHECK research. |
 | D-020 | 2026-07-03 | Firm name: **Shreyas_Ionic_AMC**. Standardized prompts and cost/slippage/brokerage standards enter force ONLY after Principal approval, one by one. |
+| D-021 | 2026-07-03 | BLANKET APPROVAL — Principal: "my approval on everything okay continue". P-01..P-12 + RP-01..RP-10 moved to approved/; COST_STANDARDS.md and RISK_LIMITS.md banners set APPROVED and now binding. |

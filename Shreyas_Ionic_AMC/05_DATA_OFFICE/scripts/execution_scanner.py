@@ -1,17 +1,25 @@
 """Build the EXECUTION sheet: fully-specified, dated trade legs (action / symbol / expiry /
 strike / CE-PE / live price / lot size) for every strategy, sorted by entry date.
 Live prices via Angel One. Output -> FINAL_STRATEGY_FORWARD_CHECK/08_Execution/.
+
+EX-ANTE RISK OVERLAY (RISK_LIMITS.md - APPROVED D-021 - + KNOWLEDGE_BASE lesson A3 / K-010):
+appends entry_iv / iv_source / size_x / tail_tier / tail_warning columns to every output CSV
+(original columns and file names unchanged -> backward compatible). Final position size for
+Short_Strangle / IVRV rows = lots * size_x (inverse-IV sizing, mandatory per RISK_LIMITS).
+
+Usage:
+    python execution_scanner.py            # live Angel-connected scan (needs session)
+    python execution_scanner.py --dry-run  # NO Angel: reload existing execution_ALL.csv and
+                                           # (re)apply the risk overlay in place. Idempotent.
 """
 import sys, json, time, datetime as dt
 from pathlib import Path
 import numpy as np, pandas as pd
-from docx import Document
-from docx.shared import Pt, RGBColor
+
+DRY_RUN = "--dry-run" in sys.argv
 
 PROJ = Path(r"c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500")
 sys.path.insert(0, str(PROJ / "intraday_options_strategy"))
-from options.bs_pricing import implied_vol
-import angel_cfg as A
 
 R_, Q_ = 0.065, 0.0
 TODAY = dt.date(2026, 7, 3)
@@ -27,6 +35,135 @@ def prev_session(d):
         d -= dt.timedelta(days=1)
     return d
 
+
+# ==================== EX-ANTE RISK OVERLAY ====================
+# Source: 07_RISK_OFFICE/RISK_LIMITS.md (APPROVED D-021) position rule:
+#   "inverse-IV sizing mandatory (size proportional to 1/entry-IV, ref 25% IV)"
+# and KNOWLEDGE_BASE lesson A3 / KILLED_IDEAS K-010: NO retro-fit outcome blacklists
+# (lookahead). Live tail filter must be EX-ANTE: IV at entry (corr -0.23 with future
+# worst-case; the ex-ante top-IV-quintile filter caught 8/12 landmines).
+IV_REF = 0.25                 # reference IV: size_x = 1.0 at 25% entry IV
+SIZE_MIN, SIZE_MAX = 0.4, 1.5 # clip band for size_x
+TAIL_Q = 0.80                 # top quintile of the scan's per-stock entry IVs -> tail_tier=HIGH
+TAIL_HAIRCUT = 0.6            # HIGH tail tier: size_x *= 0.6
+TAIL_WARN = ("HIGH ex-ante tail tier: entry IV in top quintile of this scan "
+             "(the filter that caught 8/12 landmines) -> size_x *= 0.6")
+NOIV_WARN = "no entry IV derivable -> size_x floored at 0.4 (inverse-IV sizing mandatory)"
+RISK_COLS = ["entry_iv", "iv_source", "size_x", "tail_tier", "tail_warning"]
+
+
+def _is_shortvol(strat):
+    """Strategies covered by the inverse-IV sizing rule (naked premium-selling sleeves)."""
+    s = str(strat).upper()
+    return s == "SHORT_STRANGLE" or s.startswith("IVRV")
+
+
+def apply_risk_overlay(df):
+    """Append the ex-ante risk columns; idempotent (recomputes if columns already exist).
+    entry_iv  : annualized entry IV. Real ATM implied vol where the scanner computed one
+                (iv_source='atm'); else for strangles a credit-based proxy is derived:
+                    IV_proxy ~= credit_pct / (0.8 * sqrt(DTE/365))
+                APPROXIMATE, labeled as such: inverts ATM-straddle ~= 0.8*S*sigma*sqrt(T);
+                a ~5%-OTM strangle credit slightly understates ATM straddle premium, so the
+                proxy runs a touch low -- acceptable for relative sizing/quintiles.
+                (iv_source='proxy'). 'IV=xx' in the signal string is a last fallback ('signal').
+    size_x    : inverse-IV multiplier clip(0.25/entry_iv, 0.4, 1.5) on Short_Strangle/IVRV
+                rows only; 1.0 elsewhere. FINAL SIZE = lots * size_x.
+    tail_tier : per-stock HIGH if that stock's entry IV is in the top quintile of THIS scan
+                (ex-ante, K-010-compliant -- no realized-outcome blacklists), else NORMAL;
+                '-' for rows outside the sizing rule. HIGH -> size_x *= 0.6 + tail_warning.
+    """
+    df = df.copy()
+    # idempotency: keep only genuine ATM IVs from a previous pass, recompute the rest
+    if "entry_iv" in df.columns and "iv_source" in df.columns:
+        df.loc[df["iv_source"].astype(str) != "atm", "entry_iv"] = np.nan
+    if "entry_iv" not in df.columns:
+        df["entry_iv"] = np.nan
+    df = df.drop(columns=[c for c in RISK_COLS if c in df.columns and c != "entry_iv"])
+
+    sv = df["strategy"].map(_is_shortvol)
+    iv = pd.to_numeric(df["entry_iv"], errors="coerce")
+    src = pd.Series("-", index=df.index)
+    src[iv.notna()] = "atm"
+
+    # DTE per row (entry -> expiry of the short leg)
+    ent = pd.to_datetime(df["entry_date"]).dt.date
+    exp = df["expiry"].map(lambda s: dt.datetime.strptime(str(s), "%d%b%Y").date())
+    dte = pd.Series([max((e - a).days, 1) for a, e in zip(ent, exp)], index=df.index, dtype=float)
+
+    # credit-based IV proxy for strangle-style rows (formula above; APPROXIMATE)
+    credit_pct = df["signal"].astype(str).str.extract(r"([\d.]+)%spot")[0].astype(float)
+    proxy = (credit_pct / 100.0) / (0.8 * np.sqrt(dte / 365.0))
+    m = sv & iv.isna() & proxy.notna()
+    iv[m], src[m] = proxy[m], "proxy"
+    # last fallback: an explicit IV=xx token in the signal (e.g. future IVRV rows)
+    sig_iv = df["signal"].astype(str).str.extract(r"IV=([\d.]+)")[0].astype(float)
+    sig_iv = sig_iv.where(sig_iv <= 3, sig_iv / 100.0)   # percent-quoted -> decimal
+    m = sv & iv.isna() & sig_iv.notna()
+    iv[m], src[m] = sig_iv[m], "signal"
+
+    # inverse-IV sizing (RISK_LIMITS, ref 25% IV)
+    size = pd.Series(1.0, index=df.index)
+    ok = sv & iv.notna()
+    size[ok] = np.clip(IV_REF / iv[ok], SIZE_MIN, SIZE_MAX)
+    warn = pd.Series("", index=df.index)
+    noiv = sv & iv.isna()
+    size[noiv], warn[noiv] = SIZE_MIN, NOIV_WARN         # conservative floor if IV unknown
+
+    # ex-ante tail tier: top quintile of per-stock entry IV across THIS scan
+    tail = pd.Series("-", index=df.index)
+    tail[sv] = "NORMAL"
+    sym_iv = iv[ok].groupby(df.loc[ok, "symbol"]).max().dropna()
+    if len(sym_iv) >= 5:                                  # need a real cross-section to rank
+        thr = sym_iv.quantile(TAIL_Q)
+        hi = sv & df["symbol"].isin(set(sym_iv[sym_iv >= thr].index))
+        tail[hi] = "HIGH"
+        size[hi] *= TAIL_HAIRCUT
+        warn[hi] = TAIL_WARN
+
+    df["entry_iv"] = iv.round(4)
+    df["iv_source"] = src
+    df["size_x"] = size.round(2)
+    df["tail_tier"] = tail
+    df["tail_warning"] = warn
+    return df
+
+
+def overlay_report(df):
+    """Before/after evidence: trade-level (not leg-level) sizing + tail stats."""
+    sv = df[df["strategy"].map(_is_shortvol)]
+    tr = sv.drop_duplicates(["strategy", "symbol", "entry_date"])
+    print("\n=== EX-ANTE RISK OVERLAY (RISK_LIMITS D-021) - trade level ===")
+    print(f"short-vol trades in scope : {len(tr)}  (before: all sized 1.00x flat)")
+    print(f"  downsized (size_x<1.0)  : {(tr['size_x'] < 1).sum()}")
+    print(f"  upsized   (size_x>1.0)  : {(tr['size_x'] > 1).sum()}")
+    print(f"  unchanged (size_x=1.0)  : {(tr['size_x'] == 1).sum()}")
+    print(f"  tail_tier HIGH (x0.6)   : {(tr['tail_tier'] == 'HIGH').sum()}")
+    if len(tr):
+        print(f"  size_x min/med/max      : {tr['size_x'].min():.2f} / "
+              f"{tr['size_x'].median():.2f} / {tr['size_x'].max():.2f}")
+        print(f"  entry IV min/med/max    : {tr['entry_iv'].min():.1%} / "
+              f"{tr['entry_iv'].median():.1%} / {tr['entry_iv'].max():.1%}")
+
+
+# ==================== DRY RUN (no Angel session) ====================
+if DRY_RUN:
+    src_csv = OUTD / "execution_ALL.csv"
+    df = pd.read_csv(src_csv)
+    print(f"DRY RUN: loaded {len(df)} legs from {src_csv}")
+    df = apply_risk_overlay(df)
+    df.to_csv(OUTD / "execution_ALL.csv", index=False)
+    for strat in df["strategy"].unique():
+        df[df["strategy"] == strat].to_csv(OUTD / f"execution_{strat}.csv", index=False)
+    overlay_report(df)
+    print(f"\nDRY RUN done -> risk columns appended in place at {OUTD} (same CSV names)")
+    sys.exit(0)
+
+# ==================== LIVE SCAN (Angel session required) ====================
+from docx import Document
+from docx.shared import Pt, RGBColor
+from options.bs_pricing import implied_vol
+import angel_cfg as A
 
 obj, sess = A.login(); print("login OK")
 scrip = json.loads((Path("scrip_master.json")).read_bytes())
@@ -116,7 +253,8 @@ for nm, m in plan.items():
         rows.append(dict(entry_date=NEXT_SESSION, strategy="FF_Calendar", action=act, symbol=nm,
                          expiry=ex, strike=m["atm"], opt="CE", live_price=round(px, 2),
                          lots=round(sz, 2), lot_size=m["lot"], signal=f"FF={ff:.2f}",
-                         exit_rule="close BOTH ~2 sessions before front expiry"))
+                         exit_rule="close BOTH ~2 sessions before front expiry",
+                         entry_iv=round(iv1, 4)))   # front ATM IV (risk overlay input)
 
 # ---- Short strangle (enter ~14 DTE) ----
 STR_ENTRY = FRONT - dt.timedelta(days=14)
@@ -127,11 +265,17 @@ for nm, m in plan.items():
     if not (ce and pe):
         continue
     cr = ce + pe
+    # today's ATM IV = entry-IV estimate for the risk overlay (actual entry is ~14 DTE);
+    # where unavailable the overlay falls back to the credit-based IV proxy (see docstring)
+    ce_atm = L(nm, "f_atmCE")
+    iv_atm = implied_vol(ce_atm, m["spot"], m["atm"], Tf, R_, Q_, True) if (ce_atm and m["atm"]) else None
+    iv_atm = iv_atm if (iv_atm and 0.03 < iv_atm < 3) else None
     for act, k, ot, px in [("SELL", m["kc"], "CE", ce), ("SELL", m["kp"], "PE", pe)]:
         rows.append(dict(entry_date=STR_ENTRY, strategy="Short_Strangle", action=act, symbol=nm,
                          expiry=FRONT_S, strike=k, opt=ot, live_price=round(px, 2),
                          lots=1, lot_size=m["lot"], signal=f"credit={cr:.1f} ({cr/m['spot']*100:.1f}%spot)",
-                         exit_rule="buy back at 50% of credit, else hold to expiry"))
+                         exit_rule="buy back at 50% of credit, else hold to expiry",
+                         entry_iv=round(iv_atm, 4) if iv_atm else None))
 
 # ---- Earnings short-vol (enter 1 session before each earnings) ----
 FWD["d"] = pd.to_datetime(FWD["date"], format="%d-%b-%Y", errors="coerce")
@@ -154,9 +298,11 @@ for _, e in up.iterrows():
                          exit_rule="close 1 session AFTER the result"))
 
 df = pd.DataFrame(rows).sort_values(["entry_date", "strategy", "symbol", "opt"])
+df = apply_risk_overlay(df)          # ex-ante risk columns appended (RISK_LIMITS D-021)
 df.to_csv(OUTD / "execution_ALL.csv", index=False)
 for strat in df["strategy"].unique():
     df[df["strategy"] == strat].to_csv(OUTD / f"execution_{strat}.csv", index=False)
+overlay_report(df)
 
 # counts
 ff_n = (df["strategy"] == "FF_Calendar").sum() // 2

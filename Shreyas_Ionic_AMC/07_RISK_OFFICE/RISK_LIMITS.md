@@ -1,5 +1,5 @@
 # RISK LIMITS — CIO office (Rajan Mehta)
-> **STATUS: DRAFT — becomes binding on Principal approval.** Written for the future small retail account (D-018); paper book obeys them NOW to build the habit.
+> **STATUS: APPROVED** (D-021, 2026-07-03). Written for the future small retail account (D-018); the paper book obeys them NOW to build the habit. CIO enforces; amendments need Principal sign-off.
 
 ## Position level
 - Max risk per position: 1.0% of book equity (defined-risk structures: max loss; undefined: worst-case MTM model, NOT premium).
