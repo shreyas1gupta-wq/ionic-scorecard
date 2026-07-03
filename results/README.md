@@ -1,5 +1,6 @@
 # Results — run-results convention (RESEARCH_SOP §run-engineering)
 Every backtest run writes to `results/<strategy>/<run_id>/` where `run_id = YYYYMMDD_HHMM_<confighash8>`. Never overwrite a run dir — a re-run is a new `run_id`, always.
+**THIS root-level `results/` is the ONLY results tree.** Do NOT create `Shreyas_Ionic_AMC/results/` — that stray was created once (2026-07-04, Arjun's S-03/S-04 runs) and consolidated here same day. Task briefs must give absolute paths.
 
 Each run dir contains:
 - `config.json` — full params + data snapshot (paths, row counts, max dates); same config must reproduce to the rupee (seeds fixed).

@@ -9,6 +9,7 @@ Newest entries at TOP.
 - Principal rulings this session: D-024 (blanket approve) · D-025 (CEO+CIO joint approvals, Principal = tie-break + LIVE only) · D-026 (paper book ₹1cr) · **D-027 (standing approval; dontAsk permissions; BACKUP vault live** → C:\Users\Shreyas.1Gupta\ShreyasIonicAMC_BACKUP, weekly task, keeps 5, outside OneDrive).
 - Data: Angel index-token bypass of the niftyindices proxy block → INDIA VIX 2016→ + LOWVOL30/ALPHA50/VALUE20 + NIFTY50/500/BankNifty/Midcap150 + 5 momentum-ETF proxies in `datasets/index_daily/`. Factor-replication first cut: corr 0.90 / TE 5.9% in 2024 (13.4% overall — methodology gap, not data) → D-M4 path to <3%.
 - Track-2 SIG-11 built (10/10 PIT tests; criterion-7 bug caught by tests). Risk ceiling live at ₹1cr (median 5 lots). final_execution.py import bug fixed.
+- Late adds: **all 8 blank 25AUG PE legs priced** (backfill_blank_pe.py; M&M strike 3160 didn't exist -> remapped 3150, scanner grid bug = OPS-1/OPS-2 in 99_OPS/OPEN_ISSUES.md); sheet v2 regenerated (258 trades, zero blanks); **MACRO_CALENDAR.md first issue** (03_RESEARCH_DESK, Cyrus — dates est., home-net verify queued); results tree consolidated to root `results/` (OPS-3 closed).
 - **Next session:** S-04+S-05 paper start · Sameer's first /sensitivity on S-04 · blank-PE backfill (8 legs) · /macro-calendar first run · results-dir consolidation · home-net day (factsheets, niftyindices, SSRN VRP paper) · board pack Jul-31.
 
 ---
