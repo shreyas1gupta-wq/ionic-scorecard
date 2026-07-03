@@ -78,7 +78,8 @@ Legacy detail lives in `RESUME_TOMORROW.md` + `HANDOFF.md` (still valid, being s
 | ops-engineer-manoj-pillai | Ops & Platform Engineer (10+yr) | Pipelines, scheduled jobs, repairs, results plumbing |
 | librarian-lakshmi-narayanan | Knowledge Curator / Librarian | KNOWLEDGE_BASE, paper summaries, prior-art checks, propagation audits |
 | attribution-analyst-neel-basu | Performance Attribution Analyst (8+yr) | P&L decomposition (beta/regime/selection), monthly attribution |
-Team = 25 (CEO runs ops; CIO runs investments). IC = CIO + FM decide who convenes (user can override). Full 5-member IC only for position-sized decisions.
+| product-head-tanvi-desai | Head of Product | Investor letter, dashboards, execution-sheet UX, strategy packaging |
+Team = 26 (CEO runs ops; CIO runs investments). IC = CIO + FM decide who convenes (user can override). Full 5-member IC only for position-sized decisions.
 
 ## TOKEN DISCIPLINE (summary — full policy in 00_GOVERNANCE/TOKEN_POLICY.md)
 - Use the cheapest model tier that does the job (haiku=mechanical, sonnet=analysis, opus=IC/audits/synthesis). Each agent has a primary+backup model in MODEL_ASSIGNMENTS.md.

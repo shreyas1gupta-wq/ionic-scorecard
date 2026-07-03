@@ -33,3 +33,4 @@ Rules:
 | Manoj Pillai (Ops & Platform Engineer) | Analysis | Sonnet 5 | Haiku 4.5 | sonnet |
 | Lakshmi Narayanan (Knowledge Curator / Librarian) | Mechanical | Haiku 4.5 | Sonnet 5 | haiku |
 | Neel Basu (Performance Attribution Analyst) | Analysis | Sonnet 5 | Haiku 4.5 | sonnet |
+| Tanvi Desai (Product) | Analysis | Sonnet 5 | Haiku 4.5 | sonnet |

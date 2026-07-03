@@ -29,6 +29,7 @@ All compensation is **virtual** — a gamified performance ledger. Salaries are 
 | E-023 | Manoj Pillai | Ops & Platform Engineer (10+yr) | 1.00 Cr | 0 | Active |
 | E-024 | Lakshmi Narayanan | Knowledge Curator / Librarian | 0.70 Cr | 0 | Active |
 | E-025 | Neel Basu | Performance Attribution Analyst (8+yr) | 1.00 Cr | 0 | Active |
+| E-026 | Tanvi Desai | Head of Product, 12+yr | 1.20 Cr | 0 | Active |
 
 ## AlphaPoints scoring (append events to the ledger below)
 | Event | AP |
@@ -73,3 +74,4 @@ Quarterly bonus = AP × ₹1L (virtual). League table announced at review; top s
 | 2026-07-04 | Arjun Rao (E-004) | Confirmed DATA-CORRUPTION catch (pre-IC shuffle #2) | +15 | S-04 future-expiry fabricated wins; physical-impossibility bound (max profit = premium) beat the generic explosion guard |
 | 2026-07-04 | Kavya Reddy (E-013) | Clean D-009 gate (gold/silver) | +5 | 2 ETF series fetched, 7/7 checks, catalog-ready; cheap-test unblocked |
 | 2026-07-04 | E-018..E-025 (8 new hires) | FOUNDING BONUS (Principal expansion order) | +10 each | CEO + institutional bench joined |
+| 2026-07-04 | Tanvi Desai (E-026) | FOUNDING BONUS (Principal order — product team) | +10 | Head of Product joined; CEO+CIO joint approval per D-025 |

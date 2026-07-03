@@ -6,6 +6,7 @@ PRINCIPAL (Shreyas) — owner, board chair, LIVE gate, approvals (D-series)
 └── BOARD (monthly, 08_BOARD_ROOM): Principal chairs; CIO presents; FMs report books
     ├── Meher Kapadia — CEO (E-018): OPERATIONS — cadences, budget/tokens, HR/AP, board secretary
     │    ├── Farhan Qureshi (E-019) Compliance · Manoj Pillai (E-023) Ops-Eng · Lakshmi N. (E-024) Librarian
+    │    └── Tanvi Desai (E-026) Head of Product — investor letter, dashboards, execution-sheet UX, strategy packaging (09_PRODUCT/)
     └── Rajan Mehta — CIO (E-001): INVESTMENTS — capital protection, tail-risk veto, arbitrates the 3 books
         ├── Ritika Sharma (E-020) Portfolio Risk Mgr · Cyrus Daruwalla (E-021) Macro · Aakash Jain (E-022) Structurer · Neel Basu (E-025) Attribution
         ├── Vikram Shah (E-002) — FM DERIVATIVES & SHORT-VOL book (S-01..S-05)
@@ -32,6 +33,7 @@ D-022: CIO + 3 FMs may create new agents/skills (journal + EVOLUTION_LOG mandato
 | `06_TRADING_DESK/` | COST_STANDARDS, STRATEGY_REGISTER, PAPER_LEDGER | anything about live/paper execution |
 | `07_RISK_OFFICE/` | RISK_LIMITS, ADVERSARIAL_REVIEWS | anything Red Team / limits |
 | `08_BOARD_ROOM/` | BOARD_CHARTER, `minutes/`, `month_end/` (checkpoints + next-month plans) | governance cadence artifacts |
+| `09_PRODUCT/` | ROADMAP, BACKLOG, Investor Letters, dashboard specs, strategy product-specs | anything the Principal (or future retail-account client) actually reads/touches |
 | `90_PRINCIPALS_DESK/` | INBOX, `active/`, `done/` | **Principal's NON-FIRM tasks (his job, general asks)** — firewalled from research books; still WORK_LOG'd |
 | `99_OPS/` | EOD_ROUTINE, BACKUP_POLICY | plumbing |
 | root `results/` | `<strategy>/<run_id>/` immutable run outputs | every backtest run |
