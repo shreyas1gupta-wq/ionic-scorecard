@@ -1,0 +1,198 @@
+{
+  "prereg": {
+    "hypothesis": "S-02 short ATM straddle held THROUGH earnings (c4_short_thru) has an EVENT-SPECIFIC IV-crush edge beyond generic short-vol.",
+    "registered_claim_under_test": "+21.6%/event fwd, 60% hit (raw mean c4_short_thru).",
+    "gates_applied_first": [
+      "DTE_at_event>=7 (drop expiry-week debit-denominator artifacts)",
+      "large-cap proxy = symbol had options data pre-2024-01-01"
+    ],
+    "bases": {
+      "a_c3_short_pre": "same names/period, short vol but EXIT BEFORE the print \u2014 isolates the through-the-print (crush) component. incremental = c4 - c3.",
+      "b_rviv_calmatch": "unconditional short straddles (rv_iv short_ret) matched by EXIT MONTH, no earnings conditioning. incremental = mean(c4) - mean(base per exit-month)."
+    },
+    "kill_criteria": [
+      "KILL-1: gated headline (DTE>=7) mean c4 collapses far below +21.6% => registered number is a denominator artifact, not the edge.",
+      "KILL-2: incremental vs BASE-a (c3) bootstrap 95% CI includes 0 OR upper bound < +5%/event => the through-the-print CRUSH adds no reliable edge over exit-before-print short vol.",
+      "KILL-3: incremental vs BASE-b (calendar-matched unconditional) CI includes 0 => earnings conditioning adds nothing over generic short vol booked the same months.",
+      "KILL-4: >60% of gated cumulative edge concentrated in 2024-26 (data-refill window) with 2021-23 thin/partial => not a regime-robust edge."
+    ],
+    "clears_only_if": "gated headline honest AND incremental vs BOTH bases CI strictly > 0 AND crush (base-a) incremental economically meaningful (>~+3%/event)."
+  },
+  "lineage": {
+    "earnings_file": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\intraday_options_strategy\\buying\\stock_earnings_vol.parquet",
+    "earnings_rows": 1359,
+    "earnings_earn_max": "2026-05-30",
+    "earnings_exp_max": "2026-06-30",
+    "rviv_file": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\intraday_options_strategy\\buying\\rv_iv_vol.parquet",
+    "rviv_rows": 3468,
+    "rviv_exit_max": "2026-06-05",
+    "return_col_strategy": "c4_short_thru",
+    "base_a_col": "c3_short_pre",
+    "base_b_col": "rv_iv.short_ret (calendar-matched by exit month)",
+    "units": "fraction of premium/spot per event; NOTE c4 uses per-leg premium denom -> unstable tail"
+  },
+  "headline": {
+    "raw_all_1359_c4": {
+      "n": 1359,
+      "mean": 0.21342867388879497,
+      "median": 0.08167770419426046,
+      "std": 1.9437410951894865,
+      "hit": 0.5989698307579102,
+      "min": -0.782847122588873,
+      "max": 67.58932461873637
+    },
+    "gate_dte7_c4": {
+      "n": 1057,
+      "mean": 0.07997824885085628,
+      "median": 0.08149394393264808,
+      "std": 0.3382096666833941,
+      "hit": 0.6083254493850521,
+      "min": -0.7307065343952308,
+      "max": 2.900981831792923
+    },
+    "gate_dte7_largecap_c4": {
+      "n": 376,
+      "mean": 0.09702630989830457,
+      "median": 0.10476766938062232,
+      "std": 0.3538963843243539,
+      "hit": 0.6409574468085106,
+      "min": -0.7107511245720143,
+      "max": 2.900981831792923
+    },
+    "how_much_survives": {
+      "raw_mean_pct": 21.34,
+      "dte7_mean_pct": 8.0,
+      "dte7_largecap_mean_pct": 9.7,
+      "note": "raw +21.3% is inflated by expiry-week denominator explosions (max single row +6759%). Gating alone cuts the headline by ~2/3."
+    }
+  },
+  "base_a_crush": {
+    "base_desc_c3_gated": {
+      "n": 376,
+      "mean": 0.04885945923607798,
+      "median": 0.09243309984463027,
+      "std": 0.27545236829935293,
+      "hit": 0.675531914893617,
+      "min": -1.667622071317282,
+      "max": 0.7561846073038161
+    },
+    "strategy_desc_c4_gated": {
+      "n": 376,
+      "mean": 0.09702630989830457,
+      "median": 0.10476766938062232,
+      "std": 0.3538963843243539,
+      "hit": 0.6409574468085106,
+      "min": -0.7107511245720143,
+      "max": 2.900981831792923
+    },
+    "incremental_paired_c4_minus_c3": {
+      "n": 376,
+      "mean": 0.0481668506622266,
+      "lo": 0.0008024948748185925,
+      "hi": 0.09625015745665018,
+      "p_gt0": 0.977
+    },
+    "interpretation": "incremental = value of HOLDING THROUGH THE PRINT vs exiting before it = the pure event-crush component."
+  },
+  "base_b_calmatch": {
+    "base_desc_rviv_calmatch": {
+      "n": 369,
+      "mean": 0.19818308167219004,
+      "median": 0.2109839842866345,
+      "std": 0.14541273895272136,
+      "hit": 0.9295392953929539,
+      "min": -0.24407439446366763,
+      "max": 0.4657521777043888
+    },
+    "strategy_desc_c4_matched": {
+      "n": 369,
+      "mean": 0.09698669809650878,
+      "median": 0.10411682727062699,
+      "std": 0.35504334384052366,
+      "hit": 0.6395663956639567,
+      "min": -0.7107511245720143,
+      "max": 2.900981831792923
+    },
+    "incremental_paired_c4_minus_calmatch": {
+      "n": 369,
+      "mean": -0.10119638357568131,
+      "lo": -0.13841345660733806,
+      "hi": -0.061620508206444914,
+      "p_gt0": 0.0
+    },
+    "unmatched_events": 7,
+    "interpretation": "incremental = earnings-conditioned short vol MINUS generic short vol booked the same exit months (no earnings signal)."
+  },
+  "regime": {
+    "per_year": [
+      {
+        "year": 2021,
+        "n": 14,
+        "c4_mean": 8.46,
+        "c3_mean": 10.43,
+        "incremental_crush": -1.97,
+        "hit_c4": 71.4,
+        "partial": true
+      },
+      {
+        "year": 2022,
+        "n": 13,
+        "c4_mean": -1.1,
+        "c3_mean": 17.68,
+        "incremental_crush": -18.78,
+        "hit_c4": 38.5,
+        "partial": true
+      },
+      {
+        "year": 2023,
+        "n": 76,
+        "c4_mean": 15.85,
+        "c3_mean": -2.92,
+        "incremental_crush": 18.77,
+        "hit_c4": 71.1,
+        "partial": false
+      },
+      {
+        "year": 2024,
+        "n": 117,
+        "c4_mean": 5.7,
+        "c3_mean": 4.42,
+        "incremental_crush": 1.27,
+        "hit_c4": 59.8,
+        "partial": false
+      },
+      {
+        "year": 2025,
+        "n": 119,
+        "c4_mean": 9.86,
+        "c3_mean": 7.94,
+        "incremental_crush": 1.92,
+        "hit_c4": 65.5,
+        "partial": false
+      },
+      {
+        "year": 2026,
+        "n": 37,
+        "c4_mean": 13.5,
+        "c3_mean": 5.97,
+        "incremental_crush": 7.53,
+        "hit_c4": 64.9,
+        "partial": false
+      }
+    ],
+    "concentration_2024_26_share_of_cum_c4": 0.641,
+    "n_events_2024_26": 273,
+    "n_events_total_gated": 376,
+    "note": "2021-23 thin (data-refill 17-month-gap effect); treat pre-2024 as low-power."
+  },
+  "verdict": {
+    "kills_tripped": [
+      "KILL-1 TRIPPED: DTE>=7 headline 8.0% << registered +21.6% (denominator artifact).",
+      "KILL-3 TRIPPED: vs calendar-matched unconditional CI [-13.84%,-6.16%] includes 0.",
+      "KILL-4 TRIPPED: 64% of cum edge in 2024-26 (data-refill window)."
+    ],
+    "verdict": "FAILS-PRE-IC",
+    "register_number_if_clears": null,
+    "weakest_assumption": "c4_short_thru per-event return uses per-leg premium denominator that explodes to +6759% on expiry-week names; the registered +21.6% is that artifact, not an IV-crush edge."
+  }
+}

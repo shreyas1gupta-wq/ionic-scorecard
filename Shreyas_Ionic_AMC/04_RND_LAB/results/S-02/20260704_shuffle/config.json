@@ -1,0 +1,37 @@
+{
+  "generated": "2026-07-03T21:12:20.974452",
+  "seed": 20260704,
+  "nboot": 1000,
+  "lineage": {
+    "earnings_file": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\intraday_options_strategy\\buying\\stock_earnings_vol.parquet",
+    "earnings_rows": 1359,
+    "earnings_earn_max": "2026-05-30",
+    "earnings_exp_max": "2026-06-30",
+    "rviv_file": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\intraday_options_strategy\\buying\\rv_iv_vol.parquet",
+    "rviv_rows": 3468,
+    "rviv_exit_max": "2026-06-05",
+    "return_col_strategy": "c4_short_thru",
+    "base_a_col": "c3_short_pre",
+    "base_b_col": "rv_iv.short_ret (calendar-matched by exit month)",
+    "units": "fraction of premium/spot per event; NOTE c4 uses per-leg premium denom -> unstable tail"
+  },
+  "prereg": {
+    "hypothesis": "S-02 short ATM straddle held THROUGH earnings (c4_short_thru) has an EVENT-SPECIFIC IV-crush edge beyond generic short-vol.",
+    "registered_claim_under_test": "+21.6%/event fwd, 60% hit (raw mean c4_short_thru).",
+    "gates_applied_first": [
+      "DTE_at_event>=7 (drop expiry-week debit-denominator artifacts)",
+      "large-cap proxy = symbol had options data pre-2024-01-01"
+    ],
+    "bases": {
+      "a_c3_short_pre": "same names/period, short vol but EXIT BEFORE the print \u2014 isolates the through-the-print (crush) component. incremental = c4 - c3.",
+      "b_rviv_calmatch": "unconditional short straddles (rv_iv short_ret) matched by EXIT MONTH, no earnings conditioning. incremental = mean(c4) - mean(base per exit-month)."
+    },
+    "kill_criteria": [
+      "KILL-1: gated headline (DTE>=7) mean c4 collapses far below +21.6% => registered number is a denominator artifact, not the edge.",
+      "KILL-2: incremental vs BASE-a (c3) bootstrap 95% CI includes 0 OR upper bound < +5%/event => the through-the-print CRUSH adds no reliable edge over exit-before-print short vol.",
+      "KILL-3: incremental vs BASE-b (calendar-matched unconditional) CI includes 0 => earnings conditioning adds nothing over generic short vol booked the same months.",
+      "KILL-4: >60% of gated cumulative edge concentrated in 2024-26 (data-refill window) with 2021-23 thin/partial => not a regime-robust edge."
+    ],
+    "clears_only_if": "gated headline honest AND incremental vs BOTH bases CI strictly > 0 AND crush (base-a) incremental economically meaningful (>~+3%/event)."
+  }
+}

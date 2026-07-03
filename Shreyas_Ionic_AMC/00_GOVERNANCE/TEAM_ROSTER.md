@@ -60,3 +60,4 @@ Quarterly bonus = AP × ₹1L (virtual). League table announced at review; top s
 | 2026-07-04 | Devika Menon (E-016) | Clean, decision-useful memo | +5 | Q3 book plan; zero-non-short-vol-exposure case won 45% book-attention + gold fast-track |
 | 2026-07-04 | Sanjay Kulkarni (E-017) | FOUNDING-DAY BONUS (Principal) | +10 | Joined day 2; same founding grant as all employees |
 | 2026-07-04 | Sanjay Kulkarni (E-017) | Confirmed bias catch + clean memo (first task) | +20 | screener_deep has NO available_date (lookahead hazard) — caught on day-1 disk check; addendum filed within binding plan |
+| 2026-07-04 | Arjun Rao (E-004) | Confirmed artifact catch (pre-IC shuffle #1) | +15 | S-02 +21.6% = denominator artifact; honest crush +4.8% fragile; saved a full IC cycle |

@@ -31,3 +31,4 @@ Columns: date · work item · agent (model tier) · **tokens** (subagent total, 
 | FM-3 hire package (three-book structure) | HR agent (sonnet) | 56,593 | 24 | Sanjay Kulkarni E-017 persona + governance | .claude/agents/fm-fundamental-sanjay-kulkarni.md + 6 governance edits | — |
 | Fundamental book Q3 addendum (first task) | Sanjay Kulkarni (opus) | 32,664 | 6 | book lane within binding plan | plan §ADDENDUM + screener_deep PIT-warning (catalog) | +20 |
 | Logging/leaderboard/bonus/lessons infra | DESK-100 direct | (main loop) | — | WORK_LOG + LEADERBOARD + D-022 + 8 persona lessons | this file; 00_GOVERNANCE/LEADERBOARD.md | — |
+| S-02 pre-IC shuffle (Gate-5 SOP first use) | Arjun Rao (opus) | 53,800 | 13 | decomposition before IC | **FAILS-PRE-IC** — register+pipeline+KB updated; results/S-02/20260704_shuffle | +15 |

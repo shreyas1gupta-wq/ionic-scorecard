@@ -7,7 +7,7 @@ Stages: `1-INTAKE → 2-TRIAGE → 3-CHEAP-TEST → 4-FULL-BACKTEST → 5-RED-TE
 | Idea | Sleeve | Stage | Owner | Trials | Next action | Kill criteria (pre-reg) |
 |---|---|---|---|---|---|---|
 | IV/RV short straddle — [IC memo: SEND-BACK](../03_RESEARCH_DESK/memos/20260703_S01_ivrv_short_straddle.md) | Options short-vol | **SEND-BACK to Gate-3/backfill (DSR 0.687, PBO 55%)**; paper-tracking approved (firewalled) | Arjun (resurrection) / Vikram (paper) | 13 | backfill 2018+2020 vol-crash data; fix live IV-cap; per-trade sizing | registered edge +11.4pts incremental; resurrection conditions in memo §3c |
-| Earnings short-vol (IV crush, large-cap gate) | Event | 6-IC-MEMO | Quant | 3 | IC memo; codify large-cap + DTE≥7 gates | fwd mean <+5%/event over 2 quarters |
+| Earnings short-vol — **FAILS-PRE-IC** (denominator artifact; crush ≈ generic short-vol) | Event | SEND-BACK to Gate-4 (pre-IC shuffle killed it 2026-07-04) | Arjun (resurrection) | 4 | stable-denominator recompute; placebo battery | resurrection per register; NO IC until 2024-25 crush CI>+3% |
 | FF calendar CE (FF≥0.25, tiered, LARGE-CAP only) | Options term-structure | 6-IC-MEMO | Quant | 6+ | IC memo; liquid-back-month gate | fwd mean <+3%/trade over 6 cycles |
 | Short strangle 14DTE managed (inverse-IV sizing) | Options short-vol | 6-IC-MEMO | Quant | 5 | IC memo; event-gate + ex-ante sizing wiring | fwd mean <+0.5%/spot over 3 cycles |
 | Track-1 delta-hedged 0DTE/DTE1 short straddle (≥0.45% filter) | Index short-vol | 7-PAPER-ready | FM | per HANDOFF | register + paper plan | per original spec |
