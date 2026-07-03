@@ -1,0 +1,64 @@
+# PROMPT PACK 50 — RP-11…RP-60 (drafts; Principal approves per D-020, then move to approved/)
+Filed 2026-07-04 by DESK-20. Convention: `<angle-brackets>` = fill at use. Every prompt inherits P-01..P-12 automatically (they're baked into personas). Owner = default agent; anyone may invoke.
+
+## A. RESEARCH (RP-11…RP-20) — owner: R&D / Quant
+- **RP-11 Hypothesis refinement** — "Rewrite this raw idea as a falsifiable hypothesis: mechanism (WHO loses money to us and why they persist — forced/behavioral/structural), sign+magnitude prediction, universe, horizon, expected decay. Every term must be computable — reject adjectives ('quality', 'strong') until defined as formulas. Output: the RESEARCH_SOP one-pager."
+- **RP-12 Falsification design** — "For hypothesis <H>: design the 3 cheapest tests that could KILL it, ranked by cost. Each: data needed, result-if-false, kill threshold. Pre-register the cheapest and run nothing else first."
+- **RP-13 Regime-beta decomposition (IC-1 standard)** — "Decompose <strategy> returns into: (a) unconditional exposure to its trade family (always-on short-vol/momentum/carry baseline), (b) market regime (vol level, trend state), (c) genuine conditional timing. Report the INCREMENTAL edge over the naive baseline only — headline CAGR is inadmissible."
+- **RP-14 Capacity estimate** — "For <strategy>: instrument ADVs, participation cap (10%, 5% microcap), impact at target size, edge-vs-size curve. Report the size at which edge halves, and whether that's above our intended book."
+- **RP-15 Crowding check** — "Who else runs <edge>? Public-paper count + post-publication decay evidence, retail/algo adoption signs, positioning proxies (OI concentration, SLB fees). Verdict: uncrowded / crowded-but-capacity-protected / crowded-avoid."
+- **RP-16 Decay analysis** — "Split <backtest> into 3 equal eras + trailing 12m. Edge per era, trend, structural breakpoints. Verdict: stable / decaying / regime-dependent — and the honest FORWARD expectation, not the full-sample mean."
+- **RP-17 Orthogonality test** — "Correlate <signal> daily returns with every registered sleeve + standard factors (mom/value/size/low-vol/short-vol). Report book-level incremental Sharpe, not standalone. A brilliant signal we already own is worth zero."
+- **RP-18 Signal combination** — "For <A>+<B>: test rank-average vs intersection vs sequential filter. Count added parameters in the DSR trials ledger. Recommend only if BOOK-level improvement survives 2× costs."
+- **RP-19 OOS-hygiene audit** — "For <research>: how many times was the final OOS window touched? Enumerate every variant ever tried (the honest trials count). Recompute DSR with it. Flag any peeking, however innocent."
+- **RP-20 Resurrection review** — "For killed idea <K-xx>: verify each pre-registered resurrection condition against disk evidence. All met → new one-pager citing the kill. Any unmet → state exactly what's missing; do NOT partially resurrect."
+
+## B. DATA (RP-21…RP-28) — owner: Data Officer
+- **RP-21 New-source due diligence (D-009 gate)** — "For <source>: sample 100 rows; schema/dtypes/nulls/dupes; date monotonicity; PIT safety; cross-check 5 values vs an independent source; licensing + stability + update cadence. Verdict USE/REJECT + draft DATA_CATALOG entry. No source goes live without this."
+- **RP-22 Schema audit** — "For <dataset>: schema, rows by year, null map, duplicate keys, min/max dates, weekend/holiday anomalies. Diff against its DATA_CATALOG entry; flag drift and update the catalog."
+- **RP-23 PIT audit** — "Prove <dataset> is point-in-time safe: identify the knowledge-date column; test 10 random rows against external announcement dates; check restatement contamination. Verdict + the join protocol downstream code must use."
+- **RP-24 Gap analysis** — "Map coverage gaps in <dataset>: missing symbols vs universe, missing date ranges, zero-price/zero-volume rows masquerading as data. Output: gap table, fill plan, cost, and what research is blocked meanwhile."
+- **RP-25 Cross-source reconciliation** — "Reconcile <X> vs <Y> on overlapping keys: match rate, median abs diff, systematic bias direction, which wins per field. File the ruling in DATA_CATALOG so nobody re-litigates."
+- **RP-26 Corp-action verification** — "Verify <price series> adjustment consistency: pull splits/bonuses from corporate_action_factors, check continuity across ex-dates, flag unadjusted jumps >25% that coincide with a CA. Output: clean/dirty verdict + repair list."
+- **RP-27 Survivorship audit** — "For <backtest>: pick 5 random rebalance dates; diff the universe actually used vs the 42-snapshot PIT membership. Any name present before its entry or after its exit = FAIL the whole test."
+- **RP-28 Freshness report** — "One table, every catalog dataset: max(date), expected max per cadence, GREEN/AMBER/RED, and which downstream tasks each RED blocks."
+
+## C. RISK (RP-29…RP-36) — owner: CRO / Risk Office
+- **RP-29 Pre-trade risk check** — "Against RISK_LIMITS: size vs cap, book heat after entry, correlation to existing positions, margin/SPAN, event windows (earnings/MPC/expiry/budget), exit liquidity (days-to-flat at participation cap). PASS/FAIL per line — one FAIL blocks."
+- **RP-30 Stress replay** — "Replay <scenario: Mar-2020 / 2022 hikes / 04-Jun-2024 election> on the current paper book: shock underlyings+IVs per the historical path (not just endpoint), mark P&L day-by-day, margin spiral, which circuit-breakers trip when. Report the worst PATH."
+- **RP-31 Correlation-regime monitor** — "Rolling 60d correlations across sleeves and to NIFTY. Flag regime shifts (diversifiers >0.7 correlated = the diversification thesis is currently FALSE). Recommend book response."
+- **RP-32 Exposure snapshot** — "Daily CRO report: gross/net per book, aggregate delta/vega/theta, top-5 concentrations, limit utilization %, breaches + aging. One page, numbers only."
+- **RP-33 Kill-switch drill** — "Simulate: drawdown circuit-breaker trips today. Walk the exact de-risk sequence per RISK_LIMITS: close order, expected exit costs, time-to-flat, residual tail. File the drill report; note anything ambiguous in the rules and propose the fix."
+- **RP-34 VaR sanity** — "95/99 1-day VaR three ways: historical, parametric, Monte-Carlo. If any two disagree >2×, explain why before trusting either. Backtest VaR breaches vs actual paper P&L."
+- **RP-35 Tail-hedge design** — "For book <B>: price standing protection (OTM put ladder / long-vol sleeve / cash buffer). Cost as % of expected annual edge vs stress-replay DD reduction. Recommend or reject WITH numbers — no 'insurance is good' hand-waving."
+- **RP-36 Drawdown response** — "We are at <X>% drawdown. Per RISK_LIMITS layers: what triggers automatically, what's discretionary, what's FORBIDDEN (revenge sizing, gate-skipping, 'averaging down the strategy'). Output the action list + review date."
+
+## D. EXECUTION (RP-37…RP-42) — owner: Execution/TCA
+- **RP-37 TCA report** — "For <trades>: implementation shortfall vs decision price, split into spread/impact/timing. Compare each line to COST_STANDARDS assumptions; where reality > model, draft the amendment (per-trade evidence attached)."
+- **RP-38 Slippage decomposition** — "Paper vs sim, per trade: quote-time difference, fill assumption gap, size effect, event proximity. Rank causes; biggest one gets a fix proposal."
+- **RP-39 Fill-realism audit** — "Audit <backtest> fills: limit orders assumed filled at touch? markets at mid? Check 10 random trades against actual bar ranges + volumes. Report optimistic-fill bias in bps and whether it changes the verdict."
+- **RP-40 Order plan** — "For entry <X>: slice plan (time/size), order types, participation cap, windows to avoid (open auction, expiry hour, event days), abort conditions. An executable checklist, not advice."
+- **RP-41 Liquidity tiering** — "For <names>: 20d ADV, spread, F&O band, circuit history 6m, days-to-exit at cap. Tier GREEN/AMBER/RED with hard size limits per tier."
+- **RP-42 Weekly paper reconcile** — "PAPER_LEDGER vs sim expectation: hit rate, avg edge/trade, slippage, blocked trades. Tracking-error decomposition + exactly ONE process fix this week."
+
+## E. ANALYST DESK (RP-43…RP-50) — owner: Equity Research / FMs
+- **RP-43 Earnings preview** — "For <name>: our SUE/beat-miss history read, guidance language trend, what's PRICED (IV percentile, OI skew, run-up), our variant view with probability, pre-registered reaction plan (beat>X% → act A; miss<Y% → act B). File before the print."
+- **RP-44 Earnings review (24h)** — "Actual vs our preview (score the call in the calibration ledger), tone shift prepared-vs-Q&A, guidance delta, revision direction, PEAD setup score. Update coverage + watchlist."
+- **RP-45 Forensic sweep** — "Run the full ANALYST_CHECKLISTS forensic list on <name>. Each flag: evidence + severity. ONE red flag = automatic pass-over (Sanjay's entry gate) — no 'but the growth is great' overrides."
+- **RP-46 Moat assessment** — "Rate <name>'s moat with numbers only: GM trend vs top-3 peers, share stability, switching-cost evidence, reinvestment runway (incremental ROCE), disruption vectors. Every claim tagged [DATA]/[INFERENCE]/[OPINION]."
+- **RP-47 Promoter & governance** — "For <name>: pledge history + trend, related-party flows vs revenue, board independence, minority-shareholder incidents, dilution/buyback history, auditor quality + tenure. Governance score + disqualifiers."
+- **RP-48 Channel-check synthesis** — "Aggregate PUBLIC channel evidence for <name>: distributor/dealer commentary in peer transcripts, peer results read-through, hiring/app-rank/search-trend proxies. Confidence-weight each source; anecdotes are hypotheses, not facts."
+- **RP-49 Thesis + variant perception** — "One page: consensus view (prove it IS consensus), our variant, the mechanism making the market wrong (who's forced/biased), catalysts with dates, position structure, kill criteria. No thesis without a variant."
+- **RP-50 Sector rotation read** — "For <sector>: earnings-revision breadth, valuation percentile vs own 10y history, FII/DII flow trend, relative strength vs NIFTY, macro sensitivities (rates/INR/crude). Verdict OW/N/UW + confidence + what changes it."
+
+## F. GOVERNANCE & META (RP-51…RP-60) — owner: CEO office / Decision Scientist / CIO
+- **RP-51 IC chair synthesis** — "Chair template: R1 blind-memo summary table, Red-Team verdict, validation battery result, ruling (APPROVE/SEND-BACK/KILL) + binding conditions + sizing + review date. Extract every probabilistic claim into the calibration ledger."
+- **RP-52 Premortem** — "It is 6 months later and <decision> failed badly. Write the 5 most plausible failure narratives, probability each, the cheapest LEADING indicator per narrative, and what we'd wish we had done today. File BEFORE the IC sits."
+- **RP-53 Calibration entry** — "Extract every probabilistic claim from <memo> into CALIBRATION_LEDGER: claim, p, horizon, resolution criterion, owner. Vague claims ('likely', 'should') must be forced to numbers or struck."
+- **RP-54 Post-mortem** — "For <event>: expected vs actual, error class (data / lookahead / statistical / execution / judgment / process), root cause (5-whys, stop at process), ONE fix, and the lesson-propagation targets (personas + KNOWLEDGE_BASE + CODE_CHECKS)."
+- **RP-55 Memo bias audit** — "Audit <memo> for: anchoring (headline numbers), recency, sunk-cost (esp. resurrections), confirmation (evidence balance for vs against), authority-deference (agreeing with CIO/Principal without evidence). Cite lines; propose neutral rewording."
+- **RP-56 Agent quarterly self-review** — "My quarter: calls made vs outcomes (calibration score), lessons added, token efficiency (AP/10k), my 2 worst moments, 2 SPECIFIC improvement commitments with check dates. Filed to my persona's Lessons."
+- **RP-57 Prompt-improvement review** — "For approved prompt <P>: gather its last 5 uses + outcomes; identify failure modes; draft v2 with a diff; eval v1 vs v2 on 3 held-out cases (LLM-judge + rubric); promote v2 only if it wins. Log in EVOLUTION_LOG."
+- **RP-58 Skill eval** — "For skill <S>: define 3 eval scenarios with expected outputs; run; grade vs rubric (correctness / protocol compliance / token cost); file the eval report; score <80% → rewrite ticket."
+- **RP-59 Model-drift check** — "For agent <A> on model <M>: review last 10 engagements vs persona rubric (protocol adherence, hallucination incidents, verification quality, cost). Keep / swap-to-backup recommendation; file MODEL_ASSIGNMENTS note."
+- **RP-60 Board pack assembly** — "Month-end: paper P&L per book, attribution (alpha vs regime beta), risk report, pipeline funnel (intake→cheap-test→IC→killed/registered), calibration summary, AP leaderboard + notable lessons, decisions needed from Principal. Max 2 pages."

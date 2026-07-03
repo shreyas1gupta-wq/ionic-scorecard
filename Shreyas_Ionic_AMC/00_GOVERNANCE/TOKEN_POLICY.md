@@ -28,3 +28,9 @@ Never summon the full IC for a question one analyst can answer. FM/CIO decide wh
 - Background long-running jobs; don't poll in tight loops.
 - Reuse `02_PROMPT_LIBRARY/approved/` prompts instead of re-crafting.
 - Big exploratory sweeps (50-agent workflows etc.) only on DESK-100 and only with a written objective + budget in the journal.
+
+
+## D-023 amendment (2026-07-04, after spend-limit hit)
+- **MAX 3 parallel agents firm-wide.** Sequence waves; prefer 2 heavy + 1 light.
+- Every agent prompt must instruct checkpointing partial outputs to disk (results/, drafts) BEFORE final synthesis — a limit-hit must never lose completed computation.
+- Spend-limit behavior observed: main loop survives; subagent spawns fail with ~0 tokens. On hit: stop spawning, salvage in-flight outputs, journal + commit, hand off to next session.

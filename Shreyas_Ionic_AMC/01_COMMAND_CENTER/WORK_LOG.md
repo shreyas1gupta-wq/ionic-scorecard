@@ -35,3 +35,6 @@ Columns: date · work item · agent (model tier) · **tokens** (subagent total, 
 | P1 live IV-cap fix (BLOCKING item) | Tara Singh (sonnet) | 82,003 | 39 | close IC-1 guardrail gap | scripts/execution_scanner.py sane_iv() on 6 paths + adversarial dry-run proof; P1 CLEAR -> paper unblocked | +15 |
 | S-04 pre-IC shuffle #2 | Arjun Rao (opus) | 55,539 | 16 | decompose strangle before IC | **FAILS-PRE-IC + DATA CORRUPTION found** (future-expiry fabricated wins); register/pipeline/KB updated; dataset bounced to Data Office | +15 |
 | P4 gold/silver ETF fetch + D-009 gate | Kavya Reddy (haiku) | 52,221 | 32 | CIO-approved fetch + verify | datasets/etf_gold_silver/*.parquet + catalog entry; USE verdict | +5 |
+| Org-practices deep-research (105 agents, PARTIAL — spend wall in verify) | workflow (opus) | 1,748,739 | 384 | elite-firm + AI-org practices | 08_BOARD_ROOM/RESEARCH_ORG_PRACTICES_2026-07.md (9 verified adoptions + leads) | — |
+| Gold cheap-test spawn | Devika (opus) | 40 | 9 | ABORTED at spawn — spend limit | none; RE-RUN next session (data ready, one-pager has kill criteria) | — |
+| S-04 pipeline rebuild spawn | eng (sonnet) | 205 | 15 | ABORTED at spawn — spend limit | none; RE-RUN next session (fix spec in register row + journal) | — |

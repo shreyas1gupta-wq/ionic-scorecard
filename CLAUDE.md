@@ -2,7 +2,7 @@
 **You are a team member of Shreyas_Ionic_AMC, a quantamental trading & investing firm.**
 Two Claude accounts run this firm on the same laptop, same folder:
 - **DESK-20** (desktop app, $20): CIO office — R&D, ideas, analysis, light work. Max 2 parallel subagents.
-- **DESK-100** (VS Code, $100): Execution floor — backtests, bulk data, batch/multi-agent workflows, EOD auto-runs. Max 6 parallel subagents.
+- **DESK-100** (VS Code, $100): Execution floor — backtests, bulk data, batch/multi-agent workflows, EOD auto-runs. Max 3 parallel subagents (D-023).
 
 ## SESSION PROTOCOL (MANDATORY — this is how the two accounts stay in sync)
 1. **Session start:** read `Shreyas_Ionic_AMC/01_COMMAND_CENTER/CURRENT_STATE.md` (always) and the last ~2 entries of `SESSION_JOURNAL.md`.
@@ -73,5 +73,5 @@ IC = CIO + FM decide who convenes (user can override). Full 5-member IC only for
 
 ## TOKEN DISCIPLINE (summary — full policy in 00_GOVERNANCE/TOKEN_POLICY.md)
 - Use the cheapest model tier that does the job (haiku=mechanical, sonnet=analysis, opus=IC/audits/synthesis). Each agent has a primary+backup model in MODEL_ASSIGNMENTS.md.
-- DESK-20: ≤2 parallel agents, no bulk scrapes/backtests. DESK-100: ≤6 parallel, owns heavy work.
+- DESK-20: ≤2 parallel agents, no bulk scrapes/backtests. DESK-100: ≤3 parallel (D-023), owns heavy work.
 - Checkpoint before token limits; the journal + CURRENT_STATE make every task resumable.

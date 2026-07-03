@@ -17,11 +17,12 @@
 ## Approvals
 D-021 blanket approval in force: P-01..12 + RP-01..10 in `approved/`, COST_STANDARDS + RISK_LIMITS binding. D-022: CIO+FMs may create agents/skills (journal + EVOLUTION_LOG mandatory). Nothing currently awaiting Principal.
 
-## Next actions (per binding Q3 plan)
-- **Either desk:** S-03 IC via `/ic-memo` (expect regime-beta decomposition per IC-1 standard); then S-05 paper go-live via `/paper`.
-- **DESK-100:** S-04 marking-pipeline rebuild (Kavya/eng) then re-shuffle; Track-2 DATA-11→GATE-11 build (corp-action check FIRST); 23 Angel OHLCV stragglers; OI-surface cadence fix + spot/IV join (Track-3 blocker).
-- **DESK-20 / R&D:** cheap-tests for the 4 INTAKE one-pagers (sentiment lexicon quintile first — cheapest); Sanjay's QUALITY/VALUE SCREEN v1 lane (DESK-20 light + analyst slack; forensic gate = entry gate; NO capital this quarter).
-- **Home-network day:** NSE-blocked items (FII/DII flows, broader constituents, 217 missing quarterly symbols).
+## Next actions (RESUME HERE next session — any desk; D-023: max 3 parallel)
+1. **S-04 pipeline rebuild** (spec ready, never started): fix `intraday_options_strategy/buying/shortlist_shortvol.py` — spot source = HF daily UNION Angel-2026 daily bulk (find under datasets/); import guards L7 (`assert_no_future_settlement`) + L7b (`assert_physical_bounds` ≤6%); regenerate parquet; validate 2026 months normalize; then Arjun re-shuffles.
+2. **Gold/silver cheap-test** (data D-009-PASSED, never started): run Devika's pre-registered kill test (one-pager `ideas/20260703_gold_silver_sleeve.md`) on `datasets/etf_gold_silver/*.parquet`; NIFTY proxy caveat: daily panel ends 2026-01-22.
+3. **S-05 paper setup** (Vikram) + Track-2 DATA-11 start (corp-action check FIRST) + S-03 shuffle (last priority).
+4. **Board prep**: RESEARCH_ORG_PRACTICES adoption votes + P-13/P-14 drafts → Principal.
+5. Re-verify the unverified research leads (cheap re-checks listed in the board pack).
 
 ## Blockers
 - Some NSE `/api` endpoints 403 on proxy (archives + board-meeting/event-calendar APIs DO work — see CLAUDE.md).
