@@ -570,6 +570,8 @@ def main():
     # ---- SHUFFLE (mandatory pre-IC) : cost-1x, both N ----
     n_shuf = args.shuffles
     print(f"[6/7] shuffle null: {n_shuf} shuffles per N (cost 1x, size-matched to real) ...")
+    print("    precomputing shuffle pools once ...")
+    shuffle_pools = build_shuffle_pools(feats_by_date)
     shuffle_results = {}
     for top_n in TOP_NS:
         real_cagr = metrics[f"N{top_n}_cost1x"]["cagr_pct"]
@@ -578,7 +580,7 @@ def main():
         finals = []
         for s in range(n_shuf):
             rng = np.random.default_rng(COST_SEED + s * 7919 + top_n)
-            sel = make_shuffle_selector(feats_by_date, rng, real_counts)
+            sel = make_shuffle_selector(shuffle_pools, rng, real_counts)
             pr, tr = run_backtest(panel, feats_by_date, entry_book, rebal_dates,
                                   top_n, sel, cost_mult=1.0)
             mm = compute_metrics(pr, tr)

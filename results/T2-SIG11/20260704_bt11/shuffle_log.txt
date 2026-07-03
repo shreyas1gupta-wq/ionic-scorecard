@@ -1,0 +1,8 @@
+setup 23s; months=121
+real N10 CAGR 10.788% (finalRs 2,778,931)
+real N20 CAGR 12.635% (finalRs 3,277,471)
+precomputing pools once ...
+pools built 38s
+N10: 50 shuffles in 4s  real 10.788% vs shuffle mean 3.55% median 3.298% p95 8.093% -> percentile 98.0
+N20: 50 shuffles in 7s  real 12.635% vs shuffle mean 3.335% median 3.115% p95 8.081% -> percentile 100.0
+DONE total 75s -> shuffle_percentile.json
