@@ -1,0 +1,32 @@
+{
+  "registered_edge_pct_spot": 0.002240690994918526,
+  "baked_slippage_per_leg": 0.021,
+  "notional_per_lot": 600000.0,
+  "fills_per_trade": 4,
+  "managed_early_exit_frac": 0.7936791890280263,
+  "buyback_blend": 0.5206320810971974,
+  "empirical_credit_pct_spot_mean": 0.02266279196143023,
+  "empirical_credit_n": 1752,
+  "cost_constants": {
+    "BROK": 20.0,
+    "STT_OPT_SELL": 0.001,
+    "EXCH_TXN": 0.00035000000000000005,
+    "GST": 0.18,
+    "STAMP_BUY": 3e-05,
+    "SEBI_PER_CR": 10.0
+  },
+  "slip_2x_grid": [
+    0.01,
+    0.021,
+    0.03
+  ],
+  "prem_grid": [
+    0.0227,
+    0.02,
+    0.03,
+    0.04
+  ],
+  "survival_frac": 1.0,
+  "worst_net_pct_spot": 0.001470123686629916,
+  "best_net_pct_spot": 0.0026866293515076735
+}

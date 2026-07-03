@@ -57,7 +57,7 @@ two sessions. Model US frictions (LRS cap, TCS, withholding, cap-gains, USD/INR)
 | **NSE Quarterly Results** | **1 JSON** | **69.5 MB** | **76,507 filings, 2,357 symbols (2019-2026)** | **UPDATED 2026-07-03** |
 | **PIT Earnings Dataset** | **9 parquets** | **8.5 MB** | **31,891 unified rows, 2,296 cos, 2005-2026; 86.2% exact dates** | **UPDATED 2026-07-03** |
 | **Derived Datasets** | **8 parquets** | **10.4 MB** | **Corp actions (613), sector map (2,235), beat/miss (31,891), OI surface (377K+256K), shareholding (21,713)** | **NEW 2026-07-03** |
-| **Angel Daily 2026 (bulk)** | **477 parquets** | **~5 MB** | **477/500 Nifty 500 Feb-Jul 2026 OHLCV (48,654 rows, 95.4%)** | **UPDATED 2026-07-03** |
+| **Angel Daily 2026 (bulk)** | **500 parquets** | **~5.3 MB** | **500/500 Nifty 500 Feb-Jul 2026 OHLCV (51,000 rows, 100%)** | **UPDATED 2026-07-04** |
 | **Screener Deep** | **3 parquets** | **0.75 MB** | **14,022 rows (BS 5,022 + CF 3,000 + PL 6,000), 500 cos** | **COMPLETE 2026-07-03** |
 | **India Stock Metadata** | **1 CSV** | **0.3 MB** | **All Indian listed companies** | **NEW 2026-07-02** |
 | **TOTAL** | **~4,200+ files** | **~28.5 GB** | | **100% verified** |
@@ -126,9 +126,8 @@ two sessions. Model US frictions (LRS cap, TCS, withholding, cap-gains, USD/INR)
 - shareholding_changes.parquet: 21,713 rows — QoQ/YoY FII/DII/Promoter/Public changes for 2,054 companies
 
 **Angel Daily Bulk 2026:** `datasets/angel_daily_2026/`
-- 477/500 Nifty 500 stocks × Feb-Jul 2026 daily OHLCV (48,654 rows, 95.4% coverage)
-- 23 still rate-limited: ABSLAMC, ANGELONE, ANTHEM, ANURAS, CAMS, DIXON, ENDURANCE, EXIDEIND, FSL, GVT&D, GODREJCP, HAL, LATENTVIEW, LLOYDSME, NLCINDIA, NETWEB, SUNTV, TATACAP, TATACHEM, TATAELXSI, TATAPOWER, TATASTEEL, ZENTEC
-- Consolidated: `datasets/angel_daily_n500_2026.parquet`
+- 500/500 Nifty 500 stocks × Feb-Jul 2026 daily OHLCV (100% coverage) — **23 stragglers retried + recovered 2026-07-04** (ABSLAMC, ANGELONE, ANTHEM, ANURAS, CAMS, DIXON, ENDURANCE, EXIDEIND, FSL, GVT&D, GODREJCP, HAL, LATENTVIEW, LLOYDSME, NLCINDIA, NETWEB, SUNTV, TATACAP, TATACHEM, TATAELXSI, TATAPOWER, TATASTEEL, ZENTEC); no AB1021 rate-limit hit on retry, all fetched first pass
+- Consolidated: `datasets/angel_daily_n500_2026.parquet` (regenerated 2026-07-04: 500 symbols, 51,000 rows)
 - Angel instrument list: `datasets/angel_instrument_list.json` (2,465 NSE EQ tokens)
 
 **Screener Deep Scrape (COMPLETE):** `datasets/screener_deep/`
@@ -159,7 +158,7 @@ Known issues:
   - FII/DII daily flows (NSE API 403)
   - Nifty Total Market / MicroCap 250 constituents (NSE 404)
   - Missing 217 Nifty 500 symbols in NSE quarterly results (HDFCLIFE, SBILIFE, MCX, ABBOTINDIA etc. — not in `index=equities` filter; need different API parameter or direct fetch)
-  - Complete Angel bulk OHLCV (remaining 23 stocks, need to wait ~1hr for rate limit reset then retry)
+  - ~~Complete Angel bulk OHLCV (remaining 23 stocks)~~ DONE 2026-07-04: 23/23 recovered, 500/500 Nifty 500 now covered.
 **#0.7 OPTIONAL: BANKNIFTY weekly options** — only 61 monthly files available.
 **#1 Track 2 engine upgrades** (data dependencies now mostly met): sector map + fundamentals + beat/miss + OI ready.
   - Quality-momentum overlay using sector_industry_map + earnings_beat_miss

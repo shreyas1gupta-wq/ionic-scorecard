@@ -206,17 +206,118 @@ def overlay_report(df):
               f"{tr['entry_iv'].median():.1%} / {tr['entry_iv'].max():.1%}")
 
 
+# ==================== HARD RISK CEILING (adoption-queue #5, ai-hedge-fund pattern) ====================
+# Non-overridable post-overlay clamp. Runs AFTER apply_risk_overlay (and after any downstream
+# conviction/event-gate scoring in final_execution.py, if that script is fed through this too).
+# Nothing upstream -- conviction score, news overlay, sizing tier -- may push size_x above 1.0,
+# unblock a blocked row, or authorize more lots than the 1% book-equity risk budget allows.
+# This function is deliberately dumb: it does not re-derive risk, it only clamps.
+BOOK_EQUITY = 1_000_000       # paper-book default (RISK_LIMITS D-021: 1% max risk per position)
+POSITION_RISK_PCT = 0.01      # RISK_LIMITS "Position level": max risk per position = 1.0% of book equity
+WORST_CASE_MULT = 2.0         # APPROXIMATE conservative proxy for short structures: worst-case
+                               # loss per lot ~= 2x premium collected (no real tail model here --
+                               # RISK_LIMITS says undefined-risk structures need a worst-case MTM
+                               # model; this is a cheap stand-in until that model exists, labeled
+                               # approximate per the task spec, NOT a substitute for real margin/SPAN)
+
+
+def enforce_risk_ceiling(df):
+    """HARD, non-overridable clamp applied after all sizing/conviction/event-gate logic.
+    Idempotent -- safe to call multiple times or on an already-clamped frame.
+
+    (a) size_x hard-capped at 1.0 for EVERY row (not just short-vol rows) -- belt-and-braces on
+        top of apply_risk_overlay's own clip(), in case a caller (or a future column) ever
+        pushes size_x above 1.0 by some other path (e.g. FF calendar sz up to 1.25x today).
+    (b) blocked column: preserved if present (never flips True->False here); created default
+        False if absent (this script's own execution_ALL.csv has no blocked col -- that gate
+        lives downstream in final_execution.py's execution_scored.csv -- but this function must
+        be safe to run on EITHER file without ever erasing an existing block).
+    (c) max_lots = floor(0.01 * BOOK_EQUITY / worst_case_per_lot), worst_case_per_lot = 2x
+        live_price*lot_size (APPROXIMATE short-structure proxy, see WORST_CASE_MULT comment).
+        Rows with no usable live_price/lot_size get max_lots = 0 (fail safe, not unlimited).
+    (d) prints a loud RISK CEILING table listing every row where a clamp actually bound
+        (size_x lowered, or lots > max_lots) -- silent if nothing binds.
+    """
+    df = df.copy()
+
+    # ---- (a) size_x hard cap at 1.0, unconditionally ----
+    if "size_x" not in df.columns:
+        df["size_x"] = 1.0
+    size_before = pd.to_numeric(df["size_x"], errors="coerce").fillna(1.0)
+    size_clamped = size_before.clip(upper=1.0)
+    n_size_clamped = int((size_clamped < size_before).sum())
+    df["size_x"] = size_clamped
+
+    # ---- (b) blocked column: preserve, never erase; default False if wholly absent ----
+    if "blocked" not in df.columns:
+        df["blocked"] = False
+    else:
+        df["blocked"] = df["blocked"].fillna(False).astype(bool)
+
+    # ---- (c) max_lots hard position-risk budget ----
+    live_price = pd.to_numeric(df.get("live_price"), errors="coerce")
+    lot_size = pd.to_numeric(df.get("lot_size"), errors="coerce")
+    premium_per_lot = live_price * lot_size
+    worst_case_per_lot = premium_per_lot * WORST_CASE_MULT
+    max_lots = np.floor((POSITION_RISK_PCT * BOOK_EQUITY) / worst_case_per_lot)
+    # fail-safe: no usable price/lot_size -> 0 lots allowed, never unlimited (NaN/inf guard)
+    max_lots = max_lots.where(np.isfinite(max_lots) & (worst_case_per_lot > 0), 0.0)
+    df["max_lots"] = max_lots.astype("int64")
+
+    lots_requested = pd.to_numeric(df.get("lots"), errors="coerce").fillna(0.0)
+    n_lots_over_ceiling = int((lots_requested > df["max_lots"]).sum())
+
+    # ---- (d) loud printed table when any clamp binds ----
+    binds = pd.Series(False, index=df.index)
+    binds |= (size_clamped < size_before)
+    binds |= (lots_requested > df["max_lots"])
+    n_binding = int(binds.sum())
+    if n_binding:
+        print("\n" + "=" * 78)
+        print("RISK CEILING BOUND -- hard, non-overridable clamp (enforce_risk_ceiling)")
+        print("=" * 78)
+        print(f"BOOK_EQUITY={BOOK_EQUITY:,.0f} (paper default) | position risk budget "
+              f"{POSITION_RISK_PCT:.0%} | worst_case_per_lot ~= {WORST_CASE_MULT:.0f}x premium "
+              "(APPROXIMATE proxy)")
+        print(f"size_x clamped to <=1.0 : {n_size_clamped} row(s)")
+        print(f"lots > max_lots         : {n_lots_over_ceiling} row(s)")
+        show_cols = [c for c in ["entry_date", "strategy", "symbol", "action", "opt",
+                                  "live_price", "lot_size", "lots", "max_lots",
+                                  "size_x", "blocked"] if c in df.columns]
+        with pd.option_context("display.max_rows", 50, "display.width", 160):
+            print(df.loc[binds, show_cols].to_string(index=False))
+        print("=" * 78 + "\n")
+    return df
+
+
+def risk_ceiling_report(before, after):
+    """Before/after evidence for the memo: what the ceiling actually changed."""
+    print("\n=== RISK CEILING before/after (enforce_risk_ceiling) ===")
+    b_size = pd.to_numeric(before.get("size_x"), errors="coerce") if "size_x" in before.columns else pd.Series(dtype=float)
+    print(f"size_x > 1.0 before -> after : "
+          f"{int((b_size > 1.0).sum()) if len(b_size) else 0} -> {int((after['size_x'] > 1.0).sum())}")
+    print(f"blocked=True rows before -> after : "
+          f"{int(before['blocked'].sum()) if 'blocked' in before.columns else 0} -> {int(after['blocked'].sum())}")
+    print(f"max_lots column present : {'max_lots' in after.columns} "
+          f"(min/med/max = {after['max_lots'].min()}/{int(after['max_lots'].median())}/{after['max_lots'].max()})")
+    print(f"rows with lots > max_lots : "
+          f"{int((pd.to_numeric(after.get('lots'), errors='coerce').fillna(0) > after['max_lots']).sum())}")
+
+
 # ==================== DRY RUN (no Angel session) ====================
 if DRY_RUN:
     src_csv = OUTD / "execution_ALL.csv"
     df = pd.read_csv(src_csv)
     print(f"DRY RUN: loaded {len(df)} legs from {src_csv}")
     df = apply_risk_overlay(df)
+    overlay_report(df)
+    before_ceiling = df.copy()
+    df = enforce_risk_ceiling(df)                 # HARD non-overridable clamp, always last
+    risk_ceiling_report(before_ceiling, df)
     df.to_csv(OUTD / "execution_ALL.csv", index=False)
     for strat in df["strategy"].unique():
         df[df["strategy"] == strat].to_csv(OUTD / f"execution_{strat}.csv", index=False)
-    overlay_report(df)
-    print(f"\nDRY RUN done -> risk columns appended in place at {OUTD} (same CSV names)")
+    print(f"\nDRY RUN done -> risk + ceiling columns appended in place at {OUTD} (same CSV names)")
     sys.exit(0)
 
 # ==================== LIVE SCAN (Angel session required) ====================
@@ -360,10 +461,13 @@ for _, e in up.iterrows():
 
 df = pd.DataFrame(rows).sort_values(["entry_date", "strategy", "symbol", "opt"])
 df = apply_risk_overlay(df)          # ex-ante risk columns appended (RISK_LIMITS D-021)
+overlay_report(df)
+before_ceiling = df.copy()
+df = enforce_risk_ceiling(df)        # HARD non-overridable clamp (adoption-queue #5), always last
+risk_ceiling_report(before_ceiling, df)
 df.to_csv(OUTD / "execution_ALL.csv", index=False)
 for strat in df["strategy"].unique():
     df[df["strategy"] == strat].to_csv(OUTD / f"execution_{strat}.csv", index=False)
-overlay_report(df)
 
 # counts
 ff_n = (df["strategy"] == "FF_Calendar").sum() // 2
