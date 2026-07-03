@@ -18,3 +18,11 @@ A lesson that generalizes (e.g., "denominator artifacts", "cadence checks") gets
 
 ## Delegated evolution (D-022)
 CIO + FMs may create/modify agents & skills as needs arise. Every change: EVOLUTION_LOG row + journal line. Model failover per MODEL_ASSIGNMENTS (persona ≠ model).
+
+## 2026-07-04 adoptions (from agent-methods scout — scout_papers_agents.md §B)
+- **Failure taxonomy on every lesson** (/retro): [data-artifact][cost-model][overfit/DSR][lookahead][cadence-miss][sycophancy][ops/pipeline][sizing/tail] — root cause, not symptom.
+- **Lesson pruning** (MemGPT idea, non-vector): quarterly, Librarian archives stale/duplicate lessons to `00_GOVERNANCE/lessons_archive.md` — personas stay lean, nothing is deleted.
+- **Bounded self-refine**: pre-submission self-critique capped at ONE iteration (documented self-agreement drift beyond that).
+- **Honesty probes** (/probe-honesty): quarterly seeded-flaw drill — audits whether dissent actually flows (Bridgewater upward-feedback audit).
+- **Anchored judge rubric** in /review-team; no self-scoring, independent judges only.
+- SKIPPED deliberately: DSPy prompt-compilation (needs an eval harness we don't have), vector-DB memory (corpus too small; grep + index suffice).

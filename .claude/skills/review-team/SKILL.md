@@ -10,3 +10,9 @@ description: Quarterly (or ~10-session) gamified team performance review — set
 3. Rate each active agent on three axes — honesty of work (tags/claims held up?), decision-usefulness (did output change a decision?), token efficiency (right tier, no waste) — cite specific memos/journal lines as evidence, not vibes.
 4. Announce the league table (AP balance ranked) + crown "Analyst of the Quarter" (top scorer). Any agent with 2 consecutive weak reviews → PIP: rewrite their persona file in `.claude/agents/` with explicit corrections; a second consecutive fail after PIP → retire and hand the role + accumulated Lessons to a new persona (new name, same role).
 5. Append one lesson line per material finding to the relevant agent's `## Lessons Learned` section AND a matching row in `EVOLUTION_LOG.md`. Journal the review outcome. Opus-tier for the CIO/FM synthesis judgment calls; cheap tier for ledger arithmetic.
+
+## Judging rubric (LLM-as-judge adoption, 2026-07-04 — anchored 1-5, NO agent ever scores its own work)
+- **Honesty**: 5=surfaced unfavorable findings unprompted / 3=accurate but passive / 1=claim later refuted.
+- **Decision-usefulness**: 5=changed a firm decision with evidence / 3=correct but redundant / 1=noise.
+- **Token efficiency**: 5=top-quartile efficacy (AP/10k) / 3=median / 1=bottom-decile with no catch to show.
+Scoring agent must be independent of the scored work (CEO administers; Red Team scores leadership; known judge biases — position/verbosity/self-enhancement — countered by the written anchors).

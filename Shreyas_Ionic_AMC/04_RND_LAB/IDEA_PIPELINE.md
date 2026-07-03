@@ -20,4 +20,8 @@ Stages: `1-INTAKE → 2-TRIAGE → 3-CHEAP-TEST → 4-FULL-BACKTEST → 5-RED-TE
 | Expiry/reconstitution/turn-of-month seasonality (post-Sept-2025 regime) — [one-pager](ideas/20260703_expiry_seasonality.md) | Event & Seasonality | 1-INTAKE | R&D | 0 | triage: reconstitution event study on 42 PIT add/drop snapshots | add-name abnormal return indistinguishable from matched-control placebo OR effect only survives pre/post-Sept-2025 pooling |
 
 ## Intake queue (one-pager required before entering board)
-_(empty — 2026-07-03: all four queued ideas promoted to the Board at 1-INTAKE with one-pagers filed in `ideas/`.)_
+Replication candidates (from scout_papers_agents.md §A, 2026-07-04 — /prior-art + one-pager before board entry):
+- Nifty VRP 9-filter robustness battery (Agarwal 2025) — WEEKEND; directly hardens the short-vol thesis + DSR work.
+- Expiry-day return tilt (Gavhale 2025) — WEEKEND; daily closes only; doubles as harness calibration.
+- India VRP overnight/intraday decomposition — WEEK; explains our overnight-drift SELL edge; jump-vs-continuous split.
+- NSE PEAD null (2021) as the null-to-beat for our PEAD intake idea.

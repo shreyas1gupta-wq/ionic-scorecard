@@ -1,42 +1,17 @@
-# Skills Index — catalog of all firm skills
-One line per skill (from its SKILL.md `description`). Skills live in `.claude/skills/<name>/SKILL.md`, invoked as `/<name>`. Keep this file in sync whenever a skill is added, renamed, or retired.
+# SKILLS INDEX — 47 firm skills (Voyager-style: reuse & COMPOSE before re-deriving)
+Convention: each skill names its OWNER agent + what it composes with. Promote any repeated ad-hoc procedure into a new skill (D-022 authority).
 
-## Daily ops
-| Skill | What it does |
-|---|---|
-| desk-open | Morning/session-start routine — sync the books, check overnight health, list today's events and due actions. |
-| eod | End-of-day operations checklist — capture-task health, data freshness, pending queues, journal update. |
-| war-room | Open/update the live market-hours board (positions, P&L marks, today's events, desk chatter); wiped weekly. |
-| signals | Live signal scan for all registered strategies (FF calendar, IV/RV, strangle, earnings) with conviction + news-risk scoring. |
-| news-sweep | Parallel sector-analyst news/risk sweep over a list of stocks before selling vol or sizing positions. |
-| events | Refresh the earnings/event calendar and run the event-gate check over positions and pending entries. |
+## Daily ops (8)
+/desk-open · /signals (composes: /events, /pre-trade-check) · /events · /eod · /war-room · /macro-calendar (feeds /events) · /pipeline-health · /risk-report
 
-## Research pipeline
-| Skill | What it does |
-|---|---|
-| idea-log | Intake a new trading/research idea as a hypothesis one-pager (gate 1). |
-| cheap-test | Gate-3 — design and run the single cheapest falsification of a hypothesis, kill threshold pre-registered. |
-| backtest | Gate-4 full backtest — spec first, guards imported, validation battery, results engineering. |
-| deep-dive | Fundamental forensic deep-dive on a stock via the sector analyst desk. |
-| tech-scan | Minervini trend-template scan over a universe — stages, pivots, VCP, RS ranks. |
+## Research pipeline (13)
+/idea-log (staple /prior-art) · /prior-art · /cheap-test · /backtest (then /oos-audit, /fill-audit) · /deep-dive · /tech-scan · /data-check · /decay-check · /orthogonality · /capacity-check · /crowding-check · /replicate-paper · /reading-group
 
-## Committee & risk
-| Skill | What it does |
-|---|---|
-| ic-memo | Convene the Investment Committee on an idea/strategy and produce a filed IC memo. |
-| red-team | Launch the Red Team to adversarially attack a strategy, backtest, or claim before capital. |
-| data-check | Run the Data Officer's verification protocol on a dataset — new-source D-009 gate, freshness ping, or schema audit. |
-| post-mortem | Decompose a paper/live-vs-sim divergence or a big unexpected loss into causes and ONE fix. |
-| approve | Principal-approval workflow (D-020) — promote a prompt/standard from draft to approved and log the decision. |
+## Committee & risk (13)
+/ic-memo (pre-req: incremental shuffle; composes /red-team, /structure-trade) · /red-team · /news-sweep · /post-mortem · /oos-audit · /pre-trade-check · /var-sanity · /stress-replay · /kill-switch-drill · /structure-trade · /compliance-audit · /attribution · /resurrect
 
-## Team & governance
-| Skill | What it does |
-|---|---|
-| paper | Paper-trading desk — log intended trades before action, mark fills vs Angel quotes, weekly reconcile. |
-| edge-decay | Monthly sleeve re-score — recompute recent per-trade edge vs registered edge, auto-demote on 2 consecutive fails. |
-| review-team | Quarterly (or ~10-session) gamified team review — settle AlphaPoints, rate agents, league table, PIP process. |
-| hire | Onboard a new team member end-to-end — persona file, roster row, model assignment, CLAUDE.md entry, evolution log. |
+## Execution & paper (5)
+/paper · /order-plan · /tca-report · /fill-audit · /edge-decay
 
-## Added 2026-07-04
-- **/board-meet** — monthly board: checkpoint pack → CIO/FM reports → decisions-only agenda → minutes + next-month plan (08_BOARD_ROOM).
-- **/retro** — post-task lesson capture into personas + propagation (SELF_IMPROVEMENT layer 1).
+## Team & governance (8)
+/board-meet · /review-team (anchored rubric, no self-scoring) · /retro (failure taxonomy) · /hire · /approve · /spend-report · /probe-honesty · /prompt-improve
