@@ -42,8 +42,11 @@ Shreyas_Ionic_AMC/
 ├── 05_DATA_OFFICE/    DATA_CATALOG (single source of truth), DATA_QUALITY_RULES
 ├── 06_TRADING_DESK/   COST_STANDARDS (DRAFT), STRATEGY_REGISTER, PAPER_LEDGER
 ├── 07_RISK_OFFICE/    RISK_LIMITS, ADVERSARIAL_REVIEWS
+├── 08_BOARD_ROOM/     BOARD_CHARTER (monthly board meet), minutes/, month_end/ checkpoints
+├── 90_PRINCIPALS_DESK/ Principal's NON-FIRM tasks (his job) — INBOX/active/done, firewalled
 └── 99_OPS/            EOD_ROUTINE (DESK-100), BACKUP_POLICY
 ```
+Master map + file-placement rules + cadences: `Shreyas_Ionic_AMC/ORG_STRUCTURE.md`. Self-improvement protocol: `00_GOVERNANCE/SELF_IMPROVEMENT.md` (per-task /retro → session leaderboard → monthly board → quarterly review).
 Legacy detail lives in `RESUME_TOMORROW.md` + `HANDOFF.md` (still valid, being superseded by firm docs).
 
 ## THE TEAM (summon via Agent tool; personas in .claude/agents/)

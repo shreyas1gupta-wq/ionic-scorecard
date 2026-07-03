@@ -36,3 +36,7 @@ One line per skill (from its SKILL.md `description`). Skills live in `.claude/sk
 | edge-decay | Monthly sleeve re-score — recompute recent per-trade edge vs registered edge, auto-demote on 2 consecutive fails. |
 | review-team | Quarterly (or ~10-session) gamified team review — settle AlphaPoints, rate agents, league table, PIP process. |
 | hire | Onboard a new team member end-to-end — persona file, roster row, model assignment, CLAUDE.md entry, evolution log. |
+
+## Added 2026-07-04
+- **/board-meet** — monthly board: checkpoint pack → CIO/FM reports → decisions-only agenda → minutes + next-month plan (08_BOARD_ROOM).
+- **/retro** — post-task lesson capture into personas + propagation (SELF_IMPROVEMENT layer 1).
