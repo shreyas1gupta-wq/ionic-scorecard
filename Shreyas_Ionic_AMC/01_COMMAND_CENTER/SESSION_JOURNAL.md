@@ -3,6 +3,11 @@ Format per entry: date, account (DESK-20/DESK-100), summary, files touched, hand
 Newest entries at TOP.
 
 ---
+## 2026-07-04 (later) — CEO (Meher) — LEADERS' MEETING chaired (Principal-directed); 3 sub-meetings + 10 decisions filed
+- Written meeting (no agents spawned; token law). CEO spokesperson for CIO+3 FMs+Ops+Data+TCA+Compliance+Red-Team. Verdicts: S-04→paper-watch after 2×-cost cert (no full re-shuffle/IC); S-03 FF calendar = next IC; Track-2 SIG-11 proceeds; factor-replication = flagship validation (Devika+Arjun+Kavya, home-net); Sanjay screen v1 gated on Kavya PIT ruling; purgedcv installs first / openalgo scoped eval; honesty-probe #1 + compliance-audit #1; board 2026-07-31 (CEO pack owner). Decisions table D-M1..M10.
+- Minutes: `Shreyas_Ionic_AMC/08_BOARD_ROOM/minutes/2026-07-04_leaders_meeting.md`. Flagged CURRENT_STATE.md lag (17/22 → 25/48/60) for same-session refresh (D-M10).
+
+---
 ## 2026-07-04 — DESK-20 — Cross-desk sync audit: DESK-100 work VERIFIED; books brought current
 - Principal asked for a same-page check. Disk audit vs claims: **ALL VERIFIED** — 17 agents (`.claude/agents/`), 22 skills (SKILLS_INDEX), `approved/` P-CLAUSES + RP-01..10, `lib/guards.py`, folders 02–08/90/99, ORG_STRUCTURE.md, BOARD_ROOM, PRINCIPALS_DESK, WORK_LOG + LEADERBOARD, QUARTERLY_PLAN_2026Q3 (BINDING), 13 commits e27a578→59df9c3.
 - **Journal backfill** (DESK-100's Jul-04 session was WORK_LOG'd + committed but not journaled; source = WORK_LOG + commit messages):

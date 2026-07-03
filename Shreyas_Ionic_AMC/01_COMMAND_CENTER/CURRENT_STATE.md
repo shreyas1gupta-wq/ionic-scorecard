@@ -26,12 +26,11 @@ D-021 blanket approval in force: P-01..12 + RP-01..10 in `approved/`, COST_STAND
 6. NOW-methods: Optiver RV features (IV/RV sleeve), JPX top-minus-bottom metric + LGBMRanker (Track-2), MiniLM embeddings (memo search).
 7. KNOWLEDGE_BASE ref fix: mlfinlab is PAYWALLED since 2019 (keep-out); nsepy dead.
 
-## Next actions (RESUME HERE next session — any desk; D-023: max 3 parallel)
-1. **S-04 pipeline rebuild** (spec ready, never started): fix `intraday_options_strategy/buying/shortlist_shortvol.py` — spot source = HF daily UNION Angel-2026 daily bulk (find under datasets/); import guards L7 (`assert_no_future_settlement`) + L7b (`assert_physical_bounds` ≤6%); regenerate parquet; validate 2026 months normalize; then Arjun re-shuffles.
-2. **Gold/silver cheap-test** (data D-009-PASSED, never started): run Devika's pre-registered kill test (one-pager `ideas/20260703_gold_silver_sleeve.md`) on `datasets/etf_gold_silver/*.parquet`; NIFTY proxy caveat: daily panel ends 2026-01-22.
-3. **S-05 paper setup** (Vikram) + Track-2 DATA-11 start (corp-action check FIRST) + S-03 shuffle (last priority).
-4. **Board prep**: RESEARCH_ORG_PRACTICES adoption votes + P-13/P-14 drafts → Principal.
-5. Re-verify the unverified research leads (cheap re-checks listed in the board pack).
+## COMPLETE TASK LEDGER (recheck 2026-07-04 — nothing skipped; owners per leaders' meeting)
+**In flight/scheduled:** D-M1 S-04 2x-cost certification (Arjun, Jul-18) · D-M2 S-03 IC w/ shuffle + seeded honesty-probe (Vikram/Arjun/Nikhil, Jul-25) · D-M3 Track-2 SIG-11 (Devika+DESK-100, Jul-31) · D-M4 factor-replication flagship (/prior-art → home-net pull → NIFTY200MOMENTM30, Aug-15) · D-M5 Sanjay screen v1 after Kavya's PIT-stamping ruling (Jul-31) · D-M6 openalgo scoped eval (Manoj, Jul-18; purgedcv INSTALLED 0.1.2 — acceptance test vs Arjun's S-01 numbers pending) · D-M7 home-net list + token-hacks rollout (Jul-11) · D-M8 compliance-audit #1 (Farhan, Jul-25) · D-M9 board meet + pack (CEO, Jul-31).
+**Outstanding small items (unowned until now — assigned):** lastmonth_IVRV.csv regen post-IV-cap (Manoj — regenerate via build_final_docs) · Kavya's ETF independent cross-check completion · 23 Angel daily stragglers retry (Manoj, rate-limit aware) · S-01 resurrection HF-hunt (time-boxed ≤3 days, Arjun/Kavya — CIO ruling 2e) · pandas-ta/alphalens dead-import audit (Manoj) · deterministic risk ceiling in scanner (Manoj) · Optiver-RV/JPX-metric/LGBMRanker/MiniLM method adoptions (owners: Arjun/Devika/Ishaan, post-SIG-11) · VRP 9-filter replication weekend job (Arjun) · FinCon retro-routing = already implemented via propagation-check (verified).
+**Home-network day (location-blocked, NOT skipped):** /factor-indices pull (script ready) · index factsheets/constituents · FII/DII flows · broader constituents · 217 quarterly symbols.
+**Awaiting Principal (only these):** LIVE-capital steps · RISK_LIMITS loosening · DhanHQ-paid data if the HF-hunt fails · tie-breaks under D-025.
 
 ## Blockers
 - Some NSE `/api` endpoints 403 on proxy (archives + board-meeting/event-calendar APIs DO work — see CLAUDE.md).

@@ -12,7 +12,7 @@ Two Claude accounts run this firm on the same laptop, same folder:
 ## HARD RULES (approval gates — never bypass)
 - **NO real-money trades, ever.** Angel account is fund-less/data-only. Everything is research/paper until the user explicitly approves a live step himself.
 - **Cost/slippage/brokerage assumptions**: use ONLY `06_TRADING_DESK/COST_STANDARDS.md` once user-APPROVED. Until then it is DRAFT.
-- **Prompts** enter `02_PROMPT_LIBRARY/approved/` only after the user reviews each one.
+- **Approvals (D-025):** prompts/standards/data-sources/adoptions/hires = CEO + CIO JOINT approval (both must agree; tie → Principal). LIVE capital + RISK_LIMITS loosening = Principal ONLY, always.
 - **No auto-fetching new external data sources.** New sources need user approval; verify samples via Data Officer protocol first (`05_DATA_OFFICE/DATA_QUALITY_RULES.md`).
 - Idea pipeline gates auto-advance EXCEPT the final gate (paper→live) = user only.
 - **MAX 3 PARALLEL AGENTS — STRICT, EVERY TIME (D-023).** And token hacks are law: /to-md digests before reading binaries, grep-before-read, background scripts over agents (TOKEN_POLICY §hacks).
