@@ -17,6 +17,15 @@
 ## Approvals
 D-021 blanket approval in force: P-01..12 + RP-01..10 in `approved/`, COST_STANDARDS + RISK_LIMITS binding. D-022: CIO+FMs may create agents/skills (journal + EVOLUTION_LOG mandatory). Nothing currently awaiting Principal.
 
+## ADOPTION QUEUE (from 3 scouts, 2026-07-04 — Manoj/Ops owns installs, ≤3 parallel, /prior-art first)
+1. `pip install purgedcv` (proxy: truststore) → replace hand-rolled DSR/PBO in the validation battery (test vs Arjun's S-01 numbers first).
+2. Evaluate **openalgo** (Angel-native paper-trading sandbox w/ margin sim) as the S-05/S-01 paper engine — biggest paper-desk upgrade candidate.
+3. Swap any pandas-ta imports → pandas-ta-classic (original hijacked/abandoned); AUDIT for dead alphalens/pyfolio originals.
+4. /retro refinement (FinCon): lessons route to the IMPLICATED persona only, broadcast only via propagation-check.
+5. Deterministic risk ceiling (ai-hedge-fund pattern): hard non-overridable cap in execution_scanner (formalizes RISK_LIMITS 1%).
+6. NOW-methods: Optiver RV features (IV/RV sleeve), JPX top-minus-bottom metric + LGBMRanker (Track-2), MiniLM embeddings (memo search).
+7. KNOWLEDGE_BASE ref fix: mlfinlab is PAYWALLED since 2019 (keep-out); nsepy dead.
+
 ## Next actions (RESUME HERE next session — any desk; D-023: max 3 parallel)
 1. **S-04 pipeline rebuild** (spec ready, never started): fix `intraday_options_strategy/buying/shortlist_shortvol.py` — spot source = HF daily UNION Angel-2026 daily bulk (find under datasets/); import guards L7 (`assert_no_future_settlement`) + L7b (`assert_physical_bounds` ≤6%); regenerate parquet; validate 2026 months normalize; then Arjun re-shuffles.
 2. **Gold/silver cheap-test** (data D-009-PASSED, never started): run Devika's pre-registered kill test (one-pager `ideas/20260703_gold_silver_sleeve.md`) on `datasets/etf_gold_silver/*.parquet`; NIFTY proxy caveat: daily panel ends 2026-01-22.

@@ -44,3 +44,6 @@ Columns: date · work item · agent (model tier) · **tokens** (subagent total, 
 | S-04 regen (fixed pipeline) — background script | script run | (script) | 1 | regenerate with L7/L7b + combined spot | parquet regenerated: honest +0.22%/spot managed, 2026 normalized; register updated | — |
 | HF/Kaggle scout | agent (sonnet) | 60,304 | 22 | models+methods beyond data | 04_RND_LAB/scout_hf_kaggle.md — NOW: Optiver RV features, JPX top-bottom metric, LGBMRanker, CPCV gate check, MiniLM embeddings | — |
 | Self-improvement scout (papers agent part-B) | agent (sonnet) | 38,647 | 11 | agent-improvement methods | scout_papers_agents.md §B — adopt: Reflexion taxonomy, judge rubrics, skill index/composition; skip DSPy | — |
+| GitHub-OSS scout | agent (sonnet) | 74,260 | 26 | tooling adoption survey | scout_github_oss.md — top: purgedcv (DSR/CPCV), openalgo (Angel paper sandbox!), pandas-ta-classic swap, dead-lib audit; whitespace: our gate pipeline beats OSS | — |
+| Papers scout (part A) | agent (sonnet) | 62,735 | 23 | India replication papers | scout_papers_agents.md §A — 8 ranked; top: Nifty-VRP 9-filter (weekend) | — |
+| to_md converter + token toolkit | DESK-100 direct | (main loop) | 3 | Principal token-optimization order | scripts/to_md.py (35x tested) + /to-md skill + TOKEN_POLICY 9 hacks + STRICT max-3 in HARD RULES + exec awareness in 5 personas | — |
