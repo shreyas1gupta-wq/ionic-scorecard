@@ -1,6 +1,6 @@
 # SCOUT: GitHub/OSS Tooling Adoption Radar (2026)
 
-Status: IN PROGRESS (checkpoint discipline D-023 — appending per finding)
+Status: COMPLETE (checkpoint discipline D-023 — findings appended incrementally, ranked table finalized)
 Owner: R&D scout task | Date: 2026-07-04
 Mission: identify OSS to ADOPT into our quant stack. Known baseline: qlib, vectorbt,
 alphalens/pyfolio-reloaded, quantstats, Riskfolio-Lib, skfolio, mlfinlab, pandas-ta,
@@ -76,5 +76,78 @@ Awaiting results — will append raw findings then synthesize ranked table below
    - **FinCon** (arXiv:2407.06567, NeurIPS 2024) — most risk-relevant: two-tier risk control (within-episode CVaR-based real-time strategy adjustment; over-episode "Conceptual Verbal Reinforcement" (CVRF) — post-episode self-critique distills winning/losing sequences into an updated BELIEF STATEMENT, propagated ONLY to the specific agent nodes that need it, not broadcast to all). Standout mechanism: **targeted lesson propagation** — directly analogous to updating only the relevant analyst's persona file after a post-mortem/retro, rather than rewriting the whole team's playbook. STRONGEST FIT for strengthening our existing retro/post-mortem loop.
 
 **Overall Agent C recommendation**: most reusable non-generic mechanisms = (1) TradingAgents debate-then-judge protocol, (2) ai-hedge-fund's hard deterministic risk ceiling gating the LLM, (3) FinRL turbulence-index circuit breaker, (4) FinMem/FinCon decaying-scored-selectively-propagated memory (best fit for our retro loop).
+
+### Agent B results — India NSE/broker SDKs + F&O analytics + execution/paper-trading harnesses (2026-07-04)
+
+**Part A — data libs:**
+- **NSEPython** (aeron7/nsepython) — ACTIVE, GitHub commits through Mar 2026 (PyPI lags ~10mo, install from master). Broader option-chain/index coverage than jugaad-data; migrated nsepy/nsetools function names for near drop-in swap.
+- **nsepy** — CONFIRMED DEAD, last commit Dec 2023, broke when NSE retired old site (Apr 2023). Maintainer's own README names jugaad-data/NSEPython as successors. Do not use.
+- **jugaad-data** — healthiest of the three, GitHub+PyPI both current to Mar 2026, same-day release cadence. Our current choice remains well-justified.
+
+**Part A — broker SDKs** (order-abstraction quality + sandbox support):
+| Broker | Maintenance | Order model | Sandbox? |
+|---|---|---|---|
+| Zerodha kiteconnect | Active but triage lags | Clean 3-axis model (order_type/variety/product) — de facto vocabulary OpenAlgo reuses | NO — Zerodha confirms no sandbox exists |
+| Fyers fyers-apiv3 | Active, ~monthly | Thin raw-dict wrapper, no typed classes | No native sandbox (paid "API Bridge" add-on separate product) |
+| Dhan dhanhq | Active (Apr 2026) | Raw dict/JSON | YES — real sandbox but static-price-100 fills, no live feed |
+| Upstox SDK | Active (Swagger auto-gen) | Typed `PlaceOrderRequest` — most structured | YES — genuine sandbox, order-mgmt only, no market data yet |
+
+Zerodha/SEBI note: Feb 2025 SEBI algo-trading circular imposed static-IP whitelisting, 2FA, algo-ID tagging, exchange registration above 10 orders/sec — compliance overhead not an API shutdown; enforcement date slipped repeatedly (~Apr 2026 provisional). Data API pricing CUT (Rs.2000->Rs.500/mo), not restricted.
+
+**Part A — SPAN margin**: thin category. Only real hit: **marginism** (marketcalls/marginism) — parses NSE Clearing's actual .spn files, computes SPAN+exposure+margin for a basket. Small/young (~11 commits), MIT, author disclaims accuracy. No mature OSS SPAN engine exists — fork as reference only, don't depend on it.
+
+**Part A — option-chain/Greeks analytics**: split field, no single repo does it all.
+- Python-NSE-Option-Chain-Analyzer (VarunS2002, 630 stars, active) — OI/volume analytics, no Greeks, no broker link.
+- mirajgodha/options — real Greeks+strategy P&L+broker execution, but only ICICI Direct/Nuvama (not Angel).
+- markov404/AngelOneOptionChainSmartApi — Angel-native but just a data-dump script.
+
+**Part A — STANDOUT FINDING: openalgo** (marketcalls/openalgo) — extremely active (v2.0.1.4 Jun 2026, 4,252 commits), self-hosted Flask/React server unifying 30+ Indian brokers INCLUDING ANGEL NATIVELY, with a real Rs.1cr paper-trading sandbox (margin sim, auto square-off), built-in Greeks/margin calculators, AGPL-3.0 license. **Fenix** (TheHardeep/fenix) is a lighter pure-Python alternative (15 brokers incl. Angel, no server needed) if AGPL/server footprint is unwanted.
+
+**Part B — execution/paper-trading harnesses:**
+- **OpenAlgo's sandbox** — fastest path, Angel-native, real order-flow sim, BUT quote-crossing only (no order-book depth/partial fills/slippage modeling — author admits "95% of issues, last 5% only shows on live").
+- **Nautilus Trader** — very active (24.4k stars, Jun 2026 release), architecturally most rigorous, dedicated Sandbox execution context with true backtest/sandbox/live parity. NO India broker adapter exists (confirmed absence) — building one is a multi-week Rust+Python effort but yields a much better long-term matching engine than OpenAlgo's.
+- **Freqtrade** — not directly usable (crypto/ccxt-only) but IStrategy/Exchange separation is a good design pattern; its own community treats backtest-vs-dry-run fill divergence as a documented, unsolved pitfall — useful checklist for us.
+- **Broker-adapter pattern reference**: no dedicated tutorial exists; best examples are TradeFlow (makedirectory/tradeflow, Alpaca-only) and OpenAlgo's own internal brokers/<name>.py module layout (most India-relevant).
+- **Angel SmartAPI has NO official sandbox** (confirmed on Angel's own dev forum) — any paper-trading must synthesize fills locally against Angel's live quote feed. This is exactly our current paper-desk situation.
+
+**Agent B recommendation**: adopt/fork OpenAlgo's sandbox module for near-term paper-trading (Angel-native, active, real margin sim), bolt on custom slippage/partial-fill logic; treat Nautilus Trader as long-horizon target if execution realism becomes the bottleneck later.
+
+---
+## ALL THREE AGENTS COMPLETE — synthesizing final ranked table below.
+
+## FINAL RANKED ADOPTION TABLE (max 12)
+
+| # | Repo/Package | Maintenance status (2026) | What it replaces/adds in OUR stack | Integration cost | 
+|---|---|---|---|---|
+| 1 | **eslazarev/purgedcv** (PyPI) | ACTIVE, brand-new (v0.1.2 Jun 2026), 16 stars, unproven | Gives us PurgedKFold/CombinatorialPurgedCV (CPCV) + probabilistic_sharpe_ratio/deflated_sharpe_ratio/min-track-record-length OUT OF THE BOX — stop hand-rolling DSR and purged CV splitting; still must hand-roll true Bailey CSCV (no living alt exists) | Day — pip install, swap into existing DSR script, validate against our hand-rolled numbers before trusting |
+| 2 | **marketcalls/openalgo** | Very active (4,252 commits, v2.0.1.4 Jun 2026) | Angel-native self-hosted paper-trading sandbox (Rs.1cr sim, margin sim, auto square-off) + built-in Greeks/margin calculators — directly upgrades our Angel SmartAPI paper desk, which currently has zero official sandbox | Week — self-host Flask/React server, wire our Angel creds, validate fill assumptions (quote-crossing only, no depth/slippage — must bolt on our own slippage model) |
+| 3 | **xgboosted/pandas-ta-classic** | ACTIVE (v0.6.52 Jun 2026, 2 open issues) | Drop-in replacement for pandas-ta, which is ABANDONED (original repo 404s, successor "pandas-ta.dev" wiped history, soliciting donations to avoid archival Jul 2026) | Trivial — same API surface, swap the import/dependency pin |
+| 4 | **stefan-jansen/alphalens-reloaded + pyfolio-reloaded** | ACTIVE (Jul 2025 releases, low open issues) | Replace quantopian/alphalens+pyfolio, which are CONFIRMED DEAD (pyfolio issue #690: "no longer maintained") — if we still import the originals anywhere, this is a silent landmine | Trivial — same API, swap package name |
+| 5 | **FinCon's CVRF mechanism** (arXiv:2407.06567 — pattern to implement, not a library) | Academic (NeurIPS 2024), not a pip package | Adds targeted lesson-propagation to our retro/post-mortem loop: post-episode self-critique distills belief statements, routed ONLY to the specific persona files that need the update, not broadcast to the whole team. Directly strengthens our existing `/retro` skill logic | Day — encode as a rule in the retro skill: "update only the implicated agent's persona file, not all personas" |
+| 6 | **ai-hedge-fund's deterministic risk-ceiling pattern** (virattt/ai-hedge-fund — pattern, not a dependency) | ACTIVE, ~60.8k stars, v2026.7.3 | Template for a rule-based (non-LLM) hard position-limit ceiling that CIO/quant-head personas cannot override regardless of conviction — formalizes what we already do informally in pre-trade-check; makes the veto auditable/deterministic rather than judgment-based | Day — codify existing informal sizing caps into an explicit pre-LLM-call gate function |
+| 7 | **aeron7/nsepython** | ACTIVE (GitHub commits to Mar 2026; install from master, PyPI lags) | Fallback/supplement to jugaad-data with broader option-chain/index coverage; near drop-in (migrated nsepy/nsetools function names) — insurance against jugaad-data's "thin team" bus-factor risk | Trivial-Day — install alongside jugaad-data, use for endpoints jugaad-data lacks |
+| 8 | **dcajasn/Riskfolio-Lib** (status re-confirm) | ACTIVE, v7.2/7.3 2026 (already in our known list) | No change to adoption — CONFIRM continued reliance is safe; flag bus-factor risk (<10 contributors) as a watch item, not a reason to drop | None (already adopted) — just a monitoring note |
+| 9 | **skfolio** (status re-confirm + increase reliance) | ACTIVE, fastest-moving portfolio-opt lib in the space, weekly releases, v0.20.1 Apr 2026, now commercially backed (SLA available) | Already known; upgrade priority — this is now the safest long-term bet of our two portfolio-opt libs given its release cadence and new commercial backing (reduces abandonment risk vs Riskfolio-Lib) | Trivial — no new integration, just prioritize its features over Riskfolio-Lib's for new work |
+| 10 | **TradingAgents' debate-then-independent-judge protocol** (TauricResearch — pattern, not a dependency) | ACTIVE, ~90.6k stars, v0.3.0 Jun 2026 | Validates and sharpens our existing IC-memo + red-team-gate structure: formalizes "bull/bear debate -> a NON-participant judge renders verdict" reused identically for risk (3-persona risk debate -> portfolio-manager judge). We already have the shape; this is a checklist to confirm our red-team/CIO separation matches the pattern precisely (judge must not have argued a side) | Day — audit ic-memo/red-team skills against this checklist, tighten if any persona is both advocate and judge |
+| 11 | **AI4Finance/FinRL's turbulence-index circuit breaker** (pattern, not a dependency) | ACTIVE (~15.6k stars, v0.3.8 Mar 2026) | Adds a cheap, interpretable, model-agnostic "stand down" layer: Mahalanobis-distance deviation from historical covariance structure, force-liquidate/de-risk regardless of any agent's judgment when crossed. Complements our existing event-gates (which are calendar-based) with a pure statistical regime trigger | Week — needs a covariance-tracking job across our universe + wiring into kill-switch-drill logic |
+| 12 | **TheHardeep/fenix** | ACTIVE, lighter alternative to openalgo | Pure-Python (no server) unifying 15 Indian brokers incl. Angel — a lower-footprint fallback to #2 if AGPL license or self-hosted server overhead is unwanted for the sandbox | Day — evaluate as alternative/complement to openalgo before committing infra |
+
+## KEEP-OUT LIST (popular but WRONG for us — do not adopt)
+
+- **hudson-and-thames/mlfinlab** — fully paywalled since ~2019 (PyPI frozen, repo is a stub, ~£100+VAT/mo/user). The DSR/PBO/CSCV module we'd want is specifically the paid "Backtest Overfitting" deliverable — not accessible free. Use purgedcv instead (adoption #1).
+- **twopirllc/pandas-ta (original)** — ABANDONED, repo 404s. Its claimed successor "pandas-ta.dev" wiped release history and is soliciting donations to avoid archival — do not adopt that either. Use pandas-ta-classic (adoption #3).
+- **quantopian/alphalens, quantopian/pyfolio (originals)** — confirmed dead by maintainer's own issue tracker. Any lingering import of these in our codebase is a silent landmine — audit and replace with -reloaded forks.
+- **vectorbt PRO** — real feature gap (purge/embargo-aware CV, Rust engine) but commercial commitment ($20-25/mo) for capability we can get free via purgedcv + our own hand-rolled CSCV; revisit only if hand-rolled validation becomes the bottleneck, not before.
+- **nsepy** — confirmed dead since Dec 2023, broke when NSE changed its site; maintainer's own README points elsewhere. Never build on this.
+- **Zerodha kiteconnect / Fyers fyers-apiv3 as our execution SDK** — we trade via Angel SmartAPI already; no reason to migrate brokers. Worth reading their order-model vocabulary (kiteconnect's 3-axis order_type/variety/product) as a design reference only, not as a dependency.
+- **Nautilus Trader (near-term)** — architecturally superior but NO India broker adapter exists; building one is a multi-week Rust+Python effort. Right call is to defer this to long-horizon (only revisit if OpenAlgo's execution realism becomes a hard bottleneck), not adopt now.
+- **marketcalls/marginism (SPAN calculator)** — real but immature (~11 commits), author explicitly disclaims accuracy. Do not trust position sizing to it; fork for reference/learning only, never wire into live risk calcs.
+- **FinRL for actual deployment** — interesting circuit-breaker pattern (adoption #11) but the framework itself is deep-RL-first with a flat linear-% transaction cost model (known weakness) and is being superseded by FinRL-X (2027+ target). Steal the turbulence-index concept; do not adopt the framework.
+- **mirajgodha/options** — has real Greeks+broker execution but hardwired to ICICI Direct/Nuvama, not Angel. Not worth adapting; openalgo's built-in Greeks calculator (bundled in adoption #2) covers this need natively for Angel.
+
+## KEY CROSS-CUTTING FINDING (whitespace)
+No project surveyed — commercial, academic, or OSS — implements an explicit backtest -> paper -> live PROMOTION GATE with pre-registered graduation criteria. This is confirmed whitespace, not a search gap (Agent C explicitly checked and found none). Our own gate-pipeline (idea intake -> cheap test -> full backtest -> IC memo -> red team -> deploy) may already be ahead of the open-source field here — worth writing up as a differentiator rather than assuming we're behind.
+
+STATUS: COMPLETE — all 3 research streams synthesized, ranked table finalized 2026-07-04.
 
 

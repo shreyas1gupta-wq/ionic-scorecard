@@ -34,3 +34,16 @@ Never summon the full IC for a question one analyst can answer. FM/CIO decide wh
 - **MAX 3 parallel agents firm-wide.** Sequence waves; prefer 2 heavy + 1 light.
 - Every agent prompt must instruct checkpointing partial outputs to disk (results/, drafts) BEFORE final synthesis — a limit-hit must never lose completed computation.
 - Spend-limit behavior observed: main loop survives; subagent spawns fail with ~0 tokens. On hit: stop spawning, salvage in-flight outputs, journal + commit, hand off to next session.
+
+## STRICT ENFORCEMENT + TOKEN-SAVING HACKS (Principal order, 2026-07-04)
+**MAX 3 PARALLEL AGENTS — STRICTLY APPLIED EVERY TIME (D-023).** No exceptions, no "just this once". Workflow-harness runs that internally exceed 3 are prohibited; use ≤3 scout waves instead.
+Hacks (all agents, all desks):
+1. **/to-md before reading binaries** — docx/xlsx/pdf/parquet → lean .md digest (35x+ savings measured). Reading binaries directly = token-waste event (−5 AP).
+2. **Grep before Read** — locate the section, then Read with offset/limit; never read whole large files for one fact.
+3. **Digest-once, reference-many** — long sources get a one-time .md summary filed next to them; later work reads the digest.
+4. **Background scripts over agents** — a .py run in background costs ~0 tokens; agents are for judgment, not computation.
+5. **Main-loop for small tasks** — spawning an agent for <10-minute work wastes its boot context.
+6. **Cheap tier first** (P-07); escalate only for judgment.
+7. **Checkpoint files, not context relay** — hand structured files between steps (telephone-game lesson), never long verbal recaps.
+8. **No transcript re-reads** — task outputs are salvaged once into WORK_LOG/artifacts; never re-read raw agent transcripts.
+9. **Compact prompts** — agent briefs carry file PATHS + precise asks, never pasted file contents the agent can read itself.

@@ -15,6 +15,7 @@ Two Claude accounts run this firm on the same laptop, same folder:
 - **Prompts** enter `02_PROMPT_LIBRARY/approved/` only after the user reviews each one.
 - **No auto-fetching new external data sources.** New sources need user approval; verify samples via Data Officer protocol first (`05_DATA_OFFICE/DATA_QUALITY_RULES.md`).
 - Idea pipeline gates auto-advance EXCEPT the final gate (paper→live) = user only.
+- **MAX 3 PARALLEL AGENTS — STRICT, EVERY TIME (D-023).** And token hacks are law: /to-md digests before reading binaries, grep-before-read, background scripts over agents (TOKEN_POLICY §hacks).
 - Original research folders (`intraday_options_strategy/`, `swing_momentum/`, `alpha_research/`, `datasets/`, `FINAL_STRATEGY_FORWARD_CHECK/`) are **read-only legacy**: never move/rename; copy into the firm structure if needed.
 
 ## ENVIRONMENT (hard-won facts — do not re-learn)
