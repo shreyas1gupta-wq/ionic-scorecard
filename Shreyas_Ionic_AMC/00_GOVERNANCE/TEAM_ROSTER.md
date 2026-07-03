@@ -62,3 +62,4 @@ Quarterly bonus = AP × ₹1L (virtual). League table announced at review; top s
 | 2026-07-04 | Sanjay Kulkarni (E-017) | Confirmed bias catch + clean memo (first task) | +20 | screener_deep has NO available_date (lookahead hazard) — caught on day-1 disk check; addendum filed within binding plan |
 | 2026-07-04 | Arjun Rao (E-004) | Confirmed artifact catch (pre-IC shuffle #1) | +15 | S-02 +21.6% = denominator artifact; honest crush +4.8% fragile; saved a full IC cycle |
 | 2026-07-04 | Tara Singh (E-015) | Confirmed guardrail-gap closure (P1, adversarially proven) | +15 | 6 unguarded IV paths -> sane_iv() everywhere; garbage-injection test rejected 3/3; zero regression on real data. Q3 blocking item CLEAR day 1 |
+| 2026-07-04 | Arjun Rao (E-004) | Confirmed DATA-CORRUPTION catch (pre-IC shuffle #2) | +15 | S-04 future-expiry fabricated wins; physical-impossibility bound (max profit = premium) beat the generic explosion guard |

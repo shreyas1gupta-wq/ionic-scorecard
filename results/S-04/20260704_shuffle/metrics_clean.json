@@ -1,0 +1,38 @@
+{
+  "gold_subset_le2025": {
+    "n": 3935,
+    "managed_mean_pct": 0.2669,
+    "managed_mean_CI95": [
+      0.1931,
+      0.3433
+    ],
+    "hold_mean_pct": 0.3719,
+    "hit_pct": 85.5,
+    "worst_trade_pct": -27.79,
+    "managed_minus_hold_pct": -0.105,
+    "mvh_CI95": [
+      -0.1378,
+      -0.0709
+    ],
+    "tail_p05_delta_CI95": [
+      0.2196,
+      0.7143
+    ],
+    "p05_managed_pct": -3.829,
+    "p05_hold_pct": -4.308,
+    "worst_cluster_month": "2025-03",
+    "worst_cluster_pct_of_notional": -1.363,
+    "margin_mean_pct": 2.22,
+    "margin_worst_trade_pct": -231.6,
+    "margin_worst_month_summed_pct": -1805.9,
+    "2021_23_mean_pct": 0.484,
+    "2024_25_mean_pct": 0.2058
+  },
+  "CORRUPTION": {
+    "future_expiry_rows": 84,
+    "impossible_winner_rows_gt5pct_of_spot": 380,
+    "corruption_onset_month": "2026-02 (19% impossible), escalating to 100% in 2026-07/08 (unresolved future expiries)",
+    "physical_ceiling_note": "5% OTM 14-DTE short strangle max profit ~= premium collected ~3-4% of spot; any managed>5% is structurally impossible",
+    "registered_claim_1.75pct_verdict": "INFLATED by fabricated 2026 winners; clean pre-2026 edge is +0.45 to +0.48%/spot per 14-DTE cycle"
+  }
+}

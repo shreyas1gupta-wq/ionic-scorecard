@@ -1,0 +1,278 @@
+{
+  "per_year_exit_booked": {
+    "2021": {
+      "n": 86,
+      "mean_pct": 0.7141,
+      "median_pct": 0.8475,
+      "sum_pct": 61.41,
+      "hit": 88.4,
+      "worst_pct": -8.742,
+      "best_pct": 3.534,
+      "n_expiry_months": 6,
+      "partial_year": true
+    },
+    "2022": {
+      "n": 337,
+      "mean_pct": 0.4729,
+      "median_pct": 0.8352,
+      "sum_pct": 159.37,
+      "hit": 89.0,
+      "worst_pct": -16.8,
+      "best_pct": 5.242,
+      "n_expiry_months": 12,
+      "partial_year": false
+    },
+    "2023": {
+      "n": 441,
+      "mean_pct": 0.4477,
+      "median_pct": 0.5156,
+      "sum_pct": 197.43,
+      "hit": 93.7,
+      "worst_pct": -12.709,
+      "best_pct": 4.442,
+      "n_expiry_months": 12,
+      "partial_year": false
+    },
+    "2024": {
+      "n": 1046,
+      "mean_pct": 0.3458,
+      "median_pct": 0.5914,
+      "sum_pct": 361.66,
+      "hit": 83.7,
+      "worst_pct": -16.216,
+      "best_pct": 37.914,
+      "n_expiry_months": 12,
+      "partial_year": false
+    },
+    "2025": {
+      "n": 2025,
+      "mean_pct": 0.1334,
+      "median_pct": 0.5915,
+      "sum_pct": 270.23,
+      "hit": 84.0,
+      "worst_pct": -27.793,
+      "best_pct": 29.393,
+      "n_expiry_months": 12,
+      "partial_year": false
+    },
+    "2026": {
+      "n": 1104,
+      "mean_pct": 4.7166,
+      "median_pct": 2.4771,
+      "sum_pct": 5207.11,
+      "hit": 97.8,
+      "worst_pct": -18.601,
+      "best_pct": 40.709,
+      "n_expiry_months": 8,
+      "partial_year": true
+    }
+  },
+  "build_vs_forward": {
+    "pre_2024_04 (build)": {
+      "n": 1005,
+      "mean_pct": 0.4796,
+      "median_pct": 0.6507,
+      "sum_pct": 482.01,
+      "hit": 91.0,
+      "worst_pct": -16.8,
+      "best_pct": 5.242,
+      "n_expiry_months": 33
+    },
+    "low_vol_block_2024_04_to_2026_06": {
+      "n": 3952,
+      "mean_pct": 1.1723,
+      "median_pct": 0.7314,
+      "sum_pct": 4633.02,
+      "hit": 87.2,
+      "worst_pct": -27.793,
+      "best_pct": 40.709,
+      "n_expiry_months": 28
+    },
+    "post_2026_06": {
+      "n": 82,
+      "mean_pct": 13.9289,
+      "median_pct": 13.4377,
+      "sum_pct": 1142.17,
+      "hit": 100.0,
+      "worst_pct": 6.476,
+      "best_pct": 27.398,
+      "n_expiry_months": 2
+    }
+  },
+  "calm_block_share": {
+    "total_pnl_units_of_spot": 62.572,
+    "low_vol_block_pnl": 46.33,
+    "block_share_of_total_pct": 74.0,
+    "block_share_of_trades_pct": 78.4,
+    "pre_block_pnl": 4.82,
+    "pre_block_mean_pct": 0.4796,
+    "pre_block_n": 1005,
+    "pre_block_hit_pct": 91.0,
+    "K2_note": "block_share of P&L vs block_share of trades tells if it's just more trades or fatter per-trade edge"
+  },
+  "tail_honesty": {
+    "worst_trade": {
+      "sym": "IEX",
+      "entry": "2025-07-17",
+      "exp": "2025-07-31",
+      "exit": "2025-07-31",
+      "managed_pct": -27.793,
+      "hold_pct": -27.793
+    },
+    "worst_month_managed": {
+      "month": "2025-03",
+      "n_positions": 159,
+      "summed_pnl_units_of_spot": -2.167,
+      "pct_of_month_notional": -1.363,
+      "n_losers": 74,
+      "worst_single_pct": -16.103
+    },
+    "worst_month_hold": {
+      "month": "2025-03",
+      "n_positions": 159,
+      "summed_pnl_units_of_spot": -2.339,
+      "pct_of_month_notional": -1.471,
+      "n_losers": 86,
+      "worst_single_pct": -16.103
+    },
+    "worst_5_months_managed": [
+      {
+        "month": "2025-03",
+        "n_positions": 159,
+        "summed_pnl_units_of_spot": -2.167,
+        "pct_of_month_notional": -1.363,
+        "n_losers": 74,
+        "worst_single_pct": -16.103
+      },
+      {
+        "month": "2025-04",
+        "n_positions": 161,
+        "summed_pnl_units_of_spot": -1.807,
+        "pct_of_month_notional": -1.122,
+        "n_losers": 71,
+        "worst_single_pct": -15.757
+      },
+      {
+        "month": "2022-01",
+        "n_positions": 28,
+        "summed_pnl_units_of_spot": -0.321,
+        "pct_of_month_notional": -1.148,
+        "n_losers": 10,
+        "worst_single_pct": -12.154
+      },
+      {
+        "month": "2024-10",
+        "n_positions": 113,
+        "summed_pnl_units_of_spot": -0.291,
+        "pct_of_month_notional": -0.258,
+        "n_losers": 30,
+        "worst_single_pct": -16.216
+      },
+      {
+        "month": "2022-02",
+        "n_positions": 25,
+        "summed_pnl_units_of_spot": -0.188,
+        "pct_of_month_notional": -0.752,
+        "n_losers": 6,
+        "worst_single_pct": -10.933
+      }
+    ],
+    "monthly_managed_pnl_std": 2.508,
+    "monthly_managed_pnl_worst": -2.167,
+    "avg_positions_per_month": 81.3,
+    "max_positions_in_a_month": 191,
+    "K3_worst_cluster_pct_of_notional_MANAGED": -1.363,
+    "K3_worst_cluster_pct_of_notional_HOLD": -1.471
+  },
+  "margin_reality": {
+    "mean_per_trade_on_margin_pct": 10.348,
+    "median_per_trade_on_margin_pct": 6.063,
+    "worst_trade_on_margin_pct": -231.61,
+    "best_trade_on_margin_pct": 339.24,
+    "worst_month_on_margin_pct_summed": -1805.93,
+    "span_frac": 0.12,
+    "K5_note": "on 12% SPAN a -X% of spot becomes -8.33X% of margin; ruin/ margin-call risk lives here"
+  },
+  "managed_vs_hold_bootstrap": {
+    "n_paired": 5039,
+    "mean_managed_pct": 1.2418,
+    "mean_hold_pct": 1.4654,
+    "mean_delta_managed_minus_hold_pct": -0.2236,
+    "delta_boot_CI95_pct": [
+      -0.2536,
+      -0.1926
+    ],
+    "delta_excludes_zero": true,
+    "worst_trade_managed_pct": -27.793,
+    "worst_trade_hold_pct": -27.793,
+    "p05_managed_pct": -3.231,
+    "p05_hold_pct": -3.597,
+    "tail_delta_p05_boot_CI95_pct": [
+      0.2023,
+      0.6248
+    ],
+    "tail_delta_excludes_zero": true,
+    "std_managed_pct": 3.8245,
+    "std_hold_pct": 4.0787,
+    "hit_managed_pct": 88.2,
+    "hit_hold_pct": 82.4
+  },
+  "regime_stress": {
+    "early_2021_23": {
+      "n": 864,
+      "mean_pct": 0.484,
+      "hit_pct": 91.3,
+      "worst_pct": -16.8,
+      "boot_mean_CI95_pct": [
+        0.3633,
+        0.5986
+      ]
+    },
+    "late_2024_26": {
+      "n": 4175,
+      "mean_pct": 1.3986,
+      "hit_pct": 87.6,
+      "worst_pct": -27.793
+    },
+    "late_minus_early_boot_CI95_pct": [
+      0.7441,
+      1.0912
+    ],
+    "regimes_differ (CI excludes 0)": true,
+    "worst_realized_vol_months_managed_summed": [
+      {
+        "month": "2025-03",
+        "summed_pnl": -2.167,
+        "n": 159
+      },
+      {
+        "month": "2025-04",
+        "summed_pnl": -1.807,
+        "n": 161
+      },
+      {
+        "month": "2022-01",
+        "summed_pnl": -0.321,
+        "n": 28
+      },
+      {
+        "month": "2024-10",
+        "summed_pnl": -0.291,
+        "n": 113
+      },
+      {
+        "month": "2022-02",
+        "summed_pnl": -0.188,
+        "n": 25
+      },
+      {
+        "month": "2024-08",
+        "summed_pnl": -0.08,
+        "n": 111
+      }
+    ]
+  },
+  "degenerate_flags": [
+    "Sharpe 7.1 > 4"
+  ]
+}

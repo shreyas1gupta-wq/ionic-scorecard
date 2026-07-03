@@ -1,0 +1,69 @@
+{
+  "strategy": "S-04 short-strangle 14-DTE, 5% OTM CE+PE, buy-back at 50% credit else hold to expiry",
+  "run": "20260704_shuffle (pre-IC)",
+  "analyst": "Arjun Rao / Quant",
+  "prereg": {
+    "registered_claim": "+1.75%/spot forward, 88% hit",
+    "kill_criteria": {
+      "K1_denominator": "FAIL if strangle_managed is NOT a stable %-of-spot (e.g. any |ret|>0.60 explosion row, or denom not spot). Debit-denominator artifact = instant FAKE.",
+      "K2_calm_block_dependence": "FAIL-PRE-IC if >70% of total P&L comes from the 2024-04..2026-06 low-vol block AND the pre-block (2021-23) mean is not independently positive with >=30 trades/year coverage.",
+      "K3_tail_honesty": "FAIL if worst correlated-cluster month (all concurrent strangles summed) exceeds -8% of aggregate spot-notional, i.e. a single month can wipe >4x the annual edge, AND management does not materially cut it.",
+      "K4_managed_value": "Management sleeve is only a REAL 'signal' if it EITHER adds mean return OR cuts the worst-trade/worst-month tail with bootstrap 95% CI excluding the no-effect (delta=0) line. If it does neither -> the only signal is unconditional short-vol.",
+      "K5_margin_reality": "FLAG (not auto-fail) if mean return on 12% SPAN margin < 1%/month OR worst month on margin basis < -50% (margin call / ruin risk).",
+      "K6_regime_split": "FAIL-PRE-IC if 2024-26 mean >> 2021-23 mean with non-overlapping bootstrap CIs (edge is a regime artifact, not structural)."
+    },
+    "verdict_rule": "CLEARS-FOR-IC only if edge survives OUTSIDE the calm block OR is honestly registered as regime-conditional with the crash caveat. Otherwise FAILS-PRE-IC.",
+    "note": "S-04 trades EVERY name EVERY cycle (no cross-sectional selection) => shuffle test is REGIME decomposition, not label-permutation. The 50% managed exit is the ONLY discretionary lever -> tested explicitly (K4)."
+  },
+  "lineage": {
+    "data_file": "c:/Users/Shreyas.1Gupta/OneDrive - Angel Broking Limited/Desktop/Backup/NIFTY 500/intraday_options_strategy/buying/shortlist_shortvol.parquet",
+    "full_file_rows": 5039,
+    "n_symbols": 207,
+    "entry_range": [
+      "2021-07-15",
+      "2026-06-16"
+    ],
+    "exp_range": [
+      "2021-07-29",
+      "2026-08-25"
+    ],
+    "exit_range": [
+      "2021-07-20",
+      "2026-08-25"
+    ],
+    "return_col_primary": "strangle_managed",
+    "return_col_comparison": "strangle_hold",
+    "booking": "EXIT-period (man_exit month); held trades book in exp month",
+    "margin_basis": "12% SPAN (margin col = ret/0.12, verified ratio ~8.333)",
+    "managed_early_close_frac": 0.731,
+    "seed": 20260704
+  },
+  "denominator_sanity": {
+    "ret_col": "strangle_managed",
+    "denominator_stated": "SPOT",
+    "min": -0.2779321841271216,
+    "max": 0.4070913609410708,
+    "mean": 0.012417545807919579,
+    "median": 0.0072761314321140745,
+    "std": 0.03824490400484005,
+    "rows_abs_gt_0.20": 33,
+    "rows_abs_gt_0.50": 0,
+    "rows_abs_gt_0.60_EXPLOSION": 0,
+    "margin_ratio_median_should_be_8.333": 8.333333517899096,
+    "implied_span_frac_of_spot": 0.11999999734225308,
+    "K1_denominator_PASS": true
+  },
+  "SHUFFLE_VERDICT": {
+    "verdict": "FAILS-PRE-IC",
+    "primary_reason": "DATA CORRUPTION in recent rows: 84 future-expiry (exp>2026-07-03) trades marked as closed wins; 380 rows breach physical strangle premium ceiling (managed>5% of spot, impossible for 5% OTM 14-DTE); corruption onsets 2026-02 (19% of trades) escalating to 100% in 2026-07/08.",
+    "kill_criteria_hit": [
+      "K1 FAIL (too-loose 0.60 guard PASSED but physical ceiling 5% breached by 380 rows)",
+      "registered +1.75% is INFLATED by fabricated winners"
+    ],
+    "K2_calm_block": "74% of raw P&L from 2024-04..2026-06 block, but that block is itself corrupted from 2026-02; pre-block (2021-23) is clean +0.48%/spot @ 91% hit, n=1005",
+    "K4_managed_vs_hold": "Management REDUCES mean (-0.11%/trade, CI excl 0) but CUTS the tail (p05 +0.22 to +0.71%, CI excl 0). Real risk lever, NOT the source of edge.",
+    "K5_margin": "On 12% SPAN: clean mean +2.2%/trade, worst trade -231% (>total-loss => margin call), worst month summed -1806% of one unit margin. Ruin risk is real and lives on the margin basis.",
+    "honest_number_to_register": "CLEAN (pre-2026) short-vol edge ~ +0.45 to +0.48% of spot per 14-DTE cycle @ ~90% hit in 2021-2023 calm/normal regime; DECAYING to +0.08-0.16% in 2024-25 (clean subset). UNTESTED in a real crash (worst realized month only -1.36% of notional, all pre-2020-style tail absent from sample). Same caveat as S-01: calm-block edge, crash-untested.",
+    "action": "BOUNCE to Data Officer (Kavya) to rebuild shortlist_shortvol.parquet marking pipeline; exclude exp>today; recompute recent months. Re-shuffle after refill."
+  }
+}

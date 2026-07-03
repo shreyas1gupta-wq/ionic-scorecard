@@ -33,3 +33,4 @@ Columns: date · work item · agent (model tier) · **tokens** (subagent total, 
 | Logging/leaderboard/bonus/lessons infra | DESK-100 direct | (main loop) | — | WORK_LOG + LEADERBOARD + D-022 + 8 persona lessons | this file; 00_GOVERNANCE/LEADERBOARD.md | — |
 | S-02 pre-IC shuffle (Gate-5 SOP first use) | Arjun Rao (opus) | 53,800 | 13 | decomposition before IC | **FAILS-PRE-IC** — register+pipeline+KB updated; results/S-02/20260704_shuffle | +15 |
 | P1 live IV-cap fix (BLOCKING item) | Tara Singh (sonnet) | 82,003 | 39 | close IC-1 guardrail gap | scripts/execution_scanner.py sane_iv() on 6 paths + adversarial dry-run proof; P1 CLEAR -> paper unblocked | +15 |
+| S-04 pre-IC shuffle #2 | Arjun Rao (opus) | 55,539 | 16 | decompose strangle before IC | **FAILS-PRE-IC + DATA CORRUPTION found** (future-expiry fabricated wins); register/pipeline/KB updated; dataset bounced to Data Office | +15 |

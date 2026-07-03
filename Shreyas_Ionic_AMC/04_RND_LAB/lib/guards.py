@@ -70,6 +70,21 @@ def assert_intraday_capable(df: pd.DataFrame) -> None:
         "L6: intraday logic on DAILY-schema option file (bhavcopy backfill) — use EOD logic"
 
 
+# ---------- L7: no future settlement (S-04 corruption, 2026-07-04) ----------
+def assert_no_future_settlement(df: pd.DataFrame, exit_col: str, data_max_date) -> None:
+    """A trade may not settle after the last date for which real data exists.
+    spot.asof(future_date) silently returns stale prices and FABRICATES wins."""
+    bad = (pd.to_datetime(df[exit_col]) > pd.Timestamp(data_max_date)).sum()
+    assert bad == 0, f"L7: {bad} rows settle AFTER data ends ({data_max_date}) - fabricated marks"
+
+
+def assert_physical_bounds(ret: pd.Series, max_gain: float, name: str = "strategy") -> None:
+    """Strategy-specific physics: e.g. a short strangle cannot earn more than its premium.
+    Pass the structural max gain (fraction); rows above it are corrupted marks."""
+    bad = (ret > max_gain).sum()
+    assert bad == 0, f"L7b: {bad} {name} rows exceed physical max gain {max_gain:.1%} - corrupted marks"
+
+
 # ---------- degenerate detectors (post-run; see CODE_CHECKS.md) ----------
 def degenerate_flags(daily_ret: pd.Series, trades: pd.DataFrame | None = None,
                      ret_col: str = "ret", sym_col: str = "sym") -> list[str]:
