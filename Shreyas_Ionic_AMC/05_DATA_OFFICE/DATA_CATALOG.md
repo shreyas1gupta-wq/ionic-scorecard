@@ -30,6 +30,12 @@ Rule: if it's not in here with path+range+bugs, it doesn't exist for research. C
 | MC fundamentals | `india_fundamentals_mc/Train.parquet` | — | `annual_report` col CORRUPT (landmine #5) |
 | Universe snapshots | `NIFTY500_TICKER_2005_2025_Final.xlsx` | 42 PIT snapshots 2005-25 | survivorship (landmine #6) |
 
+## 3b. Commodities (ETF route)
+| Dataset | Path | Coverage | Notes |
+|---|---|---|---|
+| GOLDBEES daily | `datasets/etf_gold_silver/goldbees_daily.parquet` | 1,357 rows, 2021-01-10→2026-07-02 | D-009 PASS (Kavya 2026-07-04): 7/7 checks, split pre-adjusted, PIT-safe; UTC stamps (+5:30 for IST); update via Angel token 14428 |
+| SILVERBEES daily | `datasets/etf_gold_silver/silverbees_daily.parquet` | 1,091 rows, 2022-02-06→2026-07-02 | D-009 PASS; listed 2022-02-07; token 8080 |
+
 ## 4. Text / sentiment
 | Dataset | Path | Size | Notes |
 |---|---|---|---|
