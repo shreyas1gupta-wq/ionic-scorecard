@@ -1,4 +1,4 @@
-# PROMPT PACK 50 — RP-11…RP-60 (drafts; Principal approves per D-020, then move to approved/)
+# PROMPT PACK 50 — RP-11…RP-60 — **APPROVED (D-024, 2026-07-04)**
 Filed 2026-07-04 by DESK-20. Convention: `<angle-brackets>` = fill at use. Every prompt inherits P-01..P-12 automatically (they're baked into personas). Owner = default agent; anyone may invoke.
 
 ## A. RESEARCH (RP-11…RP-20) — owner: R&D / Quant
