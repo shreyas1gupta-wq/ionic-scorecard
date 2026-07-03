@@ -2,11 +2,11 @@
 Run: `results/T2-SIG11/20260704_bt11/` · Devika Menon (E-016), DESK · 2016-01-31 → 2026-01-22 · ₹10L book
 
 ## HONEST READ (top-line, before anyone quotes a headline)
-**Does the SIG-11 ALL_PASS gate beat random same-size PIT-universe draws, AFTER costs? — SEE SHUFFLE SECTION (percentile filled below).**
+**YES — the SIG-11 ALL_PASS gate beats random same-size PIT-universe draws at 1× cost, decisively.** [DATA] Real N10 +10.8% CAGR sits at the **98th percentile** of 50 size-matched random-draw shuffles (shuffle mean +3.55%, median +3.30%); real N20 +12.6% is at the **100th percentile** (beats all 50 draws; shuffle mean +3.34%). The gate beats a random pick from the same PIT universe by **~7.2 pp/yr (N10)** and **~9.3 pp/yr (N20)**. The 8-criteria Minervini + momentum + RS gate is selecting genuine leaders, not just harvesting universe beta. **That is the real result and the foundation of the diversifier case.**
 
 Two things are true and both must be said out loud:
 
-1. **The gate itself has signal at 1× costs.** [DATA] N20 = +12.6% CAGR, N10 = +10.8% CAGR (1× COST_STANDARDS). Real strategy percentile vs the shuffle null = **{{SHUFFLE_PCT}}** — this is the number that matters, not the CAGR.
+1. **The gate has real selection signal** (percentile 98/100 above the null — see above). BUT the selection edge over random (~7–9 pp/yr) is SMALLER than the 2× cost drag (~12 pp/yr), which is why 2× costs flip it negative. The signal is real; the current *implementation* eats it. The shuffle is run at 1× cost — the honest read is "the names are right, the trading is too expensive as specified."
 
 2. **The strategy AS SPECIFIED does not clear the promotion bar, because of TWO killers:**
    - **COST CRUSH.** At the mandatory 2× stress column the edge is destroyed: **N10 → −1.1% CAGR, N20 → +0.06% CAGR (flat).** [DATA] Over the full run, all-in costs (₹2.65–2.86M) *exceeded net profit* (₹1.78–2.28M). The v1 spec exit is **rebalance-only**, which sells and re-buys EVERY name every month — including the ~50% of names that persist in the top-N month-to-month (measured: median 50% overlap N10, 55% N20). We are paying full round-trip small-cap costs (~90–100 bps) on names that never left the book. **This is the single biggest fixable realism drag and the #1 v1.5 task.**
@@ -70,7 +70,14 @@ DENOMINATOR-RULE note: rupee P&L is booked in the EXIT period. The `per_year_tra
 | 2025-26 | 256 | −2.52% | 38.7% |
 
 ## SHUFFLE NULL (MANDATORY pre-IC — random same-size PIT-universe draws, 50 shuffles, 1× cost)
-{{SHUFFLE_TABLE}}
+Each shuffle draws, every month, the SAME NUMBER of names the real strategy held that month, at random from that month's price-floor-eligible PIT universe (cash for the same shortfall). This isolates the ALL_PASS+ranking *selection* from universe/beta/turnover effects.
+
+| | Real CAGR | Shuffle mean | Shuffle median | Shuffle p95 | Shuffle max | Real percentile | Edge over mean |
+|---|---|---|---|---|---|---|---|
+| **N10** | **+10.79%** | +3.55% | +3.30% | +8.09% | +13.49% | **98.0** | +7.24 pp/yr |
+| **N20** | **+12.64%** | +3.34% | +3.12% | +8.08% | +9.85% | **100.0** | +9.30 pp/yr |
+
+Read: N20's real return beat ALL 50 random draws; N10 beat 49 of 50 (one lucky draw hit +13.5%). The gate is real. NOTE the null itself averages +3.3–3.6% — a random momentum-universe basket is not zero-return; the gate's *incremental* edge over that is the ~7–9 pp/yr, and that is what must survive costs (it does not yet, at 2×).
 
 ---
 

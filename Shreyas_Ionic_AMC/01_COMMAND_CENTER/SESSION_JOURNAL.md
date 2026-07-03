@@ -3,6 +3,13 @@ Format per entry: date, account (DESK-20/DESK-100), summary, files touched, hand
 Newest entries at TOP.
 
 ---
+## 2026-07-04 (WINDUP addendum) — DESK-100 — D-028 lookahead controls live; 3 in flight at token wall
+- **Principal order executed (D-028)**: LOOKAHEAD_CONTROLS.md (T1–T10 taxonomy + T-log of our 5 past incidents) · lib/lookahead_audit.py (7/7 self-tests; one-day-lag killer diagnostic) · Gate-4 hard gate in RESEARCH_SOP · RISK_LIMITS §Process-risk · /lookahead-audit skill · Sameer/Ritika/Nikhil duties · CLAUDE.md landmine #7. FAIL = quarantine. (f4c0ae3)
+- **Manoj closed OPS-1/OPS-2**: strike grids differ per option TYPE (M&M lists 3160 CE but not PE — subtler than ticketed); scanner snaps per (name,expiry,type), prices back-month in primary pass; live-verified 54 legs 0 blank 0 blocked.
+- At windup, in flight (all checkpoint to disk): Sameer S-04 sensitivity (results/S-04/20260704_sensitivity/) · Devika BT-11 (VERDICT.md LANDED, unread — file next session) · D-028 retro-audit workflow stopped-resumable (pointers in CURRENT_STATE).
+- Next session: harvest all three → file verdicts → S-04 lookahead audit (Sameer) → paper starts, board pack.
+
+---
 ## 2026-07-04 (night) — DESK-100 — ALL FOUR ORIGINAL SLEEVES NOW EXAMINED; the honest ledger is complete
 - **S-01** SEND-BACK (+11.4pts incremental; DSR/PBO FAIL) · **S-02** KILLED (denominator artifact #2) · **S-03 KILLED (K-012 — denominator artifact #3: pnl/back-premium; rupee-points truth = build +5.85 → forward −9.30, loses money 2024 AND 2025; D-M2 IC cancelled)** · **S-04 SURVIVES 2× costs 12/12 cells (+0.147%/spot worst cell) → PAPER-WATCH per D-M1.** Denominator disease is now a HARD RULE (KNOWLEDGE_BASE #8 + RESEARCH_SOP: every edge in rupee points + %spot). purgedcv ADOPTED (0.8% agreement; bars_per_year units guard). Arjun +20 AP.
 - Hires E-026 Tanvi (Product — Execution-Sheet v2 shipped: 258 trades in decision blocks, 4 data catches) + E-027 Dr. Sameer Bhat (Overfit/Sensitivity — Gate-4 now requires his report). Team 27, skills 49.
