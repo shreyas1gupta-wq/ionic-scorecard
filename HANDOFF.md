@@ -30,8 +30,8 @@ pyarrow, pandas, numpy, requests, huggingface_hub, truststore, SmartApi (Angel O
 NIFTY 500/
 ├── RESUME_TOMORROW.md          ← Master index, read first each session
 ├── HANDOFF.md                  ← THIS FILE — complete reference for new sessions
-├── OPERATING_STANDARD_2026.md  ← Elite operating layer spec (8 systems)
-├── PORTFOLIO_OF_EDGES.md       ← Cross-market/cross-asset strategy layer
+├── other2/OPERATING_STANDARD_2026.md  ← Elite operating layer spec (8 systems) [moved off root 2026-07-05 reorg]
+├── other2/PORTFOLIO_OF_EDGES.md       ← Cross-market/cross-asset strategy layer [moved off root 2026-07-05 reorg]
 │
 ├── intraday_options_strategy/  ← TRACK 1: Intraday Nifty options (MATURE)
 │   ├── PLAN.md
@@ -616,7 +616,7 @@ Kaggle bhavcopy data (732 files, 4.0 GB) has the OI data needed to reconstruct g
 3. **Track 1 finish**: Fix LOT_SIZE 65 vs 75 in `config.py`. Validate live over more weekly expiries. 30-day Angel paper run (ONLY on IV-filter days).
 4. **Multi-strat proof**: Combine swing-equity + options-short-vol daily P&L to prove diversification benefit.
 5. **Track 3 H1 — DATA READY (2026-07-03):** OI surface built (`nifty_oi_surface.parquet`: 377K rows, Jun 2021→May 2026). Next: GEX calculation, zero-gamma flip event-study, max-pain reversion signals.
-6. **Build Risk OS** (from OPERATING_STANDARD_2026.md): vol-targeting, heat cap, correlation-regime monitor, layered DD circuit-breakers.
+6. **Build Risk OS** (from other2/OPERATING_STANDARD_2026.md): vol-targeting, heat cap, correlation-regime monitor, layered DD circuit-breakers.
 7. **NSE API items (need VPN/home network):** FII/DII flows, Nifty Total Market / MicroCap 250 constituents, re-fetch quarterly results for insurance/financial cos without `index=equities` filter.
 
 ---

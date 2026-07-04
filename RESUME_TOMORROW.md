@@ -5,7 +5,8 @@ Python: `C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\python.
 (`python` alias broken). Set `PYTHONIOENCODING=utf-8` (console is cp1252, no unicode in prints).
 Angel creds: user supplies via env vars (data-only account); rotate as hygiene.
 
-## ELITE OPERATING LAYER (build BEFORE scaling) → `OPERATING_STANDARD_2026.md`
+## ELITE OPERATING LAYER (build BEFORE scaling) → `other2/OPERATING_STANDARD_2026.md`
+(moved off root in the 2026-07-05 reorg — superseded in spirit by 00_GOVERNANCE/07_RISK_OFFICE but kept as source planning doc; see other2/MANIFEST.md)
 What separates top-2026 from "good": NOT more signals. 8 systems wrapping all tracks —
 S1 **Risk OS** (vol-targeting, heat cap, correlation-regime monitor, layered DD circuit-
 breakers, tail/VaR budget, stress replays) ← build FIRST; S2 Execution/TCA (close sim↔live
@@ -15,7 +16,8 @@ India flow data (FII/DII, participant-wise OI — see new H8); S6 tax/LRS net mo
 standing tail-hedge / crisis-alpha; S8 process/override discipline. Benchmarks: book net
 Sharpe ≥2 good / ≥3 world-class (capacity-limited = our moat), Calmar ≥1.5, MaxDD <25%.
 
-## CROSS-MARKET / CROSS-ASSET LAYER (above all tracks) → `PORTFOLIO_OF_EDGES.md`
+## CROSS-MARKET / CROSS-ASSET LAYER (above all tracks) → `other2/PORTFOLIO_OF_EDGES.md`
+(moved off root in the 2026-07-05 reorg; see other2/MANIFEST.md)
 Goal: stack uncorrelated edges on the SAME capital (≤₹10Cr) → ~√N Sharpe boost, lower
 DD. Trade Indian (Kite: stocks/F&O/MCX) + US stocks/ETFs/commodity-ETFs (INDmoney/LRS).
 **HONEST RULE: diversify by EDGE-TYPE (momentum vs short-vol vs commodity-trend vs
@@ -167,7 +169,7 @@ Known issues:
 **#2 Track 1 finish:** validate live 0DTE, fix LOT_SIZE 65 vs 75, 30-day Angel paper run.
 **#3 Multi-strat PROOF:** combine swing-equity + options-short-vol daily P&L.
 **#4 Track 3 (new alpha):** OI surface NOW READY → H1 dealer-gamma + max-pain signals.
-**Build order overall:** Risk OS + audit-as-default FIRST → then signals (OPERATING_STANDARD_2026.md).
+**Build order overall:** Risk OS + audit-as-default FIRST → then signals (other2/OPERATING_STANDARD_2026.md).
 
 ## ORIGINAL PLAN (the root spec — don't lose it)
 Track 1 = the original mandate: intraday Nifty 50 options strategy, ₹1Cr, Kelly×0.25, synthetic

@@ -2,6 +2,28 @@
 **As of: 2026-07-05 00:00 session close, by DESK-100 — the densest research day complete; all agents landed, all filed, backup #3 taken**
 **NEXT SESSION STARTS WITH:** (1) re-arm cadence crons (CLAUDE.md protocol #4); (2) first /weekly-meet Mon 07-07; (3) I-016 diversifier stress-corr deliverable (binding pre-IC); (4) BT-11 v1.5 spec (entry/exit-only + two-stage stops + circuit fills); (5) D-028 retro-audit workflow resume; (6) S-04/S-05 paper first entries (~Jul-14 cycle).
 
+## REPO STRUCTURE CHANGE (2026-07-05, Manoj/Ops) — read before assuming root layout
+Root decluttered per Principal order: `other2/` created at repo root, 6 items moved in (`.venv/`,
+`working/`, `working101/`, an orphaned `factor_navs (1).xlsx`, and the two pre-firm-structure
+planning docs `OPERATING_STANDARD_2026.md`/`PORTFOLIO_OF_EDGES.md` — full reasoning + rollback in
+`other2/MANIFEST.md`). Root item count 29 -> 24. Nothing cataloged moved; `logs/`,
+`stocks_data_cache.pkl`, `build_final_docs.py`, `intraday_options_strategy/` (still LIVE — do not
+touch) all deliberately kept at root, see manifest for evidence.
+**Root RENAME to `Shreyas_project_amc` is STAGED, NOT RUN.** `Shreyas_Ionic_AMC/99_OPS/{migrate_
+root_rename.ps1, RENAME_RUNBOOK.md, HARDCODED_PATH_MANIFEST.csv}` are ready but require the WHEN
+SAFE checklist (live process finished, cwd outside tree, OneDrive paused, fresh backup) before
+anyone passes `-Execute`. Until that runs, every path in every doc is still correct as-is — do
+NOT assume the folder has been renamed.
+
+## K-012 FF-CALENDAR RESURRECTION REVIEW — IN FLIGHT (launched 2026-07-05, DESK-100)
+Principal challenged the S-03 kill; premium-capped sizing flips forward P&L positive (+₹10/₹100 deployed,
+all years green incl. 2025) — evidence in `results/S-03/20260704_shuffle/SIZING_RECHECK.md`, brief delivered
+(`09_PRODUCT/reports/FF_CALENDAR_BRIEF_2026-07-05.docx`). Three independent reviews now running in parallel:
+1. **Sameer** — premium-cap (1×..5×/no-cap) & FF-threshold (0.15..0.35) sensitivity → PLATEAU or CLIFF
+2. **Nikhil** — placebo battery incl. MANDATORY turnover-matched + random-entry-same-sizing + vega-avoidance → EDGE-BEYOND-SIZING or SIZING-ARTIFACT
+3. **Tara** — thin-strike fill audit under circuit/volume rule (execution_realism.py) → FILLS-SURVIVE or FILL-FICTION
+All land in `results/S-03/20260705_resurrection/`. Then CIO synthesis → paper-eligibility ruling. Any FAIL = K-012 stays killed.
+
 ## IN FLIGHT AT WINDUP (harvest these FIRST next session)
 1. **Sameer — S-04 Gate-4 sensitivity**: background compute checkpoints to `results/S-04/20260704_sensitivity/` (grid CSV first, then SENSITIVITY_REPORT.md). If report absent: re-run sensitivity_S04.py there or re-summon Sameer (agent now registered).
 2. **Devika — Track-2 BT-11**: `results/T2-SIG11/20260704_bt11/` — bt11.py + **VERDICT.md landed at windup, UNREAD/UNFILED** — read, verify shuffle percentile honesty, file into pipeline/register.
