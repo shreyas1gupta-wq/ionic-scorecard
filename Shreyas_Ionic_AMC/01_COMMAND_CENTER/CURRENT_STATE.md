@@ -39,6 +39,9 @@
 **Home-network day (location-blocked, NOT skipped):** /factor-indices pull (script ready) · index factsheets/constituents · FII/DII flows · broader constituents · 217 quarterly symbols.
 **Awaiting Principal (only these):** LIVE-capital steps · RISK_LIMITS loosening · DhanHQ-paid data if the HF-hunt fails · tie-breaks under D-025.
 
+## NEW FLAGSHIP DATA TASK (from forensics, 2026-07-04): PIT UNION PANEL v1
+Build ONE survivorship-complete daily close panel 2005->today from: HF panel (deep, adjusted, survivors) + Master xlsx (13/14 adjusted; LT-2006 bad print) + Delisted xlsx + raw/nifty500 239 csvs + swing_momentum/processed/eq_close.parquet + screener-dump names. Owner: Kavya+Manoj. Then: re-run BT-11 early slices + replication early era on it. ~95% of missing early names are recoverable ON-DISK (bucket proof: taskA_bucket_counts.csv). Only ~3 names/rebalance + PIT free-float need external data.
+
 ## Blockers
 - Some NSE `/api` endpoints 403 on proxy (archives + board-meeting/event-calendar APIs DO work — see CLAUDE.md).
 - Angel rate limit AB1021: ≥1.2s/req; 23 daily-OHLCV stragglers pending cooldown.

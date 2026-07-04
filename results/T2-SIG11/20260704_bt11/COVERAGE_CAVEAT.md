@@ -5,3 +5,9 @@ IMPACT: BT-11's 2016-2018 slices select from a survivor-lean subset — a KNOWN 
 BEFORE any early-era BT-11 number is certified or quoted: re-run 2016-2018 slices on the combined Master+Delisted close panel
 (`_combined_master_delisted_close.parquet`, cached in the forensics dir). Post-2018 slices are sound as-is.
 — filed by main desk per Arjun's blast-radius call
+
+## UPGRADE (forensics round-2, same day)
+The bias direction is now known: OPTIMISTIC (survivor-holed panel omits later-losers). BT-11 pre-2018 slices are
+inflated, not just thin. DO NOT certify/quote early-era BT-11 numbers until re-run on the union panel
+(_combined_master_delisted_close.parquet). Candidate additional input: swing_momentum/processed/eq_close.parquet +
+membership.parquet (the survivorship-safe pair behind MULTIBAGGER_STUDY).
