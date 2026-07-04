@@ -23,3 +23,10 @@ Consumers must branch on schema or use EOD-only accessors. `angel_capture_2026/`
 ## Freshness rules
 - Count PERIODS-PER-YEAR (expiries, months, quarters), not just max(date) — the 17-month gap hid behind healthy max-dates.
 - Critical sets get a daily ping via 99_OPS/EOD_ROUTINE.md; stale > 2 sessions = flag in CURRENT_STATE.
+
+## HF daily panel: DEPTH rule (forensics 2026-07-04, results/factor_replication/20260704_data_forensics/)
+- **Adjustment: CLEAN.** HF panel (train-00000) split/bonus-adjusted 14/14 audited events 2006-2018; Master xlsx 13/14 (one bad print: LT 2006 ratio 1.951 — do not trust Master LT around 2006-10).
+- **Completeness: DEGRADES PRE-2018.** N200-members with full 252d history: 2006 57.6% -> 2010 71.9% -> 2014 79.7% -> 2018 83.5% (HF). The dump holds today's ~2,535 listed names with backfill; pre-dump delistings never appear (survivorship hole), plus old-ticker naming gaps.
+- **RULE: any RANKING/SELECTION backtest pre-2018 on the HF panel inherits shallow-universe bias** (selects from a survivor-lean subset). Prices are right; the cross-section is thin. Post-2018 (90%+) sound.
+- **Better early-era source (cached):** `results/factor_replication/20260704_data_forensics/_combined_master_delisted_close.parquet` — Master+Delisted union, 5,363 days x 1,204 names, close-only, adjusted. Use for early-era cross-sectional work; still misses ~70/200 of the 2006 index.
+- stocks_data_cache.pkl (root, Principal): yfinance 435 tickers 2020-06->2026-01 ADJUSTED + shares outstanding + TTM funda (378) + sectors — modern-era mcap weights & quality overlay; useless pre-2018.

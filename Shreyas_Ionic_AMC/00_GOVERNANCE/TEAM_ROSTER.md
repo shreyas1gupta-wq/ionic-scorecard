@@ -80,3 +80,4 @@ Quarterly bonus = AP × ₹1L (virtual). League table announced at review; top s
 | 2026-07-04 | Dr. Sameer Bhat (E-027) | FOUNDING BONUS (Principal-ordered hire) | +10 | Overfit/sensitivity specialist joins risk office |
 | 2026-07-04 | Tanvi Desai (E-026) | Product ship (ahead of target) + 4 data catches | +10 | Execution-Sheet v2; blank-PE-price/max_lots/macro-calendar gaps routed; anti-data-dump self-edit |
 | 2026-07-04 | Arjun Rao (E-004) | Artifact catch #3 (S-03) + S-04 certification + purgedcv adoption + honest self-correction (units trap) | +20 | The last original sleeve examined; denominator disease made a hard rule |
+| 2026-07-04 | Arjun Rao (E-004) | D-M4 exact replication (TE 6.9% modern era) + data forensics: REFUTED the adjustment hypothesis with evidence (14/14 clean), isolated depth-not-adjustment root cause, honest blast-radius call on BT-11 | +15 | Replication + forensics same day; two D-028 self-audits PASS |

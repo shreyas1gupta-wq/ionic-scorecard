@@ -1,0 +1,33 @@
+{
+  "built": "2026-07-04T19:59:13",
+  "panel": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\swing_momentum\\data\\hf_stock_minute\\day\\train-00000.parquet",
+  "panel_max_date": "2026-01-22",
+  "nav": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\datasets\\index_daily\\factor_navs_principal.parquet",
+  "n200_xlsx": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\NIFTY200_TICKER_2005_2025.xlsx",
+  "n100_xlsx": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Historical stock composition of Nifty 50 and Nifty Next 50.xlsx",
+  "momentum_rebalance": "semiannual (Jun/Dec last trading day)",
+  "lowvol_rebalance": "quarterly (Mar/Jun/Sep/Dec last trading day)",
+  "momentum_score": "z(6M vol-adj ret)+z(12M vol-adj ret) avg, cap +-3, tilt=1+z",
+  "lowvol_score": "inverse trailing-252d daily-ret vol, inverse-vol weights",
+  "variants": [
+    "mom_Aincl_ew",
+    "mom_Bexcl_ew",
+    "mom_Aincl_mcap",
+    "mom_Bexcl_mcap",
+    "lowvol_invvol_q"
+  ],
+  "deviations": [
+    "D1 full-mcap(liquidity) proxy not free-float",
+    "D2 5% cap on mcap variant only",
+    "D3 effective date = last trading day of review month",
+    "D4 panel ends 2026-01-22 vs NAV 2026-02-27",
+    "D5 no IWF/divisor maintenance",
+    "D6 (dominant) early-era price-history hole: only 63% of 2007 universe has full 252d history, rising to 94% by 2022 -- drives the entire 2005-17 error; data limit not method"
+  ],
+  "ticker_aliases_applied": 23,
+  "aliases_excluded_fabrication_risk": ["HDFC->HDFCBANK (pre-2023 separate entities)", "SRTRANSFIN/SHRIRAMCIT->SHRIRAMFIN (merger)", "MINDTREE/LTI->LTIM (merger)", "TATAMOTORS (genuinely absent from panel)"],
+  "best_variant_momentum": "mom_Aincl_mcap (2020+ corr 0.956 TE 6.92%; mom_Bexcl_mcap is a statistical tie -- recent-month convention indistinguishable from tracking data)",
+  "headline_full_period": {"mom_Aincl_mcap": {"corr": 0.730, "te": 0.1556}, "lowvol_invvol_q": {"corr": 0.855, "te": 0.0804}},
+  "headline_high_coverage_era": {"momentum_2020plus": {"corr": 0.956, "te": 0.069}, "lowvol_2016plus": {"corr": "0.92-0.98", "te": "0.024-0.063"}},
+  "lookahead_audit": "PASS-WITH-FLAGS (0 FAIL, 1 benign cross-sectional z-score WARN, manually cleared); T5 as-of membership + T7 next-bar entry verified"
+}
