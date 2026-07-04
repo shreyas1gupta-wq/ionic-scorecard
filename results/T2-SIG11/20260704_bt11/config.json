@@ -1,0 +1,56 @@
+{
+  "run_id": "20260704_bt11",
+  "strategy": "T2-SIG11 monthly-rebalance momentum portfolio",
+  "shipped": "v1 REBALANCE-ONLY exit (no trailing stop); shuffle=50 (100 too slow) -- see VERDICT.md",
+  "params": {
+    "start": "2016-01-01",
+    "end": "2026-01-22",
+    "notional_rupees": 1000000.0,
+    "top_ns": [
+      10,
+      20
+    ],
+    "pos_cap": 0.1,
+    "entry": "next-day-open (L5-clean)",
+    "exit": "next rebalance (rebalance-only, no trailing stop v1)",
+    "slippage_smallcap_bps_oneway": 35.0,
+    "cost_stack": "COST_STANDARDS equity-delivery (brokerage Rs20/order, STT 0.1% both sides, exch 0.00297%, GST 18%, SEBI Rs10/cr, stamp 0.015% buy) + slippage; 2x stress column",
+    "shuffles": 50,
+    "seed": 20260704,
+    "composite_score": "rs_pct + 0.25*minmaxnorm(mom_blend) + 5*breakout_vol_flag"
+  },
+  "data_snapshot": {
+    "panel_path": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\swing_momentum\\data\\hf_stock_minute\\day\\train-00000.parquet",
+    "panel_rows": 6954199,
+    "panel_symbols": 2535,
+    "panel_date_min": "2000-01-01",
+    "panel_date_max": "2026-01-22",
+    "data_max_date_guard": "2026-01-22",
+    "pit_xlsx": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\NIFTY500_TICKER_2005_2025_Final.xlsx",
+    "n_rebalances": 121,
+    "rebal_first": "2016-01-31",
+    "rebal_last": "2026-01-22"
+  },
+  "frozen_constants": {
+    "MA": [
+      50,
+      150,
+      200
+    ],
+    "RS_PCT_GATE": 70.0,
+    "RS_BLEND_W12": 0.6,
+    "PRICE_FLOOR": 20.0,
+    "MOM_12M": 252,
+    "MOM_6M": 126,
+    "MOM_SKIP": 21,
+    "BREAKOUT_VOL_MULT": 1.5
+  },
+  "guards_imported": [
+    "L1 fix_ist_dates",
+    "L3 pit_universe (available-date/forward-fill)",
+    "L4 safe_merge",
+    "L5 next-day-open entry",
+    "engine==sig11.compute_signals asserted"
+  ],
+  "landmines_note": "features built ONCE over full panel with right-closed rolling (PIT-safe by prefix equality); RS percentile recomputed per-month over that month's PIT set; engine equivalence to sig11.compute_signals ASSERTED on 4 sample dates before run."
+}
