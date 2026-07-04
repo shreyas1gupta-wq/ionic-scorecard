@@ -1,0 +1,110 @@
+{
+  "n_rebals_sampled": 20,
+  "n_checked": 20,
+  "n_violations": 0,
+  "violations": [],
+  "veto_counts_sample": [
+    {
+      "rebal": "2005-03-31",
+      "n_universe": 462,
+      "n_vetoed_by_mask": 9
+    },
+    {
+      "rebal": "2006-03-31",
+      "n_universe": 462,
+      "n_vetoed_by_mask": 11
+    },
+    {
+      "rebal": "2007-03-30",
+      "n_universe": 462,
+      "n_vetoed_by_mask": 8
+    },
+    {
+      "rebal": "2008-06-30",
+      "n_universe": 462,
+      "n_vetoed_by_mask": 2
+    },
+    {
+      "rebal": "2009-06-30",
+      "n_universe": 462,
+      "n_vetoed_by_mask": 3
+    },
+    {
+      "rebal": "2010-06-30",
+      "n_universe": 462,
+      "n_vetoed_by_mask": 2
+    },
+    {
+      "rebal": "2011-09-30",
+      "n_universe": 462,
+      "n_vetoed_by_mask": 0
+    },
+    {
+      "rebal": "2012-09-28",
+      "n_universe": 462,
+      "n_vetoed_by_mask": 0
+    },
+    {
+      "rebal": "2013-09-30",
+      "n_universe": 462,
+      "n_vetoed_by_mask": 0
+    },
+    {
+      "rebal": "2014-12-31",
+      "n_universe": 462,
+      "n_vetoed_by_mask": 0
+    },
+    {
+      "rebal": "2015-12-31",
+      "n_universe": 462,
+      "n_vetoed_by_mask": 0
+    },
+    {
+      "rebal": "2017-03-31",
+      "n_universe": 463,
+      "n_vetoed_by_mask": 0
+    },
+    {
+      "rebal": "2018-03-28",
+      "n_universe": 464,
+      "n_vetoed_by_mask": 0
+    },
+    {
+      "rebal": "2019-03-29",
+      "n_universe": 478,
+      "n_vetoed_by_mask": 0
+    },
+    {
+      "rebal": "2020-06-30",
+      "n_universe": 481,
+      "n_vetoed_by_mask": 0
+    },
+    {
+      "rebal": "2021-06-30",
+      "n_universe": 488,
+      "n_vetoed_by_mask": 0
+    },
+    {
+      "rebal": "2022-06-30",
+      "n_universe": 490,
+      "n_vetoed_by_mask": 0
+    },
+    {
+      "rebal": "2023-09-29",
+      "n_universe": 489,
+      "n_vetoed_by_mask": 0
+    },
+    {
+      "rebal": "2024-09-30",
+      "n_universe": 490,
+      "n_vetoed_by_mask": 0
+    },
+    {
+      "rebal": "2025-12-31",
+      "n_universe": 500,
+      "n_vetoed_by_mask": 0
+    }
+  ],
+  "mean_vetoed_per_rebal": 1.75,
+  "verdict": "CLEAN"
+}

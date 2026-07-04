@@ -1,0 +1,104 @@
+{
+  "verdict": "PASS-WITH-FLAGS",
+  "programmatic_findings": [
+    {
+      "check": "code_scan",
+      "severity": "WARN",
+      "detail": "run_i016_cadence.py:97: log(f\"[panel] price {price.shape} return {ret_close.shape} vol-cov {vol.notna().any().mean -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+    },
+    {
+      "check": "code_scan",
+      "severity": "WARN",
+      "detail": "run_i016_cadence.py:98: f\"| frozen cells {int(frz_wide.values.sum())} ({frz_wide.values.mean():.3%}) syms={int((fr -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+    },
+    {
+      "check": "code_scan",
+      "severity": "WARN",
+      "detail": "run_i016_cadence.py:116: frozen_frac = fwin.mean() -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+    },
+    {
+      "check": "code_scan",
+      "severity": "WARN",
+      "detail": "run_i016_cadence.py:157: s = s.astype(float); m = s.mean(); sd = s.std(ddof=0) -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+    },
+    {
+      "check": "code_scan",
+      "severity": "WARN",
+      "detail": "run_i016_cadence.py:178: sd = s.std(ddof=0); return (s - s.mean()) / (sd + 1e-12) if sd > 0 else s * 0.0 -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+    },
+    {
+      "check": "code_scan",
+      "severity": "WARN",
+      "detail": "run_i016_cadence.py:299: \"turnover\": turn, \"ann_turnover\": turn.mean() * rebals_per_year, -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+    },
+    {
+      "check": "code_scan",
+      "severity": "WARN",
+      "detail": "replicate_factor_indices.py:236: return (s - s.mean()) / (s.std(ddof=0) + 1e-12) -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+    },
+    {
+      "check": "T5_universe",
+      "severity": "WARN",
+      "detail": "1597 panel symbols never in any PIT snapshot (sample: ['20MICRONS', '21STCENMGM', '3IINFOLTD', '3PLAND', '5PAISA'])"
+    }
+  ],
+  "manual_T1_T10": [
+    {
+      "id": "T1_pit",
+      "verdict": "PASS",
+      "detail": "No event-dated fundamental data used by LowVol (pure price/vol signal). MQ sibling uses quality_pit.parquet with avail_date T+90 fence -- not in scope for THIS variant (LowVol50 quarterly) but same panel; verified in Devika's D-028 self-audit."
+    },
+    {
+      "id": "T2_tz",
+      "verdict": "PASS",
+      "detail": "load_all() routes HF volume through guards.fix_ist_dates before use (run_i016_cadence.py line ~82). Price/return panels are already-dated parquet (no raw intraday timestamps to convert)."
+    },
+    {
+      "id": "T3_same_bar",
+      "verdict": "PASS",
+      "detail": "build_index(): scores computed at asof<=rb using price.loc[:asof] (inclusive of rb's own close, which IS knowable at rb's close). Weights applied to the FIRST trading day AFTER rb (seg_start = tdays[tdays>rb][0]) -- no same-bar fill. Matches the 'T3 same-bar' entry noted PASS in VERDICT.md D-028 self-audit."
+    },
+    {
+      "id": "T4_session",
+      "verdict": "PASS (inherited)",
+      "detail": "Daily-bar price/return panels, no pre-open auction prints in a daily-close series; the landmine only bites 1-min data (used only for VOLUME here, and only the day-level aggregate matters for the slippage multiplier, not entry price)."
+    },
+    {
+      "id": "T5_universe",
+      "verdict": "PASS",
+      "detail": "R.members_asof(n500, rb) resolves the most-recent of 42 PIT snapshots on/before rb every rebalance -- confirmed programmatically above (42 snapshots present, not a static list)."
+    },
+    {
+      "id": "T6_vol_zscore",
+      "verdict": "NEEDS-CHECK -- see programmatic result below",
+      "detail": "lowvol_scores_masked(): vol = logr.std(ddof=0) computed on win = hist[cols].tail(253) where hist = price.loc[:asof]. This is a TRAILING window ending at asof, not a full-sample stat -- correct construction. The 40%-frozen veto (frozen_frac) is also computed on the same trailing window only."
+    },
+    {
+      "id": "T7_label_overlap",
+      "verdict": "PASS",
+      "detail": "No forward-return column joined into the feature frame; vol score uses only trailing log-returns strictly before/at asof. code_scan below checks for stray .shift(-n)."
+    },
+    {
+      "id": "T8_settlement",
+      "verdict": "N/A",
+      "detail": "Equity long-only sleeve, no options/futures settlement marks."
+    },
+    {
+      "id": "T9_oos",
+      "verdict": "PASS (per Devika's VERDICT.md)",
+      "detail": "Full-period backtest, not a walk-forward-tuned family; the STRATEGY family trial count (6 factor-family + 2 cadence + 3 dynamic-basket = 11) is tracked honestly in the idea file and DSR/PBO below adds this grid's cells on top."
+    },
+    {
+      "id": "T10_backfill",
+      "verdict": "WARN",
+      "detail": "config.json records DATA_MAX=2026-01-22 and panel paths but NOT row-counts/md5 of the source parquets at build time -- if the union/return panels are silently regenerated upstream (D-029 style corrections happen in this firm, e.g. the stale_mask itself was a same-day retrofit), a re-run of this exact script could produce a silently different NAV. Recommend: snapshot row-count+max-date hash into config.json on every Gate-4-bound run (per LOOKAHEAD_CONTROLS.md standing rule)."
+    }
+  ],
+  "one_day_lag_test": {
+    "base": 15.623609974502184,
+    "lagged": 15.315927000405448,
+    "collapse_ratio": 0.02,
+    "verdict": "PASS \u2014 graceful decay"
+  },
+  "built": "2026-07-04T23:12:28.623540"
+}

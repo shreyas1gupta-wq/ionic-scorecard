@@ -1,0 +1,28 @@
+{
+  "median_cagr_2x": 14.78,
+  "best_cagr_2x": 16.35,
+  "best_cell": {
+    "N": 40,
+    "lookback": 252,
+    "weight": "equal",
+    "month_offset": "0",
+    "cagr_1x": 17.36,
+    "cagr_2x": 16.35,
+    "maxdd_2x": -43.4,
+    "ann_turnover_pct": 119.9
+  },
+  "plateau_ratio_best_vs_median": 0.1059,
+  "plateau_pass_le_20pct": true,
+  "cert_config_cell": [
+    {
+      "N": 50,
+      "lookback": 252,
+      "weight": "invvol",
+      "month_offset": "0",
+      "cagr_1x": 16.5,
+      "cagr_2x": 15.51,
+      "maxdd_2x": -44.1,
+      "ann_turnover_pct": 116.2
+    }
+  ]
+}

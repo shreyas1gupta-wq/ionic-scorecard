@@ -1,0 +1,28 @@
+{
+  "n_obs_quarterly": 83,
+  "honest_family_trials": 47,
+  "trial_breakdown": {
+    "factor_family_6": 6,
+    "cadence_test_2": 2,
+    "dynamic_basket_3": 3,
+    "this_sensitivity_grid_36": 36
+  },
+  "dsr": {
+    "value": 0.9995371631218279,
+    "sr_star": 0.0712430519897209,
+    "n_obs": 83,
+    "bars_per_year": 4,
+    "var_sharpe_annual_input": 0.004001455745766395
+  },
+  "pbo": {
+    "value": 0.19821289821289823,
+    "n_splits": 16,
+    "n_combos": 12870,
+    "n_configs": 36,
+    "n_obs": 83
+  },
+  "gates": {
+    "DSR_pass_gt_0.95": true,
+    "PBO_pass_lt_0.25": true
+  }
+}
