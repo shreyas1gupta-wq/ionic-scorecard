@@ -38,6 +38,17 @@ Consumers must branch on schema or use EOD-only accessors. `angel_capture_2026/`
 - Earlier same-day hypothesis (HF=dividend-adjusted) was WRONG — inverted by ground truth. Lesson: cross-source disagreement identifies A mismatch, only ground truth identifies WHICH source.
 - Replication (HF, price basis) vs official price indices = consistent; dividend-inflation explanation for residual TE RETIRED. BT-11 on HF: price-basis backtest understates total return if dividends ignored — note, not a defect.
 - **CANONICAL PANELS (datasets/derived/pit_union_panel_v1/): `close_panel_price.parquet` (2,511 sym) for replication/level work · `close_panel_return.parquet` (2,556 sym, ratio-spliced) for backtests.** symbol_aliases.csv = standing alias table. QUARANTINED segments (9, e.g. HINDZINC 57x internal jump in Master) in quarantined_segments_*.csv — never un-quarantine without a bhavcopy check. 159 index/ETF symbols excluded from HF "stock" space.
+- **v1.1 UPGRADE (2026-07-04, Manoj — bhavcopy 2014+ recovery, BUILD_REPORT.md v1.1 section):
+  `close_panel_price_v11.parquet` (2,522 sym) / `close_panel_return_v11.parquet` (2,566 sym)** —
+  v1 + 127-name bhavcopy recovery, achievable N500 coverage 97-100% at every Mar snapshot
+  2014-2025 (IPO-age names excluded from denominator with a named reason each). v1's original
+  files are UNCHANGED (md5-verified, frozen-consumer-safe) — `_v11` is opt-in, nothing
+  auto-upgrades. New permanent asset: `datasets/nse_bhavcopy_daily/close_all.parquet` (5.57M
+  rows, 3,716 symbols, 2013-2026 official NSE EQ bhavcopy) — use this for ANY future "is symbol X
+  in our data" question instead of re-pulling. 3 named residual gaps only: SREINFRA (quarantined
+  — real 2021-22 NCLT restructuring discontinuity, not a data error), IISL (likely NSE's own
+  unlisted index subsidiary, not a tradeable equity), UNKNOWN (membership-xlsx data-entry
+  artifact, carried over from v1).
 - **N200/N500 PIT snapshots are Mar/Sep** (not Jun/Dec) — membership as-of logic must use Mar/Sep dates.
 
 ## Panel defects found by D-029 benchmark build (2026-07-04, Ishaan — Kavya to own fixes)
