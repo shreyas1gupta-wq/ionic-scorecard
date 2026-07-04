@@ -1,0 +1,28 @@
+==============================================================================
+D-029 wave 2: N500 DYNAMIC mom-lowvol regime basket, monthly, kills pre-registered
+==============================================================================
+[panel] price (6491, 2511) return (6674, 2556) vol-cov 94.6%
+[members] N500 snapshots=42 (2005-03-01->2025-09-01)
+[stale_mask] 61,906 rows (0.90%) flagged frozen, 212 symbols, threshold=20d, built in 2.4s
+[regime] VIX raw 2016-01-04->2026-07-03 n=2591
+Traceback (most recent call last):
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\results\factor_replication\20260704_dynamic_basket\build_dynamic_basket.py", line 576, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\results\factor_replication\20260704_dynamic_basket\build_dynamic_basket.py", line 409, in main
+    regime = build_regime_series(price, n500, stale_mask)
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\results\factor_replication\20260704_dynamic_basket\build_dynamic_basket.py", line 171, in build_regime_series
+    px_clean = px.mask(frozen_aligned)  # frozen cells -> NaN, excluded from that day's cross-section
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\generic.py", line 10491, in mask
+    return self._where(
+           ~~~~~~~~~~~^
+        ~cond,
+        ^^^^^^
+    ...<3 lines>...
+        level=level,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\generic.py", line 10033, in _where
+    raise TypeError(msg.format(dtype=block.dtype))
+TypeError: Boolean array expected for the condition, not int64

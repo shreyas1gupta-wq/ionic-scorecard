@@ -1,0 +1,113 @@
+{
+  "order": "D-029 wave 2: N500 enhanced mom-lowvol dynamic-regime basket, monthly rebalanced",
+  "owner": "Ishaan Gupta (ML desk, E-012)",
+  "pre_registered_at": "2026-07-04T00:00:00",
+  "status": "PRE-REGISTERED-BEFORE-RUN",
+
+  "design": {
+    "universe": "NIFTY500 PIT (NIFTY500_TICKER_2005_2025_Final.xlsx, Mar/Sep as-of snapshots, most-recent-on-or-before rule, no future look)",
+    "rebalance": "MONTHLY (last trading day of month), fills applied from NEXT trading day (no same-bar sin, L5)",
+    "engine_reused": "results/factor_replication/20260704_factor_family/build_factor_family.py machinery (R.momentum_scores B_excl, R.lowvol_scores, build_index_monthly cost/turnover pattern) -- imported, not reinvented",
+    "panels": {
+      "price_construction": "results/factor_replication/20260704_union_rerun/close_panel_price.parquet (frozen)",
+      "return_strategy_pnl": "results/factor_replication/20260704_factor_family/close_panel_return.parquet (frozen, survivorship-complete)",
+      "volume": "swing_momentum/data/hf_stock_minute/day/train-00000.parquet (HF, L1 tz-fixed)"
+    },
+    "stale_mask": "own build, run-length >=20 identical consecutive closes flagged and excluded from selection pool at rebalance date (same threshold as D-029 random-basket suite, datasets/derived/benchmarks_random/build_stale_mask.py logic, independently rebuilt on this panel)",
+    "iv_sanity": "N/A (no options/derived IV inputs in this equity basket)",
+
+    "scores": {
+      "momentum_z": "z-score (cross-sectional, cap +-3) of R.momentum_scores B_excl composite (6M+12M vol-adj, excl most recent month) on N500 universe as-of rebalance date",
+      "lowvol_z": "z-score (cross-sectional, cap +-3) of inverse trailing-252d daily-return vol (R.lowvol_scores) on same universe/date",
+      "blended_score": "regime_weight_mom * momentum_z + regime_weight_lowvol * lowvol_z, computed only on names with BOTH scores available"
+    },
+
+    "regime_signal": {
+      "definition": "RISK-ON if regime_series(t-1 month-end, i.e. as-of the rebalance date using only trailing data) <= its own TRAILING 252-trading-day (1y) median; RISK-OFF if above. Median recomputed at each rebalance using only data up to and including that rebalance date (expanding-trail, no lookahead) -- T6 audit point.",
+      "primary_series": "datasets/index_daily/india_vix.parquet close, 2016-01-04 onwards",
+      "pre_2016_proxy": "N500-universe equal-weight daily return panel, trailing 63-trading-day realized annualized vol (stated splice, NOT india_vix -- loud in report). Splice date: first rebalance >= 2016-01-04 switches to real VIX; all rebalances before that date use the realized-vol proxy exclusively. No blending/smoothing across the splice.",
+      "trailing_median_window": "252 trading days (1y), expanding until 252 obs available then rolling"
+    },
+
+    "regime_weights": {
+      "RISK_ON": {"momentum": 0.70, "lowvol": 0.30},
+      "RISK_OFF": {"momentum": 0.30, "lowvol": 0.70}
+    },
+
+    "portfolio_construction": {
+      "top_n": 50,
+      "weight_scheme": "blended-score tilt: clip(blended_score, lower=0), normalize to sum 1, cap 5% per name, renormalize (single pass, matches existing engine 'score'/'mcap' cap pattern)",
+      "weight_cap": 0.05
+    },
+
+    "controls_same_machinery": [
+      {"tag": "control_pure_momentum_50", "desc": "N500 top-50 by momentum_z only, monthly, score-tilt weights capped 5%, identical costs"},
+      {"tag": "control_pure_lowvol_50", "desc": "N500 top-50 by lowvol inverse-vol score only, monthly, invvol weights capped 5%, identical costs"}
+    ],
+
+    "costs": "COST_STANDARDS (APPROVED D-021) + execution_realism dynamic slippage/circuit -- IDENTICAL cost function to build_factor_family.py (STT 10bps, exch 0.297bps, stamp 1.5bps buy, SEBI 0.01bps, GST 18% on exch+SEBI, N500-blend slippage tier 22bps one-way x volume-conditional multiplier). Frictionless / 1x-cost / 2x-cost NAVs produced for dynamic + both controls.",
+
+    "free_parameters_count_P11": [
+      "1. top_n = 50 (fixed by design brief, matches D-029 N500-50 benchmark spec)",
+      "2. weight_cap = 5% (fixed, reused from factor family convention)",
+      "3. regime trailing window = 252d / 1y (fixed by design brief)",
+      "4. RISK-ON blend = 70/30 mom/lowvol (fixed by design brief, not tuned)",
+      "5. RISK-OFF blend = 30/70 mom/lowvol (fixed by design brief, not tuned)"
+    ],
+    "free_parameters_note": "5 of 5 per P-11 ceiling. Turnover-banded contingency variant (>5 rank-position filter) is a STRUCTURAL pre-registered fallback triggered by a measured condition (turnover >250%/yr), not a tuned/searched parameter -- does not count as an additional free parameter search, but is disclosed as an additional configuration if triggered.",
+
+    "family_trials_counter": "This wave = 1 dynamic regime basket + 2 static-parent controls = 3 trials, ON TOP of the 6 factor-family trials + 8 random-basket specs already run under D-029. Running family trial total to date: 6 (factor family) + 3 (this wave) = 9 (random-basket suite is a benchmark construction, not a strategy trial, and is excluded from the strategy trial count per Arjun's original framing)."
+  },
+
+  "self_audit_finding_live_during_run": {
+    "bug": "First run of build_regime_series() built the pre-2016 realized-vol proxy from raw N500-ever equal-weight daily returns WITHOUT excluding stale/frozen-print names. VAIBHAVGBL (a documented D-029-class frozen-price artifact) printed a +400% single-day move on 2005-07-28 followed by +80% on 2005-07-29, which alone dragged the N500 equal-weight cross-sectional daily return to +66.7% and +13.9% those two days. This poisoned the trailing-63d realized-vol proxy to a fake ~135 'VIX-like' reading for Jul-Sep 2005, and the poisoned observations then persisted inside the trailing-252d regime median for roughly 18 months (through 2006-12), flipping several months' RISK_ON/RISK_OFF labels that would otherwise have read RISK_ON on clean data.",
+    "fix": "build_regime_series() now (a) masks stale/frozen (symbol,date) cells (this run's own stale_mask, >=20 consecutive identical closes) out of the equal-weight cross-section before averaging, and (b) applies a belt-and-braces sanity cap of +-20%/day on the resulting equal-weight N500 proxy return series (own Lessons-Learned rule: sanity-cap all derived inputs before they enter ANY feature or signal, extended here from the IV-solver precedent to an equity-return-derived regime proxy).",
+    "caught_before_counted": true,
+    "materiality": "Affects ONLY the pre-2016 (2005-2015) portion of the regime timeline (post-2016 uses real india_vix, unaffected). Re-run performed with the fix in place before any kill verdict was finalized."
+  },
+
+  "pre_registered_kills": {
+    "K1": {
+      "desc": "Dynamic net-1x CAGR must beat the D-029 random-N500-50 benchmark MEAN (12.7426% CAGR, quarterly-rebalanced random-basket construction, datasets/derived/benchmarks_random/summary.csv) by >= +1.0pp/yr.",
+      "threshold": "dynamic_net1x_cagr >= 0.137426",
+      "benchmark_source": "datasets/derived/benchmarks_random/summary.csv row n500_50, cagr_mean=0.1274257268180001",
+      "caveat_disclosed": "benchmark is QUARTERLY rebalanced random draw; our basket is MONTHLY -- comparing net-of-cost CAGR levels only (both bear their own realistic cost stack for their own cadence), not claiming cadence-matched apples-to-apples. Stated loudly in verdict."
+    },
+    "K2": {
+      "desc": "Dynamic net-1x CAGR must beat BOTH static-parent controls (pure momentum-50 net-1x AND pure lowvol-50 net-1x, same machinery/costs/universe/cadence). If the blend loses to either static parent, the regime layer added noise, not value.",
+      "threshold": "dynamic_net1x_cagr > control_momentum_net1x_cagr AND dynamic_net1x_cagr > control_lowvol_net1x_cagr"
+    },
+    "K3": {
+      "desc": "Dynamic net-2x CAGR must stay positive AND still beat the random-N500-50 mean at the 2x-cost promotion-stress level (RESEARCH_SOP gate 7).",
+      "threshold": "dynamic_net2x_cagr > 0 AND dynamic_net2x_cagr >= 0.1274257268180001"
+    },
+    "K4": {
+      "desc": "Dynamic maxDD (net-1x) must beat (be less severe than) pure-momentum control's maxDD (net-1x), same machinery.",
+      "threshold": "abs(dynamic_maxdd_net1x) < abs(control_momentum_maxdd_net1x)"
+    },
+    "verdict_rule": "ANY single K1-K4 miss -> KILLED (send to KILLED_IDEAS with resurrection conditions). ALL FOUR must pass -> SURVIVES-TO-GATE-4 (still requires Sameer's sensitivity/DSR/PBO battery and Red Team before Gate-4 certification; this run is the pre-registered kill screen, not the full validation battery)."
+  },
+
+  "turnover_trap_protocol": {
+    "measure_first": "Compute dynamic basket's annualized one-way turnover BEFORE any turnover-banded variant is built.",
+    "threshold_for_contingency": "If dynamic basket ann. turnover > 250%/yr, ALSO build turnover-banded variant: only trade (add/drop) names whose rank in the blended-score ordering moved by more than 5 positions since the prior month's top-50 ranking (persistent near-boundary names held even if marginally outside top-50, subject to a hard floor of remaining in, say, top-60 -- exact boundary rule specified in code comments at build time since it is a structural rank-band, not a tuned threshold).",
+    "reporting": "BOTH variants (unbanded + banded, if triggered) reported side by side in the verdict; K1-K4 evaluated primarily on the UNBANDED dynamic basket (the pre-registered primary spec) with the banded variant reported as supplementary evidence, not a second bite at the kill criteria."
+  },
+
+  "lookahead_self_audit_D028": {
+    "T3_same_bar": "Selection uses data up to and including rebalance date; weights apply from NEXT trading day (build_index_monthly pattern, verified pattern reused unchanged from factor_family/momentm30_exact engine).",
+    "T5_pit_universe": "N500 membership via 42 as-of snapshots (NIFTY500_TICKER_2005_2025_Final.xlsx), never a single static list.",
+    "T6_regime_median_TRAILING_ONLY": "EXPLICIT CHECK REQUIRED: the 252d median threshold at rebalance date t must be computed using ONLY regime-series observations with date <= t (expanding/rolling trailing window). Must NOT use a full-sample or centered median. Verified in code via an assertion that the median calculation slices the regime series with .loc[:t] before taking .median(), and via a runtime check that the median value at each rebalance changes only using past data (spot-checked against a shuffled-future placebo).",
+    "leakage_placebos_planned": ["shuffle regime labels across time (destroys any real regime timing value, dynamic should collapse toward a random mix of its 70/30 and 30/70 parents)", "lag regime signal by +1 extra month (should not IMPROVE results if regime timing were genuine)"]
+  },
+
+  "outputs_planned": [
+    "config.json (this file)",
+    "nav_dynamic.csv, nav_control_momentum.csv, nav_control_lowvol.csv (date, nav_frictionless, nav_cost_loaded/1x, nav_cost_2x)",
+    "regime_timeline.csv (rebalance date, regime_series value, trailing_median, RISK_ON/RISK_OFF flag, weights used)",
+    "turnover_dynamic.csv, turnover_control_momentum.csv, turnover_control_lowvol.csv",
+    "kill_verdict_table.csv (K1-K4, computed vs threshold, PASS/FAIL)",
+    "run.log (background detached run, checkpointed)",
+    "[optional, only if turnover trigger fires] nav_dynamic_turnoverbanded.csv"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "built": "2026-07-04T22:53:22",
+  "engine": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\results\\factor_replication\\20260704_momentm30_exact (imported UNCHANGED)",
+  "price_panel": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\results\\factor_replication\\20260704_union_rerun\\close_panel_price.parquet",
+  "return_panel": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\results\\factor_replication\\20260704_factor_family\\close_panel_return.parquet",
+  "stale_mask": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\datasets\\derived\\benchmarks_random\\stale_mask.parquet (212 frozen syms, 0.9% rows; selection veto + P&L zero)",
+  "bars": {
+    "hurdle_net_TR": 12.74,
+    "hurdle_gross_TR": 16.06,
+    "bench_mean_1x": 12.74,
+    "bench_p75_net_ondisk": 19.92,
+    "bench_p75_fric_est": 23.23,
+    "NOTE": "on-disk benchmark percentile paths are NET; frictionless p75 not on disk -> estimated as net_p75 + N500-50 cost_drag (3.31pp). Flagged approximation."
+  },
+  "data_max": "2026-01-22"
+}
