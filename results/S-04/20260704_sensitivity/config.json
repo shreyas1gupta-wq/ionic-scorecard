@@ -1,0 +1,83 @@
+{
+  "run": "20260704_sensitivity",
+  "owner": "Dr. Sameer Bhat (E-027)",
+  "center_reproduction": {
+    "expected_edge_pct": 0.2241,
+    "got_edge_pct": 0.2294941157089334,
+    "expected_n": 5031,
+    "got_n": 5084,
+    "exact": false
+  },
+  "plateau": {
+    "center_cfg": "dte14_otm5_pt50",
+    "center_edge_pct": 0.2294941157089334,
+    "center_n": 5084,
+    "neighbor_median_pct": 0.23058121048272226,
+    "neighbor_min_pct": 0.12685758655173818,
+    "neighbor_max_pct": 0.3265817747977536,
+    "center_vs_median_ratio": 0.9952854147503476,
+    "cells_negative": 0,
+    "best_cfg": "dte16_otm4_pt40",
+    "best_edge_pct": 0.3265817747977536,
+    "best_vs_neighborhood_median": 1.4163416616386648,
+    "worst_cfg": "dte12_otm4_pt60",
+    "worst_edge_pct": 0.12685758655173818
+  },
+  "bootstrap_CI95_center_pct": [
+    0.1698,
+    0.2873
+  ],
+  "stale_print_exposure": {
+    "early_exits_n": 4037,
+    "stale0d_frac": 0.990339360911568,
+    "stale_gt2d_frac": 0.002229378251176616,
+    "stale_gt5d_frac": 0.00024770869457517957,
+    "stale_max_days": 8
+  },
+  "decay": {
+    "yearly_edge_pct": {
+      "2021": 0.7141,
+      "2022": 0.4729,
+      "2023": 0.4386,
+      "2024": 0.1619,
+      "2025": 0.0805,
+      "2026": 0.3623
+    },
+    "build_edge_pct": 0.3062236106148914,
+    "build_n": 1899,
+    "fwd_edge_pct": 0.1837455094839996,
+    "fwd_n": 3185,
+    "build_midpoint": "2023-11-22",
+    "fwd_midpoint": "2025-10-25",
+    "slope_buildfwd_pct_per_yr": -0.06363460375257216,
+    "zero_cross_buildfwd": "2028-09-14",
+    "slope_yearly_all_pct_per_yr": -0.09179343399670066,
+    "zero_cross_yearly_all": 2027.5,
+    "slope_yearly_ex2026_pct_per_yr": -0.15780664849633297,
+    "zero_cross_yearly_ex2026": 2025.4
+  },
+  "trials_added_to_family_ledger": 33,
+  "grid_dims": {
+    "dte": [
+      12,
+      14,
+      16
+    ],
+    "otm": [
+      0.04,
+      0.05,
+      0.06
+    ],
+    "pt": [
+      0.4,
+      0.5,
+      0.6
+    ],
+    "stops_tested": [
+      1.5,
+      2.0,
+      2.5
+    ],
+    "note": "certified config has NO stop-loss; stop dim is additive"
+  }
+}

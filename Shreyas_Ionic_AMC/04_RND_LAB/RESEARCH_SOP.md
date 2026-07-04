@@ -15,6 +15,9 @@ Every kill at any step → KILLED_IDEAS + resurrection condition (D-012). Count 
 ## Hypothesis one-pager template
 name · one-line edge · **economic WHY** (who loses money to us and why do they keep doing it — forced / behavioral / structural?) · factor sleeve · universe · holding period · expected decay horizon · capacity estimate · data needed (on disk? Y/N per catalog) · cheap-test design · **pre-registered kill criteria** · trials run so far on this family.
 
+## Benchmark law (D-029, Principal, 2026-07-04)
+Every equity strategy is judged against its CAP-MATCHED RANDOM BENCHMARK (`datasets/derived/benchmarks_random/`): the mean + percentile-band NAV of 10,000 cost-loaded random baskets (same universe segment, comparable position count, quarterly rebalanced, full COST_STANDARDS + dynamic slippage/circuit rules). Beating an index is NOT enough; beating random-with-costs is the bar. Report: strategy CAGR vs random mean AND vs random 95th percentile.
+
 ## Statistical validation battery (gate 4-5; Quant signs)
 - **Walk-forward:** train 3y → validate 1y → roll 6m. Params frozen per window. Grid ≤ 3×3. Most recent 12m = FINAL untouched OOS, opened exactly ONCE per family.
 - **Plateau rule:** best cell must not beat its parameter-neighborhood median by >20% (spike ≠ edge).
