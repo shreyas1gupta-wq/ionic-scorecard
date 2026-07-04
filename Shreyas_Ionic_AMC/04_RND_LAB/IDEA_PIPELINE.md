@@ -26,3 +26,4 @@ Replication candidates (from scout_papers_agents.md §A, 2026-07-04 — /prior-a
 - Expiry-day return tilt (Gavhale 2025) — WEEKEND; daily closes only; doubles as harness calibration.
 - India VRP overnight/intraday decomposition — WEEK; explains our overnight-drift SELL edge; jump-vs-continuous split.
 - NSE PEAD null (2021) as the null-to-beat for our PEAD intake idea.
+| I-016 | N500 LowVol 50 quarterly sleeve (+ conditional MQ50 semiannual) | Devika | INTAKE->CHEAP-TEST DONE (monthly variant, factor family) | Quarterly re-run vs D-029 random benchmarks, then Gate-4 | 2026-07-04 | ideas/20260704_n500_lowvol50_sleeve.md |

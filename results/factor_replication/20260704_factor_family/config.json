@@ -1,0 +1,19 @@
+{
+  "built": "2026-07-04T22:35:38",
+  "price_panel": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\results\\factor_replication\\20260704_union_rerun\\close_panel_price.parquet (frozen, md5 cc5f70d1...)",
+  "return_panel": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\results\\factor_replication\\20260704_factor_family\\close_panel_return.parquet (frozen, md5 9f5b5d42...)",
+  "quality": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\results\\factor_replication\\20260704_factor_family\\quality_pit.parquet (pkl funda primary, screener xlsx cross-check; RESTATED T+90)",
+  "rebalance": "MONTHLY (Principal spec); NSE official = semiannual(MQ)/quarterly(lowvol) -> stated TE source",
+  "costs": "COST_STANDARDS APPROVED + execution_realism vol-mult; turnover-based; 2x promotion stress",
+  "engine": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\results\\factor_replication\\20260704_momentm30_exact (imported UNCHANGED)",
+  "basis": "PRICE panel for construction+official corr/TE; RETURN panel for cost-loaded strategy NAV",
+  "asof": "2026-01-22",
+  "specs": [
+    "1_smallcap_MQ100",
+    "2_smallcap_MQ25",
+    "3_n500_MQ50",
+    "4_n500_lowvol50",
+    "5_smallcap_lowvol25",
+    "6_midsmall_MQ30"
+  ]
+}

@@ -1,0 +1,42 @@
+======================================================================
+QUALITY PIT CACHE — screener_dump_20260704 (RESTATED, T+90 fence)
+======================================================================
+[scan] 486 symbols with PnL or FALLBACK
+  ...50/486
+  ...100/486
+  ...150/486
+  ...200/486
+  ...250/486
+  ...300/486
+  ...350/486
+  ...400/486
+  ...450/486
+[quality] rows=2850 symbols=268 fy 2008-03-31->2025-03-31
+[quality] non-null: roe=51.6% de=51.6% eps=99.0% roce=51.5%
+[xcheck] stocks_data_cache.pkl type=dict len=7
+[xcheck] sample keys: ['price', 'funda', 'dma', 'dma50', 'shares']
+[xcheck] entry type=DataFrame; attrs/keys sample=Ticker           HAL.NS               ...  SKFINDIA.NS        
+Price              Open         High  ...        Close  V
+
+[coverage by fiscal year]
+ fy_end   n  roe_cov   de_cov
+   2008   1 1.000000 1.000000
+   2009   5 0.400000 0.400000
+   2010   4 0.250000 0.250000
+   2011   4 0.500000 0.500000
+   2012   4 0.500000 0.500000
+   2013   6 0.500000 0.500000
+   2014 183 0.513661 0.513661
+   2015 206 0.500000 0.500000
+   2016 210 0.509524 0.509524
+   2017 218 0.527523 0.527523
+   2018 232 0.521552 0.521552
+   2019 243 0.514403 0.514403
+   2020 248 0.508065 0.508065
+   2021 252 0.511905 0.511905
+   2022 254 0.523622 0.523622
+   2023 258 0.523256 0.523256
+   2024 262 0.522901 0.522901
+   2025 260 0.523077 0.523077
+
+[done] quality_pit.parquet written to c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\results\factor_replication\20260704_factor_family
