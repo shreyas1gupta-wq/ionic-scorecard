@@ -4,7 +4,7 @@
 ```
 PRINCIPAL (Shreyas) — owner, board chair, LIVE gate, approvals (D-series)
 └── BOARD (monthly, 08_BOARD_ROOM): Principal chairs; CIO presents; FMs report books
-    ├── Meher Kapadia — CEO (E-018): OPERATIONS — cadences, budget/tokens, HR/AP, board secretary
+    ├── Meher Kapadia — CEO (E-018): OPERATIONS — cadence (MASTER SCHEDULE: 01_COMMAND_CENTER/OPERATING_CALENDAR.md — this section is superseded)s, budget/tokens, HR/AP, board secretary
     │    ├── Farhan Qureshi (E-019) Compliance · Manoj Pillai (E-023) Ops-Eng · Lakshmi N. (E-024) Librarian
     │    └── Tanvi Desai (E-026) Head of Product — investor letter, dashboards, execution-sheet UX, strategy packaging (09_PRODUCT/)
     └── Rajan Mehta — CIO (E-001): INVESTMENTS — capital protection, tail-risk veto, arbitrates the 3 books

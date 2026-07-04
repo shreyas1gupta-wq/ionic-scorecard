@@ -1,0 +1,33 @@
+# IMPROVEMENT BACKLOG — "ways we can improve our AMC"
+**Owner: CEO (Meher). Ranked, owned, dated.** Seeded 2026-07-04 from SELF_IMPROVEMENT.md gaps, tonight's lessons (KB 13-19), the ADOPTION QUEUE, and CEO judgment. Reviewed at each monthly board; items graduate to QUARTERLY_PLAN or DECISIONS_LOG when they get committed. Ranking = value × readiness ÷ cost. Status: TODO / DOING / DONE / PARKED / REJECTED.
+
+## ACCEPTED — ranked
+
+| # | Item | Why (one line) | Owner | Target | Status |
+|---|---|---|---|---|---|
+| IB-01 | **Weekly one-page firm dashboard** (P&L · pipeline stage · risk utilization · token spend · week priorities) | The Principal is a chairman; he should read the firm in 60 seconds, not reconstruct it — closes the same gap that justified hiring Tanvi. Feed it from the four weekly packs + WORK_LOG (no new work). | Tanvi | first issue 2026-07-11 (Fri, with the packs) | TODO |
+| IB-02 | **Paper-morning-check routine** | S-04 is in paper-watch; an open short-vol book with no pre-open event/greeks glance is how a calendarable gap becomes a "surprise". Automate `/paper reconcile --open-only` + `/events`. Now in OPERATING_CALENDAR daily. | Tara | wire when S-04/S-05 paper goes live | TODO |
+| IB-03 | **Standing data-quality tripwire report** (replication TE drift + freshness + coverage%) | Our worst backtests died of data (survivorship hole, dual-schema, denominator). A weekly tripwire that flags TE drift on the factor replication + stale feeds catches decay before it corrupts a decision. Fold into Sun pipeline-health. | Kavya | 2026-07-18 | TODO |
+| IB-04 | **DECISIONS_LOG topic index** | 29 D-series rulings and climbing; nobody can find "what did we decide about costs / sizing / approvals" without a full read. A one-page index-by-topic (approvals, capital, data, risk, sizing, process) makes rulings retrievable and stops us re-litigating settled calls. | CEO | 2026-07-18 | TODO |
+| IB-05 | **Enforce the token-efficiency league (AP per 10k tokens)** | The formula exists in LEADERBOARD but isn't yet a standing weekly readout; agenda item 6 of /weekly-meet now forces it. Outliers get a coaching lesson, not a reprimand. Pure discipline, zero build. | CEO | live at first /weekly-meet 2026-07-07 | DOING |
+| IB-06 | **Boring-but-vital ops runbook consolidation** | Hard-won environment facts (python path, proxy, Angel rate limit, NSE-works-partially, capture-before-purge) are scattered across CLAUDE.md + RESUME_TOMORROW + HANDOFF. One `99_OPS/RUNBOOK.md` = faster recovery when a job breaks and the author isn't the one fixing it. | Manoj | 2026-07-25 | TODO |
+| IB-07 | **Knowledge-propagation audit cadence** | SELF_IMPROVEMENT's "one mistake, three firewalls" rule (persona / KB / CODE_CHECKS) is only as good as an audit that a lesson actually reached all three. Make it a quarterly Lakshmi slot (now in the calendar). | Lakshmi | quarterly, first at 2026-Q3 close | TODO |
+| IB-08 | **Investor-letter cadence formalized** | Monthly letter is on Tanvi but had no fixed slot; now anchored to the board window with the IC-1 standard (kills/artifacts before headline numbers). Prevents the letter from becoming a highlight reel. | Tanvi | monthly from first board (2026-07-31) | TODO |
+| IB-09 | **purgedcv acceptance test → replace hand-rolled DSR/PBO** | Installed (0.1.2) but not yet validated against Arjun's S-01 numbers; until it passes, the validation battery runs two DSR implementations. Close it so there is ONE canonical DSR/PBO. | Arjun | 2026-07-11 | DOING |
+| IB-10 | **openalgo paper-engine pilot (one strategy)** | Verdict is PILOT-ONE-STRATEGY; a margin-simulating Angel-native sandbox is our biggest paper-desk realism upgrade — S-05 straddle is the pilot. Gate live-vs-sim before trusting it for the book. | Manoj / Tara | pilot 2026-07-18 | TODO |
+| IB-11 | **Hiring-needs review** | 27 is a lot; the honest question is whether any *role* is missing, not whether to grow. Current read: no gap — the org covers macro/structuring/attribution/overfit/product now. Re-ask each quarter; do not hire to fill headcount. | CEO | quarterly review | PARKED (no gap now — re-check quarterly) |
+| IB-12 | **Rebalance-cadence discipline codified** (KB 16/18: cadence IS the edge) | Monthly factor rebalancing bleeds 3.5-10.7pp/yr; NSE runs these semiannually for a reason. Make "cadence must match signal half-life" a pre-registration field on every backtest spec, not a lesson we re-learn. | Arjun | fold into RESEARCH_SOP by 2026-07-25 | TODO |
+| IB-13 | **Random-basket benchmark as the standing null (D-029)** | The honest benchmark is the cost-loaded random-basket percentile band, not an index. Wire `datasets/derived/benchmarks_random/` into every stock-selection gate so no future memo compares to a free cap-weighted index by default. | Arjun / Devika | fold into gate checklist 2026-07-25 | TODO |
+| IB-14 | **Weekly reading-group actually runs** | Lakshmi's slot exists but the queue has moved slowly; one paper/week keeps prior-art current and feeds replication candidates. Low cost, compounding. | Lakshmi | Wednesdays from 2026-07-08 | TODO |
+
+## REJECTED / not now (with reason)
+- **Vector-DB / embedding memory for lessons** — REJECTED: corpus is too small; grep + KB index + the propagation rule already retrieve everything (SELF_IMPROVEMENT explicitly SKIPPED this). Revisit only if the KB passes ~500 lessons.
+- **DSPy prompt-compilation** — REJECTED: needs an eval harness we don't have; /prompt-improve's bounded one-pass refine covers the real need.
+- **Daily leaders' meeting** — REJECTED: daily is for capture + open positions only; a daily meeting is status theater and burns tokens. Weekly is the right cadence for decisions.
+- **More sub-agents in routine reports** — REJECTED: the four weekly packs and the meeting are written/mechanical; spawning agents for them violates D-023 and adds no accuracy.
+- **Second CIO / redundant tail-risk veto** — REJECTED: single accountable veto is a design choice (redundancy = backup model, not a second head).
+
+## Backlog discipline
+- Anything ACCEPTED here that needs building gets a QUARTERLY_PLAN milestone or a week-priority slot; the backlog is the funnel, not the schedule.
+- New candidates: any agent can propose via a /retro lesson that generalizes to process; CEO triages into this list at the weekly meeting.
+- Reviewed every monthly board (movement noted in the month-end pack, §People/Process).

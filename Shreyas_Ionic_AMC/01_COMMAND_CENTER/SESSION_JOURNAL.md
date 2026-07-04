@@ -3,6 +3,15 @@ Format per entry: date, account (DESK-20/DESK-100), summary, files touched, hand
 Newest entries at TOP.
 
 ---
+## 2026-07-04 (night) — CEO (Meher) — OPERATING CALENDAR + /weekly-meet + IMPROVEMENT_BACKLOG (Principal order: "schedule weekly meets and plans and ways we can improve our AMC")
+- Consolidated all scattered cadence (ORG_STRUCTURE §cadences, RESEARCH_SOP, EOD_ROUTINE, BOARD_CHARTER, SELF_IMPROVEMENT) into ONE master rhythm: `01_COMMAND_CENTER/OPERATING_CALENDAR.md` — daily/weekly/monthly/quarterly grid, each slot with owner+desk+inputs+outputs+artifact-path, AUTO vs SESSION vs MEET tags, and one-line scheduled-prompt text for 8 automatable slots (main desk to wire into Task Scheduler).
+- Principal's ask delivered: WEEKLY LEADERS' MEETING anchored Mon 09:30, CEO-chaired, off four pre-produced Fri/Sun packs (Tara paper+TCA / Ritika risk RP-29..36 / Cyrus macro / Manoj pipeline-health); fixed 7-item agenda; /retro+leaderboard folded in post-meeting.
+- New skill `.claude/skills/weekly-meet/SKILL.md` (52nd): written-meeting, zero spawns unless a decision needs one named specialist; outputs = minutes in `08_BOARD_ROOM/minutes/weekly/` + journal line + CURRENT_STATE week-priorities.
+- `00_GOVERNANCE/IMPROVEMENT_BACKLOG.md`: 14 accepted items ranked/owned/dated (top-5: firm dashboard, paper-morning-check, data tripwire, DECISIONS_LOG topic index, token-efficiency league); 5 rejected with reasons.
+- No sub-agents spawned (token law). Files: OPERATING_CALENDAR.md, weekly-meet/SKILL.md, IMPROVEMENT_BACKLOG.md, this journal, EVOLUTION_LOG.
+- Next: main desk wires the 8 auto-prompts; first /weekly-meet Mon 2026-07-07; add weekly/ minutes dir on first run; Tanvi ships dashboard v1 with the packs 2026-07-11.
+
+---
 ## 2026-07-04 (night) — DESK-100 — Manoj: PIT UNION PANEL v1 shipped as TWO basis-explicit panels
 - **Task**: build a survivorship-complete daily close panel 2005->today (flagship from D-M4 forensics). Brief asked for ONE union panel from HF + Master xlsx + Delisted xlsx + raw/nifty500 csvs, priority HF-highest.
 - **Stop-rule fired as designed**: HF-vs-Master conflict rate 73% (spec's own threshold was 2%). Diagnosed with ground truth — official NSE bhavcopy (`datasets/nifty_stock_daily/1_bhavcopy.csv`) — not just cross-source comparison. Sampled split-free names (screened via `raw/corporate_actions`): HF matches bhavcopy 94.8% of the time (PRICE/as-traded basis, correctly split-adjusted); Master matches only 41.4%, systematically low and closing the gap toward present (RETURN/dividend-adjusted basis). Also found: `raw/corporate_actions` is missing real splits for ~14 names (undetected in the screen, caught via fractional-ratio residuals) — flagged for Data Officer, do not trust that folder as complete.
@@ -13,6 +22,17 @@ Newest entries at TOP.
 - D-028 lookahead self-audit on the builder code: PASS, 0 FAIL/WARN.
 - Files: `datasets/derived/pit_union_panel_v1/` — `close_panel_price.parquet`, `close_panel_return.parquet`, `conflicts_{price,return}.csv`, `splice_fixes_{price,return}.csv`, `quarantined_segments_{price,return}.csv`, `coverage_report_{price,return}.csv`, `symbol_aliases.csv`, `basis_ground_truth_check.csv`, `BUILD_REPORT.md` (full detail), `common.py`/`build_price_panel.py`/`build_return_panel.py`/`basis_ground_truth.py` (re-runnable code, checkpointed via `_source_cache/`).
 - **Next (unowned)**: close COX&KINGS/UNKNOWN via external source if Principal wants it; re-run BT-11 early slices + factor-replication early era on the return panel now that early-era coverage is fixed; Data Officer should audit `raw/corporate_actions` completeness.
+
+---
+## 2026-07-04 (late night) — DESK-100 — THE DENSEST RESEARCH DAY IN FIRM HISTORY (D-029 wave complete; cadence live)
+- **Two new laws executed end-to-end same day:** D-028 (lookahead controls: taxonomy, audit module, Gate-4 hard gate — retro-audits pending workflow resume) and D-029 (random-basket benchmark law: 8 cost-loaded 10k-permutation series = THE bars; size premium INVERTED net of costs — LARGE 11.9% beats SMALL 9.2-10.0%).
+- **Kills honored, one resurrection, one milestone:** K-013 LowVol50-Q killed on a defective bar -> bar fixed in the open (terminal percentiles) -> RESURRECTED same day -> **Gate-4 PASS-WITH-FLAGS incl the firm's FIRST DSR/PBO double-pass (0.9995/19.8%, 47 honest trials)** -> at Red Team now. K-014 MQ50-semiannual structural kill (momentum round-trips at 6mo holds). K-015 dynamic-regime basket killed on K2a (regime layer diluted pure momentum by 4.8pp) — Ishaan self-red-teamed a stale-print-poisoned regime proxy BEFORE the verdict. I-017 (momentum control discovery, 26.4%/23.1%) gated behind red-team as post-hoc.
+- **Data estate FINALIZED:** union panel v1.1 = achievable coverage 2014+ 97-100% (residuals named: SREINFRA NCLT, IISL non-equity, UNKNOWN); permanent bhavcopy archive 5.57M rows 2013->2026; 14 fake membership-xlsx rows caught via IPO ground truth; 212 stale-price symbols masked (mandatory); basis verdicts ground-truthed (Master=RETURN, HF=PRICE).
+- **Factor answers for the Principal:** D-M4 DATA-VALIDATION COMPLETE (LOWVOL30 TE 4.58%, momentum 8.48%); six-series momentum perf table delivered (momentum beats N50 +5-9pp at 3-5Y, loses 1Y, pays in -68/-71% maxDD); factor family: monthly cadence kills MQ (turnover 330-450%), N500 LowVol50 promoted.
+- **Execution realism (Principal rules):** circuit-locked = NO FILL + volume-conditional slippage 2x/3x (lib/execution_realism.py, COST_STANDARDS binding); S-04 fully certified with 5-7% suspect fills quantified.
+- **Cadence LIVE (Principal order):** OPERATING_CALENDAR.md (Meher) + /weekly-meet skill + IMPROVEMENT_BACKLOG (14 items) + 8 cron jobs armed (session-bound — CLAUDE.md session protocol now re-arms on every DESK-100 start). First /weekly-meet: Mon 2026-07-07 09:33.
+- **Open at close:** Nikhil red-team (I-016 bar-shopping attack + I-017 gate) in flight; D-028 retro-audit workflow resumable; BT-11 v1.5 spec next; board pack Jul-31; home-net list unchanged.
+- Commits this arc: 6fa9caf..9129497+. WORK_LOG has per-engagement tokens. AP tonight: Arjun +27, Ishaan +30, Manoj +30, Devika +22, Sameer +24, Kavya +5, Meher +10.
 
 ---
 ## 2026-07-04 (evening resume) — DESK-100 — FACTOR REPLICATION PROVEN + DATA FORENSICS CLOSED; Principal contributed 3 datasets
