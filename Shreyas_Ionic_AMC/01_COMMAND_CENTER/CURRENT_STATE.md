@@ -15,14 +15,12 @@ SAFE checklist (live process finished, cwd outside tree, OneDrive paused, fresh 
 anyone passes `-Execute`. Until that runs, every path in every doc is still correct as-is — do
 NOT assume the folder has been renamed.
 
-## K-012 FF-CALENDAR RESURRECTION REVIEW — IN FLIGHT (launched 2026-07-05, DESK-100)
-Principal challenged the S-03 kill; premium-capped sizing flips forward P&L positive (+₹10/₹100 deployed,
-all years green incl. 2025) — evidence in `results/S-03/20260704_shuffle/SIZING_RECHECK.md`, brief delivered
-(`09_PRODUCT/reports/FF_CALENDAR_BRIEF_2026-07-05.docx`). Three independent reviews now running in parallel:
-1. **Sameer** — premium-cap (1×..5×/no-cap) & FF-threshold (0.15..0.35) sensitivity → PLATEAU or CLIFF
-2. **Nikhil** — placebo battery incl. MANDATORY turnover-matched + random-entry-same-sizing + vega-avoidance → EDGE-BEYOND-SIZING or SIZING-ARTIFACT
-3. **Tara** — thin-strike fill audit under circuit/volume rule (execution_realism.py) → FILLS-SURVIVE or FILL-FICTION
-All land in `results/S-03/20260705_resurrection/`. Then CIO synthesis → paper-eligibility ruling. Any FAIL = K-012 stays killed.
+## K-012 FF-CALENDAR RESURRECTION REVIEW — 3/3 LEGS LANDED 2026-07-05; v3 CAUSAL RE-TEST IN FLIGHT
+All in `results/S-03/20260705_resurrection/`. Verdicts:
+1. **Nikhil (RED_TEAM_FF_RESURRECTION.md): EDGE-BEYOND-SIZING, overall FRAGILE** — FF 100th pct vs turnover-matched AND CE_be-matched placebos (sizing alone ≈ 0, FF adds all of +10.5); **CAUGHT NEW T9 LEAK**: v2 engine enters at argmax-FF day (non-causal; v1 was earliest-cross) — logged in LOOKAHEAD_CONTROLS T-log; cost bracket: survives 2× slip, dies ~3.3×.
+2. **Sameer (SENSITIVITY_FF_SIZING.md): PLATEAU** — 30/30 cap×threshold cells forward-positive (+17..+26 per ₹100 his convention); equal-premium sizing is load-bearing, cap second-order; +30 family trials declared; recheck-script reproduction gap flagged (canonical sizing to be pinned: qty=min(100/CE_be, 6.0) — 3 independent reconstructions converged).
+3. **Tara (FILL_AUDIT_FF.md): MARGINAL** — honest forward **+₹3.88/₹100 vs +₹10.04 headline (38.6% retained)**; binding constraint = FILL-RATE not cost: 61.3% of fwd signals have DEAD back-leg (zero vol, 82.5% zero OI; slippage only 5% of gap); survivors near-headline (PF 2.05); fix = ex-ante back-leg vol/OI gate.
+**NEXT (in flight): Arjun v3 causal re-test** — earliest-cross entry (leak fix) + D+1 fills + ex-ante back-leg liquidity gate + canonical sizing + tiered slippage → `CAUSAL_RETEST.md`. THEN CIO synthesis rules on complete evidence (incl. DSR/PBO recompute at ~36+ family trials). Any hard FAIL = K-012 stays killed.
 
 ## IN FLIGHT AT WINDUP (harvest these FIRST next session)
 1. **Sameer — S-04 Gate-4 sensitivity**: background compute checkpoints to `results/S-04/20260704_sensitivity/` (grid CSV first, then SENSITIVITY_REPORT.md). If report absent: re-run sensitivity_S04.py there or re-summon Sameer (agent now registered).
