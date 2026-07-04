@@ -1,0 +1,31 @@
+{
+  "built": "2026-07-04T22:00:29",
+  "close_source": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\results\\factor_replication\\20260704_union_rerun\\close_panel_price.parquet (FROZEN union PRICE panel copy, md5 cc5f70d1...)",
+  "volume_source": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\swing_momentum\\data\\hf_stock_minute\\day\\train-00000.parquet (HF where available)",
+  "engine": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\results\\factor_replication\\20260704_momentm30_exact\\replicate_factor_indices.py (imported UNCHANGED, D-028 audited)",
+  "n500_xlsx": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\NIFTY500_TICKER_2005_2025_Final.xlsx",
+  "n200_xlsx": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\NIFTY200_TICKER_2005_2025.xlsx",
+  "n500_snapshot_months": "Mar/Sep {3,9}",
+  "n500_snaps": 42,
+  "benchmarks_stitched": "principal NAV (2005->2026-01/02) + nse_official archive (->2026-07-03); splice verified level-ratio median 1.0000 std 0.0 dailyret corr 1.0",
+  "official_series_map": {
+    "N200M30": "NIFTY 200 Momentum 30 | Nifty200 Momentum 30",
+    "N500M50": "NIFTY 500 Momentum 50 | Nifty500 Momentum 50 (Momentum 50, not 30)",
+    "NIFTY50": "NIFTY 50 | Nifty 50",
+    "NIFTY500": "NIFTY 500 | Nifty 500"
+  },
+  "replica_variant": "mom_Bexcl_mcap (best from union rerun); N500 EW also built for robustness",
+  "top_n": {
+    "N200M30": 30,
+    "N500M50": 50
+  },
+  "cap": 0.05,
+  "frictionless": true,
+  "basis": "PRICE-index basis everywhere; dividends EXCLUDED -> absolute CAGRs understate total return ~1-1.5pp/yr uniformly",
+  "anchors": {
+    "latest_common": "2026-01-22",
+    "panel_end": "2026-01-22"
+  },
+  "full_start": "2006-01-02",
+  "deviations": "D1 liquidity-proxy mcap not free-float; D3 Mar/Sep snaps ff'd; D5 no IWF/divisor; replica capped at panel end 2026-01-22"
+}
