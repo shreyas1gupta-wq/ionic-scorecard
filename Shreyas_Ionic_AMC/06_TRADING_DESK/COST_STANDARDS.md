@@ -26,6 +26,11 @@
 | Options — single-stock near-ATM | max(1 tick, 0.5–1.5% premium) |
 | Options — illiquid strikes (far OTM / far month) | 1–2% premium; **far-OTM single-stock wings: treat as UNTRADEABLE** (firm lesson: −883% stale-print artifact) |
 
+## Dynamic slippage & circuit rule (Principal order 2026-07-04 — BINDING, tightening)
+- **Circuit-locked day = NO FILL, ever.** Entry/exit signals falling on a circuit-locked bar defer to the next tradeable day (detector: `lib/execution_realism.circuit_locked` — zero-range or band-pinned OHLC). Backfills at the locked print are fabricated fills.
+- **Volume-conditional slippage** replaces fixed floors on thin days (`slippage_multiplier`): day volume >=50% of 20d median -> 1x tier floor; 20-50% -> 2x; <20% (abrupt collapse) -> 3x; zero/absent volume -> NO FILL.
+- Rationale: momentum entries correlate with UPPER circuits (buying strength), stops with LOWER circuits (gaps through bands) — fixed slippage on exactly those days overstates every momentum backtest. All equity backtests must use `fill_check()`; the 2x-cost promotion stress applies ON TOP of the multiplier.
+
 ## Liquidity & capacity
 - Position ≤10% of 20-day ADV (≤5% micro-caps). Skip circuit-locked names. Options: standing OI or volume at the strike required (liquid_enough gate).
 - Margin proxies: short strangle ~12% notional (SPAN+exposure); calendars = spread margin; short straddle-through-event ~14% notional. Worst-case MTM modeled, not average.
