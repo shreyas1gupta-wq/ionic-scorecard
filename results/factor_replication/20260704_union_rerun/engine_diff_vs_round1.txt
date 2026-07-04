@@ -1,0 +1,558 @@
+1,2c1
+< """D-M4 flagship: EXACT-methodology replication of NIFTY 200 Momentum 30 and
+< NIFTY 100 Low Vol 30, vs the Principal's official NAV series.
+---
+> """D-M4 FINAL LEG: factor-index replication on the PIT UNION *PRICE* panel (v1).
+5,6c4,30
+< Run (background, flush prints, incremental CSV checkpoints):
+<     PYTHONIOENCODING=utf-8 PYTHONUNBUFFERED=1 python replicate_factor_indices.py
+---
+> WHAT THIS IS
+> ------------
+> Round-3 of the D-M4 replication. Re-runs the EXACT same scoring/index/stats engine as
+> `results/factor_replication/20260704_momentm30_exact/replicate_factor_indices.py`
+> (imported unchanged -- already D-028 audited) but swaps the PRICE SOURCE:
+> 
+>     close  <- FROZEN COPY of Manoj's PIT union PRICE panel v1 (HF + Delisted + Raw500),
+>               survivorship-complete, PRICE basis (as-traded, split/bonus-adjusted, NOT
+>               dividend-adjusted -> basis-consistent with the official NSE *price* indices).
+>     volume <- HF daily parquet where available (union panel carries no volume). The
+>               liquidity-mcap variant needs a turnover proxy; symbols not in HF get 0 volume
+>               (they fall out of the mcap tilt but remain in the EW variant).
+> 
+> BASIS NOTE (why this panel, not the Master re-run):
+>   Manoj's ground-truth check (BUILD_REPORT.md sec.2) proved MASTER xlsx is dividend-adjusted
+>   RETURN basis, while HF/Delisted/Raw500 are as-traded PRICE basis matching the exchange
+>   bhavcopy exactly. The official factor NAVs we benchmark against are PRICE indices. So this
+>   PRICE panel is basis-consistent; the task-3 Master-EW re-run mixed RETURN-basis prices into
+>   a PRICE-index comparison and is caveated accordingly in the report.
+> 
+> MEMBERSHIP: N200/N500 PIT xlsx snapshots are MARCH + SEPTEMBER (months {3,9}), not Jun/Dec
+>   (Manoj discovery). The imported members_asof() already forward-fills most-recent-on-or-before,
+>   so the real Mar/Sep snapshot calendar is honoured automatically -- no future look.
+> 
+> FROZEN INPUTS (all under this run dir, md5-verified against source at snapshot time):
+>   close_panel_price.parquet  (md5 cc5f70d1f94129d52bd55fc8b77d0094)
+>   symbol_aliases.csv, quarantined_segments_price.csv (empty -> no price-segment quarantines)
+8,40c32
+< WHAT THIS DOES
+< --------------
+< Momentum 30 (NIFTY200 parent):
+<   - Universe as-of each rebalance from NIFTY200_TICKER_2005_2025.xlsx (Mar/Sep snapshots).
+<   - Momentum score = normalized 6M and 12M price returns (return / daily-return vol over
+<     the window), z-scored cross-sectionally, capped +-3, averaged, tilt = 1 + z.
+<   - VARIANTS TESTED (methodology recovery):
+<       A_incl  : 6M/12M windows INCLUDING the most recent month.
+<       B_excl  : 6M/12M windows EXCLUDING the most recent month (t-21..t-126 / t-21..t-252)
+<                 -- this is the classic Jegadeesh-Titman / NSE convention.
+<     x weighting: EW (equal weight * score tilt) vs MCAP (proxy full-mcap * score, cap 5%).
+<   - Rebalance: semi-annual, effective ~end-June / ~end-Dec (NSE cadence). Held to next rebal.
+< 
+< Low Vol 30 (NIFTY100 parent):
+<   - Universe as-of each rebalance from N50 union NN50 monthly matrix.
+<   - Score = 1 / (trailing 252d daily-return volatility). Weights = inverse-vol, normalized.
+<   - Rebalance: QUARTERLY (end Mar/Jun/Sep/Dec) -- NSE Low Vol 30 reviews quarterly.
+< 
+< Index construction: chain-linked daily portfolio return, weights fixed between rebalances
+< (drifting -- buy-and-hold between reviews, matching NSE), rebased to the official NAV level
+< at the replica's first common date. P&L / returns are booked in the period they occur; no
+< denominator games (this is a price index, returns are simple close-to-close).
+< 
+< DEVIATIONS FROM NSE WRITTEN METHODOLOGY -- all LOUD, quantified in REPORT.md:
+<   D1 free-float mcap unavailable -> MCAP variant uses FULL mcap proxy (shares outstanding not
+<      free-float-adjusted); EW variant sidesteps mcap entirely. TE cost measured by running both.
+<   D2 5% weight cap applied on MCAP variant only (EW is already <=1/30=3.33%).
+<   D3 rebalance EFFECTIVE dates approximated to last trading day of the review month; NSE uses
+<      a published effective date a few sessions later. Sub-week timing slippage.
+<   D4 price panel ends 2026-01-22 (HF stale tail, landmine); official NAV runs to 2026-02-27.
+<      Replication + TE computed only on the common window.
+<   D5 no corporate-action / index-divisor adjustments beyond what the (already-adjusted) panel
+<      carries; NSE applies IWF and divisor maintenance we cannot reproduce without factsheets.
+---
+> Run: PYTHONIOENCODING=utf-8 PYTHONUNBUFFERED=1 python replicate_union_rerun.py
+57,60c49,58
+< OUTDIR = os.path.join(ROOT, r"results\factor_replication\20260704_momentm30_exact")
+< PANEL_PATH = os.path.join(ROOT, r"swing_momentum\data\hf_stock_minute\day\train-00000.parquet")
+< N200_XLSX = os.path.join(ROOT, "NIFTY200_TICKER_2005_2025.xlsx")
+< N100_XLSX = os.path.join(ROOT, "Historical stock composition of Nifty 50 and Nifty Next 50.xlsx")
+---
+> # reuse the D-M4 build engine UNCHANGED (momentum_scores, lowvol_scores, build_index,
+> # tracking_stats, per_year_stats, rebal_dates, members_asof, apply_aliases,
+> # load_n200_members, load_n100_members)
+> ENGINE_DIR = os.path.join(ROOT, r"results\factor_replication\20260704_momentm30_exact")
+> sys.path.insert(0, ENGINE_DIR)
+> import replicate_factor_indices as R  # noqa: E402
+> 
+> OUTDIR = os.path.join(ROOT, r"results\factor_replication\20260704_union_rerun")
+> UNION_PRICE = os.path.join(OUTDIR, "close_panel_price.parquet")   # FROZEN COPY, work from this
+> HF_PANEL = os.path.join(ROOT, r"swing_momentum\data\hf_stock_minute\day\train-00000.parquet")
+63,93c61,62
+< DATA_MAX_DATE = pd.Timestamp("2026-01-22")  # HF panel stale-tail guard (landmine)
+< MIN_HISTORY = 252  # trading days needed for the 12M window
+< 
+< _MONTH_MAP = {"Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4, "May": 5, "Jun": 6,
+<               "Jul": 7, "Aug": 8, "Sep": 9, "Oct": 10, "Nov": 11, "Dec": 12}
+< 
+< # ---------------------------------------------------------------------------
+< # TICKER ALIAS MAP (constituent-xlsx ticker -> current panel ticker)
+< # ONLY clean 1:1 RENAMES (same legal entity, symbol change). NSE renames verified
+< # against the panel. DELIBERATELY EXCLUDED (would fabricate prices):
+< #   HDFC -> HDFCBANK : SEPARATE listed entities until Jul-2023 merger (not a rename)
+< #   SRTRANSFIN/SHRIRAMCIT -> SHRIRAMFIN, MINDTREE/LTI -> LTIM : MERGERS (many-to-one),
+< #     pre-merger prices differ from the merged ticker -> excluded to avoid fabrication.
+< #   TATAMOTORS : genuinely absent from the panel (real data gap, no partial match).
+< # This is a T5/T7 membership-join fix, NOT a methodology change (LOUD in REPORT.md).
+< # ---------------------------------------------------------------------------
+< TICKER_ALIASES = {
+<     "MOTHERSUMI": "MOTHERSON", "TATAGLOBAL": "TATACONSUM", "MCDOWELL-N": "UNITDSPR",
+<     "NIITTECH": "COFORGE", "ZOMATO": "ETERNAL", "CROMPGREAV": "CROMPTON",
+<     "GMRINFRA": "GMRAIRPORT", "JUBILANT": "JUBLFOOD", "WELSPUNIND": "WELSPUNLIV",
+<     "TUBEINVEST": "TIINDIA", "AMARAJABAT": "ARE&M", "PVR": "PVRINOX",
+<     "PEL": "PIIND", "CADILAHC": "ZYDUSLIFE", "EQUITAS": "EQUITASBNK",
+<     "UJJIVAN": "UJJIVANSFB", "KPIT": "KPITTECH", "INFRATEL": "INDUSTOWER",
+<     "MINDAIND": "UNOMINDA", "GUJFLUORO": "FLUOROCHEM", "L&TFH": "LTF",
+<     "IDFCBANK": "IDFCFIRSTB", "MAX": "MAXHEALTH",
+< }
+< 
+< 
+< def apply_aliases(members: dict) -> dict:
+<     """Rewrite membership sets through the 1:1 rename map."""
+<     return {k: {TICKER_ALIASES.get(s, s) for s in v} for k, v in members.items()}
+---
+> DATA_MAX_DATE = pd.Timestamp("2026-01-22")  # union panel end (HF stale-tail carries through)
+> PANEL_VERSION = "pit_union_panel_v1 (PRICE basis; frozen copy md5 cc5f70d1f94129d52bd55fc8b77d0094)"
+101,117c70,105
+< # PRICE PANEL (reuse Track-2 data11 load pattern: IST-fix, de-dup, sort)
+< # ---------------------------------------------------------------------------
+< def load_panel_wide() -> pd.DataFrame:
+<     """Return a wide close-price frame indexed by trading date, columns = symbols.
+<     IST-date-fixed (L1). Only symbols/dates we need for the factor universes are kept
+<     downstream, but we build the full wide frame once and cache it in memory."""
+<     log("[panel] reading HF daily parquet ...")
+<     df = pd.read_parquet(PANEL_PATH, columns=["symbol", "timestamp", "close", "volume"])
+<     df = G.fix_ist_dates(df, ts_col="timestamp", out_col="date")  # L1
+<     df["date"] = pd.to_datetime(df["date"])
+<     df = df[df["date"] <= DATA_MAX_DATE]  # L7 stale-tail guard
+<     df["symbol"] = df["symbol"].astype(str).str.strip().str.upper()
+<     df = df.sort_values(["symbol", "date"]).drop_duplicates(["symbol", "date"], keep="last")
+<     log(f"[panel] rows={len(df):,} symbols={df['symbol'].nunique():,} "
+<         f"{df['date'].min().date()}->{df['date'].max().date()}")
+<     close = df.pivot(index="date", columns="symbol", values="close").sort_index()
+<     vol = df.pivot(index="date", columns="symbol", values="volume").sort_index()
+---
+> # DATA LOADER -- the ONLY substantive change vs the audited engine.
+> #   close  from the frozen UNION PRICE panel (long -> wide)
+> #   volume from HF daily parquet (union panel has no volume), IST-date-fixed to align
+> # ---------------------------------------------------------------------------
+> def load_union_price_and_hf_volume():
+>     """Return (close_wide, vol_wide): trading-date index, symbol columns.
+>     close from union PRICE panel; volume from HF where available (else NaN -> 0 in mcap path).
+>     Both restricted to <= DATA_MAX_DATE (L7 stale-tail guard)."""
+>     log("[panel] reading FROZEN union PRICE panel ...")
+>     up = pd.read_parquet(UNION_PRICE, columns=["date", "symbol", "close"])
+>     up["date"] = pd.to_datetime(up["date"])
+>     up = up[up["date"] <= DATA_MAX_DATE]
+>     up["symbol"] = up["symbol"].astype(str).str.strip().str.upper()
+>     # panel guarantees 0 dup (symbol,date) and no <=0 closes; enforce defensively anyway
+>     up = up.sort_values(["symbol", "date"]).drop_duplicates(["symbol", "date"], keep="last")
+>     up = up[up["close"] > 0]
+>     log(f"[panel] union rows={len(up):,} symbols={up['symbol'].nunique():,} "
+>         f"{up['date'].min().date()}->{up['date'].max().date()}")
+>     close = up.pivot(index="date", columns="symbol", values="close").sort_index()
+> 
+>     log("[panel] reading HF daily parquet for volume ...")
+>     hf = pd.read_parquet(HF_PANEL, columns=["symbol", "timestamp", "volume"])
+>     hf = G.fix_ist_dates(hf, ts_col="timestamp", out_col="date")  # L1 IST-date fix
+>     hf["date"] = pd.to_datetime(hf["date"])
+>     hf = hf[hf["date"] <= DATA_MAX_DATE]
+>     hf["symbol"] = hf["symbol"].astype(str).str.strip().str.upper()
+>     hf = hf.sort_values(["symbol", "date"]).drop_duplicates(["symbol", "date"], keep="last")
+>     vol = hf.pivot(index="date", columns="symbol", values="volume").sort_index()
+> 
+>     # align volume onto the union close grid (reindex to close's date/col axes; missing -> NaN).
+>     # NaN volume is fine: build_index mcap path does close*median(vol); NaN->the symbol gets 0
+>     # liquidity weight, i.e. it drops out of the mcap tilt but stays in EW. LOUD via a stat below.
+>     vol = vol.reindex(index=close.index, columns=close.columns)
+>     hf_cov = vol.notna().any(axis=0).mean()
+>     log(f"[panel] volume coverage: {hf_cov:.1%} of union symbols have HF volume "
+>         f"({int(vol.notna().any(axis=0).sum())}/{close.shape[1]})")
+121,383d108
+< # ---------------------------------------------------------------------------
+< # NIFTY 200 membership (semi-annual Mar/Sep snapshots) -- as-of, no future look
+< # ---------------------------------------------------------------------------
+< def load_n200_members() -> dict:
+<     """dict {snap_date(Timestamp) -> set(symbols)}. snap_date = review-month start.
+<     Mar review -> members known/effective from Apr; Sep -> from Oct (see effective-date logic)."""
+<     d = pd.read_excel(N200_XLSX)
+<     d = d.rename(columns={"Month-Year": "lab", "Ticker": "sym"})
+<     d["sym"] = d["sym"].astype(str).str.strip().str.upper()
+<     out = {}
+<     for lab, g in d.groupby("lab"):
+<         mon, yr = str(lab)[:3], str(lab)[3:]
+<         snap = pd.Timestamp(year=int(yr), month=_MONTH_MAP[mon], day=1)
+<         out[snap] = set(g["sym"])
+<     return out
+< 
+< 
+< # ---------------------------------------------------------------------------
+< # NIFTY 100 membership = N50 union NN50, monthly Yes/No matrix -> as-of set
+< # ---------------------------------------------------------------------------
+< def load_n100_members() -> dict:
+<     """dict {month(Timestamp) -> set(symbols)} = union of Nifty50 + NiftyNext50 'Yes'."""
+<     frames = []
+<     for sheet in ["Nifty 50", "Nifty Next 50"]:
+<         m = pd.read_excel(N100_XLSX, sheet_name=sheet)
+<         m = m.rename(columns={m.columns[0]: "sym"})
+<         m["sym"] = m["sym"].astype(str).str.strip().str.upper()
+<         datecols = [c for c in m.columns if isinstance(c, (pd.Timestamp, datetime))]
+<         long = m.melt(id_vars="sym", value_vars=datecols, var_name="month", value_name="flag")
+<         long = long[long["flag"].astype(str).str.strip().str.lower() == "yes"]
+<         long["month"] = pd.to_datetime(long["month"])
+<         frames.append(long[["month", "sym"]])
+<     allm = pd.concat(frames, ignore_index=True).drop_duplicates()
+<     out = {mo: set(g["sym"]) for mo, g in allm.groupby("month")}
+<     return out
+< 
+< 
+< def members_asof(members: dict, date: pd.Timestamp) -> set:
+<     """Most-recent snapshot on-or-before `date`. Empty if before first snapshot (no future look)."""
+<     keys = [k for k in members if k <= date]
+<     if not keys:
+<         return set()
+<     return members[max(keys)]
+< 
+< 
+< # ---------------------------------------------------------------------------
+< # Rebalance-date schedule (last TRADING day on/before the effective month-end)
+< # ---------------------------------------------------------------------------
+< def rebal_dates(trading_days: pd.DatetimeIndex, months: tuple, start_year=2004, end_year=2026):
+<     """Effective rebalance = last trading day of each review month. months e.g. (6,12) semiannual
+<     or (3,6,9,12) quarterly. We SELECT on data up to and including the rebalance day and HOLD from
+<     the NEXT trading day -> weights apply strictly after the decision bar (no same-bar sin, L5)."""
+<     out = []
+<     td = pd.DatetimeIndex(trading_days)
+<     for yr in range(start_year, end_year + 1):
+<         for mo in months:
+<             month_days = td[(td.year == yr) & (td.month == mo)]
+<             if len(month_days):
+<                 out.append(month_days.max())
+<     return sorted(set(out))
+< 
+< 
+< # ---------------------------------------------------------------------------
+< # MOMENTUM score (variant A incl / B excl recent month)
+< # ---------------------------------------------------------------------------
+< def momentum_scores(close: pd.DataFrame, asof: pd.Timestamp, universe: set,
+<                     exclude_recent_month: bool) -> pd.Series:
+<     """Normalized momentum composite per symbol as-of `asof`, restricted to `universe`.
+<     Uses ONLY prices up to and including `asof` (no lookahead).
+<     return_h  = P[gap] / P[gap+H] - 1     (H = 126 for 6M, 252 for 12M)
+<     vol_h     = std of daily log returns over the SAME window
+<     normalized ratio = return_h / (vol_h * sqrt(H))  (annualize-consistent scaling)
+<     z-score each horizon cross-sectionally, cap +-3, composite = mean of the two z's, score=1+comp.
+<     """
+<     hist = close.loc[:asof]
+<     if len(hist) < MIN_HISTORY + 25:
+<         return pd.Series(dtype=float)
+<     cols = [c for c in universe if c in hist.columns]
+<     hist = hist[cols]
+<     gap = 21 if exclude_recent_month else 0  # skip most recent ~1 month
+<     px = hist.values
+<     n = px.shape[0]
+<     idx_now = n - 1 - gap  # last usable price index (end of the excluded-recent window)
+<     if idx_now < MIN_HISTORY:
+<         return pd.Series(dtype=float)
+<     p_now = px[idx_now]
+< 
+<     def horizon_stats(H):
+<         i0 = idx_now - H
+<         if i0 < 0:
+<             return None, None
+<         p_then = px[i0]
+<         ret = p_now / p_then - 1.0
+<         # daily log-ret vol over the window [i0 .. idx_now]
+<         win = px[i0:idx_now + 1]
+<         logr = np.diff(np.log(win), axis=0)
+<         with np.errstate(invalid="ignore"):
+<             vol = np.nanstd(logr, axis=0)
+<         norm = ret / (vol * np.sqrt(H) + 1e-12)  # vol-adjusted momentum ratio
+<         return ret, norm
+< 
+<     r6, n6 = horizon_stats(126)
+<     r12, n12 = horizon_stats(252)
+<     if n6 is None or n12 is None:
+<         return pd.Series(dtype=float)
+< 
+<     df = pd.DataFrame({"sym": cols, "n6": n6, "n12": n12, "p_now": p_now,
+<                        "p_then6": px[idx_now - 126], "p_then12": px[idx_now - 252]})
+<     # require full valid price history over both windows (no NaNs/zeros -> not listed whole window)
+<     df = df[(df["p_now"] > 0) & (df["p_then6"] > 0) & (df["p_then12"] > 0)]
+<     df = df.replace([np.inf, -np.inf], np.nan).dropna(subset=["n6", "n12"])
+<     if len(df) < 30:
+<         return pd.Series(dtype=float)
+< 
+<     def z(s):
+<         return (s - s.mean()) / (s.std(ddof=0) + 1e-12)
+< 
+<     df["z6"] = z(df["n6"]).clip(-3, 3)
+<     df["z12"] = z(df["n12"]).clip(-3, 3)
+<     df["comp"] = df[["z6", "z12"]].mean(axis=1)
+<     df["score"] = 1.0 + df["comp"]  # NSE tilt convention (>0 by construction: comp in [-3,3])
+<     return df.set_index("sym")["score"]
+< 
+< 
+< def lowvol_scores(close: pd.DataFrame, asof: pd.Timestamp, universe: set) -> pd.Series:
+<     """Inverse trailing-252d daily-return volatility per symbol as-of `asof`."""
+<     hist = close.loc[:asof]
+<     cols = [c for c in universe if c in hist.columns]
+<     win = hist[cols].tail(253)  # 252 returns
+<     if len(win) < 200:
+<         return pd.Series(dtype=float)
+<     logr = np.log(win / win.shift(1)).iloc[1:]
+<     vol = logr.std(ddof=0)
+<     vol = vol[(vol > 0) & vol.notna()]
+<     if len(vol) < 30:
+<         return pd.Series(dtype=float)
+<     return 1.0 / vol  # inverse-vol; weights normalized later
+< 
+< 
+< # ---------------------------------------------------------------------------
+< # Build one index variant
+< # ---------------------------------------------------------------------------
+< def build_index(close, vol, members, rebals, score_fn, weight_mode, top_n, cap, tag):
+<     """Chain-linked daily portfolio return. weight_mode in {'ew','score','mcap','invvol'}.
+<     Returns a Series of index level (rebased later) indexed by trading date.
+<     Weights are set from data up to rebalance day `rb`, applied from the NEXT trading day."""
+<     tdays = close.index
+<     daily_ret = close.pct_change()
+<     port_ret = pd.Series(0.0, index=tdays)
+<     active_from = None
+<     n_rebals_done = 0
+<     holdings_log = []
+< 
+<     for i, rb in enumerate(rebals):
+<         if rb not in tdays:
+<             continue
+<         uni = members_asof(members, rb)
+<         if not uni:
+<             continue
+<         scores = score_fn(close, rb, uni)
+<         if scores.empty:
+<             continue
+<         top = scores.sort_values(ascending=False).head(top_n)
+<         sel = list(top.index)
+<         if len(sel) < max(10, top_n // 2):
+<             continue
+< 
+<         if weight_mode == "ew":
+<             w = pd.Series(1.0 / len(sel), index=sel)
+<         elif weight_mode == "score":  # equal-weight * score tilt, renormalized
+<             w = top / top.sum()
+<         elif weight_mode == "invvol":  # inverse-vol weights (score IS 1/vol)
+<             w = top / top.sum()
+<         elif weight_mode == "mcap":  # full-mcap proxy * score tilt, capped
+<             # mcap proxy = last close * 20d median volume (turnover proxy for float);
+<             # we lack shares outstanding so this is a LIQUIDITY-weighted proxy -- labelled D1.
+<             liq = (close.loc[:rb, sel].iloc[-1] *
+<                    vol.loc[:rb, sel].tail(20).median())
+<             raw = (liq * top).clip(lower=0)
+<             w = raw / raw.sum()
+<             w = w.clip(upper=cap)
+<             w = w / w.sum()  # renormalize after cap (single pass; residual over-cap small)
+<         else:
+<             raise ValueError(weight_mode)
+< 
+<         start = rb  # apply from NEXT trading day
+<         nxt = tdays[tdays > rb]
+<         if len(nxt) == 0:
+<             break
+<         seg_start = nxt[0]
+<         seg_end = rebals[i + 1] if i + 1 < len(rebals) else tdays[-1]
+<         seg = tdays[(tdays >= seg_start) & (tdays <= seg_end)]
+<         if len(seg) == 0:
+<             continue
+< 
+<         # buy-and-hold: weights DRIFT with prices within the segment (NSE holds constituents,
+<         # weights float between reviews). Compute drifting-weight portfolio return.
+<         seg_syms = [s for s in sel if s in daily_ret.columns]
+<         sub = daily_ret.loc[seg, seg_syms].fillna(0.0)
+<         # drift weights: start at w, grow by cumulative gross return
+<         w0 = w.reindex(seg_syms).fillna(0.0).values
+<         cum = (1 + sub.values).cumprod(axis=0)
+<         cum_prev = np.vstack([np.ones(len(seg_syms)), cum[:-1]])  # weight basis each day = prev cum
+<         wt = w0 * cum_prev
+<         wt = wt / wt.sum(axis=1, keepdims=True)
+<         pr = (wt * sub.values).sum(axis=1)
+<         port_ret.loc[seg] = pr
+<         n_rebals_done += 1
+<         holdings_log.append({"rebal": rb.date().isoformat(), "n_sel": len(sel),
+<                              "seg_days": len(seg), "top1": sel[0]})
+<         if active_from is None:
+<             active_from = seg_start
+< 
+<     if active_from is None:
+<         raise RuntimeError(f"[{tag}] no active segments built")
+<     ret = port_ret.loc[active_from:]
+<     level = (1 + ret).cumprod()
+<     log(f"[{tag}] rebals={n_rebals_done} active {active_from.date()}->{ret.index[-1].date()} "
+<         f"days={len(ret)}")
+<     return level, pd.DataFrame(holdings_log)
+< 
+< 
+< # ---------------------------------------------------------------------------
+< # TE / correlation vs official
+< # ---------------------------------------------------------------------------
+< def tracking_stats(replica_level: pd.Series, official: pd.Series):
+<     """Align on common dates, rebase replica to official at first common date, compute
+<     daily-return correlation and annualized tracking error (std of return differences)."""
+<     off = official.copy()
+<     off.index = pd.to_datetime(off.index)
+<     common = replica_level.index.intersection(off.index)
+<     if len(common) < 60:
+<         return None
+<     rep = replica_level.reindex(common)
+<     ofc = off.reindex(common)
+<     rep = rep / rep.iloc[0] * ofc.iloc[0]  # rebase to official level at first common date
+<     rr = rep.pct_change().dropna()
+<     ro = ofc.pct_change().dropna()
+<     j = rr.index.intersection(ro.index)
+<     rr, ro = rr.reindex(j), ro.reindex(j)
+<     diff = rr - ro
+<     te = diff.std(ddof=0) * np.sqrt(252)
+<     corr = rr.corr(ro)
+<     return {"rep": rep, "off": ofc, "rr": rr, "ro": ro, "corr": corr, "te": te,
+<             "start": str(j.min().date()), "end": str(j.max().date()), "n": len(j)}
+< 
+< 
+< def per_year_stats(rr: pd.Series, ro: pd.Series):
+<     rows = []
+<     for yr, g in rr.groupby(rr.index.year):
+<         gg = ro.reindex(g.index)
+<         diff = g - gg
+<         rows.append({"year": int(yr), "n": len(g),
+<                      "corr": round(g.corr(gg), 4),
+<                      "te_ann": round(diff.std(ddof=0) * np.sqrt(252), 4),
+<                      "rep_ret": round((1 + g).prod() - 1, 4),
+<                      "off_ret": round((1 + gg).prod() - 1, 4)})
+<     return pd.DataFrame(rows)
+< 
+< 
+< # ---------------------------------------------------------------------------
+< # MAIN
+< # ---------------------------------------------------------------------------
+386,388c111,113
+<     log("=" * 70)
+<     log("D-M4 factor replication -- Momentum30 (exact) + LowVol30 v2")
+<     log("=" * 70)
+---
+>     log("=" * 74)
+>     log("D-M4 FINAL LEG -- factor replication on UNION PRICE panel (Momentum30 + LowVol30 v2)")
+>     log("=" * 74)
+390c115
+<     close, vol = load_panel_wide()
+---
+>     close, vol = load_union_price_and_hf_volume()
+400,401c125,126
+<     n200 = apply_aliases(load_n200_members())
+<     n100 = apply_aliases(load_n100_members())
+---
+>     n200 = R.apply_aliases(R.load_n200_members())
+>     n100 = R.apply_aliases(R.load_n100_members())
+404c129
+<     log(f"[members] ticker aliases applied: {len(TICKER_ALIASES)} (1:1 renames only)")
+---
+>     log(f"[members] Mar/Sep snapshot calendar honoured via members_asof (most-recent<=date)")
+406c131
+<     results = {}  # tag -> tracking_stats dict + per-year df
+---
+>     results = {}
+408,409c133,134
+<     # ---- MOMENTUM: 4 variants (A_incl/B_excl x ew/mcap), semiannual Jun/Dec ----
+<     mom_rebals = rebal_dates(tdays, months=(6, 12), start_year=2004, end_year=2026)
+---
+>     # ---- MOMENTUM: 4 variants (A_incl/B_excl x ew/mcap), semiannual Jun/Dec effective ----
+>     mom_rebals = R.rebal_dates(tdays, months=(6, 12), start_year=2004, end_year=2026)
+420c145
+<         sc = (lambda c, d, u, _e=excl: momentum_scores(c, d, u, exclude_recent_month=_e))
+---
+>         sc = (lambda c, d, u, _e=excl: R.momentum_scores(c, d, u, exclude_recent_month=_e))
+422,423c147,148
+<             level, hold = build_index(close, vol, n200, mom_rebals, sc, wmode,
+<                                       top_n=30, cap=0.05, tag=tag)
+---
+>             level, hold = R.build_index(close, vol, n200, mom_rebals, sc, wmode,
+>                                         top_n=30, cap=0.05, tag=tag)
+427c152
+<         st = tracking_stats(level, mom_off)
+---
+>         st = R.tracking_stats(level, mom_off)
+431c156
+<         py = per_year_stats(st["rr"], st["ro"])
+---
+>         py = R.per_year_stats(st["rr"], st["ro"])
+433d157
+<         # checkpoint CSV incrementally
+442c166
+<     lv_rebals = rebal_dates(tdays, months=(3, 6, 9, 12), start_year=2008, end_year=2026)
+---
+>     lv_rebals = R.rebal_dates(tdays, months=(3, 6, 9, 12), start_year=2008, end_year=2026)
+444c168
+<     sc_lv = (lambda c, d, u: lowvol_scores(c, d, u))
+---
+>     sc_lv = (lambda c, d, u: R.lowvol_scores(c, d, u))
+446,448c170,172
+<         lv_level, lv_hold = build_index(close, vol, n100, lv_rebals, sc_lv, "invvol",
+<                                         top_n=30, cap=0.05, tag="lowvol_invvol_q")
+<         st = tracking_stats(lv_level, lv_off)
+---
+>         lv_level, lv_hold = R.build_index(close, vol, n100, lv_rebals, sc_lv, "invvol",
+>                                           top_n=30, cap=0.05, tag="lowvol_invvol_q")
+>         st = R.tracking_stats(lv_level, lv_off)
+450c174
+<             py = per_year_stats(st["rr"], st["ro"])
+---
+>             py = R.per_year_stats(st["rr"], st["ro"])
+461c185
+<     # ---- era-sliced stats (the coverage story: early-era universe holes drive full-period TE) ----
+---
+>     # ---- era-sliced stats (same era boundaries as round-1 for apples-to-apples) ----
+480c204
+<     log("\nERA-SLICED corr/TE (coverage story):")
+---
+>     log("\nERA-SLICED corr/TE (union price panel):")
+492c216
+<     log("\n" + "=" * 70)
+---
+>     log("\n" + "=" * 74)
+495c219
+<     log("=" * 70)
+---
+>     log("=" * 74)
+498,499c222,230
+<            "panel": PANEL_PATH, "panel_max_date": str(DATA_MAX_DATE.date()),
+<            "nav": NAV_PATH, "n200_xlsx": N200_XLSX, "n100_xlsx": N100_XLSX,
+---
+>            "run": "D-M4 final leg -- union PRICE panel re-run",
+>            "close_source": UNION_PRICE,
+>            "close_source_version": PANEL_VERSION,
+>            "volume_source": HF_PANEL + " (HF where available; union panel has no volume)",
+>            "panel_max_date": str(DATA_MAX_DATE.date()),
+>            "nav": NAV_PATH,
+>            "n200_xlsx": R.N200_XLSX, "n100_xlsx": R.N100_XLSX,
+>            "membership_snapshot_calendar": "Mar/Sep (months {3,9}) -- Manoj correction, honoured via members_asof",
+>            "engine": ENGINE_DIR + r"\replicate_factor_indices.py (imported UNCHANGED, D-028 audited)",
+505c236,237
+<            "deviations": ["D1 full-mcap(liquidity) proxy not free-float",
+---
+>            "frictionless": True,
+>            "deviations": ["D1 full-mcap(liquidity) proxy not free-float (HF volume where avail)",
+507,509c239,243
+<                           "D3 effective date = last trading day of review month",
+<                           "D4 panel ends 2026-01-22 vs NAV 2026-02-27",
+<                           "D5 no IWF/divisor maintenance"]}
+---
+>                           "D3 effective date = last trading day of review month; Mar/Sep snaps ff'd",
+>                           "D4 panel ends 2026-01-22 vs NAV 2026-02-27 -- common window",
+>                           "D5 no IWF/divisor maintenance",
+>                           "D6 EARLY-ERA COVERAGE -- PARTIALLY RECOVERED by union panel (see REPORT)"],
+>            "basis_note": "PRICE basis, excludes Master (RETURN basis) -> basis-consistent with official price indices"}

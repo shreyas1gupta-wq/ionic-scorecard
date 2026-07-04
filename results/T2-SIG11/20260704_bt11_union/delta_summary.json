@@ -1,0 +1,124 @@
+{
+  "N10_cost1x": {
+    "OLD_HF": {
+      "cagr_pct_2016_2026": 10.788,
+      "final_equity_rupees": 2778930.77,
+      "total_pl_rupees": 1778930.77,
+      "max_dd_pct": -60.593,
+      "monthly_sharpe": 0.498,
+      "n_trades": 1160
+    },
+    "UNION_full_2014plus": {
+      "cagr_pct": 9.712,
+      "final_equity_rupees": 3034338.18,
+      "total_pl_rupees": 2034338.18,
+      "max_dd_pct": -64.056,
+      "monthly_sharpe": 0.484,
+      "n_trades": 1372,
+      "pct_fills_no_vol_overall": 3.35
+    },
+    "UNION_like_for_like_from2016": {
+      "cagr_pct_2016_2026": 6.804,
+      "delta_cagr_vs_old_pp": -3.984
+    }
+  },
+  "N20_cost1x": {
+    "OLD_HF": {
+      "cagr_pct_2016_2026": 12.635,
+      "final_equity_rupees": 3277470.62,
+      "total_pl_rupees": 2277470.62,
+      "max_dd_pct": -49.457,
+      "monthly_sharpe": 0.622,
+      "n_trades": 2280
+    },
+    "UNION_full_2014plus": {
+      "cagr_pct": 13.391,
+      "final_equity_rupees": 4504134.43,
+      "total_pl_rupees": 3504134.43,
+      "max_dd_pct": -52.979,
+      "monthly_sharpe": 0.675,
+      "n_trades": 2701,
+      "pct_fills_no_vol_overall": 3.26
+    },
+    "UNION_like_for_like_from2016": {
+      "cagr_pct_2016_2026": 8.488,
+      "delta_cagr_vs_old_pp": -4.147
+    }
+  },
+  "N10_cost2x": {
+    "OLD_HF": {
+      "cagr_pct_2016_2026": -1.147,
+      "final_equity_rupees": 891319.46,
+      "total_pl_rupees": -108680.54,
+      "max_dd_pct": -69.841,
+      "monthly_sharpe": 0.105,
+      "n_trades": 1160
+    },
+    "UNION_full_2014plus": {
+      "cagr_pct": -2.057,
+      "final_equity_rupees": 779692.16,
+      "total_pl_rupees": -220307.84,
+      "max_dd_pct": -72.369,
+      "monthly_sharpe": 0.055,
+      "n_trades": 1372,
+      "pct_fills_no_vol_overall": 3.35
+    },
+    "UNION_like_for_like_from2016": {
+      "cagr_pct_2016_2026": -4.864,
+      "delta_cagr_vs_old_pp": -3.717
+    }
+  },
+  "N20_cost2x": {
+    "OLD_HF": {
+      "cagr_pct_2016_2026": 0.058,
+      "final_equity_rupees": 1005790.22,
+      "total_pl_rupees": 5790.22,
+      "max_dd_pct": -61.629,
+      "monthly_sharpe": 0.121,
+      "n_trades": 2280
+    },
+    "UNION_full_2014plus": {
+      "cagr_pct": 1.033,
+      "final_equity_rupees": 1130963.32,
+      "total_pl_rupees": 130963.32,
+      "max_dd_pct": -63.918,
+      "monthly_sharpe": 0.159,
+      "n_trades": 2701,
+      "pct_fills_no_vol_overall": 3.26
+    },
+    "UNION_like_for_like_from2016": {
+      "cagr_pct_2016_2026": -3.537,
+      "delta_cagr_vs_old_pp": -3.595
+    }
+  },
+  "shuffle": {
+    "N10": {
+      "OLD_HF": {
+        "real_cagr_pct": 10.788,
+        "shuffle_mean_pct": 3.55,
+        "percentile": 98.0,
+        "beats_mean_pp": 7.238
+      },
+      "UNION": {
+        "real_cagr_pct": 9.712,
+        "shuffle_mean_pct": 4.708,
+        "percentile": 86.0,
+        "beats_mean_pp": 5.004
+      }
+    },
+    "N20": {
+      "OLD_HF": {
+        "real_cagr_pct": 12.635,
+        "shuffle_mean_pct": 3.335,
+        "percentile": 100.0,
+        "beats_mean_pp": 9.3
+      },
+      "UNION": {
+        "real_cagr_pct": 13.391,
+        "shuffle_mean_pct": 7.139,
+        "percentile": 88.0,
+        "beats_mean_pp": 6.252
+      }
+    }
+  }
+}

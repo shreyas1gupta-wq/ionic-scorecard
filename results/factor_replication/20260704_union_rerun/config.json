@@ -1,0 +1,34 @@
+{
+  "built": "2026-07-04T21:17:23",
+  "run": "D-M4 final leg -- union PRICE panel re-run",
+  "close_source": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\results\\factor_replication\\20260704_union_rerun\\close_panel_price.parquet",
+  "close_source_version": "pit_union_panel_v1 (PRICE basis; frozen copy md5 cc5f70d1f94129d52bd55fc8b77d0094)",
+  "volume_source": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\swing_momentum\\data\\hf_stock_minute\\day\\train-00000.parquet (HF where available; union panel has no volume)",
+  "panel_max_date": "2026-01-22",
+  "nav": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\datasets\\index_daily\\factor_navs_principal.parquet",
+  "n200_xlsx": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\NIFTY200_TICKER_2005_2025.xlsx",
+  "n100_xlsx": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Historical stock composition of Nifty 50 and Nifty Next 50.xlsx",
+  "membership_snapshot_calendar": "Mar/Sep (months {3,9}) -- Manoj correction, honoured via members_asof",
+  "engine": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\results\\factor_replication\\20260704_momentm30_exact\\replicate_factor_indices.py (imported UNCHANGED, D-028 audited)",
+  "momentum_rebalance": "semiannual (Jun/Dec last trading day)",
+  "lowvol_rebalance": "quarterly (Mar/Jun/Sep/Dec last trading day)",
+  "momentum_score": "z(6M vol-adj ret)+z(12M vol-adj ret) avg, cap +-3, tilt=1+z",
+  "lowvol_score": "inverse trailing-252d daily-ret vol, inverse-vol weights",
+  "variants": [
+    "mom_Aincl_ew",
+    "mom_Bexcl_ew",
+    "mom_Aincl_mcap",
+    "mom_Bexcl_mcap",
+    "lowvol_invvol_q"
+  ],
+  "frictionless": true,
+  "deviations": [
+    "D1 full-mcap(liquidity) proxy not free-float (HF volume where avail)",
+    "D2 5% cap on mcap variant only",
+    "D3 effective date = last trading day of review month; Mar/Sep snaps ff'd",
+    "D4 panel ends 2026-01-22 vs NAV 2026-02-27 -- common window",
+    "D5 no IWF/divisor maintenance",
+    "D6 EARLY-ERA COVERAGE -- PARTIALLY RECOVERED by union panel (see REPORT)"
+  ],
+  "basis_note": "PRICE basis, excludes Master (RETURN basis) -> basis-consistent with official price indices"
+}

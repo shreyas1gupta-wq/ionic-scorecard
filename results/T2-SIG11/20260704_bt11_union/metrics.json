@@ -1,0 +1,646 @@
+{
+  "N10_cost1x": {
+    "label": "N10_cost1x",
+    "years": 11.975,
+    "n_rebalances": 145,
+    "start_notional_rupees": 1000000.0,
+    "final_equity_rupees": 3034338.18,
+    "total_pl_rupees": 2034338.18,
+    "total_cost_rupees": 3100248.5,
+    "cagr_pct": 9.712,
+    "max_drawdown_pct": -64.056,
+    "monthly_sharpe": 0.484,
+    "n_trades": 1372,
+    "avg_cash_slots": 0.54,
+    "pct_fills_no_vol_overall": 3.35,
+    "per_year_trade_pl": {
+      "2014": {
+        "n_trades": 91,
+        "rupee_pl": 497355.22,
+        "avg_trade_ret_pct": 4.688,
+        "win_rate_pct": 61.54,
+        "pct_entries_no_vol": 10.99
+      },
+      "2015": {
+        "n_trades": 111,
+        "rupee_pl": 49444.48,
+        "avg_trade_ret_pct": 0.421,
+        "win_rate_pct": 47.75,
+        "pct_entries_no_vol": 6.31
+      },
+      "2016": {
+        "n_trades": 108,
+        "rupee_pl": 86577.56,
+        "avg_trade_ret_pct": 0.829,
+        "win_rate_pct": 50.0,
+        "pct_entries_no_vol": 12.04
+      },
+      "2017": {
+        "n_trades": 120,
+        "rupee_pl": 854374.09,
+        "avg_trade_ret_pct": 3.879,
+        "win_rate_pct": 60.83,
+        "pct_entries_no_vol": 7.5
+      },
+      "2018": {
+        "n_trades": 110,
+        "rupee_pl": -888704.84,
+        "avg_trade_ret_pct": -3.95,
+        "win_rate_pct": 35.45,
+        "pct_entries_no_vol": 4.55
+      },
+      "2019": {
+        "n_trades": 120,
+        "rupee_pl": -185339.03,
+        "avg_trade_ret_pct": -0.985,
+        "win_rate_pct": 43.33,
+        "pct_entries_no_vol": 0.0
+      },
+      "2020": {
+        "n_trades": 118,
+        "rupee_pl": 191041.47,
+        "avg_trade_ret_pct": 1.861,
+        "win_rate_pct": 60.17,
+        "pct_entries_no_vol": 1.69
+      },
+      "2021": {
+        "n_trades": 120,
+        "rupee_pl": 1507833.42,
+        "avg_trade_ret_pct": 5.885,
+        "win_rate_pct": 57.5,
+        "pct_entries_no_vol": 0.0
+      },
+      "2022": {
+        "n_trades": 110,
+        "rupee_pl": 112883.65,
+        "avg_trade_ret_pct": 0.727,
+        "win_rate_pct": 49.09,
+        "pct_entries_no_vol": 0.0
+      },
+      "2023": {
+        "n_trades": 120,
+        "rupee_pl": 1252542.43,
+        "avg_trade_ret_pct": 3.127,
+        "win_rate_pct": 53.33,
+        "pct_entries_no_vol": 0.0
+      },
+      "2024": {
+        "n_trades": 120,
+        "rupee_pl": 398679.09,
+        "avg_trade_ret_pct": 0.862,
+        "win_rate_pct": 45.0,
+        "pct_entries_no_vol": 0.0
+      },
+      "2025": {
+        "n_trades": 104,
+        "rupee_pl": -1804469.65,
+        "avg_trade_ret_pct": -3.958,
+        "win_rate_pct": 44.23,
+        "pct_entries_no_vol": 0.0
+      },
+      "2026": {
+        "n_trades": 20,
+        "rupee_pl": -37879.69,
+        "avg_trade_ret_pct": -0.574,
+        "win_rate_pct": 45.0,
+        "pct_entries_no_vol": 0.0
+      }
+    },
+    "per_year_book_return_pct": {
+      "2014": 55.213,
+      "2015": 1.336,
+      "2016": -6.378,
+      "2017": 74.31,
+      "2018": -43.467,
+      "2019": -8.149,
+      "2020": 35.005,
+      "2021": 112.282,
+      "2022": -17.635,
+      "2023": 47.428,
+      "2024": 9.307,
+      "2025": -37.963,
+      "2026": -3.528
+    },
+    "cagr_pct_from_2016": 6.804,
+    "regime_slices": {
+      "2018_smallcap_crash": {
+        "n_trades": 110,
+        "rupee_pl": -888704.84,
+        "pct_of_notional": -88.87,
+        "avg_trade_ret_pct": -3.95,
+        "win_rate_pct": 35.45
+      },
+      "2020_covid": {
+        "n_trades": 118,
+        "rupee_pl": 191041.47,
+        "pct_of_notional": 19.104,
+        "avg_trade_ret_pct": 1.861,
+        "win_rate_pct": 60.17
+      },
+      "2022_rate_shock": {
+        "n_trades": 110,
+        "rupee_pl": 112883.65,
+        "pct_of_notional": 11.288,
+        "avg_trade_ret_pct": 0.727,
+        "win_rate_pct": 49.09
+      },
+      "2024": {
+        "n_trades": 120,
+        "rupee_pl": 398679.09,
+        "pct_of_notional": 39.868,
+        "avg_trade_ret_pct": 0.862,
+        "win_rate_pct": 45.0
+      },
+      "2025_26": {
+        "n_trades": 124,
+        "rupee_pl": -1842349.34,
+        "pct_of_notional": -184.235,
+        "avg_trade_ret_pct": -3.412,
+        "win_rate_pct": 44.35
+      }
+    }
+  },
+  "N10_cost2x": {
+    "label": "N10_cost2x",
+    "years": 11.975,
+    "n_rebalances": 145,
+    "start_notional_rupees": 1000000.0,
+    "final_equity_rupees": 779692.16,
+    "total_pl_rupees": -220307.84,
+    "total_cost_rupees": 2983700.71,
+    "cagr_pct": -2.057,
+    "max_drawdown_pct": -72.369,
+    "monthly_sharpe": 0.055,
+    "n_trades": 1372,
+    "avg_cash_slots": 0.54,
+    "pct_fills_no_vol_overall": 3.35,
+    "per_year_trade_pl": {
+      "2014": {
+        "n_trades": 91,
+        "rupee_pl": 371792.21,
+        "avg_trade_ret_pct": 3.683,
+        "win_rate_pct": 57.14,
+        "pct_entries_no_vol": 10.99
+      },
+      "2015": {
+        "n_trades": 111,
+        "rupee_pl": -98280.43,
+        "avg_trade_ret_pct": -0.54,
+        "win_rate_pct": 46.85,
+        "pct_entries_no_vol": 6.31
+      },
+      "2016": {
+        "n_trades": 108,
+        "rupee_pl": -56836.0,
+        "avg_trade_ret_pct": -0.15,
+        "win_rate_pct": 43.52,
+        "pct_entries_no_vol": 12.04
+      },
+      "2017": {
+        "n_trades": 120,
+        "rupee_pl": 440396.54,
+        "avg_trade_ret_pct": 2.875,
+        "win_rate_pct": 58.33,
+        "pct_entries_no_vol": 7.5
+      },
+      "2018": {
+        "n_trades": 110,
+        "rupee_pl": -685492.33,
+        "avg_trade_ret_pct": -4.883,
+        "win_rate_pct": 30.91,
+        "pct_entries_no_vol": 4.55
+      },
+      "2019": {
+        "n_trades": 120,
+        "rupee_pl": -197196.5,
+        "avg_trade_ret_pct": -1.982,
+        "win_rate_pct": 37.5,
+        "pct_entries_no_vol": 0.0
+      },
+      "2020": {
+        "n_trades": 118,
+        "rupee_pl": -31248.1,
+        "avg_trade_ret_pct": 0.804,
+        "win_rate_pct": 57.63,
+        "pct_entries_no_vol": 1.69
+      },
+      "2021": {
+        "n_trades": 120,
+        "rupee_pl": 537173.43,
+        "avg_trade_ret_pct": 4.839,
+        "win_rate_pct": 53.33,
+        "pct_entries_no_vol": 0.0
+      },
+      "2022": {
+        "n_trades": 110,
+        "rupee_pl": -89520.9,
+        "avg_trade_ret_pct": -0.255,
+        "win_rate_pct": 46.36,
+        "pct_entries_no_vol": 0.0
+      },
+      "2023": {
+        "n_trades": 120,
+        "rupee_pl": 276555.71,
+        "avg_trade_ret_pct": 2.106,
+        "win_rate_pct": 50.83,
+        "pct_entries_no_vol": 0.0
+      },
+      "2024": {
+        "n_trades": 120,
+        "rupee_pl": -45587.83,
+        "avg_trade_ret_pct": -0.114,
+        "win_rate_pct": 43.33,
+        "pct_entries_no_vol": 0.0
+      },
+      "2025": {
+        "n_trades": 104,
+        "rupee_pl": -615928.61,
+        "avg_trade_ret_pct": -4.919,
+        "win_rate_pct": 38.46,
+        "pct_entries_no_vol": 0.0
+      },
+      "2026": {
+        "n_trades": 20,
+        "rupee_pl": -26135.02,
+        "avg_trade_ret_pct": -1.587,
+        "win_rate_pct": 40.0,
+        "pct_entries_no_vol": 0.0
+      }
+    },
+    "per_year_book_return_pct": {
+      "2014": 40.843,
+      "2015": -8.939,
+      "2016": -15.84,
+      "2017": 55.222,
+      "2018": -49.302,
+      "2019": -18.717,
+      "2020": 19.49,
+      "2021": 88.651,
+      "2022": -26.107,
+      "2023": 30.881,
+      "2024": -2.749,
+      "2025": -44.212,
+      "2026": -4.521
+    },
+    "cagr_pct_from_2016": -4.864,
+    "regime_slices": {
+      "2018_smallcap_crash": {
+        "n_trades": 110,
+        "rupee_pl": -685492.33,
+        "pct_of_notional": -68.549,
+        "avg_trade_ret_pct": -4.883,
+        "win_rate_pct": 30.91
+      },
+      "2020_covid": {
+        "n_trades": 118,
+        "rupee_pl": -31248.1,
+        "pct_of_notional": -3.125,
+        "avg_trade_ret_pct": 0.804,
+        "win_rate_pct": 57.63
+      },
+      "2022_rate_shock": {
+        "n_trades": 110,
+        "rupee_pl": -89520.9,
+        "pct_of_notional": -8.952,
+        "avg_trade_ret_pct": -0.255,
+        "win_rate_pct": 46.36
+      },
+      "2024": {
+        "n_trades": 120,
+        "rupee_pl": -45587.83,
+        "pct_of_notional": -4.559,
+        "avg_trade_ret_pct": -0.114,
+        "win_rate_pct": 43.33
+      },
+      "2025_26": {
+        "n_trades": 124,
+        "rupee_pl": -642063.64,
+        "pct_of_notional": -64.206,
+        "avg_trade_ret_pct": -4.381,
+        "win_rate_pct": 38.71
+      }
+    }
+  },
+  "N20_cost1x": {
+    "label": "N20_cost1x",
+    "years": 11.975,
+    "n_rebalances": 145,
+    "start_notional_rupees": 1000000.0,
+    "final_equity_rupees": 4504134.43,
+    "total_pl_rupees": 3504134.43,
+    "total_cost_rupees": 4001034.19,
+    "cagr_pct": 13.391,
+    "max_drawdown_pct": -52.979,
+    "monthly_sharpe": 0.675,
+    "n_trades": 2701,
+    "avg_cash_slots": 1.37,
+    "pct_fills_no_vol_overall": 3.26,
+    "per_year_trade_pl": {
+      "2014": {
+        "n_trades": 181,
+        "rupee_pl": 696290.54,
+        "avg_trade_ret_pct": 6.108,
+        "win_rate_pct": 63.54,
+        "pct_entries_no_vol": 7.73
+      },
+      "2015": {
+        "n_trades": 221,
+        "rupee_pl": 296560.74,
+        "avg_trade_ret_pct": 1.554,
+        "win_rate_pct": 52.49,
+        "pct_entries_no_vol": 4.98
+      },
+      "2016": {
+        "n_trades": 208,
+        "rupee_pl": 119724.56,
+        "avg_trade_ret_pct": 0.822,
+        "win_rate_pct": 51.92,
+        "pct_entries_no_vol": 10.1
+      },
+      "2017": {
+        "n_trades": 240,
+        "rupee_pl": 1053741.96,
+        "avg_trade_ret_pct": 3.585,
+        "win_rate_pct": 60.42,
+        "pct_entries_no_vol": 7.08
+      },
+      "2018": {
+        "n_trades": 211,
+        "rupee_pl": -924872.39,
+        "avg_trade_ret_pct": -3.1,
+        "win_rate_pct": 34.12,
+        "pct_entries_no_vol": 5.21
+      },
+      "2019": {
+        "n_trades": 239,
+        "rupee_pl": -162314.5,
+        "avg_trade_ret_pct": -0.545,
+        "win_rate_pct": 46.44,
+        "pct_entries_no_vol": 0.0
+      },
+      "2020": {
+        "n_trades": 228,
+        "rupee_pl": 174389.91,
+        "avg_trade_ret_pct": 1.174,
+        "win_rate_pct": 57.89,
+        "pct_entries_no_vol": 0.88
+      },
+      "2021": {
+        "n_trades": 237,
+        "rupee_pl": 1639421.3,
+        "avg_trade_ret_pct": 4.8,
+        "win_rate_pct": 57.81,
+        "pct_entries_no_vol": 4.22
+      },
+      "2022": {
+        "n_trades": 220,
+        "rupee_pl": 44086.43,
+        "avg_trade_ret_pct": 0.422,
+        "win_rate_pct": 47.27,
+        "pct_entries_no_vol": 0.45
+      },
+      "2023": {
+        "n_trades": 240,
+        "rupee_pl": 1050630.66,
+        "avg_trade_ret_pct": 2.249,
+        "win_rate_pct": 51.25,
+        "pct_entries_no_vol": 0.0
+      },
+      "2024": {
+        "n_trades": 240,
+        "rupee_pl": 1346738.95,
+        "avg_trade_ret_pct": 2.162,
+        "win_rate_pct": 51.25,
+        "pct_entries_no_vol": 0.0
+      },
+      "2025": {
+        "n_trades": 196,
+        "rupee_pl": -1623446.04,
+        "avg_trade_ret_pct": -2.735,
+        "win_rate_pct": 40.82,
+        "pct_entries_no_vol": 0.51
+      },
+      "2026": {
+        "n_trades": 40,
+        "rupee_pl": -206817.69,
+        "avg_trade_ret_pct": -2.189,
+        "win_rate_pct": 32.5,
+        "pct_entries_no_vol": 0.0
+      }
+    },
+    "per_year_book_return_pct": {
+      "2014": 71.806,
+      "2015": 16.248,
+      "2016": -0.447,
+      "2017": 63.385,
+      "2018": -33.915,
+      "2019": -4.154,
+      "2020": 16.047,
+      "2021": 86.998,
+      "2022": -15.26,
+      "2023": 42.207,
+      "2024": 23.101,
+      "2025": -28.791,
+      "2026": -4.509
+    },
+    "cagr_pct_from_2016": 8.488,
+    "regime_slices": {
+      "2018_smallcap_crash": {
+        "n_trades": 211,
+        "rupee_pl": -924872.39,
+        "pct_of_notional": -92.487,
+        "avg_trade_ret_pct": -3.1,
+        "win_rate_pct": 34.12
+      },
+      "2020_covid": {
+        "n_trades": 228,
+        "rupee_pl": 174389.91,
+        "pct_of_notional": 17.439,
+        "avg_trade_ret_pct": 1.174,
+        "win_rate_pct": 57.89
+      },
+      "2022_rate_shock": {
+        "n_trades": 220,
+        "rupee_pl": 44086.43,
+        "pct_of_notional": 4.409,
+        "avg_trade_ret_pct": 0.422,
+        "win_rate_pct": 47.27
+      },
+      "2024": {
+        "n_trades": 240,
+        "rupee_pl": 1346738.95,
+        "pct_of_notional": 134.674,
+        "avg_trade_ret_pct": 2.162,
+        "win_rate_pct": 51.25
+      },
+      "2025_26": {
+        "n_trades": 236,
+        "rupee_pl": -1830263.73,
+        "pct_of_notional": -183.026,
+        "avg_trade_ret_pct": -2.643,
+        "win_rate_pct": 39.41
+      }
+    }
+  },
+  "N20_cost2x": {
+    "label": "N20_cost2x",
+    "years": 11.975,
+    "n_rebalances": 145,
+    "start_notional_rupees": 1000000.0,
+    "final_equity_rupees": 1130963.32,
+    "total_pl_rupees": 130963.32,
+    "total_cost_rupees": 3848271.71,
+    "cagr_pct": 1.033,
+    "max_drawdown_pct": -63.918,
+    "monthly_sharpe": 0.159,
+    "n_trades": 2701,
+    "avg_cash_slots": 1.37,
+    "pct_fills_no_vol_overall": 3.26,
+    "per_year_trade_pl": {
+      "2014": {
+        "n_trades": 181,
+        "rupee_pl": 549955.28,
+        "avg_trade_ret_pct": 5.05,
+        "win_rate_pct": 59.67,
+        "pct_entries_no_vol": 7.73
+      },
+      "2015": {
+        "n_trades": 221,
+        "rupee_pl": 82738.46,
+        "avg_trade_ret_pct": 0.556,
+        "win_rate_pct": 50.23,
+        "pct_entries_no_vol": 4.98
+      },
+      "2016": {
+        "n_trades": 208,
+        "rupee_pl": -69687.34,
+        "avg_trade_ret_pct": -0.186,
+        "win_rate_pct": 45.19,
+        "pct_entries_no_vol": 10.1
+      },
+      "2017": {
+        "n_trades": 240,
+        "rupee_pl": 521856.66,
+        "avg_trade_ret_pct": 2.561,
+        "win_rate_pct": 57.5,
+        "pct_entries_no_vol": 7.08
+      },
+      "2018": {
+        "n_trades": 211,
+        "rupee_pl": -748800.86,
+        "avg_trade_ret_pct": -4.066,
+        "win_rate_pct": 30.33,
+        "pct_entries_no_vol": 5.21
+      },
+      "2019": {
+        "n_trades": 239,
+        "rupee_pl": -233993.59,
+        "avg_trade_ret_pct": -1.575,
+        "win_rate_pct": 39.33,
+        "pct_entries_no_vol": 0.0
+      },
+      "2020": {
+        "n_trades": 228,
+        "rupee_pl": -66100.34,
+        "avg_trade_ret_pct": 0.09,
+        "win_rate_pct": 50.88,
+        "pct_entries_no_vol": 0.88
+      },
+      "2021": {
+        "n_trades": 237,
+        "rupee_pl": 547952.27,
+        "avg_trade_ret_pct": 3.722,
+        "win_rate_pct": 53.59,
+        "pct_entries_no_vol": 4.22
+      },
+      "2022": {
+        "n_trades": 220,
+        "rupee_pl": -153350.41,
+        "avg_trade_ret_pct": -0.602,
+        "win_rate_pct": 45.0,
+        "pct_entries_no_vol": 0.45
+      },
+      "2023": {
+        "n_trades": 240,
+        "rupee_pl": 168354.44,
+        "avg_trade_ret_pct": 1.187,
+        "win_rate_pct": 46.67,
+        "pct_entries_no_vol": 0.0
+      },
+      "2024": {
+        "n_trades": 240,
+        "rupee_pl": 200880.38,
+        "avg_trade_ret_pct": 1.14,
+        "win_rate_pct": 49.17,
+        "pct_entries_no_vol": 0.0
+      },
+      "2025": {
+        "n_trades": 196,
+        "rupee_pl": -591351.47,
+        "avg_trade_ret_pct": -3.74,
+        "win_rate_pct": 36.73,
+        "pct_entries_no_vol": 0.51
+      },
+      "2026": {
+        "n_trades": 40,
+        "rupee_pl": -77490.16,
+        "avg_trade_ret_pct": -3.222,
+        "win_rate_pct": 30.0,
+        "pct_entries_no_vol": 0.0
+      }
+    },
+    "per_year_book_return_pct": {
+      "2014": 55.439,
+      "2015": 4.227,
+      "2016": -10.377,
+      "2017": 45.11,
+      "2018": -40.618,
+      "2019": -15.43,
+      "2020": 2.658,
+      "2021": 65.602,
+      "2022": -24.359,
+      "2023": 25.505,
+      "2024": 9.109,
+      "2025": -35.747,
+      "2026": -5.531
+    },
+    "cagr_pct_from_2016": -3.537,
+    "regime_slices": {
+      "2018_smallcap_crash": {
+        "n_trades": 211,
+        "rupee_pl": -748800.86,
+        "pct_of_notional": -74.88,
+        "avg_trade_ret_pct": -4.066,
+        "win_rate_pct": 30.33
+      },
+      "2020_covid": {
+        "n_trades": 228,
+        "rupee_pl": -66100.34,
+        "pct_of_notional": -6.61,
+        "avg_trade_ret_pct": 0.09,
+        "win_rate_pct": 50.88
+      },
+      "2022_rate_shock": {
+        "n_trades": 220,
+        "rupee_pl": -153350.41,
+        "pct_of_notional": -15.335,
+        "avg_trade_ret_pct": -0.602,
+        "win_rate_pct": 45.0
+      },
+      "2024": {
+        "n_trades": 240,
+        "rupee_pl": 200880.38,
+        "pct_of_notional": 20.088,
+        "avg_trade_ret_pct": 1.14,
+        "win_rate_pct": 49.17
+      },
+      "2025_26": {
+        "n_trades": 236,
+        "rupee_pl": -668841.63,
+        "pct_of_notional": -66.884,
+        "avg_trade_ret_pct": -3.652,
+        "win_rate_pct": 35.59
+      }
+    }
+  }
+}

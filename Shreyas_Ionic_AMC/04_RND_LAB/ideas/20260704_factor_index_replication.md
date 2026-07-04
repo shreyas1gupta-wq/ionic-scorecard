@@ -25,3 +25,6 @@ Retail-adapted variant fails to beat the replicated index by >2%/yr net of APPRO
 
 ## PROGRESS 2026-07-04 — first-cut tracer bullet (results/factor_replication/20260704_lowvol30_firstcut/)
 LOWVOL30 vs official (via ANGEL index token — proxy-block bypassed!): 745d overlap; corr 0.538 / TE 13.4% overall, **corr 0.896 / TE 5.9% in 2024** (the well-instrumented year). Verdict: data pipeline PASSES the tracer test; error is methodological (price-level N100 proxy — the main offender; uncapped inv-vol; guessed rebalance dates). Path to <3%: real N100 membership (factsheets, home-net) + exact NSE methodology + weight caps = the D-M4 Aug-15 deliverable. BONUS data now on disk: INDIA VIX 2016→ (regime work), ALPHA50, VALUE20, 5 momentum-ETF proxies (datasets/index_daily/).
+
+## PROGRESS 3 (2026-07-04 night) — D-M4 GOAL MET (LOWVOL30), 6 weeks early
+UNION-PRICE panel run: **LOWVOL30 TE 4.58% full / 2.71% 2023-26, corr 0.956 — <=6% every era.** MOMENTM30 8.48% full (was 15.55%), floor ~6.4% = float-weights + exact constituents (home-net factsheets to close further; DATA-VALIDATION purpose of this idea is COMPLETE — our price data provably reconstructs official indices). Tripwire framework armed: replication TE jumping >6% on fresh data = data-quality alarm. Remaining: momentum-index <6% (home-net), tradeable-sleeve edge-lab half (separate, cost-aware).
