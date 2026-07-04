@@ -17,6 +17,8 @@ Two Claude accounts run this firm on the same laptop, same folder:
 - **Approvals (D-025):** prompts/standards/data-sources/adoptions/hires = CEO + CIO JOINT approval (both must agree; tie → Principal). LIVE capital + RISK_LIMITS loosening = Principal ONLY, always.
 - **No auto-fetching new external data sources.** New sources need user approval; verify samples via Data Officer protocol first (`05_DATA_OFFICE/DATA_QUALITY_RULES.md`).
 - Idea pipeline gates auto-advance EXCEPT the final gate (paper→live) = user only.
+- **Forward-test freeze (D-030):** once a strategy is in forward test / paper, its spec+code+params are FROZEN (pin git hash in the register at entry). Any change = a NEW version with a restarted forward clock; the old version's record stands unedited. Mid-test tuning voids the result.
+- **D-031 (personal trading line):** capacity ₹10L–₹10cr acceptable for exceptional strategies; limit-order-or-skip execution sanctioned (backtest translation: no-fill = DROP, never assume fills in dead markets). D-032: dual mandate — trading line (personal, short-term) + investment line (personal/AMC, long-term: multibagger/contrarian/deep-value/quality).
 - **MAX 3 PARALLEL AGENTS — STRICT, EVERY TIME (D-023).** And token hacks are law: /to-md digests before reading binaries, grep-before-read, background scripts over agents (TOKEN_POLICY §hacks).
 - Original research folders (`intraday_options_strategy/`, `swing_momentum/`, `alpha_research/`, `datasets/`, `FINAL_STRATEGY_FORWARD_CHECK/`) are **read-only legacy**: never move/rename; copy into the firm structure if needed.
 

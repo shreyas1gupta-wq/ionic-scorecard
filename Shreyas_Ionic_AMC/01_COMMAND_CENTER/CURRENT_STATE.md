@@ -15,6 +15,13 @@ SAFE checklist (live process finished, cwd outside tree, OneDrive paused, fresh 
 anyone passes `-Execute`. Until that runs, every path in every doc is still correct as-is — do
 NOT assume the folder has been renamed.
 
+## THREE NEW PRINCIPAL RULINGS 2026-07-05 (D-030/031/032 — DECISIONS_LOG + CLAUDE.md hard rules)
+Forward-test FREEZE (in-test spec changes void the test; new version = new clock) · capacity ₹10L-10cr +
+limit-order-or-skip ACCEPTABLE for exceptional personal-trading strategies (re-read I-017 capacity kill under
+this lens; Tara's no-fill=drop convention = the honest limit-or-skip sim) · DUAL MANDATE: trading line
+(personal, short-term) + investment line (personal/AMC, long-term: multibagger/contrarian/deep-value/quality).
+Principal msg truncated "...best and" — continuation pending.
+
 ## K-012 FF-CALENDAR RESURRECTION REVIEW — 3/3 LEGS LANDED 2026-07-05; v3 CAUSAL RE-TEST IN FLIGHT
 All in `results/S-03/20260705_resurrection/`. Verdicts:
 1. **Nikhil (RED_TEAM_FF_RESURRECTION.md): EDGE-BEYOND-SIZING, overall FRAGILE** — FF 100th pct vs turnover-matched AND CE_be-matched placebos (sizing alone ≈ 0, FF adds all of +10.5); **CAUGHT NEW T9 LEAK**: v2 engine enters at argmax-FF day (non-causal; v1 was earliest-cross) — logged in LOOKAHEAD_CONTROLS T-log; cost bracket: survives 2× slip, dies ~3.3×.
