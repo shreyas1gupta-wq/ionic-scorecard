@@ -8,7 +8,8 @@ Two Claude accounts run this firm on the same laptop, same folder:
 1. **Session start:** read `Shreyas_Ionic_AMC/01_COMMAND_CENTER/CURRENT_STATE.md` (always) and the last ~2 entries of `SESSION_JOURNAL.md`.
 2. **Session end / major milestone:** append an entry to `SESSION_JOURNAL.md` (date, account, what was done, files touched, next steps) AND update `CURRENT_STATE.md`.
 3. Long tasks: checkpoint progress to files continuously so the other account (or a token-limit restart) can resume mid-task.
-4. **DESK-100 session start: re-arm the firm cadence** — CronList; if the OPERATING_CALENDAR.md automatable jobs (weekly-meet Mon, paper Fri, risk Fri, macro Sun, pipeline Sun, EOD daily, month-end x2) are missing, re-create them from `01_COMMAND_CENTER/OPERATING_CALENDAR.md` §automatable (crons are session-bound; the calendar file is the source of truth).
+4. **Principal-facing deliverables are HUMAN-format (Principal order 2026-07-05):** Word docs with tables/charts (`09_PRODUCT/reports/`, builder script in 09_PRODUCT/scripts) or clean in-chat tables+metrics — NEVER bare .md pointers. .md = internal books for agents.
+5. **DESK-100 session start: re-arm the firm cadence** — CronList; if the OPERATING_CALENDAR.md automatable jobs (weekly-meet Mon, paper Fri, risk Fri, macro Sun, pipeline Sun, EOD daily, month-end x2) are missing, re-create them from `01_COMMAND_CENTER/OPERATING_CALENDAR.md` §automatable (crons are session-bound; the calendar file is the source of truth).
 
 ## HARD RULES (approval gates — never bypass)
 - **NO real-money trades, ever.** Angel account is fund-less/data-only. Everything is research/paper until the user explicitly approves a live step himself.
