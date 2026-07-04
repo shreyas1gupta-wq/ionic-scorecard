@@ -3,6 +3,15 @@ Format per entry: date, account (DESK-20/DESK-100), summary, files touched, hand
 Newest entries at TOP.
 
 ---
+## 2026-07-04 (evening resume) — DESK-100 — FACTOR REPLICATION PROVEN + DATA FORENSICS CLOSED; Principal contributed 3 datasets
+- **Principal unblocked D-M4 in-office**: factor_navs.xlsx (22 official NAV series 2005-2026, D-009 EXACT match vs Angel) + N200/N100 constituents already on disk + stocks_data_cache.pkl (yfinance 2020+, shares/funda/sectors) + screener zip (984 files fundamentals INCL DELISTED names).
+- **D-M4 exact replication (Arjun)**: MOMENTM30 TE 6.9%/corr 0.956 (2020->), LOWVOL30-v2 TE 2.7-4.9%/yr 2016-> (v1 was 13.4% — universe was the gap). Frictionless vs frictionless (verified — NSE convention). Aug-15 target beaten by 6 weeks.
+- **Forensics rounds 1+2 (Arjun, Principal-ordered "are our data wrong 2005-2018?")**: VERDICT = INCOMPLETE not WRONG. Adjustments CLEAN (14/14 splits/bonuses; Master 13/14, LT-2006 bad print). Wound = SURVIVORSHIP HOLE in HF dump (2006: 80 missing N200 members = 76 recoverable on-disk + 1 naming + 3 truly gone). Bias direction OPTIMISTIC -> BT-11 pre-2018 slices must not be certified until re-run (COVERAGE_CAVEAT upgraded). D1 measured: true shares cut TE 6.91->6.50%.
+- **nsearchives ind_close_all route DISCOVERED** (office-proxy-working official OHLC for ALL NSE indices): puller live, 2400+ days banked to nse_official_all_indices.parquet. niftyindices scraper itself still Zscaler-blocked (home-net).
+- **NOW IN FLIGHT: PIT UNION PANEL v1** (Manoj — survivorship-complete close panel 2005->today from 5 on-disk sources, target 2006 N200 coverage 57.6%->~95%) + screener-dump D-009 verification (Kavya) + Sameer S-04 sensitivity grid (25/210 symbols).
+- Root-folder inventory filed earlier: 6 research docs -> imported_research (multibagger two-stage-stop rule = KB 10-11), xbrl_cache/financial_metadata/raw-nifty500 cataloged. Commits: b9b26ca..477faa7.
+
+---
 ## 2026-07-04 (WINDUP addendum) — DESK-100 — D-028 lookahead controls live; 3 in flight at token wall
 - **Principal order executed (D-028)**: LOOKAHEAD_CONTROLS.md (T1–T10 taxonomy + T-log of our 5 past incidents) · lib/lookahead_audit.py (7/7 self-tests; one-day-lag killer diagnostic) · Gate-4 hard gate in RESEARCH_SOP · RISK_LIMITS §Process-risk · /lookahead-audit skill · Sameer/Ritika/Nikhil duties · CLAUDE.md landmine #7. FAIL = quarantine. (f4c0ae3)
 - **Manoj closed OPS-1/OPS-2**: strike grids differ per option TYPE (M&M lists 3160 CE but not PE — subtler than ticketed); scanner snaps per (name,expiry,type), prices back-month in primary pass; live-verified 54 legs 0 blank 0 blocked.
