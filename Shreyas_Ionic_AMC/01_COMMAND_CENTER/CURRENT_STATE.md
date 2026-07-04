@@ -1,5 +1,6 @@
 # CURRENT STATE — read me first (updated every session end)
-**As of: 2026-07-04 late-night WINDUP (token limit), by DESK-100 — sleeves ledger COMPLETE; D-028 lookahead controls LIVE**
+**As of: 2026-07-05 00:00 session close, by DESK-100 — the densest research day complete; all agents landed, all filed, backup #3 taken**
+**NEXT SESSION STARTS WITH:** (1) re-arm cadence crons (CLAUDE.md protocol #4); (2) first /weekly-meet Mon 07-07; (3) I-016 diversifier stress-corr deliverable (binding pre-IC); (4) BT-11 v1.5 spec (entry/exit-only + two-stage stops + circuit fills); (5) D-028 retro-audit workflow resume; (6) S-04/S-05 paper first entries (~Jul-14 cycle).
 
 ## IN FLIGHT AT WINDUP (harvest these FIRST next session)
 1. **Sameer — S-04 Gate-4 sensitivity**: background compute checkpoints to `results/S-04/20260704_sensitivity/` (grid CSV first, then SENSITIVITY_REPORT.md). If report absent: re-run sensitivity_S04.py there or re-summon Sameer (agent now registered).
