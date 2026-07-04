@@ -31,3 +31,11 @@ Consumers must branch on schema or use EOD-only accessors. `angel_capture_2026/`
 - **D1 measured (round-2):** true mcap weights (pkl shares x close) cut modern-era TE 6.91% -> 6.50%; residual = free-float IWF + effective-date timing, not weighting.
 - **Better early-era source (cached):** `results/factor_replication/20260704_data_forensics/_combined_master_delisted_close.parquet` — Master+Delisted union, 5,363 days x 1,204 names, close-only, adjusted. Use for early-era cross-sectional work; still misses ~70/200 of the 2006 index.
 - stocks_data_cache.pkl (root, Principal): yfinance 435 tickers 2020-06->2026-01 ADJUSTED + shares outstanding + TTM funda (378) + sectors — modern-era mcap weights & quality overlay; useless pre-2018.
+
+## PRICE BASIS verdicts (bhavcopy ground-truth, 2026-07-04 — pit_union_panel_v1/basis_ground_truth_check.csv)
+- **HF panel / Delisted xlsx / raw-nifty500 = PRICE basis** (94.8% exact match vs official bhavcopy closes).
+- **Master xlsx = RETURN basis (dividend-adjusted)** — 41.4% match, drift toward 1.0 near present. NEVER compare Master levels to exchange prints or price indices directly.
+- Earlier same-day hypothesis (HF=dividend-adjusted) was WRONG — inverted by ground truth. Lesson: cross-source disagreement identifies A mismatch, only ground truth identifies WHICH source.
+- Replication (HF, price basis) vs official price indices = consistent; dividend-inflation explanation for residual TE RETIRED. BT-11 on HF: price-basis backtest understates total return if dividends ignored — note, not a defect.
+- **CANONICAL PANELS (datasets/derived/pit_union_panel_v1/): `close_panel_price.parquet` (2,511 sym) for replication/level work · `close_panel_return.parquet` (2,556 sym, ratio-spliced) for backtests.** symbol_aliases.csv = standing alias table. QUARANTINED segments (9, e.g. HINDZINC 57x internal jump in Master) in quarantined_segments_*.csv — never un-quarantine without a bhavcopy check. 159 index/ETF symbols excluded from HF "stock" space.
+- **N200/N500 PIT snapshots are Mar/Sep** (not Jun/Dec) — membership as-of logic must use Mar/Sep dates.
