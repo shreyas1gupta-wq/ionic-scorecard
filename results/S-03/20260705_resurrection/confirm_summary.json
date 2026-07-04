@@ -1,0 +1,36 @@
+{
+  "repro": {
+    "build_deploy": 13.360692483681625,
+    "fwd_deploy": 10.536066087735668,
+    "build_flat100": 12.265623068088733,
+    "fwd_flat100": 10.041400432169262,
+    "fwd_rupees": 1998.2386860016832,
+    "build_rupees": 5813.905334274059
+  },
+  "concentration": {
+    "top5_share_pct": 23.38813562511197,
+    "fwd_drop_top5": 8.290440719854399,
+    "top_sym": "APOLLOHOSP",
+    "top_sym_share_pct": 12.054785134995115,
+    "fwd_wo_top_sym": 9.5168626476106
+  },
+  "costs": {
+    "fwd_slip3pct": 5.4792798926266,
+    "fwd_slip5pct": -1.2631017008521186
+  },
+  "bootstrap_fwd": {
+    "p5": 3.866036391381427,
+    "p50": 10.72283507316537,
+    "frac_pos": 99.11999999999999
+  },
+  "lookahead_cap": {
+    "fwd_fullsample": 10.536066087735668,
+    "fwd_pit_expanding": 10.540911240720574
+  },
+  "H_ce_matched": {
+    "median": 0.09924750711252009,
+    "p95": 3.8031572347185114,
+    "S_pctile": 100.0,
+    "frac_pos": 51.4
+  }
+}

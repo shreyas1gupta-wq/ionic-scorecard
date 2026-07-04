@@ -39,6 +39,7 @@ ONE leaked column can create an arbitrarily large fake return. This firm has alr
 - Backtests never read files newer than the run's declared data snapshot (config.json rows/max-dates).
 
 ## T-log (firm's own lookahead incidents — why this document exists)
+- 2026-07-05: **FF-calendar argmax-FF entry** — `forward_factor_v2.py` L55-76 enters each cycle at its PEAK-FF day across leads [30,25,20,15,12] (picking the peak requires seeing the whole window; v1 was causal earliest-hit, v2 silently switched) — T9. Caught by Nikhil during K-012 resurrection review — survived the ORIGINAL KILL AND THE RECHECK undetected; common to signal and placebos so sizing verdict stands, but headline +₹10/₹100 is an optimistic ceiling until re-run with causal entry (fixed-lead or earliest-FF-cross). LESSON: version-to-version diffs of legacy strategy scripts are an audit surface — a v1→v2 rewrite can INTRODUCE a leak.
 - 2026-07: **S-04 future-expiry settlements** marked as closed wins (+1.75% fake edge) — T8. Caught by pre-IC shuffle; guards L7/L7b born.
 - 2026-06: HF timezone bug shifted daily bars a day forward — T2. Landmine #1.
 - 2026-06: pre-open auction print as "open" corrupted ~94% of 2026 gap calcs — T4. Landmine #2.

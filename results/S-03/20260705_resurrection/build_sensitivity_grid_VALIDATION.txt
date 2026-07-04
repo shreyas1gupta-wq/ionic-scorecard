@@ -1,0 +1,7 @@
+VALIDATION @ FF_MIN=0.25: n=673 (target register n=673) target_median_CE_be=50.0000
+BASE equal-spread (lots=1): n=673 win=71.8 avg_win=59.8 avg_loss=-133.6 pf=1.14 total=3497.3 worst=-7741.3
+REGISTER BASE          : n=673 win=71.8 avg_win=59.8 avg_loss=-133.6 pf=1.14 total=3497.0 worst=-7741.0
+RECOMMENDED cap=3x target=median(full)=50.00: n=673 win=71.8 avg_win=29.2 avg_loss=-33.1 pf=2.24 total=7812.1 worst=-464.4
+REGISTER RECOMMENDED   : n=673 win=71.8 avg_win=29.2 avg_loss=-33.1 pf=2.24 total=7812.0 worst=-464.0
+MATCH QUALITY: pf EXACT, win EXACT, total MATCH (=7812.1), worst MATCH (=-464.4)
+cap field reported in JSON = 1201.7857142857142; 3*target(this run)=150.0000 (NOT equal -- register's exact 'cap' scalar was not recoverable from CE_be stats alone, see script docstring; trading_brief_stats.json pf/win/total/worst ARE reproduced)

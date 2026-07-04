@@ -1,0 +1,19 @@
+[checkpoint] slice built: n=673 symbols=54 qty_cap=6.0
+[checkpoint] headline totals: sum(pnl100_headline)=7812.1 n=673
+[checkpoint] 50/673 processed, dropped so far=32, unique files cached=87
+[checkpoint] 100/673 processed, dropped so far=70, unique files cached=168
+[checkpoint] 150/673 processed, dropped so far=99, unique files cached=249
+[checkpoint] 200/673 processed, dropped so far=130, unique files cached=331
+[checkpoint] 250/673 processed, dropped so far=168, unique files cached=413
+[checkpoint] 300/673 processed, dropped so far=196, unique files cached=494
+[checkpoint] 350/673 processed, dropped so far=231, unique files cached=579
+[checkpoint] 400/673 processed, dropped so far=256, unique files cached=667
+[checkpoint] 450/673 processed, dropped so far=285, unique files cached=751
+[checkpoint] 500/673 processed, dropped so far=307, unique files cached=835
+[checkpoint] 550/673 processed, dropped so far=332, unique files cached=917
+[checkpoint] 600/673 processed, dropped so far=360, unique files cached=1004
+[checkpoint] 650/673 processed, dropped so far=387, unique files cached=1094
+[checkpoint] wrote c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\results\S-03\20260705_resurrection\fill_audit_per_trade.csv rows=673
+
+[VALIDATION] cross-check match rate (my re-derived price == parquet stored price): 100.0% over 673 non-dropped trades
+done
