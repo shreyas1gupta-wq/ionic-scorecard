@@ -27,7 +27,7 @@ D-022: CIO + 3 FMs may create new agents/skills (journal + EVOLUTION_LOG mandato
 | `00_GOVERNANCE/` | charter, roster+AP, token policy, models, LEADERBOARD, SELF_IMPROVEMENT, evolution log | anything about WHO we are and how we're measured |
 | `01_COMMAND_CENTER/` | SESSION_JOURNAL, CURRENT_STATE, DECISIONS_LOG, WORK_LOG, QUARTERLY_PLAN, WAR_ROOM, SKILLS_INDEX, `archive/` (completed orders) | anything about WHAT is happening now/next |
 | `02_PROMPT_LIBRARY/` | `approved/` (binding) · `drafts/` | every reusable prompt |
-| `03_RESEARCH_DESK/` | IC_MEMO_TEMPLATE, `memos/` (permanent decisions), ANALYST_CHECKLISTS, `forward_tests/` (paper-strategy weekly marks) | anything an IC will judge |
+| `03_RESEARCH_DESK/` | IC_MEMO_TEMPLATE, EVALUATION_FRAMEWORK (master NAV/product/manager/idea/strategy analysis protocol — 6 modules + scoring rubric + red-flag library), `memos/` (permanent decisions), ANALYST_CHECKLISTS, `forward_tests/` (paper-strategy weekly marks) | anything an IC will judge |
 | `04_RND_LAB/` | IDEA_PIPELINE, `ideas/` (one-pagers), KILLED_IDEAS, KNOWLEDGE_BASE, FACTOR_LIBRARY, RESEARCH_SOP, CODE_CHECKS, `lib/guards.py` | anything pre-IC research |
 | `05_DATA_OFFICE/` | DATA_CATALOG, DATA_QUALITY_RULES, `scripts/` (canonical data/exec code) | anything about data truth |
 | `06_TRADING_DESK/` | COST_STANDARDS, STRATEGY_REGISTER, PAPER_LEDGER | anything about live/paper execution |

@@ -1,0 +1,60 @@
+[checkpoint] loading stock_close ...
+[checkpoint] slice n=673 syms=54 cap_qty=6.0
+[checkpoint] 50/673 processed | signals=50
+[checkpoint] 100/673 processed | signals=100
+[checkpoint] 150/673 processed | signals=150
+[checkpoint] 200/673 processed | signals=200
+[checkpoint] 250/673 processed | signals=250
+[checkpoint] 300/673 processed | signals=300
+[checkpoint] 350/673 processed | signals=350
+[checkpoint] 400/673 processed | signals=400
+[checkpoint] 450/673 processed | signals=450
+[checkpoint] 500/673 processed | signals=500
+[checkpoint] 550/673 processed | signals=550
+[checkpoint] 600/673 processed | signals=600
+[checkpoint] 650/673 processed | signals=650
+[checkpoint] wrote causal_per_trade.csv rows=673
+
+[VALIDATION] engine-vs-v2 argmax: strike_match=1.000 price_match(<0.01)=1.000 over n=673
+[VALIDATION] recomputed signals (max_ff>=0.25): 673/673 of stored 673 slice
+
+===== COHORT BUILD: n_signals=474 | filled(a)=474 filled(b/c)=185 =====
+  ANCHORS (ds pricer, cohort=BUILD):
+    argmax flat-1.5% : flat100=+12.27  (this cohort's argmax; A1 uses argmax-fwd)
+    argmax zero-slip : flat100=+16.77
+    causal flat-1.5% : flat100=+11.19   <- A3
+    causal zero-slip : flat100=+15.68
+    => T9 leak (argmax-causal, flat-1.5%, same cohort) = +1.08
+  LADDER (day_table fills, drops->0):
+    (a) causal frictionless no-gate : flat100=+10.10  deploy_wtd=+11.09
+    (b) causal gated zero-slip      : flat100=+1.38  deploy_wtd=+4.15
+    (c) causal gated tiered 1x      : flat100=-0.51  deploy_wtd=-1.52  <== VERDICT
+    (c) causal gated tiered 2x      : flat100=-2.40  deploy_wtd=-7.19  <== STRESS
+    fill-rate cost (a->b) = -8.72 | slippage cost (b->c1) = -1.89
+    (c1 survivors) n=185 win=0.481 PF=0.84 avg_win=+14.03 avg_loss=-15.50 worst=-56.45
+
+===== COHORT FWD: n_signals=199 | filled(a)=199 filled(b/c)=81 =====
+  ANCHORS (ds pricer, cohort=FWD):
+    argmax flat-1.5% : flat100=+10.04  (this cohort's argmax; A1 uses argmax-fwd)
+    argmax zero-slip : flat100=+14.86
+    causal flat-1.5% : flat100=+8.87   <- A3
+    causal zero-slip : flat100=+13.65
+    => T9 leak (argmax-causal, flat-1.5%, same cohort) = +1.17
+  LADDER (day_table fills, drops->0):
+    (a) causal frictionless no-gate : flat100=+8.75  deploy_wtd=+9.14
+    (b) causal gated zero-slip      : flat100=+2.30  deploy_wtd=+5.87
+    (c) causal gated tiered 1x      : flat100=-0.03  deploy_wtd=-0.07  <== VERDICT
+    (c) causal gated tiered 2x      : flat100=-2.36  deploy_wtd=-6.02  <== STRESS
+    fill-rate cost (a->b) = -6.45 | slippage cost (b->c1) = -2.33
+    (c1 survivors) n=81 win=0.519 PF=0.99 avg_win=+11.60 avg_loss=-12.64 worst=-40.26
+
+===== PER-YEAR (causal entry year) -- flat100, drops->0 =====
+    year  n_sig n_fill      (a)      (b)     (c1)     (c2)
+    2021     27     14   +25.60    +1.80    -0.98    -3.75
+    2022    126     66   +11.42    +0.10    -2.34    -4.77
+    2023    120     62   +12.07    +2.05    -0.13    -2.31
+    2024    201     43    +6.01    +1.74    +0.48    -0.78
+    2025    171     65   +10.05    +2.61    +0.59    -1.43
+    2026     28     16    +0.79    +0.40    -3.81    -8.01
+
+[done] summary -> c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\results\S-03\20260705_resurrection\causal_run_summary.json
