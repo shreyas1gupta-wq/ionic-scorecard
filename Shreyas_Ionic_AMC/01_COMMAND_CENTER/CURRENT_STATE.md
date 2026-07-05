@@ -15,6 +15,10 @@ SAFE checklist (live process finished, cwd outside tree, OneDrive paused, fresh 
 anyone passes `-Execute`. Until that runs, every path in every doc is still correct as-is — do
 NOT assume the folder has been renamed.
 
+## 2026-07-05 NEW CAPABILITY + PRINCIPAL DELIVERABLES (both DONE)
+- **EVALUATION_FRAMEWORK.md live** (`03_RESEARCH_DESK/`, Lakshmi +12): 6 modules (NAV forensics/holdings attribution/product-structure-tax/manager forensics/idea gates/live monitoring) + 0-100 rubric + 34 red-flags + verified data map + 60min/1day/IC-grade tiers. Prior-art: QFRA 2.0 (external, `Downloads/Mf_qfra2.../mr_x_framework`, skill qfra2-rerun) wired in for MF names; /attribution skill = extend for external NAVs (build gap, Neel). DATA_CATALOG gap → Kavya: 3 PIT files on disk uncataloged (ratios_pit, yearly_balance_sheet_pit, yearly_profit_loss_pit). Tax module pending Farhan sign-off.
+- **AlphaGrep MAAF NFO analysis delivered** (Neel +15): `09_PRODUCT/reports/ALPHAGREP_MAAF_ANALYSIS_2026-07-05.docx` (8 sections, 14 meeting questions, RAG scorecard 4RED/3AMBER/1GREEN). Verified: 78% of claimed 13.9% CAGR = beta; their "NIFTY TRI" = PRICE index (~1.3pp flattery); maxDD mislabeled (COVID not GFC); gold +112.5% NFO-timing. Case-study #1 stub in framework. Pointer in 90_PRINCIPALS_DESK/active/.
+
 ## THREE NEW PRINCIPAL RULINGS 2026-07-05 (D-030/031/032 — DECISIONS_LOG + CLAUDE.md hard rules)
 Forward-test FREEZE (in-test spec changes void the test; new version = new clock) · capacity ₹10L-10cr +
 limit-order-or-skip ACCEPTABLE for exceptional personal-trading strategies (re-read I-017 capacity kill under
