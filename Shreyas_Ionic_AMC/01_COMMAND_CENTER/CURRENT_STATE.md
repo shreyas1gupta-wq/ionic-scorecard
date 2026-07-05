@@ -26,7 +26,9 @@ this lens; Tara's no-fill=drop convention = the honest limit-or-skip sim) · DUA
 (personal, short-term) + investment line (personal/AMC, long-term: multibagger/contrarian/deep-value/quality).
 Principal msg truncated "...best and" — continuation pending.
 
-## K-012 FF-CALENDAR RESURRECTION REVIEW — 3/3 LEGS LANDED 2026-07-05; v3 CAUSAL RE-TEST IN FLIGHT
+## K-012 FF-CALENDAR REVIEW — **CLOSED 2026-07-05: STAYS-KILLED-WITH-NEW-INTAKE (CIO ruling)**
+Pre-registered v3 final gate FAILED (causal+gate+D+1+tiered 1×: fwd −0.03/₹100, BUILD −0.51, 2× −2.36; survivors PF 0.99). Signal REAL (100th pct vs matched placebos) / vehicle DEAD (61% un-exitable back-leg markets — CIO exitability veto). FF signal → NEW INTAKE, owner Aakash (liquidity-native vehicle, 5 pre-reg kills, full ~34-trial family DSR at Gate-4). Paper-tracking REJECTED; sizing ZERO. Full trail: `results/S-03/20260705_resurrection/` (4 legs + CIO_RULING.md); books updated (KILLED_IDEAS, REGISTER, PIPELINE, KB A.14-A.18). Detail below is historical:
+### (historical) 3/3 LEGS LANDED 2026-07-05; v3 was the final gate
 All in `results/S-03/20260705_resurrection/`. Verdicts:
 1. **Nikhil (RED_TEAM_FF_RESURRECTION.md): EDGE-BEYOND-SIZING, overall FRAGILE** — FF 100th pct vs turnover-matched AND CE_be-matched placebos (sizing alone ≈ 0, FF adds all of +10.5); **CAUGHT NEW T9 LEAK**: v2 engine enters at argmax-FF day (non-causal; v1 was earliest-cross) — logged in LOOKAHEAD_CONTROLS T-log; cost bracket: survives 2× slip, dies ~3.3×.
 2. **Sameer (SENSITIVITY_FF_SIZING.md): PLATEAU** — 30/30 cap×threshold cells forward-positive (+17..+26 per ₹100 his convention); equal-premium sizing is load-bearing, cap second-order; +30 family trials declared; recheck-script reproduction gap flagged (canonical sizing to be pinned: qty=min(100/CE_be, 6.0) — 3 independent reconstructions converged).
