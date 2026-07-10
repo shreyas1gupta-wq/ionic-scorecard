@@ -118,3 +118,23 @@ Pre-registration with frozen kill bars BEFORE any run · trials ledger + DSR at 
 - Book-level paper Sharpe ≥ 1.5 at ≤10% max DD before any live request
 - Zero lookahead incidents; zero unregistered trials; TCA drift within gates
 - Data platform: 15-yr index derivatives history, VIX, flows — all cataloged with guards
+
+---
+# ADDENDUM v1.1 — STEP-BY-STEP EXECUTION CHECKLIST (2026-07-10; deep-research citations deferred to token refresh — resume wf_8a976163-c45)
+
+## PHASE 0 (weeks 1-2) — numbered, owners, outputs
+1. [Kavya] Verify NIFTY weekly-options launch date (weeklies began ~Feb-2019; pre-2019 bhavcopy = MONTHLY only → A4 backfill = monthly-expiry variant pre-2019, weekly 2019+). Document in DATA_CATALOG.
+2. [Manoj] bhavcopy F&O backfill job 2011→2021 (nsearchives, sequential, cookie warm-up, ~2600 files): download → parse → parquet per expiry → D-009 sample checks (5 random days vs NSE site). Output: datasets/fo_bhavcopy_hist/.
+3. [Manoj] India VIX daily history pull + catalog. 4. [Manoj] participant-wise OI archive 2018→ + format-break map. 5. [Kavya] BANKNIFTY/MIDCPNIFTY spot+options bhavcopy. 6. [Manoj] S&P500/VIX/USDINR daily (Stooq/FRED/RBI).
+7. [Principal] Kotak Neo API onboarding (keys); [Manoj] margin-calculator API smoke test → replace 15%-notional model with broker-quoted margins in all sizing sims.
+8. [Manoj] S1-F runner hardening: SL-LIMIT order template w/ protection band, freeze-qty split logic (verify current NIFTY freeze qty), TCA log columns. First paper ticket 2026-07-14.
+9. [Sameer] Trials-ledger consolidation: one CSV, every 2026-07 cell (~150), DSR baseline computed.
+10. [Lakshmi] Literature-priors pass for streams A-E from public papers (deferred deep-research replaces this when credits allow).
+
+## FIRST EXPERIMENT CARDS (pre-register before running; script-first)
+- **A4-CARD** COVID replication: monthly short straddle w/ 30%-SL daily proxy, 2011-2021 bhavcopy settles. KILL if 2020-Mar drawdown > 3x any 2021-26 drawdown at spec sizing, or full-period expectancy <= 0. THE priority experiment.
+- **A1-CARD** DTE richness: implied-minus-realized by DTE bucket {0,1,2,4}, 2019-2026 weeklies. Decision: which DTE hosts the next sell strategy.
+- **B1-CARD** FII index-futures net-flow quintiles (participant OI, T+1 signals) vs 1/3/5-day forward returns, 2018-2026. KILL if top-bottom spread < 10 bps/day or t<2.5.
+- **C1-CARD** Overnight transfer: regress NIFTY 09:15 gap on S&P close move + VIX change; then gap-conditioned S1-F veto v2. KILL if R2 < 0.15 (gap model) — literature prior says ~0.3.
+- **B2-CARD** Air-pocket monetization trio (leg-buyback overlay / futures MFT at 2-pt hurdle / A-family timing): one pre-registered test each, S1-F overlay first.
+## Standing rule: max 12 registered trials in Phase 1; every card frozen in this file BEFORE its script runs.
