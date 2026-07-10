@@ -37,6 +37,7 @@ Two Claude accounts run this firm on the same laptop, same folder:
 6. Survivorship: use `NIFTY500_TICKER_2005_2025_Final.xlsx` (42 PIT snapshots) for universe membership.
 7b. **Circuit/volume fills:** no fill on circuit-locked bars; slippage 2-3x on thin-volume days (`lib/execution_realism.py`, COST_STANDARDS §Dynamic slippage). Momentum backtests without this overstate fills exactly on signal days.
 7. **Lookahead (D-028):** ALL of the above are instances of the T1–T10 lookahead taxonomy — `07_RISK_OFFICE/LOOKAHEAD_CONTROLS.md`. No Gate-4 pass, register entry, or quoted result without a LOOKAHEAD AUDIT PASS (`lib/lookahead_audit.py` + one-day-lag test).
+8. **Angel getCandleData ONE_DAY bars are stamped 00:00 IST** — a `fromdate` with an intraday time (e.g. "09:15") silently DROPS the first day's bar (no error). Always use `fromdate = <date-1> 00:00` for daily candles. Bit us 2026-07-10: made all 501 legs of the 6-Jul book look zero-volume/unfilled.
 
 ## FIRM MAP
 ```
@@ -86,7 +87,8 @@ Legacy detail lives in `RESUME_TOMORROW.md` + `HANDOFF.md` (still valid, being s
 | attribution-analyst-neel-basu | Performance Attribution Analyst (8+yr) | P&L decomposition (beta/regime/selection), monthly attribution |
 | product-head-tanvi-desai | Head of Product | Investor letter, dashboards, execution-sheet UX, strategy packaging |
 | overfit-analyst-sameer-bhat | Overfit & Sensitivity Analyst (risk office) | Param surfaces, perturbation/subsample stability, DSR/PBO, Gate-4 sensitivity reports |
-Team = 26 (CEO runs ops; CIO runs investments). IC = CIO + FM decide who convenes (user can override). Full 5-member IC only for position-sized decisions.
+| hedge-expert-kabir-anand | Head of Hedging & Tail Risk (reports to CIO) | Hedge programme design, valuation×momentum sub-regime hedging playbooks, options overlays (puts/spreads/collars/backspreads), net-hedge-positive discipline, tail protection sizing |
+Team = 28 (CEO runs ops; CIO runs investments; Kabir Anand E-028 owns hedging/tail-risk under CIO). IC = CIO + FM decide who convenes (user can override). Full 5-member IC only for position-sized decisions.
 
 ## TOKEN DISCIPLINE (summary — full policy in 00_GOVERNANCE/TOKEN_POLICY.md)
 - Use the cheapest model tier that does the job (haiku=mechanical, sonnet=analysis, opus=IC/audits/synthesis). Each agent has a primary+backup model in MODEL_ASSIGNMENTS.md.

@@ -1,0 +1,50 @@
+Part A: NIFTY weekly options ...
+  expiry files sampled: 146 of 262
+  ... 25/146 files
+  ... 50/146 files
+  ... 75/146 files
+  ... 100/146 files
+  ... 125/146 files
+Part A done.
+    era  dte_b    money_b  n_contract_days  roll_med  roll_p75  roll_valid_frac  med_abs_dclose  prem_med
+2021-22   0DTE 1_ITM(1-2)              226  0.707123  1.952410         0.889381           0.000   69.8375
+2021-22   0DTE      2_ATM              225  0.698558  1.455306         0.880000           0.000   36.8500
+2021-22   0DTE 3_OTM(1-2)              285  0.208559  0.522893         0.863158           0.000   10.9250
+2021-22 1-2DTE 1_ITM(1-2)              397  0.359092  1.175491         0.924433           0.000  113.6000
+2021-22 1-2DTE      2_ATM              397  0.339921  1.063186         0.914358           0.000   86.1750
+2021-22 1-2DTE 3_OTM(1-2)              510  0.179546  0.602200         0.864706           0.000   53.4625
+2023-24   0DTE 1_ITM(1-2)              298  2.503780  4.346594         0.802013           2.075   69.0000
+2023-24   0DTE      2_ATM              300  1.792831  3.287886         0.786667           1.400   35.6125
+2023-24   0DTE 3_OTM(1-2)              410  0.694983  1.625325         0.717073           0.500   11.6125
+2023-24 1-2DTE 1_ITM(1-2)              591  2.053978  3.631276         0.827411           2.050  117.7250
+2023-24 1-2DTE      2_ATM              590  1.828494  3.142399         0.816949           1.700   89.3500
+2023-24 1-2DTE 3_OTM(1-2)              814  1.183058  2.385757         0.778870           1.250   59.6250
+2025-26   0DTE 1_ITM(1-2)              544  3.184244  4.807838         0.746324           2.650   71.7625
+2025-26   0DTE      2_ATM              543  2.482677  3.865548         0.712707           1.850   38.3500
+2025-26   0DTE 3_OTM(1-2)              728  1.167080  2.008704         0.656593           0.700   13.4875
+2025-26 1-2DTE 1_ITM(1-2)              753  2.572686  4.315736         0.814077           2.200  124.6500
+2025-26 1-2DTE      2_ATM              752  2.201689  3.808156         0.813830           1.850   95.9625
+2025-26 1-2DTE 3_OTM(1-2)              996  1.481167  2.667872         0.729920           1.350   63.0500
+
+Part B: Angel live stock-option captures ...
+Traceback (most recent call last):
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\CHEAPTEST_SPEC_20260710\spread-calibration\spread_calibration.py", line 204, in <module>
+    atm_strike = diff.idxmin(axis=1)  # Series: timestamp -> strike
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\frame.py", line 15773, in idxmin
+    res = data._reduce(
+        nanops.nanargmin, "argmin", axis=axis, skipna=skipna, numeric_only=False
+    )
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\frame.py", line 13633, in _reduce
+    res = df._mgr.reduce(blk_func)
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\internals\managers.py", line 1681, in reduce
+    res_blocks = [blk.reduce(func) for blk in self.blocks]
+                  ~~~~~~~~~~^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\internals\blocks.py", line 358, in reduce
+    result = func(self.values)
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\frame.py", line 13563, in blk_func
+    return op(values, axis=axis, skipna=skipna, **kwds)
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\nanops.py", line 1216, in nanargmin
+    result = _maybe_arg_null_out(result, axis, mask, skipna)  # type: ignore[arg-type]
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\nanops.py", line 1489, in _maybe_arg_null_out
+    raise ValueError("Encountered all NA values")
+ValueError: Encountered all NA values

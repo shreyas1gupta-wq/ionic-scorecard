@@ -1,0 +1,25 @@
+{
+ "headline": {
+  "n": 15298,
+  "days": 987,
+  "rho": 0.016535770049693102,
+  "t_spearman_dayclust": 1.6690873071672276,
+  "top_mean": 1.6783439490446055,
+  "top_n": 5338,
+  "bot_mean": -0.12331811263313196,
+  "bot_n": 3285,
+  "spread": 1.8016620616777375
+ },
+ "verdict": "KILL",
+ "kill_reasons": [
+  "Spearman day-clustered t=1.67 < 2",
+  "top-vs-bottom spread=1.80 pts < 6"
+ ],
+ "placebo_p": 0.405,
+ "placebo_mean": 1.6917067353309136,
+ "placebo_sd": 0.942867228010606,
+ "lag_spread": -0.6210864491349801,
+ "lag_collapse_pct": 134.4729715048012,
+ "opt_coverage": 0.7979666319082378,
+ "audit_findings": []
+}
