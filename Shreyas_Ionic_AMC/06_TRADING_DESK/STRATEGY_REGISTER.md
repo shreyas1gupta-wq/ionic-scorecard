@@ -15,3 +15,11 @@ Nothing trades (even paper) without a row here: owner, edge, gates, kill criteri
 2. No naked short-vol through a name's known binary (earnings/FDA/big policy date). Sector analysts publish the calendar; desk gates entries.
 3. Compounded portfolio CAGRs are reporting artifacts — size from per-trade edge × worst-case MTM, never from headline CAGR.
 4. Paper first (RESEARCH_SOP §12 DoD), Principal approves any LIVE step (D-010/D-018).
+
+## S1-F — 0DTE NIFTY ATM Short Straddle (REGISTERED 2026-07-10, paper forward test)
+- **Spec (FROZEN, D-030):** `06_TRADING_DESK/specs/S1F_SPEC.md` · pinned commit `b8d2f3d` · v1.0
+- **Edge:** expiry-day VRP harvest; +10.7 pts/day net (t=3.92, PF 1.79, 259 expiry days 2021-26, 1% slip + TC); vetoes F1 (RSI5 D-1 80/20) + F2 (|D-1 ret|>1.5%); sensitivity plateau 72/84; COVID-modeled survivable.
+- **Sizing:** 0.75×equity / dynamic margin (~15% notional ≈ ₹2.7L/lot 2026) ≈ 3-4 lots/₹10L; halve on 3d-vol>2× 1yr median. Honest expectation ~13-17% CAGR, maxDD ~−5% (corrected-margin sim).
+- **Forward clock:** first expiry ≥ 2026-07-14 · **Kill (pre-registered):** 26 expiries expectancy≤0, or paper maxDD>15%, or fills 3+pts/day worse than model over 13 expiries → HALT/CIO.
+- **Shadow (zero size):** S1 unconditional; S1b ATM−50 challenger. Runner: `06_TRADING_DESK/paper/s1f_daily_runner.py` → `paper/s1f_paper_log.csv` (intent BEFORE action).
+- **Docx:** `09_PRODUCT/reports/S1F_STRATEGY_PACK_20260710.docx` (not in git per gitignore).

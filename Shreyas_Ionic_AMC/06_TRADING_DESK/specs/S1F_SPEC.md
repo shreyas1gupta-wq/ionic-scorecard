@@ -14,9 +14,16 @@ On each NIFTY weekly **expiry day** (derived from live contract data, NOT assume
 - (~55 skip-days/yr in-sample; vetoed day-types averaged negative.)
 
 ## Sizing (Principal capital ₹10L reference)
-- Base: `lots = floor(0.75 × equity / ₹1.1L margin)` ≈ 6 lots per ₹10L (≈0.12-Kelly).
+- **Margin model (corrected 2026-07-10): straddle margin = ~15% of one-side notional (spot × 75 × 0.15)** —
+  ≈ ₹1.8L/lot in 2021, **≈ ₹2.7L/lot at 2026 levels** (matches broker SPAN+exposure calculators; the earlier
+  flat ₹1.1L was optimistic — verify against Angel margin calculator before first paper entry).
+- Base: `lots = floor(0.75 × equity / margin)` ≈ **3–4 lots per ₹10L at current levels**.
 - **Crash rule:** HALVE lots when trailing 3-day realized vol (1-min) > 2× its 1-year rolling median.
 - Never add size intraday. Lot size 75.
+- Honest expectation at this sizing: **~13–17% CAGR, max DD ~−5%** (in-sample, corrected-margin sim:
+  ₹10L→₹18.7L/5yr at 75% deployment). Return on margin deployed ≈ +0.5%/expiry is the invariant; the earlier
+  28.8% CAGR figure assumed the flat-₹1.1L margin and is superseded. Pledged-collateral margin (liquid funds)
+  is the legitimate lever to lift capital efficiency — Principal decision, not part of this spec.
 
 ## Pre-registered forward-test kill criteria (frozen now)
 - After 26 traded expiries: net expectancy ≤ 0 (at actual fills) → KILL.

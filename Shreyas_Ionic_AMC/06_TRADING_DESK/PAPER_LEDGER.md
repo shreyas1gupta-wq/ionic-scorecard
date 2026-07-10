@@ -15,3 +15,5 @@ Rules: log the signal BEFORE market action (timestamp, intended price, size). Ma
 | Week | Trades | Paper P&L | Sim P&L | TE | Dominant cause | Action |
 |---|---|---|---|---|---|---|
 | — | | | | | | |
+
+**2026-07-10 — S1-F registered for paper forward test** (spec pinned @ b8d2f3d). Per-expiry intents log to `paper/s1f_paper_log.csv` via the daily runner BEFORE action; fills marked vs Angel quotes; Tara reconciles Fridays. First eligible expiry: 2026-07-14 (Tue).

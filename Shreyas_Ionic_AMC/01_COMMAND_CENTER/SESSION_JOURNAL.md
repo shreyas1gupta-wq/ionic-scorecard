@@ -3,6 +3,62 @@ Format per entry: date, account (DESK-20/DESK-100), summary, files touched, hand
 Newest entries at TOP.
 
 ---
+## 2026-07-07 — FF SIGNAL NEAR-MONTH VEHICLE SCOPING (Aakash, structuring only — no backtest)
+- **CIO's 2026-07-05 K-012 ruling** (`results/S-03/20260705_resurrection/CIO_RULING.md`) declared the FF term-structure signal REAL but the calendar vehicle dead (61% dead back-leg markets) and handed a NEW liquidity-native-vehicle intake to Aakash+Arjun. Scoped it: read all 4 evidence legs (CIO ruling, RED_TEAM, FILL_AUDIT, CAUSAL_RETEST) + KB lessons 14-18.
+- **Confirmed the concrete fillability split from `fill_audit_per_trade.csv`:** near-month (front) leg ~95-98% fillable both entry/exit; back (2nd-forward) leg 59.3% untraded — the problem is genuinely isolated to the dropped tenor.
+- **Checked the code, not just the summary docs:** `dispersion_strategy.atm_iv_asof()` computes FF from CALL-ONLY ATM IV (`_series(df,k,"CE")` hardcoded) — no validated put-side signal exists, so a strangle/PE vehicle would launder the CE-validated 100th-percentile claim onto an untested leg. Parked.
+- **Ran a 6-name spot-check** (not a fill audit) on same-expiry OTM CE volume-by-strike-distance: liquidity holds out to ~8 strikes, falls off beyond 9+ — encouraging for a same-expiry vertical hedge leg, but explicitly flagged against K-009's prior kill ("far-OTM single-stock wings unpriceable, −883% artifact") as the single biggest unresolved risk.
+- **Recommendation:** near-month bear-call vertical (SELL ATM CE / BUY OTM CE, same expiry, liquidity-gated hedge strike) over naked short call (undefined risk, correlated short-vol tail — rejected on risk-shape not liquidity) and over a strangle/PE variant (unvalidated signal — parked). Full pre-registration spec (8 kills, incl. hedge-leg fill audit + live-schema signal-computability check for Kavya/Arjun) filed for Arjun's Gate-3/4 build.
+- Files: `04_RND_LAB/ideas/20260707_ff_signal_near_month_vehicle.md` (new), `04_RND_LAB/IDEA_PIPELINE.md` (row updated, still 1-INTAKE — vehicle scoped), journal, CURRENT_STATE.
+- Next: Arjun owns the Gate-3/4 causal build against the pre-registered spec; Tara owns the real hedge-leg fill audit (my spot-check is not audit-grade) + actual SPAN number; Kavya/Arjun own the live-schema signal-computability check (item 7 in the spec).
+
+## 2026-07-06 — DESK-100 — NEW SHAREABLE SKILL: /token-wise (Principal order — token discipline for his teammates)
+- **Principal asked for a skill he can share with (human) teammates** covering judicious token usage: plan limits, model selection, markitdown-style convert-before-read, step-by-step checkpointing so a token limit never loses work, + best practices.
+- Built `.claude/skills/token-wise/SKILL.md` — **portable** (works in any repo; copy folder to `.claude/skills/` or `~/.claude/skills/`). 8 sections: limits (/usage /context, act-at-80%), model tiering w/ live API prices + opusplan + subagent `model:` frontmatter, convert-before-read (generic = Microsoft markitdown; this repo = /to-md; pandas digest for parquet), compute-in-code-not-model, context hygiene (/clear, /compact-with-focus, subagent firewalls, CLAUDE.md<200 lines, MCP audit), checkpoint-and-resume protocol (PROGRESS.md after EVERY step, outputs to disk, --continue), cache-invalidation table (model/effort/MCP switches break it; CLAUDE.md edits don't), anti-waste red flags.
+- Facts verified this session (not from memory): claude-code-guide agent vs official docs (costs/prompt-caching/model-config/context-window/sub-agents pages) + claude-api skill for pricing. Notable verified: subscription cache TTL = 1h automatic; /model+/effort switches invalidate cache but CLAUDE.md edits do NOT; MCP tool schemas now deferred-by-default.
+- Skill distills firm law (TOKEN_POLICY hacks 1–9, D-023) into a generic form — firm-specific bits marked. D-025 note: Principal-direct order, so live immediately; CEO/CIO can ratify at next board.
+- Files: `.claude/skills/token-wise/SKILL.md` (new), journal, CURRENT_STATE.
+- **v2 same session (Principal: "more for other people"):** fully de-firmed (no /to-md dependency, no D-023 reference — pure generic), added §0 command cheat-sheet for Claude Code newcomers, output-discipline bullet (output=5x input price), one-well-specified-first-prompt rule, /rewind tip, [1m]-variant warning, 3-route install section. Distribution zip: `C:\tmp\token-wise-skill.zip` (5KB).
+- **v3 same session (Principal: self-used + download link):** skill description rewritten for AUTO-invocation (no /command); INSTALL.md added to package (3 steps + always-on ~/.claude/CLAUDE.md kernel, 8 rules); re-zipped (7KB, incl. INSTALL.md); **shareable download page published** — https://claude.ai/code/artifact/848ab316-bf29-491c-b5be-1eac85e5ceff (zip embedded as data-URI download button + install steps + copy-paste kernel). Principal shares that one link.
+- **v4 same session (Principal: one-prompt install):** built `SELF_INSTALL_PROMPT.txt` (self-contained — carries full SKILL.md + kernel between markers; teammate pastes into Claude Code → Claude writes ~/.claude/skills/token-wise/SKILL.md + appends kernel to ~/.claude/CLAUDE.md, dup-guarded). Works in Claude Code any surface; NOT plain claude.ai chat (no filesystem). Added to zip (13KB now) + artifact page as Option A w/ copy button (same URL, label v2-one-prompt-install).
+- **v5 same session (Principal: prove the savings):** benchmark script (`scratchpad/bench_tokens.py`) run on REAL repo files — naive-into-chat vs skill method, est. 4 chars/token: docx report 5,831→3,002 (2x) · xlsx sheet 90,762→32 (~2,800x) · unified_quarterly_pit.parquet 31,891 rows 959,172→1,127 (~850x — naive doesn't even FIT in a 200k window) · grep-vs-full-read on 1,094-line app.py 12,550→543 (23x) · aggregate-in-script 959,172→394 (~2,400x) · mixed-session TOTAL 2,027,487→5,098 (~400x). Table added to artifact page (same URL, v3-measured-savings). Benchmark itself ran skill-style (script computed, chat got summary).
+- **v6 FINAL (v1.0):** page finalized — byline "Built and shared by Shreyas Gupta · v1.0 · July 2026" (header + footer), daily-habits command cheat-sheet table, 5-item FAQ (quality unchanged / CLAUDE.md append-safe / helps all plans / markitdown optional / zip contents). Artifact label v4-final-v1.0, same URL. Page order: hero+download → what it does → measured savings → Option A one-prompt → Option B zip 3-step → cheat sheet → FAQ → footer.
+- **v7: installed on Principal's machine** — skill copied to `C:\Users\Shreyas.1Gupta\.claude\skills\token-wise\` (all projects) and user-level `C:\Users\Shreyas.1Gupta\.claude\CLAUDE.md` CREATED with the 8-rule kernel (file didn't exist before). ⚠ BOTH DESKS NOTE: every session on this laptop (DESK-20 + DESK-100, all repos) now loads the kernel — it mirrors TOKEN_POLICY so no conflict, but it's a new always-on layer to be aware of.
+- **v8 (Principal: multi-agent coverage):** new dedicated §6 "Multiple agents — powerful, and priced per head" (8 rules: spawn-for/don't-spawn, N agents≈N× cost + 2–3-wave cap, work-order briefs, model-per-agent, results-to-disk-before-synthesis, files-as-bus, continue-don't-respawn, script-beats-fleet); later sections renumbered 7/8/9, cross-refs fixed. Propagated everywhere: SELF_INSTALL_PROMPT regenerated, personal copy synced, zip rebuilt (14.7KB), artifact redeployed same URL (v5-multi-agent-section).
+- Next: DONE — Principal shares https://claude.ai/code/artifact/848ab316-bf29-491c-b5be-1eac85e5ceff (make shareable via page share control first).
+
+## 2026-07-05 (later-3) — FNO REPLAY GAME: V1 COMPLETE (3 agent rounds, P3-P6 + Kite UX) — DEPLOYED :8787
+- **Principal ordered "finish the project" w/ parallel agents (D-023 respected: 2+2+1+2 across 4 rounds, never >3).**
+- **Round 1 (2 parallel):** server = greeks.py (Black-76 on parity forward, math.erf, bisection IV) wired into chain (iv/delta/theta/vega/oi_pct — OI as blinded percentile), MAE/MFE+risk_rs/r_mult on every trade (+DB migration), /api/{margin_preview,basket,step,payoff,tags,journal,analytics,export}, Wilson-CI analytics w/ recognized-exclusion + min-N-30. Frontend = 7-col chain w/ ATM highlight+OI bars, debounced margin preview w/ button-disable, sizing calc, straddle/strangle presets, ArrowRight bar-step, WebAudio sound cues+mute, payoff canvas (T+0 + expiry + hypothetical), journal tag UI in reveal, analytics modal w/ equity curve + season boundaries, CPR + OR15 toggles. Mid-round spend-limit kill; both resumed via SendMessage w/ context intact.
+- **Round 2 (QA agent):** 27/27 tests green (test_engine hand-computed costs/margin/parity/IV-roundtrip; test_leak full scripted session, ~420 payloads regex-audited). CAUGHT 2 REAL DEFECTS: /api/export leaked hidden date in ENDED-but-unrevealed window (blinding hole, fixed+regression) + payoff dead w/ empty book (fixed). README.md written. Independent 55-id audit clean.
+- **Round 3 (2 parallel, after Principal hit live bugs — frozen session + blank positions, root cause = stale OLD server process on :8787 + fragile tick loop):** server = tick loop UNKILLABLE (index-advance isolated from guarded engine work, bad bar skipped+logged, never re-run), WS refresh replaces socket w/o pausing + pause_reason (user/disconnect), LMT + SL-M order types (trade-through/touch≠fill/gap-at-worse rules per ROADMAP 4.1), /api/cancel, snapshot += day_realized/open_pnl/free_margin/pending/trades_today. 45/45 tests. Frontend = per-section try/catch (UI can't freeze), pause banners w/ reason, Day-P&L + free-margin + 15:20-countdown chips, positions total row + inline TP/SL edit (✎→/api/bracket), MKT/LMT/SL-M ticket, Orders/Trades/Log tabs w/ cancel + unread badge.
+- **Deployed detached on :8787 (survives sessions); root/tags/analytics 200; career DB verified ₹10L/0-sessions intact.** Anomaly noted by QA: bankroll season drifted 3→4 w/ zero sessions (likely old-server /api/reset via WAL; cosmetic, append-only design).
+- Kite features intentionally SKIPPED: market depth (fake at 1-min OHLC granularity — would train nonsense), GTT (intraday game).
+- Files: server/{app.py,greeks.py}, static/{app.js,index.html}, tests/{conftest,test_engine,test_leak,test_frontend,test_orders}.py (45 tests), README.md, ROADMAP.md changelog.
+- **V1 GAPS remaining (v1.1 candidates):** browser visual QA of Round-1/3 UI (launch.json 'fno-game'); Tara spread-calibration vs Angel terminal (P2 sign-off item); reveal doesn't yet visualize equity[]/mae/mfe (data flows, R column only); sound WAVs are synth beeps; loss lockout deferred per L10.
+
+## 2026-07-05 (later-2) — FNO REPLAY GAME: chart continuation + indicator pack (Principal chart order)
+- **Principal order implemented:** (1) prev-day chart now merged into the MAIN chart in continuation (D-1 fake-anchored exactly 86400s before sim day → all TF buckets stay 09:15-aligned; bottom pane freed for the position-premium chart w/ TP/SL zones + hint state); (2) session view always opens at sim-day 09:15 with D-1 tail visible; (3) indicators, each pinned to its own TF and sampled onto the displayed TF: session VWAP on typical price (index volume verified ALL-ZERO → TP-VWAP, labeled), EMA 9/21 on 5-min, RSI(14) Wilder on 15-min in a sub-pane (30/70 lines), toggle chips w/ colored legend; (4) VIX chip upgraded to band + intraday %chg from open (band per blinding spec). Palette computed-validated vs #131722 surface (contrast 5–12.7, pairwise dE>=40).
+- Reveal flow now snaps to 1-min so trade markers align; markers cleared on new session. `bottomMode`/`bSeries` removed.
+- Server smoke-tested end-to-end after restart (stale PID 2696 from prior session killed): session start → ticks → chain → order OK; static serves updated JS. Server left running IDLE on :8787.
+- Files: `09_PRODUCT/fno_game/static/{app.js,index.html}`, `server/app.py` (vix_band), `ROADMAP.md` §6 chart spec. NOTE for next QA: verify indicator rendering visually via `.claude/launch.json` 'fno-game' preview (couldn't browser-QA this session — chrome tools unavailable).
+- Context recap for continuity: this session also re-verified pool = 1,198/1,242 eligible days (prev session had fixed the coverage bug + built app.py/frontend beyond what the journal recorded at the time).
+
+## 2026-07-05 (later) — FNO REPLAY GAME: browser QA PASSED (live play-through in preview browser)
+- Drove the real UI end-to-end via Claude-Preview: session start → ticking chart+chips → chain → BUY 2x ATM CE w/ TP/SL → fill → position row → premium chart w/ **red/green TP-SL zones rendering** → short PE → margin chip ₹76k → screenshot verified. Career DB re-cleaned to ₹10L/season-1/0-sessions after tests.
+- **3 bugs found+fixed:** (1) WS sync frame crashed (IndexError) when connecting with no session — spot_mark/margin_req guards added; (2) chain-poll loop died permanently on first async exception — try/catch+always-re-arm; (3) UX: server auto-pauses on WS disconnect (refresh) but UI didn't say so — warn banner 'PAUSED — Space/Resume' added. Known quirk: synthetic preview clicks didn't fire button handlers (real mouse clicks fine — handlers verified working).
+- `.claude/launch.json` added (config 'fno-game') so any session can preview-QA the game. Launch for Principal remains `run_game.ps1`.
+
+## 2026-07-05 — FNO REPLAY GAME: roadmap approved + P0 COMPLETE (new Principal product, 09_PRODUCT/fno_game/)
+- **New Principal-facing product:** intraday NIFTY weekly-options replay simulator — random HIDDEN historical day from our 1-min data, bar-by-bar, persistent ₹10L career bankroll, full trade-log analytics. Training tool ("game"), zero live-trading surface.
+- **Design:** 4-agent workflow (architecture / F&O realism / features / red-team, 30 flaws found) → `09_PRODUCT/fno_game/ROADMAP.md` (THE build book: locked rulings L1–L11, mechanics spec §4 with implementable margin/cost/fill/settlement formulas, blinding spec §5, 7 phases P0–P6, ~10–12 sessions). Digest of all 4 reports: `fno_game/docs/design_digest.md`.
+- **Principal rulings today:** approx-SPAN w/ hedge benefit; spread-aware fills (red-team upgrade ACCEPTED over flat 1-tick); hide-date-only blinding; TODAY's mechanics uniform on all eras (lot 65, current costs — kills lot-size era leak); loss-lockout SKIPPED v1 (→v2); v1 includes post-session review + chain w/ IV+Greeks + journal analytics + §6 feature pack. GREEN-LIT, P0 ordered same session.
+- **P0 DONE (all four deliverables):** (1) stack CLOSED — FastAPI 0.139 + uvicorn install clean on py3.14, no Starlette fallback needed; (2) lightweight-charts 4.2.3 standalone bundled to `static/lib/` (163KB, offline hereafter); (3) `tools/build_index.py` → **eligible pool 1,198/1,242 days** (2021-05→2026-06, even by year 142/243/243/239/239/92, natural DTE dist), `lot_sizes.json` validates full lot history from bhavcopy (75→50 Jul-21→25 May-24→75 Jan-25→**65 Jan-26**; 33 mid-life contradictions captured per-expiry), `coverage_gaps.json` reviewed — all 44 exclusions benign (truncated/special days, first week, 12-day iconic blacklist, 2 small Diwali-week file gaps); (4) `server/data_loader.py` landmine-enforced (tz+auction filter at single choke point) — SMOKE TEST PASS on 2023-11-22.
+- **Bugs caught in P0:** (a) ostats.update() let thin next-weekly rows overwrite front-weekly coverage stats (1,203 days wrongly excluded on first run — fixed, keep-front-only); (b) vix_1min.parquet stores `dt` as pandas INDEX not column; (c) 2021 option files carry fully duplicated bars (2×376/strike) — dedup on (day,strike,cp,minute).
+- **Files:** `09_PRODUCT/fno_game/{ROADMAP.md, docs/design_digest.md, tools/build_index.py, server/data_loader.py, static/lib/lightweight-charts...js, data/{eligible_days,coverage_gaps,lot_sizes}.json}`.
+- **P1+P2 CORE BUILT same session (token-constrained single pass): GAME IS PLAYABLE.** `server/app.py` (session/WS tick loop/blinded snapshots/market fills w/ half-spread + freak-skip + no-liquidity reject/TP-SL brackets/approx-SPAN w/ vertical+straddle pairing/15:25 square-off/expiry 30-min-avg settlement + exercise STT/SQLite career+seasons/reveal w/ recognition flag) + `static/{index.html,app.js}` (lightweight-charts, TF folding 1m–1h, PDH/PDL/PWH/PWL, **TV-style tools: h-line + trendline drawing, TP/SL red-green zone overlay** on per-position premium chart (canvas primitive), chain click-to-ticket, hotkeys space/B/S/F2/±, speed slider, D-1 panel, reveal modal w/ trade markers) + `run_game.ps1`. Engine smoke test PASS end-to-end (fills/margin ₹70k straddle/TP fire/square-off/reveal); test DB wiped — Principal starts clean at ₹10L. **Launch: `run_game.ps1` → http://127.0.0.1:8787.**
+- **Deferred (was full P1–P5 scope; token limit):** IV/Greeks chain cols + payoff (P4), journal tags UI + analytics dashboard w/ CI guardrails (P5), indicators VWAP/EMA/CPR, sizing calc, straddle presets, sounds, Excel export, RMS auto-liquidation (warning+block ships now), limit orders (market+brackets ship now), resume-mid-session, test_leak.py suite, spread calibration vs Angel terminal (Tara, before results are trusted). Browser UI untested (engine tested headless) — first play-through = QA.
+
 ## 2026-07-05 — DESK-100 — K-012 RESURRECTION REVIEW CLOSED (CIO ruling) + AlphaGrep MAAF delivered + D-030/031/032
 - **K-012 (S-03 FF calendar) — Principal-triggered review COMPLETE, verdict: STAYS-KILLED-WITH-NEW-INTAKE (CIO_RULING.md).** Four legs, one day: Nikhil EDGE-BEYOND-SIZING (FF 100th pct vs turnover- AND premium-matched placebos; caught NEW T9 argmax-entry leak → T-log) · Sameer PLATEAU (30/30 cells fwd-positive; equal-premium sizing load-bearing) · Tara MARGINAL (61.3% dead back-leg markets; fill-RATE not cost is binding) · Arjun v3 pre-registered FINAL GATE **FAILS** (causal+gate+D+1+tiered 1×: fwd −0.03/₹100, BUILD −0.51, 2× −2.36; exploratory same-day +0.99 dies at 2×; gate-admits-weaker-trades catch). CIO: vehicle death not signal death → NEW INTAKE for Aakash (FF signal on liquidity-native vehicle, 5 pre-reg kills incl. full ~34-trial family DSR at Gate-4); paper-tracking REJECTED (D-031 relaxes capacity bar, not edge bar); DSR/PBO recompute MOOT (negative edge needs no deflation); tail-risk: 61% un-exitable inventory = exitability veto regardless; sizing ZERO. Honesty-probe #1 PASSED (self-corrected both directions under soft Principal pressure). KB lessons A.14–A.18; books updated by CIO (KILLED_IDEAS, STRATEGY_REGISTER, IDEA_PIPELINE).
 - **AlphaGrep MAAF NFO analysis delivered** (Principal meeting, NFO opens Jul-6): `09_PRODUCT/reports/ALPHAGREP_MAAF_ANALYSIS_2026-07-05.docx` — 78%-is-beta decomposition [VERIFIED], "NIFTY TRI"=price-index catch [VERIFIED, ~1.3pp flattery], COVID-not-GFC maxDD mislabel, gold +112.5% NFO-timing, 14 ranked meeting questions. Pointer in 90_PRINCIPALS_DESK/active/.
@@ -166,3 +222,145 @@ Newest entries at TOP.
 - **Track 2:** small-cap momentum machine (Minervini/VCP + 10 expansion dimensions D1–D10 + frontier D11–D14). Data foundation now ready; engine build pending.
 - **Track 3:** participant-state/fragility alpha (H1 dealer-gamma from OI surface = data-ready).
 - **Data estate:** ~28.5 GB, 1M+ minute bars, options 2021–26 (17-month single-stock gap Apr24–Aug25 pending HF refill), PIT earnings/fundamentals/shareholding, 42 PIT index snapshots 2005–25.
+
+## 2026-07-07 — DESK (VS Code) — Campaign OPT-SWEEP-50 (Principal-commissioned: hunt for NIFTY/SP500 option strategy w/ Sharpe>2 & XIRR>50% post-cost)
+SP500 leg dropped (no data, would need new paid external source + D-025 approval). NIFTY-only, two-phase triage.
+Kicked off 3 parallel tracks (Arjun 4 concrete Principal tests: 30m z-score mean-reversion + RSI(5) extremes;
+Aditya curated 50 popular/claimed NIFTY option setups vs KILLED_IDEAS; Lakshmi literature scan). Lakshmi's
+verdict: literature caps realistic net Sharpe ~0.9-1.2, XIRR>50% sustained is not credibly documented anywhere
+-- flagged the Principal's bar as likely unreachable before Phase-1 even ran.
+Phase-1: fanned out 25 parallel-agent groups covering all 49 runnable setups (one-off D-023 3-agent-cap
+override, Principal-approved for this task only). Recurring failure mode surfaced: several agents ended their
+turn on a "waiting for an external monitor" placeholder instead of finishing (leaf subagents have no such
+monitor) -- resumed ~9 of these with explicit correction. Mid-sweep the org HIT ITS MONTHLY API SPEND LIMIT;
+10 groups failed simultaneously on that error, 2 more failed on infra stalls (OOM/stream-watchdog on the shared
+box). Halted all further spawning per Principal instruction rather than retry into the same wall.
+RESULT: 13/25 groups (26/49 setups) completed with honest verdicts before the halt. Bottom line: nothing
+cleared Sharpe>2/XIRR>50% post-cost anywhere in the campaign (best honest annualized Sharpe ~1.0: OS-26
+bear-call-spread regime-gated). Four SURVIVE-fragile/marginal setups (OS-04 VIX-gated strangle, OS-20 short-put-
+after-down-day, OS-26, OS-35 0DTE pin) are legitimate small incremental edges over the existing VRP book but far
+below the original bar. Side-finding: 5 independent agents hit broken/sparse ~30-DTE monthly-contract coverage
+in the NIFTY HF options dataset (0/62 fills in one case) -- flagged to Data Officer, separate from this
+campaign's own conclusion. Full synthesis + per-setup table: `04_RND_LAB/results/OPT_SWEEP50_PHASE1_20260707/PHASE1_SYNTHESIS.md`.
+NEXT: 12 groups (23 setups) remain INCOMPLETE (not killed) pending spend-limit reset/admin raise -- resumable
+via the same prompts if the Principal wants the full 50-setup picture. Otherwise campaign closes here against
+its original mandate. Monthly-contract data-quality issue needs a Kavya ticket regardless.
+Files touched: `04_RND_LAB/ideas/20260707_nifty_option_sweep_50.md` (Aditya, campaign spec + IDEA_PIPELINE row),
+`04_RND_LAB/imported_research/LITSCAN_option_selling_meanrev_20260707.md` + KNOWLEDGE_BASE A.22-A.24 (Lakshmi),
+`04_RND_LAB/results/MEANREV_RSI_CAMPAIGN_20260707/` (Arjun), `04_RND_LAB/results/OPT_SWEEP50_PHASE1_20260707/`
+(13 group folders + synthesis).
+
+## 2026-07-07 (cont.) — DESK (VS Code) — Retail/technical strategy sprint: Scalping V7, ORB-momentum, options-signal families (7 backtest threads, ~20 agents, session-lifted D-023 cap)
+Principal supplied a TradingView "Scalping V7" Pine script + several strategy concepts (ORB-momentum, VWAP+RSI,
+vol-breakout, intraday IV mean-reversion, a >10,000-cell combo menu) and asked for parallel backtesting. D-023's
+3-agent cap was explicitly lifted for the rest of this session per Principal instruction (2nd time the cap was
+hit this session; first was OPT-SWEEP-50). New STANDING RULE adopted mid-session and saved to memory: any backtest
+with annualized Sharpe < -2 gets an automatic reversed-signal re-test, reporting gross (pre-cost) edge on both
+directions to distinguish cost-dominated losses (reversal won't help) from directional ones (reversal might).
+**ALL SEVEN THREADS KILLED / CLOSED, none cleared a usable bar:**
+1. Scalping V7 (EMA9/26 + RSI pullback scalper) on NIFTY50 index AND on the NIFTY50 stock universe, 5m/15m,
+   base + 4H-trend-filter + Daily-trend-filter, PLUS reversed versions of all 12 variants (24 backtests total).
+   Every single variant loses net; index-level gross was near-zero (cost-dominated), but stocks-universe gross
+   was ALREADY negative pre-cost in every cell -- reversing flipped gross positive but it was 20-50x smaller
+   than the 0.26% round-trip cost, so still lost heavily. Zero of 50 stocks net-positive in any config.
+2. ORB 15-min breakout on NIFTY500 momentum-50 (pure-3m AND 3m+6m-combined ranking, monthly rebalance, PIT
+   universe) x 4 SL/exit combos each. Real, statistically significant gross edge (t~11-15, gross Sharpe ~2.4-2.5)
+   but breakeven cost is only ~7.5bps against ~35-47bps realistic intraday friction -- "signal real, vehicle dead
+   on friction," same shape as the FF-calendar kill. KEY FINDING: edge lives entirely on the SHORT side (fading
+   breakdowns of extended names); the LONG/continuation side (the strategy's actual premise) is statistically
+   dead (t=-0.04). A short-only wide-stop EOD variant is the one legitimate follow-up, flagged not run.
+3. VWAP+RSI momentum via ATM NIFTY weekly options, 5m, 18-cell grid (RSI threshold x exit style, some reversed).
+   Gross P&L straddles zero everywhere -- no directional edge at all; cost alone kills it. Only "positive" years
+   were partial-year sampling artifacts, correctly flagged as such by the agent, not claimed as a win.
+4. Volatility breakout (Bollinger/ATR) via ATM NIFTY weekly options, 10m/15m, 6 cells + reversals (ran as a
+   superset check even though nothing crossed -2). Loses at the GROSS level (before any cost) and reversal
+   doesn't rescue it either -- diagnosed as a structural long-premium tax (theta+spread paid regardless of
+   direction), the cleanest possible confirmation of the firm's VRP-buying-loses prior. Negative every year.
+5. Intraday IV mean-reversion (sell short-duration premium on elevated intraday IV), straddle vs iron-fly,
+   2 IV-thresholds x 2 stop multiples + reversed iron-flies (Sharpe<-2 triggered it). Real gross edge on
+   "IV reverts" exits (+6.73/trade) fully erased by stop-loss trades on event days (-112/trade, -5062 total)
+   -- every tail day was a real macro event (2024 election, 2026 budget, Aug-2024 vol shock), not noise.
+   Degenerate check (high-win-rate-hides-fat-tail) did NOT fire -- straddles are an honest ~51% coin-flip.
+6. Curated combo sets A+B (10 hand-picked combos spanning a >10,000-cell menu: TF x DTE x strike x 4 trend
+   filters x 4 entries x 4 exits x 3 vol filters x 3 sizing methods -- full factorial explicitly rejected as
+   overfitting-prone, curated sample used instead with that reasoning stated to the Principal). 2 of 10 combos
+   showed positive net-of-2x-cost edge (Set A #2: 15m/weekly ATM+/-1 EMA/breakout/ATR-stop/VIX-band/vol-scale;
+   Set B #9: 10m/0DTE Donchian/EOD/RV-regime/Kelly) -- BOTH explicitly diagnosed as tail-dependent/single-regime
+   fragile (top-5 trades or a single year account for more than 100% of the total return) by the agents
+   themselves, not by follow-up scrutiny. Every agent independently repeated the same anti-p-hacking reminder:
+   a curated sample is not a certified finding, any promising cell needs its own pre-registered follow-up.
+**Recurring process failure, corrected mid-session:** several agents ended their turn on a "waiting for an
+external monitor/background process" placeholder instead of finishing (leaf subagents have no such monitor) --
+this happened repeatedly across BOTH this sprint and the earlier OPT-SWEEP-50 campaign; resumed each with an
+explicit correction (run synchronously, no backgrounding). One PROCESS gap this exposes: subagents' report.md
+writes were blocked by subagent policy across nearly every task today -- DESK had to manually persist every
+agent's final report to disk from their inline text. Worth a fix/workaround if this recurs (Manoj?).
+**No changes to STRATEGY_REGISTER or KILLED_IDEAS books** -- these were all retail/technical hypotheses tested
+ad hoc at the Principal's direction, not firm-pipeline intakes; results live under `04_RND_LAB/results/`:
+`SCALPING_V7_20260707/`, `ORB_MOMENTUM50_20260707/`, `VWAP_RSI_MOMENTUM_20260707/`, `VOL_BREAKOUT_ATM_20260707/`,
+`INTRADAY_IV_MEANREV_20260707/`, `CURATED_COMBOS_20260707/`.
+NEXT: if Principal wants to pursue either fragile-positive lead (ORB short-only, or curated combo #2/#9), each
+needs a fresh pre-registered spec + honest trial count before any further backtest, per every agent's own
+explicit warning this session.
+
+---
+## 2026-07-08 (DESK) — VALUATION-REGIME HEDGING & DOWNSIDE-PLAY STUDY (Principal request)
+Full R&D study: NIFTY 50 + S&P 500, 3 valuation regimes (25-50-25), best rollover hedge + best
+overvalued-regime downside play, across structures/strikes/tenors/ratios/CE-PE combos, historical + MC.
+Deliverable `04_RND_LAB/results/HEDGING_ANALYSIS_20260708/HEDGING_ANALYSIS_REPORT.docx` (human-format,
+7 sections, 5 charts, full tables). Agent book = SUMMARY.md; reproduce via engine.py→summarize.py→build_report.py.
+DATA: US real Shiller CAPE + S&P500 monthly 1871-2026 (multpl.com) + CBOE VIX daily 1990-2026 (both fetched
+OK through proxy; stooq/FRED/github blocked). India NIFTY50 daily 2016-2026 + PE/PB + India VIX (local).
+No real option chains anywhere in span -> all options BS-modeled off VIX/iVIX + put skew, settle at realized
+intrinsic (Principal pre-authorized "best-estimate IV"). Costs DRAFT (not COST_STANDARDS).
+KEY FINDINGS: (1) NOW = US deep-RICH (CAPE 41.8, ~150y high) but India CHEAP (P/B 3.19, PE 21) -> the
+overvalued-downside question is a US question today, not India. (2) US RICH regime = strong concurrent
+return but weakest fwd-12m (+3.9%) + fattest tail (worst -56%). (3) Best hedge = ANNUAL COLLAR (maxDD
+-52%->-15% for ~3-4pp/yr; annual >> monthly). (4) Two OPPOSITE downside objectives: premium-selling ratios
+= +EV/95%-win but SHORT the crash tail (rejected for overvaluation mandate); recommended play = small 1x2
+put BACKSPREAD / bear put spread (convex, near-zero carry). (5) COVID India (iVIX 14 pre-crash): ATM put
+turned -37% into -1.5%, long put +36%. (6) Last-2y counterfactual: no crash -> US unhedged +40% vs hedged
++14%, plays -20%, backspread only -1.3%. Methodology note used firm-style honesty (India P/B chosen over
+trailing-PE as CAPE-analog to dodge 2020-21 earnings-collapse artifact). NOT a pipeline intake / no register
+or killed-ideas change -- standalone Principal research deliverable under 04_RND_LAB/results/.
+NEXT (if Principal wants): sensitivity on skew/cost assumptions; extend India history pre-2016 for a real
+non-COVID crash in-sample; wire the annual-collar overlay into the paper book as a tail-risk sleeve.
+
+## 2026-07-08 (DESK) — HEDGING STUDY V2 bias controls (Principal follow-up)
+Added to HEDGING_ANALYSIS_20260708: (1) WINSORIZE [2.5,97.5] all descriptive stats -> tames single-obs
+extremes (US FAIR fwd-worst -107%->-35%) w/o moving medians; raw tail retained via CVaR. (2) COMPLETE-MARKET
+true cross-sectional MEDIAN PE (~1,100 stocks PIT annual-EPS, build_median_pe.py) -> median stock 25.6x vs
+NIFTY50 cap-wt 21x; REGIME FLIP: broad market = RICH (not CHEAP like the cap-wt index) with US-style weak-fwd
+asymmetry -> revises v1 'India cheap stay unhedged' (large-caps cheap, median/broad market rich, hedge warranted).
+(3) SMALL-CAP (Nifty Smallcap 250): vol 20% vs 13%, drawdowns -29%/-53% the index hides; qtrly collar cuts
+maxDD -29%->-17%; honesty gate = no liquid small-cap options in India, real hedge = NIFTY index puts/futures/cut.
+US breadth+Russell2000 = proxy-blocked data gap (noted). Deliverable HEDGING_ANALYSIS_ADDENDUM_v2.docx (4 charts).
+engine_v2.py + build_median_pe.py + build_report_v2.py reproduce. SUMMARY.md v2 section updated.
+
+## 2026-07-09 — DESK-100 — Principal personal task: Fast-Money AI Venture deep-research (90_PRINCIPALS_DESK, firewalled)
+- Deep-research workflow wf_b1c4724e-5d4: 20 agents (12 research lanes → frame 18 plays/15 claims → 3-lens adversarial verify with per-claim votes, 0 claims refuted → 3-judge panel, 13 params, weighted composite → cited synthesis). 1.22M subagent tokens, 180 tool calls, 0 errors.
+- VERDICT: P08 brother-fronted NEET-PG/FMGE AI study system (7.56) primary + P09 AI Vedic astrology engine (6.99) complementary from wk 5. 7 plays killed (incl. all finance-adjacent: Sathe ₹546cr order + employer CoC = career risk). Crores-in-yr-1 honestly rated 3-7% tail.
+- Files: 90_PRINCIPALS_DESK/active/FAST_MONEY_AI_VENTURE_20260709/ — REPORT.md, LANE_REPORTS.md (134k), VERDICTS.md, SCOREBOARD.txt, CLAIM_AUDIT.txt, PLAYS.json.
+- Next: Principal decision on the 30-day launch plan (₹25k line-item budget, pre-registered day-30 kill criteria in REPORT.md §4).
+
+## 2026-07-10 — DESK-100 — Principal intraday 2-system spec: TRIAGED (not blind-built)
+- Live marks + fill audit of 6-Jul book: headline +7.6L -> filled-only +4.0L (72/251 positions dropped, FF calendars 78% dead back-legs = K-012 confirmed live). Files: 06_TRADING_DESK/marks/. NEW LANDMINE #8 in CLAUDE.md (Angel daily candles 00:00 stamp drops first day if fromdate has intraday time).
+- Spec triage (4 agents): 10/16 components tested-dead (K-001 + 07-07 campaign); novel = F8 premium-confirmation filter (top pick), FVG, OI-wall trap (minute OI EXISTS in our option files — catalog update due), NIFTY/BN RS, regime-as-allocator. 5 cheap tests designed w/ kill numbers, ~1.5hr script compute. Filed: 04_RND_LAB/ideas/20260710_principal_intraday_spec_triage.md.
+- Next: Principal go/no-go on running T1 (regime predictivity) + T2 (sweep reversal) first.
+
+## 2026-07-10 (later) — DESK-100 — Cheap-test battery COMPLETE: 10/10 hypotheses KILLED
+- Principal-ordered battery (waves of 5, Principal override of D-023 noted): T1 regime, T2 sweep, T3 premium-confirm, T4 score-gate, T5 0DTE (moot), T6 OI-wall, FVG x2, F9 RS — ALL killed against frozen bars; every edge 4-30x under bar and under the ~1-2pt one-way cost floor. F8's apparent edge was pure day-composition (placebo p=1.00). FVG reversal actively LOSES (t=-4.92).
+- Byproducts: (1) 0DTE spread calibration — COST_STANDARDS index floor ~12x too low, D-021 amendment pending Principal; (2) breadth_daily.parquet asset (Kavya to catalog); (3) NEW LEAD from T6 control: low-OI "air pocket" crossings +4.4pts/30min t=3.94 — needs pre-registered variant test (intake pending).
+- All evidence: 04_RND_LAB/results/CHEAPTEST_SPEC_20260710/ (VERDICTS.md + per-test folders). KILLED_IDEAS filing next session.
+- Addendum 2026-07-10: Principal's TradingView Scalping-V7 ported + tested 0DTE-expiry-days-only (data-derived expiry calendar): KILL (5-min: n=747, net -1.29pts, PF 0.78; gross negative before costs; spot signal +1.02pts = real but 5x too small). Filed in CHEAPTEST_SPEC_20260710/VERDICTS.md + scalpv7-0dte/.
+- Addendum 2026-07-10 (2): SELL-SIDE core (agents blocked by org spend limit -> ran as direct scripts): **S1 0DTE ATM short straddle 09:20 + 30% per-leg SL = PASS** (n=259 expiry days, +8.02 pts/trade net, t=2.94, PF 1.56, conc 3%, eras +5.4/+10.9, ~26%/yr ROM gross) — FIRST survivor in ~20 tests; Principal's own spec. No-SL variant destroyed (-413pt days) = SL is the edge. S2 weekly strangle all variants KILL (t<1). Files: 04_RND_LAB/results/SELLSIDE_20260710/s1s2_core/. NEXT: Gate-4 battery + red-team on S1; S3-S5 pending token credits.
+- Addendum 2026-07-10 (3): Hedged variants ALL KILL (0DTE iron fly -2.37: wings cost 10.4pts/day for protection the 30% SL already gives; condors negative). S1 filter study: NO filter significant (best high-low t=1.34) -> S1 stays UNCONDITIONAL (edge is broad VRP, not conditional). Kelly: full 6.68x, 0.25K=1.67x margin (13.9 lots/10L) -> practical broker cap ~6-7 lots/10L; 0.25K equity 10L->64.3L over 4.9yr (46% CAGR, -21.5% maxDD) BUT no-COVID caveat: one unseen -400pt day at 0.25K ~ -40%. Graph + tables: 04_RND_LAB/results/SELLSIDE_20260710/s1_filters_kelly/. NEXT: Gate-4 S1 + far-wing catastrophe insurance question for Kabir.
+- Addendum 2026-07-10 (4): S1 sensitivity surface (84 cells): PLATEAU CONFIRMED (primary +8.02, 3x3 neighborhood mean +7.26, 72/84 cells positive) -> Gate-4 sensitivity leg largely satisfied. FINDING: down-shifted straddle gradient (ATM-50/-100 = short-delta tilt) beats ATM monotonically at every entry time, positive all 6 years (era means +11/+14 and +15/+13), best t=3.7. NOT adopted (in-sample); logged as S1b challenger for pre-registered forward test. Files: 04_RND_LAB/results/SELLSIDE_20260710/s1_sensitivity/.
+- Addendum 2026-07-10 (5): Principal defense-strangle spec tested (0DTE +-50 strangle 35%SL + momentum defense on breach): V0 baseline PASS +4.87 t=2.10; V1 spread-defense KILL (t=1.96, misses bar by hair); V2 ITM-long-defense 25%SL PASS +11.69 t=2.15 (best risk-adj of family, 27.9% CAGR @75% deploy, maxDD -24.8%); V3 50%SL PASS +13.36 t=2.05 (31.4% CAGR, maxDD -37.5%). Defense concept WORKS in-sample (+7-8.5pts over V0) but doubles worst days (-306 vs -103) and S1 ATM straddle still beats all risk-adjusted (t=2.94). All = challengers, in-sample iteration #3, ledger +4. Files: 04_RND_LAB/results/SELLSIDE_20260710/defense_strangle/.
+- Addendum 2026-07-10 (6): FINAL THREE certified under Principal's 1%-slippage + statutory TC + brokerage model: S1 +10.73 t=3.92 PF1.79 (2.08L/lot cum); S1b +14.93 t=4.37 PF1.98 (2.90L); V2 +15.04 t=2.78 PF1.65 (2.92L, but 3x worst days -304). ALL PASS. NOTE: 1% model is KINDER than measured spreads at 09:20 (calib: 1.24-2.5pt one-way early) -> truth between flat-pt and 1% models; verdicts robust under BOTH = cost-model-robust. Graph: final_three/FINAL_THREE_PNL.png. READY FOR: register + paper forward test (D-030 freeze) on Principal's word; Gate-4 residuals (red-team/tick-SL/DSR) pending credits.
+- Addendum 2026-07-10 (7): Principal veto rules tested: PCR-band & high-vol-avoid HURT (-2.0/-1.3; scary days overpay sellers); skip-low-premium-days helps mildly (+1.1-1.4, t 3.3) = forward flag only. COVID BACKCAST (BS-model, validated corr 0.64 on 2021-26, k=1.03): CONST-IV bound = all 3 profitable thru 2020 (fat premiums paid); STRESS-IV bound = S1 flat (+20 pts/73 exp, worst -168 Mar19/26), S1b -48, V2 -1233 (maxDD -54% @75%!). SURVIVAL @75% deploy: S1 9.9L (-16%), S1b 9.5L (-25%), V2 5.3L (-54%, near-ruin). CONCLUSION: S1/S1b crash-survivable, V2 must size small/drop; add regime size-cap (halve when RV3>2x 1yr median) as forward-test sizing rule. Files: covid_backcast/.
+- Addendum 2026-07-10 (8): LAST-3H 0DTE BUYING (attempt #17, cheap-gamma corner): ALL KILL/INSUFF. B1 sigma-momentum -1.16 (KILL), B1+TP +0.34 t=0.15 (KILL), B2 range-break -3.06 (KILL), B3 cheap-straddle +1.68 n=46 era-flip (INSUFF), B4 air-pocket-direction -1.38 n=52 (INSUFF - T6 spot edge does NOT survive the option vehicle). Win rates 22-34%; 460pt winners exist but too rare. The buying question is now closed across morning/all-day/afternoon x 17 designs. K-001 stands, extended to cheap-gamma afternoon. Files: 04_RND_LAB/results/BUYSIDE_LAST3H_20260710/.
+- Addendum 2026-07-10 (9): S1 FINAL MODEL frozen. 12-rule filter battery, pre-declared adoption bar (uplift>=1.0 AND vetoed<0 AND t up): TWO adopted - (F1) skip RSI5(D-1)>=80/<=20 [vetoed days -1.65], (F2) skip |prior-day ret|>1.5% [vetoed days -18.76!]. COMBO: keep 204/259, +11.30 pts (t=3.73 vs 2.94 base), veto overlap only 2 days, all 6 years positive. Also: loss-chasing veto ("skip after loss") HURTS -1.83 (post-loss expiries earn +12.11). FINAL SPEC = S1-F: ATM straddle 09:20, 30% leg SL, F1+F2 vetoes, ~6 lots/10L (0.12K), halve size when RV3>2x 1yr median; shadow-track unconditional S1 + S1b. Windowed 0/1DTE buying (attempt #18) running.
+- Addendum 2026-07-10 (10): Windowed 0/1DTE buying (attempt #18): ALL 6 CELLS KILL. Best = W1/0DTE +0.14 (t=0.06). 1DTE uniformly worse (theta up, gamma down; W1/1DTE -6.81 t=-3.51). Buying program CLOSED - 18 attempts. K-001 extended: windows/trailing/1DTE do not change the arithmetic. Files: BUYSIDE_LAST3H_20260710/SUMMARY_WINDOWED.md.
+- Addendum 2026-07-10 (11): 16-indicator screen on UNDERLYING (2018-26, ~95k events, bar >=6pts & |t|>=3 for an option test): ALL DEAD. Max edge = ADX25+DI 60m +2.35pts (t=3.3); several stat-real-but-tiny (RSI50 +0.65 t=5.0). Two significant NEGATIVES: stoch oversold-bounce -2.42 (t=-4.7), inside-bar-break -1.40. CONCLUSION: measured information ceiling of intraday price-derived signals ~2.4pts vs ~6 needed for buying - indicator count is irrelevant, they re-describe the same series. Buying stays closed. Files: BUYSIDE_LAST3H_20260710/INDICATOR_SCREEN.md.
+- Addendum 2026-07-10 (12): S1-F REGISTERED (D-030 freeze, pinned b8d2f3d): spec + daily paper runner + docx pack + register/ledger rows. MARGIN CORRECTION on Principal challenge: flat 1.1L was 1.6-2.7x low (real: 1.77L 2021 / 2.73L 2024 / 2.71L 2026 = ~15% notional); corrected sim 10L->18.7L (13.4% CAGR, maxDD -4.4%) vs 31% at flat margin - spec+docx updated, superseded figure flagged. Forward clock: 2026-07-14.
