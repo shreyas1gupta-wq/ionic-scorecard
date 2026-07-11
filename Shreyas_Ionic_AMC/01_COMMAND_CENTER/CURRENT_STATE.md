@@ -5,7 +5,7 @@
 - **D-034 (Principal): portfolio-level adjudication** — a good sleeve may carry >25% standalone MDD / lower CAGR-Sharpe if book contribution, XIRR, or regime-specific value is real. Frozen-card bars still bind their own verdicts.
 - **CA-COLLAR NOT ARMORED** (KB 25): index collars cut CAGR 14.1→9.0 AND worsened DD 50.1→52.4 on the CA book — V-recovery whipsaw + hedge-basis mismatch. Do not retry static index collars on selection books; route factor-hedge designs to Kabir.
 - **CA-BOOK REGIME-PARK** (KB 25a): CA (Sharpe ~0.7 in 2022-25) can't move the stacked-book frontier at DD parity despite Sharpe lift at v3+33% (1.90→2.17). Resurrection: CA forward Sharpe >1.0 or 2016-21 book window. Pure CA daily returns banked at `results/CACB_PMS1_20260712/ca_daily_returns.csv`.
-- **OPEN RISK ITEM: stacked-book "max pairwise corr 0.08" is a daily-horizon artifact** — CA showed monthly corr +0.36..+0.54 to the equity sleeves. Monthly-horizon re-measurement of the book's own sleeve pairs = cheap next task (banked CSVs); Ritika/Sameer.
+- **RESOLVED SAME-DAY: stacked-book sleeve corr re-measured at monthly/quarterly horizon** — daily 0.08 -> monthly 0.27 -> quarterly 0.53 max; all pairs positive at quarterly; worst months cluster (Feb-22, Mar-24 equity sleeves crash together; only S1-F orthogonal in all 5 worst months). **Roadmap consequence: Sharpe multiplier caps ~1.7x at rho 0.35 — new sleeves must be different-FACTOR (vol/gold/macro/flow), not more equity variants.** Addendum 2 in STACKED_BOOK RESULTS.md; forward projections must use monthly+ corr.
 - Trials ledger 231. Queue: PMS candidates #2-#4 cards, wave-3 factory, P7 variants, P1 rerun (nanmean OR-combine), midsmall Var-B red-team.
 
 ## 2026-07-11 snapshot
