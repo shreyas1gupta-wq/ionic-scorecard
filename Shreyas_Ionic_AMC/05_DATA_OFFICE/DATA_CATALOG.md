@@ -97,6 +97,7 @@ Rule: if it's not in here with path+range+bugs, it doesn't exist for research. C
 | Dataset | File(s) | Span | Source | Verification |
 |---|---|---|---|---|
 | US Treasury par yield curve daily | us_treasury_yields_daily.parquet | 2000-01..2026-07, n=6,634, 15 tenors | home.treasury.gov official CSV | 2020-08-04 10Y=0.52 exact (record low) |
-| Participant-wise OI (F&O) | participant_oi/participant_oi_{2018..2026}.parquet | 2018-01..today | archives.nseindia.com/content/nsccl | IN PROGRESS (bg); verify 2021-07-02 rows on completion; schema drift kept raw (format-break map -> Kavya) |
+| Participant-wise OI (F&O) | participant_oi/participant_oi_{2018..2026}.parquet | 2018-01..today | archives.nseindia.com/content/nsccl | VERIFIED 2026-07-11: 2,101 days ok / 124 miss (holidays+unpublished), 2021-07-02 = 5 client-type rows, schema drift stored as raw strings (format-break map -> Kavya) |
 
 **Wave-2 rejections:** fabhaus/equities_5m = 15-18GB/MONTH (~450GB total) -> violates Principal size cap, REJECTED. HF SPX/SPY options EOD: none found. Silver (XAG) any granularity on HF: none found.
+
