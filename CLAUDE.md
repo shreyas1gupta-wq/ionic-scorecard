@@ -38,6 +38,7 @@ Two Claude accounts run this firm on the same laptop, same folder:
 7b. **Circuit/volume fills:** no fill on circuit-locked bars; slippage 2-3x on thin-volume days (`lib/execution_realism.py`, COST_STANDARDS §Dynamic slippage). Momentum backtests without this overstate fills exactly on signal days.
 7. **Lookahead (D-028):** ALL of the above are instances of the T1–T10 lookahead taxonomy — `07_RISK_OFFICE/LOOKAHEAD_CONTROLS.md`. No Gate-4 pass, register entry, or quoted result without a LOOKAHEAD AUDIT PASS (`lib/lookahead_audit.py` + one-day-lag test).
 8. **Angel getCandleData ONE_DAY bars are stamped 00:00 IST** — a `fromdate` with an intraday time (e.g. "09:15") silently DROPS the first day's bar (no error). Always use `fromdate = <date-1> 00:00` for daily candles. Bit us 2026-07-10: made all 501 legs of the 6-Jul book look zero-volume/unfilled.
+9. **F&O bhavcopy expiry-day option SETTLE_PR = the UNDERLYING's final settlement level, NOT the option price** (bit us 2026-07-11: −15,428-pt fake losses in A4). Never read expiry-day option settles; cash-settle at intrinsic from underlying. Related: far weekly expiries are LISTED with model settles but CONTRACTS=0 (untraded-but-priced, esp. 2020) — gate every leg on CONTRACTS>0 AND fall back to the liquid expiry, else you silently skip months.
 
 ## FIRM MAP
 ```

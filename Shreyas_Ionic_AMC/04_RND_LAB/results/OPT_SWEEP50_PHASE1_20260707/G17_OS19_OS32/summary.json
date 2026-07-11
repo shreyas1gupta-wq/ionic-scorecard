@@ -1,0 +1,113 @@
+{
+  "OS32_event_net": {
+    "n": 36,
+    "mean_pts": 47.76,
+    "median_pts": 49.56,
+    "mean_pct": 0.2358,
+    "winrate": 0.806,
+    "worst_pts": -65.8,
+    "best_pts": 260.1,
+    "std_pts": 66.3,
+    "sharpe_pertrade": 0.72
+  },
+  "OS32_event_gross": {
+    "n": 36,
+    "mean_pts": 51.3,
+    "median_pts": 53.55,
+    "mean_pct": 0.2532,
+    "winrate": 0.833,
+    "worst_pts": -59.8,
+    "best_pts": 264.0,
+    "std_pts": 66.3,
+    "sharpe_pertrade": 0.774
+  },
+  "OS32_baseline_net": {
+    "n": 210,
+    "mean_pts": 22.64,
+    "median_pts": 37.46,
+    "mean_pct": 0.1102,
+    "winrate": 0.7,
+    "worst_pts": -319.4,
+    "best_pts": 263.7,
+    "std_pts": 84.4,
+    "sharpe_pertrade": 0.268
+  },
+  "OS32_event_pre_sept": {
+    "n": 31,
+    "mean_pts": 55.16,
+    "median_pts": 54.99,
+    "mean_pct": 0.2738,
+    "winrate": 0.839,
+    "worst_pts": -54.9,
+    "best_pts": 260.1,
+    "std_pts": 64.6,
+    "sharpe_pertrade": 0.853
+  },
+  "OS32_event_post_sept": {
+    "n": 5,
+    "mean_pts": 1.9,
+    "median_pts": 14.31,
+    "mean_pct": -0.0,
+    "winrate": 0.6,
+    "worst_pts": -65.8,
+    "best_pts": 74.2,
+    "std_pts": 63.8,
+    "sharpe_pertrade": 0.03
+  },
+  "OS32_by_type_RBI": {
+    "n": 31,
+    "mean_pts": 34.87,
+    "median_pts": 45.79,
+    "mean_pct": 0.1781,
+    "winrate": 0.774,
+    "worst_pts": -65.8,
+    "best_pts": 119.5,
+    "std_pts": 53.1,
+    "sharpe_pertrade": 0.657
+  },
+  "OS32_by_type_BUDGET": {
+    "n": 5,
+    "mean_pts": 127.7,
+    "median_pts": 135.27,
+    "mean_pct": 0.5932,
+    "winrate": 1.0,
+    "worst_pts": 20.8,
+    "best_pts": 260.1,
+    "std_pts": 89.9,
+    "sharpe_pertrade": 1.421
+  },
+  "OS19_net": {
+    "n": 1,
+    "mean_pts": -140.78,
+    "median_pts": -140.78,
+    "mean_pct": -0.6861,
+    "winrate": 0.0,
+    "worst_pts": -140.8,
+    "best_pts": -140.8,
+    "std_pts": NaN,
+    "sharpe_pertrade": null
+  },
+  "OS19_gross": {
+    "n": 1,
+    "mean_pts": -135.81,
+    "median_pts": -135.81,
+    "mean_pct": -0.6619,
+    "winrate": 0.0,
+    "worst_pts": -135.8,
+    "best_pts": -135.8,
+    "std_pts": NaN,
+    "sharpe_pertrade": null
+  },
+  "OS19_pre_sept": {
+    "n": 1,
+    "mean_pts": -140.78,
+    "median_pts": -140.78,
+    "mean_pct": -0.6861,
+    "winrate": 0.0,
+    "worst_pts": -140.8,
+    "best_pts": -140.8,
+    "std_pts": NaN,
+    "sharpe_pertrade": null
+  },
+  "OS19_post_sept": {}
+}

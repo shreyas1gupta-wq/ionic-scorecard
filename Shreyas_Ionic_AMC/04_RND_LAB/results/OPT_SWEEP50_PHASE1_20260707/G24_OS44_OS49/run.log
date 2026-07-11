@@ -1,0 +1,78 @@
+spot days 1242 2021-05-24 2026-06-03
+expiries 262
+OS44 trades 259
+OS49 trades 83
+{
+  "OS44": {
+    "setup": "OS-44 gamma scalp",
+    "ALL": {
+      "n": 259,
+      "edge_pts": -18.832,
+      "gross_pts": -10.88,
+      "edge_pctspot": -0.0973,
+      "median_pts": -36.576,
+      "win": 0.44,
+      "tot_pts": -4877.6,
+      "sharpe": -0.71
+    },
+    "PRE_sep25": {
+      "n": 222,
+      "edge_pts": -15.222,
+      "gross_pts": -7.414,
+      "edge_pctspot": -0.0856,
+      "median_pts": -36.3,
+      "win": 0.446,
+      "tot_pts": -3379.3,
+      "sharpe": -0.57
+    },
+    "POST_sep25": {
+      "n": 37,
+      "edge_pts": -40.495,
+      "gross_pts": -31.676,
+      "edge_pctspot": -0.1675,
+      "median_pts": -40.75,
+      "win": 0.405,
+      "tot_pts": -1498.3,
+      "sharpe": -1.55
+    }
+  },
+  "OS49": {
+    "setup": "OS-49 debit spread",
+    "ALL": {
+      "n": 83,
+      "edge_pts": -18.38,
+      "gross_pts": -15.958,
+      "edge_pctspot": -0.0709,
+      "median_pts": -89.8,
+      "win": 0.349,
+      "tot_pts": -1525.6,
+      "sharpe": -0.9
+    },
+    "PRE_sep25": {
+      "n": 72,
+      "edge_pts": -13.643,
+      "gross_pts": -11.248,
+      "edge_pctspot": -0.0532,
+      "median_pts": -87.737,
+      "win": 0.361,
+      "tot_pts": -982.3,
+      "sharpe": -0.67
+    },
+    "POST_sep25": {
+      "n": 11,
+      "edge_pts": -49.388,
+      "gross_pts": -46.786,
+      "edge_pctspot": -0.1867,
+      "median_pts": -118.209,
+      "win": 0.273,
+      "tot_pts": -543.3,
+      "sharpe": -2.34
+    }
+  },
+  "OS44_flags": [
+    "negative without top-5 trades"
+  ],
+  "OS49_flags": [
+    "negative without top-5 trades"
+  ]
+}

@@ -1,0 +1,230 @@
+{
+  "OS08": {
+    "overall": {
+      "name": "OS08_overall",
+      "N": 259,
+      "tpy": 52.0,
+      "pts": 6.69,
+      "pct_spot": 0.0298,
+      "med_pts": 3.91,
+      "sharpe_pt": 0.096,
+      "sharpe_ann": 0.69,
+      "win": 0.51,
+      "wl": 1.21,
+      "stop_rate": 0.405,
+      "worst_pts": -135.9,
+      "worst_sig": -2.0,
+      "ann_ret_spot_pct": 1.6,
+      "total_pts": 1734.0,
+      "credit_avg": 111.4
+    },
+    "pre_sep2025": {
+      "name": "OS08_pre",
+      "N": 222,
+      "tpy": 52.2,
+      "pts": 4.23,
+      "pct_spot": 0.0208,
+      "med_pts": -0.66,
+      "sharpe_pt": 0.063,
+      "sharpe_ann": 0.45,
+      "win": 0.495,
+      "wl": 1.18,
+      "stop_rate": 0.423,
+      "worst_pts": -135.9,
+      "worst_sig": -2.1,
+      "ann_ret_spot_pct": 1.1,
+      "total_pts": 939.0,
+      "credit_avg": 107.5
+    },
+    "post_sep2025": {
+      "name": "OS08_post",
+      "N": 37,
+      "tpy": 52.2,
+      "pts": 21.49,
+      "pct_spot": 0.084,
+      "med_pts": 15.21,
+      "sharpe_pt": 0.266,
+      "sharpe_ann": 1.92,
+      "win": 0.595,
+      "wl": 1.31,
+      "stop_rate": 0.297,
+      "worst_pts": -104.9,
+      "worst_sig": -1.6,
+      "ann_ret_spot_pct": 4.4,
+      "total_pts": 795.0,
+      "credit_avg": 134.7
+    },
+    "yearly": [
+      {
+        "year": 2021,
+        "N": 31,
+        "pts": 14.79,
+        "pct_spot": 0.0921,
+        "win": 0.61,
+        "worst": -64.1,
+        "total": 458.0
+      },
+      {
+        "year": 2022,
+        "N": 52,
+        "pts": -5.07,
+        "pct_spot": -0.0331,
+        "win": 0.42,
+        "worst": -130.9,
+        "total": -263.0
+      },
+      {
+        "year": 2023,
+        "N": 52,
+        "pts": -2.02,
+        "pct_spot": -0.0072,
+        "win": 0.48,
+        "worst": -77.0,
+        "total": -105.0
+      },
+      {
+        "year": 2024,
+        "N": 52,
+        "pts": 11.36,
+        "pct_spot": 0.0509,
+        "win": 0.5,
+        "worst": -135.9,
+        "total": 591.0
+      },
+      {
+        "year": 2025,
+        "N": 52,
+        "pts": 13.53,
+        "pct_spot": 0.0565,
+        "win": 0.56,
+        "worst": -118.5,
+        "total": 704.0
+      },
+      {
+        "year": 2026,
+        "N": 20,
+        "pts": 17.46,
+        "pct_spot": 0.0689,
+        "win": 0.55,
+        "worst": -104.9,
+        "total": 349.0
+      }
+    ],
+    "degenerate_flags": []
+  },
+  "OS09": {
+    "overall": {
+      "name": "OS09_overall",
+      "N": 259,
+      "tpy": 52.0,
+      "pts": 3.68,
+      "pct_spot": 0.0173,
+      "med_pts": 4.03,
+      "sharpe_pt": 0.239,
+      "sharpe_ann": 1.72,
+      "win": 0.741,
+      "wl": 0.74,
+      "stop_rate": 0.259,
+      "worst_pts": -70.3,
+      "worst_sig": -4.8,
+      "ann_ret_spot_pct": 0.9,
+      "total_pts": 953.0,
+      "credit_avg": 10.7
+    },
+    "pre_sep2025": {
+      "name": "OS09_pre",
+      "N": 222,
+      "tpy": 52.2,
+      "pts": 2.74,
+      "pct_spot": 0.014,
+      "med_pts": 3.48,
+      "sharpe_pt": 0.193,
+      "sharpe_ann": 1.39,
+      "win": 0.725,
+      "wl": 0.67,
+      "stop_rate": 0.275,
+      "worst_pts": -70.3,
+      "worst_sig": -5.1,
+      "ann_ret_spot_pct": 0.7,
+      "total_pts": 609.0,
+      "credit_avg": 10.2
+    },
+    "post_sep2025": {
+      "name": "OS09_post",
+      "N": 37,
+      "tpy": 52.2,
+      "pts": 9.3,
+      "pct_spot": 0.0372,
+      "med_pts": 7.23,
+      "sharpe_pt": 0.457,
+      "sharpe_ann": 3.3,
+      "win": 0.838,
+      "wl": 1.18,
+      "stop_rate": 0.162,
+      "worst_pts": -15.4,
+      "worst_sig": -1.2,
+      "ann_ret_spot_pct": 1.9,
+      "total_pts": 344.0,
+      "credit_avg": 14.0
+    },
+    "yearly": [
+      {
+        "year": 2021,
+        "N": 31,
+        "pts": 2.14,
+        "pct_spot": 0.0134,
+        "win": 0.81,
+        "worst": -11.7,
+        "total": 66.0
+      },
+      {
+        "year": 2022,
+        "N": 52,
+        "pts": 2.69,
+        "pct_spot": 0.016,
+        "win": 0.77,
+        "worst": -14.7,
+        "total": 140.0
+      },
+      {
+        "year": 2023,
+        "N": 52,
+        "pts": 2.08,
+        "pct_spot": 0.0114,
+        "win": 0.75,
+        "worst": -14.0,
+        "total": 108.0
+      },
+      {
+        "year": 2024,
+        "N": 52,
+        "pts": 2.8,
+        "pct_spot": 0.012,
+        "win": 0.62,
+        "worst": -59.0,
+        "total": 145.0
+      },
+      {
+        "year": 2025,
+        "N": 52,
+        "pts": 4.73,
+        "pct_spot": 0.0198,
+        "win": 0.77,
+        "worst": -70.3,
+        "total": 246.0
+      },
+      {
+        "year": 2026,
+        "N": 20,
+        "pts": 12.37,
+        "pct_spot": 0.0499,
+        "win": 0.8,
+        "worst": -15.4,
+        "total": 247.0
+      }
+    ],
+    "degenerate_flags": [
+      "Sharpe 4.1 > 4"
+    ]
+  }
+}

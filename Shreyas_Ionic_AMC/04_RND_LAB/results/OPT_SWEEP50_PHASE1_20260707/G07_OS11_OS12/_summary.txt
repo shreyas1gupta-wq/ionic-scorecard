@@ -1,0 +1,12 @@
+===== OS11 =====
+OS11 FRICTIONLESS ALL: N=261 pts=-1.2 %spot=-0.001% med=27.0 win=74% W/L=0.33 Sh_tr=-0.02 Sh_ann=-0.13 tpy=52 cr=47 worst=-267 best=127 reasons={'pt50': np.int64(152), 'expiry': np.int64(109)}
+OS11 NET-1x-prop ALL: N=261 pts=-2.1 %spot=-0.005% med=26.3 win=74% W/L=0.32 Sh_tr=-0.03 Sh_ann=-0.22 tpy=52 cr=47 worst=-270 best=126 reasons={'pt50': np.int64(152), 'expiry': np.int64(109)}
+OS11 NET-1x+brk(1lot) ALL: N=261 pts=-4.3 %spot=-0.016% med=24.2 win=74% W/L=0.29 Sh_tr=-0.06 Sh_ann=-0.45 tpy=52 cr=47 worst=-272 best=124 reasons={'pt50': np.int64(152), 'expiry': np.int64(109)}
+OS11 FRICTIONLESS pre-Sep2025: N=223 pts=-1.0 %spot=0.000% med=26.4 win=75% W/L=0.32 Sh_tr=-0.02 Sh_ann=-0.11 tpy=52 cr=46 worst=-267 best=127 reasons={'pt50': np.int64(135), 'expiry': np.int64(88)}
+OS11 FRICTIONLESS post-Sep2025: N=38 pts=-2.2 %spot=-0.009% med=30.1 win=71% W/L=0.38 Sh_tr=-0.03 Sh_ann=-0.21 tpy=52 cr=51 worst=-201 best=82 reasons={'expiry': np.int64(21), 'pt50': np.int64(17)}
+OS11 same-day-CLOSE-fill: N=261 pts=-2.8 %spot=-0.010% med=21.9 win=74% W/L=0.31 Sh_tr=-0.04 Sh_ann=-0.31 tpy=52 cr=47 worst=-264 best=126 reasons={'pt50': np.int64(152), 'expiry': np.int64(109)}
+OS11 avg prop_cost pts=0.93 brk_1lot pts=2.13 avg dte=5.8
+===== OS12 =====
+OS12 FRICTIONLESS ALL: N=0
+OS12 NET-1x-prop ALL: N=0
+OS12 NET-1x+brk(1lot) ALL: N=0

@@ -1,0 +1,28 @@
+{
+ "card": "A4-CARD",
+ "frozen_commit": "f923851",
+ "run_ts": "2026-07-11T16:30:18",
+ "script": "a4_covid_replication.py",
+ "data": [
+  "fo_bhavcopy_hist (D-009 verified 2026-07-11)"
+ ],
+ "n_obs": 127,
+ "metrics": {
+  "mean_net_pts": 3.69,
+  "t": 0.32,
+  "covid_dd_pts": 805.0,
+  "pre_dd_pts": 766.0,
+  "eq_final": 973300.0,
+  "eq_maxdd_pct": -43.1
+ },
+ "validation": {
+  "era_split": "see RESULTS_RAW",
+  "bootstrap_ci95": null,
+  "lookahead_ast": "pre-flight run",
+  "one_day_lag": "daily settles, SL fills next-day settle"
+ },
+ "verdict": "COVID-SURVIVABLE",
+ "bars_hit": [],
+ "trials_increment": 1,
+ "token_cost_agents": 0
+}

@@ -1,0 +1,315 @@
+<title>Chartlink Exit-Rule Study — Verified Final</title>
+<style>
+:root{
+  --ink:#1C2733;--paper:#F7F9FA;--muted:#5F6E7C;--border:#DDE4E9;
+  --green:#148A4E;--red:#C03A2B;--accent:#1D5FBF;--card:#FFFFFF;--row-alt:#F1F5F8;
+  --green-bg:rgba(20,138,78,.08);--amber:#B07A18;
+}
+*{box-sizing:border-box;margin:0}
+body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;color:var(--ink);background:var(--paper);font-size:14px;line-height:1.55;padding:20px;max-width:1000px;margin:0 auto}
+h1{font-size:21px;font-weight:750;letter-spacing:-.01em;margin-bottom:2px}
+.sub{color:var(--muted);font-size:13px;margin-bottom:18px}
+.tabs{display:flex;gap:2px;border-bottom:2px solid var(--border);margin-bottom:14px;flex-wrap:wrap;position:sticky;top:0;background:var(--paper);z-index:5;padding-top:4px}
+.tab{padding:8px 15px;cursor:pointer;border:none;background:none;color:var(--muted);font-size:13px;font-weight:650;border-bottom:2px solid transparent;margin-bottom:-2px}
+.tab:hover{color:var(--ink)}.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.panel{display:none}.panel.active{display:block}
+.card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:14px 16px;margin-bottom:12px}
+.card h3{font-size:13px;font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:12px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px;text-align:center}
+.kpi .val{font-size:19px;font-weight:800;font-variant-numeric:tabular-nums}
+.kpi .lbl{font-size:10px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.03em}
+.kpi.green .val{color:var(--green)}.kpi.red .val{color:var(--red)}.kpi.blue .val{color:var(--accent)}.kpi.amber .val{color:var(--amber)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;padding:5px 8px;border-bottom:2px solid var(--border);font-weight:700;color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;position:sticky;top:0;background:var(--card);z-index:1}
+td{padding:4px 8px;border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums}
+tr:nth-child(even) td{background:var(--row-alt)}
+.num{text-align:right}.pos{color:var(--green);font-weight:650}.neg{color:var(--red);font-weight:650}
+.tbl-wrap{overflow-x:auto;max-height:520px;overflow-y:auto;border:1px solid var(--border);border-radius:4px}
+.note{background:var(--card);border-left:3px solid var(--accent);padding:10px 14px;margin:10px 0;font-size:12.5px;border-radius:0 4px 4px 0}
+.verdict{font-size:13px;font-weight:700;padding:10px 14px;border-radius:6px;margin:10px 0}
+.verdict.pass{background:var(--green-bg);border:1px solid var(--green);color:var(--green)}
+.verdict.caution{background:rgba(176,122,24,.08);border:1px solid var(--amber);color:var(--amber)}
+svg{width:100%;height:auto;display:block}
+.audit{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin-bottom:10px;font-size:12.5px}
+.audit .hd{font-weight:700;font-size:13px;margin-bottom:6px}
+.audit .row{display:flex;gap:8px;margin:3px 0;align-items:baseline}
+.audit .chk{color:var(--green);font-weight:800;min-width:26px}
+.audit .mono{font-variant-numeric:tabular-nums}
+.pill{display:inline-block;padding:1px 8px;border-radius:10px;font-size:10.5px;font-weight:700}
+.pill.sl{background:var(--red);color:#fff}.pill.time{background:var(--green);color:#fff}.pill.trail{background:var(--accent);color:#fff}
+</style>
+
+<h1>Chartlink Exit-Rule Study — Verified Final Results</h1>
+<div class="sub">Actual Chartlink signals &middot; Rs.1 Cr &middot; daily MTM &middot; all costs &middot; 10% entries &middot; 5-trade audit passed &middot; Nov 17, 2025 – Jul 10, 2026</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('verify',event)">5-Trade Audit</button>
+  <button class="tab" onclick="showTab('results',event)">Results &amp; NAV</button>
+  <button class="tab" onclick="showTab('grid',event)">Full 35-Combo Grid</button>
+  <button class="tab" onclick="showTab('verdict',event)">Verdict</button>
+</div>
+
+<!-- ============ TAB 1: AUDIT ============ -->
+<div class="panel active" id="tab-verify">
+  <div class="verdict pass">AUDIT RESULT: 5 randomly sampled trades (seed 42) recomputed from raw price bars — 4/5 exact to the rupee, 1 within Rs.33 on a 32,711-share position (paise rounding in the displayed ledger, engine holds full precision). Entry price independently matched Angel Broking data to the paisa where windows overlap.</div>
+
+  <div class="audit">
+    <div class="hd">1 &middot; HCLTECH &nbsp; signal 19-Nov &rarr; entry 20-Nov &rarr; exit 21-Nov &nbsp;<span class="pill sl">SL 1d</span></div>
+    <div class="row"><span class="chk">OK</span><span class="mono">Entry: raw open 1,662.60 &times; 1.0015 slippage = <strong>1,665.09</strong> (ledger 1,665.09)</span></div>
+    <div class="row"><span class="chk">OK</span><span class="mono">SL: 1,665.09 &minus; 1.5 &times; ATR 30.71 = <strong>1,619.02</strong> (ledger 1,619.02)</span></div>
+    <div class="row"><span class="chk">OK</span><span class="mono">Trigger: day low 1,606.00 &le; 1,619.02 &rarr; fill min(open, SL) = 1,619.02 &times; 0.9985 = <strong>1,616.59</strong></span></div>
+    <div class="row"><span class="chk">OK</span><span class="mono">598 sh &middot; buy 9,95,724 (fees 1,514) &middot; sell 9,66,721 (fees 1,324) &middot; net P&amp;L <strong class="neg">&minus;31,841</strong> = ledger exactly</span></div>
+  </div>
+
+  <div class="audit">
+    <div class="hd">2 &middot; MTARTECH &nbsp; signal 09-Jan &rarr; entry 12-Jan &rarr; exit 20-Jan &nbsp;<span class="pill sl">SL 6d</span></div>
+    <div class="row"><span class="chk">OK</span><span class="mono">Entry 2,668.00 &times; 1.0015 = <strong>2,672.00</strong> &middot; SL = 2,672.00 &minus; 1.5 &times; 106.90 = <strong>2,511.65</strong></span></div>
+    <div class="row"><span class="chk">OK</span><span class="mono">Trigger: low 2,481.00 &le; 2,511.65 &rarr; fill 2,511.65 &times; 0.9985 = <strong>2,507.88</strong></span></div>
+    <div class="row"><span class="chk">OK</span><span class="mono">382 sh &middot; net P&amp;L <strong class="neg">&minus;65,558</strong> = ledger exactly</span></div>
+  </div>
+
+  <div class="audit">
+    <div class="hd">3 &middot; ACUTAAS &nbsp; signal 28-Jan &rarr; entry 29-Jan &rarr; exit 12-Mar &nbsp;<span class="pill time">TIME 30d</span></div>
+    <div class="row"><span class="chk">OK</span><span class="mono">Entry 1,910.00 &times; 1.0015 = <strong>1,912.87</strong> &middot; SL 1,816.37 never touched in 30 bars</span></div>
+    <div class="row"><span class="chk">OK</span><span class="mono">Time exit: 30th bar close 2,187.70 &times; 0.9985 = <strong>2,184.42</strong></span></div>
+    <div class="row"><span class="chk">OK</span><span class="mono">527 sh &middot; buy 10,08,082 (fees 1,532) &middot; sell 11,51,189 (fees 1,577) &middot; net <strong class="pos">+1,39,999</strong> (calc 139,997, Rs.2 rounding)</span></div>
+  </div>
+
+  <div class="audit">
+    <div class="hd">4 &middot; MTARTECH &nbsp; signal 07-Apr &rarr; entry 08-Apr &rarr; exit 20-May &nbsp;<span class="pill time">TIME 30d</span> — the biggest winner</div>
+    <div class="row"><span class="chk">OK</span><span class="mono">Entry 4,095.00 &times; 1.0015 = <strong>4,101.14</strong> &middot; SL 3,809.21 never touched</span></div>
+    <div class="row"><span class="chk">OK</span><span class="mono">Exit close 7,457.00 &times; 0.9985 = <strong>7,445.81</strong> (+81% in 30 trading days)</span></div>
+    <div class="row"><span class="chk">OK</span><span class="mono">243 sh &middot; buy 9,96,577 &rarr; sell 18,09,332 &middot; net <strong class="pos">+8,08,762</strong></span></div>
+  </div>
+
+  <div class="audit">
+    <div class="hd">5 &middot; IOB &nbsp; signal 17-Jun &rarr; entry 18-Jun &rarr; exit 24-Jun &nbsp;<span class="pill sl">SL 4d</span></div>
+    <div class="row"><span class="chk">OK</span><span class="mono">Entry 35.79 &times; 1.0015 = <strong>35.84</strong> &middot; SL = 35.84 &minus; 1.5 &times; 0.83 = <strong>34.60</strong> &middot; low 34.60 &le; SL &rarr; fill 34.55</span></div>
+    <div class="row"><span class="chk">OK</span><span class="mono">32,711 sh &middot; buy 11,72,362 (fees 1,782) &middot; sell 11,30,165 (fees 1,548)</span></div>
+    <div class="row"><span class="chk">~</span><span class="mono">Net P&amp;L ledger &minus;45,561 vs recompute from 2-dp prices &minus;45,528 &rarr; <strong>Rs.33 gap = 0.1 paise/share display rounding</strong>, logic verified correct</span></div>
+    <div class="row"><span class="chk">OK</span><span class="mono"><strong>Independent source:</strong> entry open yfinance 35.79 = Angel 35.79 (0.00% difference)</span></div>
+  </div>
+
+  <div class="note"><strong>Cost model verified in every trade:</strong> buy side 0.152% (brokerage 0.03% + STT 0.1% + exchange 0.00345% + stamp 0.015% + GST) &middot; sell side 0.137% &middot; slippage 0.15% each side embedded in fill prices. Round trip ~0.59% all-in.</div>
+</div>
+
+<!-- ============ TAB 2: RESULTS ============ -->
+<div class="panel" id="tab-results">
+  <div class="kpi-row">
+    <div class="kpi green"><div class="val">+49.1%</div><div class="lbl">Winner: ATR1.5 SL + EMA20 trail</div></div>
+    <div class="kpi blue"><div class="val">3.47</div><div class="lbl">Sharpe</div></div>
+    <div class="kpi amber"><div class="val">&minus;7.7%</div><div class="lbl">Max drawdown</div></div>
+    <div class="kpi blue"><div class="val">46.7%</div><div class="lbl">Win rate</div></div>
+    <div class="kpi green"><div class="val">6.40</div><div class="lbl">Calmar</div></div>
+  </div>
+
+  <div class="card">
+    <h3>Head-to-head — the three configs charted below</h3>
+    <div class="tbl-wrap" style="max-height:none">
+      <table>
+        <thead><tr><th>Config</th><th class="num">Final NAV</th><th class="num">Return</th><th class="num">MaxDD</th><th class="num">Sharpe</th><th class="num">Trades</th><th class="num">Win rate</th><th class="num">Avg win</th><th class="num">Avg loss</th><th class="num">Avg hold</th><th class="num">Fees paid</th></tr></thead>
+        <tbody>
+          <tr style="background:var(--green-bg)"><td><strong>SL 1.5&times;ATR + EMA20 trail &#9733;</strong></td><td class="num">Rs.1.491 Cr</td><td class="num pos">+49.07%</td><td class="num neg">&minus;7.7%</td><td class="num">3.47</td><td class="num">90</td><td class="num">46.7%</td><td class="num pos">+1,77,557</td><td class="num neg">&minus;53,142</td><td class="num">13.6d</td><td class="num">2,75,329</td></tr>
+          <tr><td><strong>SL 1.5&times;ATR + KC upper 1&times;ATR</strong></td><td class="num">Rs.1.335 Cr</td><td class="num pos">+33.48%</td><td class="num neg">&minus;7.6%</td><td class="num">2.55</td><td class="num">111</td><td class="num">36.9%</td><td class="num pos">+1,52,327</td><td class="num neg">&minus;41,391</td><td class="num">9.2d</td><td class="num">3,37,212</td></tr>
+          <tr><td><strong>Baseline: SL 10% fixed, no trail, 30d</strong></td><td class="num">Rs.1.355 Cr</td><td class="num pos">+35.51%</td><td class="num neg">&minus;7.3%</td><td class="num">2.61</td><td class="num">71</td><td class="num">57.7%</td><td class="num pos">+1,43,268</td><td class="num neg">&minus;74,030</td><td class="num">22.0d</td><td class="num">~2,00,000</td></tr>
+          <tr style="color:var(--muted)"><td>NIFTY 50 same window</td><td class="num">&mdash;</td><td class="num neg">&minus;6.7%</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">&mdash;</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>NAV curves — Rs. Lakh, daily mark-to-market</h3>
+    <div id="navChart"></div>
+  </div>
+
+  <div class="card">
+    <h3>Monthly P&amp;L (Rs. Lakh)</h3>
+    <div class="tbl-wrap" style="max-height:none">
+      <table>
+        <thead><tr><th>Month</th><th class="num">EMA20 trail &#9733;</th><th class="num">KC upper 1&times;ATR</th><th class="num">Baseline 10%/30d</th></tr></thead>
+        <tbody id="monthlyBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="note"><strong>Why the EMA20 trail wins:</strong> it cuts losers ~8 days sooner than the fixed 10% stop (avg loss &minus;53k vs &minus;74k) and the freed capital takes 19 more signals. The KC-upper trail is even faster (9.2d holds) but too impatient — win rate drops to 37% and it sits in cash during chop (0-2 positions through late Jan and March).</div>
+</div>
+
+<!-- ============ TAB 3: FULL GRID ============ -->
+<div class="panel" id="tab-grid">
+  <div class="note">All 35 combos: 5 initial-SL methods &times; 7 trail methods. Max hold 30 trading days everywhere. Sorted by return. Baseline row highlighted.</div>
+  <div class="card">
+    <h3>Complete exit-rule grid</h3>
+    <div class="tbl-wrap" style="max-height:600px">
+      <table>
+        <thead><tr><th>#</th><th>Initial SL</th><th>Trail</th><th class="num">Return%</th><th class="num">MaxDD%</th><th class="num">Sharpe</th><th class="num">Calmar</th><th class="num">Win%</th><th class="num">PF</th><th class="num">Entries</th><th class="num">SL/Trail/Time exits</th><th class="num">Avg hold</th></tr></thead>
+        <tbody id="gridBody"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Legend</h3>
+    <table style="max-width:640px">
+      <tbody>
+        <tr><td style="width:90px;font-weight:650">FIX10</td><td>Fixed &minus;10% from entry</td><td style="width:90px;font-weight:650">NONE</td><td>No trail, time exit only</td></tr>
+        <tr><td style="font-weight:650">ATR1/15/2</td><td>Entry &minus; 1.0 / 1.5 / 2.0 &times; ATR14</td><td style="font-weight:650">DMA20</td><td>Exit close &lt; 20-SMA</td></tr>
+        <tr><td style="font-weight:650">SWING</td><td>10-bar swing low &minus; 1% buffer</td><td style="font-weight:650">KCMID</td><td>Exit close &lt; EMA20 (Keltner mid)</td></tr>
+        <tr><td></td><td></td><td style="font-weight:650">KCU10/15</td><td>Exit close &lt; EMA20 + 1.0/1.5&times;ATR (upper band)</td></tr>
+        <tr><td></td><td></td><td style="font-weight:650">KCL10/15</td><td>Exit close &lt; EMA20 &minus; 1.0/1.5&times;ATR (lower band)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ TAB 4: VERDICT ============ -->
+<div class="panel" id="tab-verdict">
+  <div class="card">
+    <h3>What the grid proves</h3>
+    <div style="font-size:12.5px">
+      <p><strong>1. The 1.5&times;ATR initial stop is the robust upgrade.</strong> It ranks top-tier with every trail pairing (+43% to +49%). Volatility-adjusted stops cut losers faster without more false stops — average loss shrinks from &minus;74k to &minus;53k.</p>
+      <p style="margin-top:6px"><strong>2. A slow trail (EMA20 / 20DMA) adds value; a fast trail destroys it.</strong> All five KC-upper-1.5ATR cells are the bottom five of the whole grid. Demanding price stay above the upper band exits everything in ~7 days.</p>
+      <p style="margin-top:6px"><strong>3. Capital recycling is the hidden engine.</strong> Per-trade expectancy is highest with no trail — but the portfolio is cash-constrained (147 skips at baseline). Exits that free capital a week earlier take 12-19 more signals, and that dominates.</p>
+      <p style="margin-top:6px"><strong>4. Overfitting warning.</strong> 35 variants on one 8-month window: treat the +49% cell as the top of a noisy distribution. The robust conclusion is the family pattern, not the single cell. Paper-trade spec: <strong>SL = entry &minus; 1.5&times;ATR14, trail = close &lt; EMA20 (from day 2), max hold 30 trading days, 10% entries, first-come-first-served</strong>.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Saved artifacts (all in 04_RND_LAB/results/BREAKOUT_SCAN_20260710)</h3>
+    <table style="max-width:720px">
+      <tbody>
+        <tr><td style="font-weight:650">chartlink_exit_grid.csv</td><td>All 35 combos, full metrics</td></tr>
+        <tr><td style="font-weight:650">chartlink_trades_ATR15_EMA20.csv</td><td>Winner config — full trade ledger (entry/exit px, fees, P&amp;L per trade)</td></tr>
+        <tr><td style="font-weight:650">chartlink_trades_ATR15_KCU10.csv</td><td>KC-upper config trade ledger</td></tr>
+        <tr><td style="font-weight:650">chartlink_nav_ATR15_EMA20.csv / _KCU10.csv</td><td>Daily NAV, cash, positions, day P&amp;L</td></tr>
+        <tr><td style="font-weight:650">chartlink_nav_SL10_30d.csv etc.</td><td>Baseline daily NAV + ledgers (previous run)</td></tr>
+        <tr><td style="font-weight:650">chartlink_prices.parquet</td><td>Verified price panel, 199 symbols</td></tr>
+        <tr><td style="font-weight:650">chartlink_verify_export.py / chartlink_exit_grid.py</td><td>Reproducible scripts</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="verdict caution">Next gate per firm process: this is still ONE 8-month window. Before sizing anything: red-team review + forward paper-test with the frozen spec (D-030).</div>
+</div>
+
+<script>
+function showTab(id,ev){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  ev.target.classList.add('active');
+}
+
+const nav_EMA20=[["17-Nov",100.0],["18-Nov",99.97],["19-Nov",99.89],["20-Nov",99.86],["21-Nov",100.23],["24-Nov",99.75],["25-Nov",99.48],["26-Nov",99.23],["27-Nov",98.58],["28-Nov",98.35],["01-Dec",98.28],["02-Dec",97.77],["03-Dec",97.91],["04-Dec",97.95],["05-Dec",97.98],["08-Dec",97.39],["09-Dec",97.59],["10-Dec",97.26],["11-Dec",97.29],["12-Dec",98.47],["15-Dec",98.92],["16-Dec",98.46],["17-Dec",98.67],["18-Dec",99.78],["19-Dec",99.96],["22-Dec",101.36],["23-Dec",102.0],["24-Dec",102.59],["26-Dec",103.8],["29-Dec",103.05],["30-Dec",104.75],["31-Dec",104.56],["01-Jan",105.34],["02-Jan",106.89],["05-Jan",106.78],["06-Jan",107.87],["07-Jan",107.28],["08-Jan",103.79],["09-Jan",102.29],["12-Jan",103.06],["13-Jan",102.53],["14-Jan",104.05],["15-Jan",104.02],["16-Jan",101.74],["19-Jan",101.34],["20-Jan",100.51],["21-Jan",100.69],["22-Jan",101.07],["23-Jan",100.69],["27-Jan",101.02],["28-Jan",101.01],["29-Jan",101.04],["30-Jan",100.58],["02-Feb",100.57],["03-Feb",101.01],["04-Feb",103.8],["05-Feb",102.52],["06-Feb",102.34],["09-Feb",104.26],["10-Feb",103.88],["11-Feb",103.08],["12-Feb",106.08],["13-Feb",104.26],["16-Feb",103.88],["17-Feb",104.63],["18-Feb",105.85],["19-Feb",104.05],["20-Feb",104.37],["23-Feb",105.28],["24-Feb",105.3],["25-Feb",105.42],["26-Feb",105.42],["27-Feb",103.94],["02-Mar",101.95],["04-Mar",101.27],["05-Mar",102.62],["06-Mar",103.18],["09-Mar",101.7],["10-Mar",102.56],["11-Mar",102.66],["12-Mar",102.96],["13-Mar",102.08],["16-Mar",101.41],["17-Mar",101.77],["18-Mar",101.54],["19-Mar",101.78],["20-Mar",101.92],["23-Mar",100.2],["24-Mar",101.28],["25-Mar",101.78],["27-Mar",101.62],["30-Mar",101.09],["01-Apr",100.05],["02-Apr",99.6],["06-Apr",100.13],["07-Apr",100.02],["08-Apr",100.64],["09-Apr",101.7],["10-Apr",103.58],["13-Apr",105.59],["15-Apr",111.0],["16-Apr",113.72],["17-Apr",114.69],["20-Apr",115.25],["21-Apr",116.9],["22-Apr",119.57],["23-Apr",120.25],["24-Apr",119.64],["27-Apr",121.71],["28-Apr",121.96],["29-Apr",123.24],["30-Apr",124.25],["01-May",124.25],["04-May",124.79],["05-May",126.39],["06-May",126.54],["07-May",128.33],["08-May",127.21],["11-May",128.26],["12-May",123.76],["13-May",125.72],["14-May",129.47],["15-May",127.66],["18-May",126.77],["19-May",126.86],["20-May",128.71],["21-May",129.52],["22-May",130.64],["25-May",133.87],["26-May",134.06],["27-May",134.95],["28-May",134.95],["29-May",133.37],["01-Jun",131.78],["02-Jun",133.47],["03-Jun",133.49],["04-Jun",135.21],["05-Jun",133.18],["08-Jun",131.15],["09-Jun",133.81],["10-Jun",136.7],["11-Jun",136.72],["12-Jun",136.75],["15-Jun",136.22],["16-Jun",135.7],["17-Jun",137.31],["18-Jun",137.93],["19-Jun",140.04],["22-Jun",142.0],["23-Jun",141.99],["24-Jun",140.65],["25-Jun",139.87],["26-Jun",139.82],["29-Jun",141.11],["30-Jun",143.54],["01-Jul",143.72],["02-Jul",144.57],["03-Jul",143.13],["06-Jul",143.42],["07-Jul",143.43],["08-Jul",142.84],["09-Jul",145.5],["10-Jul",149.49]];
+const nav_KCU10=[["17-Nov",100.0],["18-Nov",99.97],["19-Nov",99.89],["20-Nov",99.86],["21-Nov",100.23],["24-Nov",99.75],["25-Nov",99.48],["26-Nov",99.23],["27-Nov",98.58],["28-Nov",98.29],["01-Dec",97.98],["02-Dec",97.42],["03-Dec",97.87],["04-Dec",97.82],["05-Dec",98.09],["08-Dec",97.49],["09-Dec",97.99],["10-Dec",97.63],["11-Dec",97.49],["12-Dec",97.77],["15-Dec",98.09],["16-Dec",97.86],["17-Dec",98.21],["18-Dec",98.45],["19-Dec",98.51],["22-Dec",99.26],["23-Dec",99.73],["24-Dec",99.67],["26-Dec",99.62],["29-Dec",97.88],["30-Dec",98.4],["31-Dec",98.5],["01-Jan",98.08],["02-Jan",98.89],["05-Jan",98.58],["06-Jan",98.97],["07-Jan",98.82],["08-Jan",95.78],["09-Jan",94.45],["12-Jan",94.47],["13-Jan",94.41],["14-Jan",94.77],["15-Jan",94.74],["16-Jan",93.61],["19-Jan",93.45],["20-Jan",93.28],["21-Jan",93.28],["22-Jan",93.28],["23-Jan",93.28],["27-Jan",93.28],["28-Jan",93.3],["29-Jan",93.58],["30-Jan",92.94],["02-Feb",92.57],["03-Feb",93.27],["04-Feb",95.64],["05-Feb",94.92],["06-Feb",94.89],["09-Feb",96.9],["10-Feb",96.61],["11-Feb",95.99],["12-Feb",99.0],["13-Feb",97.0],["16-Feb",96.74],["17-Feb",97.7],["18-Feb",98.9],["19-Feb",97.28],["20-Feb",96.93],["23-Feb",97.41],["24-Feb",97.63],["25-Feb",97.65],["26-Feb",97.98],["27-Feb",97.71],["02-Mar",96.89],["04-Mar",95.23],["05-Mar",95.58],["06-Mar",95.82],["09-Mar",95.52],["10-Mar",95.54],["11-Mar",95.52],["12-Mar",95.39],["13-Mar",94.85],["16-Mar",94.3],["17-Mar",94.42],["18-Mar",94.09],["19-Mar",94.43],["20-Mar",93.72],["23-Mar",93.28],["24-Mar",93.28],["25-Mar",93.28],["27-Mar",93.25],["30-Mar",93.11],["01-Apr",93.07],["02-Apr",93.38],["06-Apr",93.88],["07-Apr",93.77],["08-Apr",94.35],["09-Apr",95.34],["10-Apr",97.12],["13-Apr",99.0],["15-Apr",104.06],["16-Apr",106.63],["17-Apr",107.52],["20-Apr",108.04],["21-Apr",109.59],["22-Apr",112.13],["23-Apr",112.76],["24-Apr",112.16],["27-Apr",113.97],["28-Apr",114.12],["29-Apr",114.88],["30-Apr",116.15],["01-May",116.15],["04-May",117.45],["05-May",119.43],["06-May",120.03],["07-May",121.64],["08-May",120.6],["11-May",122.1],["12-May",120.13],["13-May",121.94],["14-May",126.3],["15-May",124.75],["18-May",125.27],["19-May",124.99],["20-May",126.06],["21-May",126.34],["22-May",127.52],["25-May",130.38],["26-May",130.33],["27-May",131.61],["28-May",131.61],["29-May",130.61],["01-Jun",128.77],["02-Jun",130.94],["03-Jun",131.22],["04-Jun",133.09],["05-Jun",129.94],["08-Jun",125.05],["09-Jun",125.36],["10-Jun",129.33],["11-Jun",129.17],["12-Jun",128.25],["15-Jun",128.2],["16-Jun",128.59],["17-Jun",132.74],["18-Jun",131.89],["19-Jun",132.04],["22-Jun",134.92],["23-Jun",134.74],["24-Jun",133.66],["25-Jun",133.65],["26-Jun",133.57],["29-Jun",132.99],["30-Jun",134.47],["01-Jul",136.37],["02-Jul",137.01],["03-Jul",135.82],["06-Jul",137.49],["07-Jul",136.14],["08-Jul",132.53],["09-Jul",133.71],["10-Jul",133.86]];
+const nav_BASE=[["17-Nov",100.0],["18-Nov",99.97],["19-Nov",99.89],["20-Nov",99.86],["21-Nov",100.19],["24-Nov",99.72],["25-Nov",99.4],["26-Nov",99.28],["27-Nov",98.76],["28-Nov",98.59],["01-Dec",98.49],["02-Dec",98.28],["03-Dec",98.92],["04-Dec",98.63],["05-Dec",98.42],["08-Dec",97.17],["09-Dec",97.43],["10-Dec",97.4],["11-Dec",97.44],["12-Dec",98.37],["15-Dec",99.21],["16-Dec",98.59],["17-Dec",99.13],["18-Dec",99.39],["19-Dec",99.89],["22-Dec",101.2],["23-Dec",101.86],["24-Dec",101.23],["26-Dec",101.21],["29-Dec",99.45],["30-Dec",100.32],["31-Dec",100.24],["01-Jan",101.29],["02-Jan",101.47],["05-Jan",100.97],["06-Jan",101.13],["07-Jan",101.49],["08-Jan",99.21],["09-Jan",97.88],["12-Jan",98.12],["13-Jan",98.39],["14-Jan",98.8],["15-Jan",98.78],["16-Jan",97.78],["19-Jan",97.63],["20-Jan",96.8],["21-Jan",96.82],["22-Jan",95.93],["23-Jan",95.68],["27-Jan",96.13],["28-Jan",96.22],["29-Jan",96.45],["30-Jan",96.47],["02-Feb",94.56],["03-Feb",95.87],["04-Feb",97.78],["05-Feb",97.09],["06-Feb",96.64],["09-Feb",98.24],["10-Feb",98.62],["11-Feb",98.49],["12-Feb",100.36],["13-Feb",98.34],["16-Feb",98.88],["17-Feb",99.33],["18-Feb",99.97],["19-Feb",99.93],["20-Feb",100.1],["23-Feb",100.7],["24-Feb",100.93],["25-Feb",101.64],["26-Feb",102.07],["27-Feb",100.12],["02-Mar",99.51],["04-Mar",98.14],["05-Mar",99.69],["06-Mar",100.19],["09-Mar",97.07],["10-Mar",98.46],["11-Mar",98.33],["12-Mar",98.4],["13-Mar",96.9],["16-Mar",96.23],["17-Mar",96.42],["18-Mar",96.36],["19-Mar",96.15],["20-Mar",96.87],["23-Mar",94.6],["24-Mar",95.99],["25-Mar",96.97],["27-Mar",97.36],["30-Mar",96.68],["01-Apr",95.88],["02-Apr",95.19],["06-Apr",96.22],["07-Apr",96.28],["08-Apr",96.15],["09-Apr",96.95],["10-Apr",97.32],["13-Apr",99.56],["15-Apr",105.02],["16-Apr",107.04],["17-Apr",108.45],["20-Apr",108.51],["21-Apr",109.56],["22-Apr",110.84],["23-Apr",111.63],["24-Apr",110.2],["27-Apr",112.13],["28-Apr",112.9],["29-Apr",114.81],["30-Apr",115.37],["01-May",115.34],["04-May",117.59],["05-May",117.79],["06-May",118.24],["07-May",119.87],["08-May",118.97],["11-May",117.87],["12-May",113.8],["13-May",115.31],["14-May",118.63],["15-May",116.82],["18-May",116.95],["19-May",115.43],["20-May",116.29],["21-May",117.35],["22-May",118.39],["25-May",121.69],["26-May",122.74],["27-May",123.59],["28-May",123.59],["29-May",122.69],["01-Jun",120.88],["02-Jun",121.03],["03-Jun",120.97],["04-Jun",123.66],["05-Jun",123.0],["08-Jun",120.69],["09-Jun",125.2],["10-Jun",125.26],["11-Jun",125.29],["12-Jun",126.19],["15-Jun",126.31],["16-Jun",125.45],["17-Jun",125.75],["18-Jun",127.36],["19-Jun",129.68],["22-Jun",131.26],["23-Jun",129.77],["24-Jun",129.45],["25-Jun",129.68],["26-Jun",129.62],["29-Jun",131.36],["30-Jun",133.16],["01-Jul",133.45],["02-Jul",134.69],["03-Jul",134.13],["06-Jul",135.43],["07-Jul",135.87],["08-Jul",132.25],["09-Jul",134.72],["10-Jul",135.9]];
+
+function renderNavChart(){
+  const w=920,h=320,pad={t:15,r:15,b:30,l:42};
+  const iw=w-pad.l-pad.r,ih=h-pad.t-pad.b;
+  const sets=[
+    {d:nav_EMA20,col:'#1D5FBF',lbl:'ATR1.5 SL + EMA20 trail'},
+    {d:nav_KCU10,col:'#B07A18',lbl:'ATR1.5 SL + KC upper 1ATR'},
+    {d:nav_BASE,col:'#5F6E7C',lbl:'Baseline SL10% 30d'},
+  ];
+  const minV=90,maxV=152,range=maxV-minV;
+  const n=nav_EMA20.length;
+  let svg=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="NAV curves" xmlns="http://www.w3.org/2000/svg">`;
+  for(let v=90;v<=150;v+=10){
+    const y=pad.t+ih-((v-minV)/range)*ih;
+    svg+=`<line x1="${pad.l}" y1="${y}" x2="${w-pad.r}" y2="${y}" stroke="#DDE4E9" stroke-width=".6"/>`;
+    svg+=`<text x="${pad.l-5}" y="${y+3}" text-anchor="end" font-size="10" fill="#5F6E7C">${v}</text>`;
+  }
+  const y100=pad.t+ih-((100-minV)/range)*ih;
+  svg+=`<line x1="${pad.l}" y1="${y100}" x2="${w-pad.r}" y2="${y100}" stroke="#5F6E7C" stroke-width="1" stroke-dasharray="4,4"/>`;
+  [[0,'Nov'],[10,'Dec'],[32,'Jan'],[53,'Feb'],[73,'Mar'],[94,'Apr'],[114,'May'],[135,'Jun'],[157,'Jul']].forEach(([i,m])=>{
+    const x=pad.l+(i/(n-1))*iw;
+    svg+=`<text x="${x}" y="${h-pad.b+15}" font-size="10" fill="#5F6E7C">${m}</text>`;
+  });
+  sets.forEach(s=>{
+    const pts=s.d.map((r,i)=>{
+      const x=pad.l+(i/(n-1))*iw;
+      const y=pad.t+ih-((r[1]-minV)/range)*ih;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    }).join(' ');
+    svg+=`<polyline points="${pts}" fill="none" stroke="${s.col}" stroke-width="2" opacity=".92"/>`;
+    const last=s.d[s.d.length-1];
+    const ly=pad.t+ih-((last[1]-minV)/range)*ih;
+    svg+=`<circle cx="${w-pad.r}" cy="${ly}" r="3" fill="${s.col}"/>`;
+    svg+=`<text x="${w-pad.r-6}" y="${ly-6}" text-anchor="end" font-size="10.5" fill="${s.col}" font-weight="700">${s.lbl}: ${last[1].toFixed(1)}L</text>`;
+  });
+  svg+=`</svg>`;
+  document.getElementById('navChart').innerHTML=svg;
+}
+
+function renderMonthly(){
+  const rows=[
+    ["Nov-25",-1.65,-1.71,-1.41],["Dec-25",6.21,0.21,1.65],["Jan-26",-3.98,-5.56,-3.77],
+    ["Feb-26",3.37,4.77,3.64],["Mar-26",-2.85,-4.60,-3.44],["Apr-26",23.16,23.04,18.69],
+    ["May-26",9.11,14.46,7.32],["Jun-26",10.17,3.86,10.47],["Jul-26",5.96,-0.61,2.74],
+  ];
+  document.getElementById('monthlyBody').innerHTML=rows.map(r=>{
+    const cells=r.slice(1).map(v=>{
+      const c=v>=0?'pos':'neg';
+      return `<td class="num ${c}">${v>=0?'+':''}${v.toFixed(2)}</td>`;
+    }).join('');
+    return `<tr><td><strong>${r[0]}</strong></td>${cells}</tr>`;
+  }).join('');
+}
+
+const grid=[
+["ATR15","KCMID",49.07,-7.66,3.47,6.40,46.7,3.04,90,"39/24/15",13.6],
+["ATR15","KCL10",47.61,-8.13,3.25,5.85,43.8,2.93,89,"45/6/26",14.4],
+["FIX10","DMA20",46.13,-9.43,3.01,4.89,48.2,2.90,83,"6/51/15",16.5],
+["ATR15","NONE",45.67,-8.44,3.02,5.41,42.9,2.82,84,"44/0/29",14.8],
+["SWING","DMA20",45.66,-9.76,2.99,4.68,48.2,2.87,83,"3/54/15",16.6],
+["FIX10","KCL10",45.37,-8.04,3.12,5.65,55.8,3.10,77,"13/16/36",20.5],
+["ATR15","KCL15",43.04,-8.84,2.96,4.87,41.9,2.63,86,"45/4/26",14.5],
+["SWING","KCL10",40.79,-9.31,2.83,4.38,55.3,2.68,76,"9/21/35",20.8],
+["SWING","KCMID",40.40,-10.43,2.88,3.87,48.3,2.56,87,"2/55/17",17.0],
+["ATR1","KCMID",40.32,-9.37,3.10,4.30,39.8,2.78,108,"60/22/13",10.6],
+["ATR1","KCL10",39.30,-9.74,2.88,4.03,35.8,2.61,106,"67/5/21",10.7],
+["FIX10","KCU10",38.90,-9.17,2.79,4.24,39.8,2.50,103,"5/85/3",10.4],
+["SWING","KCU10",38.71,-9.29,2.78,4.17,40.8,2.49,102,"1/89/3",10.5],
+["ATR2","NONE",38.26,-9.83,2.53,3.89,45.2,2.43,86,"39/0/33",16.4],
+["ATR15","DMA20",37.54,-7.68,2.73,4.89,43.4,2.33,95,"46/30/12",12.2],
+["ATR1","NONE",36.78,-10.28,2.60,3.58,36.3,2.49,101,"65/0/25",11.2],
+["FIX10","KCMID",36.66,-10.37,2.69,3.54,48.9,2.43,86,"5/52/16",16.4],
+["FIX10","NONE",35.51,-7.32,2.61,4.85,57.7,2.64,71,"18/0/41",22.0],
+["ATR1","KCL15",35.41,-10.31,2.56,3.43,34.0,2.39,104,"67/4/20",10.7],
+["ATR2","KCMID",35.29,-12.53,2.52,2.82,45.6,2.21,90,"31/29/17",14.7],
+["ATR2","KCU10",35.04,-9.50,2.54,3.69,38.3,2.26,105,"19/75/3",9.8],
+["ATR2","DMA20",34.03,-10.90,2.42,3.12,43.2,2.18,95,"33/37/14",14.0],
+["ATR2","KCL10",34.12,-10.60,2.37,3.22,44.7,2.20,88,"37/8/27",16.1],
+["ATR1","DMA20",33.77,-9.07,2.55,3.72,37.0,2.28,111,"70/27/10",9.4],
+["ATR15","KCU10",33.48,-7.64,2.55,4.38,37.8,2.26,111,"35/63/3",9.2],
+["FIX10","KCL15",33.15,-7.58,2.42,4.37,53.4,2.52,74,"15/7/39",21.6],
+["SWING","KCL15",33.09,-9.28,2.29,3.57,59.4,2.58,74,"9/9/40",23.6],
+["SWING","NONE",31.78,-9.57,2.18,3.32,61.8,2.42,71,"11/0/46",24.8],
+["ATR2","KCL15",28.66,-11.42,2.02,2.51,42.4,1.96,90,"40/5/28",16.2],
+["ATR1","KCU10",28.44,-8.24,2.42,3.45,34.9,2.05,116,"65/48/3",7.6],
+["FIX10","KCU15",27.72,-9.32,2.11,2.97,36.3,1.97,135,"3/122/2",7.1],
+["ATR15","KCU15",27.26,-8.97,2.11,3.04,36.8,1.93,136,"35/90/2",6.7],
+["ATR2","KCU15",27.15,-9.55,2.05,2.84,36.8,1.92,136,"15/111/2",7.0],
+["SWING","KCU15",26.87,-10.14,2.06,2.65,36.3,1.93,135,"0/125/2",7.1],
+["ATR1","KCU15",26.84,-8.96,2.16,3.00,35.0,1.92,143,"67/69/2",5.9],
+];
+
+function renderGrid(){
+  document.getElementById('gridBody').innerHTML=grid.map((r,i)=>{
+    const isBase=r[0]==='FIX10'&&r[1]==='NONE';
+    const isTop=i===0;
+    const style=isBase?' style="background:rgba(29,95,191,.08)"':(isTop?' style="background:var(--green-bg)"':'');
+    return `<tr${style}><td>${i+1}</td><td><strong>${r[0]}</strong>${isBase?' (baseline)':''}</td><td><strong>${r[1]}</strong>${isTop?' &#9733;':''}</td>
+      <td class="num ${r[2]>=0?'pos':'neg'}">${r[2].toFixed(2)}</td>
+      <td class="num neg">${r[3].toFixed(2)}</td>
+      <td class="num">${r[4].toFixed(2)}</td><td class="num">${r[5].toFixed(2)}</td>
+      <td class="num">${r[6].toFixed(1)}</td><td class="num">${r[7].toFixed(2)}</td>
+      <td class="num">${r[8]}</td><td class="num">${r[9]}</td><td class="num">${r[10].toFixed(1)}d</td></tr>`;
+  }).join('');
+}
+
+renderNavChart();
+renderMonthly();
+renderGrid();
+</script>

@@ -1,0 +1,45 @@
+train 1027 test 478 | OOS IC 0.056
+        mean  count
+pq                 
+0   1.219614     96
+1   4.703888     95
+2   2.761146     96
+3   5.747210     95
+4   3.120140     96
+
+         feature  importance
+        ret_252d    0.018657
+         chg_pct    0.017154
+     turnover_cr    0.014921
+        ret_126d    0.010969
+          ret_5d    0.009506
+         gap_pct    0.007794
+   dist_52wh_pct    0.005604
+       vol_ratio    0.004622
+ dist_sma200_pct    0.003791
+         atr_pct    0.002473
+          mcap_c    0.002371
+    bb_width_pct    0.001493
+       base_days    0.001013
+   nifty_r21_pct    0.000159
+   nifty_above20    0.000000
+consec_up_before    0.000000
+    earn_recent7    0.000000
+        new_52wh    0.000000
+          golden    0.000000
+           rsi14   -0.000027
+  lower_wick_pct   -0.000114
+  dist_sma20_pct   -0.000340
+         pos_52w   -0.000471
+  upper_wick_pct   -0.000826
+       vcp_ratio   -0.000887
+  dist_sma50_pct   -0.001883
+   ret_3d_before   -0.002293
+         ret_21d   -0.002696
+  close_in_range   -0.003473
+        body_pct   -0.004982
+          np_yoy   -0.008136
+         ret_63d   -0.008624
+       sales_yoy   -0.013788
+updown_vol_ratio   -0.014911
+ days_since_earn   -0.025622

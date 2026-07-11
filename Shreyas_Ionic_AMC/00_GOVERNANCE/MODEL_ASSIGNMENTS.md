@@ -35,3 +35,4 @@ Rules:
 | Neel Basu (Performance Attribution Analyst) | Analysis | Sonnet 5 | Haiku 4.5 | sonnet |
 | Tanvi Desai (Product) | Analysis | Sonnet 5 | Haiku 4.5 | sonnet |
 | Dr. Sameer Bhat (Overfit) | Analysis | Sonnet 5 | Opus 4.6 | sonnet |
+| Kabir Anand (Head of Hedging & Tail Risk) | Analysis | Sonnet 5 | Opus 4.6 | sonnet |

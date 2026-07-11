@@ -1,0 +1,178 @@
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+  [OS01m] 0/261 exp=2021-05-27 trades=1
+  [OS01m] 25/261 exp=2021-11-25 trades=26
+  [OS01m] 50/261 exp=2022-05-19 trades=51
+  [OS01m] 75/261 exp=2022-11-10 trades=76
+  [OS01m] 100/261 exp=2023-05-04 trades=101
+  [OS01m] 125/261 exp=2023-10-26 trades=126
+  [OS01m] 150/261 exp=2024-04-18 trades=151
+  [OS01m] 175/261 exp=2024-10-10 trades=175
+  [OS01m] 200/261 exp=2025-04-03 trades=200
+  [OS01m] 225/261 exp=2025-09-23 trades=225
+  [OS01m] 250/261 exp=2026-03-24 trades=250
+  [OS01c] 0/261 exp=2021-05-27 trades=1
+  [OS01c] 25/261 exp=2021-11-25 trades=26
+  [OS01c] 50/261 exp=2022-05-19 trades=51
+  [OS01c] 75/261 exp=2022-11-10 trades=76
+  [OS01c] 100/261 exp=2023-05-04 trades=101
+  [OS01c] 125/261 exp=2023-10-26 trades=126
+  [OS01c] 150/261 exp=2024-04-18 trades=151
+  [OS01c] 175/261 exp=2024-10-10 trades=175
+  [OS01c] 200/261 exp=2025-04-03 trades=200
+  [OS01c] 225/261 exp=2025-09-23 trades=225
+  [OS01c] 250/261 exp=2026-03-24 trades=250
+  [OS07] 0/261 exp=2021-05-27 trades=1
+  [OS07] 25/261 exp=2021-11-25 trades=26
+  [OS07] 50/261 exp=2022-05-19 trades=51
+  [OS07] 75/261 exp=2022-11-10 trades=76
+  [OS07] 100/261 exp=2023-05-04 trades=101
+  [OS07] 125/261 exp=2023-10-26 trades=126
+  [OS07] 150/261 exp=2024-04-18 trades=151
+  [OS07] 175/261 exp=2024-10-10 trades=176
+  [OS07] 200/261 exp=2025-04-03 trades=201
+  [OS07] 225/261 exp=2025-09-23 trades=226
+  [OS07] 250/261 exp=2026-03-24 trades=247
+{
+  "OS01_morning": {
+    "N": 260,
+    "mean_pts": 20.47,
+    "mean_pct_spot": 0.0981,
+    "median_pct_spot": 0.192,
+    "win": 0.838,
+    "sharpe_trade": 0.207,
+    "sharpe_ann_optimistic": 1.491,
+    "worst_pct_spot": -2.478,
+    "best_pct_spot": 1.467,
+    "p05_pct_spot": -0.918,
+    "cvar5_pct_spot": -1.461,
+    "maxDD_cum_pct_spot": -5.304,
+    "cum_pct_spot": 25.5,
+    "wl": 0.346
+  },
+  "OS01_close": {
+    "N": 260,
+    "mean_pts": -4.16,
+    "mean_pct_spot": -0.0194,
+    "median_pct_spot": 0.119,
+    "win": 0.731,
+    "sharpe_trade": -0.039,
+    "sharpe_ann_optimistic": -0.284,
+    "worst_pct_spot": -2.627,
+    "best_pct_spot": 1.474,
+    "p05_pct_spot": -0.955,
+    "cvar5_pct_spot": -1.615,
+    "maxDD_cum_pct_spot": -11.676,
+    "cum_pct_spot": -5.04,
+    "wl": 0.326
+  },
+  "OS01_pre": {
+    "N": 222,
+    "mean_pts": 14.75,
+    "mean_pct_spot": 0.0769,
+    "median_pct_spot": 0.1901,
+    "win": 0.829,
+    "sharpe_trade": 0.157,
+    "sharpe_ann_optimistic": 1.131,
+    "worst_pct_spot": -2.478,
+    "best_pct_spot": 1.467,
+    "p05_pct_spot": -0.945,
+    "cvar5_pct_spot": -1.489,
+    "maxDD_cum_pct_spot": -5.304,
+    "cum_pct_spot": 17.07,
+    "wl": 0.325
+  },
+  "OS01_post": {
+    "N": 38,
+    "mean_pts": 53.87,
+    "mean_pct_spot": 0.2217,
+    "median_pct_spot": 0.2113,
+    "win": 0.895,
+    "sharpe_trade": 0.642,
+    "sharpe_ann_optimistic": 4.632,
+    "worst_pct_spot": -1.124,
+    "best_pct_spot": 0.904,
+    "p05_pct_spot": -0.359,
+    "cvar5_pct_spot": -0.782,
+    "maxDD_cum_pct_spot": -1.124,
+    "cum_pct_spot": 8.42,
+    "wl": 0.585
+  },
+  "OS07_proxy_10DTE": {
+    "N": 254,
+    "mean_pts": 31.3,
+    "mean_pct_spot": 0.1548,
+    "median_pct_spot": 0.2507,
+    "win": 0.85,
+    "sharpe_trade": 0.316,
+    "sharpe_ann_optimistic": 2.282,
+    "worst_pct_spot": -3.499,
+    "best_pct_spot": 0.935,
+    "p05_pct_spot": -0.767,
+    "cvar5_pct_spot": -1.331,
+    "maxDD_cum_pct_spot": -4.365,
+    "cum_pct_spot": 39.32,
+    "wl": 0.408
+  },
+  "OS01_baseline_7DTE": {
+    "N": 260,
+    "mean_pts": 20.47,
+    "mean_pct_spot": 0.0981,
+    "median_pct_spot": 0.192,
+    "win": 0.838,
+    "sharpe_trade": 0.207,
+    "sharpe_ann_optimistic": 1.491,
+    "worst_pct_spot": -2.478,
+    "best_pct_spot": 1.467,
+    "p05_pct_spot": -0.918,
+    "cvar5_pct_spot": -1.461,
+    "maxDD_cum_pct_spot": -5.304,
+    "cum_pct_spot": 25.5,
+    "wl": 0.346
+  },
+  "OS07_pre": {
+    "N": 223,
+    "mean_pts": 26.29,
+    "mean_pct_spot": 0.1386,
+    "median_pct_spot": 0.257,
+    "win": 0.834,
+    "sharpe_trade": 0.272,
+    "sharpe_ann_optimistic": 1.963,
+    "worst_pct_spot": -3.499,
+    "best_pct_spot": 0.922,
+    "p05_pct_spot": -0.782,
+    "cvar5_pct_spot": -1.378,
+    "maxDD_cum_pct_spot": -4.365,
+    "cum_pct_spot": 30.92,
+    "wl": 0.411
+  },
+  "OS07_post": {
+    "N": 31,
+    "mean_pts": 67.32,
+    "mean_pct_spot": 0.2712,
+    "median_pct_spot": 0.2199,
+    "win": 0.968,
+    "sharpe_trade": 0.945,
+    "sharpe_ann_optimistic": 6.812,
+    "worst_pct_spot": -0.774,
+    "best_pct_spot": 0.935,
+    "p05_pct_spot": 0.126,
+    "cvar5_pct_spot": -0.324,
+    "maxDD_cum_pct_spot": -0.774,
+    "cum_pct_spot": 8.41,
+    "wl": 0.396
+  },
+  "OS01_degen_flags": [
+    "tail-seller profile: win 84%, W/L 0.35 \u2014 check crash slices",
+    "one symbol >30% of |P&L|"
+  ],
+  "_meta": {
+    "n_exps": 261,
+    "exp_range": [
+      "2021-05-27",
+      "2026-06-02"
+    ],
+    "n_monthly_ge28dte": 24,
+    "dte_note": "weekly files ~10 DTE life; 3-tenor/21DTE ladder NOT constructible -> OS07 is a 2-deep proxy"
+  }
+}

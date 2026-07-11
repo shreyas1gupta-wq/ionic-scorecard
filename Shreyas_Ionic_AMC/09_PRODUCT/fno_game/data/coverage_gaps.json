@@ -1,0 +1,207 @@
+{
+ "meta": {
+  "built_at": "2026-07-05T07:19:14.155735+05:30",
+  "thresholds": {
+   "MIN_SPOT_BARS": 360,
+   "MIN_STRIKES_COVERED": 8,
+   "MIN_COVERAGE": 0.6,
+   "MIN_STRIKES_TRADED": 5,
+   "STRIKE_WINDOW": 200
+  },
+  "spot_days": 1242,
+  "eligible": 1198,
+  "excluded": 44,
+  "blacklist": [
+   "2021-10-28",
+   "2021-11-04",
+   "2022-02-24",
+   "2023-02-01",
+   "2024-01-22",
+   "2024-06-03",
+   "2024-06-04",
+   "2024-07-23",
+   "2024-08-05",
+   "2025-02-01",
+   "2025-06-13",
+   "2026-02-01"
+  ]
+ },
+ "gaps": [
+  {
+   "date": "2021-05-24",
+   "reason": "no valid previous trading day (D-1 chart)"
+  },
+  {
+   "date": "2021-05-25",
+   "reason": "fewer than 5 prior sessions (prev-week levels)"
+  },
+  {
+   "date": "2021-05-26",
+   "reason": "fewer than 5 prior sessions (prev-week levels)"
+  },
+  {
+   "date": "2021-05-27",
+   "reason": "fewer than 5 prior sessions (prev-week levels)"
+  },
+  {
+   "date": "2021-05-28",
+   "reason": "fewer than 5 prior sessions (prev-week levels)"
+  },
+  {
+   "date": "2021-06-23",
+   "reason": "PE covered strikes 7 < 8"
+  },
+  {
+   "date": "2021-10-28",
+   "reason": "iconic-day blacklist"
+  },
+  {
+   "date": "2021-10-29",
+   "reason": "options scan failed: no rows for day in front expiry file"
+  },
+  {
+   "date": "2021-11-01",
+   "reason": "CE covered strikes 7 < 8"
+  },
+  {
+   "date": "2021-11-02",
+   "reason": "PE covered strikes 7 < 8"
+  },
+  {
+   "date": "2021-11-04",
+   "reason": "spot bars 0 < 360 (truncated/half day)"
+  },
+  {
+   "date": "2021-11-08",
+   "reason": "no valid previous trading day (D-1 chart)"
+  },
+  {
+   "date": "2022-02-24",
+   "reason": "iconic-day blacklist"
+  },
+  {
+   "date": "2022-03-07",
+   "reason": "spot bars 335 < 360 (truncated/half day)"
+  },
+  {
+   "date": "2022-03-08",
+   "reason": "no valid previous trading day (D-1 chart)"
+  },
+  {
+   "date": "2022-10-24",
+   "reason": "spot bars 0 < 360 (truncated/half day)"
+  },
+  {
+   "date": "2022-10-25",
+   "reason": "no valid previous trading day (D-1 chart)"
+  },
+  {
+   "date": "2023-02-01",
+   "reason": "iconic-day blacklist"
+  },
+  {
+   "date": "2023-11-12",
+   "reason": "spot bars 0 < 360 (truncated/half day)"
+  },
+  {
+   "date": "2023-11-13",
+   "reason": "no valid previous trading day (D-1 chart)"
+  },
+  {
+   "date": "2024-03-02",
+   "reason": "spot bars 109 < 360 (truncated/half day)"
+  },
+  {
+   "date": "2024-03-04",
+   "reason": "no valid previous trading day (D-1 chart)"
+  },
+  {
+   "date": "2024-05-18",
+   "reason": "spot bars 111 < 360 (truncated/half day)"
+  },
+  {
+   "date": "2024-05-21",
+   "reason": "no valid previous trading day (D-1 chart)"
+  },
+  {
+   "date": "2024-06-03",
+   "reason": "iconic-day blacklist"
+  },
+  {
+   "date": "2024-06-04",
+   "reason": "iconic-day blacklist"
+  },
+  {
+   "date": "2024-07-23",
+   "reason": "iconic-day blacklist"
+  },
+  {
+   "date": "2024-08-05",
+   "reason": "iconic-day blacklist"
+  },
+  {
+   "date": "2024-11-01",
+   "reason": "spot bars 0 < 360 (truncated/half day)"
+  },
+  {
+   "date": "2024-11-04",
+   "reason": "no valid previous trading day (D-1 chart)"
+  },
+  {
+   "date": "2025-02-01",
+   "reason": "iconic-day blacklist"
+  },
+  {
+   "date": "2025-06-13",
+   "reason": "iconic-day blacklist"
+  },
+  {
+   "date": "2025-09-26",
+   "reason": "spot bars 321 < 360 (truncated/half day)"
+  },
+  {
+   "date": "2025-09-29",
+   "reason": "no valid previous trading day (D-1 chart)"
+  },
+  {
+   "date": "2025-10-15",
+   "reason": "options scan failed: no rows for day in front expiry file"
+  },
+  {
+   "date": "2025-10-16",
+   "reason": "options scan failed: no rows for day in front expiry file"
+  },
+  {
+   "date": "2025-10-17",
+   "reason": "options scan failed: no rows for day in front expiry file"
+  },
+  {
+   "date": "2025-10-21",
+   "reason": "spot bars 95 < 360 (truncated/half day)"
+  },
+  {
+   "date": "2025-10-23",
+   "reason": "no valid previous trading day (D-1 chart)"
+  },
+  {
+   "date": "2026-02-01",
+   "reason": "iconic-day blacklist"
+  },
+  {
+   "date": "2026-02-03",
+   "reason": "PE covered strikes 7 < 8"
+  },
+  {
+   "date": "2026-05-22",
+   "reason": "spot bars 337 < 360 (truncated/half day)"
+  },
+  {
+   "date": "2026-05-27",
+   "reason": "no valid previous trading day (D-1 chart)"
+  },
+  {
+   "date": "2026-06-03",
+   "reason": "spot bars 5 < 360 (truncated/half day)"
+  }
+ ]
+}

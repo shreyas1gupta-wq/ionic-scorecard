@@ -1,0 +1,57 @@
+{
+  "N": 253,
+  "win%": 58.5,
+  "PF": 1.027,
+  "mean_pts_net": 0.713,
+  "mean_pts_gross": 2.128,
+  "med_pts_net": 22.038,
+  "mean_pctspot_net": 0.0035,
+  "mean_pctspot_gross": 0.0103,
+  "Sharpe_ann": 0.06,
+  "maxDD_pctspot": -6.2,
+  "total_pctspot_net": 0.88,
+  "active_days": 234,
+  "span_days": 1230,
+  "runtime_s": 109.4,
+  "yearly": {
+    "2021": {
+      "N": 27,
+      "win": 59.3,
+      "mean_pctspot": 0.0315,
+      "tot_pctspot": 0.85
+    },
+    "2022": {
+      "N": 49,
+      "win": 61.2,
+      "mean_pctspot": 0.02,
+      "tot_pctspot": 0.98
+    },
+    "2023": {
+      "N": 43,
+      "win": 53.5,
+      "mean_pctspot": -0.0072,
+      "tot_pctspot": -0.31
+    },
+    "2024": {
+      "N": 52,
+      "win": 51.9,
+      "mean_pctspot": -0.0579,
+      "tot_pctspot": -3.01
+    },
+    "2025": {
+      "N": 57,
+      "win": 57.9,
+      "mean_pctspot": -0.0125,
+      "tot_pctspot": -0.71
+    },
+    "2026": {
+      "N": 25,
+      "win": 76.0,
+      "mean_pctspot": 0.1232,
+      "tot_pctspot": 3.08
+    }
+  },
+  "degen_flags": [
+    "negative without top-5 trades"
+  ]
+}

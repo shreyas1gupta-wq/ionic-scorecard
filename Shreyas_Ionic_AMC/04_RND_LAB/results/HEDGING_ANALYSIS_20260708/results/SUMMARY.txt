@@ -1,0 +1,221 @@
+==========================================================================================
+HEDGING — best overlays by Sortino (on a long-index position)
+
+[US] regime=ALL  (unhedged ann=0.107 maxdd=-0.657 cvar5=-0.283)
+         struct      tenor  ann_ret   maxdd   cvar5  sortino  ret_sacrificed  dd_improve  avg_cost
+H_collar_95_110     annual   0.0487 -0.1758 -0.0586   3.3078          0.0585      0.4808    0.0314
+H_collar_95_105     annual   0.0391 -0.1099 -0.0417   3.2829          0.0681      0.5466    0.0164
+      H_put_ATM     annual   0.0928 -0.2295 -0.0805   2.9433          0.0144      0.4270    0.0578
+      H_put_ATM semiannual   0.0820 -0.3660 -0.0681   2.5275          0.0214      0.3664    0.0414
+
+[US] regime=RICH  (unhedged ann=0.070 maxdd=-0.525 cvar5=-0.367)
+         struct      tenor  ann_ret   maxdd   cvar5  sortino  ret_sacrificed  dd_improve  avg_cost
+H_collar_95_110     annual   0.0360 -0.1859 -0.0695   2.8419          0.0337      0.3391    0.0262
+H_collar_95_105     annual   0.0302 -0.1302 -0.0499   2.3859          0.0396      0.3948    0.0074
+H_collar_95_105 semiannual   0.0359 -0.2091 -0.0511   2.1304          0.0429      0.2994    0.0082
+      H_put_ATM     annual   0.0561 -0.1664 -0.1003   1.7454          0.0137      0.3586    0.0624
+
+[US] regime=FAIR  (unhedged ann=0.090 maxdd=-0.556 cvar5=-0.273)
+         struct      tenor  ann_ret   maxdd   cvar5  sortino  ret_sacrificed  dd_improve  avg_cost
+H_collar_95_110     annual   0.0408 -0.1349 -0.0557   3.0220          0.0492      0.4207    0.0327
+H_collar_95_105     annual   0.0318 -0.1016 -0.0401   2.9242          0.0582      0.4541    0.0194
+      H_put_ATM     annual   0.0859 -0.1690 -0.0728   2.7779          0.0042      0.3867    0.0535
+      H_put_ATM semiannual   0.0796 -0.2495 -0.0621   2.7478          0.0106      0.2860    0.0389
+
+[US] regime=CHEAP  (unhedged ann=0.157 maxdd=-0.163 cvar5=-0.108)
+              struct      tenor  ann_ret   maxdd   cvar5  sortino  ret_sacrificed  dd_improve  avg_cost
+H_putratio_1x2_95_85 semiannual   0.1941 -0.0344 -0.0220  19.4111         -0.0376      0.1287   -0.0094
+   H_putspread_90_80     annual   0.1837 -0.0686 -0.0643  16.2056          0.0003      0.0788    0.0079
+H_putratio_1x2_95_85     annual   0.2300 -0.0439 -0.0302  11.8370         -0.0461      0.1035   -0.0368
+     H_collar_95_105     annual   0.0649 -0.0195 -0.0184  11.6805          0.1190      0.1279    0.0200
+
+[INDIA] regime=ALL  (unhedged ann=0.145 maxdd=-0.008 cvar5=-0.008)
+                    struct      tenor  ann_ret   maxdd   cvar5  sortino  ret_sacrificed  dd_improve  avg_cost
+                 H_put_ATM     annual   0.1043 -0.0247 -0.0247  23.5383          0.0410     -0.0171    0.0428
+H_pspread_collar_95_85_105 semiannual   0.0911 -0.0299 -0.0287  11.9967          0.0427      0.0381   -0.0175
+           H_collar_95_105 semiannual   0.0747 -0.0354 -0.0349   8.2475          0.0591      0.0326   -0.0093
+                 H_put_ATM semiannual   0.0920 -0.0379 -0.0299   6.1166          0.0418      0.0301    0.0320
+
+[INDIA] regime=RICH  (unhedged ann=0.104 maxdd=-0.057 cvar5=-0.031)
+           struct     tenor  ann_ret   maxdd   cvar5  sortino  ret_sacrificed  dd_improve  avg_cost
+  H_collar_90_110 quarterly   0.0839 -0.0636 -0.0343   4.8383          0.0199     -0.0066    0.0031
+        H_put_ATM quarterly   0.0393 -0.0835 -0.0282   3.4339          0.0645     -0.0264    0.0267
+         H_put_90 quarterly   0.0727 -0.0653 -0.0343   3.3871          0.0311     -0.0083    0.0078
+H_putspread_90_80 quarterly   0.0760 -0.0660 -0.0349   3.3017          0.0278     -0.0090    0.0070
+
+[INDIA] regime=FAIR  (unhedged ann=0.110 maxdd=-0.040 cvar5=-0.040)
+                    struct      tenor  ann_ret   maxdd   cvar5  sortino  ret_sacrificed  dd_improve  avg_cost
+                 H_put_ATM semiannual   0.0703 -0.0188 -0.0258   9.8895          0.0400      0.0216    0.0290
+H_pspread_collar_95_85_105 semiannual   0.0858 -0.0276 -0.0276   8.7135          0.0244      0.0128   -0.0156
+           H_collar_95_105 semiannual   0.0723 -0.0322 -0.0322   6.7359          0.0380      0.0082   -0.0088
+         H_putspread_90_80 semiannual   0.0935 -0.0475 -0.0475   3.6549          0.0167     -0.0071    0.0084
+
+[INDIA] regime=CHEAP  (unhedged ann=0.237 maxdd=-0.173 cvar5=-0.173)
+   struct      tenor  ann_ret   maxdd   cvar5  sortino  ret_sacrificed  dd_improve  avg_cost
+H_put_ATM  quarterly   0.1612 -0.0213 -0.0213  17.3931          0.0758      0.1512    0.0343
+H_put_ATM semiannual   0.1650 -0.0272 -0.0244   7.6590          0.0497      0.0407    0.0397
+H_put_ATM    monthly   0.1878 -0.0569 -0.0357   4.8220          0.0789      0.2225    0.0215
+ H_put_95    monthly   0.2453 -0.1038 -0.0570   3.4747          0.0215      0.1755    0.0083
+
+==========================================================================================
+DOWNSIDE PLAYS — best expectancy in RICH (overvalued) regime
+
+[US] RICH regime downside plays (mean_pnl = frac of notional per period):
+            struct      tenor  mean_pnl  median_pnl  winrate   worst   best  mc_mean  mc_p05
+ P_ratio_2x1_95_85     annual    0.0386      0.0354   0.9500 -0.1098 0.1426   0.0473  0.0433
+ P_ratio_3x3_95_85     annual    0.0220     -0.0186   0.3000 -0.0466 0.2730  -0.0131 -0.0319
+ P_ratio_2x1_95_85 semiannual    0.0197      0.0101   0.9872 -0.1062 0.1313   0.0173  0.0132
+P_bearspread_97_90     annual    0.0082     -0.0059   0.3000 -0.0121 0.0622  -0.0030 -0.0091
+P_bearspread_95_85     annual    0.0073     -0.0062   0.3000 -0.0155 0.0910  -0.0048 -0.0106
+   P_shortcall_102    monthly    0.0041      0.0059   0.7430 -0.0715 0.0387   0.0048 -0.0252
+   P_shortcall_102  quarterly    0.0026      0.0108   0.6234 -0.1371 0.0703  -0.0025 -0.0750
+P_bearspread_97_90 semiannual    0.0021     -0.0095   0.2564 -0.0162 0.0644  -0.0069 -0.0127
+
+[INDIA] RICH regime downside plays (mean_pnl = frac of notional per period):
+                struct      tenor  mean_pnl  median_pnl  winrate   worst    best  mc_mean  mc_p05
+     P_ratio_2x1_95_85     annual    0.0077      0.0077   1.0000  0.0051  0.0102   0.0079  0.0074
+       P_shortcall_102    monthly    0.0034      0.0085   0.6875 -0.0600  0.0207  -0.0023 -0.0556
+       P_shortcall_102  quarterly    0.0033      0.0222   0.7273 -0.0805  0.0330  -0.0178 -0.1168
+P_backspread_1x2_97_90    monthly    0.0013      0.0021   0.8438 -0.0138  0.0049   0.0024 -0.0019
+P_backspread_1x2_97_90  quarterly    0.0002      0.0003   0.8182 -0.0029  0.0015  -0.0010 -0.0141
+P_backspread_1x3_97_90    monthly   -0.0009      0.0003   0.5625 -0.0177  0.0012   0.0005 -0.0038
+       P_shortcall_102 semiannual   -0.0016     -0.0017   0.5000 -0.0553  0.0531  -0.0516 -0.2115
+          P_longput_90    monthly   -0.0022     -0.0017   0.0000 -0.0050 -0.0011  -0.0019 -0.0019
+
+==========================================================================================
+CASE STUDIES
+
+COVID India entry: {"date": "2020-02-19", "nifty": 12125.9, "ivix": 14.02, "trough_date": "2020-03-23", "trough": 7610.25, "trough_dd": -0.372}
+COVID India — hedges & plays (combined = total incl long-index for hedges; standalone for plays):
+                    struct frame  idx_ret  entry_cost  opt_pnl  combined
+                 H_put_ATM hedge   -0.372       0.015    0.357    -0.015
+                  H_put_95 hedge   -0.372       0.004    0.319    -0.054
+                  H_put_90 hedge   -0.372       0.001    0.271    -0.101
+         H_putspread_95_85 hedge   -0.372       0.005    0.095    -0.277
+         H_putspread_90_80 hedge   -0.372       0.002    0.098    -0.275
+           H_collar_95_105 hedge   -0.372       0.002    0.320    -0.052
+           H_collar_90_110 hedge   -0.372       0.002    0.270    -0.102
+           H_collar_95_110 hedge   -0.372       0.005    0.318    -0.055
+      H_putratio_1x2_95_85 hedge   -0.372       0.006   -0.128    -0.500
+   H_backspread_1x2_100_90 hedge   -0.372      -0.010    0.182    -0.190
+H_pspread_collar_95_85_105 hedge   -0.372       0.003    0.097    -0.276
+              P_longput_97  play   -0.372       0.006    0.336     0.336
+              P_longput_95  play   -0.372       0.004    0.319     0.319
+              P_longput_90  play   -0.372       0.001    0.271     0.271
+        P_bearspread_97_90  play   -0.372       0.007    0.063     0.063
+        P_bearspread_95_85  play   -0.372       0.005    0.095     0.095
+    P_backspread_1x2_97_90  play   -0.372      -0.002    0.204     0.204
+    P_backspread_1x3_97_90  play   -0.372      -0.000    0.475     0.475
+         P_ratio_2x1_95_85  play   -0.372       0.006   -0.128    -0.128
+         P_ratio_3x1_92_82  play   -0.372       0.007    0.678     0.678
+         P_ratio_3x2_95_85  play   -0.372       0.013    0.509     0.509
+         P_ratio_3x3_95_85  play   -0.372       0.014    0.286     0.286
+          P_riskrev_95_105  play   -0.372       0.002    0.320     0.320
+           P_shortcall_102  play   -0.372      -0.008    0.008     0.008
+
+COVID US entry: {"date": "2020-02-01", "sp500": 3277.31, "vix": 19.628947368421052, "mar_sp500": 2652.39, "mar_dd": -0.191}
+                    struct frame  idx_ret  entry_cost  opt_pnl  combined
+                 H_put_ATM hedge   -0.191       0.024    0.167    -0.024
+                  H_put_95 hedge   -0.191       0.010    0.130    -0.060
+                  H_put_90 hedge   -0.191       0.005    0.086    -0.105
+         H_putspread_95_85 hedge   -0.191       0.010    0.090    -0.100
+         H_putspread_90_80 hedge   -0.191       0.005    0.086    -0.105
+           H_collar_95_105 hedge   -0.191       0.006    0.135    -0.056
+           H_collar_90_110 hedge   -0.191       0.005    0.086    -0.105
+           H_collar_95_110 hedge   -0.191       0.011    0.130    -0.061
+      H_putratio_1x2_95_85 hedge   -0.191       0.009    0.050    -0.140
+   H_backspread_1x2_100_90 hedge   -0.191      -0.012    0.003    -0.188
+H_pspread_collar_95_85_105 hedge   -0.191       0.005    0.095    -0.096
+              P_longput_97  play   -0.191       0.014    0.146     0.146
+              P_longput_95  play   -0.191       0.010    0.130     0.130
+              P_longput_90  play   -0.191       0.005    0.086     0.086
+        P_bearspread_97_90  play   -0.191       0.011    0.059     0.059
+        P_bearspread_95_85  play   -0.191       0.010    0.090     0.090
+    P_backspread_1x2_97_90  play   -0.191      -0.003    0.023     0.023
+    P_backspread_1x3_97_90  play   -0.191       0.002    0.109     0.109
+         P_ratio_2x1_95_85  play   -0.191       0.009    0.050     0.050
+         P_ratio_3x1_92_82  play   -0.191       0.019    0.302     0.302
+         P_ratio_3x2_95_85  play   -0.191       0.029    0.312     0.312
+         P_ratio_3x3_95_85  play   -0.191       0.029    0.271     0.271
+          P_riskrev_95_105  play   -0.191       0.006    0.135     0.135
+           P_shortcall_102  play   -0.191      -0.013    0.013     0.013
+
+LAST 2Y (2024-07..2026-07):
+{
+  "US": {
+    "hedge_collar_1m": {
+      "cum_combined": 0.14206849082781026,
+      "cum_unhedged": 0.3963957672390783,
+      "n": 24,
+      "worst_period": -0.060078673645208164
+    },
+    "hedge_putspread_1m": {
+      "cum_combined": 0.16103785101429202,
+      "cum_unhedged": 0.3963957672390783,
+      "n": 24,
+      "worst_period": -0.05923027935680249
+    },
+    "hedge_protput95_1m": {
+      "cum_combined": 0.1497955702811551,
+      "cum_unhedged": 0.3963957672390783,
+      "n": 24,
+      "worst_period": -0.060323375282942675
+    },
+    "play_bearspread_1m": {
+      "cum_pnl": -0.18796949306465377,
+      "n": 24,
+      "worst": -0.01590625774858865,
+      "best": 0.0013032526872863775
+    },
+    "play_backspread1x2_1m": {
+      "cum_pnl": -0.013286058521211968,
+      "n": 24,
+      "worst": -0.02682381093873454,
+      "best": 0.002299493865355831
+    },
+    "play_longput95_1m": {
+      "cum_pnl": -0.19806870524007159,
+      "n": 24,
+      "worst": -0.02092376582787198,
+      "best": 0.0013575333376904426
+    }
+  },
+  "INDIA": {
+    "hedge_collar_1m": {
+      "cum_combined": -0.021692147587471067,
+      "cum_unhedged": 0.004817987053313377,
+      "n": 24,
+      "worst_period": -0.05455277480973192
+    },
+    "hedge_putspread_1m": {
+      "cum_combined": -0.024375571540875773,
+      "cum_unhedged": 0.004817987053313377,
+      "n": 24,
+      "worst_period": -0.054664757662197534
+    },
+    "hedge_protput95_1m": {
+      "cum_combined": -0.0035379223988196706,
+      "cum_unhedged": 0.004817987053313377,
+      "n": 24,
+      "worst_period": -0.05380297742920674
+    },
+    "play_bearspread_1m": {
+      "cum_pnl": -0.036700024668825576,
+      "n": 24,
+      "worst": -0.009799422414885793,
+      "best": 0.058940837281832234
+    },
+    "play_backspread1x2_1m": {
+      "cum_pnl": -0.07890803104206237,
+      "n": 24,
+      "worst": -0.05592145900362004,
+      "best": 0.004621101813763588
+    },
+    "play_longput95_1m": {
+      "cum_pnl": -0.015630237376192388,
+      "n": 24,
+      "worst": -0.009557837386554267,
+      "best": 0.059903979623821386
+    }
+  }
+}

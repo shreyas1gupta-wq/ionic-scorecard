@@ -1,0 +1,9 @@
+cycles=127 skipped=0 span 2011-01-04..2021-07-29
+per-lot: mean net +3.7 pts/cycle (t=0.32), median +33.4, win% 61%
+alt cost (0.5% prem): mean +5.2
+maxDD per-lot 2011-2019: 766 pts | COVID window (2020-02..06): 805 pts | ratio 1.05x (bar: >3x)
+BAR (a) covid>3x pre: False | BAR (b) expectancy<=0: False
+equity sim Rs10L @15% notional margin, 75% deploy, crash-halving: final Rs 973,300, maxDD -43.1%
+2020 cycles: Jan: +151 | Feb: -544 | Mar: +158 | May: +93 | May: -18 | Jun: +104 | Jul: +38 | Aug: +82 | Sep: +169 | Oct: -412 | Nov: +53 | Dec: +94
+worst-5 cycles: 2020-02 -544, 2019-08 -469, 2020-10 -412, 2021-01 -330, 2018-09 -254
+VERDICT: COVID-SURVIVABLE

@@ -1,0 +1,272 @@
+[
+  {
+    "combo": "C6",
+    "tf": 10,
+    "dte": "weekly",
+    "entry": "orb",
+    "exit": "atr_stop",
+    "vol": "rv_regime",
+    "sizing": "kelly",
+    "funnel": {
+      "days_considered": 501,
+      "filter_skip": 272,
+      "no_signal": 16,
+      "no_entry_fill": 0,
+      "no_exit_fill": 0,
+      "traded": 184
+    },
+    "net": {
+      "N": 184,
+      "win_pct": 0.1956521739130435,
+      "pf": 0.9853613530317457,
+      "net_pts_mean": 1.0509021739130446,
+      "pct_spot_mean": -0.0027076086956521798,
+      "pct_spot_med": -0.16075,
+      "sharpe_ann": -0.02983833215344814,
+      "maxdd_pctspot": -9.306200000000004,
+      "tpy": 38.93742757821553
+    },
+    "gross": {
+      "N": 184,
+      "win_pct": 0.1956521739130435,
+      "pf": 1.0224102564102564,
+      "net_pts_mean": 2.4559782608695664,
+      "pct_spot_mean": 0.004037500000000006,
+      "pct_spot_med": -0.15495,
+      "sharpe_ann": 0.04433772417341658,
+      "maxdd_pctspot": -8.7687,
+      "tpy": 38.93742757821553
+    },
+    "net2x": {
+      "N": 184,
+      "win_pct": 0.1956521739130435,
+      "pf": 0.9502001958998503,
+      "net_pts_mean": -0.35420108695652236,
+      "pct_spot_mean": -0.00945,
+      "pct_spot_med": -0.1661,
+      "sharpe_ann": -0.10450932519075591,
+      "maxdd_pctspot": -9.843100000000002,
+      "tpy": 38.93742757821553
+    },
+    "flags": [
+      "one symbol >30% of |P&L|",
+      "negative without top-5 trades"
+    ]
+  },
+  {
+    "combo": "C7",
+    "tf": 5,
+    "dte": "1dte",
+    "entry": "pullback",
+    "exit": "trail_atr",
+    "vol": "gap",
+    "sizing": "equal_risk",
+    "funnel": {
+      "days_considered": 242,
+      "filter_skip": 18,
+      "no_signal": 17,
+      "no_entry_fill": 1,
+      "no_exit_fill": 0,
+      "traded": 206
+    },
+    "net": {
+      "N": 206,
+      "win_pct": 0.3058252427184466,
+      "pf": 0.5220930004510776,
+      "net_pts_mean": -2.1651699029126212,
+      "pct_spot_mean": -0.011829126213592235,
+      "pct_spot_med": -0.0212,
+      "sharpe_ann": -1.6273297126473059,
+      "maxdd_pctspot": -2.4616000000000002,
+      "tpy": 41.38696369636964
+    },
+    "gross": {
+      "N": 206,
+      "win_pct": 0.3300970873786408,
+      "pf": 0.6815563599936252,
+      "net_pts_mean": -1.1371359223300974,
+      "pct_spot_mean": -0.006789805825242719,
+      "pct_spot_med": -0.01645,
+      "sharpe_ann": -0.9352800286953089,
+      "maxdd_pctspot": -1.812700000000001,
+      "tpy": 41.38696369636964
+    },
+    "net2x": {
+      "N": 206,
+      "win_pct": 0.2912621359223301,
+      "pf": 0.4033617773809729,
+      "net_pts_mean": -3.1932233009708737,
+      "pct_spot_mean": -0.01686893203883495,
+      "pct_spot_med": -0.0257,
+      "sharpe_ann": -2.316485666679285,
+      "maxdd_pctspot": -3.4394,
+      "tpy": 41.38696369636964
+    },
+    "flags": [
+      "one symbol >30% of |P&L|",
+      "negative without top-5 trades"
+    ]
+  },
+  {
+    "combo": "C8",
+    "tf": 15,
+    "dte": "weekly",
+    "entry": "bbsqueeze",
+    "exit": "prem_target",
+    "vol": "vix_proxy",
+    "sizing": "vol_scale",
+    "funnel": {
+      "days_considered": 501,
+      "filter_skip": 282,
+      "no_signal": 28,
+      "no_entry_fill": 2,
+      "no_exit_fill": 0,
+      "traded": 157
+    },
+    "net": {
+      "N": 157,
+      "win_pct": 0.5222929936305732,
+      "pf": 0.8263015087927766,
+      "net_pts_mean": -5.888847133757961,
+      "pct_spot_mean": -0.029235668789808916,
+      "pct_spot_med": 0.058,
+      "sharpe_ann": -0.5062993551210417,
+      "maxdd_pctspot": -5.5896,
+      "tpy": 35.92998120300752
+    },
+    "gross": {
+      "N": 157,
+      "win_pct": 0.5222929936305732,
+      "pf": 0.8660475565797118,
+      "net_pts_mean": -4.435350318471339,
+      "pct_spot_mean": -0.022178343949044593,
+      "pct_spot_med": 0.0637,
+      "sharpe_ann": -0.3825811521093373,
+      "maxdd_pctspot": -5.003,
+      "tpy": 35.92998120300752
+    },
+    "net2x": {
+      "N": 157,
+      "win_pct": 0.5222929936305732,
+      "pf": 0.7878611855823652,
+      "net_pts_mean": -7.34228025477707,
+      "pct_spot_mean": -0.03628789808917197,
+      "pct_spot_med": 0.0523,
+      "sharpe_ann": -0.6308645391993284,
+      "maxdd_pctspot": -6.460500000000002,
+      "tpy": 35.92998120300752
+    },
+    "flags": [
+      "one symbol >30% of |P&L|",
+      "negative without top-5 trades"
+    ]
+  },
+  {
+    "combo": "C9",
+    "tf": 10,
+    "dte": "0dte",
+    "entry": "donchian",
+    "exit": "eod",
+    "vol": "rv_regime",
+    "sizing": "kelly",
+    "funnel": {
+      "days_considered": 259,
+      "filter_skip": 136,
+      "no_signal": 4,
+      "no_entry_fill": 0,
+      "no_exit_fill": 0,
+      "traded": 119
+    },
+    "net": {
+      "N": 119,
+      "win_pct": 0.3949579831932773,
+      "pf": 1.3587079812206575,
+      "net_pts_mean": 8.056100840336137,
+      "pct_spot_mean": 0.04012857142857143,
+      "pct_spot_med": -0.0759,
+      "sharpe_ann": 0.578120364150576,
+      "maxdd_pctspot": -1.7160000000000002,
+      "tpy": 25.37346760070053
+    },
+    "gross": {
+      "N": 119,
+      "win_pct": 0.3949579831932773,
+      "pf": 1.4114499362783486,
+      "net_pts_mean": 9.05924369747899,
+      "pct_spot_mean": 0.04503613445378151,
+      "pct_spot_med": -0.0725,
+      "sharpe_ann": 0.6462156887371173,
+      "maxdd_pctspot": -1.5677999999999996,
+      "tpy": 25.37346760070053
+    },
+    "net2x": {
+      "N": 119,
+      "win_pct": 0.3949579831932773,
+      "pf": 1.3082726671078755,
+      "net_pts_mean": 7.053025210084035,
+      "pct_spot_mean": 0.03522857142857142,
+      "pct_spot_med": -0.0811,
+      "sharpe_ann": 0.5095773870202535,
+      "maxdd_pctspot": -1.9792999999999998,
+      "tpy": 25.37346760070053
+    },
+    "flags": [
+      "one symbol >30% of |P&L|",
+      "negative without top-5 trades"
+    ]
+  },
+  {
+    "combo": "C10",
+    "tf": 5,
+    "dte": "weekly",
+    "entry": "orb",
+    "exit": "atr_stop",
+    "vol": "gap",
+    "sizing": "equal_risk",
+    "funnel": {
+      "days_considered": 501,
+      "filter_skip": 50,
+      "no_signal": 13,
+      "no_entry_fill": 0,
+      "no_exit_fill": 0,
+      "traded": 367
+    },
+    "net": {
+      "N": 367,
+      "win_pct": 0.14986376021798364,
+      "pf": 0.9524126021446672,
+      "net_pts_mean": -0.9248174386920984,
+      "pct_spot_mean": -0.006555040871934604,
+      "pct_spot_med": -0.1151,
+      "sharpe_ann": -0.12126178371944658,
+      "maxdd_pctspot": -10.029699999999997,
+      "tpy": 73.53085573230938
+    },
+    "gross": {
+      "N": 367,
+      "win_pct": 0.14986376021798364,
+      "pf": 0.9972681235308221,
+      "net_pts_mean": 0.3608991825613082,
+      "pct_spot_mean": -0.00036321525885558894,
+      "pct_spot_med": -0.1104,
+      "sharpe_ann": -0.006697058604725315,
+      "maxdd_pctspot": -8.952800000000002,
+      "tpy": 73.53085573230938
+    },
+    "net2x": {
+      "N": 367,
+      "win_pct": 0.14986376021798364,
+      "pf": 0.9106075406846372,
+      "net_pts_mean": -2.2105286103542228,
+      "pct_spot_mean": -0.012741689373297,
+      "pct_spot_med": -0.1213,
+      "sharpe_ann": -0.23648523878402902,
+      "maxdd_pctspot": -11.1061,
+      "tpy": 73.53085573230938
+    },
+    "flags": [
+      "one symbol >30% of |P&L|",
+      "negative without top-5 trades"
+    ]
+  }
+]

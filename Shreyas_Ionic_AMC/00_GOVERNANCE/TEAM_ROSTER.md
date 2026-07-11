@@ -31,6 +31,7 @@ All compensation is **virtual** — a gamified performance ledger. Salaries are 
 | E-025 | Neel Basu | Performance Attribution Analyst (8+yr) | 1.00 Cr | 0 | Active |
 | E-026 | Tanvi Desai | Head of Product, 12+yr | 1.20 Cr | 0 | Active |
 | E-027 | Dr. Sameer Bhat | Overfit & Sensitivity Analyst (risk office), 10+yr | 1.20 Cr | 0 | Active |
+| E-028 | Kabir Anand | Head of Hedging & Tail Risk (reports to CIO), 14+yr | 1.15 Cr | 0 | Active |
 
 ## AlphaPoints scoring (append events to the ledger below)
 | Event | AP |

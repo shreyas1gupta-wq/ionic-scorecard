@@ -1,0 +1,47 @@
+entries considered: 127  | trades rows: 254
+dropped (no-fill any leg, nlq): os17=30 os18=12
+
+=== NEXT-LIQUID-QUOTE fill (honest), NET of 1x costs ===
+struct              n  mean_pts  med_pts    %spot   win%   Rs/lot
+OS17 CE-leg       112     76.52   109.06    0.341     76     5739
+OS17 PE-leg       112    100.36   113.45    0.460     86     7527
+OS17 COMBINED      97    167.14   208.66    0.773     86    12535
+OS18 CALL-diag    115     40.55    17.06    0.201     80     3041
+OS18 PUT-diag     112     48.80    18.25    0.219     90     3660
+
+=== SAME-DAY-CLOSE fill (optimistic), NET of 1x costs ===
+OS17 CE-leg       112     71.97    81.01    0.319     79     5398
+OS17 PE-leg       112     81.15    87.34    0.374     84     6086
+OS17 COMBINED      97    143.76   144.70    0.666     84    10782
+OS18 CALL-diag    115     31.04    12.74    0.159     78     2328
+OS18 PUT-diag     112     41.92    12.68    0.187     88     3144
+
+=== GROSS (pre-cost) mean pts, next-liquid-quote ===
+OS17 CE-leg      gross_mean_pts=104.71  win=83%
+OS17 PE-leg      gross_mean_pts=110.44  win=87%
+OS17 COMBINED    gross_mean_pts=209.18  win=90%
+OS18 CALL-diag   gross_mean_pts=69.27  win=83%
+OS18 PUT-diag    gross_mean_pts=58.96  win=92%
+
+=== LEG DECOMPOSITION mean pts (nlq): near(short) vs far(long) + far-exit vol ===
+OS17 CE-leg      near=   17.43  far=   87.29 far_exit_vol med=100 min=25 p10=50
+OS17 PE-leg      near=   52.36  far=   58.08 far_exit_vol med=535 min=25 p10=50
+OS17 COMBINED    near=   35.44  far=  173.74
+OS18 CALL-diag   near=    3.72  far=   65.56 far_exit_vol med=130 min=25 p10=50
+OS18 PUT-diag    near=   18.33  far=   40.64 far_exit_vol med=788 min=25 p10=52
+
+=== NET mean pts by YEAR (next-liquid-quote) ===
+year        OS17CE      OS17PE      OS17CO      OS18CA      OS18PU
+2021         45.49       92.89      137.08      118.35       14.24
+2022         90.53      175.03      362.26       65.57      138.81
+2023         34.55       54.42       90.30       63.29        6.98
+2024         61.56       78.84      127.19       48.05       34.33
+2025         44.94       80.09      117.67        4.16       17.91
+2026        208.81      301.92      557.34       14.68      267.62
+
+=== PRE vs POST 2025-09-01 (net mean pts, nlq) ===
+OS17 CE-leg      PRE n= 87 mean=  51.95 | POST n= 25 mean= 162.02
+OS17 PE-leg      PRE n= 91 mean=  85.88 | POST n= 21 mean= 163.15
+OS17 COMBINED    PRE n= 81 mean= 135.77 | POST n= 16 mean= 325.94
+OS18 CALL-diag   PRE n= 88 mean=  48.40 | POST n= 27 mean=  14.95
+OS18 PUT-diag    PRE n= 91 mean=  31.68 | POST n= 21 mean= 123.01

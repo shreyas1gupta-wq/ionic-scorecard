@@ -10,6 +10,9 @@ The personas are the employees; lessons are their experience. This protocol make
 ## Lesson-propagation rule
 A lesson that generalizes (e.g., "denominator artifacts", "cadence checks") gets copied to: (a) every relevant persona, (b) KNOWLEDGE_BASE §A, (c) CODE_CHECKS if codeable — one mistake, three firewalls.
 
+## R&D-to-agent propagation rule (2026-07-08, Principal idea)
+R&D findings must reach the agent who owns that domain WITHOUT being re-explained in every future prompt — the finding gets baked into the agent's persona file, not repeated by hand each time. Mechanism: whenever a finding in `04_RND_LAB/` (one-pager, cheap-test, backtest result, literature scan) is domain-specific (a sector, a signal family, a vehicle type), Librarian appends a one-line dated entry to the owning agent's persona file under `## R&D Digest (append-only)` (create the section if absent — same append-only/bounded/pruned pattern as `## Lessons Learned`). This runs as part of Librarian's existing propagation-audit cadence, not a new standing job. One finding can fan out to more than one persona (e.g., a vehicle-liquidity finding goes to both the Structurer and the relevant Quant/FM). Quarterly pruning (with lessons) keeps personas lean — summarize-and-archive stale digest lines to `00_GOVERNANCE/lessons_archive.md`, never silently delete.
+
 ## Anti-sycophancy / anti-collusion (agents must not converge into agreement)
 - IC Round-1 memos are BLIND (parallel, no cross-visibility) — protocol, not preference.
 - Red Team reports to CIO ONLY and is scored on kills, not harmony; a refuted "catch" costs −10.

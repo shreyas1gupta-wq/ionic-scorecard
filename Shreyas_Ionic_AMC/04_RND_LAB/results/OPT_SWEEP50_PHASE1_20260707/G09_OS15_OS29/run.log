@@ -1,0 +1,15 @@
+loading spot/vix...
+=== OS-29 jade lizard ===
+OS29: tried=258 built=152 dropped_upside=106
+OS29 ALL: N=152 mean=8.09pt (0.0380%spot) med=52.90 sd=125.57 ptSharpe=0.064 annSharpe~0.46 win=78.9% tot=1230pt minTrade=-581.9
+OS29 PRE: N=133 mean=11.42pt (0.0548%spot) med=52.91 sd=121.33 ptSharpe=0.094 annSharpe~0.68 win=80.5% tot=1518pt minTrade=-581.9
+OS29 POST: N=19 mean=-15.18pt (-0.0619%spot) med=49.05 sd=153.80 ptSharpe=-0.099 annSharpe~-0.71 win=68.4% tot=-288pt minTrade=-357.8
+
+=== OS-15 0DTE IC gated ===
+OS15: built=259 crush_true=11
+OS15 ALL(ungated=K005): N=259 mean=-2.38pt (-0.0114%spot) med=8.55 sd=27.31 ptSharpe=-0.087 annSharpe~-0.63 win=68.0% tot=-616pt minTrade=-115.9
+OS15 CRUSH=TRUE(gated): N=11 mean=-3.40pt (-0.0159%spot) med=3.93 sd=16.20 ptSharpe=-0.210 annSharpe~-1.51 win=54.5% tot=-37pt minTrade=-38.7
+OS15 CRUSH=FALSE: N=248 mean=-2.33pt (-0.0112%spot) med=8.66 sd=27.72 ptSharpe=-0.084 annSharpe~-0.61 win=68.5% tot=-578pt minTrade=-115.9
+OS15 PRE all: N=222 mean=-2.68pt (-0.0133%spot) med=8.48 sd=26.67 ptSharpe=-0.101 annSharpe~-0.73 win=68.0% tot=-596pt minTrade=-115.9
+OS15 POST all: N=37 mean=-0.55pt (-0.0022%spot) med=9.28 sd=31.23 ptSharpe=-0.018 annSharpe~-0.13 win=67.6% tot=-20pt minTrade=-77.9
+DONE

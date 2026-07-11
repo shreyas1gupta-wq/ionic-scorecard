@@ -1,0 +1,60 @@
+{
+  "event_raw_net": {
+    "n": 36,
+    "mean": 47.76,
+    "median": 49.56,
+    "std": 66.3,
+    "t": 4.32,
+    "win": 0.806
+  },
+  "vix_matched_baseline_net": {
+    "n": 36,
+    "mean": 28.34,
+    "median": 21.86,
+    "std": 26.69,
+    "t": 6.37,
+    "win": 0.861
+  },
+  "INCREMENTAL_excess_event_minus_matched": {
+    "n": 36,
+    "mean": 19.42,
+    "median": 29.89,
+    "std": 71.65,
+    "t": 1.63,
+    "win": 0.694
+  },
+  "RBI_only_excess_vs_matched": {
+    "n": 31,
+    "mean": 9.08,
+    "median": 19.28,
+    "std": 63.82,
+    "t": 0.79,
+    "win": 0.677
+  },
+  "BUDGET_only_excess_vs_matched": {
+    "n": 5,
+    "mean": 83.53,
+    "median": 85.17,
+    "std": 91.66,
+    "t": 2.04,
+    "win": 0.8
+  },
+  "pre_sept_excess": {
+    "n": 31,
+    "mean": 25.78,
+    "median": 31.32,
+    "std": 66.59,
+    "t": 2.16,
+    "win": 0.71
+  },
+  "post_sept_excess": {
+    "n": 5,
+    "mean": -19.96,
+    "median": 11.64,
+    "std": 97.01,
+    "t": -0.46,
+    "win": 0.6
+  },
+  "vix_reweighted_baseline_overall": 24.72,
+  "event_overall_mean": 47.76
+}

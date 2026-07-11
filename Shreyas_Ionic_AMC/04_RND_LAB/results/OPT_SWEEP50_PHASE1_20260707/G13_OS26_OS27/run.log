@@ -1,0 +1,15 @@
+daily nifty 2591 2016-01-01 2026-07-06
+spot days 1242
+expiries 261 2021-05-27 2026-06-02
+...0/261 2021-05-27 kept=0
+ERR 2022-03-10 MemoryError((557034,), dtype('O'))
+...40/261 2022-03-10 kept=39
+...80/261 2022-12-15 kept=79
+...120/261 2023-09-21 kept=119
+...160/261 2024-06-27 kept=159
+...200/261 2025-04-03 kept=199
+...240/261 2026-01-13 kept=239
+ERR 2026-05-26 TypeError("unsupported operand type(s) for -: 'NoneType' and 'int'")
+ERR 2026-06-02 TypeError("unsupported operand type(s) for -: 'int' and 'NoneType'")
+total trade-weeks 257
+wrote raw_records.json
