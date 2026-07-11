@@ -45,3 +45,7 @@ Principal-triggered review ("check once again if we were too hard on them"). Fou
 **Killed by:** T-B-CARD (frozen @ e4de961), both cells: net -0.15%/-0.19% per trade, t=-4.8/-7.2, n=21k/30k, both eras negative, 2015-2026, PIT universe, 25bps/side. Short-hold (2-5d) mean reversion cannot cover retail swing costs in NIFTY500 names.
 **Residual:** +0.28% relative edge vs placebo (random stage-2 days, same exit) - the timing information is real, the standalone vehicle is dead (same class as ORB kills: signal real, vehicle dead on friction).
 **Resurrection:** entry-timing overlay on trades/investments already being made (zero marginal cost context) as a NEW pre-registered card. NO standalone re-tests at different RSI/z thresholds (t=-5 to -7 is not a tuning problem).
+
+## K-postbreakout-orb (2026-07-11) — ORB 5/15min in stocks during post-breakout weeks (Principal idea)
+**Killed by:** T-C-CARD (frozen @ 4692e17): gross -11.1 bps/trade BEFORE costs (t=-16.3 net, n=6,646, 2022-2026 minute data, PIT breakout events from audited scan). Overnight-hold variant noise (t=0.54, era-flip). The hypothesis (breakout stocks trend harder intraday) is BACKWARDS in the data: they fade opening-range triggers during the post-breakout weeks.
+**Family closure:** with the 07-07 basket kills + puts vehicle + this, intraday ORB on Indian stocks is killed across universes, windows, stops, vehicles, and event-conditioning. Resurrection bar: a construction with POSITIVE GROSS edge >= 40bps demonstrated first on new data (not parameter reshuffles).

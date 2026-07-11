@@ -1,0 +1,7 @@
+[
+ {"id": "W0-01-turn-of-month", "name": "NIFTY turn-of-month long (first 3 days)", "source": "classic seasonal", "asset": "index_daily", "universe": "NIFTY 50", "signal": {"type": "seasonality_dom", "params": {"turn": true, "first_n": 1}}, "direction": "long", "exit": {"type": "bars", "params": {"n": 3}}},
+ {"id": "W0-02-52w-breakout", "name": "stocks 52w-high breakout hold 20d", "source": "classic momentum", "asset": "stocks_daily", "signal": {"type": "nday_breakout", "params": {"n": 252}}, "direction": "long", "exit": {"type": "bars", "params": {"n": 20}}},
+ {"id": "W0-03-btc-monday", "name": "BTC buy Monday hold 2d", "source": "crypto seasonal", "asset": "crypto_1m", "universe": "BTCUSDT", "signal": {"type": "seasonality_dow", "params": {"dow": 0}}, "direction": "long", "exit": {"type": "bars", "params": {"n": 2}}},
+ {"id": "W0-04-vix-spike-nifty", "name": "NIFTY long when VIX>20 (fear buy) hold 10d", "source": "vol regime classic", "asset": "index_daily", "universe": "NIFTY 50", "signal": {"type": "vix_thresh", "params": {"gt": 20}}, "direction": "long", "exit": {"type": "bars", "params": {"n": 10}}},
+ {"id": "W0-05-gold-3down", "name": "gold 3 consecutive down days -> long 5d", "source": "commodity meanrev", "asset": "gold_1m", "signal": {"type": "consec_days", "params": {"k": 3, "dir": "down"}}, "direction": "long", "exit": {"type": "bars", "params": {"n": 5}}}
+]

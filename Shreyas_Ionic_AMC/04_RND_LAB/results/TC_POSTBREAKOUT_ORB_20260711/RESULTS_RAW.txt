@@ -1,0 +1,7 @@
+event day-trades: 6646 (of 6646 event stock-days w/ trigger) | placebo day-trades: 1168
+V1-EOD: net -45.2 bps/trade (gross -11.1, hurdle 40), t=-16.29, SL-rate 27%
+  bars: net>0=F, gross>=40bps=F, t>=2.5=F, n>=150=P -> KILL
+V2-HOLD: n=1321, net +8.7 bps/trade, t=0.54, PF=1.05, held avg 1.7d
+  eras: +26.1 / -18.8 bps | placebo95 (V1 engine): -30.0 bps, null mean -38.4
+  bars: net>0=P, t>=2.5=F, PF>=1.3=F, beat_placebo95=P, n>=150=P, eras_both_pos=F -> KILL
+VERDICT: V1=KILL, V2=KILL

@@ -1,0 +1,29 @@
+{
+ "card": "T-C-CARD",
+ "frozen_commit": "4692e17",
+ "run_ts": "2026-07-11T19:44:01",
+ "script": "tc_orb.py",
+ "data": [
+  "stock minute panel 2022-2026 (audited)",
+  "signal_triggers_pit",
+  "close_all"
+ ],
+ "n_obs": 7967,
+ "metrics": {
+  "v1_net_bps": -45.2,
+  "v1_gross_bps": -11.1,
+  "v2_net_bps": 8.7,
+  "v2_t": 0.54,
+  "v2_pf": 1.05
+ },
+ "validation": {
+  "era_split": "v2 +26.1/-18.8",
+  "bootstrap_ci95": null,
+  "lookahead_ast": "pre-flight",
+  "one_day_lag": "PIT triggers; entry post-confirm bar"
+ },
+ "verdict": "V1=KILL, V2=KILL",
+ "bars_hit": [],
+ "trials_increment": 2,
+ "token_cost_agents": 0
+}
