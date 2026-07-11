@@ -102,3 +102,17 @@ Windows: discovery/validate 2016..2024-06, confirm/screen 2024-07..2026-06. Cost
 - M3 confirmed-PEAD gap: reaction gap>+3% on available_date AND NP YoY>=25% -> buy D close, 20td/5% stop.
 - M4 leadership emergence: FIRST top-decile RS126 entry after >=252d absence + TTM growth>0 -> 60td/50dma.
 Trials +19. RUN_CARD per battery; episode-level engine only (forge trade_sleeve BANNED).
+**TECHNOFUNDA BATTERY OUTCOME (2026-07-12, frozen @ 9da01a6): 0 formal passes / 2 placebo-beating validation signals / 1 anti-result / 1 bar-design lesson.**
+| cell | n_val | val vs placebo95 | screen raw | note |
+|---|---|---|---|---|
+| P6 snapback (Principal) | 2,328 | **+5.16 vs +3.95 BEAT** | -0.22 | failed only the raw-screen bar |
+| M3 confirmed-PEAD (mine) | 332 | **+5.14 vs +2.75 BEAT** | -1.48 | widest alpha margin |
+| P4 deep pullback | 2,556 | +1.93 vs +1.87 marginal | -3.03 | no edge |
+| P5a/b shakeout | 6.6k/13.5k | 2.99/3.08 vs 5.22/5.08 **WORSE than random** | neg | ANTI-RESULT: dip-reclaim buying in momentum names underperforms random stage-matched entries - KILLED |
+| M2 accel chain | 901 | 4.96 vs 5.19 just below | -0.7 | no |
+| M4 leadership | 99 | 5.47 vs 5.30 marginal | -2.12 | thin |
+| P2 PEG-mom | 12 val | insufficient validate (PEG data era) | -0.28 | data-coverage |
+| P1 technofunda breakout | 9 events | INSUFFICIENT | - | compound gate fires 9x/decade: diagnose ROE-panel coverage vs genuine rarity |
+| P3 pre-earn short | 66 | report-only | -0.29/trade | short proxy loses; earnings-drop thesis not supported |
+| M1 PE-compression | 0 val | data-coverage (TTM-EPS era) | -2.02 | rebuild when eps backfilled |
+**BAR-DESIGN LESSON (banked):** requiring RAW-positive screen returns conflates alpha with beta - in windows where placebo is negative, real alpha shows negative raw. Confirmation must be PLACEBO-RELATIVE in both windows. -> P6+M3 CONFIRMATION CARD (next block, frozen alpha-relative bars, signal params UNCHANGED - better statistics, not tuning).
