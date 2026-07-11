@@ -48,3 +48,12 @@ Pre-run: AST scan + RUN_CARD with freeze hash. Trials +2 (B1, B2 buckets).
 **FROZEN BARS:** PASS iff real mean net > placebo 95th AND t >= 2.5 AND n >= 300 AND eras (2015-20 / 2021-26) both positive. KILL iff t < 1.5 OR era signs conflict (both eras testable here - no nan escape). Else PARK. Curator constraint honored: >=30 trades per parameter cell or the cell is INSUFFICIENT.
 Pre-run: AST scan + RUN_CARD with freeze hash. Trials +2 (RSI3, zscore5).
 **T-B-CARD OUTCOME (2026-07-11, frozen @ e4de961): KILL both cells.** rsi3 -0.15%/tr (t=-4.8, n=21,343), z5 -0.19% (t=-7.2, n=30,156); both eras negative; placebo itself -0.43% (short-hold exits are cost-dominated at 50bps RT). Honest residual: signals beat placebo by ~+0.28% -> relative reversion timing EXISTS but never covers standalone costs. RESURRECTION: only as a zero-marginal-cost ENTRY-TIMING overlay on positions already being taken (T-A entries / investment line adds) - new card required. Evidence: results/TB_MEANREV_UPTREND_20260711/. Trials +2.
+
+### T-C-CARD SPEC (FROZEN 2026-07-11 pre-run commit) — post-breakout ORB window (Principal priority)
+**Events:** signal_triggers_pit.csv from the audited BREAKOUT_SCAN (PIT chartlink triggers). Window = E+1..E+10 trading days (K=10 primary; K=20 secondary reported). Sample = events intersecting minute-panel span (2022-01..2026-01-21, UTC->IST per landmine #1).
+**Intraday engine (per stock-day in window):** OR = 09:15-09:30 (15-min) from 1-min bars; LONG only (with-trend) on first 1-min close > OR-high after 09:30; SL = OR-low on 1-min close, fill next close (2x cost on stop). Two PRE-DECLARED variants:
+- **V1-EOD (Principal literal ask):** exit 15:25 same day. Bars: net > 0 AND gross >= 40 bps/trade (killed-cell hurdle) AND t >= 2.5.
+- **V2-HOLD (cost-regime changer, the killed-ORB resurrection path):** hold overnight; trail = max(OR-low, prior day low); exit on daily close < trail or window end. Bars: net > 0 AND t >= 2.5 AND PF >= 1.3 AND beat placebo95.
+**Placebo (institutionalized):** same ORB engine on 200x frequency-matched random NON-breakout stage-2 stock-days.
+**Costs:** 15 bps/side (30 on SL fills). Era split (2022-10..2024-06 / 2024-07..2026-01) reported; conflict -> KILL that variant. n < 150 triggered trades in a variant = INSUFFICIENT.
+Pre-run: AST scan + RUN_CARD with freeze hash. Trials +2 (V1, V2).
