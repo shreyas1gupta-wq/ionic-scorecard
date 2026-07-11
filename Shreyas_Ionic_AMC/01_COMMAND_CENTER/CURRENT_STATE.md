@@ -1,6 +1,60 @@
 # CURRENT STATE — read me first (updated every session end)
-**As of: 2026-07-05 00:00 session close, by DESK-100 — the densest research day complete; all agents landed, all filed, backup #3 taken**
-**NEXT SESSION STARTS WITH:** (1) re-arm cadence crons (CLAUDE.md protocol #4); (2) first /weekly-meet Mon 07-07; (3) I-016 diversifier stress-corr deliverable (binding pre-IC); (4) BT-11 v1.5 spec (entry/exit-only + two-stage stops + circuit fills); (5) D-028 retro-audit workflow resume; (6) S-04/S-05 paper first entries (~Jul-14 cycle).
+**As of: 2026-07-11, by DESK-100 — citation pass banked (PARTIAL, spend limit), 23 skills installed, crons re-armed; prior states below still current**
+
+## 2026-07-11 snapshot
+- **INDEX_PROGRAM_2026**: citation pass banked → `04_RND_LAB/INDEX_PROGRAM_2026/RESEARCH_CITATIONS_20260711.md` (8 confirmed/3 refuted/4 leads + 93-claim appendix) + MASTER_PLAN ADDENDUM v1.2. Key: trials-registry is a DSR PREREQUISITE; holdout-touch cap; Stream-A VRP prior +1.1-1.2 net vol pts; NEW C2 card (day-night short-vol P&L decomposition, script-only, cheapest next experiment); weeklies data honesty (NIFTY weeklies only from 2019-02-11); SL-Limit-only order engine.
+- **S1-F**: first paper ticket Tue 2026-07-14, cron armed (Tue 09:12); runner still flat-margin ₹1.1L — sanity-check lots vs ~₹2.7L/lot until hardened (Phase-0 #8).
+- **Skills**: 78 total (+23 this session: superpowers suite, scrapling-official, find-skills, task-observer, impeccable, uipro/design suite, karpathy-guidelines). claude-mem BLOCKED (no Node.js). Weekly skill-discovery slot added Sun 19:30 (calendar + prompt spec).
+- **Org monthly spend limit hit again** mid-workflow — agent-heavy work stays OFF until it resets; scripts-first + sequential rule in force.
+
+## VALUATION-REGIME HEDGING STUDY delivered 2026-07-08 (Principal request)
+`04_RND_LAB/results/HEDGING_ANALYSIS_20260708/` — NIFTY50 + S&P500, 3 CAPE/PB regimes (25-50-25), best
+rollover hedge + overvalued-regime downside play, hist+MC. Deliverable=HEDGING_ANALYSIS_REPORT.docx (human),
+SUMMARY.md=agent book. Data: real US Shiller CAPE+S&P500 1871-2026 (multpl) + CBOE VIX 1990- (fetched OK);
+India NIFTY50/PE/PB/iVIX 2016- local. Options BS-modeled off VIX+skew (no real chains; Principal-authorized).
+FINDINGS: NOW US deep-RICH (CAPE 41.8) but India CHEAP (PB 3.19) -> downside-risk is a US question today.
+Best hedge=ANNUAL COLLAR (maxDD -52%->-15% @~3-4pp/yr; annual>>monthly). Best overvalued play=1x2 put
+BACKSPREAD/bear put spread (convex, cheap); premium-selling ratios rejected (short the tail). COVID India
+iVIX-14 entry: ATM put -37%->-1.5%. Standalone research, NOT a pipeline intake. See journal 2026-07-08.
+
+**As of: 2026-07-07, by DESK-100 — CAMPAIGN OPT-SWEEP-50 closed early (org monthly API spend limit hit mid-sweep); prior state below still current**
+**NEXT SESSION STARTS WITH:** (0) OPT-SWEEP-50 has 12/25 groups (23/49 setups) INCOMPLETE pending spend-limit reset — resume only if Principal wants the full picture, otherwise campaign closed against original mandate (bar not cleared); (0b) Kavya ticket needed: ~30-DTE monthly-contract NIFTY options coverage is broken/sparse (5 independent agents hit this); (1) re-arm cadence crons (CLAUDE.md protocol #4); (2) first /weekly-meet Mon 07-07; (3) I-016 diversifier stress-corr deliverable (binding pre-IC); (4) BT-11 v1.5 spec (entry/exit-only + two-stage stops + circuit fills); (5) D-028 retro-audit workflow resume; (6) S-04/S-05 paper first entries (~Jul-14 cycle); (7) FNO REPLAY GAME P1 build (see below — Principal-green-lit, P0 done); (8) FF near-month vehicle (below) -> Arjun Gate-3/4 build + Tara hedge-leg fill audit + Kavya/Arjun live-schema signal-computability check.
+
+## FF SIGNAL NEAR-MONTH VEHICLE — SCOPED, not backtested (2026-07-07, Aakash)
+K-012 calendar stays killed (CIO ruling 2026-07-05); signal graduated to a new liquidity-native-vehicle
+intake owned by Aakash+Arjun. Scoping memo recommends a **near-month bear-call vertical** (SELL ATM CE /
+BUY OTM CE, same expiry, liquidity-gated hedge strike) over a naked short call (undefined risk, rejected
+on risk-shape) and over a strangle/PE variant (FF is CE-IV-only per the code — no validated put-side
+signal; parked). Biggest open risk: hedge-leg liquidity is spot-checked only (6 names, encouraging but
+not audit-grade) and rhymes with K-009's prior kill (far-OTM wings unpriceable, −883% artifact) — real
+fill audit is Tara's next step. Memo + 8-item pre-registration spec: `04_RND_LAB/ideas/20260707_ff_signal_near_month_vehicle.md`.
+IDEA_PIPELINE.md row updated (still 1-INTAKE — vehicle scoped). Not a Strategy Register row yet.
+
+## CAMPAIGN OPT-SWEEP-50 (2026-07-07) — CLOSED EARLY, bar not cleared
+Principal-commissioned hunt for a NIFTY option strategy w/ Sharpe>2 & XIRR>50% post-cost (SP500 leg dropped,
+no data). 13/25 Phase-1 groups (26/49 setups) + Arjun's 4 concrete tests + Lakshmi's lit scan all completed
+before the org hit its monthly API spend limit mid-sweep (10 groups failed on spend limit, 2 on infra
+stalls) — Principal chose to stop and synthesize rather than wait/raise the limit. **Nothing cleared the bar
+anywhere** (best honest ann. Sharpe ~1.0: OS-26 bear-call-spread regime-gated); matches Lakshmi's literature
+verdict (realistic net Sharpe caps ~0.9-1.2). Four SURVIVE-fragile/marginal setups (OS-04, OS-20, OS-26, OS-35)
+are small legitimate uplifts over the existing S-04/S-05 VRP book, not bar-clearing. Full table + 12 INCOMPLETE
+(not killed) setups: `04_RND_LAB/results/OPT_SWEEP50_PHASE1_20260707/PHASE1_SYNTHESIS.md`.
+
+## FNO REPLAY GAME (new Principal product, 2026-07-05) — **PLAYABLE** (P0+P1+P2 core done; launch `09_PRODUCT/fno_game/run_game.ps1`)
+Intraday NIFTY-weekly-options replay simulator (random hidden day, 1-min bars, persistent ₹10L career
+bankroll, trade-log analytics). **Build book = `09_PRODUCT/fno_game/ROADMAP.md`** — locked Principal
+rulings L1–L11 (spread-aware fills, lot-65-uniform, hide-date-only, no lockout v1), full mechanics
+formulas, phases P0–P6. P0 done: FastAPI stack verified, chart lib bundled, eligible pool 1,198/1,242
+days built + gap-reviewed, lot history derived from bhavcopy (…→65 Jan-26), data_loader smoke-tested.
+P1 = replay core (WS tick loop, blinding sanitizer, live chart); P2 = trading engine (needs Tara
+spread-calibration vs Angel terminal). Either desk builds; ROADMAP is self-contained.
+**2026-07-05 later-3: V1 COMPLETE & DEPLOYED (:8787, detached).** All phases P0-P6 done via 3 agent
+rounds + QA (45/45 tests, leak suite, README). Full stack: chain w/ IV+Greeks+OI-percentile, payoff
+canvas, margin preview, sizing calc, straddle/strangle presets, MKT/LMT/SL-M orders + cancel,
+Orders/Trades/Log tabs, Day-P&L/free-margin/countdown chips, inline TP/SL edit, MAE/MFE+R per trade,
+journal tags, Wilson-CI analytics w/ recognized-exclusion, CSV export, sound cues, D-1-continuation
+chart w/ VWAP/EMA/RSI/CPR/OR15, unkillable tick loop, pause reasons. QA caught+fixed an export
+blinding hole. v1.1 candidates in journal (visual QA, Tara spread calibration, reveal equity/MAE viz).
 
 ## REPO STRUCTURE CHANGE (2026-07-05, Manoj/Ops) — read before assuming root layout
 Root decluttered per Principal order: `other2/` created at repo root, 6 items moved in (`.venv/`,
