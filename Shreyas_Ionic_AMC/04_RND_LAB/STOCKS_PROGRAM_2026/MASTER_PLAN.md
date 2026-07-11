@@ -78,3 +78,11 @@ Signal = 1 AND 2 AND 3 AND (4 OR 5) AND 6.
 ### TF-2-CARD SPEC (FROZEN 2026-07-11 pre-run commit) — TF-1 deployment fix (the sanctioned iteration)
 Identical signal layers and exits to TF-1 (frozen @ 47e8a00). Changes ONLY: (1) 8 slots; (2) two entry tiers - TIER-A full composite signal (weight 1/8), TIER-B = stage2 AND rs>=0.70 AND fund_ok AND base AND close>=0.97x 20d-high (no volume-breakout requirement; weight 1/16, max 4 tier-B); (3) same stops/exits.
 **FROZEN BARS (same family):** PASS iff CAGR >= 15% AND Sharpe >= 1.0 AND maxDD <= 30% AND tier-A per-trade beats placebo95. KILL iff Sharpe < 0.5. Else PARK-FINAL (no third iteration; family goes to data-intake dependency). Trials +1.
+
+### EQ-MAX-CARD SPEC (FROZEN 2026-07-11 pre-run commit) — stocks-only max-MAR book (Principal bar: 30%/-10%; stretch 40%)
+**Sleeves (banked ledgers, equal starting weight):** A = breakout champion realistic-REGIME daily P&L; B = midsmall Var-B daily returns; C = TF-1 trade stream (as daily equal-weight portfolio returns from its NAV).
+**Overlays (THE card - one canonical parameterization, pre-declared, NO grid):**
+1. VOL-TARGETING (Barroso-Santa-Clara / Moreira-Muir): daily exposure = clip(12% / realized_20d_annvol_of_combined, 0.25, 1.5). Leverage cap 1.5x (MTF/futures-financeable).
+2. REGIME HARD GATE: exposure x0.25 when Nifty 50 close < its 200DMA (indices_close panel).
+**Window:** Oct-2022..Dec-2025 (intersection of sleeve ledgers; satisfies Principal 3y-window test). Costs already inside sleeve ledgers; overlay trading drag 2bps per 10% exposure change applied.
+**BARS:** DELIVERED iff CAGR >= 30% AND maxDD <= 10%. STRETCH flag at >= 40%. Report exact numbers regardless - no tuning pass permitted after seeing results (single-shot card). Trials +1.
