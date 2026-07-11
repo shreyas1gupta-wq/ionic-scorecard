@@ -58,3 +58,17 @@ Pre-run: AST scan + RUN_CARD with freeze hash. Trials +2 (RSI3, zscore5).
 **Costs:** 15 bps/side (30 on SL fills). Era split (2022-10..2024-06 / 2024-07..2026-01) reported; conflict -> KILL that variant. n < 150 triggered trades in a variant = INSUFFICIENT.
 Pre-run: AST scan + RUN_CARD with freeze hash. Trials +2 (V1, V2).
 **T-C-CARD OUTCOME (2026-07-11, frozen @ 4692e17): KILL both variants — the decisive one.** V1-EOD: GROSS -11.1 bps (negative BEFORE costs; not a friction story), net -45.2, t=-16.3, n=6,646 — post-breakout stocks FADE intraday ORB triggers, not continue them. V2-HOLD: +8.7 bps t=0.54 PF 1.05 era-flip = noise. Placebo (-38 bps) shows ORB-EOD structurally negative on ALL stage-2 days; events merely less-bad. INTRADAY-ORB FAMILY NOW CLOSED from every construction (baskets 07-07, puts vehicle, event-conditioned today). Evidence: results/TC_POSTBREAKOUT_ORB_20260711/. Trials +2.
+
+### TF-1-CARD SPEC (FROZEN 2026-07-11 pre-run commit) — TechnoFunda composite (Principal flagship: Minervini VCP + O'Neil CANSLIM + Weinstein stages + waves + PIT fundamentals, NIFTY500)
+**Data:** Saintforest daily OHLCV 2000-2026 (landmine #1 tz fix), PIT NIFTY500 membership (42 snapshots), PIT earnings available_date. Costs 25bps/side. Entries/exits at next-day close.
+**Composite (ALL point-in-time at signal date D):**
+1. STAGE-2 GATE (Weinstein/Minervini trend template): close>150dMA AND close>200dMA AND 200dMA rising vs 21d ago AND 50d>150d>200d AND close>=1.3x 52w-low AND close>=0.75x 52w-high.
+2. RS RANK (O'Neil): 126d return in top 30% of PIT members that day.
+3. FUNDAMENTAL C/A (CANSLIM, PIT): latest quarterly NP YoY >= +20% with available_date <= D.
+4. VCP (Minervini): 10d ATR%% < 0.67x its value 40d ago AND 10d avg volume < 0.8x 50d avg AND close within 5%% of 20d high.
+5. BASE/WAVE: trailing-40d max drawdown within [5%%, 35%%] (built a base, not extended).
+6. ENTRY TRIGGER: close breaks prior 20d high on volume >= 1.5x 50d avg.
+Signal = 1 AND 2 AND 3 AND (4 OR 5) AND 6.
+**Exits:** hard stop close <= entry x 0.92 (O'Neil 8%%); trend exit close < 50dMA. Portfolio: max 15 concurrent, equal weight, 60d re-entry lockout per symbol.
+**Run:** 2016-01..2026-01 full; era split 2016-20 / 2021-25; placebo x200 (random stage-2-gate stocks, same exits - drift control); per-trade + portfolio NAV metrics.
+**FROZEN BARS:** PASS iff portfolio net CAGR >= 15%% AND Sharpe >= 1.0 AND maxDD <= 30%% AND per-trade mean > placebo95 AND both eras profitable. KILL iff Sharpe < 0.5 OR era conflict. Else PARK (single iteration allowed only as a NEW card). Trials +1.
