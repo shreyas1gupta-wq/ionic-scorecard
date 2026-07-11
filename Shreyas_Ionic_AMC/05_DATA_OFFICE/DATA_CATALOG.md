@@ -101,3 +101,9 @@ Rule: if it's not in here with path+range+bugs, it doesn't exist for research. C
 
 **Wave-2 rejections:** fabhaus/equities_5m = 15-18GB/MONTH (~450GB total) -> violates Principal size cap, REJECTED. HF SPX/SPY options EOD: none found. Silver (XAG) any granularity on HF: none found.
 
+**Wave 3 (2026-07-11 night):**
+| Dataset | File(s) | Span | Source | Verification |
+|---|---|---|---|---|
+| BSE F&O bhavcopy (index derivs UDiFF) | bse_fo_bhavcopy/bse_fo_{2023..2026}.parquet | 2023-05..today, 622 days | bseindia.com official UDiFF | 2026: 92,087 SENSEX option rows / 34 expiries; SX1 study consumed it same-day |
+| NSE all-indices daily close (incl India VIX OHLC, P/E, P/B) | indices_close/indices_{yyyy}.parquet | 2011..today | archives.nseindia.com ind_close_all | IN PROGRESS (bg); verify India VIX COVID peak on completion |
+| NSE F&O bhavcopy extension | fo_bhavcopy_hist/fo_idx_{2021..2026}.parquet | 2021-07..today (old + UDiFF normalized) | nsearchives | IN PROGRESS (bg); closes Kavya 30-DTE ticket |

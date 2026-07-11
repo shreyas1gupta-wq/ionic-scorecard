@@ -1,0 +1,29 @@
+{
+ "card": "SX1-CARD-stage1",
+ "frozen_commit": "26e1684",
+ "run_ts": "2026-07-11T17:41:41",
+ "script": "sx1_stage1.py",
+ "data": [
+  "bse_fo_bhavcopy (D-033 2026-07-11)",
+  "NIFTY 1-min chain comparator"
+ ],
+ "n_obs": 132,
+ "metrics": {
+  "gross_pts": 98.2,
+  "t": 2.95,
+  "prem_ratio_vs_nifty": 1.22
+ },
+ "validation": {
+  "era_split": "single era (2023-26)",
+  "bootstrap_ci95": null,
+  "lookahead_ast": "pre-flight",
+  "one_day_lag": "daily prints; futures spot proxy declared"
+ },
+ "verdict": "STAGE-1 PASS -> Stage 2 shadow (13 Thursdays, zero size)",
+ "bars_hit": [
+  "gross_t2",
+  "prem_ratio"
+ ],
+ "trials_increment": 1,
+ "token_cost_agents": 0
+}
