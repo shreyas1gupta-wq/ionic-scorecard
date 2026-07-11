@@ -1,0 +1,7 @@
+     cell  n  n_val  n_scr  val  plac95  scr_alpha  lag0  lag5 verdict
+   V1_t60 68     56     12 1.53    1.59      -0.43  1.01  0.95    FAIL
+   V2_t65 53     41     12 1.93    1.90      -0.20  1.24  0.68    FAIL
+V3_t60vix 29     24      5 1.97    2.24       1.05  1.63  1.25    FAIL
+V4_t65vix 24     17      7 2.72    2.44       0.87  1.92  0.90    PASS
+cells passed: 1/4 | monthly corr(V4_t65vix, book) = +0.09 (bar < +0.25 signed)
+VERDICT: NOT ADOPTED
