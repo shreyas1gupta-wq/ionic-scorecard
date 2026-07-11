@@ -1,0 +1,2762 @@
+[
+{
+"id": "W2-F1-0000",
+"name": "Nifty 50 2-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty 50",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 2,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0003",
+"name": "Nifty 50 3-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty 50",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 3,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0006",
+"name": "Nifty 50 4-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty 50",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 4,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0009",
+"name": "Nifty Bank 2-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Bank",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 2,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0012",
+"name": "Nifty Bank 3-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Bank",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 3,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0015",
+"name": "Nifty Bank 4-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Bank",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 4,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0018",
+"name": "Nifty Midcap 100 2-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Midcap 100",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 2,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0021",
+"name": "Nifty Midcap 100 3-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Midcap 100",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 3,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0024",
+"name": "Nifty Midcap 100 4-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Midcap 100",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 4,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0027",
+"name": "Nifty Smallcap 100 2-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Smallcap 100",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 2,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0030",
+"name": "Nifty Smallcap 100 3-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Smallcap 100",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 3,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0033",
+"name": "Nifty Smallcap 100 4-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Smallcap 100",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 4,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0036",
+"name": "Nifty IT 2-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty IT",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 2,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0039",
+"name": "Nifty IT 3-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty IT",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 3,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0042",
+"name": "Nifty IT 4-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty IT",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 4,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0045",
+"name": "Nifty Pharma 2-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Pharma",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 2,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0048",
+"name": "Nifty Pharma 3-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Pharma",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 3,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0051",
+"name": "Nifty Pharma 4-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Pharma",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 4,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0054",
+"name": "Nifty Auto 2-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Auto",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 2,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0057",
+"name": "Nifty Auto 3-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Auto",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 3,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0060",
+"name": "Nifty Auto 4-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Auto",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 4,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0063",
+"name": "Nifty FMCG 2-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty FMCG",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 2,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0066",
+"name": "Nifty FMCG 3-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty FMCG",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 3,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0069",
+"name": "Nifty FMCG 4-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty FMCG",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 4,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0072",
+"name": "Nifty Metal 2-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Metal",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 2,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0075",
+"name": "Nifty Metal 3-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Metal",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 3,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0078",
+"name": "Nifty Metal 4-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Metal",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 4,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0081",
+"name": "Nifty Energy 2-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Energy",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 2,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0084",
+"name": "Nifty Energy 3-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Energy",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 3,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F1-0087",
+"name": "Nifty Energy 4-down-days in >200dma, hold 3",
+"source": "structural dip-buying flow in index uptrends",
+"asset": "index_daily",
+"universe": "Nifty Energy",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "consec_days",
+"params": {
+"k": 4,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F2a-0090",
+"name": "Nifty 50 RSI2<20 above 200dma",
+"source": "index short-term panic in uptrend mean-reverts",
+"asset": "index_daily",
+"universe": "Nifty 50",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "rsi_thresh",
+"params": {
+"n": 2,
+"lt": 20
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "trail_dma",
+"params": {
+"dma": 5,
+"n": 10
+}
+}
+},
+{
+"id": "W2-F2b-0093",
+"name": "Nifty 50 RSI14>80 above 200dma continuation",
+"source": "index overbought-in-trend continues (crowding)",
+"asset": "index_daily",
+"universe": "Nifty 50",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "rsi_thresh",
+"params": {
+"n": 14,
+"gt": 80
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 10
+}
+}
+},
+{
+"id": "W2-F2b-0096",
+"name": "Nifty Bank RSI14>70 above 200dma continuation",
+"source": "index overbought-in-trend continues (crowding)",
+"asset": "index_daily",
+"universe": "Nifty Bank",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "rsi_thresh",
+"params": {
+"n": 14,
+"gt": 70
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 10
+}
+}
+},
+{
+"id": "W2-F2a-0099",
+"name": "Nifty Midcap 100 RSI2<30 above 200dma",
+"source": "index short-term panic in uptrend mean-reverts",
+"asset": "index_daily",
+"universe": "Nifty Midcap 100",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "rsi_thresh",
+"params": {
+"n": 2,
+"lt": 30
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "trail_dma",
+"params": {
+"dma": 5,
+"n": 10
+}
+}
+},
+{
+"id": "W2-F2a-0102",
+"name": "Nifty Smallcap 100 RSI2<20 above 200dma",
+"source": "index short-term panic in uptrend mean-reverts",
+"asset": "index_daily",
+"universe": "Nifty Smallcap 100",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "rsi_thresh",
+"params": {
+"n": 2,
+"lt": 20
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "trail_dma",
+"params": {
+"dma": 5,
+"n": 10
+}
+}
+},
+{
+"id": "W2-F2b-0105",
+"name": "Nifty Smallcap 100 RSI14>80 above 200dma continuation",
+"source": "index overbought-in-trend continues (crowding)",
+"asset": "index_daily",
+"universe": "Nifty Smallcap 100",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "rsi_thresh",
+"params": {
+"n": 14,
+"gt": 80
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 10
+}
+}
+},
+{
+"id": "W2-F2b-0108",
+"name": "Nifty IT RSI14>70 above 200dma continuation",
+"source": "index overbought-in-trend continues (crowding)",
+"asset": "index_daily",
+"universe": "Nifty IT",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "rsi_thresh",
+"params": {
+"n": 14,
+"gt": 70
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 10
+}
+}
+},
+{
+"id": "W2-F2a-0111",
+"name": "Nifty Pharma RSI2<30 above 200dma",
+"source": "index short-term panic in uptrend mean-reverts",
+"asset": "index_daily",
+"universe": "Nifty Pharma",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+},
+{
+"type": "rsi_thresh",
+"params": {
+"n": 2,
+"lt": 30
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "trail_dma",
+"params": {
+"dma": 5,
+"n": 10
+}
+}
+},
+{
+"id": "W2-F3-0114",
+"name": "Nifty 50 gap +0.5% long",
+"source": "small gap-up = information, continues",
+"asset": "index_daily",
+"universe": "Nifty 50",
+"signal": [
+{
+"type": "gap_pct",
+"params": {
+"gt": 0.5
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F3-0117",
+"name": "Nifty 50 gap -1.5% long",
+"source": "large gap-down = panic, fades",
+"asset": "index_daily",
+"universe": "Nifty 50",
+"signal": [
+{
+"type": "gap_pct",
+"params": {
+"lt": -1.5
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F3-0120",
+"name": "Nifty Bank gap -0.5% short",
+"source": "small gap-down continues",
+"asset": "index_daily",
+"universe": "Nifty Bank",
+"signal": [
+{
+"type": "gap_pct",
+"params": {
+"lt": -0.5
+}
+}
+],
+"direction": "short",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F3-0123",
+"name": "Nifty Midcap 100 gap +1.5% short",
+"source": "large gap-up = overreaction, fades (index short OK)",
+"asset": "index_daily",
+"universe": "Nifty Midcap 100",
+"signal": [
+{
+"type": "gap_pct",
+"params": {
+"gt": 1.5
+}
+}
+],
+"direction": "short",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F3-0126",
+"name": "Nifty Smallcap 100 gap +0.5% long",
+"source": "small gap-up = information, continues",
+"asset": "index_daily",
+"universe": "Nifty Smallcap 100",
+"signal": [
+{
+"type": "gap_pct",
+"params": {
+"gt": 0.5
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F3-0129",
+"name": "Nifty Smallcap 100 gap -1.5% long",
+"source": "large gap-down = panic, fades",
+"asset": "index_daily",
+"universe": "Nifty Smallcap 100",
+"signal": [
+{
+"type": "gap_pct",
+"params": {
+"lt": -1.5
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F3-0132",
+"name": "Nifty IT gap -0.5% short",
+"source": "small gap-down continues",
+"asset": "index_daily",
+"universe": "Nifty IT",
+"signal": [
+{
+"type": "gap_pct",
+"params": {
+"lt": -0.5
+}
+}
+],
+"direction": "short",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F3-0135",
+"name": "Nifty Pharma gap +1.5% short",
+"source": "large gap-up = overreaction, fades (index short OK)",
+"asset": "index_daily",
+"universe": "Nifty Pharma",
+"signal": [
+{
+"type": "gap_pct",
+"params": {
+"gt": 1.5
+}
+}
+],
+"direction": "short",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F4-0138",
+"name": "Nifty 50 VIX>13 hold 5",
+"source": "complacency grind-up",
+"asset": "index_daily",
+"universe": "Nifty 50",
+"signal": [
+{
+"type": "vix_thresh",
+"params": {
+"gt": 13
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 5
+}
+}
+},
+{
+"id": "W2-F4-0141",
+"name": "Nifty 50 VIX>18 hold 15",
+"source": "moderate fear pays",
+"asset": "index_daily",
+"universe": "Nifty 50",
+"signal": [
+{
+"type": "vix_thresh",
+"params": {
+"gt": 18
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 15
+}
+}
+},
+{
+"id": "W2-F4-0144",
+"name": "Nifty 50 VIX<12 low-vol carry",
+"source": "low-vol regimes persist",
+"asset": "index_daily",
+"universe": "Nifty 50",
+"signal": [
+{
+"type": "vix_thresh",
+"params": {
+"lt": 12
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 10
+}
+}
+},
+{
+"id": "W2-F4-0147",
+"name": "Nifty Midcap 100 VIX>18 hold 5",
+"source": "moderate fear pays",
+"asset": "index_daily",
+"universe": "Nifty Midcap 100",
+"signal": [
+{
+"type": "vix_thresh",
+"params": {
+"gt": 18
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 5
+}
+}
+},
+{
+"id": "W2-F4-0150",
+"name": "Nifty Midcap 100 VIX>25 hold 15",
+"source": "panic rebound",
+"asset": "index_daily",
+"universe": "Nifty Midcap 100",
+"signal": [
+{
+"type": "vix_thresh",
+"params": {
+"gt": 25
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 15
+}
+}
+},
+{
+"id": "W2-F4-0153",
+"name": "Nifty Smallcap 100 VIX>13 hold 15",
+"source": "complacency grind-up",
+"asset": "index_daily",
+"universe": "Nifty Smallcap 100",
+"signal": [
+{
+"type": "vix_thresh",
+"params": {
+"gt": 13
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 15
+}
+}
+},
+{
+"id": "W2-F4-0156",
+"name": "Nifty Smallcap 100 VIX>25 hold 5",
+"source": "panic rebound",
+"asset": "index_daily",
+"universe": "Nifty Smallcap 100",
+"signal": [
+{
+"type": "vix_thresh",
+"params": {
+"gt": 25
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 5
+}
+}
+},
+{
+"id": "W2-F5-0159",
+"name": "Nifty 50 dow=0",
+"source": "weekday flow patterns (expiry/settlement cycles)",
+"asset": "index_daily",
+"universe": "Nifty 50",
+"signal": [
+{
+"type": "seasonality_dow",
+"params": {
+"dow": 0
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 1
+}
+}
+},
+{
+"id": "W2-F5-0162",
+"name": "Nifty 50 dow=3",
+"source": "weekday flow patterns (expiry/settlement cycles)",
+"asset": "index_daily",
+"universe": "Nifty 50",
+"signal": [
+{
+"type": "seasonality_dow",
+"params": {
+"dow": 3
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 1
+}
+}
+},
+{
+"id": "W2-F5-0165",
+"name": "Nifty Bank dow=0",
+"source": "weekday flow patterns (expiry/settlement cycles)",
+"asset": "index_daily",
+"universe": "Nifty Bank",
+"signal": [
+{
+"type": "seasonality_dow",
+"params": {
+"dow": 0
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 1
+}
+}
+},
+{
+"id": "W2-F5-0168",
+"name": "Nifty Bank dow=3",
+"source": "weekday flow patterns (expiry/settlement cycles)",
+"asset": "index_daily",
+"universe": "Nifty Bank",
+"signal": [
+{
+"type": "seasonality_dow",
+"params": {
+"dow": 3
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 1
+}
+}
+},
+{
+"id": "W2-F5-0171",
+"name": "Nifty Midcap 100 dow=0",
+"source": "weekday flow patterns (expiry/settlement cycles)",
+"asset": "index_daily",
+"universe": "Nifty Midcap 100",
+"signal": [
+{
+"type": "seasonality_dow",
+"params": {
+"dow": 0
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 1
+}
+}
+},
+{
+"id": "W2-F5-0174",
+"name": "Nifty Midcap 100 dow=3",
+"source": "weekday flow patterns (expiry/settlement cycles)",
+"asset": "index_daily",
+"universe": "Nifty Midcap 100",
+"signal": [
+{
+"type": "seasonality_dow",
+"params": {
+"dow": 3
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 1
+}
+}
+},
+{
+"id": "W2-F5-0177",
+"name": "Nifty Smallcap 100 dow=0",
+"source": "weekday flow patterns (expiry/settlement cycles)",
+"asset": "index_daily",
+"universe": "Nifty Smallcap 100",
+"signal": [
+{
+"type": "seasonality_dow",
+"params": {
+"dow": 0
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 1
+}
+}
+},
+{
+"id": "W2-F5-0180",
+"name": "Nifty Smallcap 100 dow=3",
+"source": "weekday flow patterns (expiry/settlement cycles)",
+"asset": "index_daily",
+"universe": "Nifty Smallcap 100",
+"signal": [
+{
+"type": "seasonality_dow",
+"params": {
+"dow": 3
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 1
+}
+}
+},
+{
+"id": "W2-F5-0183",
+"name": "Nifty IT dow=0",
+"source": "weekday flow patterns (expiry/settlement cycles)",
+"asset": "index_daily",
+"universe": "Nifty IT",
+"signal": [
+{
+"type": "seasonality_dow",
+"params": {
+"dow": 0
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 1
+}
+}
+},
+{
+"id": "W2-F5-0186",
+"name": "Nifty IT dow=3",
+"source": "weekday flow patterns (expiry/settlement cycles)",
+"asset": "index_daily",
+"universe": "Nifty IT",
+"signal": [
+{
+"type": "seasonality_dow",
+"params": {
+"dow": 3
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 1
+}
+}
+},
+{
+"id": "W2-F5-0189",
+"name": "Nifty Pharma dow=0",
+"source": "weekday flow patterns (expiry/settlement cycles)",
+"asset": "index_daily",
+"universe": "Nifty Pharma",
+"signal": [
+{
+"type": "seasonality_dow",
+"params": {
+"dow": 0
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 1
+}
+}
+},
+{
+"id": "W2-F5-0192",
+"name": "Nifty Pharma dow=3",
+"source": "weekday flow patterns (expiry/settlement cycles)",
+"asset": "index_daily",
+"universe": "Nifty Pharma",
+"signal": [
+{
+"type": "seasonality_dow",
+"params": {
+"dow": 3
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 1
+}
+}
+},
+{
+"id": "W2-F6-0195",
+"name": "Nifty 50 10d breakout trail",
+"source": "index breakouts trend (no single-stock noise)",
+"asset": "index_daily",
+"universe": "Nifty 50",
+"signal": [
+{
+"type": "nday_breakout",
+"params": {
+"n": 10
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "trail_dma",
+"params": {
+"dma": 20,
+"n": 40
+}
+}
+},
+{
+"id": "W2-F6-0198",
+"name": "Nifty 50 100d breakout trail",
+"source": "index breakouts trend (no single-stock noise)",
+"asset": "index_daily",
+"universe": "Nifty 50",
+"signal": [
+{
+"type": "nday_breakout",
+"params": {
+"n": 100
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "trail_dma",
+"params": {
+"dma": 20,
+"n": 40
+}
+}
+},
+{
+"id": "W2-F6-0201",
+"name": "Nifty Bank 55d breakout trail",
+"source": "index breakouts trend (no single-stock noise)",
+"asset": "index_daily",
+"universe": "Nifty Bank",
+"signal": [
+{
+"type": "nday_breakout",
+"params": {
+"n": 55
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "trail_dma",
+"params": {
+"dma": 20,
+"n": 40
+}
+}
+},
+{
+"id": "W2-F6-0204",
+"name": "Nifty Midcap 100 20d breakout trail",
+"source": "index breakouts trend (no single-stock noise)",
+"asset": "index_daily",
+"universe": "Nifty Midcap 100",
+"signal": [
+{
+"type": "nday_breakout",
+"params": {
+"n": 20
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "trail_dma",
+"params": {
+"dma": 20,
+"n": 40
+}
+}
+},
+{
+"id": "W2-F6-0207",
+"name": "Nifty Smallcap 100 10d breakout trail",
+"source": "index breakouts trend (no single-stock noise)",
+"asset": "index_daily",
+"universe": "Nifty Smallcap 100",
+"signal": [
+{
+"type": "nday_breakout",
+"params": {
+"n": 10
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "trail_dma",
+"params": {
+"dma": 20,
+"n": 40
+}
+}
+},
+{
+"id": "W2-F6-0210",
+"name": "Nifty Smallcap 100 100d breakout trail",
+"source": "index breakouts trend (no single-stock noise)",
+"asset": "index_daily",
+"universe": "Nifty Smallcap 100",
+"signal": [
+{
+"type": "nday_breakout",
+"params": {
+"n": 100
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "trail_dma",
+"params": {
+"dma": 20,
+"n": 40
+}
+}
+},
+{
+"id": "W2-F6-0213",
+"name": "Nifty IT 55d breakout trail",
+"source": "index breakouts trend (no single-stock noise)",
+"asset": "index_daily",
+"universe": "Nifty IT",
+"signal": [
+{
+"type": "nday_breakout",
+"params": {
+"n": 55
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "trail_dma",
+"params": {
+"dma": 20,
+"n": 40
+}
+}
+},
+{
+"id": "W2-F6-0216",
+"name": "Nifty Pharma 20d breakout trail",
+"source": "index breakouts trend (no single-stock noise)",
+"asset": "index_daily",
+"universe": "Nifty Pharma",
+"signal": [
+{
+"type": "nday_breakout",
+"params": {
+"n": 20
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "trail_dma",
+"params": {
+"dma": 20,
+"n": 40
+}
+}
+},
+{
+"id": "W2-F7-0219",
+"name": "Nifty 50 20d breakdown short",
+"source": "index breakdowns trend down (hedging alpha)",
+"asset": "index_daily",
+"universe": "Nifty 50",
+"signal": [
+{
+"type": "nday_low",
+"params": {
+"n": 20
+}
+}
+],
+"direction": "short",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 10
+}
+}
+},
+{
+"id": "W2-F7-0222",
+"name": "Nifty Bank 55d breakdown short",
+"source": "index breakdowns trend down (hedging alpha)",
+"asset": "index_daily",
+"universe": "Nifty Bank",
+"signal": [
+{
+"type": "nday_low",
+"params": {
+"n": 55
+}
+}
+],
+"direction": "short",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 10
+}
+}
+},
+{
+"id": "W2-F7-0225",
+"name": "Nifty Smallcap 100 20d breakdown short",
+"source": "index breakdowns trend down (hedging alpha)",
+"asset": "index_daily",
+"universe": "Nifty Smallcap 100",
+"signal": [
+{
+"type": "nday_low",
+"params": {
+"n": 20
+}
+}
+],
+"direction": "short",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 10
+}
+}
+},
+{
+"id": "W2-F7-0228",
+"name": "Nifty IT 55d breakdown short",
+"source": "index breakdowns trend down (hedging alpha)",
+"asset": "index_daily",
+"universe": "Nifty IT",
+"signal": [
+{
+"type": "nday_low",
+"params": {
+"n": 55
+}
+}
+],
+"direction": "short",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 10
+}
+}
+},
+{
+"id": "W2-F8-0231",
+"name": "Nifty 50 vol-expansion x1.5",
+"source": "quiet->expansion marks regime shifts",
+"asset": "index_daily",
+"universe": "Nifty 50",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 100
+}
+},
+{
+"type": "vol_expansion",
+"params": {
+"n": 5,
+"base": 60,
+"mult": 1.5
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 10
+}
+}
+},
+{
+"id": "W2-F8-0234",
+"name": "Nifty Bank vol-expansion x2.0",
+"source": "quiet->expansion marks regime shifts",
+"asset": "index_daily",
+"universe": "Nifty Bank",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 100
+}
+},
+{
+"type": "vol_expansion",
+"params": {
+"n": 5,
+"base": 60,
+"mult": 2.0
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 10
+}
+}
+},
+{
+"id": "W2-F8-0237",
+"name": "Nifty Smallcap 100 vol-expansion x1.5",
+"source": "quiet->expansion marks regime shifts",
+"asset": "index_daily",
+"universe": "Nifty Smallcap 100",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 100
+}
+},
+{
+"type": "vol_expansion",
+"params": {
+"n": 5,
+"base": 60,
+"mult": 1.5
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 10
+}
+}
+},
+{
+"id": "W2-F8-0240",
+"name": "Nifty IT vol-expansion x2.0",
+"source": "quiet->expansion marks regime shifts",
+"asset": "index_daily",
+"universe": "Nifty IT",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 100
+}
+},
+{
+"type": "vol_expansion",
+"params": {
+"n": 5,
+"base": 60,
+"mult": 2.0
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 10
+}
+}
+},
+{
+"id": "W2-F9-0243",
+"name": "Nifty 50 z20=-2.0 long",
+"source": "band-dependent reversion asymmetry",
+"asset": "index_daily",
+"universe": "Nifty 50",
+"signal": [
+{
+"type": "zscore",
+"params": {
+"n": 20,
+"lt": -2.0
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 5
+}
+}
+},
+{
+"id": "W2-F9-0246",
+"name": "Nifty Bank z20=-2.0 long",
+"source": "band-dependent reversion asymmetry",
+"asset": "index_daily",
+"universe": "Nifty Bank",
+"signal": [
+{
+"type": "zscore",
+"params": {
+"n": 20,
+"lt": -2.0
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 5
+}
+}
+},
+{
+"id": "W2-F9-0249",
+"name": "Nifty Midcap 100 z20=-2.0 long",
+"source": "band-dependent reversion asymmetry",
+"asset": "index_daily",
+"universe": "Nifty Midcap 100",
+"signal": [
+{
+"type": "zscore",
+"params": {
+"n": 20,
+"lt": -2.0
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 5
+}
+}
+},
+{
+"id": "W2-F9-0252",
+"name": "Nifty Smallcap 100 z20=-2.0 long",
+"source": "band-dependent reversion asymmetry",
+"asset": "index_daily",
+"universe": "Nifty Smallcap 100",
+"signal": [
+{
+"type": "zscore",
+"params": {
+"n": 20,
+"lt": -2.0
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 5
+}
+}
+},
+{
+"id": "W2-F9-0255",
+"name": "Nifty IT z20=-2.0 long",
+"source": "band-dependent reversion asymmetry",
+"asset": "index_daily",
+"universe": "Nifty IT",
+"signal": [
+{
+"type": "zscore",
+"params": {
+"n": 20,
+"lt": -2.0
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 5
+}
+}
+},
+{
+"id": "W2-F9-0258",
+"name": "Nifty Pharma z20=-2.0 long",
+"source": "band-dependent reversion asymmetry",
+"asset": "index_daily",
+"universe": "Nifty Pharma",
+"signal": [
+{
+"type": "zscore",
+"params": {
+"n": 20,
+"lt": -2.0
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 5
+}
+}
+},
+{
+"id": "W2-F10-0261",
+"name": "gold 10d breakout trail",
+"source": "gold trend persistence",
+"asset": "gold_1m",
+"universe": null,
+"signal": [
+{
+"type": "nday_breakout",
+"params": {
+"n": 10
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "trail_dma",
+"params": {
+"dma": 10,
+"n": 20
+}
+}
+},
+{
+"id": "W2-F10-0264",
+"name": "gold 2-down reversion",
+"source": "gold dip-buying (central-bank bid)",
+"asset": "gold_1m",
+"universe": null,
+"signal": [
+{
+"type": "consec_days",
+"params": {
+"k": 2,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 5
+}
+}
+},
+{
+"id": "W2-F10-0267",
+"name": "gold 5-down reversion",
+"source": "gold dip-buying (central-bank bid)",
+"asset": "gold_1m",
+"universe": null,
+"signal": [
+{
+"type": "consec_days",
+"params": {
+"k": 5,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 5
+}
+}
+},
+{
+"id": "W2-F10-0270",
+"name": "gold dow=2",
+"source": "gold fixing-day flows",
+"asset": "gold_1m",
+"universe": null,
+"signal": [
+{
+"type": "seasonality_dow",
+"params": {
+"dow": 2
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 1
+}
+}
+},
+{
+"id": "W2-F11-0273",
+"name": "BTCUSDT dow=0",
+"source": "crypto weekly flow cycle",
+"asset": "crypto_1m",
+"universe": "BTCUSDT",
+"signal": [
+{
+"type": "seasonality_dow",
+"params": {
+"dow": 0
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 1
+}
+}
+},
+{
+"id": "W2-F11-0276",
+"name": "BTCUSDT dow=3",
+"source": "crypto weekly flow cycle",
+"asset": "crypto_1m",
+"universe": "BTCUSDT",
+"signal": [
+{
+"type": "seasonality_dow",
+"params": {
+"dow": 3
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 1
+}
+}
+},
+{
+"id": "W2-F11-0279",
+"name": "BTCUSDT dow=6",
+"source": "crypto weekly flow cycle",
+"asset": "crypto_1m",
+"universe": "BTCUSDT",
+"signal": [
+{
+"type": "seasonality_dow",
+"params": {
+"dow": 6
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 1
+}
+}
+},
+{
+"id": "W2-F11-0282",
+"name": "BTCUSDT 3-down rev",
+"source": "crypto capitulation bounce",
+"asset": "crypto_1m",
+"universe": "BTCUSDT",
+"signal": [
+{
+"type": "consec_days",
+"params": {
+"k": 3,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F11-0285",
+"name": "ETHUSDT dow=1",
+"source": "crypto weekly flow cycle",
+"asset": "crypto_1m",
+"universe": "ETHUSDT",
+"signal": [
+{
+"type": "seasonality_dow",
+"params": {
+"dow": 1
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 1
+}
+}
+},
+{
+"id": "W2-F11-0288",
+"name": "ETHUSDT dow=4",
+"source": "crypto weekly flow cycle",
+"asset": "crypto_1m",
+"universe": "ETHUSDT",
+"signal": [
+{
+"type": "seasonality_dow",
+"params": {
+"dow": 4
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 1
+}
+}
+},
+{
+"id": "W2-F11-0291",
+"name": "ETHUSDT 20d breakout",
+"source": "crypto trend persistence strongest documented",
+"asset": "crypto_1m",
+"universe": "ETHUSDT",
+"signal": [
+{
+"type": "nday_breakout",
+"params": {
+"n": 20
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "trail_dma",
+"params": {
+"dma": 20,
+"n": 30
+}
+}
+},
+{
+"id": "W2-F11-0294",
+"name": "ETHUSDT 5-down rev",
+"source": "crypto capitulation bounce",
+"asset": "crypto_1m",
+"universe": "ETHUSDT",
+"signal": [
+{
+"type": "consec_days",
+"params": {
+"k": 5,
+"dir": "down"
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F12-0297",
+"name": "stocks 100d-breakout hold90 rs=True",
+"source": "long holds amortize friction; trend+breakout",
+"asset": "stocks_daily",
+"universe": null,
+"signal": [
+{
+"type": "nday_breakout",
+"params": {
+"n": 100
+}
+},
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 90
+}
+}
+},
+{
+"id": "W2-F12-0300",
+"name": "stocks 252d-breakout hold120 rs=False",
+"source": "long holds amortize friction; trend+breakout",
+"asset": "stocks_daily",
+"universe": null,
+"signal": [
+{
+"type": "nday_breakout",
+"params": {
+"n": 252
+}
+},
+{
+"type": "dma_above",
+"params": {
+"n": 200
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 120
+}
+}
+},
+{
+"id": "W2-F14-0303",
+"name": "Nifty 50 6-up-days exhaustion short",
+"source": "streak exhaustion (index short allowed)",
+"asset": "index_daily",
+"universe": "Nifty 50",
+"signal": [
+{
+"type": "consec_days",
+"params": {
+"k": 6,
+"dir": "up"
+}
+}
+],
+"direction": "short",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F14-0306",
+"name": "Nifty Bank 8-up-days exhaustion short",
+"source": "streak exhaustion (index short allowed)",
+"asset": "index_daily",
+"universe": "Nifty Bank",
+"signal": [
+{
+"type": "consec_days",
+"params": {
+"k": 8,
+"dir": "up"
+}
+}
+],
+"direction": "short",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F14-0309",
+"name": "Nifty Smallcap 100 6-up-days exhaustion short",
+"source": "streak exhaustion (index short allowed)",
+"asset": "index_daily",
+"universe": "Nifty Smallcap 100",
+"signal": [
+{
+"type": "consec_days",
+"params": {
+"k": 6,
+"dir": "up"
+}
+}
+],
+"direction": "short",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 3
+}
+}
+},
+{
+"id": "W2-F15-0312",
+"name": "Nifty Midcap 100 > 100dma + vol-expand",
+"source": "midcap beta amplification in trend",
+"asset": "index_daily",
+"universe": "Nifty Midcap 100",
+"signal": [
+{
+"type": "dma_above",
+"params": {
+"n": 100
+}
+},
+{
+"type": "vol_expansion",
+"params": {
+"n": 5,
+"base": 60,
+"mult": 1.3
+}
+}
+],
+"direction": "long",
+"entry": "next_close",
+"exit": {
+"type": "bars",
+"params": {
+"n": 15
+}
+}
+}
+]
