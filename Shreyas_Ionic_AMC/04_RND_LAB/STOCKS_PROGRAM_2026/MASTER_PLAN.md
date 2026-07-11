@@ -24,3 +24,13 @@ Governance: every experiment = pre-registered card FROZEN IN ITS OWN COMMIT befo
 
 ## PRIOR-ART TABLE (Phase 0, appended as curated)
 **ORB family (Lakshmi digest 2026-07-11):** 3 killed cells span {5m,15m OR} x {0.25x,1.0x ATR SL} x {3m,2w momentum universes} x {cash short, monthly puts} — ALL converge: real +8-13 bps gross, dead vs 35-50 bps intraday RT friction; puts structurally mismatch (theta/delta capture ~0-3% of move). NO resurrection via parameter reshuffles. **BINDING CONSTRAINT on T-C: the card must change the COST REGIME — (i) multi-day hold (the stated resurrection path), and/or (ii) pre-declared gross hurdle >=40 bps/trade for any EOD-exit variant, and/or (iii) limit-order-or-skip execution (D-031). Event-conditioning (post-breakout window) is the gross-edge lever being tested, not by itself a new vehicle.**
+
+**Full sweep (curator #2, 2026-07-11):**
+| Stream | Prior art | Status | Routing decision |
+|---|---|---|---|
+| T-A breakout swing | BREAKOUT_SCAN_20260710 (Chartlink VCP scan, CAGR 31.8%/Sharpe 1.67 w/ skip-filters, audited) | **ALIVE, pre-freeze** | NO new card — route existing pack to red-team battery + forward paper (D-030). Duplication forbidden. |
+| T-B uptrend meanrev | MEANREV_RSI_20260707 (index options, 5/6 KILL) | family fragile | T-B card allowed but: >=30 trades/param bar + directional-asymmetry check pre-declared. |
+| T-C post-breakout ORB | ORB family kills (real 8-13bps gross, dead vs friction) | constraint banked | NEW card (Principal ask) — event-conditioning lever + cost-regime change mandatory. Uses BREAKOUT_SCAN event list as trigger. |
+| T-D positional stage-2 | THREE parallel builds exist: BREAKOUT_SCAN, MIDSMALL_MOM Var-B (ALIVE, CAGR 22.8%/Sharpe 1.14, fwd-confirmed CY26 +13.9% vs -2.4%), Track-2 engine (+34% OOS proto, liquidity/survivorship unfixed) | **duplication risk HIGH** | NO new build — T-D = finish Track-2 Phase-1.5/1.8 fixes (liquidity gate, delisted losses) + consider Var-B extension. |
+| T-E PEAD | PEAD v2 (single quarter, t=1.28, promising) | PARTIAL | T-E card = the prescribed 2015-2026 multi-year event study on v2 construction. |
+**Cross-flag:** 3 independently-built momentum/breakout packs never cross-referenced — consolidation is itself a deliverable. Lakshmi filing KB + KILLED_IDEAS entries as follow-up.
