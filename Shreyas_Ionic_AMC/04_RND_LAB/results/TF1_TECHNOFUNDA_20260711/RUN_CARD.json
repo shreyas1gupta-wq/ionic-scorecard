@@ -1,0 +1,32 @@
+{
+ "card": "TF-1-CARD",
+ "frozen_commit": "47e8a00",
+ "run_ts": "2026-07-11T20:11:53",
+ "script": "tf1_composite.py",
+ "data": [
+  "saintforest daily OHLCV 2000-2026",
+  "PIT N500",
+  "PIT earnings"
+ ],
+ "n_obs": 329,
+ "metrics": {
+  "cagr_pct": 5.1,
+  "sharpe": 0.51,
+  "maxdd_pct": -26.4,
+  "per_trade_pct": 2.1,
+  "t": 1.88
+ },
+ "validation": {
+  "era_split": "+65.88/+1.91",
+  "bootstrap_ci95": null,
+  "lookahead_ast": "pre-flight",
+  "one_day_lag": "signal at close D, fills at close D+1; PIT earnings via available_date; PIT universe"
+ },
+ "verdict": "PARK",
+ "bars_hit": [
+  "maxDD<=30%",
+  "beat_placebo95"
+ ],
+ "trials_increment": 1,
+ "token_cost_agents": 0
+}

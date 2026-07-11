@@ -1,0 +1,7 @@
+trades=329 | per-trade net +2.10% (t=1.88), win% 34
+PORTFOLIO: CAGR +5.1% | Sharpe 0.51 | maxDD -26.4% | 10.0y
+eras per-trade: 2016-20 +65.88% (n=1) | 2021-26 +1.91% (n=328)
+placebo (20 portfolio runs, boot x200): null mean +1.00%, 95th +1.25% vs real +2.10%
+exit mix: {'trend': np.int64(237), 'stop': np.int64(92)}
+bars: CAGR>=15%=F, Sharpe>=1.0=F, maxDD<=30%=P, beat_placebo95=P, eras_both_profitable=F
+VERDICT: PARK
