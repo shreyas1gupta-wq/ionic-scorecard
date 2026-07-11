@@ -200,3 +200,14 @@ Trials-ledger: +1 (stage-1 regression); stage-2 conditional, +1 if run.
 **Secondary (descriptive):** 2020 month-by-month path, equity-sim maxDD% at spec sizing, worst-5 cycles, era split, count of cycles skipped for missing/untradeable legs.
 Pre-run: ast_lookahead_scan + RUN_CARD.json with this freeze commit hash. Trials +1.
 **A4-CARD OUTCOME (2026-07-11, spec frozen pre-run @ f923851): COVID-SURVIVABLE — neither bar hit.** 127 cycles / 0 skips, real 2011-2021 settles. COVID-window DD 805 pts vs 766 pre-2020 max = 1.05x (bar >3x); crash cycle itself -544 on ~730 premium (30% SL amputated it); expectancy +3.7 pts/cycle (~zero, t=0.32) -> structure survives, monthly proxy NOT tradeable (as declared). Closes S1-F's "no real COVID sample" caveat with real settles, superseding model-only backcast. TWO NEW DATA TRAPS found+fixed mid-run -> CLAUDE.md LANDMINE #9 (expiry-day option SETTLE_PR = underlying level; untraded-but-priced weeklies CONTRACTS=0). Evidence: results/A4_COVID_REPLICATION_20260711/. Trials +1.
+
+### B2-CARD SPEC DETAIL (FROZEN 2026-07-11 in pre-run commit) — Air-pocket leg-buyback overlay on S1 (first of the trio)
+**Lead source:** T6 control-group find (+4.40 pts/30min t=3.94 on low-OI strike crossings) — full data-mining risk declared; this overlay IS the required variant construction (application test, not re-measurement).
+**Design (S1 primary re-simulation, 259 expiry days 2021-06..2026-06, 1-min bars incl open_interest):**
+- Baseline: S1 primary exactly (09:20 ATM sell both legs, 30% per-leg SL on 1-min close filled at next close, survivors settle <=15:25, flat cost 1pt/leg one-way 2x pre-09:30).
+- OI snapshot: per round-50 strike within +-150 of current spot, OI = CE_OI + PE_OI lagged 3 bars; snapshot refreshed every 30 min from 09:23.
+- AIR-POCKET strike: bottom-50% OI within the +-150 window at the latest snapshot.
+- TRIGGER: 1-min close crosses an air-pocket strike TOWARD a short leg (up-cross threatens CE, down-cross threatens PE) AND that leg trades >= 1.10x entry premium AND leg still open.
+- ACTION: buy back the threatened leg at next 1-min close (+1pt cost); other leg continues per baseline.
+**FROZEN BARS:** ADOPT-as-v1.1-candidate (shadow only, D-030) iff (i) mean net >= baseline + 1.0 pt/day AND (ii) worst-10-day average improves >= 15 pts AND (iii) SL-hit-day mean improves. KILL overlay iff mean net < baseline. Otherwise PARK. Secondary (descriptive): trigger frequency, false-trigger cost on no-SL days, era split.
+Pre-run: ast scanner + RUN_CARD.json with this freeze hash. Trials +1.

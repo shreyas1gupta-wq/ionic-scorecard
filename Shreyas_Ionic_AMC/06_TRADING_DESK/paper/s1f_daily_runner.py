@@ -13,7 +13,9 @@ LOG = HERE / "s1f_paper_log.csv"
 SCRIP = Path(r"C:\Users\Shreyas.1Gupta\AppData\Local\angel_capture\scrip_master.json")
 NIFTY_TOKEN = "99926000"   # NSE NIFTY 50 index
 CAPITAL = 1_000_000        # update to current paper equity before each run
-MARGIN, LOT = 110_000, 75
+LOT = 75
+MARGIN_RATE = 0.15         # registered spec (e3cdc56): margin = spot x 75 x 0.15 (~Rs 2.7L/lot at 2026
+                           # levels); replaces superseded flat 1.1L. Verify vs Angel margin calculator.
 
 today = dt.date.today()
 scrip = json.loads(SCRIP.read_bytes())
@@ -50,11 +52,11 @@ halve = rv3 > 2 * rvmed
 veto = None
 if rsi5 >= 80 or rsi5 <= 20: veto = f"F1 RSI5={rsi5:.1f}"
 if abs(pret) > 1.5: veto = (veto + " & " if veto else "") + f"F2 prior-day {pret:+.2f}%"
-lots = int(0.75 * CAPITAL / MARGIN)
-if halve: lots = max(lots // 2, 0)
-
 spot_ltp = obj.ltpData("NSE", "Nifty 50", NIFTY_TOKEN)["data"]["ltp"]
 atm = round(spot_ltp / 50) * 50
+margin = spot_ltp * LOT * MARGIN_RATE   # dynamic per registered spec
+lots = int(0.75 * CAPITAL / margin)
+if halve: lots = max(lots // 2, 0)
 exp_str = today.strftime("%d%b%Y").upper()
 toks = {x["symbol"][-2:]: x["token"] for x in nifty_opts
         if x["expiry"] == exp_str and float(x["strike"]) / 100 == atm}
