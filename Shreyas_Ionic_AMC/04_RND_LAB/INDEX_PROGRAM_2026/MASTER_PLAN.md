@@ -187,3 +187,15 @@ Trials-ledger: +1 (stage-1 regression); stage-2 conditional, +1 if run.
 - Report: mean fwd return per quintile per k, top-minus-bottom spread in bps/day (spread_k / k), t-stat of daily spread series, era split (2018-21 vs 2022-26). Decision applies to the best k; multiple-k noted as 3 sub-trials on the ledger.
 - Output: results/B1_FII_FLOW_20260711/ with RUN_CARD.json (first run-card experiment) + scanner pre-run.
 **B1-CARD OUTCOME (2026-07-11, spec frozen pre-run @ b267854): KILL.** Best k=1: +18 bps/day top-bottom but t=2.09 < 2.5 bar; decays dead by k=3; non-monotonic quintiles; k=5 era-flips. Resurrection gated on: schema-normalized OI (recover 244 dropped days) + NEW pre-registered card on FII-minus-Client spread. Evidence: results/B1_FII_FLOW_20260711/ (first RUN_CARD.json experiment). Trials +3.
+
+### A4-CARD SPEC DETAIL (FROZEN 2026-07-11 in pre-run commit; decision bars unchanged from v1.1)
+**Question:** would S1-F's structure (short ATM straddle + 30% per-leg SL) have survived COVID at spec sizing, tested on the monthly proxy over 2011-2021.06 bhavcopy (data era with NO minute prints)?
+**Design (daily-granularity proxy, all prices = SETTLE_PR; leak-audit rules: never CLOSE, drop legs with SETTLE_PR<=0.05 or CONTRACTS==0 at entry; spot proxy = near-month FUTIDX settle as declared in LEAK_AUDIT_20260711 #2):**
+- Cycle: entry on first trading day after previous cycle expiry; vehicle = NIFTY expiry nearest to 30 calendar DTE within [20,45] at entry (keeps monthly cadence pre- and post-2019-weeklies).
+- Strike: closest strike to near-fut settle with BOTH legs tradeable at entry (settle>0.05, contracts>0).
+- SL: per-leg daily settle >= 1.30x entry settle -> exit that leg at NEXT day settle. Survivors exit at expiry-day settle.
+- Costs: 1 pt/leg one-way (max 4 legs) primary; 0.5%-of-premium alternative reported.
+- Sizing sim: Rs 10L start, margin = fut_settle x 75 x 0.15, lots = floor(0.75 x eq / margin), lot 75 uniform (declared simplification; historic lots differed), crash rule = halve lots when 3-day realized vol of fut settles > 2x its 1-yr rolling median.
+**FROZEN BARS (interpretation pinned):** KILL if (a) max per-lot drawdown within 2020-02-01..2020-06-30 > 3x the max per-lot drawdown of the entire 2011-2019 stretch, OR (b) full-period per-lot expectancy <= 0. Neither hit -> COVID-SURVIVABLE verdict (supports S1-F crash story; NOT a tradeable-strategy pass - monthly proxy differs from 0DTE).
+**Secondary (descriptive):** 2020 month-by-month path, equity-sim maxDD% at spec sizing, worst-5 cycles, era split, count of cycles skipped for missing/untradeable legs.
+Pre-run: ast_lookahead_scan + RUN_CARD.json with this freeze commit hash. Trials +1.
