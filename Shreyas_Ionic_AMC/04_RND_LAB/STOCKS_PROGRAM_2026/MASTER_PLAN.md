@@ -132,3 +132,11 @@ If CONFIRMED -> full red-team battery (stock-shuffle/date-shuffle/liquidity/2x-c
 ### DECEL-TRAP CARD (FROZEN 2026-07-12 pre-run) — Principal observation: high-PE + decelerating growth falls hard
 Universe PIT N500. Event: at available_date D, PE(TTM) > 60 AND TTM-growth path decelerates (prior TTM YoY >= 35% AND current TTM YoY < 20%). Measure forward 3m/6m/12m returns vs (a) matched high-PE stable-growth controls, (b) universe mean. Bars: TRAP CONFIRMED iff fwd-6m underperformance vs both controls > 5% with t >= 2.5 -> becomes (i) AVOID filter for all long sleeves, (ii) short/put candidate spec for F&O names. Trials +1.
 **DECEL-TRAP OUTCOME (2026-07-12, frozen @ 5b62915): NOT CONFIRMED — underpowered, direction agrees.** n=35 events only (PE>60 + 35%->20% decel is rare in PIT coverage era). fwd-6m: trap -3.1% vs universe +1.0% (-4.1% underperf, direction = Principal observation) but t=-0.47 vs stable-PE control — cannot certify at these thresholds. SIDE-FINDING: high-PE stable-growth ALSO lags universe (-1.3% vs +1.0% 6m) — expensiveness drags broadly. Disposition: observation stays a WATCHLIST heuristic (not a coded filter); revisit as NEW card iff (a) PMS study surfaces manager-consensus thresholds (wider PE band / different decel definition) or (b) fundamental coverage deepens. Trials +1.
+
+### BREAKOUT-PACK RED-TEAM CARD (FROZEN 2026-07-12 pre-run) — certification of the T-A ALIVE pack (book equity sleeve)
+Input: banked realistic_trades_SL10pct_20d_REGIME ledger (488 closed trades 2022-2025, +1.22%/trade). Battery:
+(1) STOCK-SHUFFLE x200: same entry DATES, random stage-2 member stock, same exit engine (10% SL / 20td cap) -> real must beat null95.
+(2) DATE-SHUFFLE x200: same per-trade calendar spacing, random stage-2 dates -> real must beat null95.
+(3) LIQUIDITY: median traded value of entered names >= Rs 5cr.
+(4) 2x-COST stress: mean stays positive at 50bps/side.
+CERTIFIED iff all four. NOT CERTIFIED -> pack demoted in stacked-book claims to "uncertified sleeve" until forward paper proves it (it remains Principal-audited but placebo-untested). Trials +1.
