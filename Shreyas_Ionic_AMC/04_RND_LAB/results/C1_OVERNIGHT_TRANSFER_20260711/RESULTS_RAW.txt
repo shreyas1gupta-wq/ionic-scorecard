@@ -1,0 +1,9 @@
+n=2798 days 2015-01-12..2026-05-15
+gap = +0.0469 + +0.2697*spxret (t=16.4) + -0.0092*dVIX (t=-1.0)
+R2 = 0.2151  |  FROZEN BAR: KILL if R2 < 0.15 (prior ~0.3)
+STAGE-1 VERDICT: PASS -> stage 2
+era split R2: 2015-19: 0.153 | 2020-22: 0.252 | 2023-26: 0.192
+STAGE 2: S1 days matched=258, vetoed=7
+  mean net all=+10.75 | after veto=+10.52 | vetoed days mean=+19.09
+  worst-10 removed by veto: 0/10 (lead bar: >=3 AND mean improves)
+STAGE-2 VERDICT: PARK

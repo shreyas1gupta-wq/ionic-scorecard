@@ -77,3 +77,17 @@ Rule: if it's not in here with path+range+bugs, it doesn't exist for research. C
 | nse_bhavcopy_daily (PERMANENT) | `datasets/nse_bhavcopy_daily/close_all.parquet` (+ puller script in 05_DATA_OFFICE/scripts, resume-safe) | EVERY NSE-listed stock's official close, 5,569,110 rows, 3,716 symbols, 2013-01-01->2026-07-03 | Official as-traded source; used as ground truth for splices + IPO dates (caught 14 bad membership-xlsx rows) | Coverage questions end here; candidate daily-append |
 | **pit_union_panel v1.1 (CANONICAL)** | `datasets/derived/pit_union_panel_v1/close_panel_{price,return}_v11.parquet` (v1 files unchanged — frozen-consumer md5s stay valid) | +126 bhavcopy-recovered names -> **ACHIEVABLE COVERAGE 2014+: 97.0-100%** (2016/2024/2025 = 100.0%); residuals fully named: SREINFRA (real NCLT discontinuity, quarantined not fudged), IISL (not a tradeable equity), UNKNOWN (data-entry artifact) | BUILD_REPORT.md v1.1; D-028 clean 0/0 | Use v11 for all NEW work; v1 for reproducing tonight's audited runs |
 | pit_union_panel_v1 (superseded for new work) | `datasets/derived/pit_union_panel_v1/close_panel_{price,return}.parquet` | Survivorship-complete daily closes 2005->2026: PRICE basis 2,511 symbols (HF+Delisted+Raw500) / RETURN basis 2,556 (HF core + ratio-spliced) | Ground-truth based (bhavcopy 94.8%); 9 corrupt segments quarantined; aliases standardized; N200 full-252d coverage 2006 71.8% / 2014 95.5% / 2018 97.0% (vs HF-alone 59.9/83.6/87.9) | THE equity close panels: price-basis for replication/levels, return-basis for backtests. BUILD_REPORT.md has full provenance |
+
+## D-033 ACQUISITION WAVE (2026-07-11) — all in 05_DATA_OFFICE/data/ unless noted; all D-009 spot-verified
+| Dataset | File(s) | Span | Source | Verification |
+|---|---|---|---|---|
+| SPX daily close | us_sp500_daily.parquet | 1975-01..2026-07, n=12,988 | cdn.cboe.com SPX_History | 2020-03-23=2237.40 exact; 2024-12-31=5881.63 exact |
+| CBOE vol suite daily | cboe_{vix,vix9d,vix3m,vix6m,vvix,skew}_daily.parquet | VIX 1990.., VVIX 2006.., SKEW 1990.., term 2008-11.. | cdn.cboe.com | VIX 2020-03-16=82.69 exact |
+| Fama-French 5 factors daily | ff5_daily.parquet | 1963-07..2026-05, n=15,833 | Ken French/Dartmouth | schema+span sane |
+| FF momentum daily | ff_mom_daily.parquet | 1926-11..2026-05, n=26,152 | Ken French/Dartmouth | schema+span sane |
+| Gold (XAUUSD) 1-min | commodities_1m/XAUUSD_1m_{2009..2025}.parquet | 2009-01..2025-12, ~5.9M rows | HF fokan/xauusd-2009-2026 (HistData MT4 mirror) | 2020-08 high 2075 OK; 2020-03 low 1451 OK. NOTE: no 2026 file despite dataset name; timezone = HistData EST, NOT IST |
+| BTC/ETH 1-min | crypto_1m/{BTCUSDT,ETHUSDT}_{yyyy}.parquet | 2018-01..2026-06 | data.binance.vision official dumps | IN PROGRESS (bg); verify BTC 2021-04 high ~64.8k on completion |
+| US stocks daily bulk | us_stocks_daily/train-*.parquet (4 shards, 530MB) | max avail (PWB) | HF paperswithbacktest/Stocks-Daily-Price | IN PROGRESS (bg); verify ticker count + AAPL on completion |
+| F&O bhavcopy index derivs | fo_bhavcopy_hist/fo_idx_{2011..2021}.parquet | 2011-01..2021-06 | nsearchives (old DERIVATIVES fmt) | IN PROGRESS (bg, ~2-3h); D-009 5-random-day check pending -> Kavya |
+
+**Blocked/parked routes (2026-07-11):** Stooq (JS anti-bot), FRED (proxy reset), Yahoo (429), iShares holdings (HTML), silver/copper 1-min (no free mirror found), Kaggle (needs API key from Principal), paperswithbacktest Commodities/Indices-Daily (gated=manual -> Principal: click "agree" on HF page to unlock silver/copper daily instantly).
