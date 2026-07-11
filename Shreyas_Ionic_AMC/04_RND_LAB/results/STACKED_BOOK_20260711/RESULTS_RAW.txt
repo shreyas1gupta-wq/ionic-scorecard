@@ -1,0 +1,12 @@
+STACKED BOOK Rs 1cr, 2022-01-04..2025-12-31 (4.0y)
+final equity Rs 18,643,979 | CAGR +16.9% | maxDD -19.2% | Sharpe 1.46
+sleeve contributions (Rs lakh): {'midsmall': 39.1, 'breakout': 25.6, 's1f': 4.4, 'b1b': 17.4}
+sleeve correlations:
+          midsmall  breakout   s1f   b1b
+midsmall      1.00      0.08 -0.01 -0.01
+breakout      0.08      1.00  0.00  0.05
+s1f          -0.01      0.00  1.00 -0.03
+b1b          -0.01      0.05 -0.03  1.00
+peak concurrent F&O margin needed: ~Rs 16L vs ~75L pledge collateral -> feasible
+NOTE: in-sample assembly of separately-validated sleeves; sleeve stage varies (S1-F/B1b gauntlet-passed;
+breakout/midsmall pre-red-team). Paper-first law applies to the BOOK exactly as to sleeves.
