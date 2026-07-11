@@ -149,3 +149,17 @@ Pre-registration with frozen kill bars BEFORE any run · trials ledger + DSR at 
 6. **Broker rails quantified** (extractor layer): Angel historical 3/s, 180/min, 5000/hr; 1-min depth 30d/request; orders ~9/s cumulative across place/modify/cancel per client code. Kotak Neo v2.0.2 SDK: zero API brokerage; accepts SL-M param but NSE blocks SL-M on index options -> ALL order templates use SL-Limit with protection band (Phase-0 #8 confirmed).
 7. **Refuted-claims ledger** (do not cite): Yang-Zhang-vs-close RV magnitude claims (0-3) and "2026 VRP regime flip to -4.63" (0-3) died adversarial verification. Both become in-house measurements: VRP sign check on our recent data is a trivial Phase-0 script.
 8. Remaining debt from this pass: 4 unverified Wiley/VIX claims (votes died on spend limit) + synthesis step. Re-verification is OPTIONAL - in-house tests (C2 card) supersede citation votes for decisions.
+
+### C2-CARD (FROZEN 2026-07-11, pre-registered BEFORE script run) — Day-night decomposition of short-straddle premium
+**Claim under test** (Wiley fut.22512, unverified lead): NIFTY option-seller returns are concentrated OVERNIGHT; intraday returns are negative.
+**Design** (script-only, existing data, no agents): for every trading day D in the 1-min chain (2021-06..2026-06), pick the nearest weekly expiry E > D (DTE>=1 so the contract survives the night). Two non-overlapping segments, ATM re-struck at each entry (strike = round(spot/50)x50):
+- INTRADAY(D): sell CE+PE at first 1-min close >=09:20, buy back at last print <=15:25 same day.
+- OVERNIGHT(D->D+1): sell CE+PE at last print <=15:25 on D, buy back at first close >=09:20 on D+1.
+No SL (raw premium measurement, not a strategy). Skip pair if any of the 4 prints missing; report skip count. Costs: GROSS is primary for the claim; net also shown at calibrated flat cost (1 pt/leg one-way, 2x before 09:30).
+**FROZEN BARS:**
+- LEAD (-> Structurer intake for overnight-hold variant): overnight mean > 0 AND t >= 2.5 AND overnight mean > intraday mean.
+- REFUTE (-> C2 CLOSED, claim does not transfer): overnight mean <= 0 OR t < 1.5.
+- Otherwise PARK (no follow-on trial). n < 400 pairs = INSUFFICIENT.
+- SECONDARY (descriptive only, no decision power): DTE buckets {1,2,3,4+}, weekend-gap split, jump-day exclusion (|overnight gap|>1%), year-by-year + 2026-YTD sign (in-house answer to refuted claim B.3 "2026 VRP flip").
+Trials-ledger: this is ONE registered trial (the primary full-sample overnight-vs-intraday comparison).
+**C2-CARD OUTCOME (2026-07-11, same-day): REFUTED — CLOSED.** Overnight gross +0.59 pts t=0.48 (REFUTE bar t<1.5); premium is INTRADAY-concentrated on our data (+4.75, t=3.39) — opposite of the Wiley claim. Mechanism: ex-jump nights collect +6.17 (t=9.7) but >1% gap nights take it all back (untradeable filter); weekends negative even gross; net of costs overnight −5.41 (t=−4.4). No overnight-hold intake; S1-F flat-EOD design vindicated. BONUS: 2026-YTD premium POSITIVE on our data (overnight +1.82 / intraday +2.80 gross) — refuted claim B.3 ("2026 VRP flip") now also contradicted in-house. Evidence: results/C2_DAYNIGHT_20260711/. Trials +1.

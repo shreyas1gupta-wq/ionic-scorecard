@@ -1,0 +1,50 @@
+
+==== GROSS (pts/segment) ====
+cut                                        n    mean      t     med   win%
+overnight ALL                           1224    0.59   0.48    5.52    64%
+overnight no-weekend                     930    2.78   2.49    5.47    65%
+overnight weekend-only                   294   -6.36  -1.75    5.90    60%
+overnight ex-jump |gap|>1%              1138    6.17   9.70    6.20    67%
+overnight DTE=1                          242    6.70   1.96    9.40    71%
+overnight DTE=2                          213    1.34   0.75    3.80    62%
+overnight DTE=3                          204    0.46   0.25    4.22    63%
+overnight DTE>=4                         565   -2.27  -1.14    5.15    61%
+intraday ALL                            1228    4.75   3.39   14.88    68%
+intraday no-weekend                     1228    4.75   3.39   14.88    68%
+intraday ex-jump |gap|>1%               1228    4.75   3.39   14.88    68%
+intraday DTE=1                           242    5.22   1.56   16.28    66%
+intraday DTE=2                           213    3.85   0.94   16.45    70%
+intraday DTE=3                           204    2.91   0.95   13.28    67%
+intraday DTE>=4                          569    5.56   2.94   14.30    68%
+---- by year (overnight | intraday, mean gross) ----
+2021: overnight   -2.66 (n=151) | intraday   +9.50 (n=151)
+2022: overnight   +1.58 (n=247) | intraday   +3.02 (n=247)
+2023: overnight   +0.50 (n=245) | intraday   +2.81 (n=245)
+2024: overnight   -0.09 (n=246) | intraday   +2.19 (n=246)
+2025: overnight   +1.91 (n=241) | intraday   +8.89 (n=243)
+2026: overnight   +1.82 (n=94) | intraday   +2.80 (n=96)
+
+==== NET (pts/segment) ====
+cut                                        n    mean      t     med   win%
+overnight ALL                           1224   -5.41  -4.43   -0.48    48%
+overnight no-weekend                     930   -3.22  -2.88   -0.53    48%
+overnight weekend-only                   294  -12.36  -3.40   -0.10    49%
+overnight ex-jump |gap|>1%              1138    0.17   0.26    0.20    51%
+overnight DTE=1                          242    0.70   0.20    3.40    60%
+overnight DTE=2                          213   -4.66  -2.61   -2.20    41%
+overnight DTE=3                          204   -5.54  -2.94   -1.78    44%
+overnight DTE>=4                         565   -8.27  -4.17   -0.85    47%
+intraday ALL                            1228   -1.25  -0.89    8.88    61%
+intraday no-weekend                     1228   -1.25  -0.89    8.88    61%
+intraday ex-jump |gap|>1%               1228   -1.25  -0.89    8.88    61%
+intraday DTE=1                           242   -0.78  -0.23   10.28    60%
+intraday DTE=2                           213   -2.15  -0.52   10.45    64%
+intraday DTE=3                           204   -3.09  -1.00    7.28    58%
+intraday DTE>=4                          569   -0.44  -0.23    8.30    61%
+---- by year (overnight | intraday, mean net) ----
+2021: overnight   -8.66 (n=151) | intraday   +3.50 (n=151)
+2022: overnight   -4.42 (n=247) | intraday   -2.98 (n=247)
+2023: overnight   -5.50 (n=245) | intraday   -3.19 (n=245)
+2024: overnight   -6.09 (n=246) | intraday   -3.81 (n=246)
+2025: overnight   -4.09 (n=241) | intraday   +2.89 (n=243)
+2026: overnight   -4.18 (n=94) | intraday   -3.20 (n=96)
