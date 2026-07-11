@@ -1,0 +1,29 @@
+{
+ "card": "B1b-CARD",
+ "frozen_commit": "4d9c6f1",
+ "run_ts": "2026-07-11T17:11:23",
+ "script": "b1b_spread.py",
+ "data": [
+  "participant_oi_normalized",
+  "kaggle NIFTY minute"
+ ],
+ "n_obs": 1803,
+ "metrics": {
+  "best_k": 1,
+  "spread_bps_day": 21.83,
+  "t": 2.53
+ },
+ "validation": {
+  "era_split": "era 2019-21: k=1 top-bot=+14.4 bps (n=736) || era 2022-26: k=1 top-bot=+27.6 bps (n=1067)",
+  "bootstrap_ci95": null,
+  "lookahead_ast": "pre-flight; construction locked to B1 (rolling-252, T+1)",
+  "one_day_lag": "T+1 by construction"
+ },
+ "verdict": "PASS bar -> Gate-4 spec next",
+ "bars_hit": [
+  "spread>=10bps/day",
+  "t>=2.5"
+ ],
+ "trials_increment": 3,
+ "token_cost_agents": 0
+}

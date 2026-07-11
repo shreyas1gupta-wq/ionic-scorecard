@@ -1,0 +1,7 @@
+n=1803 signal days 2019-01-08..2026-05-07
+k=1: q0=+0.6 q1=+4.7 q2=-4.1 q3=-1.7 q4=+22.5 | top-bot=+21.8 bps (+21.8/day), t=2.53
+k=3: q0=+22.0 q1=+3.7 q2=+15.7 q3=+5.8 q4=+21.3 | top-bot=-0.7 bps (-0.2/day), t=-0.05
+k=5: q0=+30.6 q1=+22.2 q2=+16.5 q3=+24.0 q4=+26.7 | top-bot=-3.8 bps (-0.8/day), t=-0.20
+era 2019-21: k=1 top-bot=+14.4 bps (n=736)
+era 2022-26: k=1 top-bot=+27.6 bps (n=1067)
+BEST k=1: +21.8 bps/day, t=2.53 -> VERDICT: PASS bar -> Gate-4 spec next
