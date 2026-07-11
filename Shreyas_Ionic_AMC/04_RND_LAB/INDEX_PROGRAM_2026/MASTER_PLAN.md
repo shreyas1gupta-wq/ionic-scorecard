@@ -138,3 +138,14 @@ Pre-registration with frozen kill bars BEFORE any run · trials ledger + DSR at 
 - **C1-CARD** Overnight transfer: regress NIFTY 09:15 gap on S&P close move + VIX change; then gap-conditioned S1-F veto v2. KILL if R2 < 0.15 (gap model) — literature prior says ~0.3.
 - **B2-CARD** Air-pocket monetization trio (leg-buyback overlay / futures MFT at 2-pt hurdle / A-family timing): one pre-registered test each, S1-F overlay first.
 ## Standing rule: max 12 registered trials in Phase 1; every card frozen in this file BEFORE its script runs.
+
+---
+## ADDENDUM v1.2 (2026-07-11) — Citation-pass corrections (evidence: RESEARCH_CITATIONS_20260711.md, run wf_95b6ba35-1dd, PARTIAL: 8 confirmed / 3 refuted / 4 leads)
+1. **Trials registry upgraded to PREREQUISITE** (confirmed 3-0, DSR paper SSRN 2460551): DSR at graduation gates is uncomputable without N/variance/T/skew/kurt of ALL trials. Phase-0 #9 is now blocking for any Gate-4 pass.
+2. **Holdout-touch counter added to embargo policy** (confirmed 3-0): ~20 holdout reuses at 95% conf makes false positives EXPECTED. New rule: every holdout window carries a touch-count; hard cap 5 touches, then the window is burnt (rolls forward).
+3. **Stream A priors quantified** (confirmed, SSRN 6530119): NIFTY VRP +1.208 vol pts mean gross / +1.131 median net, 74.9% positive days, 25.1% inversion, AR(1) 0.79. Pre-register A1-CARD expectations against these; deviation > 2x in our data = data-quality investigation before celebration.
+4. **Stream C gains a literature prior** (unverified leads, Wiley fut.22512): seller premium may be concentrated OVERNIGHT (intraday negative) and attenuates on jump days. NEW CHEAP CARD C2: day-night decomposition of short-straddle P&L on our own 1-min chain (script-only, no new data). If overnight dominates, S1's intraday-only design leaves premium on the table -> overnight-hold variant enters intake (subject to gap-risk sizing).
+5. **Data honesty dates pinned** (confirmed via news/forum + extractor): BANKNIFTY weeklies 2016-05-27, NIFTY weeklies 2019-02-11. Phase-0 #1/#2 scope corrected: pre-2019 NIFTY backfill is monthly-expiry only by construction.
+6. **Broker rails quantified** (extractor layer): Angel historical 3/s, 180/min, 5000/hr; 1-min depth 30d/request; orders ~9/s cumulative across place/modify/cancel per client code. Kotak Neo v2.0.2 SDK: zero API brokerage; accepts SL-M param but NSE blocks SL-M on index options -> ALL order templates use SL-Limit with protection band (Phase-0 #8 confirmed).
+7. **Refuted-claims ledger** (do not cite): Yang-Zhang-vs-close RV magnitude claims (0-3) and "2026 VRP regime flip to -4.63" (0-3) died adversarial verification. Both become in-house measurements: VRP sign check on our recent data is a trivial Phase-0 script.
+8. Remaining debt from this pass: 4 unverified Wiley/VIX claims (votes died on spend limit) + synthesis step. Re-verification is OPTIONAL - in-house tests (C2 card) supersede citation votes for decisions.
