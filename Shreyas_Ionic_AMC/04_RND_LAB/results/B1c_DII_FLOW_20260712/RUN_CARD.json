@@ -1,0 +1,20 @@
+{
+ "card": "B1c-CARD",
+ "frozen_commit": "83259ac",
+ "run_ts": "2026-07-11T21:44:48",
+ "script": "b1c_dii.py",
+ "n_obs": 374,
+ "metrics": {
+  "bps_per_trade": 26.5,
+  "t": 2.43
+ },
+ "verdict": "KILL",
+ "bars_hit": [
+  "expectancy>=8bps",
+  "beats_shuffle95",
+  "lag_decay",
+  "beats_randomdays95_t"
+ ],
+ "trials_increment": 1,
+ "token_cost_agents": 0
+}

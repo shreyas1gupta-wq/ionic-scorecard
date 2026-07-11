@@ -1,0 +1,5 @@
+B1c DII 5d-flow k=3: n=374, +26.5 bps/trade, t=2.43
+shuffle null95 +24.3 | lag+1 +26.3 (decay yes) | random-days t null95 2.31
+eras: 2019-22 +11.7 (n=205) | 2023-26 +44.4 (n=169)
+bars: expectancy>=8bps=P, t>=2.5=F, beats_shuffle95=P, lag_decay=P, beats_randomdays95_t=P
+VERDICT: KILL

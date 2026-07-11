@@ -55,3 +55,7 @@ Principal-triggered review ("check once again if we were too hard on them"). Fou
 **Root cause of the false +24.1%/Sharpe 1.26:** forge_engine methodology defects — (1) max_conc slot queue arbitrarily SELECTED a favorable trade subset; (2) stat_windows computed Sharpe on active-days-only (inflates sparse sleeves). BOTH now deprecated: all sleeve claims must use episode-level measurement + the 5-test battery.
 **Propagation:** ALL ALPHA_FORGE wave-A numbers carry the same defects — AF01 Sharpe 3.83 etc. are UNTRUSTED until episode-level re-measurement. Wave-A table demoted to leads-only.
 **Lesson (KB-grade):** the placebo-with-same-exits test is the ONLY reliable arbiter in drifting markets; engine-level portfolio simulations can manufacture edges from queue mechanics alone.
+
+## K-B1c-DII-flow (2026-07-12) — killed by 0.07 t on a certify-or-kill card
+**Killed by:** B1c-CARD (frozen @ 83259ac): t=2.43 vs 2.5 bar. 4/5 bars passed: +26.5 bps/trade (n=374), beat shuffle95 (+24.3), lag-decay present, beat random-days t-null (2.31), eras strengthening +11.7 -> +44.4. The single-shot card had no park by design (lattice family budget spent) - honored.
+**Resurrection condition (FORWARD DATA ONLY):** zero-size shadow ledger of the signal (daily DII 5d-flow rank, q>=0.8 -> 3d hold) accruing from now; re-decision after 60 forward signals. NO in-sample re-tests, NO threshold changes. The signal's t at n=374 is sample-limited; only new data can settle it.
