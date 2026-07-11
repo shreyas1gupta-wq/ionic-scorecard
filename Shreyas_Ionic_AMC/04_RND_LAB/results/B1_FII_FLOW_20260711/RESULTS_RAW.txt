@@ -1,0 +1,7 @@
+n=1803 signal days 2019-01-08..2026-05-07 (252d burn-in consumed 2018)
+k=1: quintile means (bps): q0=+2.4 q1=+1.2 q2=-7.8 q3=+6.9 q4=+20.4 | top-bot=+18.0 bps (+18.0/day), t=2.09, n_top=370, n_bot=355
+k=3: quintile means (bps): q0=+15.3 q1=+13.2 q2=+8.9 q3=+11.5 q4=+20.9 | top-bot=+5.6 bps (+1.9/day), t=0.38, n_top=370, n_bot=355
+k=5: quintile means (bps): q0=+25.8 q1=+24.0 q2=+26.7 q3=+19.2 q4=+23.8 | top-bot=-2.0 bps (-0.4/day), t=-0.11, n_top=370, n_bot=355
+era 2019-21: k=5 top-bot=-26.0 bps (n=736)
+era 2022-26: k=5 top-bot=+15.6 bps (n=1067)
+BEST k=1: +18.0 bps/day, t=2.09 -> VERDICT: KILL (bar: >=10 bps/day and t>=2.5)

@@ -1,0 +1,29 @@
+{
+ "card": "B1-CARD",
+ "frozen_commit": "b267854",
+ "run_ts": "2026-07-11T15:17:59",
+ "script": "b1_fii_flow.py",
+ "data": [
+  "participant_oi (catalog 2026-07-11)",
+  "kaggle NIFTY minute"
+ ],
+ "n_obs": 1803,
+ "metrics": {
+  "best_k": 1,
+  "spread_bps_day": 17.99,
+  "t": 2.09
+ },
+ "validation": {
+  "era_split": "era 2019-21: k=5 top-bot=-26.0 bps (n=736) || era 2022-26: k=5 top-bot=+15.6 bps (n=1067)",
+  "bootstrap_ci95": null,
+  "lookahead_ast": "14 advisory flags, all triaged FALSE-POSITIVE (fwd-index=outcome measurement post T+1 entry; mean/std=reporting stats)",
+  "one_day_lag": "n/a (T+1 by construction)"
+ },
+ "verdict": "KILL (bar: >=10 bps/day and t>=2.5)",
+ "bars_hit": [
+  "spread>=10bps/day",
+  "t>=2.5"
+ ],
+ "trials_increment": 3,
+ "token_cost_agents": 0
+}
