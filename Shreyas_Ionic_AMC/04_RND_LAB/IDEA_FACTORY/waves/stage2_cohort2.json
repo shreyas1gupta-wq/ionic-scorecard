@@ -1,0 +1,49 @@
+[
+ {
+  "id": "W2-F5-0177",
+  "name": "Nifty Smallcap 100 dow=0",
+  "source": "weekday flow patterns (expiry/settlement cycles)",
+  "asset": "index_daily",
+  "universe": "Nifty Smallcap 100",
+  "signal": [
+   {
+    "type": "seasonality_dow",
+    "params": {
+     "dow": 0
+    }
+   }
+  ],
+  "direction": "long",
+  "entry": "next_close",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 1
+   }
+  }
+ },
+ {
+  "id": "W2-F10-0264",
+  "name": "gold 2-down reversion",
+  "source": "gold dip-buying (central-bank bid)",
+  "asset": "gold_1m",
+  "universe": null,
+  "signal": [
+   {
+    "type": "consec_days",
+    "params": {
+     "k": 2,
+     "dir": "down"
+    }
+   }
+  ],
+  "direction": "long",
+  "entry": "next_close",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 5
+   }
+  }
+ }
+]
