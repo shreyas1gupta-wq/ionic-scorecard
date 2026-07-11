@@ -87,3 +87,18 @@ Identical signal layers and exits to TF-1 (frozen @ 47e8a00). Changes ONLY: (1) 
 **Window:** Oct-2022..Dec-2025 (intersection of sleeve ledgers; satisfies Principal 3y-window test). Costs already inside sleeve ledgers; overlay trading drag 2bps per 10% exposure change applied.
 **BARS:** DELIVERED iff CAGR >= 30% AND maxDD <= 10%. STRETCH flag at >= 40%. Report exact numbers regardless - no tuning pass permitted after seeing results (single-shot card). Trials +1.
 **EQ-MAX-CARD OUTCOME (2026-07-11, frozen @ 94786d2, single-shot honored): NOT DELIVERED.** EQ-MAX 22.8%/-12.7%/Sharpe 1.67; raw equal-weight beat the overlay (25.6%/-11.9%/1.80) - vol-targeting throttled 2023-24 up-legs as much as drawdowns on this already-gated mix. Sleeve corr: brk-tf1 0.50 (same family!), mid near-zero. 2025 negative for ALL stock sleeves (-5/-6%). **Frontier conclusion: stocks-only tops out ~Sharpe 1.8 with current sleeves -> 30/10 (MAR 3) is NOT reachable stocks-only; requires the cross-asset book at ~6-8 independent sleeves (Sharpe ~3.5). No tuning pass taken - a fished overlay grid could "show" 40/-8 and would be a lie.** Evidence: results/EQMAX_20260711/. Trials +1.
+
+### TECHNOFUNDA BATTERY (FROZEN 2026-07-12 pre-run) — Principal setups P1-P7 + mine M1-M4, episode-level law, PIT fundamentals (ratios_pit ROE/ROCE, TTM EPS/growth from unified PIT, scheduled earnings dates)
+Windows: discovery/validate 2016..2024-06, confirm/screen 2024-07..2026-06. Costs 25bps/side (futures-short cells 15bps). Entry next close. Per-setup placebo x200 = SAME exits on stage-matched random member entries. CELL PASS = validate mean > validate-placebo95 AND confirm same-sign AND n_validate >= 80. All cells logged.
+- P1 technofunda base-breakout (x3 exits: swing10-1%, swing20-1%, 50dma): ROE>=15 (PIT), TTM-NP YoY>=20%, PE<30 (C/TTM-EPS), +25% move in <=126d ending >=20d ago, 20d base range<=15%, entry on base-high break.
+- P2 cheap-growth momentum: PEG<1, growth accelerating, RS126 top-30%, 20d-high entry, 50dma/120td exit.
+- P3 pre-earnings rich-decel SHORT (futures proxy, top-150-liquidity names): PE>75 + TTM growth declining, enter short 3td before scheduled date, exit T+2 after. (Put variant deferred - needs option-chain join.)
+- P4 deep pullback in strong trend: avg(C/200dma)>1.2 over 60d, >=12% off 52w-high within 15d, RSI14<40 -> entry; exit 20d-high recapture / 8% stop / 30td.
+- P5 shakeout reclaim (x2: 50dma, 20dma): dma slope>+10%/yr, <=5 closes below then reclaim -> entry; swing10-1% trail / 60td.
+- P6 failed-breakout snapback: 55d-high breakout, SL-hit proxy (close < breakout-day low within 10d), reversal close back above breakout level within 7d, TTM growth>0 -> entry at reclaim; 50dma/8%/60td.
+- P7 earnings-guided momentum portfolio (x3 momentum: 3m+6m, 6m+12m, 3m): score = z(ROCE)+z(topline g)+z(bottomline g)+QoQ-rising-2q flag + z(momentum); top-20 EW monthly; portfolio metrics + random-20 placebo.
+- M1 PE-compression turn: TTM EPS +25% while price <=0% over 126d + 50dma reclaim -> 50dma/90td.
+- M2 acceleration chain: 3 rising QoQ NP -> entry 3rd available_date+1, exit next scheduled date -2td.
+- M3 confirmed-PEAD gap: reaction gap>+3% on available_date AND NP YoY>=25% -> buy D close, 20td/5% stop.
+- M4 leadership emergence: FIRST top-decile RS126 entry after >=252d absence + TTM growth>0 -> 60td/50dma.
+Trials +19. RUN_CARD per battery; episode-level engine only (forge trade_sleeve BANNED).
