@@ -160,3 +160,13 @@ Trials +7 (CA 1, CB 4, PMS1 2 arms). All portfolio-level, costs 25bps/side on tu
 Construction IDENTICAL to CA (frozen @ a752ec3, +14.1% beats placebo95 8.9%, churn 154%). ONE addition: at monthly review, if Nifty 50 < its 200DMA -> defensive mode: NO new entries AND exit any holding below its own 200dma (keep winners above their 200dma - consistent with the hold-winners doctrine). Exit defensive mode when index reclaims 200dma.
 **BARS:** DELIVERED-CLASS iff CAGR >= 12% AND maxDD <= 25% AND still beats placebo95 (regime-gated placebo, same gate applied). KILL iff CAGR < placebo mean. Trials +1.
 **CA2 OUTCOME (2026-07-12, frozen @ a0d8f33): PARK - family closed after sanctioned iteration.** CAGR 12.9% beats gated placebo95 (8.5%) but maxDD -48.8%: the index-200dma gate cannot catch grinding momentum-name bleed (2018 -21%, 2025 -16%) or winners collapsing post-run. CA-family verdict: SELECTION REAL (+4-6% over placebo, both versions), DRAWDOWN UNARMORED. Future path (new card, not now): hedge-overlay variant (index futures short in defensive mode - Principal-sanctioned) or inclusion as a SLEEVE inside a multi-sleeve book where other sleeves own the DD budget. No third in-sample iteration.
+
+### ADX-ATR BATTERY (FROZEN 2026-07-12 pre-run) — Principal ask; literature-standard params, one canonical each
+Episode-level; screen 2024-07..2026-06 / validate 2016..2024-06 (indices/gold: max data); same-exit placebo x200; costs index 8bps/gold 12bps/stocks 25bps per side. ADX = Wilder 14; chandelier = HH(22) - 3xATR(22).
+- X1 ADX TREND RIDER, Nifty 50: ADX>25 AND DI+>DI- (fresh cross or ADX crossing 25) -> long next close; exit chandelier or DI cross-down.
+- X2 same, Nifty Bank. X3 same, Nifty Midcap 100. X4 same, GOLD.
+- X5 ADX SHORT (index allowed), Nifty 50: ADX>25 AND DI->DI+ -> short; reverse chandelier (LL22 + 3xATR).
+- X6 LOW-ADX SQUEEZE, Nifty 50: ADX<20 for >=10d THEN close > 20d-high -> long; 2.5xATR trail from entry.
+- X7 ATR COMPRESSION BREAK, Nifty 50: ATR14/ATR100 < 0.75 AND close > 20d-high -> long; 2.5xATR trail.
+- X8 STOCKS LONG-HOLD RIDER: stage-2 + ADX>25 + DI+>DI- + close>20d-high -> long; chandelier 3xATR (expected multi-month holds); PIT universe.
+CELL PASS = validate mean > validate-placebo95 AND screen alpha same-sign (screen real - screen placebo mean > 0) AND n_val >= 60. Trials +8.
