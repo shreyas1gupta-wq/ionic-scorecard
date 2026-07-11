@@ -1,0 +1,18 @@
+# THE ALPHA THESIS — what 442 kills and 5 survivors actually prove (2026-07-12, think-hard synthesis)
+
+## The evidence, compressed
+DEAD (all of it): every price-pattern construction from public knowledge — breakouts (20/55/100/252d), reversion (RSI/z/N-down, stocks/gold/index), seasonality (dow/dom/ToM raw), gap plays, vol-expansion, exhaustion, intraday ORB in every costume. 442 samples across 3 asset classes, two-window tested. Not one certified.
+ALIVE (every one): S1-F (+10.7 pts/day t=3.9), B1b (+18.5bps/trade, survived 3-placebo red-team), AF-07 (+24.1%/1.26 on 8.5y untouched, uncertified), TF-1 selection layer (+2.10% vs +1.25% placebo), Principal's breakout pack (+1.22%/trade, 488 trades, pre-red-team).
+
+## WHY the survivors survive — three mechanisms, no exceptions found
+1. **STRUCTURAL PREMIUM + CONVEXITY MODIFIER.** S1-F earns a risk premium that must exist (sellers insure buyers) and manufactures its own tail-safety (30% SL turned -1.5 into +10.7 pts/day — A1's control experiment). The edge is not prediction; it is being PAID for a service while capping the service's worst case.
+2. **INFORMATION ASYMMETRY FROM PROPRIETARY DATA.** B1b reads positioning flows most retail cannot compute (normalized participant panel); PIT earnings dates enable event tests others cannot run honestly. The edge is having cleaner information, not smarter patterns.
+3. **PHASE-TRANSITION TIMING.** AF-07 buys the BIRTH of a trend (stage-1->2 turn), TF-1/breakout-pack buy confirmed regime changes with quality gates. Steady-state patterns are arbitraged flat; transitions are structurally hard to arbitrage because they are rare, heterogeneous, and require holding through ambiguity.
+**Corollary (the friction theorem):** at retail cost, an edge must be >=2x friction per round trip. Patterns visible in any charting app cannot sustain that (they are sold to retail as courses precisely because they no longer work). Mechanisms 1-3 can, because their scarcity is structural, informational, or psychological — not visual.
+
+## The directed campaign this implies (posterior-weighted, replaces undirected waves)
+- **V1 FLOW LATTICE (highest posterior — B1b already proved the vein):** systematic panel engine over participant-OI: {FII,DII,Pro,Client} x {fut-net, call-net, put-net, call-minus-put} x {level-rank, 1d-flow, 5d-flow} x fwd {1,3,5}d = pre-registered FAMILY of 144 cells, full-denominator logged, pass = cell survives BH-FDR(10%) within family AND untouched-window confirmation AND flow-shuffle placebo. One engine, one commit, no fishing (the grid IS the hypothesis: "positioning information predicts short-horizon returns; find which actor/instrument/transform carries it").
+- **V2 AF-07 CERTIFICATION + FAMILY SURFACE:** red-team the discovery (placebo-shares-exit x200, label shuffle, liquidity honesty vs volume, delisted handling, subperiods) THEN map 12 pre-declared neighbors (depth bands x volume gates x fundamental overlay) for FAMILY CONSISTENCY - a real phase-transition edge should be robust across its neighborhood; an artifact should spike at one cell.
+- **V3 EARNINGS INTERACTION LATTICE:** PIT surprise x technical state x reaction-gap grid (the T-E/AF-01/AF-08 signals all positive-both-windows individually — interactions are where the +1-2%/trade concentrates).
+- **V4 OPTION-STRUCTURE OVERLAYS (15y fo panel, untouched vein):** collar-financed stage-2 book, covered-call-on-momentum — hedging alpha the Principal sanctioned, converts equity sleeves' DD (the book's binding constraint) directly.
+Book math unchanged: every certified sleeve ~= +0.3 Sharpe to the stack; 30/10 needs ~8; current certified-or-near: 4-5.
