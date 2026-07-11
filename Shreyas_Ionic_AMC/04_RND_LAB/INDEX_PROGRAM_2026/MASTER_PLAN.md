@@ -212,3 +212,9 @@ Pre-run: ast_lookahead_scan + RUN_CARD.json with this freeze commit hash. Trials
 **FROZEN BARS:** ADOPT-as-v1.1-candidate (shadow only, D-030) iff (i) mean net >= baseline + 1.0 pt/day AND (ii) worst-10-day average improves >= 15 pts AND (iii) SL-hit-day mean improves. KILL overlay iff mean net < baseline. Otherwise PARK. Secondary (descriptive): trigger frequency, false-trigger cost on no-SL days, era split.
 Pre-run: ast scanner + RUN_CARD.json with this freeze hash. Trials +1.
 **B2-CARD OUTCOME (2026-07-11, frozen @ 9e82e72): KILL overlay — all 3 bars failed.** Delta -0.23 pts/day (bar +1.0); worst-10 +5.9 (bar +15); SL-day delta -0.16 (bar >0); no-SL-day drag -1.87. The T6 air-pocket control-group lead FAILS its required variant test: traverse is measurable but not monetizable as early leg-buyback (false triggers cost more than tail savings; by trigger time the 30% SL is near anyway). Trio tests #2/#3 (futures MFT, A-family timing) stay queued with WEAKENED prior, own cards required. Evidence: results/B2_AIRPOCKET_OVERLAY_20260711/. Trials +1.
+
+### B1b-CARD SPEC (FROZEN 2026-07-11 pre-run commit) — FII-minus-Client net-flow spread (B1 resurrection variant, LAST participant-flow trial)
+- Signal: SPREAD = (FII Future-Index net) − (Client Future-Index net), from normalized panel; FLOW = 1-day change of SPREAD. The "smart-vs-retail differential" — hedges out market-wide OI drift that plain FII flow carries.
+- Construction identical to B1 (declared, no new degrees of freedom): rolling-252 percentile rank, quintiles, T+1 close entry, forward k in {1,3,5}, kaggle NIFTY closes <=15:25.
+- **FROZEN BARS (same as B1):** top-minus-bottom >= 10 bps/day AND t >= 2.5 at the best k. FAIL -> the participant-flow stream CLOSES ENTIRELY (no third variant; both pre-registered constructions exhausted).
+- Pre-run: AST scan + RUN_CARD.json with freeze hash. Trials +3 (k sub-trials).

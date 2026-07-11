@@ -17,3 +17,6 @@
 The k=1 effect (+18 bps/day, t≈2.1) is a *lead, not noise-level zero*. Worth revisiting ONLY if: (a) participant-OI schema normalization (Kavya's format-break map) recovers the 244 dropped days AND (b) a pre-registered variant with client-type SPREADS (FII minus Client net flow — the "smart vs dumb money" differential) is written as a NEW card with fresh bars. No parameter fishing on this dataset outside that.
 
 Trials ledger: +3 (k = 1/3/5 as pre-declared sub-trials). First experiment with RUN_CARD.json emitted.
+
+## CORRECTION (2026-07-11, same day): the "244 unparseable rows dropped" line above is WRONG.
+Normalization pass found ZERO unparseable rows and ZERO value conflicts — the 244 were value-identical duplicate rows from the downloader's crashed first flush (drop_duplicates kept correct values). B1's panel was COMPLETE; the verdict stands unchanged. Resurrection condition (a) [recover dropped days] is therefore ALREADY SATISFIED — only condition (b) [FII-minus-Client spread as new card] remains, and runs next as B1b.
