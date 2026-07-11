@@ -1,0 +1,42 @@
+=== 1. SCHEMA + PER-SHARD METADATA ===
+  train-00000.parquet: 100,000,000 rows, 100 row groups, 1446.3 MB
+  train-00001.parquet: 100,000,000 rows, 100 row groups, 1468.5 MB
+  train-00002.parquet: 100,000,000 rows, 100 row groups, 1432.7 MB
+  train-00003.parquet: 100,000,000 rows, 100 row groups, 1406.0 MB
+  train-00004.parquet: 100,000,000 rows, 100 row groups, 1574.1 MB
+  train-00005.parquet: 100,000,000 rows, 100 row groups, 1427.8 MB
+  train-00006.parquet: 100,000,000 rows, 100 row groups, 1443.5 MB
+  train-00007.parquet: 13,452,456 rows, 14 row groups, 193.4 MB
+Schema: [{'name': 'symbol', 'type': 'large_string'}, {'name': 'timestamp', 'type': 'timestamp[us, tz=UTC]'}, {'name': 'open', 'type': 'float'}, {'name': 'high', 'type': 'float'}, {'name': 'low', 'type': 'float'}, {'name': 'close', 'type': 'float'}, {'name': 'volume', 'type': 'int64'}, {'name': 'oi', 'type': 'int64'}]
+Total rows (from parquet metadata, no data read): 713,452,456
+
+=== 2. COVERAGE SCAN (batched, timestamp+symbol only) ===
+  ... 50,000,000 rows scanned, 41s elapsed
+  ... 100,000,000 rows scanned, 88s elapsed
+  ... 150,000,000 rows scanned, 137s elapsed
+  ... 200,000,000 rows scanned, 177s elapsed
+  ... 250,000,000 rows scanned, 223s elapsed
+  ... 300,000,000 rows scanned, 268s elapsed
+  ... 350,000,000 rows scanned, 311s elapsed
+  ... 400,000,000 rows scanned, 358s elapsed
+  ... 450,000,000 rows scanned, 410s elapsed
+  ... 500,000,000 rows scanned, 457s elapsed
+  ... 550,000,000 rows scanned, 497s elapsed
+  ... 600,000,000 rows scanned, 535s elapsed
+  ... 650,000,000 rows scanned, 572s elapsed
+  ... 700,000,000 rows scanned, 609s elapsed
+Coverage scan done: 713,452,456 rows in 619s
+Min ts: 2022-01-03 03:45:00+00:00 Max ts: 2026-01-21 09:59:00+00:00
+Distinct symbols total: 2535
+Rows per year: {2022: 144096075, 2023: 154750837, 2024: 181994454, 2025: 219393779, 2026: 13217311}
+Distinct symbols per year: {2022: 1914, 2023: 2053, 2024: 2276, 2025: 2526, 2026: 2535}
+
+=== 3. LIQUID-NAME DEEP DIVE ===
+Deep-dive subset rows: 1,501,654
+  RELIANCE: {'n_rows': 375380, 'date_span': ['2022-01-03', '2026-01-21'], 'n_trading_days': 1006, 'minutes_per_day': {'mean': 373.1, 'median': 375.0, 'min': 60, 'max': 375, 'p05': 375.0, 'pct_days_lt_300min': 0.6, 'pct_days_eq_375_or_more': 98.81}, 'n_days_first_bar_before_0915': 0, 'pct_days_first_bar_before_0915': 0.0, 'n_flat_days_ohlc_locked': 0}
+  HDFCBANK: {'n_rows': 375424, 'date_span': ['2022-01-03', '2026-01-21'], 'n_trading_days': 1006, 'minutes_per_day': {'mean': 373.2, 'median': 375.0, 'min': 60, 'max': 375, 'p05': 375.0, 'pct_days_lt_300min': 0.6, 'pct_days_eq_375_or_more': 98.91}, 'n_days_first_bar_before_0915': 0, 'pct_days_first_bar_before_0915': 0.0, 'n_flat_days_ohlc_locked': 0}
+  TCS: {'n_rows': 375425, 'date_span': ['2022-01-03', '2026-01-21'], 'n_trading_days': 1006, 'minutes_per_day': {'mean': 373.2, 'median': 375.0, 'min': 60, 'max': 375, 'p05': 375.0, 'pct_days_lt_300min': 0.6, 'pct_days_eq_375_or_more': 98.91}, 'n_days_first_bar_before_0915': 0, 'pct_days_first_bar_before_0915': 0.0, 'n_flat_days_ohlc_locked': 0}
+  SBIN: {'n_rows': 375425, 'date_span': ['2022-01-03', '2026-01-21'], 'n_trading_days': 1006, 'minutes_per_day': {'mean': 373.2, 'median': 375.0, 'min': 60, 'max': 375, 'p05': 375.0, 'pct_days_lt_300min': 0.6, 'pct_days_eq_375_or_more': 98.91}, 'n_days_first_bar_before_0915': 0, 'pct_days_first_bar_before_0915': 0.0, 'n_flat_days_ohlc_locked': 0}
+
+Wrote C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\STOCKS_PROGRAM_2026\data_audit\audit_results.json
+=== DONE ===

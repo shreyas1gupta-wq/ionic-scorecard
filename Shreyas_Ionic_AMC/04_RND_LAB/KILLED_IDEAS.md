@@ -40,3 +40,8 @@ Principal-triggered review ("check once again if we were too hard on them"). Fou
 **Killed by:** B2-CARD pre-registered variant test (frozen @ 9e82e72), all 3 bars failed (delta -0.23 pts/day; worst-10 +5.9 vs +15 bar; SL-day -0.16). Source lead was T6 CONTROL-group find (+4.4 pts/30min t=3.94, low-OI strike crossings) — explicitly flagged full data-mining risk at intake; the required variant test did not confirm monetization.
 **Mechanism of failure:** early buyback surrenders decay on false triggers (-1.87 pts/day on no-SL days) and saves little on true ones (trigger fires when leg already >=10% underwater, i.e., close to the 30% SL anyway).
 **Resurrection conditions:** (a) futures-MFT construction (trade the traverse directly at 2-pt hurdle, NOT as an S1 exit) — own frozen card, weakened prior declared; or (b) A-family timing variant — own frozen card. NO re-tuning of trigger thresholds/OI deciles on this dataset (that would be fishing the same sample).
+
+## K-stock-meanrev-standalone (2026-07-11) — RSI3/zscore pullback buying in stage-2 uptrends
+**Killed by:** T-B-CARD (frozen @ e4de961), both cells: net -0.15%/-0.19% per trade, t=-4.8/-7.2, n=21k/30k, both eras negative, 2015-2026, PIT universe, 25bps/side. Short-hold (2-5d) mean reversion cannot cover retail swing costs in NIFTY500 names.
+**Residual:** +0.28% relative edge vs placebo (random stage-2 days, same exit) - the timing information is real, the standalone vehicle is dead (same class as ORB kills: signal real, vehicle dead on friction).
+**Resurrection:** entry-timing overlay on trades/investments already being made (zero marginal cost context) as a NEW pre-registered card. NO standalone re-tests at different RSI/z thresholds (t=-5 to -7 is not a tuning problem).

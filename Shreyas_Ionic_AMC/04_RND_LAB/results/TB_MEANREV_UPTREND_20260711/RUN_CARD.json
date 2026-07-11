@@ -1,0 +1,28 @@
+{
+ "card": "T-B-CARD",
+ "frozen_commit": "e4de961",
+ "run_ts": "2026-07-11T19:36:35",
+ "script": "tb_meanrev.py",
+ "data": [
+  "close_all",
+  "PIT NIFTY500 snapshots"
+ ],
+ "n_obs": 21343,
+ "metrics": {
+  "net_pct": -0.15,
+  "t": -4.82,
+  "placebo95_pct": -0.1
+ },
+ "validation": {
+  "era_split": "-0.30/-0.05",
+  "bootstrap_ci95": null,
+  "lookahead_ast": "pre-flight",
+  "one_day_lag": "entry next close after signal"
+ },
+ "verdict": "rsi3=KILL, z5=KILL",
+ "bars_hit": [
+  "n>=300"
+ ],
+ "trials_increment": 2,
+ "token_cost_agents": 0
+}

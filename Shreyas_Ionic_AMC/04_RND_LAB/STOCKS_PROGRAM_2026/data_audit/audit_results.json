@@ -1,0 +1,193 @@
+{
+  "generated_at": "2026-07-11 18:10:47",
+  "shards": [
+    {
+      "file": "train-00000.parquet",
+      "size_mb": 1446.3,
+      "num_rows": 100000000,
+      "num_row_groups": 100
+    },
+    {
+      "file": "train-00001.parquet",
+      "size_mb": 1468.5,
+      "num_rows": 100000000,
+      "num_row_groups": 100
+    },
+    {
+      "file": "train-00002.parquet",
+      "size_mb": 1432.7,
+      "num_rows": 100000000,
+      "num_row_groups": 100
+    },
+    {
+      "file": "train-00003.parquet",
+      "size_mb": 1406.0,
+      "num_rows": 100000000,
+      "num_row_groups": 100
+    },
+    {
+      "file": "train-00004.parquet",
+      "size_mb": 1574.1,
+      "num_rows": 100000000,
+      "num_row_groups": 100
+    },
+    {
+      "file": "train-00005.parquet",
+      "size_mb": 1427.8,
+      "num_rows": 100000000,
+      "num_row_groups": 100
+    },
+    {
+      "file": "train-00006.parquet",
+      "size_mb": 1443.5,
+      "num_rows": 100000000,
+      "num_row_groups": 100
+    },
+    {
+      "file": "train-00007.parquet",
+      "size_mb": 193.4,
+      "num_rows": 13452456,
+      "num_row_groups": 14
+    }
+  ],
+  "schema": [
+    {
+      "name": "symbol",
+      "type": "large_string"
+    },
+    {
+      "name": "timestamp",
+      "type": "timestamp[us, tz=UTC]"
+    },
+    {
+      "name": "open",
+      "type": "float"
+    },
+    {
+      "name": "high",
+      "type": "float"
+    },
+    {
+      "name": "low",
+      "type": "float"
+    },
+    {
+      "name": "close",
+      "type": "float"
+    },
+    {
+      "name": "volume",
+      "type": "int64"
+    },
+    {
+      "name": "oi",
+      "type": "int64"
+    }
+  ],
+  "total_rows_from_metadata": 713452456,
+  "global_min_timestamp": "2022-01-03 03:45:00+00:00",
+  "global_max_timestamp": "2026-01-21 09:59:00+00:00",
+  "distinct_symbols_total": 2535,
+  "rows_per_year": {
+    "2022": 144096075,
+    "2023": 154750837,
+    "2024": 181994454,
+    "2025": 219393779,
+    "2026": 13217311
+  },
+  "distinct_symbols_per_year": {
+    "2022": 1914,
+    "2023": 2053,
+    "2024": 2276,
+    "2025": 2526,
+    "2026": 2535
+  },
+  "timestamp_dtype_observed": "datetime64[us, UTC]",
+  "liquid_name_deep_dive": {
+    "RELIANCE": {
+      "n_rows": 375380,
+      "date_span": [
+        "2022-01-03",
+        "2026-01-21"
+      ],
+      "n_trading_days": 1006,
+      "minutes_per_day": {
+        "mean": 373.1,
+        "median": 375.0,
+        "min": 60,
+        "max": 375,
+        "p05": 375.0,
+        "pct_days_lt_300min": 0.6,
+        "pct_days_eq_375_or_more": 98.81
+      },
+      "n_days_first_bar_before_0915": 0,
+      "pct_days_first_bar_before_0915": 0.0,
+      "n_flat_days_ohlc_locked": 0
+    },
+    "HDFCBANK": {
+      "n_rows": 375424,
+      "date_span": [
+        "2022-01-03",
+        "2026-01-21"
+      ],
+      "n_trading_days": 1006,
+      "minutes_per_day": {
+        "mean": 373.2,
+        "median": 375.0,
+        "min": 60,
+        "max": 375,
+        "p05": 375.0,
+        "pct_days_lt_300min": 0.6,
+        "pct_days_eq_375_or_more": 98.91
+      },
+      "n_days_first_bar_before_0915": 0,
+      "pct_days_first_bar_before_0915": 0.0,
+      "n_flat_days_ohlc_locked": 0
+    },
+    "TCS": {
+      "n_rows": 375425,
+      "date_span": [
+        "2022-01-03",
+        "2026-01-21"
+      ],
+      "n_trading_days": 1006,
+      "minutes_per_day": {
+        "mean": 373.2,
+        "median": 375.0,
+        "min": 60,
+        "max": 375,
+        "p05": 375.0,
+        "pct_days_lt_300min": 0.6,
+        "pct_days_eq_375_or_more": 98.91
+      },
+      "n_days_first_bar_before_0915": 0,
+      "pct_days_first_bar_before_0915": 0.0,
+      "n_flat_days_ohlc_locked": 0
+    },
+    "SBIN": {
+      "n_rows": 375425,
+      "date_span": [
+        "2022-01-03",
+        "2026-01-21"
+      ],
+      "n_trading_days": 1006,
+      "minutes_per_day": {
+        "mean": 373.2,
+        "median": 375.0,
+        "min": 60,
+        "max": 375,
+        "p05": 375.0,
+        "pct_days_lt_300min": 0.6,
+        "pct_days_eq_375_or_more": 98.91
+      },
+      "n_days_first_bar_before_0915": 0,
+      "pct_days_first_bar_before_0915": 0.0,
+      "n_flat_days_ohlc_locked": 0
+    },
+    "TATAMOTORS": {
+      "error": "NO ROWS FOUND"
+    }
+  },
+  "preopen_examples": [],
+  "circuit_lock_examples": []
+}
