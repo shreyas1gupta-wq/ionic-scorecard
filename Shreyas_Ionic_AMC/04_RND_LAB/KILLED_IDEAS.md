@@ -49,3 +49,9 @@ Principal-triggered review ("check once again if we were too hard on them"). Fou
 ## K-postbreakout-orb (2026-07-11) — ORB 5/15min in stocks during post-breakout weeks (Principal idea)
 **Killed by:** T-C-CARD (frozen @ 4692e17): gross -11.1 bps/trade BEFORE costs (t=-16.3 net, n=6,646, 2022-2026 minute data, PIT breakout events from audited scan). Overnight-hold variant noise (t=0.54, era-flip). The hypothesis (breakout stocks trend harder intraday) is BACKWARDS in the data: they fade opening-range triggers during the post-breakout weeks.
 **Family closure:** with the 07-07 basket kills + puts vehicle + this, intraday ORB on Indian stocks is killed across universes, windows, stops, vehicles, and event-conditioning. Resurrection bar: a construction with POSITIVE GROSS edge >= 40bps demonstrated first on new data (not parameter reshuffles).
+
+## K-AF07-stage-turn (2026-07-12) — the red-team killing its own discovery
+**Killed by:** AF-07 certification battery. Honest episode-level re-measurement: -0.28%/trade (n=348, ALL signals) vs stock-shuffle placebo +1.64% and date-shuffle placebo +4.05% — the turn signal is WORSE than random entries with the same exits. 3/8 years positive. 
+**Root cause of the false +24.1%/Sharpe 1.26:** forge_engine methodology defects — (1) max_conc slot queue arbitrarily SELECTED a favorable trade subset; (2) stat_windows computed Sharpe on active-days-only (inflates sparse sleeves). BOTH now deprecated: all sleeve claims must use episode-level measurement + the 5-test battery.
+**Propagation:** ALL ALPHA_FORGE wave-A numbers carry the same defects — AF01 Sharpe 3.83 etc. are UNTRUSTED until episode-level re-measurement. Wave-A table demoted to leads-only.
+**Lesson (KB-grade):** the placebo-with-same-exits test is the ONLY reliable arbiter in drifting markets; engine-level portfolio simulations can manufacture edges from queue mechanics alone.
