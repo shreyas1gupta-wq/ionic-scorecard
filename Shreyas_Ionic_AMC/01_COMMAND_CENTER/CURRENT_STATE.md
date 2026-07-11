@@ -1,5 +1,14 @@
 # CURRENT STATE — read me first (updated every session end)
-**As of: 2026-07-13, by DESK-100 — CA-COLLAR + CA-BOOK cards resolved, D-034 ruling logged, correlation-horizon artifact banked; prior states below still current**
+**As of: 2026-07-13 (loop day), by DESK-100 — 10 cards/rulings adjudicated, 2 new landmines, wave-B closed, trials 249; prior states below still current**
+
+## 2026-07-13 LOOP-DAY CONSOLIDATION (read this before starting new research)
+- **Verdicts today (all pre-registered, freeze-commit-before-run):** CA-COLLAR NOT ARMORED (KB 25); CA-BOOK REGIME-PARK (KB 25a); GOLD-TREND NOT ADOPTED (1/4, GT-2 DENIED by Nikhil, signed-corr template fix); P1-R NOT-ADJUDICABLE (PIT landmine); Var-B red-team SURVIVES-AS-BETA (invested-days alpha t=0.16); breakout caveat de-staled (was already NOT CERTIFIED); VBT NOT ADOPTED (1/4; VIX-gate dominance = reusable component); TOM-VIX NOT ADOPTED 0/4 (post-pub decay caught in-house); PMS2-GARP ALL FAIL ~20pts below random (managers' alpha = uncodable gates; PMS #3/#4 parked pre-spend); decel-trap F&O put struck (existence test had failed).
+- **NEW LANDMINES:** (a) PIT coverage — unified available_date ~zero pre-2020, growth panels live ~2022+; ALL fundamentals validation is 2022+ until Kavya sources pre-2020 quarterly announcements (BSE archive/NSE XBRL — OPEN TASK). (b) Correlation horizon — daily sleeve corr is an artifact; monthly/quarterly is the truth (stacked-book 0.08 daily -> 0.53 quarterly; only S1-F orthogonal in worst months). Frontier consequence: new sleeves must be DIFFERENT-FACTOR; equity variants cap Sharpe multiplier ~1.7x.
+- **HONEST BOOK STATE:** 2 certified alphas (S1-F, B1b) + 2 labeled betas (midsmall Var-B w/ binding conditions, breakout). Zero red-team debt. Shadows in flight: P6 snapback, B1c DII-flow, S1-SX Thursday.
+- **Wave-B CLOSED:** DII->B1c shadow; VIX-breadth->VBT killed; ToM->killed; INR-gold->data-ready (USDINR cataloged) but GT-2-fenced; filing-time->uncodable at date-precision, component-parked.
+- **Reusable design components banked:** VIX-252d-percentile gate (VBT evidence); signed-corr bar (template law); growth-quality ranking requirements for any future fundamentals card (20-60% band, base-effect exclusion, QoQ trend).
+- **D-034 (Principal):** portfolio-level adjudication — good sleeves may carry >25% standalone MDD if book contribution/XIRR/regime value is real; frozen-card bars still bind their own cards.
+- Open forward engines: S1-F Tue 09:12, S1-SX Thu 09:14, IC-B1b Mon 09:33. Trials ledger 249.
 
 ## 2026-07-13 snapshot
 - **D-034 (Principal): portfolio-level adjudication** — a good sleeve may carry >25% standalone MDD / lower CAGR-Sharpe if book contribution, XIRR, or regime-specific value is real. Frozen-card bars still bind their own verdicts.
