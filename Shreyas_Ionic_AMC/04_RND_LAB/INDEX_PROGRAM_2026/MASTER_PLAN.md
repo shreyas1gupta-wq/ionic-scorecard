@@ -219,3 +219,14 @@ Pre-run: ast scanner + RUN_CARD.json with this freeze hash. Trials +1.
 - **FROZEN BARS (same as B1):** top-minus-bottom >= 10 bps/day AND t >= 2.5 at the best k. FAIL -> the participant-flow stream CLOSES ENTIRELY (no third variant; both pre-registered constructions exhausted).
 - Pre-run: AST scan + RUN_CARD.json with freeze hash. Trials +3 (k sub-trials).
 **B1b-CARD OUTCOME (2026-07-11, frozen @ 4d9c6f1): PASS — first alpha-stream pass of the program.** FII-minus-Client spread flow, k=1: +21.8 bps/day t=2.53 (bar 10/2.5), era-consistent AND strengthening (+14.4 -> +27.6). Caveats declared: razor-thin t, 2-construction selection (6 cells on ledger), 1-day effect, q4-conditional. -> Gate-4 spec (Arjun/Sameer/Nikhil) = next pipeline stage. Evidence: results/B1b_FII_CLIENT_SPREAD_20260711/. Trials +3.
+
+### B1b GATE-4 SPEC (FROZEN 2026-07-11 pre-run commit) — costed strategy test of the spread-flow pass
+**Strategy (locked, long-only per cheap-test structure — q0 was not significantly negative):** when spread-flow quintile (rolling-252 rank, T+1 as in B1b) == 4: LONG 1x NIFTY notional at close(D+1), exit close(D+2). No overlap/pyramiding (consecutive q4 days chain into consecutive 1-day holds). Execution proxy: index close prices (futures basis noise declared neutral); costs = 4 bps round trip all-in (futures slippage + charges; harsher than Zerodha-class actuals).
+**FROZEN GATE-4 BARS (ALL must hold):**
+1. Net annualized Sharpe >= 1.0 (daily series over ALL calendar days, idle days = 0, sqrt-252).
+2. Net expectancy per trade >= 2x round-trip cost (>= 8 bps).
+3. Max drawdown (on 1x notional equity) <= 15%.
+4. Era split: both halves (2019-22 / 2023-26) net-positive.
+5. DSR report with N=7 family cells (B1 k3 + B1b k3 + this) — reported, threshold deferred to Sameer.
+FAIL any of 1-4 -> B-spread-flow stream DEMOTED to watch-list (no further trials on this sample). PASS -> red-team (Nikhil) + sensitivity (Sameer) before any register entry — NOT autoadvance.
+Trials +1. RUN_CARD with this freeze hash.
