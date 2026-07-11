@@ -1,0 +1,25 @@
+{
+ "card": "B2-CARD",
+ "frozen_commit": "9e82e72",
+ "run_ts": "2026-07-11T16:57:44",
+ "script": "b2_airpocket_overlay.py",
+ "data": [
+  "NIFTY 1-min option chain incl open_interest (3-bar lag)"
+ ],
+ "n_obs": 259,
+ "metrics": {
+  "delta_mean": -0.23,
+  "worst10_delta": 5.9,
+  "sl_day_delta": -0.16
+ },
+ "validation": {
+  "era_split": "see CSV",
+  "bootstrap_ci95": null,
+  "lookahead_ast": "pre-flight run; OI 3-bar lag enforced in construction",
+  "one_day_lag": "n/a intraday"
+ },
+ "verdict": "KILL overlay",
+ "bars_hit": [],
+ "trials_increment": 1,
+ "token_cost_agents": 0
+}
