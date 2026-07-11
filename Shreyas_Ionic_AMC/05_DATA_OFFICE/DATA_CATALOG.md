@@ -87,8 +87,9 @@ Rule: if it's not in here with path+range+bugs, it doesn't exist for research. C
 | FF momentum daily | ff_mom_daily.parquet | 1926-11..2026-05, n=26,152 | Ken French/Dartmouth | schema+span sane |
 | Gold (XAUUSD) 1-min | commodities_1m/XAUUSD_1m_{2009..2025}.parquet | 2009-01..2025-12, ~5.9M rows | HF fokan/xauusd-2009-2026 (HistData MT4 mirror) | 2020-08 high 2075 OK; 2020-03 low 1451 OK. NOTE: no 2026 file despite dataset name; timezone = HistData EST, NOT IST |
 | BTC/ETH 1-min | crypto_1m/{BTCUSDT,ETHUSDT}_{yyyy}.parquet | 2018-01..2026-06 | data.binance.vision official dumps | VERIFIED 2026-07-11: BTC 2021-04 high 64,854 OK; 2018-01..2026-06 both symbols, 291MB/18 yearly files |
-| US stocks daily bulk | us_stocks_daily/train-*.parquet (4 shards, 530MB) | max avail (PWB) | HF paperswithbacktest/Stocks-Daily-Price | VERIFIED 2026-07-11: 25.8M rows, 7,693 tickers, 1962-01..2026-07-08, AAPL 11,481 rows, adj_close present |
+| US stocks daily bulk | us_stocks_daily/train-*.parquet (4 shards, 530MB) | max avail (PWB) | HF paperswithbacktest/Stocks-Daily-Price | VERIFIED 2026-07-11: 25.8M rows, 7,693 tickers, 1962-01..2026-07-08, adj_close present. **LANDMINE: SURVIVORSHIP-BIASED** - only 2/7693 tickers end pre-2025; Enron/Lehman/WorldCom/YHOO/TWTR/SIVB all absent. Valid: current-universe screens, factor structure, recent studies. INVALID: long-horizon stock-picking backtests. Survivorship-clean US = CRSP/Sharadar (paid) or partial Kaggle sets (needs key) |
 | F&O bhavcopy index derivs | fo_bhavcopy_hist/fo_idx_{2011..2021}.parquet | 2011-01..2021-06 | nsearchives (old DERIVATIVES fmt) | IN PROGRESS (bg, ~2-3h); D-009 5-random-day check pending -> Kavya |
 
 **Blocked/parked routes (2026-07-11):** Stooq (JS anti-bot), FRED (proxy reset), Yahoo (429), iShares holdings (HTML), silver/copper 1-min (no free mirror found), Kaggle (needs API key from Principal), paperswithbacktest Commodities/Indices-Daily (gated=manual -> Principal: click "agree" on HF page to unlock silver/copper daily instantly).
+
 
