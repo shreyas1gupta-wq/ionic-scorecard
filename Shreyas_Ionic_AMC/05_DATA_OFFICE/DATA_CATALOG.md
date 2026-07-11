@@ -106,4 +106,5 @@ Rule: if it's not in here with path+range+bugs, it doesn't exist for research. C
 |---|---|---|---|---|
 | BSE F&O bhavcopy (index derivs UDiFF) | bse_fo_bhavcopy/bse_fo_{2023..2026}.parquet | 2023-05..today, 622 days | bseindia.com official UDiFF | 2026: 92,087 SENSEX option rows / 34 expiries; SX1 study consumed it same-day |
 | NSE all-indices daily close (incl India VIX OHLC, P/E, P/B) | indices_close/indices_{yyyy}.parquet | 2011..today | archives.nseindia.com ind_close_all | IN PROGRESS (bg); verify India VIX COVID peak on completion |
-| NSE F&O bhavcopy extension | fo_bhavcopy_hist/fo_idx_{2021..2026}.parquet | 2021-07..today (old + UDiFF normalized) | nsearchives | IN PROGRESS (bg); closes Kavya 30-DTE ticket |
+| NSE F&O bhavcopy extension | fo_bhavcopy_hist/fo_idx_{2021..2026}.parquet | 2021-07..today (old + UDiFF normalized) | nsearchives | VERIFIED 2026-07-11 night: 16 yearly files 2011-2026 COMPLETE (744 old-fmt + 501 UDiFF days, 0 err). Kavya 30-DTE ticket CLOSED-WITH-CAVEAT: gap was partly MARKET reality - weekly-era monthlies trade ~16 strikes near ATM (160 listed) - fine for ATM studies, thin for wings/spreads |
+
