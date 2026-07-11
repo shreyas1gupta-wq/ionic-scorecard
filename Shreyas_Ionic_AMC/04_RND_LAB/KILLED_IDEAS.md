@@ -59,3 +59,8 @@ Principal-triggered review ("check once again if we were too hard on them"). Fou
 ## K-B1c-DII-flow (2026-07-12) — killed by 0.07 t on a certify-or-kill card
 **Killed by:** B1c-CARD (frozen @ 83259ac): t=2.43 vs 2.5 bar. 4/5 bars passed: +26.5 bps/trade (n=374), beat shuffle95 (+24.3), lag-decay present, beat random-days t-null (2.31), eras strengthening +11.7 -> +44.4. The single-shot card had no park by design (lattice family budget spent) - honored.
 **Resurrection condition (FORWARD DATA ONLY):** zero-size shadow ledger of the signal (daily DII 5d-flow rank, q>=0.8 -> 3d hold) accruing from now; re-decision after 60 forward signals. NO in-sample re-tests, NO threshold changes. The signal's t at n=374 is sample-limited; only new data can settle it.
+
+## K-adx-atr-family (2026-07-12) — 8 constructions, 0 pass
+**Killed by:** ADX-ATR battery (frozen @ de0cc36), literature-standard Wilder-14/chandelier params, same-exit placebos x100-200. Indices/gold/short/squeeze/compression at-or-below placebo; stocks long-hold (n=14,666) shows ADX-confirmation entries earn HALF of random stage-2 entries with identical exits.
+**Mechanism:** ATR trails are good EXITS (credit belongs to the exit); ADX entry gating buys extended and is negative selection. **Reusable lesson: any "trend confirmation" entry filter must beat the same-exit placebo, and this one never has.**
+**Resurrection:** none for ADX-entry constructions; ATR-exit components remain free to use inside other systems (no re-test needed - they are exits, not signals).
