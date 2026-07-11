@@ -1,0 +1,6 @@
+real: +18.5 bps/trade net, Sharpe 1.15, n=372
+P1 shuffle x200: null mean +0.5, 95th pct +8.8 -> real at 100th pct
+P2 extra-lag: -8.5 bps (real +18.5; decay expected if information is timely)
+P3 random-days x200: null Sharpe 95th pct 0.61 -> real at 100th pct
+S sensitivity: 18/18 cells net-positive; worst cell +6.9 bps (win/edge/cost=[200.0, 0.75, 8.0])
+VERDICT: RED-TEAM SURVIVED

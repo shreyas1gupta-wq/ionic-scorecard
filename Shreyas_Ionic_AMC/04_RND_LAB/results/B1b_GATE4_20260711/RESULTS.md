@@ -20,3 +20,10 @@ Total net return +94% over 7.4 years at 1× notional, 59% win rate, median +16 b
 Next stage before any register entry: **red-team placebo battery** (signal shuffle ×200, extra-lag degradation, frequency-matched random-days control) + **sensitivity surface** (rank window, quintile edge, cost 4→8 bps, entry timing) — both scriptable; then IC review. Paper-first per firm law regardless.
 
 Trials +1 (ledger).
+
+## RED-TEAM + SENSITIVITY (same day, battery pinned in b1b_redteam.py header): **SURVIVED**
+- P1 label-shuffle x200: real +18.5 bps at 100th pct (null 95th: +8.8).
+- P2 extra-lag: -8.5 bps — signal decays with lag exactly as timely information should (artifacts persist).
+- P3 frequency-matched random days x200: real Sharpe 1.15 at 100th pct (null 95th: 0.61).
+- Sensitivity 18/18 cells net-positive (rank-window x edge x cost); worst +6.9 bps at [200d, top-25%, 8bps].
+**Stream status: cheap-test PASS -> Gate-4 PASS -> red-team SURVIVED. Next per pipeline: IC review (CIO+FM, needs agent window) -> paper-first with pre-registered kills. NO autoadvance.**
