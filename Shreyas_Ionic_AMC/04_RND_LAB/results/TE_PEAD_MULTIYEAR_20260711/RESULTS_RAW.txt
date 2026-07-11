@@ -1,0 +1,8 @@
+events gated+traded: 1235 | live(non-censored): 1230 | censored: 5
+B1 (>=100% YoY): 933 | B2 (turnaround): 297
+net ret/trade (DMA50): +3.48% | DMA20 secondary: +0.87%
+EXCESS over control: +1.24%/trade, t=2.54 (bars: t>=2.5, n>=300)
+eras: 2015-20 +nan% (t=nan, n=1) | 2021-26 +1.25% (t=2.6, n=1229)
+placebo x200: null mean +2.14%, 95th +4.70% vs real raw +3.48%
+bars: t>=2.5=PASS, n>=300=PASS, eras_both_pos=FAIL, beat_placebo95=FAIL
+VERDICT: KILL
