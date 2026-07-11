@@ -1,0 +1,12 @@
+date,family,n_trials,verdict,source,kind
+2026-07-07,OPT-SWEEP-50 phase 1,26,"closed early, nothing cleared bar",results/OPT_SWEEP50_PHASE1_20260707/PHASE1_SYNTHESIS.md,curated
+2026-07-07,misc campaigns 07-07 (meanrev/ORB/PEAD/scalping/sweeps),30,all killed,results/*_20260707 dirs,curated
+2026-07-10,S1 sensitivity surface,84,plateau check (72/84 positive),results/SELLSIDE_20260710/s1_sensitivity/,curated
+2026-07-10,buy-side last-3h battery + indicator screen,18,all killed (K-001 extension),results/BUYSIDE_LAST3H_20260710/,curated
+2026-07-10,cheap-test battery T1-T10 + FVG + scalp-V7,12,all killed/blocked->killed,results/CHEAPTEST_SPEC_20260710/VERDICTS.md,curated
+2026-07-10,"sell-side battery (S1/S2 grids, condor, defense, filters)",45,S1 family pass; rest killed,results/SELLSIDE_20260710/,curated
+2026-07-11,A4-CARD,1,COVID-SURVIVABLE,Shreyas_Ionic_AMC\04_RND_LAB\results\A4_COVID_REPLICATION_20260711\RUN_CARD.json,run_card
+2026-07-11,B1-CARD,3,KILL (bar: >=10 bps/day and t>=2.5),Shreyas_Ionic_AMC\04_RND_LAB\results\B1_FII_FLOW_20260711\RUN_CARD.json,run_card
+2026-07-11,B1b-CARD,3,PASS bar -> Gate-4 spec next,Shreyas_Ionic_AMC\04_RND_LAB\results\B1b_FII_CLIENT_SPREAD_20260711\RUN_CARD.json,run_card
+2026-07-11,B2-CARD,1,KILL overlay,Shreyas_Ionic_AMC\04_RND_LAB\results\B2_AIRPOCKET_OVERLAY_20260711\RUN_CARD.json,run_card
+2026-07-11,cards C2/A1/C1 (pre-run-card standard),6,refuted/closed/pass-park,"results/{C2_DAYNIGHT,A1_DTE_RICHNESS,C1_OVERNIGHT_TRANSFER}_20260711/",curated
