@@ -1,4 +1,4 @@
-"""CA/CB/PMS1 engine (frozen @ a752ec3). Three portfolio constructions, shared loaders.
+﻿"""CA/CB/PMS1 engine (frozen @ a752ec3). Three portfolio constructions, shared loaders.
 """
 import datetime as dt
 import numpy as np, pandas as pd
@@ -167,8 +167,9 @@ def run_cb(cell, placebo=False):
             elig = memb.iloc[gi]
             pe_row = PE.iloc[gi].where(elig)
             secmed = pe_row.groupby(sec_of).transform("median")
-            val = pd.Series(wz(-pe_row.values) + wz(-(pe_row / secmed).values) + wz(-(PE_PCT3.iloc[gi].where(elig)).values),
-                            index=C.columns)
+            with np.errstate(all='ignore'):
+                val = pd.Series(np.nanmean(np.vstack([wz(-pe_row.values), wz(-(pe_row / secmed).values),
+                                wz(-(PE_PCT3.iloc[gi].where(elig)).values)]), axis=0), index=C.columns)  # nan-aware law
             top50 = val.dropna().sort_values(ascending=False).index[:50]
             if len(top50) >= 10:
                 if placebo:
@@ -259,3 +260,4 @@ lines = [f"CA: CAGR {cagr*100:+.1f}% DD {dd_*100:.1f}% Sharpe {sh:.2f} churn {ca
 txt = "\n".join(lines)
 print(txt, flush=True)
 (OUT / "RESULTS_RAW.txt").write_text(txt, encoding="utf-8")
+
