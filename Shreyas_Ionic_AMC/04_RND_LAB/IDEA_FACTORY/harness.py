@@ -36,7 +36,7 @@ def load_index(name="NIFTY 50"):
     if key not in _cache:
         frames = [pd.read_parquet(p) for p in sorted((ROOT / "Shreyas_Ionic_AMC/05_DATA_OFFICE/data/indices_close").glob("indices_*.parquet"))]
         ic = pd.concat(frames, ignore_index=True)
-        ic = ic[ic["Index Name"].str.strip() == name]
+        ic = ic[ic["Index Name"].str.strip().str.upper() == name.strip().upper()]
         s = pd.Series(pd.to_numeric(ic["Closing Index Value"], errors="coerce").values,
                       index=pd.to_datetime(ic["file_date"])).dropna().sort_index()
         _cache[key] = s[~s.index.duplicated()]

@@ -1,0 +1,1278 @@
+[
+ {
+  "id": "W1-AR-01",
+  "name": "Stocks 50dma uptrend + gap-down dip buy",
+  "source": "classic trend+pullback (composite, not standalone meanrev)",
+  "asset": "stocks_daily",
+  "signal": [
+   {
+    "type": "dma_above",
+    "params": {
+     "n": 50
+    }
+   },
+   {
+    "type": "gap_pct",
+    "params": {
+     "lt": -2
+    }
+   }
+  ],
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 5
+   }
+  }
+ },
+ {
+  "id": "W1-AR-02",
+  "name": "Stocks 200dma secular uptrend + 2-day pullback buy",
+  "source": "classic 'buy the dip in a bull market'",
+  "asset": "stocks_daily",
+  "signal": [
+   {
+    "type": "dma_above",
+    "params": {
+     "n": 200
+    }
+   },
+   {
+    "type": "consec_days",
+    "params": {
+     "k": 2,
+     "dir": "down"
+    }
+   }
+  ],
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 10
+   }
+  }
+ },
+ {
+  "id": "W1-AR-03",
+  "name": "NIFTY 50dma uptrend + gap-down quick bounce",
+  "source": "index trend+pullback (short-hold ok on index)",
+  "asset": "index_daily",
+  "signal": [
+   {
+    "type": "dma_above",
+    "params": {
+     "n": 50
+    }
+   },
+   {
+    "type": "gap_pct",
+    "params": {
+     "lt": -1
+    }
+   }
+  ],
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 2
+   }
+  },
+  "universe": "NIFTY 50"
+ },
+ {
+  "id": "W1-AR-04",
+  "name": "Nifty Bank 50dma uptrend + 3-day down pullback",
+  "source": "index trend+pullback",
+  "asset": "index_daily",
+  "signal": [
+   {
+    "type": "dma_above",
+    "params": {
+     "n": 50
+    }
+   },
+   {
+    "type": "consec_days",
+    "params": {
+     "k": 3,
+     "dir": "down"
+    }
+   }
+  ],
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 3
+   }
+  },
+  "universe": "NIFTY BANK"
+ },
+ {
+  "id": "W1-AR-05",
+  "name": "Gold uptrend dip-buy (50dma + gap-down)",
+  "source": "commodity trend+pullback (short-hold ok on gold)",
+  "asset": "gold_1m",
+  "signal": [
+   {
+    "type": "dma_above",
+    "params": {
+     "n": 50
+    }
+   },
+   {
+    "type": "gap_pct",
+    "params": {
+     "lt": -1
+    }
+   }
+  ],
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 3
+   }
+  }
+ },
+ {
+  "id": "W1-AR-06",
+  "name": "BTC uptrend dip-buy (50dma + 2-day pullback)",
+  "source": "crypto trend+pullback (short-hold ok on crypto)",
+  "asset": "crypto_1m",
+  "signal": [
+   {
+    "type": "dma_above",
+    "params": {
+     "n": 50
+    }
+   },
+   {
+    "type": "consec_days",
+    "params": {
+     "k": 2,
+     "dir": "down"
+    }
+   }
+  ],
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 2
+   }
+  },
+  "universe": "BTCUSDT"
+ },
+ {
+  "id": "W1-AR-07",
+  "name": "Stocks downtrend + gap-up bounce fade short",
+  "source": "short-direction trend+pullback (allowed: not long meanrev)",
+  "asset": "stocks_daily",
+  "signal": [
+   {
+    "type": "distance_from_dma",
+    "params": {
+     "n": 50,
+     "lt": -5
+    }
+   },
+   {
+    "type": "gap_pct",
+    "params": {
+     "gt": 2
+    }
+   }
+  ],
+  "direction": "short",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 5
+   }
+  }
+ },
+ {
+  "id": "W1-AR-08",
+  "name": "NIFTY downtrend + up-day exhaustion short",
+  "source": "index short-direction trend+pullback",
+  "asset": "index_daily",
+  "signal": [
+   {
+    "type": "distance_from_dma",
+    "params": {
+     "n": 50,
+     "lt": -3
+    }
+   },
+   {
+    "type": "consec_days",
+    "params": {
+     "k": 2,
+     "dir": "up"
+    }
+   }
+  ],
+  "direction": "short",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 3
+   }
+  },
+  "universe": "NIFTY 50"
+ },
+ {
+  "id": "W1-AR-09",
+  "name": "Stocks 20-day breakout, target/stop 8%/4%",
+  "source": "classic Donchian-20 breakout",
+  "asset": "stocks_daily",
+  "signal": {
+   "type": "nday_breakout",
+   "params": {
+    "n": 20
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "target_sl",
+   "params": {
+    "target": 0.08,
+    "sl": 0.04
+   }
+  }
+ },
+ {
+  "id": "W1-AR-10",
+  "name": "Stocks 20-day breakout, 20dma trail exit",
+  "source": "classic Donchian-20 breakout, trend-trail",
+  "asset": "stocks_daily",
+  "signal": {
+   "type": "nday_breakout",
+   "params": {
+    "n": 20
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "trail_dma",
+   "params": {
+    "dma": 20
+   }
+  }
+ },
+ {
+  "id": "W1-AR-11",
+  "name": "Stocks 55-day breakout (Turtle system-2), target/stop 15%/7%",
+  "source": "Turtle Trading System 2 (55-day)",
+  "asset": "stocks_daily",
+  "signal": {
+   "type": "nday_breakout",
+   "params": {
+    "n": 55
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "target_sl",
+   "params": {
+    "target": 0.15,
+    "sl": 0.07
+   }
+  }
+ },
+ {
+  "id": "W1-AR-12",
+  "name": "Stocks 55-day breakout, 20dma trail exit",
+  "source": "Turtle-55 with trend-trail exit",
+  "asset": "stocks_daily",
+  "signal": {
+   "type": "nday_breakout",
+   "params": {
+    "n": 55
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "trail_dma",
+   "params": {
+    "dma": 20
+   }
+  }
+ },
+ {
+  "id": "W1-AR-13",
+  "name": "Stocks 100-day breakout, target/stop 20%/10%",
+  "source": "classic 100-day (~4-month) breakout",
+  "asset": "stocks_daily",
+  "signal": {
+   "type": "nday_breakout",
+   "params": {
+    "n": 100
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "target_sl",
+   "params": {
+    "target": 0.2,
+    "sl": 0.1
+   }
+  }
+ },
+ {
+  "id": "W1-AR-14",
+  "name": "Stocks 100-day breakout, 50dma trail exit",
+  "source": "100-day breakout with wide trend-trail",
+  "asset": "stocks_daily",
+  "signal": {
+   "type": "nday_breakout",
+   "params": {
+    "n": 100
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "trail_dma",
+   "params": {
+    "dma": 50
+   }
+  }
+ },
+ {
+  "id": "W1-AR-15",
+  "name": "NIFTY 20-day breakout, target/stop 3%/1.5%",
+  "source": "index Donchian-20 breakout",
+  "asset": "index_daily",
+  "signal": {
+   "type": "nday_breakout",
+   "params": {
+    "n": 20
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "target_sl",
+   "params": {
+    "target": 0.03,
+    "sl": 0.015
+   }
+  },
+  "universe": "NIFTY 50"
+ },
+ {
+  "id": "W1-AR-16",
+  "name": "NIFTY 55-day breakout, target/stop 5%/2.5%",
+  "source": "index Turtle-55 breakout",
+  "asset": "index_daily",
+  "signal": {
+   "type": "nday_breakout",
+   "params": {
+    "n": 55
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "target_sl",
+   "params": {
+    "target": 0.05,
+    "sl": 0.025
+   }
+  },
+  "universe": "NIFTY 50"
+ },
+ {
+  "id": "W1-AR-17",
+  "name": "NIFTY 100-day breakout, 20dma trail exit",
+  "source": "index 100-day breakout, trend-trail",
+  "asset": "index_daily",
+  "signal": {
+   "type": "nday_breakout",
+   "params": {
+    "n": 100
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "trail_dma",
+   "params": {
+    "dma": 20
+   }
+  },
+  "universe": "NIFTY 50"
+ },
+ {
+  "id": "W1-AR-18",
+  "name": "BTC 20-day breakout, target/stop 10%/5%",
+  "source": "crypto Donchian-20 breakout",
+  "asset": "crypto_1m",
+  "signal": {
+   "type": "nday_breakout",
+   "params": {
+    "n": 20
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "target_sl",
+   "params": {
+    "target": 0.1,
+    "sl": 0.05
+   }
+  },
+  "universe": "BTCUSDT"
+ },
+ {
+  "id": "W1-AR-19",
+  "name": "BTC 55-day breakout, 20dma trail exit",
+  "source": "crypto Turtle-55 breakout, trend-trail",
+  "asset": "crypto_1m",
+  "signal": {
+   "type": "nday_breakout",
+   "params": {
+    "n": 55
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "trail_dma",
+   "params": {
+    "dma": 20
+   }
+  },
+  "universe": "BTCUSDT"
+ },
+ {
+  "id": "W1-AR-20",
+  "name": "Gold 20-day breakout, target/stop 5%/2.5%",
+  "source": "commodity Donchian-20 breakout",
+  "asset": "gold_1m",
+  "signal": {
+   "type": "nday_breakout",
+   "params": {
+    "n": 20
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "target_sl",
+   "params": {
+    "target": 0.05,
+    "sl": 0.025
+   }
+  }
+ },
+ {
+  "id": "W1-AR-21",
+  "name": "NIFTY Monday effect",
+  "source": "classic day-of-week anomaly",
+  "asset": "index_daily",
+  "signal": {
+   "type": "seasonality_dow",
+   "params": {
+    "dow": 0
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 1
+   }
+  },
+  "universe": "NIFTY 50"
+ },
+ {
+  "id": "W1-AR-22",
+  "name": "NIFTY Friday pre-weekend drift",
+  "source": "classic day-of-week anomaly",
+  "asset": "index_daily",
+  "signal": {
+   "type": "seasonality_dow",
+   "params": {
+    "dow": 4
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 1
+   }
+  },
+  "universe": "NIFTY 50"
+ },
+ {
+  "id": "W1-AR-23",
+  "name": "NIFTY turn-of-month drift (first 3 days)",
+  "source": "classic turn-of-month effect (Ariel 1987)",
+  "asset": "index_daily",
+  "signal": {
+   "type": "seasonality_dom",
+   "params": {
+    "turn": true,
+    "first_n": 3
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 3
+   }
+  },
+  "universe": "NIFTY 50"
+ },
+ {
+  "id": "W1-AR-24",
+  "name": "Stocks turn-of-month drift (first 3 days)",
+  "source": "classic turn-of-month effect",
+  "asset": "stocks_daily",
+  "signal": {
+   "type": "seasonality_dom",
+   "params": {
+    "turn": true,
+    "first_n": 3
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 3
+   }
+  }
+ },
+ {
+  "id": "W1-AR-25",
+  "name": "Stocks month-end drift (day>=25)",
+  "source": "classic month-end window dressing/flow effect",
+  "asset": "stocks_daily",
+  "signal": {
+   "type": "seasonality_dom",
+   "params": {
+    "after": 25
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 5
+   }
+  }
+ },
+ {
+  "id": "W1-AR-26",
+  "name": "Nifty Bank Monday effect",
+  "source": "day-of-week anomaly, sectoral index",
+  "asset": "index_daily",
+  "signal": {
+   "type": "seasonality_dow",
+   "params": {
+    "dow": 0
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 1
+   }
+  },
+  "universe": "NIFTY BANK"
+ },
+ {
+  "id": "W1-AR-27",
+  "name": "Gold Monday effect",
+  "source": "day-of-week anomaly, commodity",
+  "asset": "gold_1m",
+  "signal": {
+   "type": "seasonality_dow",
+   "params": {
+    "dow": 0
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 1
+   }
+  }
+ },
+ {
+  "id": "W1-AR-28",
+  "name": "BTC Tuesday effect",
+  "source": "documented crypto day-of-week anomaly",
+  "asset": "crypto_1m",
+  "signal": {
+   "type": "seasonality_dow",
+   "params": {
+    "dow": 1
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 1
+   }
+  },
+  "universe": "BTCUSDT"
+ },
+ {
+  "id": "W1-AR-29",
+  "name": "NIFTY Wednesday fade (short)",
+  "source": "day-of-week anomaly, short-side variant",
+  "asset": "index_daily",
+  "signal": {
+   "type": "seasonality_dow",
+   "params": {
+    "dow": 2
+   }
+  },
+  "direction": "short",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 1
+   }
+  },
+  "universe": "NIFTY 50"
+ },
+ {
+  "id": "W1-AR-30",
+  "name": "Gold turn-of-month drift (first 2 days)",
+  "source": "turn-of-month effect, commodity",
+  "asset": "gold_1m",
+  "signal": {
+   "type": "seasonality_dom",
+   "params": {
+    "turn": true,
+    "first_n": 2
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 2
+   }
+  }
+ },
+ {
+  "id": "W1-AR-31",
+  "name": "NIFTY long when VIX<15 (complacency continuation)",
+  "source": "vol-regime classic",
+  "asset": "index_daily",
+  "signal": {
+   "type": "vix_thresh",
+   "params": {
+    "lt": 15
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 5
+   }
+  },
+  "universe": "NIFTY 50"
+ },
+ {
+  "id": "W1-AR-32",
+  "name": "NIFTY long when VIX>25 (fear-spike mean-reversion)",
+  "source": "vol-regime classic (fear buy)",
+  "asset": "index_daily",
+  "signal": {
+   "type": "vix_thresh",
+   "params": {
+    "gt": 25
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 10
+   }
+  },
+  "universe": "NIFTY 50"
+ },
+ {
+  "id": "W1-AR-33",
+  "name": "NIFTY short when VIX<12 (complacency-precedes-correction)",
+  "source": "contrarian vol-regime",
+  "asset": "index_daily",
+  "signal": {
+   "type": "vix_thresh",
+   "params": {
+    "lt": 12
+   }
+  },
+  "direction": "short",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 5
+   }
+  },
+  "universe": "NIFTY 50"
+ },
+ {
+  "id": "W1-AR-34",
+  "name": "Nifty Bank long when India VIX>25",
+  "source": "vol-regime gate on sectoral index",
+  "asset": "index_daily",
+  "signal": {
+   "type": "vix_thresh",
+   "params": {
+    "gt": 25
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 10
+   }
+  },
+  "universe": "NIFTY BANK"
+ },
+ {
+  "id": "W1-AR-35",
+  "name": "Stocks vol-expansion long continuation",
+  "source": "vol-regime classic (expansion begets trend)",
+  "asset": "stocks_daily",
+  "signal": {
+   "type": "vol_expansion",
+   "params": {
+    "n": 5,
+    "base": 60,
+    "mult": 1.5
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 5
+   }
+  }
+ },
+ {
+  "id": "W1-AR-36",
+  "name": "Stocks vol-expansion short continuation",
+  "source": "vol-regime, short-side variant",
+  "asset": "stocks_daily",
+  "signal": {
+   "type": "vol_expansion",
+   "params": {
+    "n": 5,
+    "base": 60,
+    "mult": 1.5
+   }
+  },
+  "direction": "short",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 3
+   }
+  }
+ },
+ {
+  "id": "W1-AR-37",
+  "name": "BTC vol-expansion continuation",
+  "source": "crypto vol-regime classic",
+  "asset": "crypto_1m",
+  "signal": {
+   "type": "vol_expansion",
+   "params": {
+    "n": 5,
+    "base": 60,
+    "mult": 2.0
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 2
+   }
+  },
+  "universe": "BTCUSDT"
+ },
+ {
+  "id": "W1-AR-38",
+  "name": "Gold vol-expansion continuation",
+  "source": "commodity vol-regime classic",
+  "asset": "gold_1m",
+  "signal": {
+   "type": "vol_expansion",
+   "params": {
+    "n": 5,
+    "base": 60,
+    "mult": 1.5
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 3
+   }
+  }
+ },
+ {
+  "id": "W1-AR-39",
+  "name": "Stocks 20-day breakdown short",
+  "source": "classic Donchian-20 breakdown, short",
+  "asset": "stocks_daily",
+  "signal": {
+   "type": "nday_low",
+   "params": {
+    "n": 20
+   }
+  },
+  "direction": "short",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 5
+   }
+  }
+ },
+ {
+  "id": "W1-AR-40",
+  "name": "Stocks 55-day breakdown short, target/stop 10%/5%",
+  "source": "Turtle-55 breakdown, short",
+  "asset": "stocks_daily",
+  "signal": {
+   "type": "nday_low",
+   "params": {
+    "n": 55
+   }
+  },
+  "direction": "short",
+  "exit": {
+   "type": "target_sl",
+   "params": {
+    "target": 0.1,
+    "sl": 0.05
+   }
+  }
+ },
+ {
+  "id": "W1-AR-41",
+  "name": "Stocks 100-day breakdown short, 50dma trail",
+  "source": "100-day breakdown, trend-trail short",
+  "asset": "stocks_daily",
+  "signal": {
+   "type": "nday_low",
+   "params": {
+    "n": 100
+   }
+  },
+  "direction": "short",
+  "exit": {
+   "type": "trail_dma",
+   "params": {
+    "dma": 50
+   }
+  }
+ },
+ {
+  "id": "W1-AR-42",
+  "name": "NIFTY 20-day breakdown short",
+  "source": "index Donchian-20 breakdown, short",
+  "asset": "index_daily",
+  "signal": {
+   "type": "nday_low",
+   "params": {
+    "n": 20
+   }
+  },
+  "direction": "short",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 5
+   }
+  },
+  "universe": "NIFTY 50"
+ },
+ {
+  "id": "W1-AR-43",
+  "name": "Nifty Bank 55-day breakdown short",
+  "source": "sectoral index Turtle-55 breakdown, short",
+  "asset": "index_daily",
+  "signal": {
+   "type": "nday_low",
+   "params": {
+    "n": 55
+   }
+  },
+  "direction": "short",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 10
+   }
+  },
+  "universe": "NIFTY BANK"
+ },
+ {
+  "id": "W1-AR-44",
+  "name": "BTC 20-day breakdown short, target/stop 10%/5%",
+  "source": "crypto Donchian-20 breakdown, short",
+  "asset": "crypto_1m",
+  "signal": {
+   "type": "nday_low",
+   "params": {
+    "n": 20
+   }
+  },
+  "direction": "short",
+  "exit": {
+   "type": "target_sl",
+   "params": {
+    "target": 0.1,
+    "sl": 0.05
+   }
+  },
+  "universe": "BTCUSDT"
+ },
+ {
+  "id": "W1-AR-45",
+  "name": "Stocks 3-day up-streak exhaustion short",
+  "source": "classic overbought-exhaustion, short",
+  "asset": "stocks_daily",
+  "signal": {
+   "type": "consec_days",
+   "params": {
+    "k": 3,
+    "dir": "up"
+   }
+  },
+  "direction": "short",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 3
+   }
+  }
+ },
+ {
+  "id": "W1-AR-46",
+  "name": "NIFTY 4-day up-streak exhaustion short",
+  "source": "index overbought-exhaustion, short",
+  "asset": "index_daily",
+  "signal": {
+   "type": "consec_days",
+   "params": {
+    "k": 4,
+    "dir": "up"
+   }
+  },
+  "direction": "short",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 2
+   }
+  },
+  "universe": "NIFTY 50"
+ },
+ {
+  "id": "W1-AR-47",
+  "name": "Stocks gap-up momentum follow-through long",
+  "source": "gap-follow (momentum, not meanrev - allowed standalone)",
+  "asset": "stocks_daily",
+  "signal": {
+   "type": "gap_pct",
+   "params": {
+    "gt": 2
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 3
+   }
+  }
+ },
+ {
+  "id": "W1-AR-48",
+  "name": "Stocks gap-down momentum follow-through short",
+  "source": "gap-follow downside, short",
+  "asset": "stocks_daily",
+  "signal": {
+   "type": "gap_pct",
+   "params": {
+    "lt": -2
+   }
+  },
+  "direction": "short",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 3
+   }
+  }
+ },
+ {
+  "id": "W1-AR-49",
+  "name": "NIFTY gap-down fade long",
+  "source": "index gap-reversion (allowed on index, not standalone stock long)",
+  "asset": "index_daily",
+  "signal": {
+   "type": "gap_pct",
+   "params": {
+    "lt": -1
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 1
+   }
+  },
+  "universe": "NIFTY 50"
+ },
+ {
+  "id": "W1-AR-50",
+  "name": "NIFTY gap-up fade short",
+  "source": "index gap-reversion, short",
+  "asset": "index_daily",
+  "signal": {
+   "type": "gap_pct",
+   "params": {
+    "gt": 1
+   }
+  },
+  "direction": "short",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 1
+   }
+  },
+  "universe": "NIFTY 50"
+ },
+ {
+  "id": "W1-AR-51",
+  "name": "BTC gap-down fade long",
+  "source": "crypto gap-reversion",
+  "asset": "crypto_1m",
+  "signal": {
+   "type": "gap_pct",
+   "params": {
+    "lt": -3
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 1
+   }
+  },
+  "universe": "BTCUSDT"
+ },
+ {
+  "id": "W1-AR-52",
+  "name": "Gold gap-down fade long",
+  "source": "commodity gap-reversion",
+  "asset": "gold_1m",
+  "signal": {
+   "type": "gap_pct",
+   "params": {
+    "lt": -1
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 1
+   }
+  }
+ },
+ {
+  "id": "W1-AR-53",
+  "name": "Stocks gap-down + RSI-oversold reversal",
+  "source": "gap-fade + oversold confirm (structurally distinct from killed standalone meanrev)",
+  "asset": "stocks_daily",
+  "signal": [
+   {
+    "type": "gap_pct",
+    "params": {
+     "lt": -3
+    }
+   },
+   {
+    "type": "rsi_thresh",
+    "params": {
+     "n": 14,
+     "lt": 20
+    }
+   }
+  ],
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 3
+   }
+  }
+ },
+ {
+  "id": "W1-AR-54",
+  "name": "Nifty Bank gap-up momentum follow-through long",
+  "source": "sectoral index gap-follow",
+  "asset": "index_daily",
+  "signal": {
+   "type": "gap_pct",
+   "params": {
+    "gt": 1.5
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 2
+   }
+  },
+  "universe": "NIFTY BANK"
+ },
+ {
+  "id": "W1-AR-55",
+  "name": "BTC weekend effect (Friday entry, hold through weekend)",
+  "source": "crypto weekend anomaly",
+  "asset": "crypto_1m",
+  "signal": {
+   "type": "seasonality_dow",
+   "params": {
+    "dow": 4
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 3
+   }
+  },
+  "universe": "BTCUSDT"
+ },
+ {
+  "id": "W1-AR-56",
+  "name": "BTC 3-day momentum continuation",
+  "source": "crypto short-term momentum persistence",
+  "asset": "crypto_1m",
+  "signal": {
+   "type": "consec_days",
+   "params": {
+    "k": 3,
+    "dir": "up"
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 3
+   }
+  },
+  "universe": "BTCUSDT"
+ },
+ {
+  "id": "W1-AR-57",
+  "name": "BTC 7-day momentum (7/21dma crossover)",
+  "source": "crypto weekly trend-following",
+  "asset": "crypto_1m",
+  "signal": {
+   "type": "dma_cross",
+   "params": {
+    "fast": 7,
+    "slow": 21
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 7
+   }
+  },
+  "universe": "BTCUSDT"
+ },
+ {
+  "id": "W1-AR-58",
+  "name": "Gold weekend-adjacent effect (Friday entry)",
+  "source": "commodity weekend/close anomaly",
+  "asset": "gold_1m",
+  "signal": {
+   "type": "seasonality_dow",
+   "params": {
+    "dow": 4
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 3
+   }
+  }
+ },
+ {
+  "id": "W1-AR-59",
+  "name": "Gold 3-day momentum continuation",
+  "source": "commodity short-term momentum persistence",
+  "asset": "gold_1m",
+  "signal": {
+   "type": "consec_days",
+   "params": {
+    "k": 3,
+    "dir": "up"
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 3
+   }
+  }
+ },
+ {
+  "id": "W1-AR-60",
+  "name": "Gold 7-day momentum (7/21dma crossover)",
+  "source": "commodity weekly trend-following",
+  "asset": "gold_1m",
+  "signal": {
+   "type": "dma_cross",
+   "params": {
+    "fast": 7,
+    "slow": 21
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 7
+   }
+  }
+ }
+]
