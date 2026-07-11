@@ -1,0 +1,29 @@
+close panel: 2015-06-01 -> 2026-01-22 | symbols 912
+SC100: 2016-01-01 -> 2026-01-22 | EMA from ~ 2016-06-27
+GOLDBEES from 2021-01-11
+MOMENTUM Var-B NET  : CAGR 0.2277 Sharpe 1.1420 MaxDD -0.2462 finalV 6.2327 turn 22.1
+  (banked B_1x: CAGR 0.2277 Sharpe 1.142 MaxDD -0.2462 finalV 6.2327 turn 22.1)
+MOMENTUM Var-B GROSS: CAGR 0.3208 Sharpe 1.5544 MaxDD -0.2105 finalV 11.9687 turn 22.6
+  seed 25/200 NET rand CAGR med=0.008 p90=0.031 (mom 0.228) | GROSS rand med=0.202 p90=0.230 (mom 0.321)
+  seed 50/200 NET rand CAGR med=0.000 p90=0.028 (mom 0.228) | GROSS rand med=0.193 p90=0.226 (mom 0.321)
+  seed 75/200 NET rand CAGR med=-0.001 p90=0.027 (mom 0.228) | GROSS rand med=0.193 p90=0.225 (mom 0.321)
+  seed 100/200 NET rand CAGR med=-0.003 p90=0.027 (mom 0.228) | GROSS rand med=0.193 p90=0.225 (mom 0.321)
+  seed 125/200 NET rand CAGR med=0.001 p90=0.032 (mom 0.228) | GROSS rand med=0.196 p90=0.230 (mom 0.321)
+  seed 150/200 NET rand CAGR med=-0.000 p90=0.033 (mom 0.228) | GROSS rand med=0.196 p90=0.232 (mom 0.321)
+  seed 175/200 NET rand CAGR med=-0.001 p90=0.033 (mom 0.228) | GROSS rand med=0.196 p90=0.233 (mom 0.321)
+  seed 200/200 NET rand CAGR med=-0.001 p90=0.033 (mom 0.228) | GROSS rand med=0.196 p90=0.233 (mom 0.321)
+
+=== RANDOM-SELECTION PLACEBO (N=200) ===
+--- NET ---
+  cagr     mom=0.228 | rand med=-0.001 p90=0.033 p95=0.042 max=0.065 | mom @ 100th pct
+  sharpe   mom=1.142 | rand med=0.081 p90=0.271 p95=0.322 max=0.451 | mom @ 100th pct
+  maxdd    mom=-0.246 | rand med=-0.455 p90=-0.373 p95=-0.351 max=-0.314 | mom @ 100th pct
+  turnover mom=22.078 | rand med=42.860 p90=44.042 p95=44.369 max=45.488 | mom @ 0th pct
+--- GROSS ---
+  cagr     mom=0.321 | rand med=0.196 p90=0.233 p95=0.242 max=0.263 | mom @ 100th pct
+  sharpe   mom=1.554 | rand med=1.207 p90=1.415 p95=1.450 max=1.546 | mom @ 100th pct
+  maxdd    mom=-0.210 | rand med=-0.258 p90=-0.202 p95=-0.183 max=-0.149 | mom @ 88th pct
+  turnover mom=22.645 | rand med=41.716 p90=42.269 p95=42.496 max=43.044 | mom @ 0th pct
+
+GROSS selection CAGR gap (mom-rand_med) = 0.125  | mom percentile(gross) = 100
+WROTE varb_rt_1_placebo_dist.csv + varb_rt_1_placebo_summary.json  DONE
