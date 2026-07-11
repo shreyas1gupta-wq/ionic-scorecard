@@ -109,3 +109,4 @@ Rule: if it's not in here with path+range+bugs, it doesn't exist for research. C
 | NSE F&O bhavcopy extension | fo_bhavcopy_hist/fo_idx_{2021..2026}.parquet | 2021-07..today (old + UDiFF normalized) | nsearchives | VERIFIED 2026-07-11 night: 16 yearly files 2011-2026 COMPLETE (744 old-fmt + 501 UDiFF days, 0 err). Kavya 30-DTE ticket CLOSED-WITH-CAVEAT: gap was partly MARKET reality - weekly-era monthlies trade ~16 strikes near ATM (160 listed) - fine for ATM studies, thin for wings/spreads |
 
 
+| USDINR daily (FRED DEXINUS, noon-NY) | usdinr_fred_daily.parquet | 1973-01..today | fred.stlouisfed.org fredgraph.csv (D-033) | VERIFIED 2026-07-13: 13,409 rows, monotone, 0 dupes; spot-checks 2011/2013/2020 within 0.6% of RBI ref (noon-NY basis differs slightly - do NOT mix with RBI-ref series in one calc); puller 05_DATA_OFFICE/scripts/usdinr_fred_pull.py |
