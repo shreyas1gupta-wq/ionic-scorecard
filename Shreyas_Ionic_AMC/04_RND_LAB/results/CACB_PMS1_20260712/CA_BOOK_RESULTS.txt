@@ -1,0 +1,10 @@
+common window: 2022-01-04 .. 2025-12-31 (931 td)
+CA corr: v2=+0.01 | v3=+0.00 | midsmall=+0.01 | breakout=-0.01 | s1f=+0.02 | b1b=+0.00
+        cell  cagr    dd  sharpe verdict
+v2_incumbent  15.6  -8.1    2.28       -
+      v2_w20  16.2  -9.7    2.49    fail
+      v2_w33  16.5 -11.2    2.27    fail
+v3_incumbent  35.3 -22.1    1.90       -
+      v3_w20  32.0 -20.6    2.10    fail
+      v3_w33  29.8 -19.8    2.17    fail
+max book corr +0.01 (bar 0.35) | VERDICT: REGIME-PARK

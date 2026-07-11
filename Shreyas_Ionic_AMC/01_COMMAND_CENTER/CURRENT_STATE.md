@@ -1,5 +1,12 @@
 # CURRENT STATE — read me first (updated every session end)
-**As of: 2026-07-11, by DESK-100 — citation pass banked (PARTIAL, spend limit), 23 skills installed, crons re-armed; prior states below still current**
+**As of: 2026-07-13, by DESK-100 — CA-COLLAR + CA-BOOK cards resolved, D-034 ruling logged, correlation-horizon artifact banked; prior states below still current**
+
+## 2026-07-13 snapshot
+- **D-034 (Principal): portfolio-level adjudication** — a good sleeve may carry >25% standalone MDD / lower CAGR-Sharpe if book contribution, XIRR, or regime-specific value is real. Frozen-card bars still bind their own verdicts.
+- **CA-COLLAR NOT ARMORED** (KB 25): index collars cut CAGR 14.1→9.0 AND worsened DD 50.1→52.4 on the CA book — V-recovery whipsaw + hedge-basis mismatch. Do not retry static index collars on selection books; route factor-hedge designs to Kabir.
+- **CA-BOOK REGIME-PARK** (KB 25a): CA (Sharpe ~0.7 in 2022-25) can't move the stacked-book frontier at DD parity despite Sharpe lift at v3+33% (1.90→2.17). Resurrection: CA forward Sharpe >1.0 or 2016-21 book window. Pure CA daily returns banked at `results/CACB_PMS1_20260712/ca_daily_returns.csv`.
+- **OPEN RISK ITEM: stacked-book "max pairwise corr 0.08" is a daily-horizon artifact** — CA showed monthly corr +0.36..+0.54 to the equity sleeves. Monthly-horizon re-measurement of the book's own sleeve pairs = cheap next task (banked CSVs); Ritika/Sameer.
+- Trials ledger 231. Queue: PMS candidates #2-#4 cards, wave-3 factory, P7 variants, P1 rerun (nanmean OR-combine), midsmall Var-B red-team.
 
 ## 2026-07-11 snapshot
 - **/eod flag (Sat):** earnings `forthcoming_results.csv` MISSING from datasets/earnings_pit -> Kavya: regenerate or correct EOD_ROUTINE path. 23 Angel OHLCV stragglers still queued.
