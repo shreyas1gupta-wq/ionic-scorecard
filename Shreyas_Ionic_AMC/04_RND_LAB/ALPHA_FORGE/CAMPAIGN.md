@@ -20,3 +20,9 @@ AF-09 QUALITY TURN-OF-MONTH: ToM long (last close before month-end -> +3td) ONLY
 AF-10 GOLD RANGE-BREAK ASYMMETRY: gold 10d-high break AFTER >=15 days without one, long 8td with 1.5% stop. (gold trend-burst timing)
 Wave-B (if roster passes < 6): AF-11..15 from DII flow, VIX-percentile breadth, filing-time patterns, INR-gold spread, index ToM+VIX combo.
 Trials: +10 wave-A. All results -> ALPHA_FORGE/ledger.csv + per-sleeve RESULTS.
+
+## WAVE-A CHECKPOINT (2026-07-11 late night, banked)
+Ledger: 0/10 formal passes (dual bar screen>=1.2 AND validate>=0.8); 5/10 positive BOTH windows; 8/10 positive validate.
+**DISCOVERY CANDIDATE: AF-07 stage-1->2 turn (original construction)** — validate +24.1%/Sharpe 1.26 (8.5y untouched), screen +15.5%/Sharpe 1.03 (brutal window); misses formal bar by 0.17 on screen. STANDALONE at full notional it is the strongest genuinely-new sleeve produced by the firm to date. Next: red-team battery (placebo-shares-exit + shuffle) + certification as its own card; if it survives -> joins the cross-asset book.
+Assembly previews (labeled, non-certified): corr-filtered 4-sleeve book = Sharpe ~1.1, CAGR 5-6% at low vol — novel sleeves are low-return-per-notional as a set; the 35/20 book is NOT reachable from wave-A alone. Frontier logic unchanged: certified AF-07 + existing 4-sleeve cross-asset book (Sharpe 2.29) + wave-B is the path.
+**WAVE-B QUEUE (next session):** DII flow tilt, VIX-percentile breadth thrust, filing-time patterns, INR-gold spread, index ToM+VIX combo; plus AF-07 red-team FIRST (highest value).
