@@ -111,7 +111,9 @@ def run_ca(placebo=False):
                     if s not in hold and len(hold) < 20:
                         hold[s] = C.iat[gi, C.columns.get_loc(s)]; turn += 1
             else:
-                q = pd.Series(wz(ROCE.iloc[gi][m100].values) + wz(ROE.iloc[gi][m100].values), index=m100)
+                qa = wz(ROCE.iloc[gi][m100].values); qb = wz(ROE.iloc[gi][m100].values)
+                with np.errstate(all="ignore"):
+                    q = pd.Series(np.nanmean(np.vstack([qa, qb]), axis=0), index=m100)  # nan-aware (ROE covers ~56 syms only)
                 q50 = q.dropna().sort_values(ascending=False).index[:50]
                 if len(q50) >= 10:
                     g = pd.Series(wz(NPG.iloc[gi][q50].values) + wz(SG.iloc[gi][q50].values), index=q50)
