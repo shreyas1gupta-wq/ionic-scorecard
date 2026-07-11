@@ -116,3 +116,8 @@ Trials +19. RUN_CARD per battery; episode-level engine only (forge trade_sleeve 
 | P3 pre-earn short | 66 | report-only | -0.29/trade | short proxy loses; earnings-drop thesis not supported |
 | M1 PE-compression | 0 val | data-coverage (TTM-EPS era) | -2.02 | rebuild when eps backfilled |
 **BAR-DESIGN LESSON (banked):** requiring RAW-positive screen returns conflates alpha with beta - in windows where placebo is negative, real alpha shows negative raw. Confirmation must be PLACEBO-RELATIVE in both windows. -> P6+M3 CONFIRMATION CARD (next block, frozen alpha-relative bars, signal params UNCHANGED - better statistics, not tuning).
+
+### P6M3-CONFIRMATION CARD (FROZEN 2026-07-12 pre-run) — placebo-relative confirmation of the two battery survivors
+Signal params UNCHANGED from battery (frozen @ 9da01a6). New measurement ONLY: alpha = real mean - placebo mean, computed separately per window with window-matched placebo pools (validate pool 2016..2024-06; screen pool 2024-07..2026-06), 200 draws each.
+**BARS:** CONFIRMED iff validate alpha > 0 with real > placebo95 (already shown) AND screen alpha > 0 with real > screen-placebo50 (median - weaker bar acknowledged for the short window) AND screen alpha same sign as validate alpha. KILL iff screen alpha < 0. Trials +2.
+If CONFIRMED -> full red-team battery (stock-shuffle/date-shuffle/liquidity/2x-cost, AF-07 template) -> sleeve candidacy.
