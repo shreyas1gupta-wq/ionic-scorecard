@@ -1,0 +1,133 @@
+[
+ {
+  "id": "W1-ON-19",
+  "name": "Turtle System-2 55-day breakout, gold",
+  "source": "Curtis Faith 'Way of the Turtle' System 2 (55-day breakout, traded across original Turtle futures portfolio incl. gold)",
+  "asset": "gold_1m",
+  "signal": {
+   "type": "nday_breakout",
+   "params": {
+    "n": 55
+   }
+  },
+  "direction": "long",
+  "entry": "next_close",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 20
+   }
+  }
+ },
+ {
+  "id": "W1-ON-30",
+  "name": "Larry Connors %B strategy long (proxy), BTC",
+  "source": "Larry Connors %B Strategy (close>200dma, %b<0.2 -> long, exit %b>0.8); %b approximated via rolling zscore since harness has no native Bollinger %b primitive, 3-consecutive-day condition dropped",
+  "asset": "crypto_1m",
+  "universe": "BTCUSDT",
+  "signal": [
+   {
+    "type": "dma_above",
+    "params": {
+     "n": 200
+    }
+   },
+   {
+    "type": "zscore",
+    "params": {
+     "n": 20,
+     "lt": -1.5
+    }
+   }
+  ],
+  "direction": "long",
+  "entry": "next_close",
+  "exit": {
+   "type": "trail_dma",
+   "params": {
+    "dma": 20
+   }
+  }
+ },
+ {
+  "id": "W1-ON-41",
+  "name": "4 consecutive down days long (MDD concept), gold",
+  "source": "Larry Connors Multiple Days Down strategy; adapted since harness consec_days requires a strict streak, not Connors' literal '4-of-5' condition - transplanted to gold",
+  "asset": "gold_1m",
+  "signal": {
+   "type": "consec_days",
+   "params": {
+    "k": 4,
+    "dir": "down"
+   }
+  },
+  "direction": "long",
+  "entry": "next_close",
+  "exit": {
+   "type": "trail_dma",
+   "params": {
+    "dma": 5
+   }
+  }
+ },
+ {
+  "id": "W1-AR-20",
+  "name": "Gold 20-day breakout, target/stop 5%/2.5%",
+  "source": "commodity Donchian-20 breakout",
+  "asset": "gold_1m",
+  "signal": {
+   "type": "nday_breakout",
+   "params": {
+    "n": 20
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "target_sl",
+   "params": {
+    "target": 0.05,
+    "sl": 0.025
+   }
+  }
+ },
+ {
+  "id": "W1-AR-60",
+  "name": "Gold 7-day momentum (7/21dma crossover)",
+  "source": "commodity weekly trend-following",
+  "asset": "gold_1m",
+  "signal": {
+   "type": "dma_cross",
+   "params": {
+    "fast": 7,
+    "slow": 21
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 7
+   }
+  }
+ },
+ {
+  "id": "W0-05-gold-3down",
+  "name": "gold 3 consecutive down days -> long 5d",
+  "source": "commodity meanrev",
+  "asset": "gold_1m",
+  "signal": {
+   "type": "consec_days",
+   "params": {
+    "k": 3,
+    "dir": "down"
+   }
+  },
+  "direction": "long",
+  "exit": {
+   "type": "bars",
+   "params": {
+    "n": 5
+   }
+  }
+ }
+]
