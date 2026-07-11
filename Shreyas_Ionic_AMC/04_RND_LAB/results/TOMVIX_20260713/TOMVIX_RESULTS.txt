@@ -1,0 +1,7 @@
+       cell   n  n_val  val  plac95  scr_alpha  pseudo         verdict
+    T1_p1p3 116     92 0.42    0.36      -0.38   -0.19            FAIL
+T2_p1p3_v50  60     47 0.32    0.47      -0.23   -0.24 NOT-ADJUDICABLE
+T3_p1p3_v70  38     30 0.24    0.65       0.15   -0.65 NOT-ADJUDICABLE
+    T4_p2p2 116     92 0.41    0.31      -0.56   -0.02            FAIL
+cells passed: 0/4 | monthly corr(T1_p1p3, book) = +0.17 (bar < +0.25 signed)
+VERDICT: NOT ADOPTED
