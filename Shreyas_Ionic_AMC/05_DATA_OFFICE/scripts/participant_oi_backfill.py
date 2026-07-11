@@ -32,9 +32,9 @@ def flush(y):
     if not buf:
         return
     p = OUT / f"participant_oi_{y}.parquet"
-    new = pd.concat(buf, ignore_index=True)
+    new = pd.concat([b.astype(str) for b in buf], ignore_index=True)
     if p.exists():
-        new = pd.concat([pd.read_parquet(p), new], ignore_index=True).drop_duplicates()
+        new = pd.concat([pd.read_parquet(p).astype(str), new], ignore_index=True).drop_duplicates()
     new.to_parquet(p, index=False)
     print(f"CHECKPOINT {p.name}: {len(new)} rows", flush=True)
     buf.clear()
