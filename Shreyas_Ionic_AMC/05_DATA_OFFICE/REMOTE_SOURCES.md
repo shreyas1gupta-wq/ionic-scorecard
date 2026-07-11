@@ -42,3 +42,10 @@ s = requests.Session(); s.headers.update({"User-Agent": "Mozilla/5.0 Chrome/126"
 # NSE only: s.get("https://www.nseindia.com", timeout=30)  # cookie warm-up
 # HF only:  s.headers["Authorization"] = "Bearer <HF_TOKEN from memory>"
 ```
+
+## Russell 2000/3000 historical constituents (registered 2026-07-13, NOT fetched)
+- **No free PIT dataset exists.** FTSE Russell removed historical membership from their site; Norgate/Algoseek/Siblis = paid.
+- **Route A (free, build job ~half-day):** iShares IWV/IWM daily holdings CSVs via Wayback Machine snapshots of ishares.com product pages -> reconstruct monthly membership ~2006/2011-present. Resume-safe crawler needed; approximation (ETF holdings ~= index, small tracking diffs).
+- **Route B (recent years only):** current holdings CSVs from ishares.com direct (IWV 2,566 names) - snapshot NOW and append monthly going forward (start the clock).
+- **Route C (paid, if US program ever justifies):** Norgate Data ~USD 30-40/mo incl delisted prices - solves BOTH membership AND the us_stocks_daily survivorship problem at once.
+- Decision: Route B armed as an ops candidate; Route A deferred until a US strategy card actually needs it (D-033 gates on need).
