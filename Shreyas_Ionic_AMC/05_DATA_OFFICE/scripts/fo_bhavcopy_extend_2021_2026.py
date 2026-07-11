@@ -62,8 +62,8 @@ while d <= END:
     cur_year = d.year
     old = (f"https://nsearchives.nseindia.com/content/historical/DERIVATIVES/"
            f"{d.year}/{MON[d.month-1]}/fo{d.day:02d}{MON[d.month-1]}{d.year}bhav.csv.zip")
-    new_u = (f"https://nsearchives.nseindia.com/archives/fo/mkt/"
-             f"BhavCopy_NSE_FO_0_0_0_{d:%Y%m%d}_F_0000.csv.zip")
+    new_u = (f"https://nsearchives.nseindia.com/content/fo/"
+             f"BhavCopy_NSE_FO_0_0_0_{d:%Y%m%d}_F_0000.csv.zip")  # verified 200 2026-07-11
     got = None
     try:
         for url in ([old, new_u] if d <= dt.date(2024, 6, 28) else [new_u, old]):
