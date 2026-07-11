@@ -230,3 +230,4 @@ Pre-run: ast scanner + RUN_CARD.json with this freeze hash. Trials +1.
 5. DSR report with N=7 family cells (B1 k3 + B1b k3 + this) — reported, threshold deferred to Sameer.
 FAIL any of 1-4 -> B-spread-flow stream DEMOTED to watch-list (no further trials on this sample). PASS -> red-team (Nikhil) + sensitivity (Sameer) before any register entry — NOT autoadvance.
 Trials +1. RUN_CARD with this freeze hash.
+**B1b GATE-4 OUTCOME (2026-07-11, frozen @ aebdaca): PASS all 4 bars.** Sharpe 1.15 net, +18.5 bps/trade (4.6x cost), maxDD -11.5%, eras +22.7/+12.9 (decay visible - watch). DSR N=7: 0.84 tight / 0.11 wide. Next per spec: scripted red-team placebo battery + sensitivity surface, then IC; paper-first regardless. Evidence: results/B1b_GATE4_20260711/. Trials +1.

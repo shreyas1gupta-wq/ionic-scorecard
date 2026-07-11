@@ -1,0 +1,30 @@
+{
+ "card": "B1b-GATE4",
+ "frozen_commit": "aebdaca",
+ "run_ts": "2026-07-11T17:23:51",
+ "script": "b1b_gate4.py",
+ "data": [
+  "b1b_panel (participant_oi_normalized + kaggle NIFTY)"
+ ],
+ "n_obs": 372,
+ "metrics": {
+  "sharpe": 1.15,
+  "bps_per_trade": 18.5,
+  "maxdd_pct": -11.5
+ },
+ "validation": {
+  "era_split": "+22.7/+12.9",
+  "bootstrap_ci95": null,
+  "lookahead_ast": "pre-flight",
+  "one_day_lag": "T+1 by construction"
+ },
+ "verdict": "GATE-4 PASS -> red-team + sensitivity next (no autoadvance)",
+ "bars_hit": [
+  "sharpe>=1.0",
+  "expectancy>=8bps",
+  "maxDD<=15%",
+  "era_both_positive"
+ ],
+ "trials_increment": 1,
+ "token_cost_agents": 0
+}

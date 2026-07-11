@@ -1,0 +1,7 @@
+trades=372 over 1803 days (2019-01-08..2026-05-07) | trade freq 21%
+net per trade: mean +18.5 bps (median +16.0, win% 59%)
+annualized net Sharpe (all days): 1.15  | maxDD -11.5%  | total return +94.0%
+era split (net bps/trade): 2019-22 +22.7 | 2023-26 +12.9
+bars: sharpe>=1.0=PASS, expectancy>=8bps=PASS, maxDD<=15%=PASS, era_both_positive=PASS
+DSR (N=7): tight 0.840 | wide 0.105
+VERDICT: GATE-4 PASS -> red-team + sensitivity next (no autoadvance)
