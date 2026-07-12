@@ -9,7 +9,7 @@
 | D-006 | 2026-07-03 | Agent count: everything that helps (50 if needed) but token-smart, use only when needed. 5 core equity analysts. |
 | D-007 | 2026-07-03 | Standard memo format required, some flexibility allowed. |
 | D-008 | 2026-07-03 | Red Team exists to SAVE us, not to be a bureaucratic hurdle. One focused attack per idea. |
-| D-009 | 2026-07-03 | NO auto-fetching new data. Verify new sources via sample/structure checks (Data Officer). Data-management agents approved. |
+| D-009 | 2026-07-03 | ~~NO auto-fetching new data~~ **[SUPERSEDED by D-033 for reliable sources]**. Verification protocol (sample/structure checks, Data Officer) remains binding. Data-management agents approved. |
 | D-010 | 2026-07-03 | Pipeline gates auto-advance; LIVE gate = Principal approval only. |
 | D-011 | 2026-07-03 | No deep learning for now (data size doesn't justify); Kaggle/Colab GPU escape hatch if ever needed. |
 | D-012 | 2026-07-03 | Knowledge base with all backtests+logic+reasoning. Kills are conditional — new variants (e.g., sniper-entry option buying) may resurrect a killed family. |

@@ -15,8 +15,8 @@
 | Bhavcopy backfill (Apr-24→Aug-25, Jun-26, +122 new stocks 2yr) | DAILY | naive 15:30 stamp | settle, oi | ~few-k rows/file |
 Consumers must branch on schema or use EOD-only accessors. `angel_capture_2026/` (day/ + minute/) = live forward capture, Jul-2026 onward.
 
-## New-source protocol (D-009 — NO auto-fetch, ever)
-1. Propose: source, URL/API, licence, cost, what edge it feeds. 2. Principal approves the FETCH of a sample.
+## New-source protocol (D-009 verification, as amended by D-033 2026-07-11: reliable sources may auto-fetch)
+1. Propose: source, URL/API, licence, cost, what edge it feeds. 2. RELIABLE sources (exchange archives, FRED/Stooq-class, official APIs) may fetch WITHOUT waiting (D-033); sketchy/unverifiable sources still need Principal approval before any fetch.
 3. Sample 100 rows → schema/dtypes/nulls/dupes/date-monotonicity/PIT-safety; cross-check 5 values vs an independent source.
 4. Verdict USE/QUARANTINE + draft DATA_CATALOG entry → Principal approves go-live. 5. Only then: bulk ingestion, with update command documented in the catalog.
 

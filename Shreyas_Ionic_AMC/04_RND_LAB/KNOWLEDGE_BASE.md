@@ -2,6 +2,7 @@
 R&D Head curates; quarterly pruning. Backtests+logic live with their ideas; THIS file holds transferable knowledge.
 
 ## A. Firm-earned lessons (paid for with real mistakes — never re-learn)
+*(Numbering is historical and non-contiguous — lesson IDs are STABLE REFERENCES cited across cards/journals/reviews; never renumber. Gaps and suffixed IDs (e.g. 25a) are intentional.)*
 1. **VRP is the meta-edge in Indian options:** implied > realized persistently → selling wins, buying loses. Every profitable option sleeve we have is short-vol; every buying family died (K-001, K-004).
 2. **Measurement artifacts we have personally produced** (Red Team trophy wall): return-on-net-debit denominator (FF "+80%"); spreading trade P&L across holding days (Sharpe 7-10, Kelly 300); monthly-compounded sleeve CAGRs (+246%/+681% "annualized" fantasies); near-expiry return-on-premium explosions (+357% earnings "wins"); partial-year data reading as "positive every year". Antidotes: exit-period booking, stable denominators (premium/spot), per-trade edge as the headline metric, periods-per-year coverage checks.
 3. **Lookahead in stock selection:** any filter built from realized outcomes (the "16 landmines") is untradeable. Live filters must be ex-ante: IV at entry (corr −0.23 with future worst-case), liquidity/OI, event calendar, walk-forward-proven history rules only for stocks that HAVE history.

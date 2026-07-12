@@ -20,11 +20,6 @@ The persona file (.claude/agents/*.md) is the employee; the model is the brain i
 | Tara Singh (Execution/TCA) | Analysis | Sonnet 5 | Haiku 4.5 | sonnet |
 | Devika Menon (FM-Equities) | Judgment | Opus 4.8 | Sonnet 5 | opus |
 | Sanjay Kulkarni (FM-Fundamental) | Judgment | Opus 4.8 | Sonnet 5 | opus |
-
-Rules:
-- Escalate one tier when a task will directly drive a capital-allocation decision.
-- De-escalate for drafts/mechanical passes.
-- Model changes are logged in EVOLUTION_LOG.md (who, when, why).
 | Meher Kapadia (CEO) | Judgment | Opus 4.8 | Sonnet 5 | opus |
 | Farhan Qureshi (Compliance & Governance Officer) | Analysis | Sonnet 5 | Haiku 4.5 | sonnet |
 | Ritika Sharma (Portfolio Risk Manager) | Analysis | Sonnet 5 | Haiku 4.5 | sonnet |
@@ -36,3 +31,8 @@ Rules:
 | Tanvi Desai (Product) | Analysis | Sonnet 5 | Haiku 4.5 | sonnet |
 | Dr. Sameer Bhat (Overfit) | Analysis | Sonnet 5 | Opus 4.6 | sonnet |
 | Kabir Anand (Head of Hedging & Tail Risk) | Analysis | Sonnet 5 | Opus 4.6 | sonnet |
+
+Rules:
+- Escalate one tier when a task will directly drive a capital-allocation decision.
+- De-escalate for drafts/mechanical passes.
+- Model changes are logged in EVOLUTION_LOG.md (who, when, why).
