@@ -36,3 +36,11 @@ GOAL: Principal publication (LinkedIn post + PDF/paper) on system-vs-LLM efficac
 ## LAWS IN FORCE
 D-023 max 3 parallel. Orchestrator must NOT read ANSWER_KEY (stay grader-eligible). Arms never see key/_verify/
 repo. One run per arm per task. Parked: market-research queue, XBRL retry (business hours), Kaggle/Tiingo keys.
+
+
+## AMENDMENT 2026-07-13 late (token constraints, Principal)
+- Arm A: 20/20 DONE on Fable (raw/ has all Txx_armA.md). Arm B: 0/20 - ALL died AT SPAWN (org limit) -> B NEVER SAW TASKS, untainted. Arm C: not started.
+- Fable unavailable from tomorrow; org pool 25%% left (shared, hard floor); Principal second account 30%% left.
+- DECISION: complete grid A/B/C on SONNET 5 NEXT WEEK (fresh arm-model combos, no taint; protocol same-model-across-arms satisfied within the Sonnet grid). Today's A-Fable = bonus cross-model row (Table 6), clearly labeled. Graders = haiku/second-account (graders are not arms).
+- HUMAN BASELINE: Principal asked for an assumed jane-street-quant score (+5pts). REFUSED as a measured number (fabrication; KB lesson 18 anti-sycophancy law). Options offered: (a) Principal takes exam (packet ready), (b) explicitly-labeled estimate range in paper, (c) omit row. Awaiting his pick; default = (b) labeled-estimate if he does not take the exam.
+- Deferred cadence (session at 92%%+): /macro-calendar, /pipeline-health, /find-skills -> next session, journaled.

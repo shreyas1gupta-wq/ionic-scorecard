@@ -125,6 +125,7 @@ All in `results/S-03/20260705_resurrection/`. Verdicts:
 - **Factor replication first cut DONE**: LOWVOL30 via Angel data — corr 0.90/TE 5.9% in 2024 (13.4% overall = methodology gap) → data pipeline VALIDATED; D-M4 exact-methodology build targets TE<3%. Index data live: INDIA VIX 2016→, LOWVOL30/ALPHA50/VALUE20, 5 momentum ETFs (`datasets/index_daily/`).
 - **HARD RULE (new)**: every per-trade edge reported in denominator-free RUPEE POINTS + %spot (3 sleeves died of denominator disease). purgedcv = canonical DSR/PBO (bars_per_year units guard).
 - `AngelDailyOptionCapture` healthy. Execution-Sheet v2 live (258 trades, TRADE/DISCRETIONARY/BLOCKED blocks); 8 blank 25AUG-PE prices pending backfill.
+- **WS-2 de-AI-ification style system BUILT (Tanvi, 2026-07-13):** `00_GOVERNANCE/STYLE_GUIDE.md` (**DRAFT, needs CEO+CIO joint approval D-025**) + `.claude/skills/style-lint/` (offline taxonomy + `scripts/lint.py`, tested clean) + `09_PRODUCT/scripts/docx_style_kit.py` (Georgia/Bahnschrift, 6-hex firm palette, three-line tables) + sample `09_PRODUCT/reports/_style_sample.docx`. Blind A/B round log empty pending approval + colleague raters. Full detail: SESSION_JOURNAL 2026-07-13 last entry.
 
 ## Approvals
 **D-027 STANDING APPROVAL in force** (+ D-024/D-025): CEO+CIO jointly approve everything; Principal = tie-breaks + LIVE-capital + RISK_LIMITS-loosening ONLY. Permissions dontAsk. D-021/D-022 remain.
