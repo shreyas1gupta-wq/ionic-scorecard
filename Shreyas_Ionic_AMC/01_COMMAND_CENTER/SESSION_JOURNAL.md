@@ -3,6 +3,15 @@ Format per entry: date, account (DESK-20/DESK-100), summary, files touched, hand
 Newest entries at TOP.
 
 ---
+## 2026-07-13 (late) — DESK-20 — KIRU PACKAGE backtested & adjudicated same day (Principal order "backtest all")
+- External podcast spec (Kirubakaran): BeES ratio-Donchian rotation + 0DTE SL-30% straddle + pledged combo. Card FROZEN pre-run w/ bars, costs, prior-art fences (K-011, GOLD-TREND/GT-2, S1-F family) → committed BEFORE runs. Scripts-only, zero subagents (spend-limit law).
+- **Data assets NEW:** NIFTYBEES daily 2013→2026 fetched (Angel 10576, 3,346 rows, guards PASS) + GOLDBEES extended to 2013 (`goldbees_daily_ext.parquet`, original untouched) — real-ETF window now covers COVID. Kavya: D-009 formalization + catalog rows pending.
+- **Rotation → K-016 NOT ADOPTED** (KR-R1+R3 FAIL): honest t+1-open 9.79% CAGR / −33% DD vs B&H 11.93%/−36.3%; same-bar illusion demo 29.4% explains the podcast's "18%" [INFERENCE]; cost drag 3.16pp/yr; vol NOT reduced. **Component-banked: 50/50 monthly-rebal NIFTY-gold dominates (12.29%/10.5%vol/−21.5%DD) → evidence for K-011's unclaimed strategic gold sleeve → routed to Devika (different-FACTOR roadmap).**
+- **0DTE straddle: 3/3 bars pass but edge = +1.7%/yr of notional unlevered** (claim 12% ⇒ ~7× leverage); SL-30 is genuinely good (tail p5 −0.76→−0.29); median trade NEGATIVE (43.6% win) — "consistent theta" narrative false; firm ≥0.45% filter dominates (+3.1%/yr, sub-filter days negative — 3rd independent confirmation). → S1-F-family VARIANT note for Vikram; NO register row.
+- **Combined 30%/yr claim NOT REPRODUCED** — honest stack 11.5-18.6%/yr with correlated stress (2024-26 rotation DD coincides with straddle SL clusters).
+- Books: K-016 + 2 KB lessons (execution-bar illusion; SL=risk-tool-not-return-engine) + pipeline row + card verdict + results/KIRU_PKG/20260713/ (SUMMARY, metrics, curves, trades). Trials +12 → DESK-100 regenerate build_trials_ledger (249→261 expected).
+- **Handoffs:** Devika — 50/50 gold-sleeve one-pager off the banked benchmark; Vikram — variant note vs S1-F; Kavya — catalog rows for niftybees_daily + goldbees_ext + forthcoming_results.csv flag still open.
+
 ## 2026-07-07 — FF SIGNAL NEAR-MONTH VEHICLE SCOPING (Aakash, structuring only — no backtest)
 - **CIO's 2026-07-05 K-012 ruling** (`results/S-03/20260705_resurrection/CIO_RULING.md`) declared the FF term-structure signal REAL but the calendar vehicle dead (61% dead back-leg markets) and handed a NEW liquidity-native-vehicle intake to Aakash+Arjun. Scoped it: read all 4 evidence legs (CIO ruling, RED_TEAM, FILL_AUDIT, CAUSAL_RETEST) + KB lessons 14-18.
 - **Confirmed the concrete fillability split from `fill_audit_per_trade.csv`:** near-month (front) leg ~95-98% fillable both entry/exit; back (2nd-forward) leg 59.3% untraded — the problem is genuinely isolated to the dropped tenor.

@@ -53,3 +53,10 @@ Rotation: 2 windows? (1 real + proxy-if-data) × exec 3 + N-neighbors 3 = ≤9. 
 ETF parquet stamps are UTC 18:30 → +05:30 convert (catalog note) · options ts already +05:30 (chain.py) · first bar ≥09:15 · settle from spot, never bhavcopy · volume>0 gate · no fundamentals ⇒ no PIT exposure · corrupt expiry files skipped per chain.py CORRUPT set.
 
 Results → `results/KIRU_PKG/20260713/`. Verdict + KB lesson + ledger update on completion.
+
+---
+## VERDICT (2026-07-13, same day — full detail in results/KIRU_PKG/20260713/SUMMARY.md)
+- **A (rotation): NOT ADOPTED** — KR-R1 FAIL (net 9.79% CAGR vs 10.93 bar; MaxDD −32.96% vs −21.8 bar), KR-R3 FAIL (3.16pp/yr cost drag), KR-R2 pass-with-flag (N20 = worst neighbor). Claimed 18% ≈ same-bar execution illusion (lookahead demo 29.4% → honest t+1-open 9.8%). Kill = **K-016** w/ resurrection conditions. **COMPONENT-BANKED: 50/50 monthly-rebal NIFTY-gold dominates (12.29%/10.47%vol/−21.49%DD)** → evidence for K-011's unclaimed strategic-gold-sleeve; route to Devika.
+- **B (0DTE SL-30 straddle): bars S1/S2/S3 PASS** — but honest edge +1.7%/yr of notional unlevered (claim was 12%); SL-30 is the good part (tail p5 −0.76→−0.29); our ≥0.45% filter dominates his unfiltered spec (sub-filter days NEGATIVE). → S1-F-family VARIANT note to Vikram; NO register row.
+- **C (combined 30%/yr): NOT REPRODUCED** — honest stack 11.5-18.6%/yr with correlated stress.
+- Trials +12 (rotation 6, straddle 6). NIFTYBEES 2013-26 + GOLDBEES-ext 2013-26 fetched & guarded (new data assets, catalog entries pending Kavya D-009 formalization of the pre-2021 extension).
