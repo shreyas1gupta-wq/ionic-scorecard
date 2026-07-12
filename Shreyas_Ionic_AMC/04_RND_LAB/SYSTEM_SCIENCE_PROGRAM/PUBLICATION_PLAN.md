@@ -11,3 +11,5 @@ Binding for the WS-4 publication. The frozen PROTOCOL/bars are untouched by this
 8. **Repeats:** v1 = one run per arm per task (frozen). Paper states this limitation plainly; v2 protocol may pre-register k-repeats reported as mean±sd (all runs reported, never best-of).
 9. **Human baseline:** Principal takes the battery himself BEFORE seeing results or key — packet at `ws4_battery/PRINCIPAL_EXAM/` (tasks only, instructions, answer sheet; ~60-90 min). Scored blind by the same rubric alongside the arms. Publishable line: human expert vs single LLM vs the firm.
 10. **Reach vs rigor:** defensibility owns the PDF, punch owns the hook, the hook never claims what the PDF cannot back. Principal is willing to fund system improvements before/around publication (see #3 loop) — improvements happen between battery versions, never mid-version.
+
+**#9 RESOLVED (Principal 2026-07-13): labeled-estimate option confirmed** - paper carries 'estimated expert reference point (author estimate, NOT measured): ~60-75% mechanism-level' with basis disclosed; exam packet stays available if he later wants a measured number.
