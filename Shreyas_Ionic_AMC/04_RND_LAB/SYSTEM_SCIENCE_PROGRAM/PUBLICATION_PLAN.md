@@ -13,3 +13,11 @@ Binding for the WS-4 publication. The frozen PROTOCOL/bars are untouched by this
 10. **Reach vs rigor:** defensibility owns the PDF, punch owns the hook, the hook never claims what the PDF cannot back. Principal is willing to fund system improvements before/around publication (see #3 loop) — improvements happen between battery versions, never mid-version.
 
 **#9 RESOLVED (Principal 2026-07-13): labeled-estimate option confirmed** - paper carries 'estimated expert reference point (author estimate, NOT measured): ~60-75% mechanism-level' with basis disclosed; exam packet stays available if he later wants a measured number.
+
+## ROUND-2 DECISIONS (Principal, 2026-07-13 late)
+- MEASUREMENT ADDITIONS 1-8 ALL APPROVED: latency/wall-clock, instruction-compliance rate, hallucinated-citation audit, consensus-difficulty map, cost-of-verification share, variance/repeats (v2 only - v1 stays one-shot), memory-recall test (WS-1c), skill-ablation. Plus mandate: find MORE unique publishable metrics.
+- PUBLIC ALIAS = **"Firm S"** (all public materials; internal name never appears).
+- CHARTS/ILLUSTRATIONS: maximal, best-of-best - BUT LAST, after all results complete (dataviz + docx_style_kit pass).
+- ARXIV: decide after charts - REMINDER OWED to Principal at that point.
+- TIMELINE: no rush - publish 1-2 weeks out; Fable-dependent runs today, everything else can slip to next week.
+- AUTHOR AUDIT OF GRADES (integrity sequencing per D-035): the paper line "grades audited by the author" enters ONLY AFTER the Principal actually does the ~20-min spot-audit - which he committed to do when the report is complete (fits the 1-2 week timeline). Until then the draft carries [pending author audit]. No pre-crediting.
