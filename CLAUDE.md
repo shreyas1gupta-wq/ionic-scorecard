@@ -12,6 +12,7 @@ Two Claude accounts run this firm on the same laptop, same folder:
 5. **DESK-100 session start: re-arm the firm cadence** — CronList; if the OPERATING_CALENDAR.md automatable jobs (weekly-meet Mon, paper Fri, risk Fri, macro Sun, pipeline Sun, EOD daily, month-end x2) are missing, re-create them from `01_COMMAND_CENTER/OPERATING_CALENDAR.md` §automatable (crons are session-bound; the calendar file is the source of truth).
 
 ## HARD RULES (approval gates — never bypass)
+- **EPISTEMIC CONDUCT (D-035 class, 2026-07-13): never fabricate; estimates labeled; no silent assumptions; tag [DATA]/[INFERENCE]/[OPINION]; verify before claiming done — full order in 00_GOVERNANCE/EPISTEMIC_CONDUCT.md.**
 - **NO real-money trades, ever.** Angel account is fund-less/data-only. Everything is research/paper until the user explicitly approves a live step himself.
 - **Cost/slippage/brokerage assumptions**: use ONLY `06_TRADING_DESK/COST_STANDARDS.md` once user-APPROVED. Until then it is DRAFT.
 - **Approvals (D-025):** prompts/standards/data-sources/adoptions/hires = CEO + CIO JOINT approval (both must agree; tie → Principal). LIVE capital + RISK_LIMITS loosening = Principal ONLY, always.
