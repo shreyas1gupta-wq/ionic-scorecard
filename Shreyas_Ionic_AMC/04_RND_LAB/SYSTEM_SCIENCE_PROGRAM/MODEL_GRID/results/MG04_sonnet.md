@@ -1,0 +1,36 @@
+# PRE-MORTEM: Worst Week Ever — Short-Vol Index Options Book
+**Written as of:** 12 months forward (hypothetical) | **Book:** NIFTY defined-risk spreads + naked strangles | **Trigger week:** RBI MPC decision + Union Budget in the same 5 trading days | **Status:** Paper/forward-test only — no capital at risk in this exercise, but the failure mode is real
+
+## What killed it
+The book didn't die from one bad Greek — it died from **event stacking + correlation collapse + liquidity withdrawal happening simultaneously**, each of which was individually "sized for" but never modeled jointly.
+
+1. **Vol was sold rich, then event-correlated gap did the damage the greeks said couldn't happen.** IV was crushed into the print (implied 11-13% weekly vs. realized 9%), so short strangles and credit spreads carried "acceptable" theta/vega ratios under normal-day VaR. But Budget + MPC in the same week is not two independent 1-day events — it's a single fat-tailed 2-day gap risk with historically ~2.3x the standalone daily move (NIFTY has moved >2.5% same-day on Budget day in 4 of the last 10 years; RBI surprises add a second, correlated leg when policy diverges from consensus, e.g., an unexpected stance change or unscheduled OMO/FX signal). Our per-event sizing model treated the two as sequential, uncorrelated 1-sigma days and netted the "combined" move at ~1.6x a normal day. Actual combined gap: **4.1%** overnight-to-open, occurring on the *second* event day when the market was already leaning short gamma from day one's realized move eating into margin.
+2. **Naked strangles were the proximate kill; spreads were the capital-preservation save.** Defined-risk spreads capped loss at debit-paid-for-protection (~1.8-2.2x credit received, per COST_STANDARDS worst-case). The naked strangle legs had no such ceiling — delta on the tested (put) side ran from -0.15 to -0.62 in the gap, and the fill on the hedge leg (long future/ITM option to flatten) came 40-60 minutes after the open because of a **liquidity air pocket**: market-maker quotes on far OTM/ATM NIFTY options widened 3-5x normal bid-ask in the first 15 minutes, and our stop-loss order queued behind a flood of retail/system stops at the same strikes.
+3. **Margin spiral compounded, didn't cause, the loss.** SPAN/exposure margin on the naked legs jumped ~35-45% intraday on the vol shock, triggering a margin call that forced closing the *better-priced* defined-risk spreads first (they were liquid and had positive residual value) rather than the naked strangles (illiquid, worse fills) — the classic "sell what you can, not what you should" liquidation-order failure. This is a decision-under-stress bug, not a market bug, and it's the single most fixable item here.
+
+## Quantifying the plausible tail (numeric)
+| Metric | Modeled "worst case" (single event) | Actual pre-mortem tail (stacked event week) |
+|---|---|---|
+| 1-day index move assumed | 2.0% | 4.1% (2-day cumulative gap) |
+| Book VaR (99%, 1-week) | ₹X × 1.0 (baseline unit) | **3.2-3.8x** baseline VaR breached |
+| Naked strangle loss (per lot, worst leg) | 2.5x credit received | **6-9x credit received** (gap through short strike + IV expansion, not just spot move) |
+| Defined-risk spread loss | Capped at 1.8-2.2x credit (per COST_STANDARDS) | Held to cap — **this is the one number that behaved** |
+| Fill slippage vs. modeled | 1x normal (COST_STANDARDS baseline) | **2.5-4x** (thin-liquidity, wide-spread stop execution — landmine #7b realized) |
+| Margin call as % of allocated capital to sleeve | not modeled as a trigger | **~40%** intraday spike, forcing forced deleveraging at the worst prices |
+| Net week P&L vs. worst-week-to-date (pre-exercise) | — | **-2.6x to -3.4x** the prior worst week on record |
+
+Bottom line: the tail is not "the naked strangles blew up" (expected, sized-for, capped by strike selection in theory) — it's that **the combined event gap was larger than any single-event model, the hedge couldn't be executed at modeled prices, and margin mechanics forced us to sell the wrong book first.**
+
+## Exact de-risk triggers we pre-commit to (numeric, no judgment calls mid-crisis)
+1. **Event-stacking rule:** if two or more Tier-1 events (RBI MPC, Union Budget, FOMC, major macro data with historical >1.5% NIFTY move) fall in the same calendar week, **halve naked strangle notional and cap total sleeve VaR at 50% of normal weekly limit**, set 3 trading days before the first event — not the morning of.
+2. **Naked-to-defined conversion trigger:** any naked strangle leg that reaches delta ±0.30 (vs. normal 0.15-0.20 entry) **must** be converted to a defined-risk spread (buy the wing) within the same session, no exceptions, regardless of whether it "looks like it'll mean-revert."
+3. **Margin-spiral pre-commitment:** if intraday margin utilization on the sleeve exceeds 70% of allocated capital, **close naked legs first, defined-risk spreads last** — this sequencing rule is written down NOW, before any stress, specifically to override the instinct to sell what's liquid.
+4. **Liquidity-gate trigger:** if bid-ask on the relevant strike widens beyond 3x the 20-day average at the open, **do not chase the stop-loss price** — use a resting limit at 1.5x modeled fair value and accept a wider loss band rather than a market order into an air pocket; pre-size the position assuming this limit may not fill for up to 60 minutes.
+5. **Hard weekly circuit-breaker:** cumulative sleeve loss of 2.5x the largest historical single-event week (a fixed rupee number, not a re-estimated one) triggers a full flatten of the sleeve for the remainder of the week, no re-entry until the next Monday review — this number is set today, in calm conditions, specifically so it cannot be argued down in the moment.
+
+## What cannot be hedged at acceptable cost — stated honestly
+- **The overnight/pre-open gap itself.** No options-based hedge fills between last night's close and today's open; buying enough far-OTM protection to fully cap a >4% overnight gap on both legs would cost more in carry over a typical quarter than the tail event's expected loss — this is a structural, accepted residual risk of running short vol around scheduled binary events, not a modeling failure.
+- **Correlated liquidity withdrawal.** When market-makers widen simultaneously across the strike chain (as they do exactly when we most need a hedge fill), no amount of "smarter" order routing buys back the 40-60 minutes of bad execution — this is a market-structure fact, not a broker or strategy failure, and the only real mitigation is smaller pre-event size, not better hedging technology.
+- **The Budget+MPC joint-event correlation regime itself.** We can size for it, we cannot diversify it away within an index-options-only book — a genuine second uncorrelated hedge (e.g., cross-asset, rates, or FX) would need to be added at the portfolio level, and that decision sits with CIO, not with this sleeve's risk controls.
+
+**Recommendation:** adopt triggers 1-5 as standing pre-trade rules (RP-29 pre-trade-check integration) before the next scheduled Tier-1 event stack; flag the residual gap/liquidity/correlation risk to CIO as accepted-and-disclosed, not solved.

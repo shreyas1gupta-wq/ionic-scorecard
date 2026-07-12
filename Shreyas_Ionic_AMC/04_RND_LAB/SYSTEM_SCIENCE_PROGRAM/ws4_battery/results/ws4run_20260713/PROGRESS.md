@@ -56,3 +56,18 @@ repo. One run per arm per task. Parked: market-research queue, XBRL retry (busin
 - build_arm_c_workflow.py written (generator; extracts verbatim arm prompt FROM PROTOCOL.md; reviewer->redteam->synthesis; <=3 concurrent; no-files constraint embedded). NEXT SESSION: set RUN_ID to the new grid id, run generator, launch AFTER arm B.
 - NEXT-WEEK EXECUTION ORDER (Sonnet, mechanical): (1) new grid run id ws4run_sonnet_<date>; regenerate arms-AB js (edit RUN_ID in build_arms_ab_workflow.py) -> run A+B; (2) usage extraction from workflow transcripts (agent-*.jsonl usage fields) -> spend_ab.csv; (3) generate+run arm C; (4) scrub/seal/grade on DESK-20 or haiku; (5) stats -> fill paper Tables 1-6 (+ Table 6 bonus row: Fable armA from ws4run_20260713) -> fill LinkedIn slots -> style-lint -> docx_style_kit -> PRINCIPAL REVIEW.
 - FABLE FINAL ADDITIONS: ws4_scrub_seal.py (blinding: furniture regex + residual-tell warnings + seeded ID shuffle + SEALED mapping) and ws4_stats.py (defects-found/FP/mean, paired sign-flip permutation, frozen-bar verdict incl FP-caveat rule, spend join) BUILT AND BANKED. Next week is now 100% mechanical: run arms -> scrub_seal -> grade -> stats -> fill.
+
+## FINAL WINDUP CHECKPOINT (session limit, 2026-07-13 late)
+- BANKED NOW: ARM COUNTS: {'A': 20, 'B': 1, 'C': 0, 'C2': 0} | MG: {'haiku': 8, 'sonnet': 4, 'opus': 0, 'fable': 0, 'SYSTEM': 0}
+- WORKFLOWS WERE LIVE AT CUTOFF (session-bound; a new session CANNOT resume by runId):
+  arm B (wf_d93b144c-ff4), arm C (wf_f1be2d6d-45f), arm C2 (wf_9d8ec2a0-c6d), MG grid (wf_1a6e882e-c9d).
+- RERUN RULE FOR MISSING CELLS (avoids re-running completed tasks = taint): before relaunching any
+  runner, EDIT its generator to SKIP task ids whose output file already exists in raw//results dir,
+  regenerate the .js, launch fresh. One line filter in the tasks list comprehension, e.g.
+  if not (RES_dir / f'{tid}_armC.md').exists(). Completed answers are NEVER overwritten or re-run.
+- MODEL NOTE: B/C/C2 partial cells completed on Fable; if Fable unavailable for the remainder, complete
+  the REMAINING cells on Fable when it returns (weekly reset) - do NOT mix models within one arm. If Fable
+  never returns this month: the arm is reported on its completed subset with n disclosed (pre-registered
+  fallback, honest), or the full grid reruns on Sonnet next week as ws4run_sonnet (clean battery-new-arm).
+- THEN: spend extract -> scrub/seal -> grading (DESK-20/haiku) -> ws4_stats -> fill paper+post ->
+  additions 1-8 metrics -> DATAVIZ CHARTS LAST -> remind Principal re arXiv + grade spot-audit.
