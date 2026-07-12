@@ -35,5 +35,7 @@ print("MISLABELED (tz bug) : mean/day %+.4f%%  Sharpe %5.2f"
       % (100 * fake.mean(), fake.mean() / fake.std() * ann))
 print("CORRECT labelling   : mean/day %+.4f%%  Sharpe %5.2f"
       % (100 * true.mean(), true.mean() / true.std() * ann))
-assert fake.mean() > 4 * abs(true.mean()), "defect demo failed"
-print("DEFECT CONFIRMED: naive UTC .dt.date labelling fabricates the reversal edge.")
+# mislabeled: strongly positive fake edge; correct labels: flat-to-negative
+assert fake.mean() > 0.003 and true.mean() < 0.0005, "defect demo failed"
+print("DEFECT CONFIRMED: naive UTC .dt.date labelling fabricates the reversal edge")
+print("(the implementable version of the same rule makes nothing or loses).")

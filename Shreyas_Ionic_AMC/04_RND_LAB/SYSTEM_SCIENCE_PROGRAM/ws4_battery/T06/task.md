@@ -4,7 +4,7 @@ Backtest of the flagship short-vol candidate. Option chain data is verified entr
 prices (volume>0 enforced on both legs); spot is the official index close series.
 The spot/chain dataset runs through 2026-06-30.
 
-Reported result: 90 cycles 2019-01 to 2026-08, hit rate 84%, avg +41 pts/cycle,
+Reported result: 90 cycles 2019-01 to 2026-07, hit rate 84%, avg +41 pts/cycle,
 worst cycle -412 pts.
 
 ```python
@@ -13,11 +13,11 @@ import pandas as pd
 spot = load_spot_series()                  # official index closes, through 2026-06-30
 chain = load_entry_chains()                # entry-day option prices, volume>0 verified
 
-expiries = monthly_expiry_calendar("2019-01", "2026-08")   # exchange calendar
+expiries = monthly_expiry_calendar("2019-01", "2026-07")   # exchange calendar
 
 results = []
 for exp in expiries:
-    entry_day = last_trading_day_on_or_before(exp - pd.Timedelta(days=21))
+    entry_day = last_trading_day_on_or_before(exp - pd.Timedelta(days=45))
     ref = spot.asof(entry_day - pd.Timedelta(days=1))      # prior close for strikes
     ce_k = round_to_strike(ref * 1.03)
     pe_k = round_to_strike(ref * 0.97)
