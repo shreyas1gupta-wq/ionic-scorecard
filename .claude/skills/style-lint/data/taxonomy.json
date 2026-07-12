@@ -1,0 +1,240 @@
+{
+  "_source": "https://github.com/conorbronsdon/avoid-ai-writing (SKILL.md + detector/CATEGORIES.md), WebFetch-verified 2026-07-12. 53-category taxonomy. No JS engine installed (ruflo precedent) -- this is our own hand-built regex/substring checker over the same word/phrase lists.",
+  "tier1_always_replace": {
+    "delve": "explore, dig into, look at",
+    "delve into": "explore, dig into, look at",
+    "landscape": "field, space, industry, world",
+    "tapestry": "describe the actual complexity",
+    "realm": "area, field, domain",
+    "paradigm": "model, approach, framework",
+    "embark": "start, begin",
+    "beacon": "rewrite entirely",
+    "testament to": "shows, proves, demonstrates",
+    "robust": "strong, reliable, solid",
+    "comprehensive": "thorough, complete, full",
+    "cutting-edge": "latest, newest, advanced",
+    "leverage": "use",
+    "pivotal": "important, key, critical",
+    "underscores": "highlights, shows",
+    "meticulous": "careful, detailed, precise",
+    "meticulously": "carefully, in detail, precisely",
+    "seamless": "smooth, easy, without friction",
+    "seamlessly": "smoothly, easily",
+    "game-changer": "name the specific change",
+    "game-changing": "name the specific change",
+    "utilize": "use",
+    "watershed moment": "turning point, shift",
+    "nestled": "is located, sits, is in",
+    "vibrant": "describe what makes it active, or cut",
+    "thriving": "growing, active -- or cite a number",
+    "deep dive": "look at, examine, explore",
+    "dive into": "look at, examine, explore",
+    "unpack": "explain, break down, walk through",
+    "unpacking": "explaining, breaking down",
+    "bustling": "busy, active -- or cite what makes it busy",
+    "intricate": "complex, detailed",
+    "intricacies": "complexities, details",
+    "ever-evolving": "changing, growing",
+    "daunting": "hard, difficult, challenging",
+    "holistic": "complete, full, whole",
+    "holistically": "completely, fully",
+    "actionable": "practical, useful, concrete",
+    "impactful": "effective, significant",
+    "learnings": "lessons, findings, takeaways",
+    "thought leader": "expert, authority",
+    "thought leadership": "expertise, authority",
+    "best practices": "what works, proven methods",
+    "synergy": "describe the actual combined effect",
+    "synergies": "describe the actual combined effect",
+    "interplay": "relationship, connection, interaction",
+    "in order to": "to",
+    "due to the fact that": "because",
+    "serves as": "is",
+    "commence": "start, begin",
+    "ascertain": "find out, determine, learn",
+    "endeavor": "effort, attempt, try",
+    "embrace": "adopt, accept, use, switch to"
+  },
+  "tier1_copula_avoidance": ["serves as", "features", "boasts", "presents"],
+  "tier2_flag_2plus_per_paragraph": {
+    "harness": "use, take advantage of",
+    "navigate": "work through, handle, deal with",
+    "navigating": "working through, handling",
+    "foster": "encourage, support, build",
+    "elevate": "improve, raise, strengthen",
+    "unleash": "release, enable, unlock",
+    "streamline": "simplify, speed up",
+    "empower": "enable, let, allow",
+    "bolster": "support, strengthen, back up",
+    "spearhead": "lead, drive, run",
+    "resonate": "connect with, appeal to",
+    "resonates with": "connects with, appeals to",
+    "revolutionize": "change, transform, reshape",
+    "facilitate": "enable, help, allow, run",
+    "facilitates": "enables, helps, allows",
+    "underpin": "support, form the basis of",
+    "nuanced": "specific, subtle, detailed",
+    "crucial": "important, key, necessary",
+    "multifaceted": "describe the actual facets, or cut",
+    "ecosystem": "system, community, network, market",
+    "myriad": "many, numerous",
+    "plethora": "many, a lot of",
+    "encompass": "include, cover, span",
+    "catalyze": "start, trigger, accelerate",
+    "reimagine": "rethink, redesign, rebuild",
+    "galvanize": "motivate, rally, push",
+    "augment": "add to, expand, supplement",
+    "cultivate": "build, develop, grow",
+    "illuminate": "clarify, explain, show",
+    "elucidate": "explain, clarify, spell out",
+    "juxtapose": "compare, contrast, set side by side",
+    "cornerstone": "foundation, basis, key part",
+    "paramount": "most important, top priority",
+    "poised to": "ready, set, about to",
+    "burgeoning": "growing, emerging",
+    "nascent": "new, early-stage, emerging",
+    "quintessential": "typical, classic, defining",
+    "overarching": "main, central, broad"
+  },
+  "tier3_high_density_words": [
+    "significant", "significantly", "innovative", "innovation", "effective", "effectively",
+    "dynamic", "dynamics", "scalable", "scalability", "compelling", "unprecedented",
+    "exceptional", "exceptionally", "remarkable", "remarkably", "sophisticated",
+    "instrumental", "world-class", "state-of-the-art", "best-in-class"
+  ],
+  "tier3_density_threshold_pct": 3.0,
+  "phrase_families": {
+    "tier3_phrases": {
+      "severity": "P2",
+      "flag_at": 2,
+      "items": ["emerging sector", "emerging space", "emerging category", "the integration of",
+        "the intersection of", "community-driven", "long-term sustainability", "user engagement",
+        "designed for long-term"]
+    },
+    "transitions": {
+      "severity": "P2",
+      "flag_at": 1,
+      "items": ["moreover", "furthermore", "additionally", "in today's", "in an era where",
+        "it's worth noting that", "notably", "here's what's interesting", "in conclusion",
+        "in summary", "when it comes to", "at the end of the day", "that said", "that being said"]
+    },
+    "template_phrases": {
+      "severity": "P1",
+      "flag_at": 1,
+      "items": ["step towards", "step forward for", "whether you're", "i recently had the pleasure of"]
+    },
+    "chatbot_artifacts": {
+      "severity": "P0",
+      "flag_at": 1,
+      "items": ["i hope this helps", "certainly!", "absolutely!", "great question!",
+        "feel free to reach out", "let me know if you need anything else",
+        "in this article, we will explore", "let's dive in", "let's explore", "let's take a look",
+        "let's break this down", "let's examine"]
+    },
+    "cutoff_disclaimers": {
+      "severity": "P0",
+      "flag_at": 1,
+      "items": ["as of my last update", "as of my knowledge cutoff", "i don't have access to real-time"]
+    },
+    "vague_attributions": {
+      "severity": "P0",
+      "flag_at": 1,
+      "items": ["experts believe", "studies show", "research suggests", "industry leaders agree"]
+    },
+    "filler_phrases": {
+      "severity": "P1",
+      "flag_at": 1,
+      "items": ["it is important to note that", "in terms of", "the reality is that"]
+    },
+    "generic_conclusions": {
+      "severity": "P2",
+      "flag_at": 1,
+      "items": ["the future looks bright", "only time will tell", "one thing is certain",
+        "as we move forward"]
+    },
+    "promotional_language": {
+      "severity": "P1",
+      "flag_at": 1,
+      "items": ["breathtaking", "vibrant hub of innovation", "thriving ecosystem"]
+    },
+    "formulaic_challenges": {
+      "severity": "P1",
+      "flag_at": 1,
+      "items": ["despite challenges", "continues to thrive", "while facing headwinds", "remains resilient"]
+    },
+    "speculative_openers": {
+      "severity": "P1",
+      "flag_at": 1,
+      "items": ["imagine a world where", "picture a future in which", "envision a world where"]
+    },
+    "infomercial_hooks": {
+      "severity": "P1",
+      "flag_at": 1,
+      "items": ["the catch?", "the kicker?", "here's the thing.", "but here's the kicker",
+        "the best part?", "plot twist:", "the result?"]
+    },
+    "social_endorsement_closers": {
+      "severity": "P1",
+      "flag_at": 1,
+      "items": ["worth your time", "must-read", "won't want to miss this", "save this for later",
+        "bookmark this", "don't sleep on this one", "thank me later"]
+    },
+    "emotional_flatline": {
+      "severity": "P1",
+      "flag_at": 1,
+      "items": ["what surprised me most", "i was fascinated to discover", "what struck me was",
+        "i was excited to learn", "the most interesting part", "hit differently", "hits different"]
+    },
+    "rhetorical_question_openers": {
+      "severity": "P1",
+      "flag_at": 1,
+      "items": ["but what does this mean for", "so why should you care", "what's next?"]
+    },
+    "hollow_intensifiers": {
+      "severity": "P1",
+      "flag_at": 1,
+      "items": ["genuine", "genuinely", "quite frankly", "to be honest", "let's be clear"]
+    },
+    "vague_endorsement": {
+      "severity": "P2",
+      "flag_at": 1,
+      "items": ["worth reading", "worth paying attention to", "worth a look", "worth exploring",
+        "worth checking out"]
+    },
+    "hedging_words": {
+      "severity": "P2",
+      "flag_at": 1,
+      "items": ["perhaps", "could potentially", "it's important to note that", "to be clear"]
+    },
+    "confidence_calibration": {
+      "severity": "P2",
+      "flag_at": 1,
+      "items": ["interestingly", "surprisingly", "importantly", "significantly", "notably",
+        "certainly", "undoubtedly", "without a doubt"]
+    },
+    "persuasive_authority_tropes": {
+      "severity": "P1",
+      "flag_at": 1,
+      "items": ["the real question is", "at its core", "fundamentally", "make no mistake",
+        "the truth is"]
+    },
+    "novelty_inflation": {
+      "severity": "P0",
+      "flag_at": 1,
+      "items": ["he introduced a term", "she coined the phrase", "a concept nobody's naming",
+        "a failure mode nobody talks about", "the insight everyone's missing",
+        "what nobody tells you about"]
+    }
+  },
+  "structural_checks": {
+    "em_dash_hard_cap_per_1000_words": 1,
+    "em_dash_target": 0,
+    "rule_of_three_regex": "\\b(\\w+(?:,\\s+\\w+){1}(?:,)?\\s+and\\s+\\w+)\\b",
+    "negation_pivot_regex": "\\bit'?s not\\b.{0,60}\\bit'?s\\b",
+    "bullet_bare_noun_min_items": 5
+  },
+  "house_positive_checks": {
+    "citation_regex": "([A-Za-z0-9_./\\\\-]+\\.(md|csv|parquet|py|xlsx|docx|json)(:[0-9]+)?)|(\\bas of \\d{4}-\\d{2}-\\d{2}\\b)|(\\bsource:\\s)",
+    "note": "house rule -- flags paragraphs that assert a number/claim with no nearby file-path or as-of-date citation. Heuristic, not exhaustive: a paragraph is 'claim-bearing' if it contains a digit."
+  }
+}
