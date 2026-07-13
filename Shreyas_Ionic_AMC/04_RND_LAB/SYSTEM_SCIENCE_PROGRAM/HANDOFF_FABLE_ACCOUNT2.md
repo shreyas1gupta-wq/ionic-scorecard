@@ -40,7 +40,7 @@ Then Workflow on `SSP/ws4_battery/results/ws4run_20260713/ws4_arm_c2.js`. (C vs 
 ```
 PYTHONIOENCODING=utf-8 "P" "SSP/MODEL_GRID/build_mg_grid.py" fable system
 ```
-Then Workflow on `SSP/MODEL_GRID/mg_grid_fable_sys.js`.
+Then Workflow on `SSP/MODEL_GRID/mg_grid_fable_sys.js`. Just run all 8 tasks as generated (they're cheap). *Note: the two exact-answer puzzle cells (MG05/MG06) also have a labeled Opus-imputed fallback, so even if those two never run, the table still has a Fable puzzle score — but a real run is better and supersedes it. Do NOT hand-create any answer files.*
 
 **Step 5 — OPTIONAL, only if you have spare Sonnet budget (fills 3 missing Sonnet grid cells):**
 ```

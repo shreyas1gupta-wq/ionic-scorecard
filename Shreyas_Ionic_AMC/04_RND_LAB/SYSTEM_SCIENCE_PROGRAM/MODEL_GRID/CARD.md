@@ -31,6 +31,14 @@ on token usage and output quality across financial AND general tasks. All runs m
 - OVERALL: no single blended "IQ number" — we report the score-vs-token Pareto per axis; any composite is
   shown ONLY as equal-weight mean of normalized axis scores, labeled composite-for-visualization.
 
+## Imputation rule (Principal directive 2026-07-13) — objective items only
+Where OPUS scores an OBJECTIVE exact-answer item 100%, Fable's cell may be IMPUTED = 100%, tagged `[imputed]`
+(basis: Fable 5 is Mythos-class, documented >= Opus 4.8 in capability). SCOPE IS NARROW AND BINDING: applies
+ONLY to MG05/MG06 (exact ground truth); NEVER to judge-scored tasks (MG01-04/07/08) or the defect-finding
+battery — those are the experiment and must be measured. Imputed cells are never reported as "measured"; a real
+Fable run supersedes them. This lets account-2 skip the two Fable puzzle cells and spend its budget on the
+measurements that matter (arms B/C/C2, the 6 open-ended MG-fable tasks, MG-SYSTEM).
+
 ## Integrity
 - All prompts frozen in this commit BEFORE any run. One shot per (model, task) — no retries, no best-of.
 - All tokens counted incl. system rows' full pipeline overhead. Same accounting as PROTOCOL S4.

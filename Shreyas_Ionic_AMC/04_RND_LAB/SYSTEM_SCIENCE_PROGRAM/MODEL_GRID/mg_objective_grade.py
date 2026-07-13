@@ -44,8 +44,21 @@ for m in models:
     tot = (s5 or 0) + (s6 or 0) if (s5 is not None and s6 is not None) else None
     rows.append((m, s5, b5, s6, b6, tot))
     print(f"{m:<10} {str(s5):>5} {b5:<18} {str(s6):>5} {b6:<22} {str(tot):>8}")
-(MG / "MG_PUZZLE_SCORES.txt").write_text(
-    "OBJECTIVE PUZZLE GRADE (MG05 exact=n(1-(1-1/n)^n), lim 1-1/e; MG06 exact=25/3). Text-signature, human-auditable.\n" +
-    "\n".join(f"{m}: MG05={s5}({b5}) MG06={s6}({b6}) total={tot}" for m, s5, b5, s6, b6, tot in rows),
-    encoding="utf-8")
-print("\n-> MG_PUZZLE_SCORES.txt (partial rows; fable/system pending account-2)")
+out_lines = ["OBJECTIVE PUZZLE GRADE (MG05 exact=n(1-(1-1/n)^n), lim 1-1/e; MG06 exact=25/3). Text-signature, human-auditable.",
+             "MEASURED:"] + [f"{m}: MG05={s5}({b5}) MG06={s6}({b6}) total={tot}" for m, s5, b5, s6, b6, tot in rows]
+
+# Principal directive 2026-07-13: where OPUS scores an OBJECTIVE item 1.0, IMPUTE Fable=1.0.
+# Basis: Fable 5 is Mythos-class, documented >= Opus 4.8 in capability. LABELED [IMPUTED], never "measured".
+# Scope: objective exact-answer puzzles ONLY (MG05/MG06). NEVER applied to judge-scored tasks or defect-finding.
+# A real Fable run (if account-2 executes it) SUPERSEDES the imputed value.
+opus_row = next((r for r in rows if r[0] == "opus"), None)
+if opus_row and not any(r[0] == "fable" for r in rows):
+    _, os5, _, os6, _, _ = opus_row
+    i5 = 1.0 if os5 == 1.0 else None
+    i6 = 1.0 if os6 == 1.0 else None
+    itot = (i5 or 0) + (i6 or 0) if (i5 is not None or i6 is not None) else None
+    print(f"\n[IMPUTED] fable    MG05={i5} MG06={i6} total={itot}  (from Opus=1.0; NOT measured; supersede with real run)")
+    out_lines += ["", "IMPUTED (Principal directive; Fable>=Opus capability; objective cells where Opus=1.0; NOT measured):",
+                  f"fable: MG05={i5} MG06={i6} total={itot} [IMPUTED-from-opus]"]
+(MG / "MG_PUZZLE_SCORES.txt").write_text("\n".join(out_lines), encoding="utf-8")
+print("\n-> MG_PUZZLE_SCORES.txt (measured rows + labeled imputed fable; system pending account-2)")
