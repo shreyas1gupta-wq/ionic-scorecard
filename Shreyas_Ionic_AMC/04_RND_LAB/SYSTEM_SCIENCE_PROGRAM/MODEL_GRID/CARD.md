@@ -44,3 +44,11 @@ measurements that matter (arms B/C/C2, the 6 open-ended MG-fable tasks, MG-SYSTE
 - All tokens counted incl. system rows' full pipeline overhead. Same accounting as PROTOCOL S4.
 - Publish whatever falls out, including "cheaper model matches Fable on X" — that IS the cost-grid finding.
 Trials +1 (grid counts as one pre-registered experiment).
+
+## PIVOT TO OPUS BASE (2026-07-13, Fable exhausted on BOTH accounts; Principal: complete + post this week, use a proxy)
+- Fable unavailable -> the model-matched core comparison CANNOT stay Fable-based (arm A alone was Fable; matching B/C to a proxy against a Fable A would be a model-confound). CORRECT PIVOT: primary base model = **Opus 4.8**; run arms A/B/C(/C2) ALL on Opus, matched. New run id: **ws4run_opus_20260713**. Publishable claim becomes 'a multi-agent firm on Opus 4.8 vs a single Opus 4.8 call at catching quant-research defects' - clean, self-contained, honest.
+- Fable arm A (ws4run_20260713, 20/20, blind-mix disclosed) is DEMOTED to a labeled SECONDARY cross-model row (single-call battery, Fable) - NOT part of the matched A/B/C.
+- MG model-grid: measured haiku/sonnet(5)/opus; Fable OBJECTIVE puzzle cells imputed (labeled); Fable OPEN-ENDED cells = NOT AVAILABLE (Fable budget exhausted) - reported as such, never imputed. SYSTEM row runs on Opus.
+- HANDOFF_FABLE_ACCOUNT2.md = DEPRECATED for the core (Fable gone); retained only as bonus if Fable budget ever returns.
+- BUDGET FLAG: Opus/proxy draws the shared non-Fable pool (25%% colleague floor). Running A/B now (40 cheap cells), then C (60), C2 only if floor safe. Checkpoint per stage; STOP + tell Principal if approaching floor.
+- RUNNING: arms A+B on Opus (wf_e1983d76-8b0). NEXT: arm C on Opus when A/B land.

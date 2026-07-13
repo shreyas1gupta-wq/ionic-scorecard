@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(r"c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500")
 BAT = ROOT / "Shreyas_Ionic_AMC/04_RND_LAB/SYSTEM_SCIENCE_PROGRAM/ws4_battery"
-RUN_ID = "ws4run_20260713"
+RUN_ID = __import__('sys').argv[1] if len(__import__('sys').argv) > 1 else "ws4run_20260713"
 RES = BAT / "results" / RUN_ID / "raw"
 RES.mkdir(parents=True, exist_ok=True)
 

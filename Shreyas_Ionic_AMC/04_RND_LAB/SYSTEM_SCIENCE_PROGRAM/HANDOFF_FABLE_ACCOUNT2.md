@@ -1,3 +1,5 @@
+> **DEPRECATED 2026-07-13: Fable exhausted on both accounts. The core comparison pivoted to an Opus-4.8 base (run by the first account). This file is kept only as a bonus path IF Fable budget ever returns.**
+
 # HANDOFF — Fable runs for the "Firm S" system-vs-LLM experiment
 **For: the second Claude Code account (the one that still has Fable budget). Paste this whole file as your prompt, or open it and follow it.**
 
