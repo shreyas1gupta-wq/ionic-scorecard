@@ -71,3 +71,8 @@ repo. One run per arm per task. Parked: market-research queue, XBRL retry (busin
   fallback, honest), or the full grid reruns on Sonnet next week as ws4run_sonnet (clean battery-new-arm).
 - THEN: spend extract -> scrub/seal -> grading (DESK-20/haiku) -> ws4_stats -> fill paper+post ->
   additions 1-8 metrics -> DATAVIZ CHARTS LAST -> remind Principal re arXiv + grade spot-audit.
+
+## SPEND-LIMIT FINAL STATE (2026-07-13, all workflows terminated by org monthly limit)
+- BANKED: armA 20/20, armB 1 (['T02']), armC 0, armC2 0. MG grid: {'haiku': 8, 'sonnet': 5, 'opus': 0, 'fable': 0, 'SYSTEM': 0} (fable row 0/8 - died on limit; FIRST in queue when Fable returns).
+- **INTEGRITY DISCLOSURE (paper limitations): resumeFromRunId is same-session-only; the cross-session resume RE-RAN armA agents live and blindly overwrote 12 of 20 armA answers (['T01_armA.md', 'T02_armA.md', 'T03_armA.md', 'T05_armA.md', 'T04_armA.md', 'T06_armA.md', 'T09_armA.md', 'T08_armA.md', 'T07_armA.md', 'T11_armA.md', 'T15_armA.md', 'T13_armA.md']). No selection occurred (overwrites unconditional, identical prompt/model/protocol, fresh contexts) - answers are exchangeable under the frozen protocol, but the paper MUST disclose: armA answers are a blind mix of two identical-protocol runs. Rule added: NEVER resume a runId from a different session; use the skip-completed regenerate path instead.**
+- REMAINING TO RUN (in order, when budget returns - Fable for B/C/C2 + MG-fable; any budget for MG-opus + graders): armB 19 cells, armC 20, armC2 20, MG fable 8 + SYSTEM 8 + opus 8 + sonnet ~4, then spend-extract, scrub/seal, grading, stats, fill, charts, arXiv+audit reminders.
