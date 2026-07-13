@@ -1,4 +1,12 @@
 # CURRENT STATE — read me first (updated every session end)
+## WEEK PRIORITIES (set 2026-07-13 leaders meeting)
+1. WS-4 Sonnet grid + blind grading + stats — Wed 07-15 (Arjun/desk; resume from ws4_battery/results/ws4run_20260713/PROGRESS.md)
+2. Publication pack (paper fill, charts LAST, style-lint, PDF + LinkedIn draft) — Sat 07-18 (Tanvi+Arjun; Principal reviews before anything publishes)
+3. Forward engines: S1-F Tue 09:12, S1-SX Thu 09:14; Tara reconcile + Ritika risk pack Fri 07-17
+4. Cadence catch-up Tue: /macro-calendar, /pipeline-health, /find-skills
+5. XBRL 2019-21 retry + D-009 gate Tue/Wed (Kavya; scripts in 05_DATA_OFFICE/scripts/)
+BUDGET LAW THIS WEEK: Sonnet-only; graders haiku/second-account; org pool 25% floor is HARD.
+
 **As of: 2026-07-13 (loop day), by DESK-100 — 10 cards/rulings adjudicated, 2 new landmines, wave-B closed, trials 249; prior states below still current**
 
 ## 2026-07-13 (late, DESK-20) — KIRU package adjudicated (Principal-ordered external-spec test)
