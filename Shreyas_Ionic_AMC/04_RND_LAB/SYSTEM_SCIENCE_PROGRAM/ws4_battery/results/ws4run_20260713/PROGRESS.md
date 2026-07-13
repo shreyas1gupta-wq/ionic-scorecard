@@ -76,3 +76,11 @@ repo. One run per arm per task. Parked: market-research queue, XBRL retry (busin
 - BANKED: armA 20/20, armB 1 (['T02']), armC 0, armC2 0. MG grid: {'haiku': 8, 'sonnet': 5, 'opus': 0, 'fable': 0, 'SYSTEM': 0} (fable row 0/8 - died on limit; FIRST in queue when Fable returns).
 - **INTEGRITY DISCLOSURE (paper limitations): resumeFromRunId is same-session-only; the cross-session resume RE-RAN armA agents live and blindly overwrote 12 of 20 armA answers (['T01_armA.md', 'T02_armA.md', 'T03_armA.md', 'T05_armA.md', 'T04_armA.md', 'T06_armA.md', 'T09_armA.md', 'T08_armA.md', 'T07_armA.md', 'T11_armA.md', 'T15_armA.md', 'T13_armA.md']). No selection occurred (overwrites unconditional, identical prompt/model/protocol, fresh contexts) - answers are exchangeable under the frozen protocol, but the paper MUST disclose: armA answers are a blind mix of two identical-protocol runs. Rule added: NEVER resume a runId from a different session; use the skip-completed regenerate path instead.**
 - REMAINING TO RUN (in order, when budget returns - Fable for B/C/C2 + MG-fable; any budget for MG-opus + graders): armB 19 cells, armC 20, armC2 20, MG fable 8 + SYSTEM 8 + opus 8 + sonnet ~4, then spend-extract, scrub/seal, grading, stats, fill, charts, arXiv+audit reminders.
+
+## TWO-ACCOUNT SPLIT (2026-07-13, Fable exhausted on org acct; this session = Opus 4.8)
+- Core comparison must be model-matched: arm A = Fable -> arms B/C/C2 must be Fable -> handed to Principal 2nd account.
+- HANDOFF_FABLE_ACCOUNT2.md written (self-contained: rules + 5 steps + skip-safety). Generators now all skip-completed + LF-clean (arms_ab CRLF bug fixed this session).
+- ACCOUNT-2 (Fable) does: arms B, C, C2 + MG fable row + MG SYSTEM row (+ optional sonnet-3).
+- THIS SESSION (Opus) did: MG opus row (wf_c305ee7d-b2c, 8 cells native Opus) + all generator hardening.
+- BLOCKED until Fable arms land: spend-extract, scrub/seal, grading, stats, paper/post fill (need B/C banked). These are model-cheap (haiku graders + pure-python) -> any account/model next.
+- MODEL-PARITY NOTE for paper: arm A ran on ORG-account Fable; arms B/C/C2 on 2ND-account Fable = same MODEL (Fable 5), different billing acct -> disclose but not a validity issue (model, not account, is the variable).

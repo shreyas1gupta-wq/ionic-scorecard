@@ -31,6 +31,10 @@ for i in range(1, 21):
     tid = f"T{i:02d}"
     txt = (BAT / tid / "task.md").read_text(encoding="utf-8")
     tasks.append((tid, txt))
+# skip-completed rule (never re-run a banked cell)
+a_tasks = [(t, x) for t, x in tasks if not (RES / f"{t}_armA.md").exists()]
+b_tasks = [(t, x) for t, x in tasks if not (RES / f"{t}_armB.md").exists()]
+print(f"missing cells -> armA: {len(a_tasks)}, armB: {len(b_tasks)}")
 
 def js_str(s):
     return json.dumps(s)
@@ -45,8 +49,12 @@ lines.append("  phases: [ { title: 'ArmA' }, { title: 'ArmB' } ],")
 lines.append("}")
 lines.append(f"const RES = {js_str(res_dir_js)}")
 lines.append(f"const ARM_PROMPT = {js_str(ARM_PROMPT)}")
-lines.append("const TASKS = [")
-for tid, txt in tasks:
+lines.append("const A_TASKS = [")
+for tid, txt in a_tasks:
+    lines.append(f"  [{js_str(tid)}, {js_str(txt)}],")
+lines.append("]")
+lines.append("const B_TASKS = [")
+for tid, txt in b_tasks:
     lines.append(f"  [{js_str(tid)}, {js_str(txt)}],")
 lines.append("]")
 lines.append("""
@@ -63,24 +71,24 @@ function armBPrompt(tid, txt) {
     "When done, Write your COMPLETE final answer to " + RES + "/" + tid + "_armB.md and return {saved: 'ok'}."
 }
 
-async function runArm(phaseName, promptFn, suffix) {
+async function runArm(phaseName, promptFn, suffix, LIST) {
   phase(phaseName)
   const out = []
-  for (let i = 0; i < TASKS.length; i += 3) {
-    const chunk = TASKS.slice(i, i + 3)
+  for (let i = 0; i < LIST.length; i += 3) {
+    const chunk = LIST.slice(i, i + 3)
     const r = await parallel(chunk.map(([tid, txt]) => () =>
       agent(promptFn(tid, txt), { label: suffix + ':' + tid, phase: phaseName, schema: OUT })))
     out.push(...r)
-    log(phaseName + ' done ' + Math.min(i + 3, TASKS.length) + '/20')
+    log(phaseName + ' done ' + Math.min(i + 3, LIST.length) + '/' + LIST.length)
   }
   return out
 }
 
-const a = await runArm('ArmA', armAPrompt, 'A')
-const b = await runArm('ArmB', armBPrompt, 'B')
+const a = await runArm('ArmA', armAPrompt, 'A', A_TASKS)
+const b = await runArm('ArmB', armBPrompt, 'B', B_TASKS)
 return { armA_completed: a.filter(Boolean).length, armB_completed: b.filter(Boolean).length }
 """)
 js_path = BAT / "results" / RUN_ID / "ws4_arms_ab.js"
-js_path.write_text("\n".join(lines), encoding="utf-8")
+js_path.write_bytes(("\n".join(lines)).encode("utf-8").replace(b"\r\n", b"\n").replace(b"\r", b""))
 print("workflow script:", js_path)
 print("tasks embedded:", len(tasks), "| raw dir:", RES)

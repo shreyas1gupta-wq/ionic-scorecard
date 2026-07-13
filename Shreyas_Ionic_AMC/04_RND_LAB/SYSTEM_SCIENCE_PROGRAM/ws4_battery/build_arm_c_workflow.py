@@ -16,7 +16,10 @@ RES.mkdir(parents=True, exist_ok=True)
 ARM_PROMPT = (BAT / "PROTOCOL.md").read_text(encoding="utf-8").split("```")[1].strip() if "```" in (BAT / "PROTOCOL.md").read_text(encoding="utf-8") else ""
 assert "Review this" in ARM_PROMPT, "verbatim arm prompt not extracted from PROTOCOL.md"
 
+VARIANT_EARLY = __import__('sys').argv[2] if len(__import__('sys').argv) > 2 else 'C'
 tasks = [(f"T{i:02d}", (BAT / f"T{i:02d}" / "task.md").read_text(encoding="utf-8")) for i in range(1, 21)]
+tasks = [(t, x) for t, x in tasks if not (RES / f"{t}_arm{VARIANT_EARLY}.md").exists()]
+print(f"missing arm{VARIANT_EARLY} cells: {len(tasks)}")
 res_js = str(RES).replace("\\", "/")
 J = json.dumps
 
