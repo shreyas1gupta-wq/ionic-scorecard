@@ -9,12 +9,23 @@ MG = Path(r"c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Bac
 RES = MG / "results"
 
 def despace(t):
-    return re.sub(r"\s+", "", t.lower())
+    """Normalize ASCII / unicode / LaTeX math to one form so objective matching is notation-fair."""
+    t = t.lower()
+    # LaTeX: \frac{a}{b} -> a/b ; strip sizing/formatting commands ; must run BEFORE brace->paren
+    t = re.sub(r"\\[td]frac", r"\\frac", t)
+    t = re.sub(r"\\frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}", r"\1/\2", t)
+    for cmd in ["\\left", "\\right", "\\bigl", "\\bigr", "\\big", "\\!", "\\,", "\\;", "\\cdot", "$"]:
+        t = t.replace(cmd, "*" if cmd == "\\cdot" else "")
+    for a, b in [("−", "-"), ("–", "-"), ("—", "-"), ("·", "*"), ("⋅", "*"),
+                 ("×", "*"), ("[", "("), ("]", ")"), ("{", "("), ("}", ")")]:
+        t = t.replace(a, b)
+    return re.sub(r"\s+", "", t)
 
 def grade_mg05(t):
     d = despace(t)
-    formula = any(s in d for s in ["n(1-(1-1/n)", "1-(1-1/n)^n", "(1-1/n)^n", "(1-1/n)**n", "n*(1-(1-1/n)"])
-    limit = any(s in d for s in ["1-1/e", "0.632", "0.6321", "(e-1)/e"])
+    formula = any(s in d for s in ["n(1-(1-1/n)", "1-(1-1/n)^n", "(1-1/n)^n", "(1-1/n)**n",
+                                    "n*(1-(1-1/n)", "n-n(1-1/n)^n", "n-n*(1-1/n)^n"])
+    limit = any(s in d for s in ["1-1/e", "0.632", "0.6321", "(e-1)/e", "1-e^-1", "1-e^(-1)"])
     if formula and limit:
         return 1.0, "formula+limit"
     if limit:
