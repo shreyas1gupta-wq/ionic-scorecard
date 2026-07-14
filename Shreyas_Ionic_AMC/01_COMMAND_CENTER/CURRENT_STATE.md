@@ -7,6 +7,13 @@
 5. XBRL 2019-21 retry + D-009 gate Tue/Wed (Kavya; scripts in 05_DATA_OFFICE/scripts/)
 BUDGET LAW THIS WEEK: Sonnet-only; graders haiku/second-account; org pool 25% floor is HARD.
 
+## 2026-07-15 (DESK-20) — BRAND DESK created (10_BRAND_DESK/), spec-now-build-later
+- **New folder `10_BRAND_DESK/`** governs Shreyas's PUBLIC personal-brand writing (LinkedIn + Substack). Goal: reputation as a future capital allocator, built on his OWN models + a timestamped auditable track record. `BRAND_CHARTER.md` = its constitution.
+- **Verified live profile (logged-in read):** linkedin.com/in/guptashreyas089, ~22,986 followers; existing quantamental lane; best format = document-backed market thesis. This is a re-launch/systematization, not a cold start.
+- **Cadence:** LinkedIn Sun 17:00 IST, ≥2 substantive posts/mo across platforms, rolling 4-draft buffer, 1-2yr flexible roadmap. **STARTS NEXT MONTH (2026-08);** this week's Sunday item is still the AMC SYSTEM_VS_LLM post (own frozen PUBLICATION_PLAN rules, predates the desk).
+- **Hard rules:** no stock calls (SEBI RA/IA), no Ionic client/AUM/strategy/PII/P&L, "Ionic colleagues must be OK seeing it" test, varied disclaimers, every falsifiable claim pre-registered+committed to `PUBLIC_TRACK_RECORD.md`, must sound like Shreyas not AI (`/style-lint` gate), Shreyas posts manually + final proofread — system delivers TEXT only, never auto-posts.
+- **DEFERRED to a Fable-token session (Shreyas builds):** `brand-desk-lead` agent + `/brand-compliance-check`, `/brand-post`, `/track-record-review` skills — spec'd in `10_BRAND_DESK/NEW_AGENTS_SPEC.md`. Until built, pipeline runs via existing agents (rnd-head/librarian/macro/compliance-farhan/red-team/product-head) manually invoked.
+
 **As of: 2026-07-13 (loop day), by DESK-100 — 10 cards/rulings adjudicated, 2 new landmines, wave-B closed, trials 249; prior states below still current**
 
 ## 2026-07-13 (late, DESK-20) — KIRU package adjudicated (Principal-ordered external-spec test)
