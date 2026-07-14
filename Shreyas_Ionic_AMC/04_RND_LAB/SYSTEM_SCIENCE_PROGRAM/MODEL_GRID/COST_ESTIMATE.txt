@@ -1,0 +1,6 @@
+STEP1 COST ESTIMATE (battery single-call arm A) — ESTIMATE from word-length x published prices; not exact tokens.
+prices $/MTok in/out: {'fable': (15, 75), 'opus': (15, 75), 'sonnet': (3, 15), 'haiku': (1, 5)}
+fable: n=20 in~9,401 out~18,017 cost~$1.492 ($0.0746/answer)
+opus: n=20 in~9,401 out~26,252 cost~$2.110 ($0.1055/answer)
+sonnet: n=20 in~9,401 out~7,982 cost~$0.148 ($0.0074/answer)
+haiku: n=20 in~9,401 out~3,071 cost~$0.025 ($0.0012/answer)
