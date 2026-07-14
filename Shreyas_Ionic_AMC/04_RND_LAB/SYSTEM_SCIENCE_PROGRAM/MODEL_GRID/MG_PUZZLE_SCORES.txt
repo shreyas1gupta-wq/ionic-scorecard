@@ -1,9 +1,7 @@
 OBJECTIVE PUZZLE GRADE (MG05 exact=n(1-(1-1/n)^n), lim 1-1/e; MG06 exact=25/3). Text-signature, human-auditable.
 MEASURED:
+fable: MG05=1.0(formula+limit) MG06=1.0(exact 25/3) total=2.0
 haiku: MG05=1.0(formula+limit) MG06=1.0(exact 25/3) total=2.0
 opus: MG05=1.0(formula+limit) MG06=1.0(exact 25/3) total=2.0
 sonnet: MG05=1.0(formula+limit) MG06=None(missing) total=None
 sonnetweb: MG05=1.0(formula+limit) MG06=1.0(exact 25/3) total=2.0
-
-IMPUTED (Principal directive; Fable>=Opus capability; objective cells where Opus=1.0; NOT measured):
-fable: MG05=1.0 MG06=1.0 total=2.0 [IMPUTED-from-opus]

@@ -1,0 +1,31 @@
+Answering from reasoning alone, as asked — no tools. One framing fact first, because it sets the prior: a 2.1 Sharpe over 14 years is a t-stat of ~2.1 × √14 ≈ 7.9, in the *hardest* modern regime for cross-sectional equity ML (post-2010, post-anomaly-decay), published for free. Honest first-shot academic ML long-short results in this era cluster around 0.5–1.2 gross. So the question isn't whether something inflates the number, but which mechanisms and in what order of likelihood.
+
+## 1. The "out-of-sample" period isn't — test-set reuse / multiple testing (near-certain)
+**How it inflates:** 940 features plus architecture, horizon, rebalance frequency, and portfolio-construction choices give thousands of researcher degrees of freedom. If any were selected because they looked good on 2010–2023 — across months of team iteration, this is almost unavoidable — the reported Sharpe is the *max of many correlated noisy trials*, not an estimate. With a Sharpe standard error of ~0.3–0.5 over 14 years, picking the best of a few hundred configurations manufactures 1–1.5 Sharpe units from a true zero.
+**The check:** freeze the released code/config and run it once, untouched, on data the authors could not have consulted — 2024 through mid-2026. A real 2.1 process stays strongly positive; a mined one reverts toward zero. (Proxy if you can't wait: demand the trial count and compute the Deflated Sharpe Ratio.)
+
+## 2. Look-ahead leakage in the features — point-in-time failures (very likely; one leak among 940 suffices)
+**How it inflates:** fundamentals aligned to fiscal-period-end instead of filing date let the model trade earnings 45–90 days before the market saw them; restated rather than originally-reported values leak corrections. News sentiment is worse: vendor histories are backfilled and re-scored with models built *after the fact*, and any sentiment classifier fine-tuned on 2010–2023 labels encodes which words predicted returns over the test period itself. Full-sample feature standardization in the ML pipeline is the same bug in miniature. A flexible model finds the one leaking column and rides it — producing exactly the claimed signature: implausibly high *and* implausibly stable.
+**The check:** lag every feature by a conservative availability buffer (fundamentals +90 days unless filing-dated, news +1 trading day) and rerun the frozen pipeline. A real signal decays mildly; a leak collapses discontinuously.
+
+## 3. Gross-of-cost returns on a high-turnover book (near-certain to be present; often disclosed, still fatal to replication in dollars)
+**How it inflates:** models mixing daily prices and news load on short-horizon signals with turnover of 50–200% of the book per rebalance. The reported numerator is gross alpha, much of which is compensation for crossing spreads and providing liquidity — costs a real trader pays, not earns. Add short-leg borrow fees and impact, and the published pattern is gross ~2 falling to ~0–0.5 net.
+**The check:** compute annualized one-way turnover from their positions and apply a size-dependent cost curve (effective half-spread by cap decile + borrow fees on shorts); report the net Sharpe. If the paper can't even produce turnover, that is itself the finding.
+
+## 4. The alpha lives in micro-caps and an unshortable short leg (likely, especially if equal-weighted)
+**How it inflates:** cross-sectional ML predictability concentrates in the smallest deciles; equal-weighted decile spreads put half the book in names with tiny ADV, wide spreads, and hard-to-borrow or no-borrow shorts. Stale closes and bid-ask bounce in these names mechanically manufacture short-horizon "reversal alpha" that exists in the database, not the market. Capacity is a few million dollars.
+**The check:** rerun value-weighted on a liquid universe (top ~1,000 by market cap, price > $5, borrowable shorts). The genre-typical result is a 50–80% Sharpe loss — the surviving number is the honest headline.
+
+## 5. Same-bar execution — trading at prices that predate signal availability (moderately likely; a quiet engine bug)
+**How it inflates:** signal built from day-t closes (or news published through 4:00 pm, or after-hours filings), fills assumed at the day-t close. The backtest captures the market's reaction to information at a price set *before* the information was actionable; with news sentiment this silently harvests the announcement-day jump itself. Vendor "story creation" timestamps, often backdated relative to true dissemination, compound it.
+**The check:** delay all fills to the t+1 open (and require exchange-timestamped information strictly before each fill) and rerun. A drop much beyond ~20–30% flags the timing bug rather than genuine fast alpha.
+
+## 6. Survivorship and merge-induced coverage bias — missing delistings (plausible, and specifically invited by this design)
+**How it inflates:** inner-joining prices, fundamentals, *and* news coverage silently drops firms that died, delisted, or were too small for news coverage — the panel is conditioned on survival. Longs in distressed names show "recoveries" because the corpses are absent; positions in stocks that delist exit at the last stale price instead of the ~−30% average performance-delisting return. The ML model then learns and amplifies this biased conditional mean.
+**The check:** count security deaths per year in their final panel against CRSP baseline delisting rates (~4–8% of listings/year) and verify delisting returns are applied in the P&L. A near-zero death count confirms the bias.
+
+**Overall read:** items 1–3 are each individually close to certain in this genre and jointly sufficient to explain 2.1 → ~0.5 investable; 4–6 are the standard residual suspects a referee should clear in that order. The single highest-value replication act is the combination of checks 1+2: frozen pipeline, lagged features, post-2023 data — one run answers most of the list.
+
+Sanity check against the ask: 6 items, ranked by probability, each with an explicit inflation mechanism and exactly one decisive check — covered, no tools used.
+
+result: Ranked the 6 likeliest reasons the claimed 2.1 OOS Sharpe won't survive — test-set reuse, feature look-ahead, gross-of-cost reporting, micro-cap concentration, same-bar execution, survivorship — each with its inflation mechanism and one decisive verification check.
