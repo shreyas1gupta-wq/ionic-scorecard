@@ -1,0 +1,6 @@
+GRID OPEN-ENDED QUALITY — BIAS-CORRECTED (leave-one-out: exclude each model's own family as judge)
+Judges: Haiku (original web grader) + Opus (neutral re-grade). Self-preference measured: Haiku-judge +1.0 to Haiku, Opus-judge +0.5 to Opus; Fable/Sonnet judge-stable (+-0.05).
+Corrected /10:  fable 9.53 | opus 9.25 | sonnet 8.28 | haiku 8.08
+Ranking: fable > opus > sonnet > haiku (Sonnet >= Haiku; the earlier Sonnet<Haiku was haiku-judge self-preference, now removed).
+CAVEATS: n=6 tasks/model; 2 judges only (leave-one-out gives haiku & opus a single cross-judge each); grid answers mix interfaces (fable/sonnet=web, opus/haiku=harness) -> verbosity differs; differences among tiers are small and within noise+bias. TREAT grid quality as "rough parity ~8-9.5, not a clean capability ranking." The BATTERY defect result (objective ground truth) is the reliable discriminator.
+PUBLISHABLE METHOD FINDING: LLM-as-judge self-preference directly measured at +0.5 to +1.0 pts on a 10-pt scale -> single-judge model-quality rankings are unsafe; use non-self judges / leave-one-out.
