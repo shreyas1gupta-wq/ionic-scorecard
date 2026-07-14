@@ -13,7 +13,7 @@ Principle: tokens are the firm's fuel. Every burn must buy decision-value. Being
 
 ## Model tiering (cheapest tier that does the job)
 - **haiku** — mechanical: data checks, formatting, file inventory, simple extraction.
-- **sonnet** — analysis: sector memos, technical reads, feature engineering, standard research.
+- **sonnet** — analysis: sector memos, technical reads, feature engineering, standard research and coding/backtesting.
 - **opus/top** — judgment: CIO/FM decisions, Red Team audits, backtest-validity review, research synthesis, anything that will drive capital allocation.
 Never summon the full IC for a question one analyst can answer. FM/CIO decide who convenes.
 
@@ -36,7 +36,7 @@ Never summon the full IC for a question one analyst can answer. FM/CIO decide wh
 - Spend-limit behavior observed: main loop survives; subagent spawns fail with ~0 tokens. On hit: stop spawning, salvage in-flight outputs, journal + commit, hand off to next session.
 
 ## STRICT ENFORCEMENT + TOKEN-SAVING HACKS (Principal order, 2026-07-04)
-**MAX 3 PARALLEL AGENTS — STRICTLY APPLIED EVERY TIME (D-023).** No exceptions, no "just this once". Workflow-harness runs that internally exceed 3 are prohibited; use ≤3 scout waves instead.
+**MAX 3 PARALLEL AGENTS — STRICTLY APPLIED EVERY TIME (D-023).** No exceptions, no "just this once". Workflow-harness runs that internally exceed 3 are prohibited; use ≤3 scout waves instead unless told.
 Hacks (all agents, all desks):
 1. **/to-md before reading binaries** — docx/xlsx/pdf/parquet → lean .md digest (35x+ savings measured). Reading binaries directly = token-waste event (−5 AP).
 2. **Grep before Read** — locate the section, then Read with offset/limit; never read whole large files for one fact.

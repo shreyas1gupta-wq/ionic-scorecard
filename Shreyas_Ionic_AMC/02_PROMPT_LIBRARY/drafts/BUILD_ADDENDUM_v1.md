@@ -10,10 +10,14 @@ Companion: `01_COMMAND_CENTER/WORK_ORDER_DESK100_BUILD.md` (what to construct). 
 |---|---|---|
 | Value | cheap vs fundamentals | earnings yield, P/B, P/CF, EV/EBITDA |
 | Quality | durable profitability | ROE/ROCE, low leverage, earnings stability, F-score, accruals |
-| Momentum | 6–12M price movement | 12-1 momentum, 52w-high proximity, residual momentum |
-| Size | smaller-cap premium | mcap rank — trade only WITH quality + liquidity screens |
-| Earnings Revision | analyst upgrades, surprise | SUE, beat/miss streaks, revision breadth |
+| Momentum | 6–12M price movement | 12-1 momentum, 3/6 month momentum, 52w-high proximity, residual momentum, sectoral momentum, VCP breakout, channel breakout, uptrend over long term but short term downtrend followed by a channel breakout, multi-year high, new trigger (Earning, sector, theme, product, revenue, government rule) movement or gapups/PEAD|
+| Size | smaller-cap premium | mcap rank — trade only WITH quality(top 90%ile) + liquidity screens(ADV(20d) 5cr+) |
+| Earnings Revision | analyst upgrades, surprise | SUE, beat/miss streaks, revision breadth | Higher the better, 25%+ is exceptional 
 | Microstructure | flow/liquidity effects | volume spikes, Amihud illiquidity, VWAP deviation, auction behavior |
+|Volume| Behaviour of price with volume | Sudden rising volume or decreasing volume | exceptionally high volume (10%ile) | gapup or 5%+ move with high volume
+|Overbought | lowest point of last 20day % above from 200dma | ATR above from 50dma (>8x starting dangerous and 10ATR above 50dma is final, unless very low liquid stock or small-microcap stock or too strong fundamnetal backing (1Y forward PE still <30), good time for taking partial profits at minimum) | 30%+ move in a week or 60%+ move in a month |
+|Oversold | RSI(28)<30, RSI(14)<20, RSI(5)<10, % Below 50 dma and 200dma and ATR(14) below 200dma and 50dma |
+
 
 **Commodity sleeve:** Gold = crisis + inflation hedge · Silver = precious + industrial hybrid. ETF route (GOLDBEES/SILVERBEES etc. — tokens already in `datasets/angel_instrument_list.json`), no MCX needed.
 
@@ -24,6 +28,7 @@ Companion: `01_COMMAND_CENTER/WORK_ORDER_DESK100_BUILD.md` (what to construct). 
 | Flow & Ownership | FII/DII buying pressure, ETF flows, promoter/institutional deltas, order-book & volume spikes, liquidity |
 | Event & Seasonality | corporate actions, quarterly patterns, index reconstitution, expiry effects |
 | ML Signals | non-linear, regime-specific models (no deep learning for now — D-011) |
+|January-Feburary falls and profit booking, negative for momentum and small-microcaps and april recovery in smallcaps|
 
 ### Factor → on-disk data map (Data Officer keeps synced with DATA_CATALOG)
 - **Value/Quality** → `datasets/screener_deep/` (BS 5,022 · CF 3,000 · PL 6,000 rows), `earnings_pit/ratios_pit`, `mc_fundamentals_parsed` — READY
