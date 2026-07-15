@@ -1,0 +1,38 @@
+OPUS ARMS — COST / TOKEN METERING (Step 3)
+run: ws4run_opus_20260713 | source: this session's clean arm-C run wf_64605057-580 (2 tasks x 3 stages, all Opus)
+priced Opus $15/$75 per MTok in/out (per ws4_spend_extract.py PRICE table)
+
+PER-STAGE (2 tasks):
+  stage 1 review (single-LLM proxy)   176,984 in +  7,235 out   $3.20
+  stage 2 red-team                     191,430 in +  4,832 out   $3.23
+  stage 3 synthesis                    445,634 in +  8,343 out   $7.31
+  ARM C TOTAL                          814,048 in + 20,410 out   $13.74  (834,458 tok)
+
+HEADLINE COST NUMBERS:
+  arm C (multi-agent system) per task : 417,229 tok  (~$6.87 upper-bound)
+  single-LLM proxy (stage-1) per task :  92,110 tok  (~$1.60 upper-bound)
+  SYSTEM COST MULTIPLE                : 4.5x in tokens (4.3x in $)
+
+COST-PER-DEFECT — use the TOKEN RATIO (pricing-independent), not absolute $:
+  system (arm C) = ~4.5x the tokens of a single reviewer call, for EQUAL-OR-FEWER defects
+  (C 14/16 vs single-LLM A 15/16, B 16/16) => cost-per-defect ~4.5x WORSE for the system.
+  Reconciliation: the already-banked CROSS-MODEL run measured single-Opus-LLM at 14/16 defects,
+  $0.151/defect (real, low-cache). My absolute-$ extrapolation ($9.8/defect system vs $2.0 single)
+  is CACHE-INFLATED (cache-reads charged at full input price) and should NOT be quoted as $/defect;
+  it only holds as a ~4.5x RATIO. Bottom line: on Opus, arm C sits at the LOW end of the
+  single-Opus-LLM defect range (14-16) while costing several times more.
+
+CAVEATS (D-035):
+- [METHOD] $ figures charge cache-read input tokens at FULL input price (same as the firm's
+  ws4_spend_extract.py). Most of stage-3's 445K input is cache reads (~10x cheaper in reality),
+  so $ are an UPPER BOUND. The TOKEN ratio (~4.5x) is robust and pricing-independent.
+- [DATA] cost measured from n=2 arm-C tasks (this session, clean/unambiguous). Per-task cost is
+  structural (3 chained LLM calls, context grows each stage), so the multiple is representative;
+  the 20-task extrapolation assumes similar per-task cost.
+- [INFERENCE] single-LLM cost proxied by arm-C stage-1 (one reviewer call on the raw submission =
+  same input arm A/B receive). Real A/B differ only in neutral-vs-persona system prompt; token cost ~equal.
+- [TOOLING] the pre-built ws4_spend_extract.py could NOT run: it reads a journal 'label' field that
+  THIS Claude Code harness does not write (journal stores only a hashed 'key'; agent label is not
+  persisted). meter_armC.py (committed alongside) reconstructs stage via agent-*.meta.json 'agentType'.
+  Prior-session full-arm transcript dirs are unlabeled -> not reliably attributable to A/B/C without
+  content forensics; left for the main account if a full per-arm spend.csv is required.

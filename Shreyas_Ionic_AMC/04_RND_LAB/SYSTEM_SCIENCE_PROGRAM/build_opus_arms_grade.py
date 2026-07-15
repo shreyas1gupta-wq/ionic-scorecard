@@ -28,26 +28,41 @@ for i in range(1, 21):
     cases.append({"tid": tid, "key": "\n".join(kp.get(tid, [tid])), "answers": "\n\n".join(blob), "ids": ids})
 (OUT / "opus_arms_mapping.json").write_text(json.dumps(mapping, indent=1), encoding="utf-8")
 J = json.dumps
-P = ["export const meta = { name:'opus-arms-grade', description:'Blind grade opus arms A/B/C/C2, haiku judge', phases:[{title:'Grade'}] }"]
-P.append(f"const RUBRIC = {J(rubric)}"); P.append("const CASES = " + J(cases))
-P.append(r"""
+BODY = r"""
 const G = { type:'object', properties:{ grades:{ type:'array', items:{ type:'object', properties:{
   answer_id:{type:'string'}, score:{type:'integer'}, penalties:{type:'integer'} }, required:['answer_id','score'] } } }, required:['grades'] }
 phase('Grade')
 const all=[]
-for (let i=0;i<CASES.length;i+=5){
-  const ch=CASES.slice(i,i+5)
+for (let i=0;i<CASES.length;i+=3){
+  const ch=CASES.slice(i,i+3)
   const r=await parallel(ch.map(c=>()=>agent(
     "You are a strict BLIND grader for a defect-review benchmark. You do NOT know which system produced which answer.\n--- RUBRIC ---\n"+RUBRIC+
     "\n--- ANSWER KEY (ground truth for "+c.tid+") ---\n"+c.key+
     "\n--- ANSWERS ("+c.ids.join(', ')+") ---\n"+c.answers+
     "\n\nScore EACH 0-3 (0 missed;1 area;2 mechanism;3 mechanism+fix). penalties=-1 per INVENTED material defect (for a CLEAN task per key, any claimed material defect is invented). Return {grades:[...]} all "+c.ids.length+". No tools.",
     { label:'grade:'+c.tid, phase:'Grade', schema:G, model:'haiku' })))
-  all.push(...r); log('graded '+Math.min(i+5,CASES.length)+'/'+CASES.length)
+  all.push(...r); log('graded '+Math.min(i+3,CASES.length)+'/'+CASES.length)
 }
 const rows=[]; for(let i=0;i<all.length;i++){ if(!all[i])continue; for(const g of all[i].grades) rows.push({...g, task:CASES[i].tid}) }
 return { n: rows.length, rows }
-""")
-(OUT / "grade.js").write_bytes(("\n".join(P)).encode("utf-8").replace(b"\r\n", b"\n"))
+"""
+rub_line = f"const RUBRIC = {J(rubric)}"
+overhead = len(rub_line.encode("utf-8")) + len(BODY.encode("utf-8")) + 400
+BUDGET = 500000 - overhead
+parts_cases, cur, cb = [], [], 0
+for c in cases:
+    s = len(J(c).encode("utf-8")) + 2
+    if cur and cb + s > BUDGET:
+        parts_cases.append(cur); cur, cb = [], 0
+    cur.append(c); cb += s
+if cur: parts_cases.append(cur)
+parts = []
+for pi, sub in enumerate(parts_cases, 1):
+    meta = "export const meta = { name:'opus-arms-grade-p%d', description:'Blind grade opus arms (part %d), haiku judge', phases:[{title:'Grade'}] }" % (pi, pi)
+    txt = "\n".join([meta, rub_line, "const CASES = " + J(sub), BODY])
+    fn = OUT / ("grade_p%d.js" % pi)
+    fn.write_bytes(txt.encode("utf-8").replace(b"\r\n", b"\n"))
+    parts.append((fn.name, len(txt.encode("utf-8"))))
 counts = {a: len(list(RAW.glob(f"T*_arm{a}.md"))) for a in ARMS}
-print(f"grade.js built. opus arm counts {counts}, {len(mapping)} answers to grade")
+print(f"grade parts built: {parts}")
+print(f"opus arm counts {counts}, {len(mapping)} answers to grade")
