@@ -74,8 +74,13 @@ Ledger: `PUBLIC_TRACK_RECORD.md`. This is the whole point of the exercise.
 ## 7. HARD RULES — COMPLIANCE & AVOID-LIST (approval-gate class)
 Shreyas is a NISM XIX-E holder and a key investment-team member at an AIF/AMC. Downside of one bad post (job, AIF standing, SEBI optics) **dwarfs** the upside of any single post. When in doubt → cut it or soften it. Default to caution.
 
+**The regulatory line (corrected 2026-07-15 per Shreyas — my earlier read was over-cautious):**
+- **STOCK-SPECIFIC buy/sell/hold recommendations or price targets = the bright line. NEVER cross it.** This is SEBI RA (2014) / IA (2013) territory — those rules center on *securities-specific* recommendations/advice. He can publish research/analysis on a name in a non-recommendatory frame, never a call to act on it.
+- **GENERAL market / macro / asset-allocation / timing commentary IS permitted** (with disclaimers) — e.g. "after a big run, trimming makes sense," "equities look expensive, be selective," "gold as a diversifier here." Non-stock-specific views are a different, broadly-allowed category; do NOT reflexively kill them.
+- **THE BINDING GATE for Shreyas specifically = Ionic's employee communication policy**, not SEBI's general-public floor. As an AIF investment-team member (insider at a regulated manager), he is likely subject to pre-clearance of public market commentary + UPSI/insider rules + "don't appear to speak for the firm" — regardless of stock-specific-or-not. **PENDING: obtain Ionic's actual social-media/comms policy** (charter §7 open item); until then, general commentary is allowed under the SEBI reading but flag anything a strict employer policy might catch. This is my informed understanding, NOT legal advice — verify with Ionic compliance.
+
 **NEVER (auto-reject):**
-1. **No stock-specific buy/sell/hold recommendations or price targets.** SEBI RA/IA line. He can publish *research/analysis* on a name in a compliant, non-recommendatory frame — never a call to act.
+1. **No stock-specific buy/sell/hold recommendations or price targets** (the bright line above).
 2. **Nothing about Ionic Wealth's actual clients, AUM, funds, strategies, or internal info.** Employer confidentiality.
 3. **No real P&L, no live positions, no API/credentials, no personally identifying data** (his own or others').
 4. **Nothing that could embarrass Ionic or make an Ionic colleague viewing it uncomfortable** — the explicit test (his words): *"people from Ionic watching my posts should be okay with it."*

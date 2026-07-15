@@ -11,8 +11,9 @@
 - **Light structure in longer posts:** a short reflective open, then a few mini-headers ("What's Changed Since March?", "Valuations Have Reset, Not Collapsed:"), then a forward lean.
 - **Register:** professional, forward-looking, a market participant thinking out loud — like a PM's note. First person throughout.
 
-## COMPLIANCE FLAG on the old voice (important)
-His PRE-Ionic-employment posts made near-recommendations — e.g. *"Traders who entered on the oversold dip, booking partial profits here, makes good sense."* That is effectively a trading suggestion. **Now that he's a key investment-team member at Ionic (AIF), that exact line likely crosses the SEBI/employer line.** Keep the VOICE (reflection + conviction + data), but the CONTENT must stay at market/macro/regime/factor-read level and "how I think about positioning in principle" — WITHOUT the explicit "do this trade / book profits here" instruction. This is the charter §7 gray-zone in action.
+## COMPLIANCE on the old voice (corrected 2026-07-15 per Shreyas)
+His PRE-Ionic posts made GENERAL timing/allocation calls — e.g. *"Traders who entered on the oversold dip, booking partial profits here, makes good sense."* **This is GENERAL market commentary, NOT a stock-specific recommendation — and SEBI's RA/IA rules target stock-specific advice, so general asset-allocation/timing views are broadly permissible with disclaimers.** (My earlier flag calling this a likely breach was over-cautious — Shreyas corrected it.) So this VOICE and this level of general conviction are FINE to keep.
+The two real gates remain: (1) **stock-specific** buy/sell/hold/target = still the bright line, never cross; (2) **Ionic's employee comms policy** is the binding constraint for HIM as an AIF insider (likely pre-clearance + UPSI rules regardless of stock-specific-or-not) — PENDING, obtain it. Not legal advice; verify with Ionic compliance. So: he can be MORE direct with general market/allocation views than the ultra-hedged demo draft assumed.
 
 ---
 
