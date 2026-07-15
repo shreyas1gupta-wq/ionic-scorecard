@@ -29,3 +29,11 @@ Binding for the WS-4 publication. The frozen PROTOCOL/bars are untouched by this
 - HANDOFF_FABLE_ACCOUNT2.md = DEPRECATED for the core (Fable gone); retained only as bonus if Fable budget ever returns.
 - BUDGET FLAG: Opus/proxy draws the shared non-Fable pool (25%% colleague floor). Running A/B now (40 cheap cells), then C (60), C2 only if floor safe. Checkpoint per stage; STOP + tell Principal if approaching floor.
 - RUNNING: arms A+B on Opus (wf_e1983d76-8b0). NEXT: arm C on Opus when A/B land.
+
+## POST ANGLE DECISION (Principal, 2026-07-15): LEAD WITH CLEAN WINS
+The system-vs-LLM head-to-head was a NEGATIVE result (firm 14/16 < single-LLM 15-16/16 at ~4.5x cost; personas add nothing). Principal ruling: do NOT lead with the system comparison. LinkedIn/paper LEADS with the genuinely strong, standalone findings:
+1. COST/ACCURACY cross-model: Sonnet 15/16 defects at ~$0.010/defect = matches Fable (15/16, $0.099) at ~10x less; Opus priciest ($0.151) yet NOT most accurate (14/16). Counterintuitive, actionable.
+2. MEASURED LLM-JUDGE SELF-PREFERENCE (+0.5 opus, +1.0 haiku) -> single-judge model rankings unsafe; use leave-one-out. Novel method result.
+3. Method credibility: pre-registered (freeze-commit-before-run), blind-graded, sealed mapping, 4 clean controls.
+System test: OMIT, or ONE honest line at most (Principal decides at draft). NO fabricated system win (D-035). NEXT-WEEK option still open: pre-register a fair harder-task test where multi-agent has headroom, report honestly.
+Build (paper fill + LinkedIn + charts + style-lint) = next-week token. This is the frozen angle.
