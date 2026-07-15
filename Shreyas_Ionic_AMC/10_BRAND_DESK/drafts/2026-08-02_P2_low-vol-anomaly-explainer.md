@@ -1,34 +1,30 @@
-# DRAFT — Buffer candidate (INFORMATIONAL — new style per 2026-07-15 directive)
-- **Pillar:** P2 (framework/factor). INFORMATIONAL: teaches the low-volatility anomaly + WHY it exists.
+# DRAFT — Buffer candidate (SHARING voice, real substance — per 2026-07-15 directives)
+- **Pillar:** P2 (framework/factor). Substance: the low-volatility anomaly + why it persists — delivered as Shreyas sharing his read, NOT a lecture.
 - **Target slot:** ~2026-08-02.
-- **Compliance:** LOW-MED. Explains a documented academic factor. No stock call, no fund call, no Ionic internals. It describes a phenomenon, does not recommend acting on it. Disclaimer woven.
-- **Pre-registration:** none — explains an established finding, makes no forward market claim.
-- **Status:** DRAFT — needs Shreyas voice pass + his angle at [SHREYAS ADDS]. Pairs well with a simple chart (risk on x-axis, historical return on y-axis, showing the flat/inverted line vs the CAPM-predicted upward line).
-- **Why this is the RIGHT style:** the reader learns a real, counterintuitive, well-evidenced concept in 60 seconds. Value is in the post, not in the author.
+- **Compliance:** LOW-MED. Shares a view on a documented factor (he's already posted factor conviction publicly — "Quality+Low-Vol"). No stock call, no fund call, no Ionic internals. Describes/reflects, doesn't recommend. Disclaimer woven.
+- **Pre-registration:** none unless he adds a forward conviction with a horizon at [SHREYAS ADDS] — if he does, log it in PUBLIC_TRACK_RECORD.md.
+- **Status:** DRAFT — needs Shreyas voice pass + his current conviction at [SHREYAS ADDS]. Pairs with a simple risk-vs-return chart.
+- **Voice check:** first-person, reflective, sharing — modeled on his real "As I reflect…" / "I shared my conviction…" posts. NOT explainer mode.
 
 ---
 
 ## Draft text (LinkedIn)
 
-One of the first things you learn in finance is that risk and return go together: to earn more, you take more risk. One of the most durable findings in the data is that, within the stock market, this often hasn't held.
+More risk, more return. It's one of the first things I was taught about markets, and for years I never thought to question it.
 
-Over long periods and across many markets, the least volatile stocks have delivered returns similar to — sometimes better than — the most volatile ones, at a fraction of the risk. On a risk-adjusted basis, "boring" has quietly beaten "exciting." This is the low-volatility anomaly, and it's been documented for decades (Haugen, Baker, and later Frazzini–Pedersen's "Betting Against Beta").
+The low-volatility stocks are what made me question it.
 
-The interesting part isn't that it exists. It's WHY, because the reasons are about human behavior, not magic:
+The more time I spent with them, the more the neat relationship came apart in my hands. The calm, unglamorous names — the ones nobody talks about at a party — had, over long stretches, quietly kept pace with the high-flyers, and sometimes beaten them once you count how much less risk you carried to get there. The first time that really sank in, it bothered me. It cut against the model my instincts were built on.
 
-1. Leverage limits. Many investors can't or won't borrow to amplify safe stocks, so instead they chase return by buying risky, high-beta ones. That crowding pushes high-risk prices up and future returns down.
+What eventually won me over wasn't the result. It was the reason behind it, because it turned out to be a story about people, not about math.
 
-2. The lottery preference. People overpay for the small chance of a huge win — the stock that might 10x. Like lottery tickets, those names get systematically overpriced.
+Most of us can't simply borrow to hold more of a safe portfolio, so we reach for return the other way, by crowding into the exciting, high-beta names. We happily overpay for the stock that might 10x, the same instinct that makes a lottery ticket feel worth it. And a manager judged against an index has little reason to hold dull, slow names that might embarrass him in a good year. Add it up, and the thrilling stuff gets bid up while the boring stuff is left cheaper than it deserves to be.
 
-3. Benchmarking. A manager judged against an index has little incentive to hold dull low-beta stocks that might lag in a bull run, so those stay relatively cheap.
+That's the part I keep coming back to. It was never that safety earns a premium. It's that excitement gets overpriced, for reasons that repeat because we repeat them.
 
-Notice the pattern: the anomaly isn't that safety pays a premium. It's that excitement gets overpriced, for reasons that repeat because people repeat.
+[SHREYAS ADDS: where you actually land on this today — your current conviction, or how you'd test whether there's still room left in it for India. Your view, your words. (If you state a forward call with a horizon, we log it in the track record.)]
 
-[SHREYAS ADDS: your angle — e.g. why the "why" matters more than the "what" to you, or how you'd stress-test whether an anomaly like this still has room left. Your view, in your words.]
-
-The lesson I take from it: knowing a factor exists is trivia. Knowing why it exists is what tells you when it might stop.
-
-Educational, personal views, not investment advice.
+Sharing how I think about it, not where anyone should put their money. Views personal.
 
 ---
-# Post-fill checklist: /style-lint; compliance-farhan pass (confirm it stays descriptive, no implied recommendation); build the risk-vs-return chart; Shreyas voice pass; his proofread; posts manually.
+# Post-fill checklist: /style-lint; compliance-farhan pass (stays a shared view, no implied recommendation); build risk-vs-return chart; Shreyas voice pass; pre-register any forward call he adds; his proofread; posts manually.

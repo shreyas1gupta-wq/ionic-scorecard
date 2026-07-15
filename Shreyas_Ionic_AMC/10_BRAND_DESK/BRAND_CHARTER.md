@@ -43,7 +43,11 @@
 ---
 
 ## 5. CONTENT PILLARS (what he CAN post)
-> **PRIME DIRECTIVE (Shreyas, 2026-07-15): posts are INFORMATIONAL, not "content strategy."** Every post must TEACH the reader something concrete — a concept, a mechanism, how something actually works, a piece of market/quant/data knowledge — so they leave smarter. The reader gets value in the post itself. The brand is built as a *byproduct of being consistently useful*, NOT by posting about his process, his discipline, his ambitions, or "his journey." **Reject meta/positioning/personality posts** (e.g. "why I timestamp my calls," "prepare for the worst as a mindset"). If a draft's core value is *about Shreyas* rather than *about a thing the reader can learn*, it fails this directive. The track-record system (§6) stays an INTERNAL discipline that backs the posts — it is not itself post material.
+> **PRIME DIRECTIVE (Shreyas, 2026-07-15): posts carry real SUBSTANCE and are Shreyas SHARING his thinking — not "content strategy," and NOT lecturing.** Two rejections, both matter:
+> 1. **Not "content strategy" / meta.** The post is never *about* Shreyas's process, discipline, ambitions, or "journey" (e.g. "why I timestamp my calls," "prepare for the worst as a mindset"). Reject those.
+> 2. **Not teaching / explainer voice.** No "here's how X works → here are 3 reasons → the lesson is." That's a lecture. Instead: Shreyas is **sharing and expressing his own thoughts / conviction / read / story**, the way his real posts do — *"As I reflect on the current market landscape…"*, *"In March I shared my conviction, now evident…"*. A person thinking out loud and sharing a view.
+>
+> The reconciliation: every post still has genuine substance (a market read, an idea, an insight into how something actually works) — but it arrives as **his perspective on it**, woven into first-person reflection, not as a topic delivered to a class. Value lives in the substance; the voice is a person sharing, not a teacher explaining. The track-record system (§6) stays an INTERNAL discipline that backs the posts — never itself post material.
 
 | # | Pillar | What it looks like | Notes |
 |---|---|---|---|
@@ -89,6 +93,7 @@ Shreyas is a NISM XIX-E holder and a key investment-team member at an AIF/AMC. D
 This is a hard requirement, not a nicety. If a draft reads AI-generated, it's a failed draft.
 - **He adds the mind, always.** No draft ships as pure machine output. On every post he adds his own view / story / example / crisp reframe. The pipeline produces *raw material and options*; the judgment and phrasing are his.
 - **Anti-AI-tell discipline:** run `/style-lint` on every draft (banned tells: em-dash pile-ups, rule-of-three cadence, "it's not just X, it's Y," bullet-itis, hedge-everything, empty throat-clearing openers). See the firm's `style-lint` skill.
+- **He is SHARING, not teaching (hard rule — see §5 Prime Directive).** The voice is Shreyas expressing a thought/conviction/read, thinking out loud — modeled on his real posts ("As I reflect on the current market landscape…", "In March I shared my conviction, now evident…"). NEVER the explainer/lecturer voice ("here's how X works, here are 3 reasons, the takeaway is"). Substance is woven in as HIS perspective on it.
 - **Register:** first person, direct, unhurried. Confident where his math + gut back it (he's explicitly contrarian when they diverge from consensus — that's on-brand), honest about uncertainty elsewhere. Prepares-for-the-worst framing is authentically his ("hope for the best, prepare for the worst").
 - **Length:** fit the topic; a punchy 120-word take and a 600-word thesis are both fine. **Never exceed the LinkedIn character limit** (~3,000 chars / ~1,300 truncation for "see more" — hook must land above the fold).
 - **No generic LinkedIn-influencer voice.** No "Here's the thing 👇", no fake-vulnerability hooks, no engagement-farming CTAs.
