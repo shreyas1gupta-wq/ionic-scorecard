@@ -43,6 +43,8 @@
 ---
 
 ## 5. CONTENT PILLARS (what he CAN post)
+> **PRIME DIRECTIVE (Shreyas, 2026-07-15): posts are INFORMATIONAL, not "content strategy."** Every post must TEACH the reader something concrete — a concept, a mechanism, how something actually works, a piece of market/quant/data knowledge — so they leave smarter. The reader gets value in the post itself. The brand is built as a *byproduct of being consistently useful*, NOT by posting about his process, his discipline, his ambitions, or "his journey." **Reject meta/positioning/personality posts** (e.g. "why I timestamp my calls," "prepare for the worst as a mindset"). If a draft's core value is *about Shreyas* rather than *about a thing the reader can learn*, it fails this directive. The track-record system (§6) stays an INTERNAL discipline that backs the posts — it is not itself post material.
+
 | # | Pillar | What it looks like | Notes |
 |---|---|---|---|
 | P1 | **Market outlook & positioning** | His forward view on the market/regime; how he'd be positioned in principle | Proven best performer. ALWAYS pre-registered in track record (§6) + disclaimer (§7). NO stock calls. |

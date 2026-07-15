@@ -6,12 +6,12 @@
 ## A. Rolling buffer status (target: ≥4 ready drafts staged at all times)
 | Slot | Sunday date | Pillar | Working title | Stage | Compliance | Notes |
 |---|---|---|---|---|---|---|
-| 1 | ~2026-08-02 | P7 | Why I timestamp my calls (track-record launch) | DRAFT — needs voice pass | LOW | Phase-1 anchor; plants the differentiator flag |
-| 2 | ~2026-08-09 | P4 | The premise, not the math | DRAFT — needs voice pass + his example | LOW | Craft lesson; needs sanitized real example |
-| 3 | ~2026-08-16 | P2 | Prepare for the worst, as a number | DRAFT — needs voice pass | LOW-MED | On-brand w/ his About; keep principle-level |
-| 4 | — | — | *(one more to reach the 4-draft floor — next sweep)* | — | — | Candidate: P5 interesting-read+take, or P1 first outlook |
+| 1 | ~2026-08-02 | P2 | Low-volatility anomaly explainer (+ risk-vs-return chart) | DRAFT — needs voice pass | LOW-MED | **INFORMATIONAL style** — teaches a real factor + why it exists |
+| 4 | — | — | *(reach the 4-draft floor — next sweep, informational)* | — | — | Candidates below §C, all informational |
 
-> First sweep run 2026-07-15 (DESK-20). Drafts in `drafts/`. Each still needs: Shreyas's voice pass + `[SHREYAS ADDS]` personal line, `/style-lint`, compliance-farhan pass, his proofread — THEN he posts manually. Slots are tentative; reorder freely.
+> **First sweep run 2026-07-15 (DESK-20). DIRECTION CORRECTED same day:** Shreyas — posts must be INFORMATIONAL (teach a concept), NOT meta/"content-strategy" self-referential posts. See charter §5 Prime Directive.
+> **SHELVED (too meta, per correction):** `2026-08-02_P7_why-i-timestamp-my-calls` and `2026-08-16_P2_prepare-for-worst-as-a-number` — files kept for reference but OUT of the buffer. `2026-08-09_P4_premise-not-the-math` — HOLD; can be salvaged if reframed as "how survivorship/lookahead bias actually distorts a backtest" (informational) rather than a personal lesson.
+> Live informational draft: `2026-08-02_P2_low-vol-anomaly-explainer`. Each still needs: voice pass + `[SHREYAS ADDS]`, `/style-lint`, compliance pass, his proofread — THEN he posts manually.
 
 > **This week (2026-07-15 → Sun 2026-07-20): the AMC / SYSTEM_VS_LLM post is the scheduled Sunday item** — it lives in `09_PRODUCT/reports/LINKEDIN_POST_DRAFT.md` and follows its own frozen `PUBLICATION_PLAN.md` rules, NOT this charter (it predates the desk). The Brand Desk cadence begins the following month per Shreyas's instruction ("every post from next month").
 
