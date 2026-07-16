@@ -1,0 +1,54 @@
+# XORLOG — ZERO-COST DISTRIBUTION & MARKETING PLAN
+v1.0 — 2026-07-16. Synthesized from `01_RESEARCH/zero_cost_growth_tactics.md` + `01_RESEARCH/china_comparables.md` (both DONE) + `ux_growth_resources.md`. Companion to `00_VISION_AND_PLAN.md` §6. Every tactic carries its evidence tag; single-source numbers are directional.
+
+## 0. Sequencing (Principal direction, 2026-07-16)
+This is the LAUNCH playbook — it activates once the MVP + important features (journal + screener + BYOK AI chat, plan §4 Phase 1) exist to actually show people. It does NOT replace or delay the minimal Phase-0 seeding already running per plan §6 (founder posting honest-data artifacts on LinkedIn/X while building) — that continues unchanged and simply feeds into this plan once there's a real product to point people at.
+
+## 1. Ground rule
+₹0 cash for every tactic here. Anything requiring ad spend is explicitly OUT of scope (see §6 — paid distribution is a last resort, never assumed by this plan). Currency spent = founder time + existing quant/data credibility.
+
+## 2. Pre-MVP seed (already running — reference only, detail lives in plan §6)
+- Honest-data content artifacts (T1 survivorship study + weekly teardown series, backlog E8) on founder LinkedIn (~23k) + X.
+- Waitlist with referral queue-jump (backlog E10).
+- NISM-XV exam booked (unlocks the RA clock — same week-1 action batch, not a distribution tactic itself but shares the timeline).
+
+## 3. Launch playbook (activates at MVP-ready) — deepened from research
+- **LinkedIn → waitlist conversion (THE primary channel — the founder's 23k in-niche audience is the single biggest ₹0 asset).** 2026 reality that reshapes everything: organic reach is now ~8-12% of followers per post, AND the old "link in first comment" workaround is now suppressed too (comment links −80% visibility) [DATA]. So the funnel must route AROUND the feed, not post-with-link. The mechanics that work:
+  - **LinkedIn Newsletter ("Honest Data", weekly)** — editions bypass the feed: push notification + email to every subscriber. Convert followers (algorithmic reach) → newsletter subs (guaranteed delivery) → waitlist. Launch it in Week 1, weeks before any product ask.
+  - **Profile-as-landing-page** — Featured section pins the waitlist link; headline states the build; every teaching post drives profile visits, and the profile converts (not the post). Same lesson as Reddit's profile-first rule.
+  - **Document/carousel posts** get 2-3x dwell vs text/image → ship the teardown artifacts as 8-12-slide watermarked PDF carousels, never link posts.
+  - **Human-scale DMs** to the ~150 warmest connections (consistent quant-post engagers) offering first-beta access — no automation (LinkedIn's Mar-2026 authenticity sweep hunts it). This is the founder's real unfair advantage: he knows who the actual traders in the 23k are.
+  - **Realistic yield [INFERENCE]:** a 4-6 week sequence ≈ 300-800 quality waitlist emails (1.5-3.5% of audience) — clears the Phase-0 gate (≥500) IF artifacts are good; a lone launch post yields ~30-80. *The sequence is the tactic; the post is not.*
+- **Programmatic SEO** — per-stock/per-concept pages differentiated by PIT/survivorship-honest data (Screener.in's exact engine: bootstrapped to ₹23cr rev / ~1.6cr users FY25 on free-forever core + `/company/<ticker>/` pages that own "TICKER financials" search + ValuePickr-community trust seeding). Two-part engine: SEO pages capture demand, community reputation seeds the first users. SEO lags 2-3 months → starting late is the only failure mode. Begin the first ~50-100 pages by Week 4.
+- **"Build in public"** — weekly LinkedIn carousel + X thread with REAL numbers (waitlist count, infra ₹, what broke). Senja (indie SaaS) rode this to $1M ARR / 3,000 customers, no investors; works because the audience being built IS the target market (our quant/F&O followers watching us build a quant/F&O tool). Transparency about internals is itself differentiated in Indian fintech.
+- **Answer-first forum seeding** — r/IndiaInvestments (strict, quality-heavy), r/IndianStreetBets (F&O-native, more tolerant), TradingQnA (Zerodha's forum — traders asking exactly our journaling/backtest-honesty questions). Documented pattern (OneUp: 0→first 10 paying users from Reddit): ~a week of genuinely useful answers with product only in profile/bio; the converting comment is a detailed non-promotional answer. Naked self-promo gets removed everywhere — re-verify each sub's current self-promo rule before posting.
+- **Product Hunt** — calibrated: no-audience launch = 20-60 signups, warm-audience = 50-150, Product-of-the-Day = 200+ [DATA]. For an India-only fintech tool the (US/global-dev) audience mismatch caps it further → treat PH as a permanent credibility badge + backlink, one well-prepared day, NOT a growth pillar. Time it AFTER the LinkedIn push.
+- **Hacker News** — an India F&O journal is off-audience for HN; reframe the post as the ENGINEERING story ("How we built a survivorship-bias-free Indian equities backtester"), which IS on-audience. Product pitch → dead; data-engineering story → alive.
+
+## 4. China + cross-region organic-growth patterns (the transferable engines)
+The recurring machine across every ₹0 success (China, Korea, EU, India), stated once: **a genuinely useful free thing → published where the target community already gathers → frictionless capture loop (waitlist/newsletter) → referral/share mechanic bolted on.** We already own the two hardest parts (differentiated honest data + a 23k in-niche audience). Specific patterns worth stealing:
+- **Niche community before broad product (Xueqiu's i美股):** start with the narrowest wedge where the founder has genuine edge — for us, honest-backtest/survivorship teardowns for Indian F&O/quant retail, content nobody else can produce. Later, anonymized journal-stat UGC ("my discipline score this month") is the flywheel — aggregates, never stock calls (pre-RA safe).
+- **Forum/content asset that compounds in SEO (East Money's Guba, ran 7 years before the licence):** literally our tech-now/RA-later architecture. Per-stock/per-strategy neutral-metric pages = our Guba+SEO surface, buildable pre-licence. Caveat baked in from day 1: China's guba-style anonymous boards are where pump-and-dump lives and SEBI is hostile to unmoderated tip-flows → any community pages need moderation + no-calls norms from launch.
+- **Trust piggybacked from an existing network (Futu/Tencent):** the 23k LinkedIn quant audience is our Tencent-halo-in-miniature.
+- **Event-timed acquisition (Futu rode IPO frenzies for 60% QoQ surges):** pre-write artifacts for NSE attention spikes — monthly expiry, RBI policy, Budget day, big-crash days ("what the crash did to momentum backtests"). Same content effort, 2-5x reach [INFERENCE].
+- **Waitlist AS the launch asset (baraka: 10k-person waitlist >> ~5k month-1 downloads; Robinhood: ~1M pre-launch, ~3 referrals per signup):** the waitlist with referral queue-jump is the primary Phase-0 KPI, not a side-capture.
+- **University trading competition (Trade Republic's actual first customers):** the single most directly stealable tactic given the founder's IIT BHU network — a paper-only backtest/journal competition for IIT/IIM/NIT finance & quant societies; prize = free Pro tier + leaderboard glory (no cash, compliance-clean, audience-precise). Produces a results artifact too.
+- **Visible regulatory alignment as growth (Sarwa in low-trust UAE):** publish the compliance architecture openly — "why we're NOT giving you stock tips yet, and why that protects you" + a public RA-path progress bar + India-data-residency statement. Honesty about limits is differentiated marketing in a market where SEBI keeps fining the dishonest.
+- **Referral rewards in CREDITS not cash (re-denominating BUX's free-share lottery):** a randomized credit bonus on referral ("50-500 credits, 1-in-20 gets 500") reproduces the lottery psychology at ₹0 cash — brokers can give away shares because lifetime brokerage pays for it; a SaaS tool cannot, so our currency is credits/Pro-months. Keep the framing clear of gambling-adjacent tone.
+- **What is NOT replicable (stated honestly):** super-app piggybacking (Kakaopay inside 97%-share KakaoTalk; WeChat/Alipay mini-programs) — India's WhatsApp is closed to it; the miniature we DO get is screenshot-shareable report cards dropped into the user's own trading groups. And moomoo JP's real engine was partly paid reviewer seeding — out of scope, flagged for honesty.
+
+## 5. 12-week zero-cost launch calendar
+Phased against `zero_cost_growth_tactics.md §8`; effort S = evening, M = weekend, L = multi-week background. Assumes MVP (journal + screener + BYOK AI) lands ~Week 10-12 per plan §4.
+| Weeks | Phase | Actions | Primary KPI |
+|---|---|---|---|
+| **1-2** | Capture loop + pipe | Build referral waitlist page (Supabase, one email field, instant queue position, referral jump; rewards = beta slot → founder journal-review → launch credits) [M] · launch "Honest Data" LinkedIn newsletter [S] · public trust/compliance page [S] | Newsletter live; waitlist page live |
+| **1-4** | Flagship artifacts | Ship 2-3 gated lead magnets as carousels — survivorship-bias study (=T1 build), Streak-vs-live divergence teardown, expiry-day option-seller landmine piece; carousel free, full PDF+dataset email-gated [L, reuses existing data] | ~100-300 emails/artifact [INFERENCE] |
+| **1→always** | Compounding trust | Weekly build-in-public log (real numbers) [S/wk] · event-pegged artifact calendar armed by Week 3 [S] | Reach stays warm between artifacts |
+| **2-8** | High-trust trickle | Answer-first seeding: 20 best answers on TradingQnA / r/IndiaInvestments / r/IndianStreetBets, product only in profile [M spread] | First organic signups + free VoC |
+| **4-8** | Free share loops | 1-2 single-purpose mini-tools (F&O breakeven/expected-move calc; "is your ticker list survivorship-biased?" checker) [M each] | SEO + share loops that outlive posts |
+| **4-12** | The long compounder | Programmatic SEO skeleton: first 50-100 PIT/honest-data per-stock/concept pages [L] | ~0 traffic in 90d; the months-4-12 channel |
+| **~10-12** | Launch burst | LinkedIn 4-6 week sequence CLIMAX (teaser→gate→launch-day post + newsletter edition→sustain) · Product Hunt + Show-HN-as-engineering-story same week for badges/backlinks · founder replies to every comment 48h | 300-800 waitlist → beta conversions |
+| **8-12 / post-MVP** | Precision audience | College quant-club backtest competition (IIT/IIM/NIT, paper-only, Pro-tier prize) | 100-500 targeted young F&O users |
+
+## 6. What this plan explicitly does NOT include
+Paid ads (Google/Meta/influencer sponsorships), paid PR, any paid growth tool beyond the free tiers already listed in plan §7. If organic growth stalls past the Phase-1 gate (plan §4), the next lever is a deliberately scoped paid-experiment budget — a future decision, not part of this ₹0 plan.
