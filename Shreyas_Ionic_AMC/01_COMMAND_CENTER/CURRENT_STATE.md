@@ -7,6 +7,9 @@
 5. XBRL 2019-21 retry + D-009 gate Tue/Wed (Kavya; scripts in 05_DATA_OFFICE/scripts/)
 BUDGET LAW THIS WEEK: Sonnet-only; graders haiku/second-account; org pool 25% floor is HARD.
 
+## 2026-07-16 (even later, DESK-100) — IC-memo Round-1 fan-out cheap-test: NO CHANGE, tested not assumed
+Principal asked whether high token cost means switching the whole research flow to single-LLM calls. Ran a pre-registered n=2 cheap-test (Round-1's 3-persona fan-out vs 1 consolidated call, on 2 real pipeline ideas) rather than extending the WS-4 finding by assumption — WS-4 only tested sequential same-task re-verification (which lost), not parallel fan-out across different expertise domains. **Result: fan-out is NOT shown wasteful — 1 sample was a wash, 1 sample the fan-out clearly won (caught a real liquidity-drop-rule survivorship hazard the consolidated call missed entirely, invisible to DSR/PBO).** Cost ~3x consolidated (not 4.5x — parallel skips the sequential context-accumulation tax). **Round-1 stays as-is, no roster/skill change** — the opposite conclusion from D-036's Red Team move, on purpose. Full protocol + raw outputs + sealed grading in `04_RND_LAB/SYSTEM_SCIENCE_PROGRAM/ic_memo_cheaptest/`.
+
 ## 2026-07-16 (later, DESK-100) — D-036: Red Team moved to Sonnet; rest of firm structure held as-is
 **Principal order "upgrade our amc completely feel free to make all changes," acting on the WS-4 dashboard.** Re-checked the original 3-point pitch against the real files before executing — found it overshot on 2 of 3 points:
 - Sameer Bhat (Overfit) + Farhan Qureshi (Compliance) were **already** Sonnet-primary — no change made.
