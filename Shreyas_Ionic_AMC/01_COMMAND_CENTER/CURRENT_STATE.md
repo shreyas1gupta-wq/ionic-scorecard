@@ -1,11 +1,18 @@
 # CURRENT STATE — read me first (updated every session end)
 ## WEEK PRIORITIES (set 2026-07-13 leaders meeting)
-1. WS-4 Sonnet grid + blind grading + stats — Wed 07-15 (Arjun/desk; resume from ws4_battery/results/ws4run_20260713/PROGRESS.md)
-2. Publication pack (paper fill, charts LAST, style-lint, PDF + LinkedIn draft) — Sat 07-18 (Tanvi+Arjun; Principal reviews before anything publishes)
-3. Forward engines: S1-F Tue 09:12, S1-SX Thu 09:14; Tara reconcile + Ritika risk pack Fri 07-17
+1. WS-4 Sonnet grid + blind grading + stats — Wed 07-15 (Arjun/desk; resume from ws4_battery/results/ws4run_20260713/PROGRESS.md) — **DONE, see 2026-07-16 entry below.**
+2. ~~Publication pack (paper fill, charts LAST, style-lint, PDF + LinkedIn draft) — Sat 07-18~~ **CONTENT-COMPLETE 2026-07-16, ahead of schedule.** Both docs filled+linted+committed, 3 charts built, both docx outputs (full paper + LinkedIn attachment) assembled and image-verified. **Blocked on Principal review/spot-audit/arXiv decision — see 2026-07-16 entry. Nothing left for either desk to build here.**
+3. Forward engines: S1-F Tue 09:12, S1-SX Thu 09:14; Tara reconcile + Ritika risk pack Fri 07-17. **S1F-001 14-Jul exit legs now logged** (see 2026-07-16 entry) — realized −₹5,767.
 4. Cadence catch-up Tue: /macro-calendar, /pipeline-health, /find-skills
 5. XBRL 2019-21 retry + D-009 gate Tue/Wed (Kavya; scripts in 05_DATA_OFFICE/scripts/)
 BUDGET LAW THIS WEEK: Sonnet-only; graders haiku/second-account; org pool 25% floor is HARD.
+
+## 2026-07-16 (DESK-100) — WS-4 publication pack CONTENT-COMPLETE; awaiting Principal
+- **Primary study (pre-registered, blind-graded): bar NOT MET.** Opus-base A/B/C/C2 = 15/16, 16/16, 14/16, 14/16 — the firm's multi-agent pipeline did not beat a single LLM call on this battery, and cost ~4.5x the tokens. Disclosed honestly in the paper (§7 ethics commitment); NOT the public lead.
+- **Public lead = two clean, non-fabricated wins** (Principal ruling 2026-07-15, "lead with clean wins"): (1) Sonnet 5 ties Fable 5 at 15/16 defects for ~1/10th the cost, Opus 4.8 is neither cheapest nor most accurate; (2) measured LLM-judge self-preference, quantified via neutral re-grade (Haiku-judge +1.00 to Haiku, Opus-judge +0.50 to Opus, leave-one-out corrected) — caught by accident while sanity-checking a ranking that looked wrong, now a standalone methodological finding.
+- **Built this session:** paper draft fully filled (`09_PRODUCT/reports/SYSTEM_VS_LLM_PAPER_DRAFT.md`, §5.1-5.6 + limitations disclosing 2 real bugs found during grading), LinkedIn post v3 (`LINKEDIN_POST_DRAFT.md`, cost/accuracy+bias hook, system test = one soft non-claim line), both style-lint clean, 3 charts (`build_ws4_charts.py`), full paper docx (`build_ws4_paper_docx.py` → gitignored `.docx`, 8 tables + 3 charts, image-count-verified on readback after catching a first-build silent-failure bug), shorter LinkedIn-attachment docx (`build_ws4_linkedin_attachment.py` → gitignored `.docx`, exec summary + charts 1-2 ONLY, chart 3/negative-result deliberately excluded).
+- **Awaiting Principal (cannot resolve myself):** (a) arXiv vs. internal-only publication decision; (b) his own ~20min grade spot-audit (`[pending author audit]` markers in the paper, esp. FP-on-clean-controls + the two grading-noise/self-preference findings); (c) sign-off that the paper (full disclosure) vs. LinkedIn (clean-wins emphasis) split, as scoped in the paper's header, matches his intent.
+- Full detail, all files touched, and the S1F-001 exit-log side-item: SESSION_JOURNAL 2026-07-16 entry.
 
 ## 2026-07-15 (DESK-20) — BRAND DESK created (10_BRAND_DESK/), spec-now-build-later
 - **New folder `10_BRAND_DESK/`** governs Shreyas's PUBLIC personal-brand writing (LinkedIn + Substack). Goal: reputation as a future capital allocator, built on his OWN models + a timestamped auditable track record. `BRAND_CHARTER.md` = its constitution.
