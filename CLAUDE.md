@@ -93,6 +93,6 @@ Legacy detail lives in `RESUME_TOMORROW.md` + `HANDOFF.md` (still valid, being s
 Team = 28 (CEO runs ops; CIO runs investments; Kabir Anand E-028 owns hedging/tail-risk under CIO). IC = CIO + FM decide who convenes (user can override). Full 5-member IC only for position-sized decisions.
 
 ## TOKEN DISCIPLINE (summary — full policy in 00_GOVERNANCE/TOKEN_POLICY.md)
-- Use the cheapest model tier that does the job (haiku=mechanical, sonnet=analysis, opus=IC/audits/synthesis). Each agent has a primary+backup model in MODEL_ASSIGNMENTS.md.
+- Use the cheapest model tier that does the job (haiku=mechanical, sonnet=analysis/coding, opus=IC/audits/synthesis). Each agent has a primary+backup model in MODEL_ASSIGNMENTS.md.
 - DESK-20: ≤2 parallel agents, no bulk scrapes/backtests. DESK-100: ≤3 parallel (D-023), owns heavy work.
 - Checkpoint before token limits; the journal + CURRENT_STATE make every task resumable.

@@ -20,6 +20,12 @@
 > - `ALT_2026-08_quantamental-numbers-and-judgment.md` — data vs judgment; echoes his own "quantamental" self-description almost directly — closest to authentic voice of the batch.
 > - `ALT_2026-08_when-math-and-crowd-disagree.md` — disciplined contrarianism; echoes his own About line ("contrarian when my maths and gut are not with the market wisdom").
 > (Dropped an earlier draft that duplicated the existing "risk-first sizing" post — not included.)
+>
+> **v2 — sharper pass (2026-07-16, "think harder"):** the drafts above all shared one shape (reflection → generic risk-principle → tidy closer) — recycled LinkedIn-finance aphorisms, not differentiated. v2 drafts are each anchored to something REAL and specific instead of a truism:
+> - `ALTv2_2026-08_the-smoothness-was-the-risk.md` — Feb 2018 short-vol blowup (real, public, no ticker named): smooth P&L can BE the tail risk, not separate from it.
+> - `ALTv2_2026-08_correlation-is-two-numbers.md` — correlation asymmetry (real academic finding, Longin-Solnik-class): a single long-run correlation number lies about both regimes it averages.
+> - `ALTv2_2026-08_does-the-edge-survive-its-own-size.md` — capacity/edge-decay, genuinely rare allocator-level framing vs. the usual "returns" content; on-brand with his future-capital-allocator ambition. No reference to his own firm's results (general methodology only).
+> These are the STRONGEST set so far — recommend prioritizing these into slots 2-4 over the earlier (v1) alternates.
 
 > **This week (2026-07-15 → Sun 2026-07-20): the AMC / SYSTEM_VS_LLM post is the scheduled Sunday item** — it lives in `09_PRODUCT/reports/LINKEDIN_POST_DRAFT.md` and follows its own frozen `PUBLICATION_PLAN.md` rules, NOT this charter (it predates the desk). The Brand Desk cadence begins the following month per Shreyas's instruction ("every post from next month").
 
