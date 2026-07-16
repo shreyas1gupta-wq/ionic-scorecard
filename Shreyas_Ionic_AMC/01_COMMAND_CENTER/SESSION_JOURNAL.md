@@ -3,6 +3,11 @@ Format per entry: date, account (DESK-20/DESK-100), summary, files touched, hand
 Newest entries at TOP.
 
 ---
+## 2026-07-16 — DESK-20/FABLE-2 (resumed session) — WS-4 handoff closed out; KIRU 15:25 addendum
+- Resumed after suspension: processed the 07-13-night arm-B workflow result late. **Contribution: 6 armB cells banked that night (armB 8/20 at the time) before account-2's monthly spend limit killed the rest** — those cells fed the grading that later sessions completed. HANDOFF_FABLE_ACCOUNT2 steps 2-4 now OBSOLETE (program complete per 07-16 DESK-100 entry below); no further Fable arm runs needed. Answer key/rubric/_verify never opened.
+- **KIRU addendum (Principal: "we can ideally execute 15:25-15:30"):** correct instinct, wrong row — that execution = the pre-registered execute-at-signal-close variant (**12.44% CAGR / −25.3% DD**, recovers ~2.6pp/yr overnight drift vs next-open 9.79%), NOT the 29.4% same-bar row (unreachable at any clock time: it books the day's full move in the asset chosen at that day's close). KR-R1 CAGR prong passes at 15:25 exec; DD prong (−25.3 vs ≤−21.8) + cost drag (3.16pp/yr) still FAIL; 50/50 monthly rebal still dominates (12.29% at 10.5% vol, −21.5% DD) → **K-016 stands**. Annotated in results/KIRU_PKG/20260713/SUMMARY.md §ADDENDUM + K-016.
+- Stale "re-run when budget returns" directive removed from CURRENT_STATE (superseded by program completion).
+
 ## 2026-07-16 — DESK-100 — WS-4 SYSTEM SCIENCE PROGRAM: publication pack COMPLETE, awaiting Principal review
 - **Context:** cross-model + cross-arm benchmark (SYSTEM_SCIENCE_PROGRAM/ws4_battery) finished grading across two prior sessions (this one + a $20-account handoff that finished arm C/C2 grading). This session's job was purely synthesis + publication assembly — no new experiments run.
 - **Primary study result (Opus 4.8 base, blind Haiku-4.5 judge, pre-registered A/B/C/C2 arms):** A(single,no tools)=15/16, B(single,+code)=16/16, C(firm pipeline)=14/16, C2(pipeline,no personas)=14/16. **Bar NOT MET** — the firm's multi-agent review pipeline did not beat a plain single-LLM call on this battery, and cost ~4.5x the tokens of the single-LLM proxy per task. This is a real, disclosed negative result, not spun.
