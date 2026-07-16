@@ -6,7 +6,7 @@
 2. **TRIAGE** (FM + Quant, ≤30 min, cheap tier) — economic WHY plausible? data on disk (DATA_CATALOG)? capacity ≥ target? → KILL or proceed.
 3. **CHEAP TEST** — the single cheapest falsification (event study / decile spread / one-year slice). Kill threshold pre-registered BEFORE touching data.
 4. **FULL BACKTEST** — per CODE_CHECKS.md (guards imported from `lib/guards.py`) + validation battery below + **mandatory /sensitivity report (Dr. Bhat, E-027): param surface, perturbation, subsample — Gate-4 cannot pass without it** + **mandatory LOOKAHEAD AUDIT (D-028): T1–T10 walk + `lib/lookahead_audit.py` battery + one-day-lag test, verdict filed as `LOOKAHEAD_AUDIT.md` in the run dir, signed Dr. Bhat — a FAIL quarantines the result (unquotable anywhere)**. Results per run-engineering rules below.
-5. **RED TEAM** — one focused attack (D-008) + placebo battery. Verdict REAL / FRAGILE / FAKE → ADVERSARIAL_REVIEWS row.
+5. **RED TEAM** — one focused attack (D-008) + placebo battery. Verdict REAL / FRAGILE / FAKE → ADVERSARIAL_REVIEWS row. **Runs on Sonnet by default (D-036, 2026-07-16)** — escalate to Opus only for a genuinely hard call or a capital-sized decision. Gate-4 (Dr. Bhat, sonnet) and Gate-5 (Nikhil, sonnet) stay procedurally SEPARATE sign-offs even though both are cheap now — the value here is independent lenses + an audit trail before capital moves, not raw defect-count, so don't collapse them into one pass.
 6. **IC MEMO** — /ic-memo skill → verdict, sizing, kill criteria, review date → STRATEGY_REGISTER.
 7. **PAPER** — ≥20 trades or 8 weeks (whichever LATER); weekly reconcile vs Angel quotes; tracking error decomposed and explained (PAPER_LEDGER).
 8. **LIVE GATE** — Principal only (D-010).

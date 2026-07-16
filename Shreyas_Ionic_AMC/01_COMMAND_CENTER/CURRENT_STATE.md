@@ -7,6 +7,13 @@
 5. XBRL 2019-21 retry + D-009 gate Tue/Wed (Kavya; scripts in 05_DATA_OFFICE/scripts/)
 BUDGET LAW THIS WEEK: Sonnet-only; graders haiku/second-account; org pool 25% floor is HARD.
 
+## 2026-07-16 (later, DESK-100) — D-036: Red Team moved to Sonnet; rest of firm structure held as-is
+**Principal order "upgrade our amc completely feel free to make all changes," acting on the WS-4 dashboard.** Re-checked the original 3-point pitch against the real files before executing — found it overshot on 2 of 3 points:
+- Sameer Bhat (Overfit) + Farhan Qureshi (Compliance) were **already** Sonnet-primary — no change made.
+- Gate-4/Gate-5 (RESEARCH_SOP.md) were **already** lean, separate gates, not a bloated chain — deliberately **not** collapsed into one pass; that would trade away the independent-sign-off/audit-trail property the benchmark's defect-count metric can't see.
+- The one real gap: **Nikhil Bose (Red Team) Opus 4.8 → Sonnet 5 primary** (Opus kept as escalation-only). This is D-036, live immediately (CEO/CIO ratify at next board, D-025 precedent). No agents deleted, no other roster changes.
+Files: CLAUDE.md, MODEL_ASSIGNMENTS.md, EVOLUTION_LOG.md, DECISIONS_LOG.md, RESEARCH_SOP.md, `.claude/agents/red-team-nikhil-bose.md`, `.claude/skills/red-team/SKILL.md`, `.claude/skills/ic-memo/SKILL.md`. Full reasoning: SESSION_JOURNAL 2026-07-16 (later) entry. **Watch item:** confirm Red Team's kill-rate/verdict quality holds on Sonnet over the next few live reviews.
+
 ## 2026-07-16 (DESK-100) — WS-4 publication pack CONTENT-COMPLETE; awaiting Principal
 - **Primary study (pre-registered, blind-graded): bar NOT MET.** Opus-base A/B/C/C2 = 15/16, 16/16, 14/16, 14/16 — the firm's multi-agent pipeline did not beat a single LLM call on this battery, and cost ~4.5x the tokens. Disclosed honestly in the paper (§7 ethics commitment); NOT the public lead.
 - **Public lead = two clean, non-fabricated wins** (Principal ruling 2026-07-15, "lead with clean wins"): (1) Sonnet 5 ties Fable 5 at 15/16 defects for ~1/10th the cost, Opus 4.8 is neither cheapest nor most accurate; (2) measured LLM-judge self-preference, quantified via neutral re-grade (Haiku-judge +1.00 to Haiku, Opus-judge +0.50 to Opus, leave-one-out corrected) — caught by accident while sanity-checking a ranking that looked wrong, now a standalone methodological finding.
