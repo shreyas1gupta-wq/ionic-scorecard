@@ -1,48 +1,38 @@
-# LinkedIn post — draft v1 (Fable, 2026-07-13). [RESULT] slots fill after grading. ~600 words.
-# Rules honored: neutral alias, no employer/broker names, no strategy content, hook never exceeds the PDF.
+# LinkedIn post — draft v2 (angle rewritten 2026-07-15 per Principal's post-angle ruling: lead with clean wins).
+# Rules honored: neutral alias ("Firm S"), no employer/broker names, no strategy content, hook never exceeds the paper.
+# Numbers verified against SYSTEM_VS_LLM_PAPER_DRAFT.md Tables 5-6 (committed 2026-07-15). System-vs-LLM result: one honest line only, per Principal.
 
 ---
 
-I ran an experiment on myself. Or rather, on the AI research firm I built on my laptop.
+I benchmarked four AI models on real research work. The cheapest one tied the most expensive — at a tenth of the cost.
 
-For the past two weeks, outside of work hours, I have been running a personal experiment: a "research firm" of 28 AI agents — a CIO, fund managers, sector analysts, a red team, a data office — that does quantitative finance research the way a real firm would. Not a chatbot with a fancy prompt. A system with rules: every experiment pre-registered in a git commit before it runs, every claim attacked by an adversarial red-team agent before it counts, every backtest checked against placebo controls, every kill recorded with the conditions under which it may be reopened.
+Outside work hours, over the past few weeks, I've been running a personal experiment: a research process — call it "Firm S" — that reviews quantitative research the way a real desk should: every test pre-registered in a git commit before it runs, every claim attacked by an adversarial check before it counts, every result graded blind so nobody grades their own work.
 
-Then I asked the obvious question. Does any of that machinery actually matter, or would one strong model with a good prompt do just as well?
+I used that process to build an exam, then ran it across four models to see what you actually get for the money.
 
-So I measured it.
+**The exam:** 20 review tasks built from real data traps — lookahead bugs, timestamp errors, settlement quirks, statistical tricks that make randomness look like skill. Sixteen tasks each hide one verified defect (verified: a script proves the defect changes the answer). Four are clean — the correct answer is "no defect" — because a reviewer that invents problems to look thorough is exactly as dangerous as one that misses real ones.
 
-I built a 20-task exam from the real data traps my system had stepped on during two weeks of research: lookahead bugs that inflate returns, timezone stamps that shift signals a day early, settlement-price quirks that fabricate profits, statistical tricks that make randomness look like skill. Sixteen tasks contain one verified defect each — verified meaning a script demonstrates the defect changes the answer. Four tasks are clean: they contain no defect, and saying "no defect" is the right answer. Those four exist to catch a failure mode nobody talks about: reviewers who look smart by inventing problems.
+**What I found:**
 
-Three contestants took the same exam with the same instructions:
-- a single model call, no tools;
-- a single model call with a code sandbox;
-- the full firm pipeline — reviewer, red-team, synthesis — capped at 1.5x the token budget of the second contestant, so orchestration overhead counts against it.
+The mid-tier model matched the flagship on defects found — 15 out of 16 either way — at roughly **one-tenth the cost**. The most expensive model in the lineup was not the most accurate. And answer length tracked false alarms: the two most verbose models also flagged the most non-existent problems on the clean tasks. Terseness bought precision here, not the other way around.
 
-The exam was frozen in a git commit before any contestant saw it. So was the grading rubric. So was the paper's results section — empty tables, committed before the first run. Grading was blind: answers stripped of identifying furniture, shuffled, scored against the key by graders who did not know which answer came from which contestant. I pre-registered the pass bar: the multi-agent system had to find at least 20% more verified defects than the best single-model arm, or I would publish that the overhead does not pay.
+Along the way, I caught something in my own method worth sharing on its own. I had one model grade a set of answers, and it ranked itself and its closest sibling higher than a neutral second judge did — by up to a full point on a 10-point scale — while every other model's score barely moved between judges. Self-preference in AI-as-judge scoring isn't a rumor; I measured it directly, by accident, while sanity-checking a result that looked wrong. Anyone running "AI judges AI" evaluations should assume their single judge is quietly grading on a curve for its own family, and check for it the way I stumbled into checking for it.
 
-Here is what I found:
+Whether the added review machinery itself is worth its cost on this particular exam is a separate, harder question — the honest answer there is nuanced enough that it belongs in the full write-up, not a headline.
 
-[RESULT: headline — defects found per arm, X/16 vs Y/16 vs Z/16]
-[RESULT: false-positive rate on the four clean tasks — did anyone invent defects?]
-[RESULT: cost — tokens and dollars per arm; what one extra caught defect costs]
-[RESULT: one-line verdict against the pre-registered bar]
+**Two things I'd tell anyone building with LLMs:**
 
-[RESULT: 2-3 sentence honest interpretation — including, if the system failed the bar, what that means and what I am changing before the v2 battery]
+Pre-registration isn't really about statistics. It's psychological — when the empty results table is already committed before you've seen a single number, you stop negotiating with yourself about what a bad result means.
 
-A few things I learned that did not need a benchmark:
+And if you're using one model to grade another, don't trust a single judge. Cheap, avoidable bias, easy to check, easy to miss if you don't look.
 
-The value of pre-registration is not statistical. It is psychological. When the empty results table is already committed, you stop negotiating with yourself about what the numbers mean.
+The full write-up — every table, the method, what I'm not claiming, and the caveats I'd want a skeptic to press on — is in the attached PDF. The method is copyable on purpose: freeze commits, blind grading, clean controls that penalize false alarms. If you build with LLMs, you can run this exam on your own stack next week.
 
-Clean controls change reviewer behavior more than hard tasks do. Knowing that "no defect" might be the right answer forces precision; without it, everyone hedges by listing possibilities.
+Personal project, personal time, paper only — no live capital, no investment advice. This is about how I evaluate AI tools for research, not a market call.
 
-And the most expensive failure mode in AI-assisted research is not hallucination. It is a plausible answer to a question whose premise contains the bug.
-
-The full write-up — methodology, the grading rubric, example tasks, cost accounting, and everything I am not claiming — is in the attached PDF. The method is deliberately copyable: freeze commits, adversarial review, placebo controls, blind grading. If you build with LLMs, you can run this exam on your own system next week.
-
-This is a personal project, done on personal time, on paper only — no live capital, no investment advice, and the findings are about research process, not markets.
-
-[Attachment: SYSTEM_VS_LLM paper PDF]
+[Attachment: Firm S benchmark PDF]
 
 ---
-# Post-fill checklist (next session): insert 5 [RESULT] slots from RESULTS.md; /style-lint this file;
-# verify no employer/broker/internal-firm-name strings; Principal review; only then publish.
+# Post-fill checklist: /style-lint this file; verify no employer/broker/internal-firm-name strings;
+# Principal confirms the "one honest line" on the system test above is acceptable (currently a soft
+# non-claim, no number quoted); Principal review + spot-audit sign-off; only then publish.
