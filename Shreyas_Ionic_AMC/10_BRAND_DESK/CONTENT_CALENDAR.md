@@ -14,6 +14,12 @@
 > **Sweeps 2026-07-15 (DESK-20). VOICE + GENRE locked after 3 iterations:** posts = current-market REFLECTION + conviction-sharing (his real "As I reflect…" voice), NOT concept-explainers (inherently lectures) and NOT meta/brand posts. See `VOICE_SAMPLES.md` + charter §5/§8. Compliance: general market/allocation views OK w/ disclaimers; only stock-specific recs are the bright line (charter §7).
 > **SHELVED (wrong genre or too meta):** `2026-08-02_P2_low-vol-anomaly-explainer` (concept-explainer), `2026-08-02_P7_why-i-timestamp-my-calls`, `2026-08-16_P2_prepare-for-worst-as-a-number`, `2026-08-09_P4_premise-not-the-math` — files kept for reference, OUT of the buffer.
 > Buffer FLOOR MET (4 sharing-genre drafts). Each still needs: his voice pass, `/style-lint`, his proofread — THEN he posts manually. Slots tentative; reorder freely. Any draft can be upgraded to his signature DATA-GROUNDED format when real current market data is supplied (never fabricate it).
+>
+> **ALTERNATE options (2026-07-16, requested "3 other/better" than the slot 2-4 drafts above)** — pick any to swap in for slots 2/3/4, same genre/compliance bar:
+> - `ALT_2026-08_sensing-a-style-rotation.md` — quality vs momentum, general style/factor view.
+> - `ALT_2026-08_quantamental-numbers-and-judgment.md` — data vs judgment; echoes his own "quantamental" self-description almost directly — closest to authentic voice of the batch.
+> - `ALT_2026-08_when-math-and-crowd-disagree.md` — disciplined contrarianism; echoes his own About line ("contrarian when my maths and gut are not with the market wisdom").
+> (Dropped an earlier draft that duplicated the existing "risk-first sizing" post — not included.)
 
 > **This week (2026-07-15 → Sun 2026-07-20): the AMC / SYSTEM_VS_LLM post is the scheduled Sunday item** — it lives in `09_PRODUCT/reports/LINKEDIN_POST_DRAFT.md` and follows its own frozen `PUBLICATION_PLAN.md` rules, NOT this charter (it predates the desk). The Brand Desk cadence begins the following month per Shreyas's instruction ("every post from next month").
 
