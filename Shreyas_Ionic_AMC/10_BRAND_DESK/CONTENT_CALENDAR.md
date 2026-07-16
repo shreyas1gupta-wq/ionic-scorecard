@@ -6,12 +6,14 @@
 ## A. Rolling buffer status (target: ≥4 ready drafts staged at all times)
 | Slot | Sunday date | Pillar | Working title | Stage | Compliance | Notes |
 |---|---|---|---|---|---|---|
-| 1 | ~2026-08-02 | P2 | Low-volatility anomaly explainer (+ risk-vs-return chart) | DRAFT — needs voice pass | LOW-MED | **INFORMATIONAL style** — teaches a real factor + why it exists |
-| 4 | — | — | *(reach the 4-draft floor — next sweep, informational)* | — | — | Candidates below §C, all informational |
+| 1 | ~2026-08-02 | P2 | Selectivity after a run (what would hurt if I'm wrong) | DRAFT — needs voice pass | LOW | Sharing genre; states a lean |
+| 2 | ~2026-08-09 | P2 | Diversification vanishes when you need it (correlation→1) | DRAFT — needs voice pass | LOW | On-brand: correlation risk / prepare-for-worst |
+| 3 | ~2026-08-16 | P2 | Risk-first: decide the loss before the gain | DRAFT — needs voice pass | LOW | Risk-process conviction (substance, not brand-meta) |
+| 4 | ~2026-08-23 | P1 | Bullish on India, disciplined on price (two thoughts) | DRAFT — needs voice pass | LOW-MED | His demonstrated theme; general, no stock |
 
-> **First sweep run 2026-07-15 (DESK-20). DIRECTION CORRECTED same day:** Shreyas — posts must be INFORMATIONAL (teach a concept), NOT meta/"content-strategy" self-referential posts. See charter §5 Prime Directive.
-> **SHELVED (too meta, per correction):** `2026-08-02_P7_why-i-timestamp-my-calls` and `2026-08-16_P2_prepare-for-worst-as-a-number` — files kept for reference but OUT of the buffer. `2026-08-09_P4_premise-not-the-math` — HOLD; can be salvaged if reframed as "how survivorship/lookahead bias actually distorts a backtest" (informational) rather than a personal lesson.
-> Live informational draft: `2026-08-02_P2_low-vol-anomaly-explainer`. Each still needs: voice pass + `[SHREYAS ADDS]`, `/style-lint`, compliance pass, his proofread — THEN he posts manually.
+> **Sweeps 2026-07-15 (DESK-20). VOICE + GENRE locked after 3 iterations:** posts = current-market REFLECTION + conviction-sharing (his real "As I reflect…" voice), NOT concept-explainers (inherently lectures) and NOT meta/brand posts. See `VOICE_SAMPLES.md` + charter §5/§8. Compliance: general market/allocation views OK w/ disclaimers; only stock-specific recs are the bright line (charter §7).
+> **SHELVED (wrong genre or too meta):** `2026-08-02_P2_low-vol-anomaly-explainer` (concept-explainer), `2026-08-02_P7_why-i-timestamp-my-calls`, `2026-08-16_P2_prepare-for-worst-as-a-number`, `2026-08-09_P4_premise-not-the-math` — files kept for reference, OUT of the buffer.
+> Buffer FLOOR MET (4 sharing-genre drafts). Each still needs: his voice pass, `/style-lint`, his proofread — THEN he posts manually. Slots tentative; reorder freely. Any draft can be upgraded to his signature DATA-GROUNDED format when real current market data is supplied (never fabricate it).
 
 > **This week (2026-07-15 → Sun 2026-07-20): the AMC / SYSTEM_VS_LLM post is the scheduled Sunday item** — it lives in `09_PRODUCT/reports/LINKEDIN_POST_DRAFT.md` and follows its own frozen `PUBLICATION_PLAN.md` rules, NOT this charter (it predates the desk). The Brand Desk cadence begins the following month per Shreyas's instruction ("every post from next month").
 
