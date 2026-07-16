@@ -1,6 +1,6 @@
-# System vs. Single LLM: Publication Draft (results pending)
+# System vs. Single LLM: Results Filled 2026-07-15
 
-**Status:** DRAFT, everything except the numbers. Placeholders marked `[RESULT: ...]` are filled only after the WS-4 battery runs under the frozen protocol (`04_RND_LAB/SYSTEM_SCIENCE_PROGRAM/ws4_battery/PROTOCOL.md`). Do not commit.
+**Status:** Numbers filled from the frozen protocol's grading output, 2026-07-15. `[pending author audit]` markers remain until the Principal completes the ~20-minute grade spot-audit (see §6). Base model for the pre-registered A/B/C/C2 study is **Opus 4.8** (the original Fable-5 arm A is retained as a labeled secondary cross-model data point, §5.5/Table 6, following the mid-study pivot recorded in `SYSTEM_SCIENCE_PROGRAM/PUBLICATION_PLAN.md`). Editorial note (not to be removed before Principal review): the Principal's 2026-07-15 publication-angle ruling directs the *public* LinkedIn version to lead with §5.5-5.6 (cost/accuracy, judge self-preference) rather than the negative system result; this paper, per its own §7 commitment to publish unfavourable outcomes, reports the full pre-registered study. Principal to confirm this split before either goes out.
 **Owners:** Quant Head (experiment validity), CEO (program), Librarian (literature). Style target: `00_GOVERNANCE/STYLE_GUIDE.md` (DRAFT).
 **Pre-registration:** the bar, the rubric, the 20 tasks, and the arm definitions were frozen 2026-07-12 before any arm ran. This draft cannot change any of them.
 
@@ -20,12 +20,9 @@
 
 We test whether a governed multi-agent research process adds measurable value over a single frontier language model on a task where correctness is objective and money is at stake: reviewing quantitative trading backtests for defects that would fabricate or inflate the reported result. We built a 20-task adversarial battery from a documented corpus of nine data landmines and a ten-class lookahead taxonomy accumulated during live quantitative research. Sixteen tasks carry exactly one planted, script-verified defect; four are clean controls that punish false alarms. Three arms review the same tasks under a single identical prompt: (A) one model call with no tools, (B) the same model with code execution, and (C) the firm's review pipeline (a reviewer pass, an adversarial red-team attack, and an overfit/sensitivity check consolidated into one verdict) run at a token budget matched to arm B. A grader blind to arm identity scores each answer 0 to 3 against a rubric fixed in advance, with a penalty for invented defects. The bar was pre-registered before any arm ran: arm C is credited with adding value only if it finds at least 20% more defects in relative terms than the better of A and B, and is non-inferior elsewhere at matched cost.
 
-`[RESULT: defects found (score ≥ 2 on the 16 defective tasks): A = __ / 16, B = __ / 16, C = __ / 16.]`
-`[RESULT: mean score across all 20 tasks: A = __, B = __, C = __ (0 to 3 scale, after false-positive penalties).]`
-`[RESULT: false-positive rate on the 4 clean controls: A = __ / 4, B = __ / 4, C = __ / 4.]`
-`[RESULT: cost: total tokens and USD per arm; score-per-dollar A/B/C; arm C counted ALL tokens including orchestration, failed agents, and red-team passes.]`
-`[RESULT: paired permutation p-value for C vs. B and C vs. A on the primary metric.]`
-`[RESULT: verdict against the pre-registered bar: PASS (system adds value) / FAIL (multi-agent overhead did not pay on this instrument). If FAIL, we state so plainly and say why.]`
+**Defects found (score ≥ 2 on the 16 defective tasks): A = 15/16, B = 16/16, C = 14/16, C2 (ablation, no personas) = 14/16.** Mean score across all 20 tasks, raw 0-3 scale (see §6 on the grader's inconsistent penalty-field sign, which is why we report raw score rather than a penalty-adjusted composite): A = 2.20, B = 2.25, C = 1.80, C2 = 1.95. **False-positive rate on the 4 clean controls: 4/4 for every arm** — on this model family, every arm claimed a material defect on every clean submission at least once; arms differ in how many spurious defects they invent per clean task (§5.4), not in whether they invent one. **Cost: arm C runs ≈4.5× the tokens of a single reviewer call per task, for equal-or-fewer defects** (§5.3); score-per-dollar and score-per-100k-tokens both favour A and B. **Paired permutation p: C vs. A p = 1.00, C vs. B p = 0.50** (n = 16 paired tasks; §5.2) — the observed 1-2 task gap is well within the range produced by chance alone at this sample size, so we do not claim the gap is statistically distinguishable from noise, even though the *point estimate* itself is unambiguous (C is not ahead). **Verdict against the pre-registered bar: FAIL.** The bar (C ≥ 1.2× the larger of A and B = 1.2×16 = 19.2) was mathematically unreachable against a 16-task ceiling — but this is moot: C (14) sits below *both* A (15) and B (16) outright, so "the multi-agent process did not beat a single model call on this instrument" holds regardless of where the threshold was set. The weakest assumption in this verdict is sample size: n = 16 paired defect-tasks is not enough to rule out that a larger battery would show a different point estimate, and single-run grading (§6) adds measured noise on top of that.
+
+We also report two findings outside the pre-registered bar, from the same infrastructure: a **cross-model cost/accuracy comparison** (§5.5) and a **directly measured LLM-judge self-preference effect** (§5.6), because both bear on how any reader should weigh automated benchmarks generally, including this one.
 
 We release the benchmark design, the controls, and two example tasks. We withhold the full answer key so the instrument survives for future runs.
 
@@ -144,83 +141,117 @@ Review this. Identify any defects that would make the result wrong or fake. Be s
 
 ## 5. Results
 
-*All cells below are placeholders. They are populated only from `ws4_battery/results/<run_id>/grades.csv` and the spend log after the run, per protocol. Headers are frozen to match the pre-registered metrics.*
+All figures below come from `ws4_battery/results/opus_arms_grade/` (pre-registered A/B/C/C2 study, blind Haiku-4.5 judge — deliberately *not* Opus, given §5.6) and `ws4_battery/results/xmodel_grade/` + `MODEL_GRID/` (cross-model extension). Raw grade files, the sealed answer-to-arm mapping, and the grading workflow scripts are committed alongside this draft.
+
+### 5.1 Primary result: the pre-registered A/B/C/C2 study
 
 ### Table 1: Primary results per arm
 
-| Arm | Mean score (0-3, all 20) | Defects found (of 16) | FP rate (of 4 clean) | Input tokens | Output tokens | Cost (USD) | Wall-clock | Score per USD | Score per 100k tokens |
-|---|---|---|---|---|---|---|---|---|---|
-| A (single, no tools) | | | | | | | | | |
-| B (single, + code) | | | | | | | | | |
-| C (firm pipeline) | | | | | | | | | |
+| Arm | Mean score (0-3, all 20, raw) | Defects found (of 16) | FP rate (of 4 clean) | Total tokens (in+out, 20-task, extrapolated from n=2 measured) | Cost (USD, extrapolated) | Score per USD | Score per 100k tokens |
+|---|---|---|---|---|---|---|---|
+| A (single, no tools) | 2.20 | 15/16 | 4/4 | ~1.84M (proxied by C's stage-1 call) | ~$32 | ~0.98 | ~0.12 |
+| B (single, + code) | 2.25 | 16/16 | 4/4 | ~1.84M (proxied; A/B share one reviewer-call structure) | ~$32 | ~1.00 | ~0.12 |
+| C (firm pipeline) | 1.80 | 14/16 | 4/4 | ~8.34M (measured n=2, extrapolated ×10) | ~$137 | ~0.26 | ~0.04 |
+| C2 (pipeline, no personas) | 1.95 | 14/16 | 4/4 | ~8.34M (assumed = C; identical 3-call structure, not separately metered) | ~$137 (assumed) | ~0.28 | ~0.05 |
 
-### Table 2: Mean score by defect class
+Token/cost columns are extrapolated from a clean 2-task sample metered this session (`OPUS_ARMS_COST.txt`), not a full 20-task measurement — the harness's journal does not persist the agent label needed for full-sample per-arm attribution (§6, tooling limitation). The **token ratio is the number to trust**: arm C spends **≈4.5×** the tokens of a single reviewer call per task (measured directly, pricing-independent); absolute dollar figures assume list pricing on 100% fresh input and are an upper bound (most of the pipeline's later-stage input is cache-read, materially cheaper in practice). Score-per-dollar and score-per-100k-tokens both favour A and B by a wide margin under either the measured ratio or the extrapolated dollars.
 
-| Class | # tasks | Arm A | Arm B | Arm C |
-|---|---|---|---|---|
-| Lookahead / timing | | | | |
-| Data landmine (schema / settlement) | | | | |
-| Statistics (Sharpe / booking / denominator / trials) | | | | |
-| Clean controls | 4 | | | |
-
-### Table 3: Per-task score matrix (0-3, after penalties)
-
-| Task | Class | A | B | C |
-|---|---|---|---|---|
-| T01 | lookahead | | | |
-| T02 | statistics | | | |
-| T03 | clean | | | |
-| T04 | | | | |
-| T05 | | | | |
-| T06 | data landmine | | | |
-| T07 | clean | | | |
-| T08 | | | | |
-| T09 | | | | |
-| T10 | | | | |
-| T11 | | | | |
-| T12 | | | | |
-| T13 | | | | |
-| T14 | clean | | | |
-| T15 | | | | |
-| T16 | | | | |
-| T17 | | | | |
-| T18 | | | | |
-| T19 | clean | | | |
-| T20 | | | | |
-
-*(Class labels for T04-T20 are filled from the answer key at write-up; left blank here so this draft does not leak the class assignment.)*
+### 5.2 Pre-registered bar and statistical tests
 
 ### Table 4: Pre-registered bar and statistical tests
 
-| Comparison | Metric | Observed (A / B / C) | Difference | Paired permutation p | Pre-registered bar | Pass? |
+| Comparison | Metric | Observed (arm 1 / arm 2) | Difference | Paired permutation p (n=16, 20k draws) | Pre-registered bar | Pass? |
 |---|---|---|---|---|---|---|
-| C vs. A | defects found (of 16) | | | | C ≥ 1.2 × A | |
-| C vs. B | defects found (of 16) | | | | C ≥ 1.2 × B | |
-| C vs. B | mean score (all 20) | | | | non-inferior | |
-| C vs. A | mean score (all 20) | | | | report only | |
-| C vs. B | clean-task FP rate | | | | C not worse than B | |
+| C vs. A | defects found (of 16) | 14 / 15 | −1 | 1.00 | C ≥ 1.2 × A (≥18.0) | **FAIL** |
+| C vs. B | defects found (of 16) | 14 / 16 | −2 | 0.50 | C ≥ 1.2 × B (≥19.2) | **FAIL** |
+| C vs. B | mean score (all 20) | 1.80 / 2.25 | −0.45 | — | non-inferior | **FAIL** |
+| C vs. A | mean score (all 20) | 1.80 / 2.20 | −0.40 | — | report only | (worse) |
+| C vs. B | clean-task FP rate | 4/4 / 4/4 | 0 | — | C not worse than B | tie (both bad) |
+| C vs. C2 | defects found (of 16) | 14 / 14 | 0 | 1.00 | — (ablation, no bar) | tied |
 
-`[RESULT: overall verdict: PASS / FAIL against the bar, in one sentence, with the single weakest assumption named.]`
+**Overall verdict: FAIL against the pre-registered bar.** The 1.2× threshold was arithmetically unreachable given a 16-task ceiling (1.2×16 = 19.2 > 16), but the qualitative conclusion does not depend on that: arm C found strictly fewer defects than either single-model arm, at several times the cost. The single weakest assumption behind this verdict is sample size — n = 16 paired tasks yields permutation p-values (1.00, 0.50) that cannot rule out sampling noise as the source of the 1-2 task gap; what the data does support unambiguously is that the multi-agent pipeline shows **no positive signal** on this instrument, not that it is definitively worse by a precise margin.
+
+### 5.3 Cost detail
 
 ### Table 5: Cost-efficiency (Pareto inputs)
 
-| Arm | Mean score | Total cost (USD) | Score per USD | Total tokens | Score per 100k tokens | Note |
-|---|---|---|---|---|---|---|
-| A | | | | | | no-tool floor |
-| B | | | | | | single-model + code |
-| C | | | | | | all tokens counted (orchestration + failed agents + red-team) |
+| Arm | Mean score | Tokens/task (measured, n=2 clean sample) | System cost multiple vs. single-LLM proxy | Note |
+|---|---|---|---|---|
+| A / B (single-LLM proxy) | 2.20 / 2.25 | ~92,110 | 1.0× (baseline) | no-tool / +tools floor |
+| C (full pipeline) | 1.80 | ~417,229 | **4.5×** tokens (4.3× $, upper-bound) | reviewer + red-team + synthesis, all tokens counted incl. every stage |
+| C2 (pipeline, no personas) | 1.95 | assumed ≈ C | assumed ≈ 4.5× | same 3-call structure; ablation changes only the system prompt, not call count |
 
-### Table 6: Optional model grid (cheapest tier that catches the landmines)
+The per-stage breakdown (`OPUS_ARMS_COST.txt`) shows the cost is structural, not incidental: stage 1 (reviewer) ≈ 92k tokens/task, stage 2 (red-team) ≈ 98k, stage 3 (synthesis, which re-reads both prior stages) ≈ 227k — synthesis alone costs more than the entire single-LLM baseline. Adding review stages adds tokens faster than it adds defects found.
 
-| Model / effort | Mean score | Defects found (of 16) | FP rate (of 4) | Cost (USD) | Score per USD |
+### 5.4 Where the arms actually diverge
+
+### Table 2: Defects found by class (of tasks in class)
+
+| Class | # tasks | Arm A | Arm B | Arm C | Arm C2 |
 |---|---|---|---|---|---|
-| Fable 5 (low) | | | | | |
-| Fable 5 (high) | | | | | |
-| Opus 4.8 | | | | | |
-| Sonnet 5 | | | | | |
-| Haiku 4.5 | | | | | |
+| Data landmine (schema / settlement) | 4 | 3/4 | 4/4 | 3/4 | 3/4 |
+| Lookahead / timing | 8 | 8/8 | 8/8 | 7/8 | 8/8 |
+| Statistics (Sharpe / booking / denominator / trials) | 4 | 4/4 | 4/4 | 4/4 | 3/4 |
+| Clean controls (correct = score 3, "no defect") | 4 | 0/4 | 0/4 | 0/4 | 0/4 |
 
-`[RESULT: narrative: where the arms diverge by defect class, which landmines only the pipeline caught (if any), which the single model already caught, and the cost the extra catches cost.]`
+No class shows the pipeline (C) ahead of both single-LLM arms. C's two misses are T08 (data landmine) and T11 (lookahead), both caught by at least one single-LLM arm; C2 additionally misses T05 (statistics), which both A and the C pipeline caught. We looked specifically for a landmine class only the pipeline catches — the motivating hope for a red-team stage — and found none in this battery.
+
+**Clean-control behaviour (Table 3, §5.1 note):** every arm scored 0 (the "claimed a material defect" outcome) on all four clean tasks. This is a finding about this model family and this battery's clean-task difficulty, not only about the firm's process: a capable single call also over-flags plausible-looking clean submissions here. Arms differ in *how many* spurious defects they invent per clean task (grader `penalties` field, `combined_grade_journal.jsonl`) — C invents the most on T03 and T19, C2 the fewest across the board — but none avoids the false alarm entirely. We treat this as an open item for the Principal's grade spot-audit (§6) rather than a settled number, because the grader's penalty field was not applied with a consistent sign convention across cells (see Limitations).
+
+### Table 3: Per-task score matrix (0-3, raw, before any penalty adjustment)
+
+| Task | Class | A | B | C | C2 |
+|---|---|---|---|---|---|
+| T01 | data landmine | 3 | 2 | 2 | 3 |
+| T02 | lookahead | 2 | 2 | 2 | 2 |
+| T03 | **clean** | 0 | 0 | 0 | 0 |
+| T04 | lookahead | 3 | 3 | 3 | 3 |
+| T05 | statistics | 3 | 3 | 3 | 0 |
+| T06 | lookahead | 3 | 3 | 2 | 3 |
+| T07 | **clean** | 0 | 0 | 0 | 0 |
+| T08 | data landmine | 2 | 2 | 0 | 0 |
+| T09 | lookahead | 3 | 3 | 2 | 3 |
+| T10 | statistics | 3 | 3 | 3 | 3 |
+| T11 | lookahead | 3 | 3 | 0 | 2 |
+| T12 | data landmine | 3 | 3 | 3 | 3 |
+| T13 | lookahead | 3 | 3 | 3 | 3 |
+| T14 | **clean** | 0 | 0 | 0 | 0 |
+| T15 | lookahead | 3 | 3 | 3 | 3 |
+| T16 | statistics | 3 | 3 | 3 | 3 |
+| T17 | lookahead | 3 | 3 | 2 | 2 |
+| T18 | data landmine | 1 | 3 | 3 | 3 |
+| T19 | **clean** | 0 | 0 | 0 | 0 |
+| T20 | statistics | 3 | 3 | 2 | 3 |
+
+### 5.5 Cross-model extension: cost/accuracy across the Claude family
+
+This extension is outside the pre-registered A/B/C/C2 bar (§4.6) — it reuses the same battery and rubric as a single-call comparison (arm-A-equivalent) across four Claude tiers, blind-graded the same way.
+
+### Table 6: Cross-model single-call comparison (defect-finding battery)
+
+| Model | Defects found (of 16) | FP (of 4 clean) | Battery cost (20 tasks, USD est.) | Cost per defect found |
+|---|---|---|---|---|
+| **Sonnet 5** | **15/16** | 3/4 | **$0.148** | **$0.0099** |
+| Fable 5 | 15/16 | 2/4 | $1.492 | $0.0995 |
+| Opus 4.8 | 14/16 | 4/4 | $2.110 | $0.1507 |
+| Haiku 4.5 | 9/16 | 1/4 | $0.025 | $0.0028 |
+
+The result is not a price ladder. **Sonnet 5 matches the top defect-finding score (15/16, tied with Fable 5) at roughly one-tenth Fable's cost and one-fifteenth Opus's** — and Opus, the most expensive single-call tier, is *not* the most accurate. Haiku 4.5 is far cheaper again but recall drops to 9/16; verbosity and false-positive rate move together across the grid (mean answer length: Haiku 81 words, Sonnet 296, Fable 667, Opus 972 — the two most verbose tiers also carry the highest clean-task false-positive counts), consistent with a precision/recall trade-off rather than a pure capability ordering. For the firm's own purposes, this cross-model result is the more actionable one: it identifies Sonnet 5 as the cost-efficient default for this class of review task, independent of the negative §5.1-5.2 system finding.
+
+*(Costs are word-length-based estimates at published per-token pricing, not exact API token counts, for the three web-sourced columns; Opus's column is exact-harness where separately available. See `MODEL_GRID/COST_ESTIMATE.txt`.)*
+
+### 5.6 An incidental finding: measured LLM-judge self-preference
+
+While grading a secondary open-ended capability grid (8 tasks, same four models, judged first by Haiku then re-graded blind by Opus as a check), we observed a swing large enough to flip a ranking. The first grading (Haiku judge) placed Sonnet 5 (8.25/10) *below* Haiku 4.5 (9.08/10) on open-ended answer quality. A neutral re-grade by Opus reversed this (Sonnet 8.30 vs. Haiku 8.08). Comparing both judges' scores for every model:
+
+| Model | Haiku-judged | Opus-judged | Δ |
+|---|---|---|---|
+| Fable 5 | 9.50 | 9.55 | +0.05 |
+| Sonnet 5 | 8.25 | 8.30 | +0.05 |
+| Haiku 4.5 | 9.08 | 8.08 | **−1.00** |
+| Opus 4.8 | 9.25 | 9.75 | **+0.50** |
+
+Each judge inflated its own model family (Haiku-judge → Haiku +1.0, Opus-judge → Opus +0.5) while leaving the two models neither judge shared a family with essentially unmoved (±0.05). This is a direct, measured instance of the self-enhancement bias Zheng et al. (2023) describe qualitatively; we did not design this comparison to find it; it surfaced during a **routine sanity check** the Principal requested after noticing the counter-intuitive Sonnet-below-Haiku ranking. Leave-one-out correction (excluding each model's own family as judge) restores the ranking Fable (9.53) > Opus (9.25) > Sonnet (8.28) > Haiku (8.08), and we treat this dimension as *rough parity within noise and bias*, not a clean ranking — the defect battery (§5.5, objective ground truth) is the more reliable discriminator between models. We report this because a benchmark that only checks its headline claim and not its own grading infrastructure would miss exactly this kind of artifact, and because it is directly relevant to how any reader should weight single-judge LLM evaluations generally.
 
 ## 6. Limitations
 
@@ -234,7 +265,7 @@ We state these now, before the numbers, so they cannot be read as post-hoc excus
 
 **One run per arm.** The protocol fixes one run per arm per task with no best-of-N, so run-to-run variance is unestimated unless budget allows repeats. If it does, a small number of repeats on a subset would bound the noise; absent that, we read close results conservatively.
 
-**Grading is model-assisted.** A rubric-guided grader can still carry the biases Zheng et al. document. Our mitigations are the fixed rubric, blind labels, the option of majority vote across graders, and a human spot-audit by the Principal on a sample of grades. We report the audit's agreement with the machine grader so the reader can judge how much to trust the scores.
+**Grading is model-assisted, and we now have a direct measurement of how noisy that is.** A rubric-guided grader can still carry the biases Zheng et al. document, and §5.6 shows this is not merely theoretical: a neutral re-grade of the same open-ended answers moved individual model scores by up to 1.0 point on a 10-point scale purely from judge self-preference. A second, independent observation compounds this: the identical arm-A answer set was blind-graded twice in two separate grading sessions (once as part of the cross-model comparison, §5.5, once as part of the primary A/B/C/C2 study, §5.1) and returned 14/16 and 15/16 defects found respectively — a one-task swing on exactly the same text, same rubric, same model family, from single-pass grading variance alone. We did not average or reconcile these two runs; each section reports the grading it actually used, and we flag the discrepancy here rather than picking the number that reads better. Our mitigations are the fixed rubric, blind labels, the option of majority vote across graders (not yet run at full scale), and a human spot-audit by the Principal on a sample of grades `[pending author audit]`. We additionally found that the grader's `penalties` field (intended as a signed count, negative per invented defect) was populated with an inconsistent sign convention across cells in the primary study — mostly positive integers (a plain count) rather than the intended negative value, in a small number of cells negative as specified. We therefore report raw 0-3 score as the primary per-task metric throughout (Tables 1, 3) rather than a penalty-adjusted composite we could not compute reliably from this field, and treat false-positive counts as a separate, explicitly-labeled quantity rather than folding them into the headline score. This is disclosed rather than silently patched.
 
 **Containment is procedural.** The blind depends on the scrub pass actually removing every arm tell and on the mapping staying sealed until grades are filed. We log the scrub and the seal; a failure there would bias the study, and we would disclose it.
 
@@ -276,4 +307,4 @@ Firm-internal sources (this repository):
 
 ---
 
-*Placeholders left for the run: every `[RESULT: ...]` marker, all cells in Tables 1-6, the class labels for T04-T20 in Table 3, and the final verdict sentence. Everything else is final subject to CEO + CIO style/approval review and a `/style-lint` pass.*
+*All `[RESULT: ...]` markers and Table 1-6 cells are filled as of 2026-07-15. Remaining open items before publication: (1) the Principal's grade spot-audit `[pending author audit]` on a sample of the blind grading (§6) — the FP-on-clean-controls result (§5.4) and the two grading-noise/self-preference findings (§5.6, Limitations) are exactly what that audit should stress-test first; (2) the arXiv-vs-internal-only publication decision, Principal's call, deferred to after the charts pass per `PUBLICATION_PLAN.md`; (3) the Principal's confirmation of the paper-vs-LinkedIn emphasis split noted in the header; (4) a `/style-lint` pass and CEO+CIO style/approval review per `00_GOVERNANCE/STYLE_GUIDE.md`.*
