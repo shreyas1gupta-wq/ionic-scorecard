@@ -24,5 +24,11 @@ NL-question → analysis agent framework: Plan/Ground/Execute/Validate/Deliver p
  "verdict": "", "bars_hit": [], "trials_increment": 1, "token_cost_agents": 0}
 ```
 
+## Addendum 2026-07-16 (DESK-20, Principal re-check) — status verified against disk
+- Repo now 24.2k★ (was 18.8k on 07-11), MIT, updated today — still active. **Adoption status confirmed on disk, not just planned:** AST scanner live (`lib/ast_lookahead_scan.py`), RUN_CARD.json in real use across A4/B1/B1b/B1c+ result folders, fallback-chain principle in the catalog registry.
+- **Still the one open gap: Alpha Zoo replication (item 6) — not started.** Recommend intake card for Arjun/Ishaan (code-only, no D-009 data gate, benches public factor families vs our PIT NIFTY500).
+- Dhan/Shoonya third-rail: still parked, no Principal decision in DECISIONS_LOG — unchanged.
+- **NEW find: India-specific fork `hopit-ai/india-trade-cli`** (77★, NSE/BSE/NFO) — 7 LLM analysts + VISIBLE bull-vs-bear debate → fund-manager verdict. **Deliberately NOT adopted**: our blind-R1-memo + independent-Red-Team design (SELF_IMPROVEMENT.md anti-collusion section) exists specifically because visible agent debate risks convergence, not verification. Noted for the record, not a gap.
+
 ## Scanner first-run triage (2026-07-11, same day)
 Ran ast_lookahead_scan.py on today's three experiment scripts: C1 CLEAN; C2 (8) + A1 (5) advisory `?`-flags all triaged FALSE-POSITIVE — .mean()/.std() hits are in results-reporting stat() functions (outcome measurement, not signal normalization); the [i+1] is the overnight-exit mapping (execution-time). Verdicts stand. Standard: every future experiment runs the scanner pre-run; `?`-flags need a one-line triage note in the run card.
