@@ -1,0 +1,28 @@
+{
+  "1Y": {
+    "horizon": "1Y",
+    "n_q2_total": 19101,
+    "confirmed_mean": 0.18772593183838526,
+    "confirmed_std": 0.6488378208602193,
+    "confirmed_n": 1975,
+    "unconfirmed_mean": 0.25498613738501114,
+    "unconfirmed_std": 0.7899108447303882,
+    "unconfirmed_n": 10861,
+    "t_stat": -4.088715170059422,
+    "p_value": 4.446497978502764e-05,
+    "right_direction": false
+  },
+  "5Y": {
+    "horizon": "5Y",
+    "n_q2_total": 11275,
+    "confirmed_mean": 1.5047816984586055,
+    "confirmed_std": 3.0845099949379082,
+    "confirmed_n": 1328,
+    "unconfirmed_mean": 2.7909101900206603,
+    "unconfirmed_std": 10.421744419466028,
+    "unconfirmed_n": 6069,
+    "t_stat": -8.124345644277247,
+    "p_value": 5.290697811642195e-16,
+    "right_direction": false
+  }
+}

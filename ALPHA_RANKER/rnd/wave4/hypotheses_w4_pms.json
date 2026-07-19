@@ -1,0 +1,83 @@
+{
+  "_meta": {
+    "author": "equity-head-ananya-iyer (E-003)",
+    "date": "2026-07-17",
+    "task": "Mine PMS_STUDY_20260712 manager notes + raw/AIF_Final.xlsx for NEW codable stock-selection rules NOT already tested by ALPHA_RANKER (cross-checked vs FRAMEWORK_CATALOG.md, SURVIVORS.md, KILLED.md, CONSOLIDATION.md, FINAL_MODEL.md, backlog.json, backlog_scout.json, rnd/wave4/coverage_map.json as of this pass)",
+    "explicitly_excluded_as_KNOWN": [
+      "Anti-Marcellus-Trap (quality-floor + deceleration exit)",
+      "SageOne GARP funnel + mcap-rank band",
+      "Core-Satellite sector rotation (static)",
+      "PEG-style growth-adjusted valuation",
+      "ValueQuest concentrated ROE funnel",
+      "Forensic-lite quality + position ladder (Solidarity)"
+    ],
+    "explicitly_excluded_as_ALREADY_QUEUED_OR_TESTED": [
+      "margin expansion / OPM-NPM YoY (backlog_scout.json L608-609, L534-540 'Profitability improvement delta-ROA/margin expansion', attributed Piotroski/Novy-Marx)",
+      "shareholder yield (dividends+buybacks)/mktcap (backlog_scout.json L540-542)",
+      "earnings stability & margin trend (backlog_scout.json L317-319)",
+      "net-share-issuance / dilution drift (CANONICAL 7-leg, IC_IR 0.95 -- Aequitas IPO/QIP avoidance is the same underlying mechanism, just framed as a discrete flag)",
+      "CFO/PAT authenticity (CANONICAL 7-leg -- this IS Marcellus's forensic ratio #1, CFO-as-%-of-EBITDA, already tested and promoted)",
+      "under-owned-value / institutional-ownership level screen (CONSOLIDATION.md anti-findings: doesn't beat EY, stale 2023 shareholding)",
+      "FCF yield (H015_fcf_yield.json already carded -- covers Carnelian YnG / Bandhan cash-flow-yield mentions)",
+      "promoter-buying / SAST drift (CONSOLIDATION.md resurrection candidate, IC_IR 1.33, data-blocked pending fresh pull -- covers Aequitas's buyback/creeping-acquisition screen mechanism)"
+    ],
+    "AIF_Final.xlsx_finding": "[DATA] raw/AIF_Final.xlsx digested via pandas (sheets: Daily Data, Weightage, Process, Table 1Y, CY Return, 3Y Rolling(M), Table 3Y, 1Y Rolling(M)). This is an in-house NIFTY200-Momentum30 + GOLDBEES + Silver multi-asset ROTATION backtest workbook (own strategy analysis), NOT a repository of external AIF/PMS managers' stock-SELECTION rules or qualitative notes. No additional single-stock-selection rules were extractable from it beyond what the 10 studied manager notes already yield. Flagged honestly rather than fabricating a rule from irrelevant data (D-035)."
+  },
+  "hypotheses": [
+    {
+      "id": "W4P-01",
+      "name": "Non-operating-income reliance/volatility (forensic earnings-composition penalty)",
+      "manager_source": "Marcellus -- 12-ratio Schilit-based forensic framework, income-statement-manipulation check #2",
+      "quote": "[DATA] \"volatility in non-operating income\" -- Shreyas_Ionic_AMC/04_RND_LAB/PMS_STUDY_20260712/notes_marcellus.md L45 (item 9, income-statement checks, sub-item 2)",
+      "construction_exact": "[INFERENCE -- source names the ratio, not the exact formula/threshold] From ALPHA_RANKER/data/fundamentals/MASTER_fundamentals_pit.parquet (long-format, metric_norm='other income' vs metric_norm='profit before tax', joined PIT on available_date): compute other_income_share_t = other_income_t / profit_before_tax_t per quarter, then trailing-8Q stdev(other_income_share) AND trailing-8Q mean(other_income_share). High LEVEL (PAT propped up by non-core income) and/or high VOLATILITY (one-off gains smoothing) both penalize. Score = -1 * z(trailing_mean_share) - 1 * z(trailing_stdev_share), cross-sectional rank.",
+      "expected_sign": "-  (high/volatile non-operating income share -> lower forward return; earnings quality red flag, treated as a gate/penalty per FRAMEWORK_CATALOG SS8 convention, not linear alpha)",
+      "data_assets": ["ALPHA_RANKER/data/fundamentals/MASTER_fundamentals_pit.parquet (metric_norm: 'other income' n=49352, 'profit before tax' n=49352 -- near-full coverage, PIT available_date present)"],
+      "orthogonality_vs_7_legs": "[INFERENCE, needs empirical corr<0.6 gate before promotion] Distinct MECHANISM from the existing CFO/PAT-authenticity leg (that leg tests cash-vs-accrual divergence at the PAT level; this tests earnings COMPOSITION -- how much of PBT is core-operating vs one-off/non-operating). Zero overlap by construction with EY (price-based), momentum, MA-65 (price-based), net-share-issuance (equity capital field), asset-growth (total assets field), QMJ (op_profit/total_assets, 3y net-profit CAGR, beta, dividend_payout% -- different fields entirely). Must still clear the standing orthogonality gate (corr<0.6 AND delta-IC_IR>0) vs CFO/PAT specifically before any promotion, per FINAL_MODEL.md SS1 discipline.",
+      "money_rationale": "Captures a genuinely different fraud/earnings-management tell than anything in the current forensic stack: a company beating estimates on a volatile 'other income' line (treasury gains, forex, asset sales) rather than core operations is a classic pre-blowup pattern (matches ANALYST_CHECKLISTS.md red-flag philosophy) that CFO/PAT alone would miss if the non-operating item is itself cash (e.g. a one-off asset sale hits both PAT and CFO in the same period).",
+      "priority": "medium-high -- one clean test: incremental IC_IR of this penalty over CANONICAL_7LEG_1Y residual, lag+placebo gate, corr-vs-CFO/PAT<0.6 gate before scoring further"
+    },
+    {
+      "id": "W4P-02",
+      "name": "Reserves-roll-forward reconciliation gap (forensic 'hidden P&L' penalty)",
+      "manager_source": "Marcellus -- 12-ratio Schilit-based forensic framework, balance-sheet check #6",
+      "quote": "[DATA] \"change in reserves explained by P&L for the year + dividends (i.e., does the reserves roll-forward reconcile)\" -- notes_marcellus.md L46 (item 9, balance-sheet checks, sub-item 6)",
+      "construction_exact": "[INFERENCE -- source names the ratio, not the exact formula/threshold] From MASTER_fundamentals_pit.parquet: expected_delta_reserves_t = net_profit_t - dividend_payout_t (dividend_payout% x net_profit_t where dividend_payout% is available, n=7695/49355 ~15.6% coverage; ELSE approximate dividend=0, flagged as added noise for the ~84% of rows without disclosed payout -- an explicit [INFERENCE] approximation, not silent). actual_delta_reserves_t = reserves_t - reserves_t-1 (available n=49277, near-full). gap_t = (actual_delta_reserves_t - expected_delta_reserves_t) / abs(reserves_t-1). Large |gap| (either direction) = penalty: flags write-offs, revaluation/FCTR reserve movements, or other equity adjustments bypassing the P&L that a simple net-profit/EY screen cannot see.",
+      "expected_sign": "-  (large unexplained reserves-roll-forward gap -> lower forward return / forensic penalty, not linear alpha)",
+      "data_assets": ["ALPHA_RANKER/data/fundamentals/MASTER_fundamentals_pit.parquet (metric_norm: 'reserves' n=49277, 'net profit' n=49352, 'dividend payout %' n=7695 sparse -- coverage caveat must ship with the card, same sparsity pattern already disclosed for promoter-buying data)"],
+      "orthogonality_vs_7_legs": "[INFERENCE, needs empirical corr<0.6 gate] Distinct from asset-growth (total-assets side of balance sheet, not reserves/equity side) and from CFO/PAT (cash-flow-statement vs balance-sheet-equity reconciliation -- different statement, different mechanism). Zero field overlap with EY/momentum/MA-65/net-share-issuance/QMJ's specific inputs.",
+      "money_rationale": "A genuine 'hidden P&L' forensic tell distinct from every existing forensic factor on file (Beneish/Montier/CFO-PAT/receivables-inventory/CWIP/pledge/auditor/RPT/covenant/key-mgmt-churn per FRAMEWORK_CATALOG SS8) -- catches equity-side manipulation (asset revaluations, forex translation reserve games, write-offs routed around the P&L) that income-statement-only forensic checks structurally cannot see.",
+      "priority": "medium -- coverage caveat (sparse dividend field) means this should run as a DIRECTIONAL/penalty-only test first, not a scored leg; kill if it fails lag/placebo or if corr to CFO/PAT >=0.6"
+    },
+    {
+      "id": "W4P-03",
+      "name": "Cyclical-sector normalized (multi-year-average) earnings yield",
+      "manager_source": "Aequitas (explicit 'earnings at bottom of cycle' framing) + Buoyant Satellite sleeve (metals/CV/NBFC turnaround-cyclicals thesis) -- convergent cyclicals-specific value logic",
+      "quote": "[DATA] \"Sector-cyclicality-adjusted earnings ('earnings at bottom of cycle')... could proxy with multi-year normalized/average EPS instead of TTM, but this is a judgment call not a hard rule\" -- notes_aequitas.md L124. Corroborating: \"Satellite sleeve criteria: cyclical sectors named explicitly (metals, commercial vehicles, NBFCs)... 'leaders that look expensive but offer asymmetric upside'\" -- notes_buoyant.md L37",
+      "construction_exact": "[INFERENCE -- notes_aequitas.md itself flags this as a judgment call, not a documented formula; this is our own defensible codable proxy, stated as such] Within cyclical sectors only (metals/mining, autos/CV, capital goods, cement, NBFC -- via sector_map.parquet tags), compute normalized_EY_t = (trailing 5-7yr AVERAGE eps-in-rs, PIT-available at each point) / price_t, vs the standard TTM-EPS-based EY already in the 7-leg composite. Test cross-sectional IC of normalized_EY WITHIN the cyclical-sector subset only, incremental over the existing EY leg's IC in that same subset (does cycle-normalization improve the value signal specifically where earnings are most volatile/cycle-peaked?).",
+      "expected_sign": "+ (cheap on cycle-normalized earnings = value opportunity ahead of an earnings-cycle upturn; TTM-EY can misprice cyclicals as 'cheap' right at peak earnings -- a known value-trap failure mode TTM-EY does not correct for)",
+      "data_assets": ["MASTER_fundamentals_pit.parquet (metric_norm='eps in rs', n=48267, near-full coverage, multi-year history available per company)", "ALPHA_RANKER/rnd/lib/sector_map.py / sector_map.parquet (sector tagging for the cyclical subset)"],
+      "orthogonality_vs_7_legs": "[INFERENCE, needs empirical test] This is explicitly a CONDITIONAL REFINEMENT of the existing EY leg (same underlying EPS/price field), not a new independent bet -- expected corr to EY likely high OUTSIDE the cyclical subset (by construction, near-identical when earnings are stable) but should diverge meaningfully INSIDE it. Per house doctrine (DCF/market-state/smallcap-tier were all folded into EY at 0.74-1.00 corr, not kept separate), this must clear an incremental-IC-over-EY-within-subset bar specifically, not a standalone promotion -- test it the way DCF was tested, not the way a new leg is tested.",
+      "money_rationale": "Directly targets the exact value-trap failure mode multiple managers flag for cyclicals (buying 'cheap TTM P/E' right at a margin/earnings peak) -- if it clears the incremental bar within the cyclical subset, it is a sector-conditional improvement to the anchor leg (EY) rather than a new independent bet, consistent with how DCF/market-state were already integrated.",
+      "priority": "medium -- cheapest test: incremental IC of normalized-EY over EY, cyclical-sector subset only, one-day-lag + placebo; kill if incremental IC is not clearly positive or if subset sample size is too thin for a stable IC"
+    },
+    {
+      "id": "W4P-04",
+      "name": "Within-sector market-cap leadership (industry-leader-not-challenger)",
+      "manager_source": "Buoyant -- Core sleeve criterion",
+      "quote": "[DATA] \"Core sleeve criteria: predictable cash flows, preference for dividend yield over uncertain growth, industry leaders (not challengers)\" -- notes_buoyant.md L36. Codability note: \"'Industry leader not challenger': roughly proxy via market-cap rank within sector/sub-sector (top 1-2 by market cap) -- codable if we have a sector classification map for NIFTY500\" -- notes_buoyant.md L88",
+      "construction_exact": "[INFERENCE -- source gives the concept and a codability sketch, not an exact formula] Using sector_map.parquet, compute within_sector_mktcap_rank_t = percentile rank of mktcap_log WITHIN the stock's own sector/sub-sector at date t (distinct from mktcap_log's UNIVERSE-WIDE rank, which is the already-tested/killed-then-recovered size factor H028). Score = being top-1/top-2 (or top decile) by market cap WITHIN one's own sector, not in the whole NIFTY500 cross-section.",
+      "expected_sign": "+ (within-sector leadership -> durable pricing power/moat/scale advantage -> higher forward return), though this must be tested against the alternative hypothesis that it is just a repackaged size effect",
+      "data_assets": ["ALPHA_RANKER/rnd/panel/panel_long.parquet (mktcap_log, sector columns already present)", "ALPHA_RANKER/rnd/lib/sector_map.py"],
+      "orthogonality_vs_7_legs": "[INFERENCE, must be tested explicitly] Primary risk: this may just be H028 (size, already tested, signed IC_IR recovered as strongly negative-raw/positive-signed per SURVIVORS.md) re-expressed within-sector. MANDATORY first test before anything else: corr(within_sector_mktcap_rank, universe_wide_mktcap_rank) -- if >=0.6, this is not a new bet and should be parked immediately (same logic CONSOLIDATION already applied to reject 'sector-neutral' as adding nothing beyond the composite per H048). Only proceed to an IC test if the correlation gate is cleared.",
+      "money_rationale": "If genuinely distinct from raw size (i.e., a small-in-absolute-terms but dominant-in-its-niche company scores differently from a similarly-small company in a fragmented sector), this captures competitive-moat/pricing-power information that neither the universe-wide size factor nor QMJ's profitability/safety/payout composite directly measures.",
+      "priority": "low-medium -- CHEAPEST possible test is the orthogonality-vs-H028 correlation check FIRST (near-zero cost); only spend an IC-test slot if that gate clears, per the wave's own DO-NOT-DO discipline against redundant 'new' factors"
+    }
+  ],
+  "count_new_untested_codable_rules": 4,
+  "not_proposed_honestly_flagged": [
+    "Marcellus forensic ratios #3 (doubtful-debt provisioning), #4 (yield on cash & equivalents), #5 (contingent liabilities % net worth), #7 (auditor remuneration growth vs revenue growth) -- NOT proposed as hypotheses: none of these line items exist in MASTER_fundamentals_pit.parquet's metric_norm set (verified via full value_counts scan, 2026-07-17). DATA-BLOCKED, not codable now -- would need a new source (D-025 gate) to acquire debtor-ageing/cash-equivalents-specific/contingent-liability/audit-fee line items. Flagged for the Data Officer, not silently dropped.",
+    "SageOne 'business-group 20% cap' (needs promoter/group tagging table, not on disk) -- portfolio-construction risk control, not an alpha signal; data-blocked; low money value even if the data existed.",
+    "Aequitas 'avoid high institutional ownership' -- same underlying mechanism as the already-tested-and-killed under-owned-value factor (CONSOLIDATION.md anti-findings); not proposed as distinct.",
+    "Green Lantern / Marcellus market-cap-band and position-count/churn-budget rules -- portfolio-construction constraints, not stock-scoring factors; out of scope for a per-stock hypothesis list (relevant instead to position-sizing logic, see MEMO_CRAFT.md)."
+  ]
+}

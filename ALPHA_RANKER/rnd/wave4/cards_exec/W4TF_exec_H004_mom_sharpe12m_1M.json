@@ -1,0 +1,77 @@
+{
+  "factor_id": "H004_mom_sharpe12m_1M",
+  "family": "H004",
+  "horizon": "1M",
+  "n_rebal_dates_total": 42,
+  "n_rebal_dates_recent_2021_07plus": 42,
+  "turnover_oneway_book_fullsample": 0.27050558307262984,
+  "turnover_oneway_long_leg": 0.26865061252456407,
+  "turnover_oneway_short_leg": 0.2723605536206956,
+  "avg_top_decile_n": 54.95238095238095,
+  "avg_bottom_decile_n": 55.07142857142857,
+  "implied_avg_holding_months_long": 3.7223067932092095,
+  "implied_avg_holding_months_short": 3.671603639757082,
+  "turnover_oneway_book_recent_regime": 0.27050558307262984,
+  "capacity_recent_regime": {
+    "long_10cr": {
+      "median_pct": 0.2855743512792013,
+      "p90_pct": 1.4937010981351007,
+      "max_pct": 350.35751975296165,
+      "frac_over_10pct": 0.009532062391681109,
+      "frac_over_5pct_micro": 0.036827195467422094,
+      "n_leg_days": 2308
+    },
+    "short_10cr": {
+      "median_pct": 0.786625507336876,
+      "p90_pct": 4.024679479636746,
+      "max_pct": 25.72274613951229,
+      "frac_over_10pct": 0.01772589710332901,
+      "frac_over_5pct_micro": 0.1388888888888889,
+      "n_leg_days": 2313
+    },
+    "long_100cr": {
+      "median_pct": 2.8557435127920128,
+      "p90_pct": 14.937010981351007,
+      "max_pct": 3503.575197529617,
+      "frac_over_10pct": 0.177209705372617,
+      "frac_over_5pct_micro": 0.7365439093484419,
+      "n_leg_days": 2308
+    },
+    "short_100cr": {
+      "median_pct": 7.86625507336876,
+      "p90_pct": 40.24679479636746,
+      "max_pct": 257.2274613951229,
+      "frac_over_10pct": 0.4340683095546909,
+      "frac_over_5pct_micro": 0.9351851851851852,
+      "n_leg_days": 2313
+    }
+  },
+  "short_leg_fno_eligible_share_recent": 0.2408127972330307,
+  "long_leg_fno_eligible_share_recent": 0.4207105719237435,
+  "fill_recent_regime": {
+    "n_entry_events": 1223,
+    "no_fill_rate": 0.0,
+    "avg_effective_slippage_bps_oneway": 27.14227309893704,
+    "slippage_multiplier_distribution": {
+      "1.0": 0.9493049877350777,
+      "2.0": 0.04905968928863451,
+      "3.0": 0.001635322976287817
+    },
+    "realistic_bps_roundtrip": 77.28454619787408,
+    "flat_costmodel_bps_roundtrip_recent_mix": 74.53720359771054
+  },
+  "gross_ann_return": {
+    "full_sample_horizon_aware": 0.15679681237043022,
+    "recent_regime_horizon_aware": 0.15679681237043022,
+    "card_reported_full_sample": 0.17107818521106616
+  },
+  "net_of_cost_recent_regime": {
+    "flat_costmodel": 0.1326015367066678,
+    "realistic_volcond_fill": 0.1317097308923188
+  },
+  "card_reported": {
+    "gross_ann": 0.17107818521106616,
+    "turnover": 0.2718842990145561,
+    "net_flat_full_sample": 0.1449945131374466
+  }
+}

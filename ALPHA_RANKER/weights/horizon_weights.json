@@ -1,0 +1,23 @@
+{
+  "_meta": {
+    "source": "02_SCORING_ENGINE.md Step-3 base priors (illustrative). PRIORS ONLY — final values earned in Phase 6-7 calibration (DSR/PBO/walk-forward). Do not treat as production.",
+    "themes": ["Momentum", "Value", "Quality", "Growth", "Flow", "Catalyst", "Forensic"],
+    "forensic_note": "Forensic is applied as a PENALTY (subtracted, size/regime-scaled), NOT additive upside. Its weight here is the penalty scaler, not an additive weight.",
+    "regime_conditional": "These are the regime-NEUTRAL priors. regime_classifier (AG4) output will tilt them in Phase 6; tilt hooks are in combine_scores.py."
+  },
+  "1M": {"Momentum": 0.30, "Value": 0.05, "Quality": 0.05, "Growth": 0.05, "Flow": 0.25, "Catalyst": 0.25, "Forensic": 0.05},
+  "1Y": {"Momentum": 0.15, "Value": 0.25, "Quality": 0.15, "Growth": 0.20, "Flow": 0.05, "Catalyst": 0.10, "Forensic": 0.10},
+  "5Y": {"Momentum": 0.05, "Value": 0.25, "Quality": 0.25, "Growth": 0.30, "Flow": 0.00, "Catalyst": 0.05, "Forensic": 0.10},
+  "MICRO": {"Momentum": 0.10, "Value": 0.20, "Quality": 0.20, "Growth": 0.25, "Flow": 0.05, "Catalyst": 0.05, "Forensic": 0.15},
+
+  "cross_horizon_coupling": {
+    "_note": "User ruling (Q9): horizons are independent scores, EXCEPT a large negative 1M drags the longer horizons (a stock breaking down now is a worse 5Y entry even if the thesis holds). Applied as a one-directional penalty only.",
+    "trigger_1m_below": -30,
+    "drag_to_1Y": 0.20,
+    "drag_to_5Y": 0.12
+  },
+  "band_thresholds": {
+    "_note": "Conviction (-100..+100) -> action band. Provisional; recalibrated with realized hit-rates in Phase 6.",
+    "STRONG_BUY": 55, "BUY": 25, "HOLD_HI": 25, "HOLD_LO": -25, "REDUCE": -25, "EXIT": -55
+  }
+}

@@ -1,0 +1,322 @@
+{
+  "id": "H002",
+  "name": "MA-period sweep",
+  "cat": "technical",
+  "horizons": [
+    "1M",
+    "1Y"
+  ],
+  "generated_at": "2026-07-16T17:53:00.034287+00:00",
+  "family": "H002",
+  "kill_criterion_registered": "no stable plateau (isolated spike only)",
+  "kill_criterion_triggered": false,
+  "shape_findings": {
+    "1M_dist": "monotonic smooth rise from n=20 (-0.220) to n=200 (+0.096), crossing zero near n=100-110. No spike -- a genuine gradient, longer MA = less-bad distance signal at 1M.",
+    "1M_slope": "monotonic rise from n=20 (-0.017) to a broad hump n=100-120 (0.164/0.168), dips at n=150 (0.127), then a single high point at n=200 (0.247). The n=200 point is the one place that looks like an isolated spike rather than part of the n=100-120 plateau -- flagged, not fully clean.",
+    "1Y_dist": "monotonic smooth rise from n=20 (0.362) plateauing n=100-200 (0.776-0.800, essentially flat) -- clean broad plateau, longer MAs generically win, no single lucky length.",
+    "1Y_slope": "genuine hump peaking at n=55-75 (0.692-0.720, with 65 at 0.717) then declining through n=100-200 (0.701 down to 0.587-0.605) -- a real, non-spike plateau CENTERED on the 55-75 band that Principal's 65DMA sits inside; this is the cleanest 'stable plateau not a lucky length' result in the sweep, and it directly supports 65 over 50 or 100+ for the SLOPE construct."
+  },
+  "answer_to_principal": "No isolated one-lucky-length spike anywhere except possibly 1M-slope's n=200 point. Two distinct regimes: (1) DISTANCE-from-MA wants LONGER windows generically (plateaus at 100-200d, both horizons), (2) SLOPE-of-MA at the 1Y horizon has a genuine hump centered on 55-75d -- 65 sits right in the middle of that plateau, which is the strongest evidence in this bucket that 65 (not 50, not 100+) is a structurally sound choice specifically for the momentum/slope construct.",
+  "harness_verdict": "KILL (all 48 sub-cards) -- PBO>0.5 on every variant (0.85-1.00 range); most 1M variants also fail IC_IR>=0.20 and/or lag_test_delta<=0.25.",
+  "issue_flag": "[DATA] DSR ~ 0 (1e-20 to 1e-70) on literally every H001/H002/H042 card. Root cause: trials_counter.json increments per evaluate() call keyed by family; running the full 12-length x 2-construct x 2-horizon sweep under family='H002' in one session drove n_trials up to 48 within that single family, which the harness's sigma_SR=1 Bailey-LdP deflation (FND_harness.md) punishes extremely harshly -- DSR collapses toward 0 regardless of the true signal quality. Likewise PBO>0.5 fired on EVERY one of the 62 cards run in this session (range 0.85-1.00), including cards with IC_IR>0.7 and clean lag tests, which is suspicious as a blanket result across an entire family rather than a differentiated per-factor read. This may be an honest reflection of a genuinely short/autocorrelated panel (only 61 monthly dates, ~36-48 valid for 1Y) rather than a harness bug -- not diagnosed further here (out of scope: this worker does not touch harness.py). Flagging for Dr. Sameer Bhat / the prioritizer: (a) whether bulk single-session parameter sweeps should be split into separate low-n families before scoring, since one big family sweep structurally guarantees DSR~0 and possibly inflates PBO gate failures too, and (b) whether PBO firing on 100% of 62 runs this session (vs the harness's own demo card which was 0.97, also a KILL) suggests the CSCV single-factor adaptation over-flags PBO for smooth/autocorrelated trend factors on this panel length.",
+  "sweep": {
+    "dist_1M": [
+      {
+        "n": 20,
+        "ic_ir": -0.22004235717571213,
+        "lag_delta": 1.1493522729960395
+      },
+      {
+        "n": 30,
+        "ic_ir": -0.18404293625581353,
+        "lag_delta": 1.2234409690433343
+      },
+      {
+        "n": 40,
+        "ic_ir": -0.164891508161628,
+        "lag_delta": 1.2184767518784339
+      },
+      {
+        "n": 50,
+        "ic_ir": -0.12365080040214721,
+        "lag_delta": 1.375194462312848
+      },
+      {
+        "n": 55,
+        "ic_ir": -0.10416335440175042,
+        "lag_delta": 1.4790484436534541
+      },
+      {
+        "n": 60,
+        "ic_ir": -0.08807124410220131,
+        "lag_delta": 1.6358525436058184
+      },
+      {
+        "n": 65,
+        "ic_ir": -0.07667996909823638,
+        "lag_delta": 1.7955827194970257
+      },
+      {
+        "n": 75,
+        "ic_ir": -0.05084977093659499,
+        "lag_delta": 2.460292536098224
+      },
+      {
+        "n": 100,
+        "ic_ir": -0.000665053513315561,
+        "lag_delta": 155.36007129276683
+      },
+      {
+        "n": 120,
+        "ic_ir": 0.035560062297315294,
+        "lag_delta": 2.1291449801487468
+      },
+      {
+        "n": 150,
+        "ic_ir": 0.06736112197237067,
+        "lag_delta": 0.34349168095153415
+      },
+      {
+        "n": 200,
+        "ic_ir": 0.09639968129146295,
+        "lag_delta": 0.5146230200199062
+      }
+    ],
+    "slope_1M": [
+      {
+        "n": 20,
+        "ic_ir": -0.01749508260047056,
+        "lag_delta": 2.6429395711948205
+      },
+      {
+        "n": 30,
+        "ic_ir": 0.05589041152824126,
+        "lag_delta": 0.01328135693908144
+      },
+      {
+        "n": 40,
+        "ic_ir": 0.07843131813589024,
+        "lag_delta": 0.19779451702163656
+      },
+      {
+        "n": 50,
+        "ic_ir": 0.09250775655458925,
+        "lag_delta": 0.17554213848801292
+      },
+      {
+        "n": 55,
+        "ic_ir": 0.10501057314591149,
+        "lag_delta": 0.15293971568492506
+      },
+      {
+        "n": 60,
+        "ic_ir": 0.11966823991125569,
+        "lag_delta": 0.0635614558425198
+      },
+      {
+        "n": 65,
+        "ic_ir": 0.12559633731434033,
+        "lag_delta": 0.013819484237389126
+      },
+      {
+        "n": 75,
+        "ic_ir": 0.128056702295354,
+        "lag_delta": 0.05089725256354707
+      },
+      {
+        "n": 100,
+        "ic_ir": 0.1639075343031849,
+        "lag_delta": 0.13087468788189385
+      },
+      {
+        "n": 120,
+        "ic_ir": 0.1675155737712964,
+        "lag_delta": 0.3565349404029884
+      },
+      {
+        "n": 150,
+        "ic_ir": 0.12708488284787103,
+        "lag_delta": 0.41267271746381234
+      },
+      {
+        "n": 200,
+        "ic_ir": 0.2472646286180808,
+        "lag_delta": 0.23559075943514035
+      }
+    ],
+    "dist_1Y": [
+      {
+        "n": 20,
+        "ic_ir": 0.36169876462830913,
+        "lag_delta": 0.0476940992122597
+      },
+      {
+        "n": 30,
+        "ic_ir": 0.4326822378717167,
+        "lag_delta": 0.060591303034637424
+      },
+      {
+        "n": 40,
+        "ic_ir": 0.5306095185902405,
+        "lag_delta": 0.029563834568918545
+      },
+      {
+        "n": 50,
+        "ic_ir": 0.6056514244899995,
+        "lag_delta": 0.006535564612114435
+      },
+      {
+        "n": 55,
+        "ic_ir": 0.6434971674697043,
+        "lag_delta": 0.022844631029196656
+      },
+      {
+        "n": 60,
+        "ic_ir": 0.6705880569840632,
+        "lag_delta": 0.038868153252591464
+      },
+      {
+        "n": 65,
+        "ic_ir": 0.686064848849948,
+        "lag_delta": 0.048074720547751734
+      },
+      {
+        "n": 75,
+        "ic_ir": 0.7233931076687078,
+        "lag_delta": 0.0660815786741914
+      },
+      {
+        "n": 100,
+        "ic_ir": 0.7834221954466974,
+        "lag_delta": 0.09135530678532001
+      },
+      {
+        "n": 120,
+        "ic_ir": 0.8003640063336442,
+        "lag_delta": 0.11662008488851197
+      },
+      {
+        "n": 150,
+        "ic_ir": 0.7759822522238479,
+        "lag_delta": 0.1448121215204476
+      },
+      {
+        "n": 200,
+        "ic_ir": 0.7829849676073425,
+        "lag_delta": 0.13200537474710938
+      }
+    ],
+    "slope_1Y": [
+      {
+        "n": 20,
+        "ic_ir": 0.5640479842612292,
+        "lag_delta": 0.04669766365021784
+      },
+      {
+        "n": 30,
+        "ic_ir": 0.6240552380863759,
+        "lag_delta": 0.12649483866171232
+      },
+      {
+        "n": 40,
+        "ic_ir": 0.6530735448354764,
+        "lag_delta": 0.14734173999699887
+      },
+      {
+        "n": 50,
+        "ic_ir": 0.6688933521730203,
+        "lag_delta": 0.14436903129237816
+      },
+      {
+        "n": 55,
+        "ic_ir": 0.6921329533770163,
+        "lag_delta": 0.13927811155613937
+      },
+      {
+        "n": 60,
+        "ic_ir": 0.7047425881507776,
+        "lag_delta": 0.1350299647214969
+      },
+      {
+        "n": 65,
+        "ic_ir": 0.7174031960184557,
+        "lag_delta": 0.13670965921649508
+      },
+      {
+        "n": 75,
+        "ic_ir": 0.7203756276622051,
+        "lag_delta": 0.14141618482741747
+      },
+      {
+        "n": 100,
+        "ic_ir": 0.7005773403880111,
+        "lag_delta": 0.1957386818664268
+      },
+      {
+        "n": 120,
+        "ic_ir": 0.6635990228083875,
+        "lag_delta": 0.20513988701088431
+      },
+      {
+        "n": 150,
+        "ic_ir": 0.5865851084161681,
+        "lag_delta": 0.16201183424364177
+      },
+      {
+        "n": 200,
+        "ic_ir": 0.6047159743250307,
+        "lag_delta": 0.15221555233927908
+      }
+    ]
+  },
+  "sub_cards": [
+    "H002_dist20_1M",
+    "H002_slope20_1M",
+    "H002_dist30_1M",
+    "H002_slope30_1M",
+    "H002_dist40_1M",
+    "H002_slope40_1M",
+    "H002_dist50_1M",
+    "H002_slope50_1M",
+    "H002_dist55_1M",
+    "H002_slope55_1M",
+    "H002_dist60_1M",
+    "H002_slope60_1M",
+    "H002_dist65_1M",
+    "H002_slope65_1M",
+    "H002_dist75_1M",
+    "H002_slope75_1M",
+    "H002_dist100_1M",
+    "H002_slope100_1M",
+    "H002_dist120_1M",
+    "H002_slope120_1M",
+    "H002_dist150_1M",
+    "H002_slope150_1M",
+    "H002_dist200_1M",
+    "H002_slope200_1M",
+    "H002_dist20_1Y",
+    "H002_slope20_1Y",
+    "H002_dist30_1Y",
+    "H002_slope30_1Y",
+    "H002_dist40_1Y",
+    "H002_slope40_1Y",
+    "H002_dist50_1Y",
+    "H002_slope50_1Y",
+    "H002_dist55_1Y",
+    "H002_slope55_1Y",
+    "H002_dist60_1Y",
+    "H002_slope60_1Y",
+    "H002_dist65_1Y",
+    "H002_slope65_1Y",
+    "H002_dist75_1Y",
+    "H002_slope75_1Y",
+    "H002_dist100_1Y",
+    "H002_slope100_1Y",
+    "H002_dist120_1Y",
+    "H002_slope120_1Y",
+    "H002_dist150_1Y",
+    "H002_slope150_1Y",
+    "H002_dist200_1Y",
+    "H002_slope200_1Y"
+  ]
+}

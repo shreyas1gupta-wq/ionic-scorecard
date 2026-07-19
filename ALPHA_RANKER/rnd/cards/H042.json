@@ -1,0 +1,30 @@
+{
+  "id": "H042",
+  "name": "MA slope vs distance (65DMA, 1M)",
+  "cat": "technical",
+  "horizons": [
+    "1M"
+  ],
+  "generated_at": "2026-07-16T17:53:00.034287+00:00",
+  "family": "H042",
+  "kill_criterion_registered": "default (IC_IR<0.20 OR lag_delta>0.25 OR PBO>0.5 OR |placebo|>0.02 OR DSR<=0)",
+  "kill_criterion_triggered": true,
+  "distance_65dma": {
+    "ic_ir": -0.07667996909823638,
+    "lag_delta": 1.7955827194970257,
+    "pbo": 1.0,
+    "verdict": "KILL (IC_IR -0.077 < 0.2; lag_test_delta 1.796 > 0.25; PBO 1.000 > 0.5)"
+  },
+  "slope_65dma": {
+    "ic_ir": 0.12559633731434033,
+    "lag_delta": 0.013819484237389126,
+    "pbo": 0.9956709956709957,
+    "verdict": "KILL (IC_IR 0.126 < 0.2; PBO 0.996 > 0.5)"
+  },
+  "answer_to_principal": "SLOPE is clearly more robust than DISTANCE for the 65DMA at the 1M horizon. Distance-from-65DMA has a NEGATIVE IC_IR (-0.077) and a lag_test_delta of 1.796 -- the sign/magnitude of the signal changes wildly under a 1-period shift, meaning the raw distance-from-MA 'signal' at 1M is largely noise / a mean-reversion artifact, not a stable trend read. Slope-of-65DMA has a positive IC_IR (0.126, still below the 0.20 floor) but a lag_test_delta of only 0.014 -- essentially perfectly stable under the lag perturbation. Slope wins on both direction and (especially) robustness; distance-from-MA should not be used standalone at the 1M horizon.",
+  "harness_verdict": "KILL both (IC_IR<0.20 for slope; IC_IR<0 and lag_delta>0.25 for distance; PBO>0.5 for both).",
+  "sub_cards": [
+    "H042_dist65_1M",
+    "H042_slope65_1M"
+  ]
+}

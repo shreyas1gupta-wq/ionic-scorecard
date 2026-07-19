@@ -1,0 +1,616 @@
+{
+ "ticker": "NXST",
+ "url_path": "NXST/consolidated/",
+ "tables": {
+  "quarterly_results": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2023": "0",
+    "Jun 2023": "287",
+    "Sep 2023": "541",
+    "Dec 2023": "571",
+    "Mar 2024": "542",
+    "Jun 2024": "554",
+    "Sep 2024": "557",
+    "Dec 2024": "594",
+    "Mar 2025": "580",
+    "Jun 2025": "614",
+    "Sep 2025": "631",
+    "Dec 2025": "671",
+    "Mar 2026": "652"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2023": "3",
+    "Jun 2023": "98",
+    "Sep 2023": "183",
+    "Dec 2023": "185",
+    "Mar 2024": "166",
+    "Jun 2024": "180",
+    "Sep 2024": "179",
+    "Dec 2024": "189",
+    "Mar 2025": "182",
+    "Jun 2025": "192",
+    "Sep 2025": "203",
+    "Dec 2025": "220",
+    "Mar 2026": "225"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2023": "-3",
+    "Jun 2023": "190",
+    "Sep 2023": "357",
+    "Dec 2023": "387",
+    "Mar 2024": "375",
+    "Jun 2024": "374",
+    "Sep 2024": "378",
+    "Dec 2024": "405",
+    "Mar 2025": "398",
+    "Jun 2025": "421",
+    "Sep 2025": "428",
+    "Dec 2025": "451",
+    "Mar 2026": "428"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2023": NaN,
+    "Jun 2023": "66%",
+    "Sep 2023": "66%",
+    "Dec 2023": "68%",
+    "Mar 2024": "69%",
+    "Jun 2024": "67%",
+    "Sep 2024": "68%",
+    "Dec 2024": "68%",
+    "Mar 2025": "69%",
+    "Jun 2025": "69%",
+    "Sep 2025": "68%",
+    "Dec 2025": "67%",
+    "Mar 2026": "66%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2023": "0",
+    "Jun 2023": "6",
+    "Sep 2023": "18",
+    "Dec 2023": "19",
+    "Mar 2024": "20",
+    "Jun 2024": "28",
+    "Sep 2024": "21",
+    "Dec 2024": "39",
+    "Mar 2025": "35",
+    "Jun 2025": "26",
+    "Sep 2025": "21",
+    "Dec 2025": "23",
+    "Mar 2026": "23"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2023": "0",
+    "Jun 2023": "53",
+    "Sep 2023": "95",
+    "Dec 2023": "97",
+    "Mar 2024": "93",
+    "Jun 2024": "91",
+    "Sep 2024": "93",
+    "Dec 2024": "104",
+    "Mar 2025": "106",
+    "Jun 2025": "112",
+    "Sep 2025": "116",
+    "Dec 2025": "116",
+    "Mar 2026": "114"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2023": "0",
+    "Jun 2023": "78",
+    "Sep 2023": "147",
+    "Dec 2023": "148",
+    "Mar 2024": "148",
+    "Jun 2024": "145",
+    "Sep 2024": "147",
+    "Dec 2024": "148",
+    "Mar 2025": "146",
+    "Jun 2025": "155",
+    "Sep 2025": "162",
+    "Dec 2025": "153",
+    "Mar 2026": "150"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2023": "-3",
+    "Jun 2023": "65",
+    "Sep 2023": "134",
+    "Dec 2023": "161",
+    "Mar 2024": "156",
+    "Jun 2024": "165",
+    "Sep 2024": "159",
+    "Dec 2024": "193",
+    "Mar 2025": "181",
+    "Jun 2025": "180",
+    "Sep 2025": "172",
+    "Dec 2025": "204",
+    "Mar 2026": "187"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2023": "0%",
+    "Jun 2023": "-45%",
+    "Sep 2023": "-88%",
+    "Dec 2023": "34%",
+    "Mar 2024": "6%",
+    "Jun 2024": "15%",
+    "Sep 2024": "31%",
+    "Dec 2024": "38%",
+    "Mar 2025": "37%",
+    "Jun 2025": "34%",
+    "Sep 2025": "23%",
+    "Dec 2025": "32%",
+    "Mar 2026": "93%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2023": "-3",
+    "Jun 2023": "94",
+    "Sep 2023": "251",
+    "Dec 2023": "107",
+    "Mar 2024": "146",
+    "Jun 2024": "140",
+    "Sep 2024": "110",
+    "Dec 2024": "119",
+    "Mar 2025": "114",
+    "Jun 2025": "120",
+    "Sep 2025": "132",
+    "Dec 2025": "139",
+    "Mar 2026": "12"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2023": NaN,
+    "Jun 2023": "0.62",
+    "Sep 2023": "1.66",
+    "Dec 2023": "0.71",
+    "Mar 2024": "0.97",
+    "Jun 2024": "0.92",
+    "Sep 2024": "0.73",
+    "Dec 2024": "0.78",
+    "Mar 2025": "0.75",
+    "Jun 2025": "0.79",
+    "Sep 2025": "0.87",
+    "Dec 2025": "0.92",
+    "Mar 2026": "0.08"
+   },
+   {
+    "Unnamed: 0": "Raw PDF",
+    "Mar 2023": NaN,
+    "Jun 2023": NaN,
+    "Sep 2023": NaN,
+    "Dec 2023": NaN,
+    "Mar 2024": NaN,
+    "Jun 2024": NaN,
+    "Sep 2024": NaN,
+    "Dec 2024": NaN,
+    "Mar 2025": NaN,
+    "Jun 2025": NaN,
+    "Sep 2025": NaN,
+    "Dec 2025": NaN,
+    "Mar 2026": NaN
+   }
+  ],
+  "profit_loss": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2023  8m": "0",
+    "Mar 2024": "1916",
+    "Mar 2025": "2283",
+    "Mar 2026": "2568"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2023  8m": "3",
+    "Mar 2024": "632",
+    "Mar 2025": "731",
+    "Mar 2026": "835"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2023  8m": "-3",
+    "Mar 2024": "1284",
+    "Mar 2025": "1552",
+    "Mar 2026": "1733"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2023  8m": NaN,
+    "Mar 2024": "67%",
+    "Mar 2025": "68%",
+    "Mar 2026": "67%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2023  8m": "0",
+    "Mar 2024": "88",
+    "Mar 2025": "126",
+    "Mar 2026": "88"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2023  8m": "0",
+    "Mar 2024": "337",
+    "Mar 2025": "394",
+    "Mar 2026": "458"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2023  8m": "0",
+    "Mar 2024": "520",
+    "Mar 2025": "586",
+    "Mar 2026": "620"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2023  8m": "-3",
+    "Mar 2024": "515",
+    "Mar 2025": "698",
+    "Mar 2026": "743"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2023  8m": "0%",
+    "Mar 2024": "-16%",
+    "Mar 2025": "31%",
+    "Mar 2026": "46%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2023  8m": "-3",
+    "Mar 2024": "599",
+    "Mar 2025": "483",
+    "Mar 2026": "403"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2023  8m": NaN,
+    "Mar 2024": "3.95",
+    "Mar 2025": "3.19",
+    "Mar 2026": "2.66"
+   },
+   {
+    "Unnamed: 0": "Dividend Payout %",
+    "Mar 2023  8m": "0%",
+    "Mar 2024": "178%",
+    "Mar 2025": "397%",
+    "Mar 2026": "295%"
+   }
+  ],
+  "balance_sheet": [
+   {
+    "Unnamed: 0": "Equity Capital",
+    "Mar 2023": 0.0,
+    "Mar 2024": 15095,
+    "Mar 2025": 15095,
+    "Mar 2026": 15095
+   },
+   {
+    "Unnamed: 0": "Reserves",
+    "Mar 2023": -3.0,
+    "Mar 2024": -160,
+    "Mar 2025": -956,
+    "Mar 2026": -1885
+   },
+   {
+    "Unnamed: 0": "Borrowings",
+    "Mar 2023": 0.0,
+    "Mar 2024": 4271,
+    "Mar 2025": 5336,
+    "Mar 2026": 6203
+   },
+   {
+    "Unnamed: 0": "Other Liabilities",
+    "Mar 2023": 48.0,
+    "Mar 2024": 894,
+    "Mar 2025": 1046,
+    "Mar 2026": 1099
+   },
+   {
+    "Unnamed: 0": "Total Liabilities",
+    "Mar 2023": 45.0,
+    "Mar 2024": 20100,
+    "Mar 2025": 20520,
+    "Mar 2026": 20512
+   },
+   {
+    "Unnamed: 0": "Fixed Assets",
+    "Mar 2023": 0.0,
+    "Mar 2024": 17915,
+    "Mar 2025": 18323,
+    "Mar 2026": 18582
+   },
+   {
+    "Unnamed: 0": "CWIP",
+    "Mar 2023": 0.0,
+    "Mar 2024": 35,
+    "Mar 2025": 69,
+    "Mar 2026": 9
+   },
+   {
+    "Unnamed: 0": "Investments",
+    "Mar 2023": 0.0,
+    "Mar 2024": 1185,
+    "Mar 2025": 1328,
+    "Mar 2026": 1318
+   },
+   {
+    "Unnamed: 0": "Other Assets",
+    "Mar 2023": 45.0,
+    "Mar 2024": 965,
+    "Mar 2025": 800,
+    "Mar 2026": 602
+   },
+   {
+    "Unnamed: 0": "Total Assets",
+    "Mar 2023": 45.0,
+    "Mar 2024": 20100,
+    "Mar 2025": 20520,
+    "Mar 2026": 20512
+   }
+  ],
+  "cash_flow": [
+   {
+    "Unnamed: 0": "Cash from Operating Activity",
+    "Mar 2023": "0",
+    "Mar 2024": "1217",
+    "Mar 2025": "1532",
+    "Mar 2026": "1662"
+   },
+   {
+    "Unnamed: 0": "Cash from Investing Activity",
+    "Mar 2023": "0",
+    "Mar 2024": "-398",
+    "Mar 2025": "-965",
+    "Mar 2026": "-731"
+   },
+   {
+    "Unnamed: 0": "Cash from Financing Activity",
+    "Mar 2023": "0",
+    "Mar 2024": "-780",
+    "Mar 2025": "-588",
+    "Mar 2026": "-914"
+   },
+   {
+    "Unnamed: 0": "Net Cash Flow",
+    "Mar 2023": "0",
+    "Mar 2024": "39",
+    "Mar 2025": "-20",
+    "Mar 2026": "17"
+   },
+   {
+    "Unnamed: 0": "Free Cash Flow",
+    "Mar 2023": "0",
+    "Mar 2024": "1131",
+    "Mar 2025": "1387",
+    "Mar 2026": "1302"
+   },
+   {
+    "Unnamed: 0": "CFO/OP",
+    "Mar 2023": "0%",
+    "Mar 2024": "101%",
+    "Mar 2025": "103%",
+    "Mar 2026": "104%"
+   }
+  ],
+  "ratios": [
+   {
+    "Unnamed: 0": "Debtor Days",
+    "Mar 2023": NaN,
+    "Mar 2024": "12",
+    "Mar 2025": "9",
+    "Mar 2026": "8"
+   },
+   {
+    "Unnamed: 0": "Inventory Days",
+    "Mar 2023": NaN,
+    "Mar 2024": NaN,
+    "Mar 2025": NaN,
+    "Mar 2026": NaN
+   },
+   {
+    "Unnamed: 0": "Days Payable",
+    "Mar 2023": NaN,
+    "Mar 2024": NaN,
+    "Mar 2025": NaN,
+    "Mar 2026": NaN
+   },
+   {
+    "Unnamed: 0": "Cash Conversion Cycle",
+    "Mar 2023": NaN,
+    "Mar 2024": "12",
+    "Mar 2025": "9",
+    "Mar 2026": "8"
+   },
+   {
+    "Unnamed: 0": "Working Capital Days",
+    "Mar 2023": NaN,
+    "Mar 2024": "-125",
+    "Mar 2025": "-175",
+    "Mar 2026": "-143"
+   },
+   {
+    "Unnamed: 0": "ROCE %",
+    "Mar 2023": NaN,
+    "Mar 2024": "8%",
+    "Mar 2025": "5%",
+    "Mar 2026": "6%"
+   }
+  ],
+  "shareholding": null
+ },
+ "top_ratios": {
+  "Market Cap": "\u20b9 24,990 Cr.",
+  "Current Price": "\u20b9 165",
+  "High / Low": "\u20b9 169 / 143",
+  "Stock P/E": "68.1",
+  "Book Value": "\u20b9 87.2",
+  "Dividend Yield": "5.51 %",
+  "ROCE": "5.83 %",
+  "ROE": "2.69 %",
+  "Face Value": "\u20b9 100"
+ },
+ "documents": [
+  {
+   "text": "All",
+   "href": "https://www.bseindia.com/stock-share-price/nexus-select-trust/nexus-select-trust/543913/corp-announcements/"
+  },
+  {
+   "text": "Unit Holding Pattern 1d - Submitted unitholding pattern for quarter ended June 3",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=9e302afb-49be-4e9d-ad68-f2b0bcf7a28a.pdf"
+  },
+  {
+   "text": "Reg 23(5)(i): Disclosure of material issue 4 Jul - Newspaper ads published for N",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=19c2b5f2-40c1-4976-a27e-b3aea53a5cd5.pdf"
+  },
+  {
+   "text": "Reg 23(5)(g): Notice of Unitholder meetings 3 Jul - Fourth Annual Meeting on Jul",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=689cc5ae-67d4-4547-982b-9ea31fcb00fc.pdf"
+  },
+  {
+   "text": "Reg 23(5)(i): Disclosure of material issue 30 Jun - Nexus Select Trust submitted",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=900e92a5-c1e8-4838-be2c-a1d35c8e0587.pdf"
+  },
+  {
+   "text": "Reg 23(5)(i): Disclosure of material issue 30 Jun - Nexus Select Trust submitted",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=f7bd091a-9e1f-4859-b46d-26ea66e15c0f.pdf"
+  },
+  {
+   "text": "Rating update 12 May from fitch",
+   "href": "https://www.indiaratings.co.in/pressrelease/83006"
+  },
+  {
+   "text": "Rating update 22 Apr from icra",
+   "href": "https://www.icra.in/Rationale/ShowRationaleReport/?Id=142548"
+  },
+  {
+   "text": "Rating update 21 Apr from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/NexusSelectTrust_April 21_ 2026_RR_388288.html"
+  },
+  {
+   "text": "Rating update 20 Jan from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/NexusSelectTrust_January 20_ 2026_RR_386020.html"
+  },
+  {
+   "text": "Rating update 3 Dec 2025 from icra",
+   "href": "https://www.icra.in/Rationale/ShowRationaleReport/?Id=139422"
+  },
+  {
+   "text": "Rating update 1 Dec 2025 from fitch",
+   "href": "https://www.indiaratings.co.in/pressrelease/80257"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.nexusselecttrust.com/resources/assets/pdf/Nexus-Select-Trust-Mar-26-v23.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.nexusselecttrust.com/resources/assets/pdf/NexusSelect-Earnings-Feb02-2026-v3.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.nexusselecttrust.com/resources/assets/pdf/Nexus-Select-Trust-Dec-25-vf.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.nexusselecttrust.com/resources/assets/pdf/NexusSelect-Earnings-Nov04-2025_v2.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.nexusselecttrust.com/resources/assets/pdf/Nexus-Select-Trust-Sep-25-vf.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.nexusselecttrust.com/resources/assets/pdf/NexusSelectTrust-Earnings-July30-2025_v3.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.nexusselecttrust.com/resources/assets/pdf/Nexus-Select-Trust-Jun-25-v11.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b3fefd28-c1c9-44ec-9d87-3129368ac990.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.nexusselecttrust.com/resources/assets/pdf/MBD-Acquisition_v14.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.nexusselecttrust.com/resources/assets/pdf/Earning-Call-Transcript_Q3%20FY25_vf.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=86e328f6-b3d4-41bb-9a12-64f8ab1c03fd.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.nexusselecttrust.com/resources/assets/recording/Acquisition-Update-Call-Transcript.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.nexusselecttrust.com/resources/assets/pdf/Earning-Call-Transcript-Q2-FY25-vf.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.nexusselecttrust.com/resources/assets/pdf/Nexus-Select-Trust_Q2-Sep-24_vf2.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.nexusselecttrust.com/resources/assets/recording/NSP0220241112156214.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.nexusselecttrust.com/resources/assets/pdf/Earnings-Call-Transcript-Q1-FY25.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=11bddc5f-c321-45c7-b782-7f59f25a977b.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.nexusselecttrust.com/resources/assets/recording/Earning-call-recording-Q1-FY25.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.nexusselecttrust.com/resources/assets/pdf/Earning-Call-Transcript_Q3-FY24.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=dd6cd3ab-33ce-4d04-bc47-7fa85511ff15.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.nexusselecttrust.com/resources/assets/recording/Earning-call-recording-Q3.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.nexusselecttrust.com/resources/assets/pdf/Earnings-Call-Transcript-Q2-FY24.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.nexusselecttrust.com/resources/assets/pdf/Nexus-Select-Trust_Sep-23_vf.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.nexusselecttrust.com/resources/assets/recording/Earning-Call-Recording.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.nexusselecttrust.com/resources/assets/recording/Q1%20FY24_Earnings%20Call%20Transcript.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=0c3d7bee-bfcf-4729-b40b-bbfa5bfb4811.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.nexusselecttrust.com/resources/assets/recording/recording.mp3"
+  }
+ ]
+}

@@ -1,0 +1,105 @@
+{
+  "factor_id": "CANONICAL_7LEG_PIT_1Y",
+  "family": "CANONICAL_7LEG_PIT",
+  "horizon": "1Y",
+  "return_basis": "resid",
+  "status": "OK",
+  "panel_source": "real_panel_pit_survivorship_free",
+  "n_trials": 456,
+  "n_dates": 211,
+  "n_obs": 58134,
+  "generated_at": "2026-07-17T04:35:43.123309+00:00",
+  "ic": {
+    "ic_mean": 0.18083990594063792,
+    "ic_std": 0.10274753126567689,
+    "ic_ir": 1.7600413724105508,
+    "newey_west_t": 8.95017950640122,
+    "nw_lag": 11,
+    "n_ic_dates": 141
+  },
+  "deciles": {
+    "monotonicity": 0.9878787878787878,
+    "n_decile_dates": 141
+  },
+  "long_short": {
+    "ann_return_LS": 2.363307443344517,
+    "hit_rate": 0.8865248226950354,
+    "n_periods": 141
+  },
+  "turnover": {
+    "avg_top_decile_turnover": 0.25619066006305985
+  },
+  "costs": {
+    "blended_cost_bps_roundtrip": 79.94181326116373,
+    "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+    "cost_approved": true,
+    "ann_cost_drag": 0.024576415087218487,
+    "net_of_cost_ann_return": 2.3387310282572984
+  },
+  "dsr": {
+    "dsr": 1.5839581982077623e-58,
+    "sr_hat": 0.9528153377775839,
+    "sr0_expected_max": 3.0247271511118363,
+    "skew": -0.4030148133075456,
+    "kurtosis": 5.134702984976764,
+    "n_obs": 141,
+    "n_trials": 456
+  },
+  "pbo": {
+    "pbo": 0.922077922077922,
+    "n_combos": 924,
+    "n_blocks": 12,
+    "n_obs": 141,
+    "median_is_sharpe": 0.9734280236446984,
+    "median_oos_sharpe": 0.9734280236446984
+  },
+  "regime_breakdown": {
+    "regime_trend": {
+      "bear": 0.17883524767207026,
+      "bull": 0.18335242111484623,
+      "sideways": 0.17712400724698243
+    },
+    "regime_vol": {
+      "high": 0.13235231442328713,
+      "low": 0.19488404350608318,
+      "normal": 0.18085348937008586
+    }
+  },
+  "lag_test": {
+    "ic_lag_mean": 0.17141878375132275,
+    "lag_test_delta": 0.0520964780439984
+  },
+  "placebo": {
+    "placebo_ic": -0.003196862090902705,
+    "n_shuffles": 5,
+    "seed": 42
+  },
+  "verdict": "KILL (PBO 0.922 > 0.5)",
+  "construction": {
+    "legs": [
+      "value_EY",
+      "mom_resid_plain",
+      "trend_ma65_slope",
+      "quality_QMJ",
+      "bs_issuance",
+      "bs_asset_growth",
+      "quality_cfo_pat"
+    ],
+    "weighting": "equal-weight rank-average, RESTRICTED to PIT-eligible names per date BEFORE rank_pct (survivorship-free re-rank, not a post-hoc subset)",
+    "min_legs_required": 5,
+    "universe": "panel_pit.parquet (PIT-membership-filtered panel_long, see build_panel_pit.py) -- NIFTY500_TICKER_2005_2025_Final.xlsx nearest-prior-snapshot membership per date",
+    "corporate_action_guard": "disc_event_in_window_1Y>0 rows NaN'd from fwd_ret_1Y target (735 rows excluded)",
+    "official_portfolio_construction": "decile (10-bin), harness.evaluate() default -- unchanged, shared harness",
+    "score_map": "score = 200*(rank_pct(composite) - 0.5) in [-100,+100], zero fitted parameters"
+  },
+  "quintile_supplementary": {
+    "ann_return_LS_quintile": 2.0301248258851285,
+    "n_dates_quintile": 141
+  },
+  "comparison_vs_biased": {
+    "biased_card": "CANONICAL_7LEG_1Y (panel_long, no PIT universe filter)",
+    "biased_ic_ir": 1.3450288630259197,
+    "biased_n_ic_dates": 145,
+    "biased_verdict": "KILL (PBO 0.909 > 0.5)"
+  }
+}

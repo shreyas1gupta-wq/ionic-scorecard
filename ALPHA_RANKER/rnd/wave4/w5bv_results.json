@@ -1,0 +1,151 @@
+{
+  "observed_range": {
+    "min": 57.701541077396115,
+    "max": 139.29358346561813,
+    "n": 129,
+    "min_date": "2020-03-31",
+    "max_date": "2024-06-28"
+  },
+  "months_below_80": 26,
+  "months_below_65": 5,
+  "months_above_160": 0,
+  "episodes": {
+    "2008_GFC": {
+      "n_months": 18,
+      "min_richness": NaN,
+      "max_richness": NaN,
+      "mean_richness": null,
+      "min_n_valid_stocks": 1.0
+    },
+    "2017_2018_smallmid_froth": {
+      "n_months": 10,
+      "min_richness": 92.69633565190215,
+      "max_richness": 119.15374281420532,
+      "mean_richness": 104.04824844237791,
+      "min_n_valid_stocks": 537.0
+    },
+    "2020_COVID_trough": {
+      "n_months": 4,
+      "min_richness": 57.701541077396115,
+      "max_richness": 72.33121524815739,
+      "mean_richness": 64.51333249623858,
+      "min_n_valid_stocks": 612.0
+    },
+    "2024_froth": {
+      "n_months": 12,
+      "min_richness": 111.74439768774359,
+      "max_richness": 139.29358346561813,
+      "mean_richness": 123.40246554392023,
+      "min_n_valid_stocks": 708.0
+    }
+  },
+  "predictive_tests": {
+    "1Y": {
+      "n_obs": 118,
+      "rho_richness_vs_fwd_return": -0.30188920418232484,
+      "rho_richness_vs_fwd_maxdrawdown_from_window_peak": -0.15559559780021578,
+      "drop_one_era": {
+        "2008_GFC": {
+          "rho_excl": -0.30188920418232484,
+          "n": 118
+        },
+        "2020_COVID": {
+          "rho_excl": -0.18497619467466056,
+          "n": 106
+        },
+        "2022_SELLOFF": {
+          "rho_excl": -0.271511701136106,
+          "n": 106
+        }
+      },
+      "boundary_tests": {
+        "below_65": {
+          "n": 5,
+          "mean_fwd_return": null,
+          "pct_positive": null
+        },
+        "below_80": {
+          "n": 26,
+          "mean_fwd_return": 0.15314364348099488,
+          "pct_positive": 0.7307692307692307
+        },
+        "above_160": {
+          "n": 0,
+          "mean_fwd_return": null,
+          "pct_positive": null
+        }
+      }
+    },
+    "5Y": {
+      "n_obs": 70,
+      "rho_richness_vs_fwd_return": -0.7953284926953021,
+      "rho_richness_vs_fwd_maxdrawdown_from_window_peak": 0.3160232970682946,
+      "drop_one_era": {
+        "2008_GFC": {
+          "rho_excl": -0.7953284926953021,
+          "n": 70
+        },
+        "2020_COVID": {
+          "rho_excl": -0.780060906210588,
+          "n": 58
+        },
+        "2022_SELLOFF": {
+          "rho_excl": -0.7953284926953021,
+          "n": 70
+        }
+      },
+      "boundary_tests": {
+        "below_65": {
+          "n": 5,
+          "mean_fwd_return": null,
+          "pct_positive": null
+        },
+        "below_80": {
+          "n": 26,
+          "mean_fwd_return": 1.3361038273592778,
+          "pct_positive": 1.0
+        },
+        "above_160": {
+          "n": 0,
+          "mean_fwd_return": null,
+          "pct_positive": null
+        }
+      }
+    }
+  },
+  "era_split": {
+    "1Y": {
+      "first_half": {
+        "rho": -0.2073260073260073,
+        "n": 64
+      },
+      "second_half": {
+        "rho": -0.7809033733562034,
+        "n": 54
+      },
+      "split_date": "2020-08-31"
+    },
+    "5Y": {
+      "first_half": {
+        "rho": -0.8316849816849816,
+        "n": 64
+      },
+      "second_half": {
+        "rho": NaN,
+        "n": 6
+      },
+      "split_date": "2020-08-31"
+    }
+  },
+  "corr_vs_old_richness": {
+    "rho": 0.960230322003578,
+    "n": 129
+  },
+  "capw_minus_eqw_EY_summary": {
+    "mean": -0.014381730924253282,
+    "median": 0.0008771742521349671,
+    "latest": 0.00903624748138182,
+    "latest_date": "2025-12-05"
+  },
+  "fundamentals_pre2012_caveat": "MASTER_fundamentals_pit.parquet has <110 symbols/year before 2012 (vs 1400-2300+ from 2012 on) -- 2008 GFC-era readings in this gauge rest on a thin, likely-survivorship-biased fundamentals cross-section; flagged, not smoothed over."
+}

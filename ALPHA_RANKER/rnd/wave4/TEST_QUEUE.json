@@ -1,0 +1,27 @@
+{
+  "wave": 4,
+  "governor": "Opus FRONTIER_OPUS.md: SMALL + orthogonal-only, candidate NEXT-SLEEVE material on its own fresh forward clock. NEVER touches the frozen 7-leg composite. Each item tested ONCE for INCREMENTAL IC over the composite + one allowed refinement. Data-blocked winners are Principal data-asks, NOT trials.",
+  "incremental_method": "For each candidate: (1) standalone signed IC/IR + decile monotonicity on panel_long (+ panel_pit if survivorship matters); (2) HARD GATES one-day-lag delta<=0.25 AND placebo |ic|<=0.02; (3) INCREMENTAL value = IC of the candidate on the residual of forward-return after regressing out the 7-leg composite score (canonical_7leg_scores.parquet), OR correlation of candidate-rank vs composite-rank (want |corr|<0.3) + does an 8-leg rank-average beat the 7-leg on IR. Report honest net-of-cost magnitude.",
+  "queue": [
+    {"id": "W4F-02", "name": "Clean-surplus / phantom-earnings", "tester": "S1-fundamentals", "data": "MASTER_fundamentals_pit (net profit, reserves, dividend), panel_long"},
+    {"id": "W4-01",  "name": "Net Operating Assets (Hirshleifer bloat)", "tester": "S1-fundamentals", "data": "MASTER_fundamentals_pit, panel_long"},
+    {"id": "W4F-01", "name": "Depreciation-policy laxity", "tester": "S1-fundamentals", "data": "MASTER_fundamentals_pit (depreciation, fixed assets, cwip), panel_long"},
+    {"id": "W4B-02", "name": "Distress composite (Campbell-Hilscher/Ohlson)", "tester": "S2-value-risk", "data": "MASTER_fundamentals_pit, panel_long"},
+    {"id": "W4P-03", "name": "Cyclical normalized earnings-yield (peak-earnings trap fix)", "tester": "S2-value-risk", "data": "MASTER_fundamentals_pit (5-7yr avg EPS), sector_map, panel_long"},
+    {"id": "W4-08",  "name": "Amihud illiquidity premium (size-residualized)", "tester": "S3-price-combo", "data": "cube_close_long, cube_volume, panel_long"},
+    {"id": "W4-12",  "name": "Momentum-within-quality double-sort (combination method)", "tester": "S3-price-combo", "data": "capstone_legs (QMJ + residual-mom legs), panel_long"}
+  ],
+  "adversarial_handoff": {
+    "owner": "overfit-analyst-sameer-bhat",
+    "targets": ["W4X_copper_gold_ratio_sizing (6m-change, 1M)", "W4X_gold_vs_equity_1m_sizing"],
+    "task": "era-split + leave-one-bear-out + PBO on the 2 cross-asset sizing candidates that beat VIX on Sharpe/maxDD but FAIL linear-IC lag stability. Resolve the internal conflict. Judge as a RISK/SIZING tool, not return signal."
+  },
+  "data_asks_not_trials": [
+    "Promoter/insider SAST accumulation drift (validated IC_IR 1.33, blocked on fresh NSE shareholding pull)",
+    "Analyst EPS-revision momentum (needs estimate feed)",
+    "Receivables/DSO, unbilled/contract-assets, working-capital split (needed for revenue-recognition forensic tells; absent from PIT parquet)",
+    "Marcellus 4 forensic ratios (doubtful-debt provisioning, cash-yield, contingent liabilities, auditor remuneration)",
+    "Concall OCR + date-parse for the 264-name PDF set (unlocks the management-credibility signal beyond the 139-name pilot)",
+    "India 10Y G-sec series (macro_state; genuinely unavailable, stooq-blocked)"
+  ]
+}

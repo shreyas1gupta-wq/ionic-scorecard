@@ -1,0 +1,59 @@
+{
+  "test": "STOCK_SCORECARD_750 Gate-3 cheap-test V2 (CURRENT v6.3 methodology, decile+IC)",
+  "owner": "Arjun Rao (quant-head)",
+  "date": "2026-07-19",
+  "seed": 20260719,
+  "n_placebo": 200,
+  "n_deciles": 10,
+  "universe": "reference_full_with_portfolio.csv (332 names; survivor-biased CURRENT membership; << full 750)",
+  "pillars_computed": [
+    "quality",
+    "growth",
+    "value_4comp",
+    "stage_mechanical",
+    "sector_macro_mechanical",
+    "accumulation"
+  ],
+  "pillars_dropped": [
+    "ownership_flow (no FII/DII PIT history) -> weights renormalized over 6 pillars"
+  ],
+  "regime_tilt": "SKIPPED historically (cannot PIT-reconstruct current-regime call); base pre-tilt weights used",
+  "weights_3y": {
+    "quality": 0.21978021978021978,
+    "growth": 0.21978021978021978,
+    "value": 0.1978021978021978,
+    "stage": 0.15384615384615385,
+    "sector_macro": 0.12087912087912088,
+    "accumulation": 0.0879120879120879
+  },
+  "weights_1y": {
+    "quality": 0.17391304347826086,
+    "growth": 0.17391304347826086,
+    "value": 0.17391304347826086,
+    "stage": 0.2826086956521739,
+    "sector_macro": 0.14130434782608695,
+    "accumulation": 0.05434782608695652
+  },
+  "winsorization": "2/98 each raw input within panel before ranking",
+  "value_blend": "0.25 pe_abs(univ)+0.35 pe(sector x tier)+0.20 pb(sector x tier)+0.20 fcf_yield(sector x tier)",
+  "gates": "BS(financial-sector D/E EXEMPT)+liquidity; penalty=-min(10,2^rf-1) [analyst-growth flag EXCLUDED]; boost=+3",
+  "shares": "constant per symbol from current snapshot (mcap*1e7/latest_close); dilution=noise, conservative",
+  "pe_price": "Close (split-adj)",
+  "return_price": "Adj Close (total-return)",
+  "momentum_price": "Close",
+  "formation": "month-end 2021-08-31..2025-06-30",
+  "fwd_primary": 12,
+  "fwd_context": 36,
+  "fidelity_recon_corr_vs_reference_csv_composite3y": {
+    "all7_base_wts": 0.987,
+    "6pillar_no_ownership_renorm": 0.963
+  },
+  "known_limitations": [
+    "Universe=CURRENT membership -> survivor-biased baseline; absolute decile returns inflated & NOT tradeable; placebo shuffles within same set so DECISION robust.",
+    "Ownership Flow pillar dropped (no PIT FII/DII); composite is a 6/7-pillar proxy (recon corr 0.963).",
+    "Regime tilt + regime_fit_adj omitted (would be lookahead); base weights used.",
+    "n=332 -> ~33 names/decile: thin buckets; sector x tier value legs cascade to sector/universe constantly at this scale.",
+    "Analyst forward-growth red flag & Ionic-Score forward layer OUT OF SCOPE (no PIT analyst estimates).",
+    "Gross of costs (Gate-3 predictive read); Gate-4 needs PIT membership + cost/turnover-matched benchmark (D-029)."
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "factor_id": "W4X_realrate_style_timing",
+  "family": "style_timing_overlay",
+  "author": "macro-strategist-cyrus-daruwalla",
+  "date_tested": "2026-07-17",
+  "description": "Does the US real-rate (FRED DFII10) regime (rising vs falling, 3m change threshold +/-0.10pp) change whether VALUE (ff_beta_HML loading) or MOMENTUM (ff_beta_WML loading) earns a better cross-sectional IC on panel_long, 2005-2026, 21yr.",
+  "data": "ALPHA_RANKER/rnd/panel/panel_long.parquet ff_beta_HML/ff_beta_WML loadings (proxy for style tilt -- no separate long-short factor-return series exists in this panel, disclosed as an [INFERENCE] proxy) + FRED DFII10 this session.",
+  "results": {
+    "HML_value_loading_IC": {"rising": {"ic_mean": 0.0044, "n_months": 89, "t_stat": 0.427}, "falling": {"ic_mean": -0.0167, "n_months": 99, "t_stat": -1.503}},
+    "WML_momentum_loading_IC": {"rising": {"ic_mean": 0.0251, "n_months": 89, "t_stat": 2.858}, "falling": {"ic_mean": 0.0219, "n_months": 99, "t_stat": 2.375}}
+  },
+  "interpretation": "Momentum (WML) loading has a robust, statistically significant positive IC in BOTH regimes (t=2.86 rising, t=2.37 falling) -- it works regardless of the real-rate direction. Value (HML) loading has NO reliable IC in either regime (neither t clears 1.96). The value-minus-momentum IC gap is -0.021 in rising-rate months vs -0.039 in falling-rate months -- momentum's edge narrows somewhat (not disappears, let alone flips) when real rates rise. [OPINION, directional only, not actionable at this magnitude].",
+  "overall_verdict": "KILL for 'switch to value when real rates rise' as an actionable rule -- momentum dominates value in BOTH regimes at this cut; the classic value-outperforms-when-rates-rise rotation thesis is NOT confirmed on this panel and this proxy.",
+  "confidence": "MEDIUM-HIGH on the KILL (large sample, 89-99 independent months per regime, momentum's own robustness across regimes is itself a clean, well-powered result)"
+}

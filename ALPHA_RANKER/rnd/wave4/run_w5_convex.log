@@ -1,0 +1,805 @@
+[14:32:21] Loading panel_long...
+[14:32:22] panel_long: (148297, 31), 249 dates, 969 symbols
+[14:32:22] Loading canonical 7-leg composite scores + capstone_legs cache...
+[14:32:22] Reconstructing 7-leg base (min_legs=5)...
+[14:32:26]   7-leg reconstructed IC_IR=1.3374 mono=0.9999999999999999
+[14:32:26] Building W5 candidate factors (annual table build is the slow step)...
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: invalid value encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: invalid value encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: invalid value encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: invalid value encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: invalid value encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: invalid value encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: invalid value encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: invalid value encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: invalid value encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: invalid value encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: invalid value encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: invalid value encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: invalid value encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: invalid value encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: invalid value encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: invalid value encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: invalid value encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: invalid value encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: invalid value encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: invalid value encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: invalid value encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: invalid value encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: invalid value encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: invalid value encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: invalid value encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: invalid value encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: invalid value encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: invalid value encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:76: RuntimeWarning: divide by zero encountered in log
+  ln_exp = np.where(expenses > 0, np.log(expenses), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:75: RuntimeWarning: divide by zero encountered in log
+  ln_sales = np.where(sales > 0, np.log(sales), np.nan)
+C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w5.py:86: RuntimeWarning: divide by zero encountered in divide
+  d_ln_exp / d_ln_sales, np.nan,
+[14:32:52]   annual-table diagnostics: {'n_symbols_before_financials_excl': 2356, 'n_symbols_after_financials_excl': 2252, 'n_financials_excluded': 104, 'n_annual_rows': 23851, 'n_annual_rows_w501_base': 8828, 'n_annual_rows_w501_refine': 4639, 'n_annual_rows_w502': 16843, 'n_annual_rows_w504': 23695}  (build took 26.7s)
+[14:32:52]   W5_01_cost_elasticity_base: n_obs=34295
+[14:32:52]   W5_01_cost_elasticity_refine: n_obs=16187
+[14:32:52]   W5_02_implied_borrow_cost_base: n_obs=64350
+[14:32:52]   W5_04_net_fin_slack_base: n_obs=93865
+[14:32:52] Evaluating W5_01_cost_elasticity_base (34295 (date,symbol) obs)...
+[14:32:56]   -> IC_IR=0.28394291556948675 lag_delta=0.02283523513860887 placebo_ic=-0.0034078117190778057 gates_pass=True
+[14:32:58]   Testing W5_01_cost_elasticity_base as 8th equal-weight leg (min_legs=6)...
+[14:33:04]   -> 8-leg IC_IR=1.7333 vs 7-leg=1.3374 delta=0.3959
+[14:33:04] Evaluating W5_01_cost_elasticity_refine (16187 (date,symbol) obs)...
+[14:33:08]   -> IC_IR=0.18269675960712664 lag_delta=0.004799374565510025 placebo_ic=-0.002813909596607987 gates_pass=True
+[14:33:10] Evaluating W5_02_implied_borrow_cost_base (64350 (date,symbol) obs)...
+[14:33:14]   -> IC_IR=0.07216282774357131 lag_delta=0.12400005808650627 placebo_ic=0.0004723720929316716 gates_pass=True
+[14:33:17]   Testing W5_02_implied_borrow_cost_base as 8th equal-weight leg (min_legs=6)...
+[14:33:24]   -> 8-leg IC_IR=1.2386 vs 7-leg=1.3374 delta=-0.0987
+[14:33:24] Evaluating W5_04_net_fin_slack_base (93865 (date,symbol) obs)...
+[14:33:30]   -> IC_IR=0.3195890493124079 lag_delta=0.012372145294076695 placebo_ic=-0.004765341051742871 gates_pass=True
+[14:33:32]   Testing W5_04_net_fin_slack_base as 8th equal-weight leg (min_legs=6)...
+[14:33:36]   -> 8-leg IC_IR=1.2269 vs 7-leg=1.3374 delta=-0.1104
+[14:33:36] Both W5-02 and W5-04 bases pass hard gates -> running interaction refinement...
+[14:33:38]   -> interaction IC_IR=0.24131144201987031 gates_pass=True
+[14:33:38] Building 1M market-forward series + crash episodes for payoff-shape...
+[14:33:38] worst-decile cutoff=-0.0566, n_worst_decile_months=25
+[14:33:38] Payoff-shape for W5_01_cost_elasticity_base...
+[14:33:39]   n=138 skew=-1.15 hit=0.46 worst_decile_mean=-0.004055720874283453 class=CONCAVE
+[14:33:39] Payoff-shape for W5_01_cost_elasticity_refine...
+[14:33:39]   n=114 skew=-0.12 hit=0.47 worst_decile_mean=0.03101772844580841 class=LINEAR/mixed
+[14:33:39] Payoff-shape for W5_02_implied_borrow_cost_base...
+[14:33:40]   n=156 skew=+0.01 hit=0.45 worst_decile_mean=0.03489881306988224 class=LINEAR/mixed
+[14:33:40] Payoff-shape for W5_04_net_fin_slack_base...
+[14:33:40]   n=174 skew=-1.03 hit=0.48 worst_decile_mean=0.03851279017984722 class=CONCAVE
+[14:33:41] Wrote C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\wave4\W5_RESULTS.json
+[14:33:41] Appended to C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\wave4\GAPS_BATCH_RESULTS.md
+[14:33:41] Wrote per-factor W5_*_SUMMARY.json cards
+
+==============================================================================================================
+W5_01_cost_elasticity_base          IC_IR=+0.2839  gates_pass=True   corr_composite=+0.081  nearest=quality_QMJ(+0.127)  shape=CONCAVE  verdict=CANDIDATE
+W5_01_cost_elasticity_refine        IC_IR=+0.1827  gates_pass=True   corr_composite=+0.137  nearest=value_EY(+0.187)  shape=LINEAR/mixed  verdict=CANDIDATE
+W5_02_implied_borrow_cost_base      IC_IR=+0.0722  gates_pass=True   corr_composite=+0.028  nearest=quality_cfo_pat(-0.161)  shape=LINEAR/mixed  verdict=PARK (weak linear + not convex)
+W5_04_net_fin_slack_base            IC_IR=+0.3196  gates_pass=True   corr_composite=+0.156  nearest=quality_cfo_pat(-0.387)  shape=CONCAVE  verdict=PARK (weak linear + not convex)
+==============================================================================================================

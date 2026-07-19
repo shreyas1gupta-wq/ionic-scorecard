@@ -1,0 +1,1630 @@
+{
+  "methodology": "[DATA] cross-sectional norms computed from firm datasets. leg_norms_zscored: bs_asset_growth/bs_issuance are ALREADY SIGN-INVERTED, global cross-sectional z-scores (mean~0,std~1 universe-wide) from rnd/panel/capstone_legs.parquet (min_legs=5 canonical 7-leg construction), latest available obs per symbol. Convention (confirmed via KPIGREEN cross-check against raw fundamentals below): these two legs are built quality-style so HIGHER RAW asset-growth/dilution -> MORE NEGATIVE leg value (consistent with the academic asset-growth/issuance anomalies where low-growth, low-issuance predicts higher forward returns). A sector median far from 0 means that sector is SYSTEMATICALLY high/low-growth or high/low-dilution vs the whole market on that dimension -- read a negative sector median as 'high raw asset growth/dilution is NORMAL here', not as a flag. quality_cfo_pat and value_EY are raw ratios (CFO/PAT multiple, earnings yield E/P) -- NOT sign-inverted. bs_issuance_flagged_incidence_pct = % of sector names with bs_issuance<-1 (heavy-issuance tail) since the leg is sparse/event-driven and medians alone don't show tail incidence. implied_pe_from_median_EY is a readability aid (1/median EY, sane range only). fund_norms_raw_pit: computed directly from data/fundamentals/MASTER_fundamentals_pit.parquet, latest fiscal year vs prior fiscal year per symbol, winsorized at sector 2nd/98th pct to blunt single-name outliers -- these are RAW (not sign-inverted) so read directly (e.g. Power fixed_asset_growth_yoy median=+1.4% is the SECTOR-WIDE incumbent-utility norm; a scaling small-cap EPC/IPP name within Power will run far above this -- macro-sector norms are necessarily blunt for a fast-growing sub-segment, see sub_sector caveat). Sectors with n<5 symbols after merge/dropna are excluded (insufficient sample -- do not use as norm). KNOWN GAP: sub_sector-level norms are NOT computed here -- most sub_sectors have n<5 in this universe (e.g. Power Infrastructure = 3 names: ANZEN, KPIGREEN, ORIANA) so macro_sector is the finest reliable statistical cut; the analyst-agent must still apply business-model judgment (KB layer) on top for a sub-segment that behaves differently from its macro-sector's median member. sector_map source: data/universe/sector_map.parquet (2825 symbols, macro_sector/sub_sector taxonomy).",
+  "run_date": "2026-07-17",
+  "leg_norms_zscored_and_raw_ratios": {
+    "Agriculture": {
+      "bs_asset_growth": {
+        "n": 6,
+        "median": -0.1041,
+        "p25": -0.356,
+        "p75": 0.3115,
+        "mean": 0.178,
+        "std": 0.7806
+      },
+      "bs_issuance": {
+        "n": 6,
+        "median": 0.2131,
+        "p25": 0.2131,
+        "p75": 0.2517,
+        "mean": 0.2302,
+        "std": 0.0266
+      },
+      "value_EY": {
+        "n": 6,
+        "median": 0.0361,
+        "p25": -0.0325,
+        "p75": 0.0454,
+        "mean": -0.3396,
+        "std": 0.9061
+      },
+      "bs_issuance_flagged_incidence_pct": 0.0
+    },
+    "Automobile and Auto Components": {
+      "bs_asset_growth": {
+        "n": 55,
+        "median": 0.0466,
+        "p25": -0.1997,
+        "p75": 0.2785,
+        "mean": -0.0676,
+        "std": 0.6386
+      },
+      "bs_issuance": {
+        "n": 55,
+        "median": 0.2131,
+        "p25": 0.2131,
+        "p75": 0.2131,
+        "mean": 0.1351,
+        "std": 0.4867
+      },
+      "quality_cfo_pat": {
+        "n": 37,
+        "median": 1.3255,
+        "p25": 0.8178,
+        "p75": 1.9141,
+        "mean": 1.642,
+        "std": 1.3687
+      },
+      "value_EY": {
+        "n": 55,
+        "median": 0.0246,
+        "p25": 0.0151,
+        "p75": 0.0357,
+        "mean": 0.0376,
+        "std": 0.0945
+      },
+      "bs_issuance_flagged_incidence_pct": 1.8,
+      "implied_pe_from_median_EY": 40.0
+    },
+    "Capital Goods": {
+      "bs_asset_growth": {
+        "n": 93,
+        "median": 0.0289,
+        "p25": -0.5096,
+        "p75": 0.3842,
+        "mean": -0.2418,
+        "std": 1.1138
+      },
+      "bs_issuance": {
+        "n": 93,
+        "median": 0.2131,
+        "p25": 0.2131,
+        "p75": 0.2131,
+        "mean": 0.0546,
+        "std": 0.899
+      },
+      "quality_cfo_pat": {
+        "n": 75,
+        "median": 0.9081,
+        "p25": 0.6306,
+        "p75": 1.2463,
+        "mean": 1.3046,
+        "std": 2.9402
+      },
+      "value_EY": {
+        "n": 93,
+        "median": 0.022,
+        "p25": 0.0154,
+        "p75": 0.0328,
+        "mean": -0.1895,
+        "std": 1.8694
+      },
+      "bs_issuance_flagged_incidence_pct": 3.2,
+      "implied_pe_from_median_EY": 44.7
+    },
+    "Chemicals": {
+      "bs_asset_growth": {
+        "n": 62,
+        "median": 0.3123,
+        "p25": -0.0286,
+        "p75": 0.5142,
+        "mean": 0.199,
+        "std": 0.8999
+      },
+      "bs_issuance": {
+        "n": 62,
+        "median": 0.2131,
+        "p25": 0.2131,
+        "p75": 0.2131,
+        "mean": 0.2039,
+        "std": 0.0573
+      },
+      "quality_cfo_pat": {
+        "n": 39,
+        "median": 1.1733,
+        "p25": 0.9583,
+        "p75": 1.4714,
+        "mean": 1.5272,
+        "std": 1.6124
+      },
+      "value_EY": {
+        "n": 62,
+        "median": 0.028,
+        "p25": 0.0148,
+        "p75": 0.043,
+        "mean": -0.0935,
+        "std": 1.0715
+      },
+      "bs_issuance_flagged_incidence_pct": 0.0,
+      "implied_pe_from_median_EY": 35.6
+    },
+    "Construction": {
+      "bs_asset_growth": {
+        "n": 40,
+        "median": 0.2701,
+        "p25": -0.1056,
+        "p75": 0.7457,
+        "mean": 0.2074,
+        "std": 0.9098
+      },
+      "bs_issuance": {
+        "n": 40,
+        "median": 0.2131,
+        "p25": 0.185,
+        "p75": 0.2131,
+        "mean": 0.004,
+        "std": 0.5783
+      },
+      "quality_cfo_pat": {
+        "n": 20,
+        "median": 0.9565,
+        "p25": 0.2204,
+        "p75": 1.377,
+        "mean": 0.712,
+        "std": 2.7684
+      },
+      "value_EY": {
+        "n": 40,
+        "median": 0.0299,
+        "p25": -0.2014,
+        "p75": 0.074,
+        "mean": -0.3577,
+        "std": 1.5135
+      },
+      "bs_issuance_flagged_incidence_pct": 7.5,
+      "implied_pe_from_median_EY": 23.3
+    },
+    "Construction Materials": {
+      "bs_asset_growth": {
+        "n": 22,
+        "median": 0.2814,
+        "p25": 0.0666,
+        "p75": 0.6134,
+        "mean": 0.2321,
+        "std": 0.4834
+      },
+      "bs_issuance": {
+        "n": 22,
+        "median": 0.2131,
+        "p25": 0.2131,
+        "p75": 0.2131,
+        "mean": 0.1494,
+        "std": 0.1797
+      },
+      "quality_cfo_pat": {
+        "n": 15,
+        "median": 2.2387,
+        "p25": 1.6817,
+        "p75": 3.2935,
+        "mean": 5.791,
+        "std": 10.1762
+      },
+      "value_EY": {
+        "n": 22,
+        "median": 0.0198,
+        "p25": 0.0134,
+        "p75": 0.0347,
+        "mean": -0.0153,
+        "std": 0.2117
+      },
+      "bs_issuance_flagged_incidence_pct": 0.0,
+      "implied_pe_from_median_EY": 44.8
+    },
+    "Consumer Durables": {
+      "bs_asset_growth": {
+        "n": 38,
+        "median": 0.2228,
+        "p25": -0.1611,
+        "p75": 0.5146,
+        "mean": -0.108,
+        "std": 1.3099
+      },
+      "bs_issuance": {
+        "n": 38,
+        "median": 0.2131,
+        "p25": 0.2131,
+        "p75": 0.2131,
+        "mean": -0.0309,
+        "std": 1.2736
+      },
+      "quality_cfo_pat": {
+        "n": 30,
+        "median": 1.0764,
+        "p25": 0.8227,
+        "p75": 1.407,
+        "mean": 1.178,
+        "std": 1.9115
+      },
+      "value_EY": {
+        "n": 38,
+        "median": 0.0189,
+        "p25": 0.0138,
+        "p75": 0.0283,
+        "mean": 0.029,
+        "std": 0.0433
+      },
+      "bs_issuance_flagged_incidence_pct": 2.6,
+      "implied_pe_from_median_EY": 52.4
+    },
+    "Consumer Services": {
+      "bs_asset_growth": {
+        "n": 42,
+        "median": 0.041,
+        "p25": -0.3355,
+        "p75": 0.555,
+        "mean": 0.1209,
+        "std": 1.0903
+      },
+      "bs_issuance": {
+        "n": 42,
+        "median": 0.2131,
+        "p25": 0.1377,
+        "p75": 0.2131,
+        "mean": -0.5049,
+        "std": 2.1027
+      },
+      "quality_cfo_pat": {
+        "n": 24,
+        "median": 1.4442,
+        "p25": 0.6802,
+        "p75": 3.5886,
+        "mean": 2.8097,
+        "std": 3.5751
+      },
+      "value_EY": {
+        "n": 42,
+        "median": 0.0074,
+        "p25": -0.0039,
+        "p75": 0.0176,
+        "mean": -2.9761,
+        "std": 14.5616
+      },
+      "bs_issuance_flagged_incidence_pct": 9.5,
+      "implied_pe_from_median_EY": 76.8
+    },
+    "Diversified": {
+      "bs_asset_growth": {
+        "n": 14,
+        "median": 0.1029,
+        "p25": -0.249,
+        "p75": 0.2204,
+        "mean": 0.0254,
+        "std": 0.9561
+      },
+      "bs_issuance": {
+        "n": 14,
+        "median": 0.2131,
+        "p25": 0.2131,
+        "p75": 0.2131,
+        "mean": 0.2195,
+        "std": 0.0166
+      },
+      "value_EY": {
+        "n": 14,
+        "median": 0.0346,
+        "p25": 0.008,
+        "p75": 0.0612,
+        "mean": 0.0267,
+        "std": 0.0761
+      },
+      "bs_issuance_flagged_incidence_pct": 0.0,
+      "implied_pe_from_median_EY": 25.9
+    },
+    "Fast Moving Consumer Goods": {
+      "bs_asset_growth": {
+        "n": 44,
+        "median": 0.077,
+        "p25": -0.2328,
+        "p75": 0.4214,
+        "mean": 0.0832,
+        "std": 0.5285
+      },
+      "bs_issuance": {
+        "n": 44,
+        "median": 0.2131,
+        "p25": 0.2131,
+        "p75": 0.2131,
+        "mean": 0.196,
+        "std": 0.104
+      },
+      "quality_cfo_pat": {
+        "n": 34,
+        "median": 1.0867,
+        "p25": 0.9319,
+        "p75": 1.3068,
+        "mean": 1.0996,
+        "std": 0.3151
+      },
+      "value_EY": {
+        "n": 44,
+        "median": 0.0231,
+        "p25": 0.0149,
+        "p75": 0.0393,
+        "mean": 0.045,
+        "std": 0.1244
+      },
+      "bs_issuance_flagged_incidence_pct": 0.0,
+      "implied_pe_from_median_EY": 41.0
+    },
+    "Financial Services": {
+      "bs_asset_growth": {
+        "n": 122,
+        "median": 0.0131,
+        "p25": -0.4125,
+        "p75": 0.291,
+        "mean": -0.0784,
+        "std": 0.7412
+      },
+      "bs_issuance": {
+        "n": 122,
+        "median": 0.2131,
+        "p25": 0.1904,
+        "p75": 0.2131,
+        "mean": -0.0071,
+        "std": 1.059
+      },
+      "quality_cfo_pat": {
+        "n": 102,
+        "median": 0.5662,
+        "p25": -2.7684,
+        "p75": 1.5703,
+        "mean": 1.1362,
+        "std": 8.9435
+      },
+      "value_EY": {
+        "n": 122,
+        "median": 0.0408,
+        "p25": 0.0194,
+        "p75": 0.0714,
+        "mean": 0.2983,
+        "std": 3.3041
+      },
+      "bs_issuance_flagged_incidence_pct": 4.1,
+      "implied_pe_from_median_EY": 24.0
+    },
+    "Healthcare": {
+      "bs_asset_growth": {
+        "n": 71,
+        "median": 0.1212,
+        "p25": -0.4035,
+        "p75": 0.3746,
+        "mean": -0.1758,
+        "std": 1.2953
+      },
+      "bs_issuance": {
+        "n": 71,
+        "median": 0.2131,
+        "p25": 0.2131,
+        "p75": 0.2131,
+        "mean": -0.0043,
+        "std": 1.0541
+      },
+      "quality_cfo_pat": {
+        "n": 56,
+        "median": 1.1745,
+        "p25": 0.938,
+        "p75": 1.5865,
+        "mean": 1.3949,
+        "std": 0.7598
+      },
+      "value_EY": {
+        "n": 72,
+        "median": 0.0217,
+        "p25": 0.012,
+        "p75": 0.0362,
+        "mean": 0.2879,
+        "std": 2.168
+      },
+      "bs_issuance_flagged_incidence_pct": 4.2,
+      "implied_pe_from_median_EY": 41.3
+    },
+    "Information Technology": {
+      "bs_asset_growth": {
+        "n": 37,
+        "median": 0.124,
+        "p25": -0.3327,
+        "p75": 0.3918,
+        "mean": -0.2084,
+        "std": 1.232
+      },
+      "bs_issuance": {
+        "n": 37,
+        "median": 0.2131,
+        "p25": 0.2025,
+        "p75": 0.2131,
+        "mean": 0.0871,
+        "std": 0.4866
+      },
+      "quality_cfo_pat": {
+        "n": 30,
+        "median": 1.0981,
+        "p25": 0.9398,
+        "p75": 1.2521,
+        "mean": 1.1452,
+        "std": 0.5105
+      },
+      "value_EY": {
+        "n": 37,
+        "median": 0.0257,
+        "p25": 0.0187,
+        "p75": 0.0398,
+        "mean": -0.7682,
+        "std": 4.942
+      },
+      "bs_issuance_flagged_incidence_pct": 2.7,
+      "implied_pe_from_median_EY": 38.0
+    },
+    "Media Entertainment & Publication": {
+      "bs_asset_growth": {
+        "n": 20,
+        "median": 0.6862,
+        "p25": 0.2994,
+        "p75": 0.9395,
+        "mean": 0.6509,
+        "std": 0.9661
+      },
+      "bs_issuance": {
+        "n": 20,
+        "median": 0.2131,
+        "p25": 0.2131,
+        "p75": 0.2131,
+        "mean": 0.131,
+        "std": 0.3143
+      },
+      "quality_cfo_pat": {
+        "n": 6,
+        "median": 1.1161,
+        "p25": 0.9697,
+        "p75": 1.3976,
+        "mean": 0.5352,
+        "std": 3.8182
+      },
+      "value_EY": {
+        "n": 20,
+        "median": 0.0289,
+        "p25": -0.123,
+        "p75": 0.0741,
+        "mean": -0.6764,
+        "std": 2.2167
+      },
+      "bs_issuance_flagged_incidence_pct": 5.0,
+      "implied_pe_from_median_EY": 16.4
+    },
+    "Metals & Mining": {
+      "bs_asset_growth": {
+        "n": 23,
+        "median": 0.2461,
+        "p25": -0.0883,
+        "p75": 0.427,
+        "mean": -0.1602,
+        "std": 1.3812
+      },
+      "bs_issuance": {
+        "n": 23,
+        "median": 0.2131,
+        "p25": 0.1862,
+        "p75": 0.2131,
+        "mean": -0.07,
+        "std": 1.1917
+      },
+      "quality_cfo_pat": {
+        "n": 18,
+        "median": 1.6645,
+        "p25": 0.9917,
+        "p75": 2.2361,
+        "mean": 1.6649,
+        "std": 0.7398
+      },
+      "value_EY": {
+        "n": 23,
+        "median": 0.0377,
+        "p25": 0.0196,
+        "p75": 0.0611,
+        "mean": 0.0326,
+        "std": 0.0594
+      },
+      "bs_issuance_flagged_incidence_pct": 4.3,
+      "implied_pe_from_median_EY": 24.4
+    },
+    "Oil Gas & Consumable Fuels": {
+      "bs_asset_growth": {
+        "n": 21,
+        "median": 0.2064,
+        "p25": -0.0005,
+        "p75": 0.3566,
+        "mean": 0.1982,
+        "std": 0.7815
+      },
+      "bs_issuance": {
+        "n": 21,
+        "median": 0.2131,
+        "p25": -1.2193,
+        "p75": 0.2131,
+        "mean": -0.7053,
+        "std": 1.8994
+      },
+      "quality_cfo_pat": {
+        "n": 17,
+        "median": 1.3917,
+        "p25": 1.0864,
+        "p75": 1.8056,
+        "mean": 1.5351,
+        "std": 0.6368
+      },
+      "value_EY": {
+        "n": 21,
+        "median": 0.064,
+        "p25": 0.0255,
+        "p75": 0.0964,
+        "mean": -0.2105,
+        "std": 1.2716
+      },
+      "bs_issuance_flagged_incidence_pct": 28.6,
+      "implied_pe_from_median_EY": 14.9
+    },
+    "Power": {
+      "bs_asset_growth": {
+        "n": 22,
+        "median": 0.1003,
+        "p25": -0.5119,
+        "p75": 0.3936,
+        "mean": -0.2811,
+        "std": 1.1545
+      },
+      "bs_issuance": {
+        "n": 22,
+        "median": 0.2131,
+        "p25": 0.1103,
+        "p75": 0.2131,
+        "mean": 0.0258,
+        "std": 0.4725
+      },
+      "quality_cfo_pat": {
+        "n": 20,
+        "median": 2.2314,
+        "p25": 1.5292,
+        "p75": 3.6463,
+        "mean": 2.6347,
+        "std": 1.702
+      },
+      "value_EY": {
+        "n": 22,
+        "median": 0.0441,
+        "p25": 0.0252,
+        "p75": 0.0626,
+        "mean": 0.0489,
+        "std": 0.041
+      },
+      "bs_issuance_flagged_incidence_pct": 9.1,
+      "implied_pe_from_median_EY": 21.7
+    },
+    "Realty": {
+      "bs_asset_growth": {
+        "n": 23,
+        "median": 0.0088,
+        "p25": -0.3441,
+        "p75": 0.6369,
+        "mean": 0.0782,
+        "std": 1.0417
+      },
+      "bs_issuance": {
+        "n": 23,
+        "median": 0.2131,
+        "p25": 0.0252,
+        "p75": 0.2131,
+        "mean": -0.0042,
+        "std": 0.5981
+      },
+      "quality_cfo_pat": {
+        "n": 13,
+        "median": 1.2334,
+        "p25": 0.587,
+        "p75": 2.7855,
+        "mean": 2.1926,
+        "std": 4.0068
+      },
+      "value_EY": {
+        "n": 23,
+        "median": 0.0132,
+        "p25": -0.0255,
+        "p75": 0.0247,
+        "mean": -0.4311,
+        "std": 1.6903
+      },
+      "bs_issuance_flagged_incidence_pct": 4.3,
+      "implied_pe_from_median_EY": 42.0
+    },
+    "Services": {
+      "bs_asset_growth": {
+        "n": 32,
+        "median": 0.4077,
+        "p25": -0.015,
+        "p75": 0.7526,
+        "mean": 0.2541,
+        "std": 1.3185
+      },
+      "bs_issuance": {
+        "n": 32,
+        "median": 0.2131,
+        "p25": 0.2131,
+        "p75": 0.2131,
+        "mean": -0.1032,
+        "std": 1.4204
+      },
+      "quality_cfo_pat": {
+        "n": 15,
+        "median": 1.5147,
+        "p25": 1.1749,
+        "p75": 2.0688,
+        "mean": 2.7131,
+        "std": 4.4388
+      },
+      "value_EY": {
+        "n": 32,
+        "median": 0.032,
+        "p25": 0.0117,
+        "p75": 0.0514,
+        "mean": -0.0854,
+        "std": 0.8377
+      },
+      "bs_issuance_flagged_incidence_pct": 6.2,
+      "implied_pe_from_median_EY": 29.0
+    },
+    "Telecommunication": {
+      "bs_asset_growth": {
+        "n": 15,
+        "median": 0.2602,
+        "p25": 0.0143,
+        "p75": 1.0957,
+        "mean": 0.5442,
+        "std": 0.8457
+      },
+      "bs_issuance": {
+        "n": 15,
+        "median": 0.2131,
+        "p25": 0.1962,
+        "p75": 0.2131,
+        "mean": 0.0841,
+        "std": 0.3445
+      },
+      "quality_cfo_pat": {
+        "n": 11,
+        "median": 1.9792,
+        "p25": 0.6777,
+        "p75": 5.6972,
+        "mean": -6.1255,
+        "std": 31.7897
+      },
+      "value_EY": {
+        "n": 15,
+        "median": 0.017,
+        "p25": -0.2374,
+        "p75": 0.0315,
+        "mean": -3.1075,
+        "std": 11.3368
+      },
+      "bs_issuance_flagged_incidence_pct": 6.7,
+      "implied_pe_from_median_EY": 31.8
+    },
+    "Textiles": {
+      "bs_asset_growth": {
+        "n": 21,
+        "median": 0.2839,
+        "p25": -0.2505,
+        "p75": 0.7177,
+        "mean": 0.2409,
+        "std": 0.7731
+      },
+      "bs_issuance": {
+        "n": 21,
+        "median": 0.2131,
+        "p25": 0.2131,
+        "p75": 0.2131,
+        "mean": -0.0522,
+        "std": 1.1615
+      },
+      "quality_cfo_pat": {
+        "n": 8,
+        "median": 1.0887,
+        "p25": 0.939,
+        "p75": 1.427,
+        "mean": 1.3209,
+        "std": 0.5948
+      },
+      "value_EY": {
+        "n": 21,
+        "median": 0.0404,
+        "p25": 0.0243,
+        "p75": 0.0544,
+        "mean": 0.0364,
+        "std": 0.081
+      },
+      "bs_issuance_flagged_incidence_pct": 4.8,
+      "implied_pe_from_median_EY": 24.5
+    }
+  },
+  "fund_norms_raw_pit": {
+    "Agriculture": {
+      "cwip_to_fixed_assets": {
+        "n": 79,
+        "median": 0.0312,
+        "p25": 0.0052,
+        "p75": 0.1009,
+        "mean": 0.0804,
+        "std": 0.1171
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 79,
+        "median": 0.046,
+        "p25": -0.0134,
+        "p75": 0.2201,
+        "mean": 0.1708,
+        "std": 0.344
+      },
+      "total_asset_growth_yoy": {
+        "n": 79,
+        "median": 0.0865,
+        "p25": -0.0093,
+        "p75": 0.2308,
+        "mean": 0.1539,
+        "std": 0.2791
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 78,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0,
+        "mean": 0.125,
+        "std": 0.4076
+      }
+    },
+    "Automobile and Auto Components": {
+      "cwip_to_fixed_assets": {
+        "n": 110,
+        "median": 0.0655,
+        "p25": 0.025,
+        "p75": 0.1125,
+        "mean": 0.0976,
+        "std": 0.1364
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 110,
+        "median": 0.0633,
+        "p25": 0.0007,
+        "p75": 0.2041,
+        "mean": 0.1549,
+        "std": 0.2952
+      },
+      "total_asset_growth_yoy": {
+        "n": 110,
+        "median": 0.1108,
+        "p25": 0.0448,
+        "p75": 0.1931,
+        "mean": 0.1241,
+        "std": 0.1468
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 110,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0,
+        "mean": 0.0453,
+        "std": 0.1508
+      },
+      "cfo_to_pat_raw": {
+        "n": 48,
+        "median": 1.3437,
+        "p25": 0.9779,
+        "p75": 1.8222,
+        "mean": 1.3693,
+        "std": 0.7563
+      }
+    },
+    "Capital Goods": {
+      "cwip_to_fixed_assets": {
+        "n": 262,
+        "median": 0.0552,
+        "p25": 0.0108,
+        "p75": 0.1607,
+        "mean": 0.1235,
+        "std": 0.1722
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 259,
+        "median": 0.0732,
+        "p25": -0.0175,
+        "p75": 0.2372,
+        "mean": 0.1743,
+        "std": 0.3513
+      },
+      "total_asset_growth_yoy": {
+        "n": 259,
+        "median": 0.1363,
+        "p25": 0.0446,
+        "p75": 0.2782,
+        "mean": 0.1999,
+        "std": 0.2618
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 260,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0,
+        "mean": 0.3249,
+        "std": 1.3864
+      },
+      "cfo_to_pat_raw": {
+        "n": 111,
+        "median": 0.8369,
+        "p25": 0.2676,
+        "p75": 1.4038,
+        "mean": 0.9419,
+        "std": 1.4465
+      }
+    },
+    "Chemicals": {
+      "cwip_to_fixed_assets": {
+        "n": 193,
+        "median": 0.0484,
+        "p25": 0.0064,
+        "p75": 0.1916,
+        "mean": 0.1653,
+        "std": 0.2881
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 192,
+        "median": 0.0367,
+        "p25": -0.0237,
+        "p75": 0.1987,
+        "mean": 0.1297,
+        "std": 0.2447
+      },
+      "total_asset_growth_yoy": {
+        "n": 193,
+        "median": 0.0976,
+        "p25": 0.0078,
+        "p75": 0.2107,
+        "mean": 0.1334,
+        "std": 0.1943
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 192,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0,
+        "mean": 0.1056,
+        "std": 0.4429
+      },
+      "cfo_to_pat_raw": {
+        "n": 42,
+        "median": 0.9891,
+        "p25": 0.3578,
+        "p75": 1.4774,
+        "mean": 1.0246,
+        "std": 2.5685
+      }
+    },
+    "Construction": {
+      "cwip_to_fixed_assets": {
+        "n": 101,
+        "median": 0.0058,
+        "p25": 0.0,
+        "p75": 0.0805,
+        "mean": 0.1105,
+        "std": 0.2364
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 99,
+        "median": -0.0181,
+        "p25": -0.1135,
+        "p75": 0.1579,
+        "mean": 0.2363,
+        "std": 1.1713
+      },
+      "total_asset_growth_yoy": {
+        "n": 102,
+        "median": 0.1044,
+        "p25": -0.0197,
+        "p75": 0.2112,
+        "mean": 0.1507,
+        "std": 0.3229
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 102,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0787,
+        "mean": 0.3905,
+        "std": 1.3894
+      },
+      "cfo_to_pat_raw": {
+        "n": 23,
+        "median": 0.7203,
+        "p25": -0.4235,
+        "p75": 0.9635,
+        "mean": 0.7472,
+        "std": 1.7592
+      }
+    },
+    "Construction Materials": {
+      "cwip_to_fixed_assets": {
+        "n": 52,
+        "median": 0.0464,
+        "p25": 0.0147,
+        "p75": 0.1191,
+        "mean": 0.1117,
+        "std": 0.1887
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 52,
+        "median": 0.0324,
+        "p25": -0.0375,
+        "p75": 0.2134,
+        "mean": 0.101,
+        "std": 0.2089
+      },
+      "total_asset_growth_yoy": {
+        "n": 52,
+        "median": 0.0769,
+        "p25": 0.0131,
+        "p75": 0.1231,
+        "mean": 0.1117,
+        "std": 0.1972
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 52,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0,
+        "mean": 0.0265,
+        "std": 0.081
+      },
+      "cfo_to_pat_raw": {
+        "n": 16,
+        "median": 1.8831,
+        "p25": 0.2734,
+        "p75": 2.2031,
+        "mean": 1.9424,
+        "std": 3.3259
+      }
+    },
+    "Consumer Durables": {
+      "cwip_to_fixed_assets": {
+        "n": 81,
+        "median": 0.0237,
+        "p25": 0.0024,
+        "p75": 0.0711,
+        "mean": 0.0626,
+        "std": 0.0977
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 81,
+        "median": 0.0714,
+        "p25": 0.0064,
+        "p75": 0.2319,
+        "mean": 0.2121,
+        "std": 0.4778
+      },
+      "total_asset_growth_yoy": {
+        "n": 82,
+        "median": 0.1189,
+        "p25": 0.0376,
+        "p75": 0.2736,
+        "mean": 0.1757,
+        "std": 0.2015
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 82,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0,
+        "mean": 0.6337,
+        "std": 2.6405
+      },
+      "cfo_to_pat_raw": {
+        "n": 40,
+        "median": 1.0158,
+        "p25": 0.2671,
+        "p75": 1.3965,
+        "mean": 0.3956,
+        "std": 2.1994
+      }
+    },
+    "Consumer Services": {
+      "cwip_to_fixed_assets": {
+        "n": 111,
+        "median": 0.0049,
+        "p25": 0.0,
+        "p75": 0.0277,
+        "mean": 0.038,
+        "std": 0.1128
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 110,
+        "median": 0.0984,
+        "p25": -0.0066,
+        "p75": 0.2543,
+        "mean": 0.2763,
+        "std": 0.7448
+      },
+      "total_asset_growth_yoy": {
+        "n": 110,
+        "median": 0.1234,
+        "p25": 0.0392,
+        "p75": 0.2619,
+        "mean": 0.2349,
+        "std": 0.4796
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 108,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0286,
+        "mean": 22.8368,
+        "std": 112.5853
+      },
+      "cfo_to_pat_raw": {
+        "n": 46,
+        "median": 1.1557,
+        "p25": 0.618,
+        "p75": 1.9311,
+        "mean": 0.2064,
+        "std": 5.7258
+      }
+    },
+    "Diversified": {
+      "cwip_to_fixed_assets": {
+        "n": 109,
+        "median": 0.0225,
+        "p25": 0.0,
+        "p75": 0.1192,
+        "mean": 0.1326,
+        "std": 0.2634
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 111,
+        "median": 0.0196,
+        "p25": -0.0339,
+        "p75": 0.2567,
+        "mean": 0.2348,
+        "std": 0.6387
+      },
+      "total_asset_growth_yoy": {
+        "n": 114,
+        "median": 0.1417,
+        "p25": 0.0023,
+        "p75": 0.4107,
+        "mean": 0.295,
+        "std": 0.5521
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 112,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0785,
+        "mean": 17.5278,
+        "std": 88.5098
+      }
+    },
+    "Fast Moving Consumer Goods": {
+      "cwip_to_fixed_assets": {
+        "n": 95,
+        "median": 0.0362,
+        "p25": 0.0039,
+        "p75": 0.1002,
+        "mean": 0.0958,
+        "std": 0.1555
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 95,
+        "median": 0.0547,
+        "p25": -0.0226,
+        "p75": 0.2501,
+        "mean": 0.1958,
+        "std": 0.4063
+      },
+      "total_asset_growth_yoy": {
+        "n": 95,
+        "median": 0.1429,
+        "p25": 0.0668,
+        "p75": 0.2217,
+        "mean": 0.254,
+        "std": 0.496
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 93,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0,
+        "mean": 0.2098,
+        "std": 0.7704
+      },
+      "cfo_to_pat_raw": {
+        "n": 45,
+        "median": 1.0583,
+        "p25": 0.7938,
+        "p75": 1.4398,
+        "mean": 1.0674,
+        "std": 0.8582
+      }
+    },
+    "Financial Services": {
+      "cwip_to_fixed_assets": {
+        "n": 227,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0164,
+        "mean": 0.0511,
+        "std": 0.1784
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 231,
+        "median": 0.0312,
+        "p25": -0.0205,
+        "p75": 0.235,
+        "mean": 0.2385,
+        "std": 0.6096
+      },
+      "total_asset_growth_yoy": {
+        "n": 242,
+        "median": 0.1279,
+        "p25": 0.0371,
+        "p75": 0.2168,
+        "mean": 0.1433,
+        "std": 0.2008
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 242,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0041,
+        "mean": 0.0932,
+        "std": 0.3651
+      },
+      "cfo_to_pat_raw": {
+        "n": 120,
+        "median": 0.4212,
+        "p25": -2.9731,
+        "p75": 1.031,
+        "mean": -0.4317,
+        "std": 5.7208
+      }
+    },
+    "Healthcare": {
+      "cwip_to_fixed_assets": {
+        "n": 150,
+        "median": 0.0649,
+        "p25": 0.0124,
+        "p75": 0.1523,
+        "mean": 0.1081,
+        "std": 0.1279
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 148,
+        "median": 0.108,
+        "p25": 0.0,
+        "p75": 0.3036,
+        "mean": 0.2807,
+        "std": 0.5966
+      },
+      "total_asset_growth_yoy": {
+        "n": 149,
+        "median": 0.1573,
+        "p25": 0.0638,
+        "p75": 0.239,
+        "mean": 0.2273,
+        "std": 0.3737
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 149,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0,
+        "mean": 0.1922,
+        "std": 0.6441
+      },
+      "cfo_to_pat_raw": {
+        "n": 70,
+        "median": 1.2957,
+        "p25": 0.9952,
+        "p75": 1.5284,
+        "mean": 1.4461,
+        "std": 0.9617
+      }
+    },
+    "Information Technology": {
+      "cwip_to_fixed_assets": {
+        "n": 139,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0441,
+        "mean": 0.1137,
+        "std": 0.3107
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 137,
+        "median": 0.0907,
+        "p25": -0.0269,
+        "p75": 0.3913,
+        "mean": 0.5275,
+        "std": 1.2965
+      },
+      "total_asset_growth_yoy": {
+        "n": 141,
+        "median": 0.1502,
+        "p25": 0.0449,
+        "p75": 0.3745,
+        "mean": 0.3125,
+        "std": 0.5009
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 143,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0667,
+        "mean": 0.4697,
+        "std": 1.703
+      },
+      "cfo_to_pat_raw": {
+        "n": 35,
+        "median": 1.1256,
+        "p25": 0.931,
+        "p75": 1.2777,
+        "mean": 1.0948,
+        "std": 0.4189
+      }
+    },
+    "Media Entertainment & Publication": {
+      "cwip_to_fixed_assets": {
+        "n": 58,
+        "median": 0.0045,
+        "p25": 0.0,
+        "p75": 0.042,
+        "mean": 0.0909,
+        "std": 0.295
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 58,
+        "median": -0.0259,
+        "p25": -0.1288,
+        "p75": 0.0668,
+        "mean": 0.3717,
+        "std": 1.5501
+      },
+      "total_asset_growth_yoy": {
+        "n": 60,
+        "median": 0.0404,
+        "p25": -0.0402,
+        "p75": 0.2039,
+        "mean": 0.2513,
+        "std": 0.7079
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 59,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0,
+        "mean": 0.5041,
+        "std": 1.7805
+      },
+      "cfo_to_pat_raw": {
+        "n": 8,
+        "median": 1.5338,
+        "p25": 0.8022,
+        "p75": 2.8099,
+        "mean": 2.0553,
+        "std": 1.9711
+      }
+    },
+    "Metals & Mining": {
+      "cwip_to_fixed_assets": {
+        "n": 104,
+        "median": 0.0769,
+        "p25": 0.0194,
+        "p75": 0.1858,
+        "mean": 0.1869,
+        "std": 0.3082
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 104,
+        "median": 0.0494,
+        "p25": -0.0595,
+        "p75": 0.2247,
+        "mean": 0.1873,
+        "std": 0.4958
+      },
+      "total_asset_growth_yoy": {
+        "n": 104,
+        "median": 0.1114,
+        "p25": -0.007,
+        "p75": 0.2361,
+        "mean": 0.1667,
+        "std": 0.3369
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 104,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0661,
+        "mean": 0.1855,
+        "std": 0.4761
+      },
+      "cfo_to_pat_raw": {
+        "n": 23,
+        "median": 1.0659,
+        "p25": 0.7094,
+        "p75": 1.5889,
+        "mean": 1.9683,
+        "std": 4.0547
+      }
+    },
+    "Oil Gas & Consumable Fuels": {
+      "cwip_to_fixed_assets": {
+        "n": 30,
+        "median": 0.1416,
+        "p25": 0.0422,
+        "p75": 0.2688,
+        "mean": 0.4046,
+        "std": 1.1139
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 30,
+        "median": 0.1075,
+        "p25": 0.0219,
+        "p75": 0.192,
+        "mean": 0.1523,
+        "std": 0.2374
+      },
+      "total_asset_growth_yoy": {
+        "n": 30,
+        "median": 0.1099,
+        "p25": 0.0426,
+        "p75": 0.1802,
+        "mean": 0.0834,
+        "std": 0.1686
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 30,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0,
+        "mean": -0.0098,
+        "std": 0.0641
+      },
+      "cfo_to_pat_raw": {
+        "n": 17,
+        "median": 1.4836,
+        "p25": 1.3148,
+        "p75": 1.9645,
+        "mean": 1.5977,
+        "std": 0.3671
+      }
+    },
+    "Power": {
+      "cwip_to_fixed_assets": {
+        "n": 32,
+        "median": 0.1472,
+        "p25": 0.0211,
+        "p75": 0.2732,
+        "mean": 0.212,
+        "std": 0.262
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 32,
+        "median": 0.0141,
+        "p25": -0.0363,
+        "p75": 0.1855,
+        "mean": 0.1499,
+        "std": 0.3406
+      },
+      "total_asset_growth_yoy": {
+        "n": 32,
+        "median": 0.0974,
+        "p25": -0.0009,
+        "p75": 0.2534,
+        "mean": 0.1447,
+        "std": 0.2272
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 32,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0,
+        "mean": 0.0163,
+        "std": 0.0446
+      },
+      "cfo_to_pat_raw": {
+        "n": 21,
+        "median": 2.508,
+        "p25": 1.8479,
+        "p75": 3.9289,
+        "mean": 2.8483,
+        "std": 1.4912
+      }
+    },
+    "Realty": {
+      "cwip_to_fixed_assets": {
+        "n": 61,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0329,
+        "mean": 0.0769,
+        "std": 0.1766
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 61,
+        "median": 0.0,
+        "p25": -0.0374,
+        "p75": 0.0808,
+        "mean": 0.0723,
+        "std": 0.2512
+      },
+      "total_asset_growth_yoy": {
+        "n": 62,
+        "median": 0.0762,
+        "p25": 0.0059,
+        "p75": 0.2052,
+        "mean": 0.1675,
+        "std": 0.385
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 63,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0005,
+        "mean": 0.0279,
+        "std": 0.0787
+      },
+      "cfo_to_pat_raw": {
+        "n": 17,
+        "median": 0.2795,
+        "p25": -0.7782,
+        "p75": 2.228,
+        "mean": 2.4072,
+        "std": 7.1201
+      }
+    },
+    "Services": {
+      "cwip_to_fixed_assets": {
+        "n": 141,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0172,
+        "mean": 0.0568,
+        "std": 0.1727
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 133,
+        "median": 0.0189,
+        "p25": -0.0496,
+        "p75": 0.3333,
+        "mean": 0.5404,
+        "std": 2.0876
+      },
+      "total_asset_growth_yoy": {
+        "n": 143,
+        "median": 0.1133,
+        "p25": -0.0502,
+        "p75": 0.2933,
+        "mean": 0.2312,
+        "std": 0.6365
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 141,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.1,
+        "mean": 1.5243,
+        "std": 7.5134
+      },
+      "cfo_to_pat_raw": {
+        "n": 25,
+        "median": 1.2013,
+        "p25": 0.9436,
+        "p75": 3.2794,
+        "mean": 5.3632,
+        "std": 14.0264
+      }
+    },
+    "Telecommunication": {
+      "cwip_to_fixed_assets": {
+        "n": 25,
+        "median": 0.0119,
+        "p25": 0.0,
+        "p75": 0.0526,
+        "mean": 0.2756,
+        "std": 0.6842
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 25,
+        "median": 0.0147,
+        "p25": -0.1255,
+        "p75": 0.1103,
+        "mean": 0.3505,
+        "std": 1.501
+      },
+      "total_asset_growth_yoy": {
+        "n": 25,
+        "median": 0.0646,
+        "p25": -0.0798,
+        "p75": 0.1752,
+        "mean": 0.21,
+        "std": 0.7277
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 24,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0099,
+        "mean": 6.6029,
+        "std": 29.1237
+      },
+      "cfo_to_pat_raw": {
+        "n": 12,
+        "median": 1.706,
+        "p25": -0.1568,
+        "p75": 2.8354,
+        "mean": 1.9489,
+        "std": 2.6198
+      }
+    },
+    "Textiles": {
+      "cwip_to_fixed_assets": {
+        "n": 135,
+        "median": 0.0094,
+        "p25": 0.0,
+        "p75": 0.0578,
+        "mean": 0.064,
+        "std": 0.1373
+      },
+      "fixed_asset_growth_yoy": {
+        "n": 135,
+        "median": 0.0258,
+        "p25": -0.0499,
+        "p75": 0.1672,
+        "mean": 0.1545,
+        "std": 0.4125
+      },
+      "total_asset_growth_yoy": {
+        "n": 135,
+        "median": 0.0523,
+        "p25": -0.0378,
+        "p75": 0.1813,
+        "mean": 0.0872,
+        "std": 0.22
+      },
+      "equity_capital_growth_yoy_dilution": {
+        "n": 135,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0,
+        "mean": 0.0647,
+        "std": 0.2329
+      },
+      "cfo_to_pat_raw": {
+        "n": 12,
+        "median": 1.4728,
+        "p25": 0.9095,
+        "p75": 2.6508,
+        "mean": 0.7444,
+        "std": 7.4184
+      }
+    }
+  },
+  "worked_example_kpigreen_raw_snapshot": {
+    "legs": {
+      "bs_asset_growth": -3.8422,
+      "bs_issuance": -1.6025,
+      "quality_cfo_pat": 0.5816,
+      "value_EY": 0.0383
+    },
+    "macro_sector": "Power",
+    "sub_sector": "Power Infrastructure",
+    "fund_raw": {
+      "cwip_to_fixed_assets": 0.2036,
+      "fixed_asset_growth_yoy": 0.9094,
+      "total_asset_growth_yoy": 1.0622,
+      "equity_capital_growth_yoy_dilution": 0.0102,
+      "cfo_to_pat_raw": 0.833
+    }
+  }
+}

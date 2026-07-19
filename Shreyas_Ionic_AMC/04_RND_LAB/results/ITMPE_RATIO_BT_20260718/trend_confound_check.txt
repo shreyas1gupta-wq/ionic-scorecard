@@ -1,0 +1,29 @@
+======================================================================
+TREND-DAY CONFOUND CHECK
+======================================================================
+BUY: corr(first_candidate_time_of_day, fill_percentile) = 0.418  n=49
+SELL: corr(first_candidate_time_of_day, fill_percentile) = 0.849  n=49
+
+Interpretation: on a trending-up market, buying earlier in the day and selling later in
+the day mechanically produces low buy-percentile / high sell-percentile with ZERO
+hindsight fabrication needed. A negative BUY correlation and positive SELL correlation
+here would match ordinary intraday-trend behavior, not necessarily fabrication.
+
+
+Buys pinned at literal day low (percentile<2%): 1 of 49
+Sells pinned at literal day high (percentile>98%): 0 of 49
+(A fabricated/hindsight-optimal set of fills would show many of these; genuine imperfect
+ trading should show almost none.)
+
+Buys in bottom decile (<10%): 4 of 49
+Sells in top decile (>90%): 18 of 49
+
+Capture ratio (actual gain / best-possible gain via sell-day day_high), n=49:
+  mean=0.624 median=0.667 std=0.320 min=-0.075 max=1.048
+  Fraction with capture_ratio > 0.95 (near-perfect exit): 2 of 49
+  Fraction with capture_ratio < 0.3 (poor exit): 10 of 49
+
+A hindsight-fabricated ledger would show capture_ratio clustered tightly near 1.0 with
+low variance (every 'exit' picked at/near the best print available that day). The observed
+spread (std as printed above, meaningful mass below 0.5) is inconsistent with that and is
+the single strongest quantitative argument AGAINST fabrication in this battery.

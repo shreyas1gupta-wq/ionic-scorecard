@@ -1,0 +1,38 @@
+{
+  "card_id": "W4ETF_TSMOM_RS_1Y_core6",
+  "sleeve": "ETF/Cross-Asset tactical allocation (NEW, orthogonal to stock ALPHA_RANKER)",
+  "family": "ts_momentum_plus_relative_strength_rotation",
+  "horizon": "1Y",
+  "universe": ["GOLD", "SILVER", "COPPER", "NASDAQ", "SP500", "NIFTY50"],
+  "n_assets": 6,
+  "method": "Monthly rebalance. Score = 12m-minus-1m return (12-1 TS momentum). Hold top-50% ranked assets with POSITIVE momentum only (else cash), equal-weight. Signal at month t applied to forward return t->t+1 (lookahead-checked, see note).",
+  "lookahead_note": "[DATA] First implementation applied signal(t) to the CONTEMPORANEOUS return ending at t (t-1->t), not the forward return -> inflated Sharpe to ~1.0-3.0. Fixed to fwd_rets = rets.shift(-1) before any number below was accepted. This is exactly the T-class lookahead the firm's LOOKAHEAD_CONTROLS taxonomy warns about; corrected result only is reported here.",
+  "windows": {
+    "full_history_1994_2026": {
+      "n_months": 320,
+      "caveat": "[DATA] Dominated by 1994-2021 when GOLDBEES/SILVERBEES/NIFTYBEES did not exist on disk (or at all, for the ETF wrappers) - for most of this window the 'universe' was really SP500+NASDAQ+COPPER only, growing to +NIFTY50 (2013) then +GOLD (2021) then +SILVER (2022). Not a real tradable history for an India investor.",
+      "strategy_net_sharpe": 0.682, "strategy_net_maxdd": -0.3483,
+      "equal_weight_bh_sharpe": 0.699, "equal_weight_bh_maxdd": -0.3208,
+      "verdict_this_window": "ROUGHLY TIED, rotation slightly WORSE on both Sharpe and maxDD"
+    },
+    "concurrent_only_since_2022_02": {
+      "n_months": 53,
+      "caveat": "[DATA] Honest window: only period where ALL 6 core assets are simultaneously tradable on disk. LOW-N (53 monthly obs, ~4.4yr) - judge directionally, not on significance. Also: this window is a near-monotonic multi-asset bull run (no crisis episode), so it cannot test the crash-protection thesis of TS-momentum, only the cost/whipsaw side.",
+      "strategy_net_sharpe": 0.769, "strategy_net_maxdd": -0.1534,
+      "equal_weight_bh_sharpe": 1.384, "equal_weight_bh_maxdd": -0.1568,
+      "verdict_this_window": "ROTATION CLEARLY WORSE - buy-and-hold Sharpe nearly 2x the rotation, maxDD statistically indistinguishable (rotation's usual crash-protection edge never got to show up because there was no crash in-sample)"
+    }
+  },
+  "drop_one_full_history": {"drop_GOLD": 0.647, "drop_SILVER": 0.679, "drop_COPPER": 0.737, "drop_NASDAQ": 0.634, "drop_SP500": 0.702, "drop_NIFTY50": 0.704, "note": "stable +-0.05 band around 0.68 - not one-asset-driven"},
+  "era_split_full_history": {"era1_sharpe": 0.551, "era2_sharpe": 0.845, "era1_n": 160, "era2_n": 160},
+  "factor_ic_pooled_asset_month": {
+    "mom_12m_fwd_1Y": {"full_history": 0.054, "concurrent_only": 0.112, "n_full": 1206, "n_concurrent": 244},
+    "carry_trend_fwd_1Y": {"full_history": 0.068, "concurrent_only": 0.053, "n_full": 1192, "n_concurrent": 244},
+    "dist_200dma_fwd_1Y": {"full_history": 0.075, "concurrent_only": 0.013, "n_full": 1206, "n_concurrent": 246},
+    "note": "weak (|rho| 0.01-0.11) but SAME-SIGN in both windows for mom_12m and carry_trend at 1Y - the only directionally-stable factors found in this sleeve. n this small (6-asset cross-section) cannot support a real significance claim; treat as a soft prior, not an edge."
+  },
+  "status": "NOT-VALIDATED / DO NOT SIZE",
+  "verdict": "[INFERENCE] Simple 12-1 TS-mom + relative-strength rotation does NOT beat equal-weight buy-and-hold on Sharpe in the one honest (concurrent-universe) window available, and is only roughly tied over the noisy, mostly-non-tradable full-history window. The theoretical case for TS-momentum (drawdown protection in a crisis) is UNTESTED here because the concurrent window contains no crisis. Recommend: do not build this as an active rotation strategy on current evidence; if revisited, must be tested across a window containing at least one real drawdown (2020 COVID / 2022 hikes) using the raw index histories (not ETF-wrapper histories) to get enough crisis coverage, and pre-register the kill bar before looking.",
+  "review_date": "2026-10-17",
+  "generated_at": "2026-07-17"
+}

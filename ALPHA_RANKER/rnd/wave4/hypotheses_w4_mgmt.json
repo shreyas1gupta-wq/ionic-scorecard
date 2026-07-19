@@ -1,0 +1,36 @@
+{
+  "wave": "W4M",
+  "author": "ml-expert-ishaan-gupta",
+  "date": "2026-07-17",
+  "memo": "ALPHA_RANKER/rnd/wave4/MGMT_COMMENTARY.md",
+  "pilot_results": "ALPHA_RANKER/results/MGMT_CREDIBILITY_PILOT_20260717/",
+  "prior_probe_referenced": "ALPHA_RANKER/results/CONCALL_VALUE_PROBE_20260717/ (keyword-tone density vs fwd returns: ~zero corr, motivates this distinct mechanism)",
+  "hypotheses": [
+    {
+      "id": "W4M-01",
+      "name": "Management credibility / promise-vs-delivery",
+      "construction": "Per company, rolling score over trailing N (min 3) verifiable guidance commitments extracted by regex from concall transcripts (types: revenue, margin, capex, debt-reduction; order-book excluded, no fundamentals proxy exists). Each commitment matched to the PIT fundamentals observation with available_date > call_date within a +30d/+200d window; verdict = DELIVERED/PARTIAL/MISSED/unscored. Score = mean(DELIVERED=+1, PARTIAL=0, MISSED=-1) over scored commitments only, cross-sectionally demeaned within sector and quarter to remove base-rate/sector-cycle contamination.",
+      "expected_sign": "positive: high-credibility (delivers) names earn higher forward abnormal returns than low-credibility (bluffer) names, sector-neutral",
+      "expected_horizon": "near-zero at 1M, moderate at 1Y, dominant at 5Y (per concall_rubric.py HORIZON_EMPHASIS, pre-existing prior, not invented for this memo)",
+      "data_assets": [
+        "datasets/india_earnings_calls/extracted_texts.zip (139 tickers, Jul-2015 to Nov-2024, avg 18.3 quarters/ticker, TEXT READY)",
+        "datasets/india_earnings_calls/MiMIC_Multi-Modal_Indian_Earnings_Calls.xlsx (1,042 rows, 133 tickers, has real RESULT DATE per call -- not yet used, currently a day-20-of-month proxy is used instead)",
+        "ALPHA_RANKER/data/fundamentals/MASTER_fundamentals_pit.parquet (long format, key_symbol/metric_norm/value/available_date, 100% overlap with the 139 zip tickers)",
+        "ALPHA_RANKER/src/themes/concall_rubric.py (existing promise_vs_delivery + red_flag_language + tone_shift dimension definitions, reused not reinvented)",
+        "ALPHA_RANKER/data/concalls/_coverage.csv (264 OK / 275 attempted PDF downloads -- NOT YET TEXT-EXTRACTED, no date field, q1-q6 sequential filenames only -- coverage-expansion candidate, not usable today)"
+      ],
+      "coverage_caveat": "PILOT-SCALE ONLY. 139 usable tickers (zero overlap with the 264-name PDF set). Real cross-sectional backtest not feasible yet -- needs the 264-name PDF set OCR'd and date-parsed. Two P0 pipeline bugs found during self-red-team of the pilot: (1) no speaker attribution -- analyst QUESTIONS are currently being counted as management COMMITMENTS in some matches (verified example: AARTIIND Mar-2017 debt row is an analyst question, scored MISSED, incorrectly); (2) revenue-direction delivery scoring has a base-rate problem (most Indian companies grow revenue most quarters nominally, so DELIVERED is inflated without sector/index-relative demeaning). Neither fix is implemented yet -- illustrative pilot numbers (243 DELIVERED / 76 MISSED / 4 PARTIAL of 1,422 commitment-sentences across 25 tickers) must not be read as a scored signal.",
+      "priority": "P1 -- distinct mechanism, structurally motivated by the prior tone-probe's null result, existing rubric infrastructure already 80% built; blocked on P0 extraction fixes before any IC/sleeve consideration"
+    },
+    {
+      "id": "W4M-02",
+      "name": "Repeated-miss bluff flag (penalty-only variant)",
+      "construction": "Binary/count flag: number of consecutive trailing quarters with a MISSED verdict on the same commitment type (e.g. margin guidance missed 3 quarters running) -- a penalty-only red-flag signal (per concall_rubric.py's HORIZON_EMPHASIS 1M row: only the red-flag catch matters intraday-to-1M, positive dims don't).",
+      "expected_sign": "negative: repeated-miss names underperform, effect concentrated shortly after the Nth miss becomes visible (available_date of the delivery-check quarter), fastest-acting of the two hypotheses",
+      "expected_horizon": "1M-1Y, fast-decaying (distinguish from W4M-01's slow reputational effect)",
+      "data_assets": ["same as W4M-01"],
+      "coverage_caveat": "same pilot-scale and P0-fix caveats as W4M-01; additionally needs a company to have >=2 consecutive scored quarters on the SAME commitment type, which shrinks the usable pilot sample further (not yet counted -- flagged, not computed)",
+      "priority": "P2 -- companion/robustness check to W4M-01, cheaper to test once P0 fixes land (binary flag needs less precision than the continuous credibility score)"
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "n_common_dates": 90,
+  "common_date_range": [
+    "2017-06-30",
+    "2024-11-29"
+  ],
+  "pbo_purged_by_n_splits": {
+    "12": {
+      "pbo": 0.8571428571428571,
+      "slope": -0.32607717110792206,
+      "n_combos": 56,
+      "max_combos": 924,
+      "n_dropped_empty_is": 868
+    },
+    "8": {
+      "pbo": 0.5,
+      "slope": -0.06894883039260195,
+      "n_combos": 10,
+      "max_combos": 70,
+      "n_dropped_empty_is": 60
+    },
+    "6": {
+      "pbo": 0.25,
+      "slope": 0.013081301310623546,
+      "n_combos": 8,
+      "max_combos": 20,
+      "n_dropped_empty_is": 12
+    },
+    "4": {
+      "pbo": 0.0,
+      "slope": 0.028917825462723937,
+      "n_combos": 2,
+      "max_combos": 6,
+      "n_dropped_empty_is": 4
+    }
+  },
+  "pbo_naive_by_n_splits": {
+    "12": {
+      "pbo": 0.512987012987013,
+      "slope": -0.3162117637145552,
+      "n_combos": 924
+    },
+    "8": {
+      "pbo": 0.4714285714285714,
+      "slope": -0.2836774619545524,
+      "n_combos": 70
+    },
+    "6": {
+      "pbo": 0.55,
+      "slope": 0.29150105894533673,
+      "n_combos": 20
+    },
+    "4": {
+      "pbo": 0.5,
+      "slope": 0.29982494010606314,
+      "n_combos": 6
+    }
+  },
+  "pbo_purged_primary": {
+    "n_splits": 4,
+    "pbo": 0.0,
+    "slope": 0.028917825462723937,
+    "n_combos": 2,
+    "configs": [
+      "value_EY",
+      "mom_resid_plain",
+      "trend_ma65_slope",
+      "quality_QMJ",
+      "bs_issuance",
+      "bs_asset_growth",
+      "quality_cfo_pat",
+      "COMPOSITE_TRUE7"
+    ]
+  },
+  "pbo_naive_no_purge": {
+    "pbo": 0.5,
+    "slope": 0.29982494010606314,
+    "n_combos": 6
+  },
+  "var_sharpe_empirical": {
+    "value": 0.3646308478785373,
+    "n_trials_sampled": 407,
+    "source": "std(signed_ic_ir) across 407 logged program trials, scoreboard_v2.csv -- [INFERENCE] proxy: IC_IR is not the identical quantity as the LS-return Sharpe DSR is computed on, but it is the only cross-trial performance distribution the program actually logged, and is a much better-grounded var_sharpe than the harness's disclosed unit-variance (sigma_sr=1.0) simplification."
+  },
+  "dsr_purged_empirical_var": {
+    "N=1 (this exact composite build, no correction)": {
+      "n_trials": 1,
+      "dsr": 0.999999773908134,
+      "sr_hat": 0.6576848027017719,
+      "sr_star": 0.0,
+      "expected_max_z": 0.0
+    },
+    "N=1_family_AUDIT_TRUE7 (this family's own ledger)": {
+      "n_trials": 1,
+      "dsr": 0.999999773908134,
+      "sr_hat": 0.6576848027017719,
+      "sr_star": 0.0,
+      "expected_max_z": 0.0
+    },
+    "N=90 (n_distinct research families that fed leg selection)": {
+      "n_trials": 91,
+      "dsr": 3.4459382165759584e-11,
+      "sr_hat": 0.6576848027017719,
+      "sr_star": 1.507950848516664,
+      "expected_max_z": 2.4972411478457834
+    },
+    "N=454 (global program trial count)": {
+      "n_trials": 455,
+      "dsr": 1.5725634359228813e-19,
+      "sr_hat": 0.6576848027017719,
+      "sr_star": 1.826069832190017,
+      "expected_max_z": 3.024061910419995
+    }
+  },
+  "dsr_purged_sigma1_for_comparison": {
+    "N=1 (this exact composite build, no correction)": {
+      "n_trials": 1,
+      "dsr": 0.999999773908134,
+      "sr_hat": 0.6576848027017719,
+      "sr_star": 0.0
+    },
+    "N=1_family_AUDIT_TRUE7 (this family's own ledger)": {
+      "n_trials": 1,
+      "dsr": 0.999999773908134,
+      "sr_hat": 0.6576848027017719,
+      "sr_star": 0.0
+    },
+    "N=90 (n_distinct research families that fed leg selection)": {
+      "n_trials": 91,
+      "dsr": 1.5896715693664276e-45,
+      "sr_hat": 0.6576848027017719,
+      "sr_star": 2.4972411478457834
+    },
+    "N=454 (global program trial count)": {
+      "n_trials": 455,
+      "dsr": 5.952770848560529e-74,
+      "sr_hat": 0.6576848027017719,
+      "sr_star": 3.024061910419995
+    }
+  },
+  "gate_check": {
+    "dsr_min_required": 0.95,
+    "pbo_max_required": 0.25,
+    "pbo_purged": 0.0,
+    "pbo_pass": true,
+    "dsr_at_family_n_pass": true,
+    "dsr_at_global_n_pass": false
+  }
+}

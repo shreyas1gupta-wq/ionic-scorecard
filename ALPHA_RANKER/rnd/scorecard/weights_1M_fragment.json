@@ -1,0 +1,55 @@
+{
+  "horizon": "1M",
+  "owner": "Arjun Rao (quant-head-arjun-rao)",
+  "built": "2026-07-17T19:31:04.706327+00:00",
+  "skip_trading_days": 15,
+  "lookback_L_trading_days": {
+    "BOOMING_BULL": 252,
+    "NORMAL_CHOPPY": 252,
+    "BEAR_OVERSOLD": 0,
+    "OTHER_default_J1": 252,
+    "UNCLASSIFIED_default_J1": 252
+  },
+  "washout_breadth_pctrank_threshold": 0.2,
+  "weights_neutral": {
+    "mom": 0.45,
+    "earn": 0.4,
+    "qual": 0.15
+  },
+  "weights_washout_bear_oversold": {
+    "mom": 0.55,
+    "earn": 0.3,
+    "qual": 0.15
+  },
+  "quality_inner_blend": {
+    "quality_QMJ": 0.5,
+    "quality_cfo_pat": 0.5
+  },
+  "earn_neutral_fallback_rank": 0.5,
+  "rev5d_formula": "-(P(t)/P(t-5) - 1.0), certified REGIME_SPEC_V2 Sec 0",
+  "presence_rule": "score requires mom_1M_component AND qual_floor_1M non-null (J5)",
+  "no_neg_news_source": "rnd\\scorecard\\no_negative_news_screen.parquet",
+  "no_neg_news_coverage_symbols": 55,
+  "no_neg_news_coverage_caveat": "S6 screen covers 55/~750 large-cap names only; the ~445-695 uncovered names default no_negative_news_flag=True (pass) by construction -- a coverage gap, NOT a verified clean read.",
+  "low_conviction_flag": true,
+  "low_conviction_reason": "no 21-yr intra-month confirmation (FINAL_MODEL Sec 5.2); tilt/timing nudge, not a standalone thesis",
+  "diagnostics_from_build": {
+    "n_rows_universe": 99415,
+    "n_dates": 249,
+    "n_symbols": 933,
+    "n_scored_final": 93423,
+    "n_excluded_neg_news": 346,
+    "n_missing_mom_or_qual": 5646,
+    "n_washout_rows": 16590,
+    "n_bear_oversold_tag_rows": 9895,
+    "n_washout_not_bear_oversold": 6695,
+    "n_bear_oversold_not_washout": 0,
+    "regime_counts_by_date": {
+      "OTHER": 106,
+      "NORMAL_CHOPPY": 48,
+      "BOOMING_BULL": 47,
+      "BEAR_OVERSOLD": 25,
+      "UNCLASSIFIED": 23
+    }
+  }
+}

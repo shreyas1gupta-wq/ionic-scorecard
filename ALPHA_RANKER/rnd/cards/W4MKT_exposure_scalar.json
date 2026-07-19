@@ -1,0 +1,19 @@
+{
+  "factor_id": "W4MKT_exposure_scalar",
+  "author": "macro-strategist-cyrus-daruwalla",
+  "test": "richness_scaled_market_exposure_vs_always_invested_sharpe_maxdd",
+  "mechanism": "monthly-rebalanced NIFTY500 exposure, scalar = clip(1 - 0.5*(richness-100)/60, lo, hi), scalar known at start of month from PRIOR month-end richness (1-month lag), no transaction costs modeled.",
+  "variant_symmetric_lo0.2_hi1.4": {
+    "full_sample_2007_2025": {"ann_return": 0.1048, "sharpe": 0.447, "max_drawdown": -0.6941, "n_months": 225},
+    "bench_always_invested": {"ann_return": 0.1149, "sharpe": 0.526, "max_drawdown": -0.6091, "n_months": 225},
+    "ex_2008_GFC_era": {"ann_return": 0.1251, "sharpe": 0.821, "max_drawdown": -0.2727, "n_months": 203},
+    "bench_ex_2008": {"ann_return": 0.1326, "sharpe": 0.790, "max_drawdown": -0.2998, "n_months": 203}
+  },
+  "variant_derisk_only_lo0.2_hi1.0_no_leverage": {
+    "full_sample_2007_2025": {"ann_return": 0.1058, "sharpe": 0.512, "max_drawdown": -0.6091, "n_months": 225},
+    "ex_2008_GFC_era": {"ann_return": 0.1224, "sharpe": 0.810, "max_drawdown": -0.2727, "n_months": 203}
+  },
+  "key_finding": "Full-sample, BOTH variants underperform or roughly match always-invested on Sharpe, and the leveraged (symmetric) variant makes max_drawdown WORSE (-69.4% vs -60.9%). Excluding the single 2008 GFC episode, BOTH variants modestly BEAT the benchmark (Sharpe 0.82/0.81 vs 0.79; maxDD -27.3% vs -30.0%). The entire negative full-sample verdict is driven by ONE episode: 2008-09, where richness got progressively CHEAPER as the crash continued (valuation cheapening and price still falling are NOT mutually exclusive mid-crisis), so the symmetric scalar levered UP (to 1.4x) DURING the ongoing decline before the eventual 2009 recovery, amplifying realized drawdown. The de-risk-only variant (capped at 1.0x, no leverage) avoided that specific amplification but ALSO never actually de-risked during 2008 (richness was cheap, not expensive, throughout that crash) so its maxDD matches the benchmark exactly for the full sample.",
+  "honesty_note": "This is a single-episode (n=1 crisis) result driving the full-sample verdict -- classic low-n fragility, disclosed per firm protocol rather than cherry-picking the ex-2008 cut as the headline. A valuation z-score built on an EXPANDING mean/std is a slow multi-year mean-reversion signal (matches its own 5Y test having the more robust economic-logic case); applying it as a MONTHLY tactical lever mismatches horizons and can whipsaw or (in the levered variant) actively worsen drawdown during an exogenous/continuing-decline crash it was never designed to time.",
+  "verdict": "NO (as a monthly leveraged scalar) / MAYBE-WEAK (as a monthly de-risk-only, no-leverage scalar -- flat-to-marginal, ex-2008 modestly positive but full-sample not clearly better than always-invested). Recommend: if used at all, apply at a LOWER rebalance frequency (quarterly/annual) as a STRATEGIC tilt, never as a levered monthly overlay, and pair with a genuinely short-horizon trigger (India VIX / breadth) for tactical de-risking rather than relying on this valuation series alone."
+}

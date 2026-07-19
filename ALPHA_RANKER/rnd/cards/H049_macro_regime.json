@@ -1,0 +1,12 @@
+{
+  "factor_id": "H049_macro_regime",
+  "status": "PARK",
+  "verdict": "PARK (data-blocked, not run)",
+  "horizon": [
+    "1M",
+    "1Y"
+  ],
+  "generated_at": "2026-07-16T18:11:25.955775+00:00",
+  "reason": "Checked factor_navs (1).xlsx (the only macro/factor-NAV source wired into ALPHA_RANKER via src/lib/factor_bench.py): it contains ONLY India-domestic indices (NIFTY 50/100/250/500/Midcap/Smallcap, 8 India smart-beta indices, GOLDBEES, HDFC Liquid Fund) -- confirmed by direct sheet read, 23 columns, none of them SPX/DXY/UST/Fed-funds or any other US/global macro series. There is no US-regime or global-macro data source currently wired into this pipeline at all, so a US/macro regime-conditioning test cannot be built even as a proxy.",
+  "needed_to_unpark": "A US/global macro data source (SPX, DXY, UST yields, or a Fed-funds proxy) ingested and D-009-verified; until then this hypothesis has literally nothing to condition on."
+}

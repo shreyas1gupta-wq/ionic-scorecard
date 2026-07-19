@@ -1,0 +1,78 @@
+{
+  "factor_id": "IDG_G06_bab_beta_1Y_resid",
+  "family": "IDG_G06_bab_beta",
+  "horizon": "1Y",
+  "return_basis": "resid",
+  "status": "OK",
+  "panel_source": "real_long",
+  "n_trials": 371,
+  "n_dates": 231,
+  "n_obs": 132486,
+  "generated_at": "2026-07-17T02:18:16.037943+00:00",
+  "ic": {
+    "ic_mean": -0.1773797765684426,
+    "ic_std": 0.1729080840306839,
+    "ic_ir": -1.02586167421163,
+    "newey_west_t": -5.456483399869854,
+    "nw_lag": 11,
+    "n_ic_dates": 231
+  },
+  "deciles": {
+    "monotonicity": -0.9030303030303028,
+    "n_decile_dates": 231
+  },
+  "long_short": {
+    "ann_return_LS": -4.6555311289069365,
+    "hit_rate": 0.2727272727272727,
+    "n_periods": 231
+  },
+  "turnover": {
+    "avg_top_decile_turnover": 0.11349696079471204
+  },
+  "costs": {
+    "blended_cost_bps_roundtrip": 79.96335078534032,
+    "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+    "cost_approved": true,
+    "ann_cost_drag": 0.010890716746917092,
+    "net_of_cost_ann_return": -4.666421845653853
+  },
+  "dsr": {
+    "dsr": 0.0,
+    "sr_hat": -0.509679948576984,
+    "sr0_expected_max": 2.9616606747761116,
+    "skew": -2.0955607335712734,
+    "kurtosis": 9.528963428819464,
+    "n_obs": 231,
+    "n_trials": 371
+  },
+  "pbo": {
+    "pbo": 0.8528138528138528,
+    "n_combos": 924,
+    "n_blocks": 12,
+    "n_obs": 231,
+    "median_is_sharpe": -0.5341836816037812,
+    "median_oos_sharpe": -0.5341836816037812
+  },
+  "regime_breakdown": {
+    "regime_trend": {
+      "bear": -0.18860580604188826,
+      "bull": -0.18054382727217524,
+      "sideways": -0.1599068400842005
+    },
+    "regime_vol": {
+      "high": -0.09900317842009568,
+      "low": -0.20525584863229615,
+      "normal": -0.18389298720409294
+    }
+  },
+  "lag_test": {
+    "ic_lag_mean": -0.1754211118185955,
+    "lag_test_delta": 0.011042210040733379
+  },
+  "placebo": {
+    "placebo_ic": 0.000700626963752547,
+    "n_shuffles": 5,
+    "seed": 42
+  },
+  "verdict": "KILL (IC_IR -1.026 < 0.2; PBO 0.853 > 0.5; DSR 0.000 <= 0.0)"
+}

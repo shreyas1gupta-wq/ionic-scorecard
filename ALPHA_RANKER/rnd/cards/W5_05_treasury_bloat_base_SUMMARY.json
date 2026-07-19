@@ -1,0 +1,71 @@
+{
+  "factor_id": "W5_05_treasury_bloat_base",
+  "family": "W5_05",
+  "ic_mean": -0.02876695365155795,
+  "ic_ir": -0.272408313948346,
+  "n_ic_dates": 114,
+  "mono": 0.10303030303030303,
+  "net_v2_horizon_aware_ann_return": 0.02990885000905231,
+  "dsr": 4.949435980641672e-237,
+  "pbo": 0.9956709956709957,
+  "n_obs": 19145,
+  "lag_test_delta": 0.10342660630173649,
+  "lag_pass": true,
+  "placebo_ic": 0.001137700449905115,
+  "placebo_pass": true,
+  "gates_pass": true,
+  "corr_vs_composite": -0.07981182007394871,
+  "n_corr_dates": 127,
+  "corr_vs_legs": {
+    "value_EY": -0.13507687897266452,
+    "mom_resid_peer": -0.013429039482723306,
+    "trend_ma65_slope": -0.019189922863701935,
+    "quality_QMJ": -0.04780234189162605,
+    "bs_issuance": -0.04036692076545856,
+    "bs_asset_growth": 0.0284033249808161,
+    "quality_cfo_pat": -0.0462992759214026
+  },
+  "nearest_leg": "value_EY",
+  "nearest_leg_corr": -0.13507687897266452,
+  "incremental_8leg": {
+    "ic_ir_7leg_base_this_run": 1.3373574525898886,
+    "ic_ir_8leg_with_candidate": 1.7543177493240063,
+    "delta_ic_ir": 0.4169602967341177,
+    "raises_ir": true,
+    "base7_sanity_ok_vs_official_1.345": true,
+    "base7_delta_vs_official": -0.007642547410111389
+  },
+  "verdict": "KILL (inverted (material negative IC_IR) vs hypothesis-as-registered, no post-hoc sign flip)",
+  "convex_hedge_candidate": false,
+  "payoff_shape": {
+    "n_dates": 125,
+    "n_dates_dropped_thin": 23,
+    "mean_LS_monthly": 0.0008559827033796501,
+    "hit_rate": 0.488,
+    "avg_win": 0.026018066897686525,
+    "avg_loss": -0.023126628794319086,
+    "skew": 0.08101061941288548,
+    "worst_month_LS": -0.08296520307082186,
+    "worst_month_date": "2019-07-31",
+    "best_month_LS": 0.10184995570559921,
+    "mean_LS_worst_decile_mkt_months": -0.024779649628624056,
+    "episodes": {
+      "GFC_2008-09": {
+        "n_months": 0,
+        "mean_LS": null,
+        "worst_LS": null
+      },
+      "COVID_2020-02_03": {
+        "n_months": 3,
+        "mean_LS": -0.005219578120982911,
+        "worst_LS": -0.005759263426903527
+      },
+      "SELLOFF_2022": {
+        "n_months": 7,
+        "mean_LS": 0.02544873700087426,
+        "worst_LS": -0.015838258519472265
+      }
+    },
+    "shape_class": "LINEAR/mixed"
+  }
+}

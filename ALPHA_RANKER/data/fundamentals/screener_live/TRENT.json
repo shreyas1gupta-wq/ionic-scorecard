@@ -1,0 +1,987 @@
+{
+ "ticker": "TRENT",
+ "url_path": "TRENT/consolidated/",
+ "tables": {
+  "quarterly_results": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2023": "2183",
+    "Jun 2023": "2628",
+    "Sep 2023": "2982",
+    "Dec 2023": "3467",
+    "Mar 2024": "3298",
+    "Jun 2024": "4104",
+    "Sep 2024": "4157",
+    "Dec 2024": "4657",
+    "Mar 2025": "4217",
+    "Jun 2025": "4883",
+    "Sep 2025": "4818",
+    "Dec 2025": "5345",
+    "Mar 2026": "5028"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2023": "1980",
+    "Jun 2023": "2261",
+    "Sep 2023": "2526",
+    "Dec 2023": "2838",
+    "Mar 2024": "2828",
+    "Jun 2024": "3491",
+    "Sep 2024": "3511",
+    "Dec 2024": "3809",
+    "Mar 2025": "3566",
+    "Jun 2025": "4036",
+    "Sep 2025": "4002",
+    "Dec 2025": "4264",
+    "Mar 2026": "4117"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2023": "203",
+    "Jun 2023": "367",
+    "Sep 2023": "457",
+    "Dec 2023": "629",
+    "Mar 2024": "470",
+    "Jun 2024": "613",
+    "Sep 2024": "646",
+    "Dec 2024": "847",
+    "Mar 2025": "651",
+    "Jun 2025": "848",
+    "Sep 2025": "816",
+    "Dec 2025": "1081",
+    "Mar 2026": "911"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2023": "9%",
+    "Jun 2023": "14%",
+    "Sep 2023": "15%",
+    "Dec 2023": "18%",
+    "Mar 2024": "14%",
+    "Jun 2024": "15%",
+    "Sep 2024": "16%",
+    "Dec 2024": "18%",
+    "Mar 2025": "15%",
+    "Jun 2025": "17%",
+    "Sep 2025": "17%",
+    "Dec 2025": "20%",
+    "Mar 2026": "18%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2023": "89",
+    "Jun 2023": "79",
+    "Sep 2023": "105",
+    "Dec 2023": "110",
+    "Mar 2024": "695",
+    "Jun 2024": "101",
+    "Sep 2024": "51",
+    "Dec 2024": "80",
+    "Mar 2025": "74",
+    "Jun 2025": "50",
+    "Sep 2025": "28",
+    "Dec 2025": "5",
+    "Mar 2026": "28"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2023": "92",
+    "Jun 2023": "92",
+    "Sep 2023": "95",
+    "Dec 2023": "99",
+    "Mar 2024": "33",
+    "Jun 2024": "32",
+    "Sep 2024": "33",
+    "Dec 2024": "37",
+    "Mar 2025": "38",
+    "Jun 2025": "40",
+    "Sep 2025": "42",
+    "Dec 2025": "43",
+    "Mar 2026": "44"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2023": "137",
+    "Jun 2023": "141",
+    "Sep 2023": "152",
+    "Dec 2023": "165",
+    "Mar 2024": "213",
+    "Jun 2024": "181",
+    "Sep 2024": "197",
+    "Dec 2024": "245",
+    "Mar 2025": "272",
+    "Jun 2025": "293",
+    "Sep 2025": "325",
+    "Dec 2025": "367",
+    "Mar 2026": "377"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2023": "64",
+    "Jun 2023": "212",
+    "Sep 2023": "314",
+    "Dec 2023": "475",
+    "Mar 2024": "919",
+    "Jun 2024": "501",
+    "Sep 2024": "467",
+    "Dec 2024": "646",
+    "Mar 2025": "416",
+    "Jun 2025": "565",
+    "Sep 2025": "477",
+    "Dec 2025": "676",
+    "Mar 2026": "519"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2023": "30%",
+    "Jun 2023": "21%",
+    "Sep 2023": "27%",
+    "Dec 2023": "22%",
+    "Mar 2024": "23%",
+    "Jun 2024": "22%",
+    "Sep 2024": "28%",
+    "Dec 2024": "23%",
+    "Mar 2025": "25%",
+    "Jun 2025": "25%",
+    "Sep 2025": "22%",
+    "Dec 2025": "25%",
+    "Mar 2026": "20%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2023": "45",
+    "Jun 2023": "167",
+    "Sep 2023": "228",
+    "Dec 2023": "371",
+    "Mar 2024": "712",
+    "Jun 2024": "391",
+    "Sep 2024": "335",
+    "Dec 2024": "497",
+    "Mar 2025": "312",
+    "Jun 2025": "425",
+    "Sep 2025": "373",
+    "Dec 2025": "510",
+    "Mar 2026": "413"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2023": "1.01",
+    "Jun 2023": "3.25",
+    "Sep 2023": "4.40",
+    "Dec 2023": "7.02",
+    "Mar 2024": "13.21",
+    "Jun 2024": "7.36",
+    "Sep 2024": "6.35",
+    "Dec 2024": "9.33",
+    "Mar 2025": "5.97",
+    "Jun 2025": "8.06",
+    "Sep 2025": "7.07",
+    "Dec 2025": "9.62",
+    "Mar 2026": "7.51"
+   },
+   {
+    "Unnamed: 0": "Raw PDF",
+    "Mar 2023": NaN,
+    "Jun 2023": NaN,
+    "Sep 2023": NaN,
+    "Dec 2023": NaN,
+    "Mar 2024": NaN,
+    "Jun 2024": NaN,
+    "Sep 2024": NaN,
+    "Dec 2024": NaN,
+    "Mar 2025": NaN,
+    "Jun 2025": NaN,
+    "Sep 2025": NaN,
+    "Dec 2025": NaN,
+    "Mar 2026": NaN
+   }
+  ],
+  "profit_loss": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2015": "2284",
+    "Mar 2016": "1686",
+    "Mar 2017": "1812",
+    "Mar 2018": "2157",
+    "Mar 2019": "2630",
+    "Mar 2020": "3486",
+    "Mar 2021": "2593",
+    "Mar 2022": "4498",
+    "Mar 2023": "8242",
+    "Mar 2024": "12375",
+    "Mar 2025": "17135",
+    "Mar 2026": "20074"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2015": "2196",
+    "Mar 2016": "1596",
+    "Mar 2017": "1679",
+    "Mar 2018": "1949",
+    "Mar 2019": "2390",
+    "Mar 2020": "2957",
+    "Mar 2021": "2479",
+    "Mar 2022": "3903",
+    "Mar 2023": "7128",
+    "Mar 2024": "10404",
+    "Mar 2025": "14315",
+    "Mar 2026": "16329"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2015": "88",
+    "Mar 2016": "90",
+    "Mar 2017": "134",
+    "Mar 2018": "208",
+    "Mar 2019": "241",
+    "Mar 2020": "529",
+    "Mar 2021": "114",
+    "Mar 2022": "595",
+    "Mar 2023": "1114",
+    "Mar 2024": "1971",
+    "Mar 2025": "2820",
+    "Mar 2026": "3745"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2015": "4%",
+    "Mar 2016": "5%",
+    "Mar 2017": "7%",
+    "Mar 2018": "10%",
+    "Mar 2019": "9%",
+    "Mar 2020": "15%",
+    "Mar 2021": "4%",
+    "Mar 2022": "13%",
+    "Mar 2023": "14%",
+    "Mar 2024": "16%",
+    "Mar 2025": "16%",
+    "Mar 2026": "19%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2015": "208",
+    "Mar 2016": "86",
+    "Mar 2017": "81",
+    "Mar 2018": "27",
+    "Mar 2019": "30",
+    "Mar 2020": "147",
+    "Mar 2021": "199",
+    "Mar 2022": "152",
+    "Mar 2023": "341",
+    "Mar 2024": "989",
+    "Mar 2025": "305",
+    "Mar 2026": "85"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2015": "22",
+    "Mar 2016": "48",
+    "Mar 2017": "46",
+    "Mar 2018": "44",
+    "Mar 2019": "51",
+    "Mar 2020": "263",
+    "Mar 2021": "261",
+    "Mar 2022": "325",
+    "Mar 2023": "409",
+    "Mar 2024": "368",
+    "Mar 2025": "200",
+    "Mar 2026": "233"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2015": "75",
+    "Mar 2016": "39",
+    "Mar 2017": "41",
+    "Mar 2018": "46",
+    "Mar 2019": "52",
+    "Mar 2020": "247",
+    "Mar 2021": "257",
+    "Mar 2022": "311",
+    "Mar 2023": "494",
+    "Mar 2024": "671",
+    "Mar 2025": "895",
+    "Mar 2026": "1361"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2015": "200",
+    "Mar 2016": "90",
+    "Mar 2017": "128",
+    "Mar 2018": "147",
+    "Mar 2019": "168",
+    "Mar 2020": "165",
+    "Mar 2021": "-205",
+    "Mar 2022": "111",
+    "Mar 2023": "552",
+    "Mar 2024": "1921",
+    "Mar 2025": "2030",
+    "Mar 2026": "2236"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2015": "35%",
+    "Mar 2016": "39%",
+    "Mar 2017": "34%",
+    "Mar 2018": "41%",
+    "Mar 2019": "44%",
+    "Mar 2020": "36%",
+    "Mar 2021": "-12%",
+    "Mar 2022": "69%",
+    "Mar 2023": "29%",
+    "Mar 2024": "23%",
+    "Mar 2025": "24%",
+    "Mar 2026": "23%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2015": "129",
+    "Mar 2016": "55",
+    "Mar 2017": "85",
+    "Mar 2018": "87",
+    "Mar 2019": "95",
+    "Mar 2020": "106",
+    "Mar 2021": "-181",
+    "Mar 2022": "35",
+    "Mar 2023": "394",
+    "Mar 2024": "1477",
+    "Mar 2025": "1534",
+    "Mar 2026": "1721"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2015": "2.60",
+    "Mar 2016": "1.11",
+    "Mar 2017": "1.70",
+    "Mar 2018": "1.74",
+    "Mar 2019": "1.95",
+    "Mar 2020": "2.30",
+    "Mar 2021": "-2.74",
+    "Mar 2022": "1.98",
+    "Mar 2023": "8.34",
+    "Mar 2024": "27.88",
+    "Mar 2025": "29.01",
+    "Mar 2026": "32.25"
+   },
+   {
+    "Unnamed: 0": "Dividend Payout %",
+    "Mar 2015": "26%",
+    "Mar 2016": "54%",
+    "Mar 2017": "39%",
+    "Mar 2018": "44%",
+    "Mar 2019": "45%",
+    "Mar 2020": "29%",
+    "Mar 2021": "-15%",
+    "Mar 2022": "57%",
+    "Mar 2023": "18%",
+    "Mar 2024": "8%",
+    "Mar 2025": "11%",
+    "Mar 2026": "8%"
+   }
+  ],
+  "balance_sheet": [
+   {
+    "Unnamed: 0": "Equity Capital",
+    "Mar 2015": 33,
+    "Mar 2016": 33,
+    "Mar 2017": 33,
+    "Mar 2018": 33,
+    "Mar 2019": 33,
+    "Mar 2020": 36,
+    "Mar 2021": 36,
+    "Mar 2022": 36,
+    "Mar 2023": 36,
+    "Mar 2024": 36,
+    "Mar 2025": 36,
+    "Mar 2026": 36
+   },
+   {
+    "Unnamed: 0": "Reserves",
+    "Mar 2015": 1389,
+    "Mar 2016": 1431,
+    "Mar 2017": 1514,
+    "Mar 2018": 1562,
+    "Mar 2019": 1613,
+    "Mar 2020": 2352,
+    "Mar 2021": 2277,
+    "Mar 2022": 2328,
+    "Mar 2023": 2560,
+    "Mar 2024": 4032,
+    "Mar 2025": 5426,
+    "Mar 2026": 6949
+   },
+   {
+    "Unnamed: 0": "Borrowings",
+    "Mar 2015": 267,
+    "Mar 2016": 400,
+    "Mar 2017": 392,
+    "Mar 2018": 391,
+    "Mar 2019": 494,
+    "Mar 2020": 300,
+    "Mar 2021": 2964,
+    "Mar 2022": 4725,
+    "Mar 2023": 4464,
+    "Mar 2024": 1753,
+    "Mar 2025": 2237,
+    "Mar 2026": 2561
+   },
+   {
+    "Unnamed: 0": "Other Liabilities",
+    "Mar 2015": 518,
+    "Mar 2016": 292,
+    "Mar 2017": 283,
+    "Mar 2018": 349,
+    "Mar 2019": 418,
+    "Mar 2020": 2819,
+    "Mar 2021": 447,
+    "Mar 2022": 637,
+    "Mar 2023": 1022,
+    "Mar 2024": 1341,
+    "Mar 2025": 1721,
+    "Mar 2026": 2183
+   },
+   {
+    "Unnamed: 0": "Total Liabilities",
+    "Mar 2015": 2207,
+    "Mar 2016": 2157,
+    "Mar 2017": 2222,
+    "Mar 2018": 2336,
+    "Mar 2019": 2559,
+    "Mar 2020": 5507,
+    "Mar 2021": 5724,
+    "Mar 2022": 7726,
+    "Mar 2023": 8082,
+    "Mar 2024": 7162,
+    "Mar 2025": 9420,
+    "Mar 2026": 11729
+   },
+   {
+    "Unnamed: 0": "Fixed Assets",
+    "Mar 2015": 668,
+    "Mar 2016": 477,
+    "Mar 2017": 549,
+    "Mar 2018": 613,
+    "Mar 2019": 662,
+    "Mar 2020": 2738,
+    "Mar 2021": 3054,
+    "Mar 2022": 4687,
+    "Mar 2023": 4527,
+    "Mar 2024": 2450,
+    "Mar 2025": 3895,
+    "Mar 2026": 5519
+   },
+   {
+    "Unnamed: 0": "CWIP",
+    "Mar 2015": 92,
+    "Mar 2016": 55,
+    "Mar 2017": 5,
+    "Mar 2018": 10,
+    "Mar 2019": 87,
+    "Mar 2020": 23,
+    "Mar 2021": 108,
+    "Mar 2022": 105,
+    "Mar 2023": 102,
+    "Mar 2024": 224,
+    "Mar 2025": 180,
+    "Mar 2026": 254
+   },
+   {
+    "Unnamed: 0": "Investments",
+    "Mar 2015": 740,
+    "Mar 2016": 1067,
+    "Mar 2017": 1080,
+    "Mar 2018": 1023,
+    "Mar 2019": 883,
+    "Mar 2020": 1515,
+    "Mar 2021": 1487,
+    "Mar 2022": 1284,
+    "Mar 2023": 1110,
+    "Mar 2024": 1416,
+    "Mar 2025": 1480,
+    "Mar 2026": 1385
+   },
+   {
+    "Unnamed: 0": "Other Assets",
+    "Mar 2015": 706,
+    "Mar 2016": 558,
+    "Mar 2017": 588,
+    "Mar 2018": 691,
+    "Mar 2019": 927,
+    "Mar 2020": 1230,
+    "Mar 2021": 1075,
+    "Mar 2022": 1651,
+    "Mar 2023": 2343,
+    "Mar 2024": 3072,
+    "Mar 2025": 3865,
+    "Mar 2026": 4571
+   },
+   {
+    "Unnamed: 0": "Total Assets",
+    "Mar 2015": 2207,
+    "Mar 2016": 2157,
+    "Mar 2017": 2222,
+    "Mar 2018": 2336,
+    "Mar 2019": 2559,
+    "Mar 2020": 5507,
+    "Mar 2021": 5724,
+    "Mar 2022": 7726,
+    "Mar 2023": 8082,
+    "Mar 2024": 7162,
+    "Mar 2025": 9420,
+    "Mar 2026": 11729
+   }
+  ],
+  "cash_flow": [
+   {
+    "Unnamed: 0": "Cash from Operating Activity",
+    "Mar 2015": "-10",
+    "Mar 2016": "109",
+    "Mar 2017": "102",
+    "Mar 2018": "77",
+    "Mar 2019": "21",
+    "Mar 2020": "361",
+    "Mar 2021": "285",
+    "Mar 2022": "58",
+    "Mar 2023": "595",
+    "Mar 2024": "1349",
+    "Mar 2025": "1661",
+    "Mar 2026": "2668"
+   },
+   {
+    "Unnamed: 0": "Cash from Investing Activity",
+    "Mar 2015": "-306",
+    "Mar 2016": "-98",
+    "Mar 2017": "-44",
+    "Mar 2018": "-4",
+    "Mar 2019": "-37",
+    "Mar 2020": "-809",
+    "Mar 2021": "18",
+    "Mar 2022": "56",
+    "Mar 2023": "-103",
+    "Mar 2024": "-508",
+    "Mar 2025": "-923",
+    "Mar 2026": "-1577"
+   },
+   {
+    "Unnamed: 0": "Cash from Financing Activity",
+    "Mar 2015": "310",
+    "Mar 2016": "-13",
+    "Mar 2017": "-51",
+    "Mar 2018": "-74",
+    "Mar 2019": "37",
+    "Mar 2020": "452",
+    "Mar 2021": "-283",
+    "Mar 2022": "-108",
+    "Mar 2023": "-491",
+    "Mar 2024": "-629",
+    "Mar 2025": "-694",
+    "Mar 2026": "-1148"
+   },
+   {
+    "Unnamed: 0": "Net Cash Flow",
+    "Mar 2015": "-6",
+    "Mar 2016": "-2",
+    "Mar 2017": "7",
+    "Mar 2018": "-1",
+    "Mar 2019": "21",
+    "Mar 2020": "5",
+    "Mar 2021": "20",
+    "Mar 2022": "6",
+    "Mar 2023": "1",
+    "Mar 2024": "211",
+    "Mar 2025": "44",
+    "Mar 2026": "-57"
+   },
+   {
+    "Unnamed: 0": "Free Cash Flow",
+    "Mar 2015": "-166",
+    "Mar 2016": "-21",
+    "Mar 2017": "34",
+    "Mar 2018": "-30",
+    "Mar 2019": "-174",
+    "Mar 2020": "247",
+    "Mar 2021": "194",
+    "Mar 2022": "-152",
+    "Mar 2023": "371",
+    "Mar 2024": "955",
+    "Mar 2025": "799",
+    "Mar 2026": "931"
+   },
+   {
+    "Unnamed: 0": "CFO/OP",
+    "Mar 2015": "4%",
+    "Mar 2016": "144%",
+    "Mar 2017": "105%",
+    "Mar 2018": "61%",
+    "Mar 2019": "41%",
+    "Mar 2020": "84%",
+    "Mar 2021": "251%",
+    "Mar 2022": "23%",
+    "Mar 2023": "71%",
+    "Mar 2024": "84%",
+    "Mar 2025": "76%",
+    "Mar 2026": "86%"
+   }
+  ],
+  "ratios": [
+   {
+    "Unnamed: 0": "Debtor Days",
+    "Mar 2015": "3",
+    "Mar 2016": "3",
+    "Mar 2017": "1",
+    "Mar 2018": "3",
+    "Mar 2019": "2",
+    "Mar 2020": "2",
+    "Mar 2021": "3",
+    "Mar 2022": "1",
+    "Mar 2023": "2",
+    "Mar 2024": "2",
+    "Mar 2025": "1",
+    "Mar 2026": "1"
+   },
+   {
+    "Unnamed: 0": "Inventory Days",
+    "Mar 2015": "91",
+    "Mar 2016": "128",
+    "Mar 2017": "126",
+    "Mar 2018": "122",
+    "Mar 2019": "138",
+    "Mar 2020": "118",
+    "Mar 2021": "102",
+    "Mar 2022": "128",
+    "Mar 2023": "105",
+    "Mar 2024": "83",
+    "Mar 2025": "77",
+    "Mar 2026": "74"
+   },
+   {
+    "Unnamed: 0": "Days Payable",
+    "Mar 2015": "61",
+    "Mar 2016": "76",
+    "Mar 2017": "70",
+    "Mar 2018": "74",
+    "Mar 2019": "68",
+    "Mar 2020": "58",
+    "Mar 2021": "65",
+    "Mar 2022": "56",
+    "Mar 2023": "51",
+    "Mar 2024": "41",
+    "Mar 2025": "35",
+    "Mar 2026": "39"
+   },
+   {
+    "Unnamed: 0": "Cash Conversion Cycle",
+    "Mar 2015": "33",
+    "Mar 2016": "55",
+    "Mar 2017": "58",
+    "Mar 2018": "51",
+    "Mar 2019": "72",
+    "Mar 2020": "62",
+    "Mar 2021": "40",
+    "Mar 2022": "74",
+    "Mar 2023": "55",
+    "Mar 2024": "45",
+    "Mar 2025": "43",
+    "Mar 2026": "36"
+   },
+   {
+    "Unnamed: 0": "Working Capital Days",
+    "Mar 2015": "-15",
+    "Mar 2016": "-25",
+    "Mar 2017": "36",
+    "Mar 2018": "41",
+    "Mar 2019": "24",
+    "Mar 2020": "39",
+    "Mar 2021": "-14",
+    "Mar 2022": "42",
+    "Mar 2023": "29",
+    "Mar 2024": "16",
+    "Mar 2025": "15",
+    "Mar 2026": "-2"
+   },
+   {
+    "Unnamed: 0": "ROCE %",
+    "Mar 2015": "4%",
+    "Mar 2016": "7%",
+    "Mar 2017": "9%",
+    "Mar 2018": "10%",
+    "Mar 2019": "11%",
+    "Mar 2020": "17%",
+    "Mar 2021": "1%",
+    "Mar 2022": "7%",
+    "Mar 2023": "12%",
+    "Mar 2024": "24%",
+    "Mar 2025": "31%",
+    "Mar 2026": "28%"
+   }
+  ],
+  "shareholding": [
+   {
+    "Unnamed: 0": "Promoters",
+    "Sep 2023": "37.01%",
+    "Dec 2023": "37.01%",
+    "Mar 2024": "37.01%",
+    "Jun 2024": "37.01%",
+    "Sep 2024": "37.01%",
+    "Dec 2024": "37.01%",
+    "Mar 2025": "37.01%",
+    "Jun 2025": "37.01%",
+    "Sep 2025": "37.01%",
+    "Dec 2025": "37.01%",
+    "Mar 2026": "37.01%",
+    "Jun 2026": "37.01%"
+   },
+   {
+    "Unnamed: 0": "FIIs",
+    "Sep 2023": "26.17%",
+    "Dec 2023": "25.91%",
+    "Mar 2024": "26.81%",
+    "Jun 2024": "27.87%",
+    "Sep 2024": "26.62%",
+    "Dec 2024": "21.68%",
+    "Mar 2025": "19.65%",
+    "Jun 2025": "18.39%",
+    "Sep 2025": "16.81%",
+    "Dec 2025": "15.62%",
+    "Mar 2026": "15.59%",
+    "Jun 2026": "15.14%"
+   },
+   {
+    "Unnamed: 0": "DIIs",
+    "Sep 2023": "14.89%",
+    "Dec 2023": "14.82%",
+    "Mar 2024": "13.89%",
+    "Jun 2024": "13.18%",
+    "Sep 2024": "13.39%",
+    "Dec 2024": "15.25%",
+    "Mar 2025": "17.20%",
+    "Jun 2025": "18.42%",
+    "Sep 2025": "19.84%",
+    "Dec 2025": "21.37%",
+    "Mar 2026": "22.19%",
+    "Jun 2026": "23.07%"
+   },
+   {
+    "Unnamed: 0": "Government",
+    "Sep 2023": "0.00%",
+    "Dec 2023": "0.00%",
+    "Mar 2024": "0.00%",
+    "Jun 2024": "0.00%",
+    "Sep 2024": "0.00%",
+    "Dec 2024": "0.04%",
+    "Mar 2025": "0.04%",
+    "Jun 2025": "0.12%",
+    "Sep 2025": "0.13%",
+    "Dec 2025": "0.13%",
+    "Mar 2026": "0.17%",
+    "Jun 2026": "0.19%"
+   },
+   {
+    "Unnamed: 0": "Public",
+    "Sep 2023": "21.92%",
+    "Dec 2023": "22.26%",
+    "Mar 2024": "22.29%",
+    "Jun 2024": "21.95%",
+    "Sep 2024": "22.98%",
+    "Dec 2024": "26.01%",
+    "Mar 2025": "26.08%",
+    "Jun 2025": "26.06%",
+    "Sep 2025": "26.18%",
+    "Dec 2025": "25.87%",
+    "Mar 2026": "25.03%",
+    "Jun 2026": "24.57%"
+   },
+   {
+    "Unnamed: 0": "No. of Shareholders",
+    "Sep 2023": "149010",
+    "Dec 2023": "175241",
+    "Mar 2024": "215715",
+    "Jun 2024": "246571",
+    "Sep 2024": "281635",
+    "Dec 2024": "346036",
+    "Mar 2025": "405274",
+    "Jun 2025": "421038",
+    "Sep 2025": "488273",
+    "Dec 2025": "507525",
+    "Mar 2026": "512623",
+    "Jun 2026": "520340"
+   }
+  ]
+ },
+ "top_ratios": {
+  "Market Cap": "\u20b9 1,52,512 Cr.",
+  "Current Price": "\u20b9 2,860",
+  "High / Low": "\u20b9 3,783 / 2,184",
+  "Stock P/E": "88.4",
+  "Book Value": "\u20b9 131",
+  "Dividend Yield": "0.14 %",
+  "ROCE": "28.3 %",
+  "ROE": "27.7 %",
+  "Face Value": "\u20b9 1.00"
+ },
+ "documents": [
+  {
+   "text": "All",
+   "href": "https://www.bseindia.com/stock-share-price/trent-ltd/TRENT/500251/corp-announcements/"
+  },
+  {
+   "text": "Board Meeting Intimation for Notice Of Board Meeting 1d - Board meets on 6 Augus",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b89a1e31-2aad-4833-9b8a-abace5eb63d1.pdf"
+  },
+  {
+   "text": "Update For Q1FY27 6 Jul - Q1FY27 standalone revenue rose 19% to Rs 5,666 crore; ",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=5a746ed7-2b55-45d5-bb6e-751a788c4a39.pdf"
+  },
+  {
+   "text": "Compliances-Certificate under Reg. 74 (5) of SEBI (DP) Regulations, 2018 3 Jul -",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=ec4fe885-2f16-4c55-98e6-b305643bcb14.pdf"
+  },
+  {
+   "text": "Shareholder Meeting / Postal Ballot-Scrutinizer''s Report 23 Jun",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=1a92b8ae-7225-416e-9a9f-5d620796b232.pdf"
+  },
+  {
+   "text": "Shareholder Meeting / Postal Ballot-Outcome of AGM 23 Jun - Trent held its 74th ",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=932e34a3-dfb1-451a-a6ad-c2ca8d794e80.pdf"
+  },
+  {
+   "text": "Financial Year 2026 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/c3f6fa4a-3c51-453e-b634-3c3ef98f7361.pdf"
+  },
+  {
+   "text": "Financial Year 2025 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/305e1656-360b-4f28-b00d-fd6b152723b5.pdf"
+  },
+  {
+   "text": "Financial Year 2024 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/c7330ad5-ba82-4673-baaa-b39af9c47c87.pdf"
+  },
+  {
+   "text": "Financial Year 2023 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/58357a1d-01e7-410e-a079-834f7aefce44.pdf"
+  },
+  {
+   "text": "Financial Year 2022 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/500251/72987500251.pdf"
+  },
+  {
+   "text": "Financial Year 2021 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/500251/68577500251.pdf"
+  },
+  {
+   "text": "Financial Year 2020 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/500251/5002510320.pdf"
+  },
+  {
+   "text": "Financial Year 2019 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/500251/5002510319.pdf"
+  },
+  {
+   "text": "Financial Year 2018 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/500251/5002510318.pdf"
+  },
+  {
+   "text": "Financial Year 2017 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/500251/5002510317.pdf"
+  },
+  {
+   "text": "Financial Year 2016 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/500251/5002510316.pdf"
+  },
+  {
+   "text": "Financial Year 2015 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/500251/5002510315.pdf"
+  },
+  {
+   "text": "Financial Year 2014 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/500251/5002510314.pdf"
+  },
+  {
+   "text": "Financial Year 2013 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/500251/5002510313.pdf"
+  },
+  {
+   "text": "Financial Year 2012 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/500251/5002510312.pdf"
+  },
+  {
+   "text": "Right Issue",
+   "href": "https://www.sebi.gov.in/filings/rights-issues/jul-2010/trent-limited_722.html"
+  },
+  {
+   "text": "Rating update 12 May from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/202605120534_Trent_Limited.pdf"
+  },
+  {
+   "text": "Rating update 7 May from icra",
+   "href": "https://www.icra.in/Rationale/ShowRationaleReport/?Id=142890"
+  },
+  {
+   "text": "Rating update 21 Nov 2025 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/202511121132_Trent_Limited.pdf"
+  },
+  {
+   "text": "Rating update 8 May 2025 from icra",
+   "href": "https://www.icra.in/Rationale/ShowRationaleReport/?Id=134956"
+  },
+  {
+   "text": "Rating update 22 Nov 2024 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/202411131145_Trent_Limited.pdf"
+  },
+  {
+   "text": "Rating update 10 May 2024 from icra",
+   "href": "https://www.icra.in/Rationale/ShowRationaleReport/?Id=127410"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=e08ff77d-7f68-46d2-acc6-ed26ee5c4974.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://docs.trent-tata.com/Investor_Presentation_Q3FY26.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://docs.trent-tata.com/Investor_Presentation_Q2_FY26.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=8b445c87-9c3c-4747-af2e-afde246c803c.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b25ff32f-40f3-4190-8525-3f53102a4938.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://docs.trent-tata.com/Trent_Limited_Q4FY25_Investor_Deck_V3.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://docs.trent-tata.com/Investor_presentation_Q3_FY_2025.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://docs.trent-tata.com/TrentLimited/Financial%20Results/2024-25/Q2/Investor%20Presentation%20Q2%20FY%202025.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://docs.trent-tata.com/TrentLimited/Financial%20Results/2024-25/Q1/Investors%20Presentation%20Q1%20FY%202024.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://docs.trentlimited.com/TrentLimited/Financial%20Results/2023-24/Q4/Investor%20Presentation%20Q4%20FY%202024.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=732f88cb-4f90-48de-a13b-61b2a0792b49.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://docs.trentlimited.com/investor/Investor_Presentation_for_the_quarter_ended_30th_September_2023.pdf?v=1699357435"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=af345fa3-580c-4e65-b9c2-b5914abf576a.pdf"
+  }
+ ]
+}

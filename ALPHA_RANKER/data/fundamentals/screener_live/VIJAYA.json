@@ -1,0 +1,946 @@
+{
+ "ticker": "VIJAYA",
+ "url_path": "VIJAYA/consolidated/",
+ "tables": {
+  "quarterly_results": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2023": "121",
+    "Jun 2023": "121",
+    "Sep 2023": "139",
+    "Dec 2023": "133",
+    "Mar 2024": "155",
+    "Jun 2024": "156",
+    "Sep 2024": "183",
+    "Dec 2024": "169",
+    "Mar 2025": "173",
+    "Jun 2025": "188",
+    "Sep 2025": "202",
+    "Dec 2025": "205",
+    "Mar 2026": "219"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2023": "72",
+    "Jun 2023": "73",
+    "Sep 2023": "82",
+    "Dec 2023": "80",
+    "Mar 2024": "92",
+    "Jun 2024": "95",
+    "Sep 2024": "107",
+    "Dec 2024": "102",
+    "Mar 2025": "104",
+    "Jun 2025": "115",
+    "Sep 2025": "120",
+    "Dec 2025": "119",
+    "Mar 2026": "124"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2023": "49",
+    "Jun 2023": "48",
+    "Sep 2023": "57",
+    "Dec 2023": "52",
+    "Mar 2024": "63",
+    "Jun 2024": "61",
+    "Sep 2024": "76",
+    "Dec 2024": "67",
+    "Mar 2025": "69",
+    "Jun 2025": "74",
+    "Sep 2025": "82",
+    "Dec 2025": "86",
+    "Mar 2026": "96"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2023": "41%",
+    "Jun 2023": "40%",
+    "Sep 2023": "41%",
+    "Dec 2023": "39%",
+    "Mar 2024": "41%",
+    "Jun 2024": "39%",
+    "Sep 2024": "42%",
+    "Dec 2024": "40%",
+    "Mar 2025": "40%",
+    "Jun 2025": "39%",
+    "Sep 2025": "41%",
+    "Dec 2025": "42%",
+    "Mar 2026": "44%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2023": "5",
+    "Jun 2023": "6",
+    "Sep 2023": "7",
+    "Dec 2023": "3",
+    "Mar 2024": "3",
+    "Jun 2024": "4",
+    "Sep 2024": "5",
+    "Dec 2024": "5",
+    "Mar 2025": "5",
+    "Jun 2025": "7",
+    "Sep 2025": "6",
+    "Dec 2025": "5",
+    "Mar 2026": "2"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2023": "6",
+    "Jun 2023": "6",
+    "Sep 2023": "6",
+    "Dec 2023": "6",
+    "Mar 2024": "6",
+    "Jun 2024": "6",
+    "Sep 2024": "6",
+    "Dec 2024": "7",
+    "Mar 2025": "7",
+    "Jun 2025": "7",
+    "Sep 2025": "8",
+    "Dec 2025": "9",
+    "Mar 2026": "9"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2023": "11",
+    "Jun 2023": "12",
+    "Sep 2023": "14",
+    "Dec 2023": "15",
+    "Mar 2024": "16",
+    "Jun 2024": "17",
+    "Sep 2024": "17",
+    "Dec 2024": "18",
+    "Mar 2025": "19",
+    "Jun 2025": "21",
+    "Sep 2025": "22",
+    "Dec 2025": "24",
+    "Mar 2026": "24"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2023": "36",
+    "Jun 2023": "35",
+    "Sep 2023": "45",
+    "Dec 2023": "35",
+    "Mar 2024": "44",
+    "Jun 2024": "42",
+    "Sep 2024": "57",
+    "Dec 2024": "47",
+    "Mar 2025": "47",
+    "Jun 2025": "52",
+    "Sep 2025": "58",
+    "Dec 2025": "58",
+    "Mar 2026": "64"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2023": "24%",
+    "Jun 2023": "26%",
+    "Sep 2023": "25%",
+    "Dec 2023": "25%",
+    "Mar 2024": "23%",
+    "Jun 2024": "25%",
+    "Sep 2024": "26%",
+    "Dec 2024": "24%",
+    "Mar 2025": "26%",
+    "Jun 2025": "26%",
+    "Sep 2025": "25%",
+    "Dec 2025": "26%",
+    "Mar 2026": "25%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2023": "28",
+    "Jun 2023": "26",
+    "Sep 2023": "34",
+    "Dec 2023": "26",
+    "Mar 2024": "34",
+    "Jun 2024": "32",
+    "Sep 2024": "42",
+    "Dec 2024": "35",
+    "Mar 2025": "35",
+    "Jun 2025": "39",
+    "Sep 2025": "43",
+    "Dec 2025": "43",
+    "Mar 2026": "48"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2023": "2.69",
+    "Jun 2023": "2.57",
+    "Sep 2023": "3.26",
+    "Dec 2023": "2.53",
+    "Mar 2024": "3.27",
+    "Jun 2024": "3.06",
+    "Sep 2024": "4.10",
+    "Dec 2024": "3.43",
+    "Mar 2025": "3.40",
+    "Jun 2025": "3.76",
+    "Sep 2025": "4.21",
+    "Dec 2025": "4.20",
+    "Mar 2026": "4.66"
+   },
+   {
+    "Unnamed: 0": "Raw PDF",
+    "Mar 2023": NaN,
+    "Jun 2023": NaN,
+    "Sep 2023": NaN,
+    "Dec 2023": NaN,
+    "Mar 2024": NaN,
+    "Jun 2024": NaN,
+    "Sep 2024": NaN,
+    "Dec 2024": NaN,
+    "Mar 2025": NaN,
+    "Jun 2025": NaN,
+    "Sep 2025": NaN,
+    "Dec 2025": NaN,
+    "Mar 2026": NaN
+   }
+  ],
+  "profit_loss": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2018": "251",
+    "Mar 2019": "293",
+    "Mar 2020": "339",
+    "Mar 2021": "377",
+    "Mar 2022": "462",
+    "Mar 2023": "459",
+    "Mar 2024": "548",
+    "Mar 2025": "681",
+    "Mar 2026": "814"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2018": "171",
+    "Mar 2019": "184",
+    "Mar 2020": "206",
+    "Mar 2021": "211",
+    "Mar 2022": "259",
+    "Mar 2023": "277",
+    "Mar 2024": "327",
+    "Mar 2025": "408",
+    "Mar 2026": "477"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2018": "80",
+    "Mar 2019": "108",
+    "Mar 2020": "133",
+    "Mar 2021": "166",
+    "Mar 2022": "204",
+    "Mar 2023": "182",
+    "Mar 2024": "221",
+    "Mar 2025": "273",
+    "Mar 2026": "337"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2018": "32%",
+    "Mar 2019": "37%",
+    "Mar 2020": "39%",
+    "Mar 2021": "44%",
+    "Mar 2022": "44%",
+    "Mar 2023": "40%",
+    "Mar 2024": "40%",
+    "Mar 2025": "40%",
+    "Mar 2026": "41%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2018": "7",
+    "Mar 2019": "10",
+    "Mar 2020": "15",
+    "Mar 2021": "12",
+    "Mar 2022": "13",
+    "Mar 2023": "14",
+    "Mar 2024": "19",
+    "Mar 2025": "17",
+    "Mar 2026": "21"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2018": "5",
+    "Mar 2019": "14",
+    "Mar 2020": "15",
+    "Mar 2021": "15",
+    "Mar 2022": "16",
+    "Mar 2023": "21",
+    "Mar 2024": "24",
+    "Mar 2025": "27",
+    "Mar 2026": "33"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2018": "26",
+    "Mar 2019": "40",
+    "Mar 2020": "49",
+    "Mar 2021": "50",
+    "Mar 2022": "53",
+    "Mar 2023": "62",
+    "Mar 2024": "57",
+    "Mar 2025": "71",
+    "Mar 2026": "92"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2018": "55",
+    "Mar 2019": "65",
+    "Mar 2020": "83",
+    "Mar 2021": "112",
+    "Mar 2022": "147",
+    "Mar 2023": "114",
+    "Mar 2024": "159",
+    "Mar 2025": "193",
+    "Mar 2026": "233"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2018": "37%",
+    "Mar 2019": "29%",
+    "Mar 2020": "25%",
+    "Mar 2021": "24%",
+    "Mar 2022": "25%",
+    "Mar 2023": "25%",
+    "Mar 2024": "25%",
+    "Mar 2025": "26%",
+    "Mar 2026": "26%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2018": "35",
+    "Mar 2019": "46",
+    "Mar 2020": "63",
+    "Mar 2021": "85",
+    "Mar 2022": "111",
+    "Mar 2023": "85",
+    "Mar 2024": "120",
+    "Mar 2025": "144",
+    "Mar 2026": "173"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2018": "77.44",
+    "Mar 2019": "101.29",
+    "Mar 2020": "138.00",
+    "Mar 2021": "18.64",
+    "Mar 2022": "10.76",
+    "Mar 2023": "8.29",
+    "Mar 2024": "11.61",
+    "Mar 2025": "13.94",
+    "Mar 2026": "16.81"
+   },
+   {
+    "Unnamed: 0": "Dividend Payout %",
+    "Mar 2018": "0%",
+    "Mar 2019": "0%",
+    "Mar 2020": "0%",
+    "Mar 2021": "0%",
+    "Mar 2022": "9%",
+    "Mar 2023": "12%",
+    "Mar 2024": "9%",
+    "Mar 2025": "14%",
+    "Mar 2026": "12%"
+   }
+  ],
+  "balance_sheet": [
+   {
+    "Unnamed: 0": "Equity Capital",
+    "Mar 2018": 5,
+    "Mar 2019": 5,
+    "Mar 2020": 5,
+    "Mar 2021": 5,
+    "Mar 2022": 10,
+    "Mar 2023": 10,
+    "Mar 2024": 10,
+    "Mar 2025": 10,
+    "Mar 2026": 10
+   },
+   {
+    "Unnamed: 0": "Reserves",
+    "Mar 2018": 157,
+    "Mar 2019": 203,
+    "Mar 2020": 270,
+    "Mar 2021": 354,
+    "Mar 2022": 458,
+    "Mar 2023": 535,
+    "Mar 2024": 647,
+    "Mar 2025": 785,
+    "Mar 2026": 947
+   },
+   {
+    "Unnamed: 0": "Borrowings",
+    "Mar 2018": 33,
+    "Mar 2019": 146,
+    "Mar 2020": 161,
+    "Mar 2021": 141,
+    "Mar 2022": 183,
+    "Mar 2023": 248,
+    "Mar 2024": 259,
+    "Mar 2025": 320,
+    "Mar 2026": 423
+   },
+   {
+    "Unnamed: 0": "Other Liabilities",
+    "Mar 2018": 39,
+    "Mar 2019": 53,
+    "Mar 2020": 46,
+    "Mar 2021": 41,
+    "Mar 2022": 62,
+    "Mar 2023": 61,
+    "Mar 2024": 66,
+    "Mar 2025": 158,
+    "Mar 2026": 127
+   },
+   {
+    "Unnamed: 0": "Total Liabilities",
+    "Mar 2018": 234,
+    "Mar 2019": 406,
+    "Mar 2020": 482,
+    "Mar 2021": 541,
+    "Mar 2022": 713,
+    "Mar 2023": 853,
+    "Mar 2024": 983,
+    "Mar 2025": 1274,
+    "Mar 2026": 1507
+   },
+   {
+    "Unnamed: 0": "Fixed Assets",
+    "Mar 2018": 119,
+    "Mar 2019": 259,
+    "Mar 2020": 272,
+    "Mar 2021": 268,
+    "Mar 2022": 370,
+    "Mar 2023": 524,
+    "Mar 2024": 742,
+    "Mar 2025": 865,
+    "Mar 2026": 1070
+   },
+   {
+    "Unnamed: 0": "CWIP",
+    "Mar 2018": 3,
+    "Mar 2019": 3,
+    "Mar 2020": 10,
+    "Mar 2021": 9,
+    "Mar 2022": 34,
+    "Mar 2023": 28,
+    "Mar 2024": 9,
+    "Mar 2025": 70,
+    "Mar 2026": 34
+   },
+   {
+    "Unnamed: 0": "Investments",
+    "Mar 2018": 73,
+    "Mar 2019": 69,
+    "Mar 2020": 55,
+    "Mar 2021": 28,
+    "Mar 2022": 54,
+    "Mar 2023": 139,
+    "Mar 2024": 109,
+    "Mar 2025": 185,
+    "Mar 2026": 228
+   },
+   {
+    "Unnamed: 0": "Other Assets",
+    "Mar 2018": 39,
+    "Mar 2019": 76,
+    "Mar 2020": 146,
+    "Mar 2021": 236,
+    "Mar 2022": 255,
+    "Mar 2023": 163,
+    "Mar 2024": 123,
+    "Mar 2025": 154,
+    "Mar 2026": 174
+   },
+   {
+    "Unnamed: 0": "Total Assets",
+    "Mar 2018": 234,
+    "Mar 2019": 406,
+    "Mar 2020": 482,
+    "Mar 2021": 541,
+    "Mar 2022": 713,
+    "Mar 2023": 853,
+    "Mar 2024": 983,
+    "Mar 2025": 1274,
+    "Mar 2026": 1507
+   }
+  ],
+  "cash_flow": [
+   {
+    "Unnamed: 0": "Cash from Operating Activity",
+    "Mar 2018": "62",
+    "Mar 2019": "91",
+    "Mar 2020": "106",
+    "Mar 2021": "130",
+    "Mar 2022": "158",
+    "Mar 2023": "165",
+    "Mar 2024": "183",
+    "Mar 2025": "224",
+    "Mar 2026": "271"
+   },
+   {
+    "Unnamed: 0": "Cash from Investing Activity",
+    "Mar 2018": "-98",
+    "Mar 2019": "-90",
+    "Mar 2020": "-31",
+    "Mar 2021": "-130",
+    "Mar 2022": "-123",
+    "Mar 2023": "-110",
+    "Mar 2024": "-141",
+    "Mar 2025": "-182",
+    "Mar 2026": "-174"
+   },
+   {
+    "Unnamed: 0": "Cash from Financing Activity",
+    "Mar 2018": "-8",
+    "Mar 2019": "-7",
+    "Mar 2020": "-30",
+    "Mar 2021": "-49",
+    "Mar 2022": "-31",
+    "Mar 2023": "-42",
+    "Mar 2024": "-45",
+    "Mar 2025": "-52",
+    "Mar 2026": "-69"
+   },
+   {
+    "Unnamed: 0": "Net Cash Flow",
+    "Mar 2018": "-44",
+    "Mar 2019": "-6",
+    "Mar 2020": "46",
+    "Mar 2021": "-49",
+    "Mar 2022": "4",
+    "Mar 2023": "13",
+    "Mar 2024": "-2",
+    "Mar 2025": "-9",
+    "Mar 2026": "27"
+   },
+   {
+    "Unnamed: 0": "Free Cash Flow",
+    "Mar 2018": "32",
+    "Mar 2019": "31",
+    "Mar 2020": "69",
+    "Mar 2021": "98",
+    "Mar 2022": "37",
+    "Mar 2023": "40",
+    "Mar 2024": "99",
+    "Mar 2025": "132",
+    "Mar 2026": "91"
+   },
+   {
+    "Unnamed: 0": "CFO/OP",
+    "Mar 2018": "103%",
+    "Mar 2019": "101%",
+    "Mar 2020": "98%",
+    "Mar 2021": "97%",
+    "Mar 2022": "97%",
+    "Mar 2023": "105%",
+    "Mar 2024": "98%",
+    "Mar 2025": "97%",
+    "Mar 2026": "96%"
+   }
+  ],
+  "ratios": [
+   {
+    "Unnamed: 0": "Debtor Days",
+    "Mar 2018": 12.0,
+    "Mar 2019": "11",
+    "Mar 2020": "9",
+    "Mar 2021": "6",
+    "Mar 2022": "8",
+    "Mar 2023": "8",
+    "Mar 2024": "11",
+    "Mar 2025": "8",
+    "Mar 2026": "9"
+   },
+   {
+    "Unnamed: 0": "Inventory Days",
+    "Mar 2018": 24.0,
+    "Mar 2019": "20",
+    "Mar 2020": "23",
+    "Mar 2021": "17",
+    "Mar 2022": "22",
+    "Mar 2023": "13",
+    "Mar 2024": "29",
+    "Mar 2025": "21",
+    "Mar 2026": "19"
+   },
+   {
+    "Unnamed: 0": "Days Payable",
+    "Mar 2018": 176.0,
+    "Mar 2019": "196",
+    "Mar 2020": "180",
+    "Mar 2021": "142",
+    "Mar 2022": "110",
+    "Mar 2023": "172",
+    "Mar 2024": "184",
+    "Mar 2025": "143",
+    "Mar 2026": "145"
+   },
+   {
+    "Unnamed: 0": "Cash Conversion Cycle",
+    "Mar 2018": -140.0,
+    "Mar 2019": "-165",
+    "Mar 2020": "-149",
+    "Mar 2021": "-118",
+    "Mar 2022": "-81",
+    "Mar 2023": "-152",
+    "Mar 2024": "-144",
+    "Mar 2025": "-114",
+    "Mar 2026": "-117"
+   },
+   {
+    "Unnamed: 0": "Working Capital Days",
+    "Mar 2018": -41.0,
+    "Mar 2019": "-51",
+    "Mar 2020": "-49",
+    "Mar 2021": "-26",
+    "Mar 2022": "-34",
+    "Mar 2023": "-36",
+    "Mar 2024": "-29",
+    "Mar 2025": "-48",
+    "Mar 2026": "65"
+   },
+   {
+    "Unnamed: 0": "ROCE %",
+    "Mar 2018": NaN,
+    "Mar 2019": "28%",
+    "Mar 2020": "23%",
+    "Mar 2021": "27%",
+    "Mar 2022": "28%",
+    "Mar 2023": "18%",
+    "Mar 2024": "20%",
+    "Mar 2025": "21%",
+    "Mar 2026": "21%"
+   }
+  ],
+  "shareholding": [
+   {
+    "Unnamed: 0": "Promoters",
+    "Jun 2023": "54.98%",
+    "Sep 2023": "54.90%",
+    "Dec 2023": "54.87%",
+    "Mar 2024": "54.06%",
+    "Jun 2024": "53.92%",
+    "Sep 2024": "53.91%",
+    "Dec 2024": "53.91%",
+    "Mar 2025": "53.05%",
+    "Jun 2025": "52.63%",
+    "Sep 2025": "52.60%",
+    "Dec 2025": "52.60%",
+    "Mar 2026": "52.51%"
+   },
+   {
+    "Unnamed: 0": "FIIs",
+    "Jun 2023": "20.27%",
+    "Sep 2023": "20.68%",
+    "Dec 2023": "19.95%",
+    "Mar 2024": "20.09%",
+    "Jun 2024": "20.08%",
+    "Sep 2024": "18.14%",
+    "Dec 2024": "17.54%",
+    "Mar 2025": "19.36%",
+    "Jun 2025": "19.56%",
+    "Sep 2025": "18.27%",
+    "Dec 2025": "15.10%",
+    "Mar 2026": "13.38%"
+   },
+   {
+    "Unnamed: 0": "DIIs",
+    "Jun 2023": "19.02%",
+    "Sep 2023": "18.64%",
+    "Dec 2023": "19.82%",
+    "Mar 2024": "20.80%",
+    "Jun 2024": "21.49%",
+    "Sep 2024": "23.45%",
+    "Dec 2024": "24.62%",
+    "Mar 2025": "23.72%",
+    "Jun 2025": "24.07%",
+    "Sep 2025": "25.34%",
+    "Dec 2025": "28.60%",
+    "Mar 2026": "29.93%"
+   },
+   {
+    "Unnamed: 0": "Public",
+    "Jun 2023": "5.73%",
+    "Sep 2023": "5.78%",
+    "Dec 2023": "5.36%",
+    "Mar 2024": "5.03%",
+    "Jun 2024": "4.50%",
+    "Sep 2024": "4.49%",
+    "Dec 2024": "3.92%",
+    "Mar 2025": "3.86%",
+    "Jun 2025": "3.73%",
+    "Sep 2025": "3.77%",
+    "Dec 2025": "3.70%",
+    "Mar 2026": "4.17%"
+   },
+   {
+    "Unnamed: 0": "No. of Shareholders",
+    "Jun 2023": "73850",
+    "Sep 2023": "72795",
+    "Dec 2023": "66204",
+    "Mar 2024": "66724",
+    "Jun 2024": "62415",
+    "Sep 2024": "62258",
+    "Dec 2024": "60952",
+    "Mar 2025": "66891",
+    "Jun 2025": "62115",
+    "Sep 2025": "58994",
+    "Dec 2025": "57784",
+    "Mar 2026": "62946"
+   }
+  ]
+ },
+ "top_ratios": {
+  "Market Cap": "\u20b9 14,534 Cr.",
+  "Current Price": "\u20b9 1,412",
+  "High / Low": "\u20b9 1,440 / 848",
+  "Stock P/E": "84.0",
+  "Book Value": "\u20b9 93.0",
+  "Dividend Yield": "0.14 %",
+  "ROCE": "21.3 %",
+  "ROE": "19.7 %",
+  "Face Value": "\u20b9 1.00"
+ },
+ "documents": [
+  {
+   "text": "All",
+   "href": "https://www.bseindia.com/stock-share-price/vijaya-diagnostic-centre-ltd/VIJAYA/543350/corp-announcements/"
+  },
+  {
+   "text": "Announcement under Regulation 30 (LODR)-Allotment of ESOP / ESPS 9 Jul - Grant o",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b5e6a917-f936-45b2-87f9-33b44d6ed274.pdf"
+  },
+  {
+   "text": "Board Meeting Outcome for Appointment Of Mr. Narasimha Raju As Chief Financial O",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=bbf766ce-b8a8-4390-b0d8-5154c80510a7.pdf"
+  },
+  {
+   "text": "Announcement under Regulation 30 (LODR)-Change in Management 9 Jul - Board appoi",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b2eb4d2c-90c0-44f5-b775-4e1bea52484f.pdf"
+  },
+  {
+   "text": "Disclosures under Reg. 29(2) of SEBI (SAST) Regulations, 2011 1 Jul",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=36C551D9_DC9E_4297_BC82_F5DFDBAD309C_114206.pdf"
+  },
+  {
+   "text": "Closure of Trading Window 30 Jun - Trading window closed from July 1, 2026 until",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=dbde07e0-742d-4ae9-9eea-90211b4359eb.pdf"
+  },
+  {
+   "text": "Financial Year 2025 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/7b3e1500-1434-4098-bb67-7b82f60df82c.pdf"
+  },
+  {
+   "text": "Financial Year 2024 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/20f8f664-6531-480a-9b8f-682e6ff9601a.pdf"
+  },
+  {
+   "text": "Financial Year 2023 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/b195eccd-1c41-4b27-87f2-ec3922fa1341.pdf"
+  },
+  {
+   "text": "Financial Year 2022 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/543350/75667543350.pdf"
+  },
+  {
+   "text": "Financial Year 2022 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_21121_VIJAYA_2021_2022_02092022181752_09022022190024.zip"
+  },
+  {
+   "text": "DRHP",
+   "href": "https://www.sebi.gov.in/filings/public-issues/sep-2021/vijaya-diagnostic-centre-limited_52466.html"
+  },
+  {
+   "text": "Rating update 25 Jun from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/VijayaDiagnosticCentreLimited_June 25_ 2026_RR_398580.html"
+  },
+  {
+   "text": "Rating update 30 Apr 2025 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/VijayaDiagnosticCentreLimited_April 30_ 2025_RR_366547.html"
+  },
+  {
+   "text": "Rating update 8 Oct 2024 from icra",
+   "href": "https://www.icra.in/Rationale/ShowRationaleReport/?Id=130419"
+  },
+  {
+   "text": "Rating update 29 Feb 2024 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/VijayaDiagnosticCentreLimited_February 29, 2024_RR_337327.html"
+  },
+  {
+   "text": "Rating update 29 Dec 2023 from icra",
+   "href": "https://www.icra.in/Rationale/ShowRationaleReport/?Id=124591"
+  },
+  {
+   "text": "Rating update 9 Oct 2023 from icra",
+   "href": "https://www.icra.in/Rationale/ShowRationaleReport/?Id=122824"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=cae781f9-5ae5-4003-a77d-e2de25136e19.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=19d5c4aa-cc8b-4321-aa4b-9b1de0840154.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=08870e27-7050-43a5-a35d-2c11c3c35995.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=4cfdd963-b102-4c8e-8c10-542057224858.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://youtu.be/kZhbQF_DGPI"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=039efa85-8521-4c9c-b6e1-d89d51e3690d.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c02d9d65-d471-46cd-9666-9e260661ba8b.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://youtu.be/t1_9eFAVKz0"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=87e35c38-fa40-4ca7-8550-e4dda991a533.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=633037a0-526f-4c14-b4ba-a0ff0dbf70e8.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=fbf0ab95-559f-4190-a657-6d58439d4938.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=73c940f3-b5b0-49b0-ba9b-47c814bc957d.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=fa212823-11d8-4c0e-8790-759f54a3781b.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=00e078d6-9be4-4721-ba33-ae5e5fdbb8d6.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d11028c7-bc6a-4b1d-9b46-cc67d53b4e19.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=f109e66c-9066-4b0d-97c1-03d3c873e0f4.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=adc3af90-369a-43ab-af3a-1e7ee8d41eef.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=37713e37-3b02-4e1d-b0d1-4b4327349457.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=6214bc41-5f44-4f23-8f78-1e949a6d974f.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=01dfa923-5bf8-475e-acea-7b2a132d9fed.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=fe110717-4b81-4d3c-a3b6-7dc5b9732ccf.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://images.vijayadiagnostic.com/investor/FinancialResults/+EarningsCallAudio%E2%80%93Q4FY24.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=e7bc2eb9-5a91-4146-8fbb-9f252b2d375e.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=7e4dbe70-4573-40b8-b9be-414894d2389c.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=ce8457a2-51f6-48e2-9b0b-318a1b49ea0f.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=907a2c72-657b-4afc-ac28-95bceade0923.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=85ed5216-c11e-462a-a394-e347f62ac50d.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=9bcb291f-ba8b-499c-92e8-11bda6ac8a7b.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b8c98e14-6e3b-49ec-97be-9c3f6718b41e.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=fa6dbf24-8ff9-4013-86ff-0e59c68a39af.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=4e4a5ed0-b831-43b2-8dc8-b14a6d2fefde.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=2becad12-81b8-4533-a24f-eaea24655b0d.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=a667d113-6f64-4ff0-9571-97288f4de53c.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b7d901ff-3fd9-4b23-84eb-e6a57d6e98df.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=02a25541-0fc1-44ca-ba5a-88e5aea86a7c.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=13354fe0-2a21-4dac-aa18-b7bf128917f7.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=64c8ab81-615d-4d2d-b926-13c68b5b2027.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=ff0d24b9-e291-444e-b7df-0e2c297235da.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=fa34c543-6972-4146-88b7-0b510cecb205.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=f9ead00c-fa58-457b-9b03-ec70a2025883.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=25d3f9f3-7661-4863-85f3-8f08647f6f42.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d6b8fb88-ab05-420c-89cd-7c0eab56e85b.pdf"
+  }
+ ]
+}

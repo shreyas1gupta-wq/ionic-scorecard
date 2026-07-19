@@ -1,0 +1,330 @@
+{
+  "absolute": {
+    "band_cutoffs": {
+      "OVERVALUED_gte": 160.0,
+      "UNDERVALUED_lt": 65.0
+    },
+    "built": "2026-07-17T19:39:42.960496+00:00",
+    "diagnostics_from_build": {
+      "1M": {
+        "band_counts": {
+          "NEUTRAL": 97007,
+          "UNDERVALUED": 2408
+        },
+        "g_tercile_cuts": {
+          "q1": 0.038901202925223366,
+          "q2": 0.19454081841260415
+        },
+        "n_dates": 249,
+        "n_rows": 99415,
+        "n_scored": 52210
+      },
+      "1Y": {
+        "band_counts": {
+          "NEUTRAL": 97007,
+          "UNDERVALUED": 2408
+        },
+        "g_tercile_cuts": {
+          "q1": 0.036849448086717695,
+          "q2": 0.1934380329145744
+        },
+        "n_dates": 249,
+        "n_rows": 99415,
+        "n_scored": 52210
+      },
+      "5Y": {
+        "band_counts": {
+          "NEUTRAL": 97007,
+          "UNDERVALUED": 2408
+        },
+        "g_tercile_cuts": {
+          "q1": 0.043181818181818155,
+          "q2": 0.1856674208144796
+        },
+        "n_dates": 249,
+        "n_rows": 99415,
+        "n_scored": 52210
+      }
+    },
+    "div_yield": 0.0,
+    "div_yield_note": "No dividend-yield PIT source in Blueprint Sec 1.1 lineage; optional carry term set to 0, disclosed.",
+    "g_blend_confirmed": {
+      "forward_proxy_rev_accel": 0.5,
+      "trailing": 0.5
+    },
+    "g_cap": 0.4,
+    "g_fallback_unconfirmed": "trailing_growth only (not blended with 0)",
+    "g_floor": -0.2,
+    "horizon_scope": "ALL (1M, 1Y, 5Y) -- absolute scorecard",
+    "judgment_calls": {
+      "J1": "trailing_growth = mean(op_growth_t, rev_growth_t), skipna equal-weight -- blueprint names both, no split given.",
+      "J2": "forward_proxy = rev_accel (rate-scaled), NOT z_accel (unitless z-score) -- dimensional fit for additive blend against a growth rate.",
+      "J3": "PERSISTENCE_BOOST_5Y = +0.02 (2pp/yr), frozen constant, 5Y-only, when sub_op_persistent==1.",
+      "J4": "sector-median PE computed directly from stock_valuation_pit.parquet (groupby date,sector), not sector_context.parquet / market_state.PE_by_tier (neither contains a per-sector PE level on disk).",
+      "J5": "P(up) coarse-band cutoffs [0.35,0.45,0.55,0.65] are fixed absolute probability levels, not relative to each horizon's differing base 'up' rate."
+    },
+    "owner": "Arjun Rao (quant-head-arjun-rao)",
+    "persistence_boost_5Y_only": 0.02,
+    "pup_band_cuts": [
+      0.35,
+      0.45,
+      0.55,
+      0.65
+    ],
+    "pup_band_labels": [
+      "strong-neg",
+      "neg",
+      "neutral",
+      "pos",
+      "strong-pos"
+    ],
+    "pup_g_tercile_cuts_by_horizon": {
+      "1M": {
+        "q1": 0.038901202925223366,
+        "q2": 0.19454081841260415
+      },
+      "1Y": {
+        "q1": 0.036849448086717695,
+        "q2": 0.1934380329145744
+      },
+      "5Y": {
+        "q1": 0.043181818181818155,
+        "q2": 0.1856674208144796
+      }
+    },
+    "regime_multiplier": {
+      "NEUTRAL": 1.0,
+      "OVERVALUED": 0.85,
+      "UNDERVALUED": 1.1
+    },
+    "rr_cap": 2.0,
+    "rr_floor": 0.5,
+    "standalone_non_goal": "NEVER reads/transforms/is seeded by the RELATIVE score (Blueprint Sec 0.1)",
+    "trailing_growth_blend": {
+      "op_growth_t": 0.5,
+      "rev_growth_t": 0.5
+    }
+  },
+  "assembled": "2026-07-18",
+  "governing_blueprint": "rnd/scorecard/SCORECARD_BLUEPRINT.md §4 determinism contract",
+  "note": "Single frozen source of every number that governs scoring. Nothing hard-coded elsewhere. A version bump (_v1->_v2) is the ONLY way any number changes and it restarts any forward clock (D-030).",
+  "owner": "Arjun Rao (quant-head-arjun-rao, E-004)",
+  "relative_1M": {
+    "built": "2026-07-17T19:31:04.706327+00:00",
+    "diagnostics_from_build": {
+      "n_bear_oversold_not_washout": 0,
+      "n_bear_oversold_tag_rows": 9895,
+      "n_dates": 249,
+      "n_excluded_neg_news": 346,
+      "n_missing_mom_or_qual": 5646,
+      "n_rows_universe": 99415,
+      "n_scored_final": 93423,
+      "n_symbols": 933,
+      "n_washout_not_bear_oversold": 6695,
+      "n_washout_rows": 16590,
+      "regime_counts_by_date": {
+        "BEAR_OVERSOLD": 25,
+        "BOOMING_BULL": 47,
+        "NORMAL_CHOPPY": 48,
+        "OTHER": 106,
+        "UNCLASSIFIED": 23
+      }
+    },
+    "earn_neutral_fallback_rank": 0.5,
+    "horizon": "1M",
+    "lookback_L_trading_days": {
+      "BEAR_OVERSOLD": 0,
+      "BOOMING_BULL": 252,
+      "NORMAL_CHOPPY": 252,
+      "OTHER_default_J1": 252,
+      "UNCLASSIFIED_default_J1": 252
+    },
+    "low_conviction_flag": true,
+    "low_conviction_reason": "no 21-yr intra-month confirmation (FINAL_MODEL Sec 5.2); tilt/timing nudge, not a standalone thesis",
+    "no_neg_news_coverage_caveat": "S6 screen covers 55/~750 large-cap names only; the ~445-695 uncovered names default no_negative_news_flag=True (pass) by construction -- a coverage gap, NOT a verified clean read.",
+    "no_neg_news_coverage_symbols": 55,
+    "no_neg_news_source": "rnd\\scorecard\\no_negative_news_screen.parquet",
+    "owner": "Arjun Rao (quant-head-arjun-rao)",
+    "presence_rule": "score requires mom_1M_component AND qual_floor_1M non-null (J5)",
+    "quality_inner_blend": {
+      "quality_QMJ": 0.5,
+      "quality_cfo_pat": 0.5
+    },
+    "rev5d_formula": "-(P(t)/P(t-5) - 1.0), certified REGIME_SPEC_V2 Sec 0",
+    "skip_trading_days": 15,
+    "washout_breadth_pctrank_threshold": 0.2,
+    "weights_neutral": {
+      "earn": 0.4,
+      "mom": 0.45,
+      "qual": 0.15
+    },
+    "weights_washout_bear_oversold": {
+      "earn": 0.3,
+      "mom": 0.55,
+      "qual": 0.15
+    }
+  },
+  "relative_1Y": {
+    "band_cutoffs": {
+      "high": 160.0,
+      "low": 65.0
+    },
+    "canonical_7_legs": [
+      "value_EY",
+      "growth_v2_confirmed",
+      "mom_resid_plain",
+      "trend_ma65_slope",
+      "bs_issuance",
+      "bs_asset_growth",
+      "quality_cfo_pat"
+    ],
+    "combine": "equal-weight rank-average of present legs on the quality-gated universe",
+    "corporate_action_guard": "disc_event_in_window_1Y > 0 -> composite score NaN'd (row unscored)",
+    "dsr_pbo_role": "ADVISORY ONLY per blueprint S2.4 -- never used to kill this signal",
+    "fixed_legs_always_ranked": [
+      "value_EY",
+      "growth_v2_confirmed",
+      "trend_ma65_slope",
+      "bs_issuance",
+      "bs_asset_growth",
+      "quality_cfo_pat"
+    ],
+    "generated_by": "rnd/scorecard/build_rel_score_1y.py",
+    "growth_leg_source": "rnd/wave4/_w6fg2_scored.parquet::composite_v2_confirmed, joined on (date,symbol) directly -- verified available_date<=date for all 106,245 non-null rows, so the 'date' column is already PIT-safe / on-grid, no merge_asof needed",
+    "hard_gates": {
+      "lag_test_delta_max": 0.25,
+      "placebo_ic_max_abs": 0.02
+    },
+    "harness_eval_params": {
+      "min_names_per_date": 20,
+      "n_cscv_blocks": 12,
+      "n_placebo_shuffles": 5,
+      "placebo_seed": 42
+    },
+    "horizon": "1Y",
+    "min_legs_required": 5,
+    "momentum_band_gate": {
+      "NEUTRAL_65_to_160": 1.0,
+      "OVERVALUED_gte_160": 0.0,
+      "UNDERVALUED_lt_65": 0.0,
+      "undefined_early_history_default": "NEUTRAL (mom_weight=1.0), disclosed [INFERENCE]"
+    },
+    "momentum_leg": "mom_resid_plain (rebuilt fresh, NOT the cached mom_resid_peer)",
+    "n_trials_global_at_build": 702,
+    "quality_gate_formula": "rank_pct(0.5*rank_pct(quality_QMJ) + 0.5*rank_pct(quality_cfo_pat)), within-date",
+    "quality_gate_threshold": 0.1,
+    "richness_index_formula": "100*exp(-0.25*EY_hist_zscore_expanding)",
+    "score_map": "rel_score_1Y = 200*(rank_pct(composite) - 0.5), in [-100, +100]"
+  },
+  "relative_5Y": {
+    "S3_relative_5Y": {
+      "abs_merit5Y_weights": {
+        "growth_longevity": 0.45,
+        "quality_score": 0.1,
+        "value_EY": 0.45
+      },
+      "blend": {
+        "abs_merit_5Y": 0.4,
+        "sr_5Y": 0.6
+      },
+      "data_thinness_flag": "pre-2012 fundamentals thin; 5Y magnitudes are DIRECTIONAL (blueprint S2.3)",
+      "growth_longevity_construction": "rank_pct(0.5*rank_pct(composite_v2_confirmed) + 0.5*rank_pct(sub_op_persistent)), computed within the gated universe [MY CALL -- mirrors the S1.4 quality_score pattern]",
+      "min_legs_of_7": 5,
+      "min_names_per_date": 20,
+      "min_sector_peers": 5,
+      "mom_resid_plain_source": "rebuilt fresh via run_long_confirm.build_mom_resid_12_1, NOT the cached mom_resid_peer",
+      "n_placebo_shuffles": 5,
+      "output_range": "rel_score_5Y in [-100, +100] = 200*(rank_pct(composite_5Y) - 0.5)",
+      "placebo_seed": 42,
+      "quality_gate_threshold": 0.2,
+      "raw_legs": [
+        "bs_asset_growth",
+        "quality_cfo_pat"
+      ],
+      "sector_grain": "panel_pit.sector (22-bucket macro_sector, static per symbol)",
+      "sector_neutral_legs": [
+        "value_EY",
+        "mom_resid_plain",
+        "trend_ma65_slope",
+        "quality_QMJ",
+        "bs_issuance"
+      ],
+      "sr5Y_weights": {
+        "bs_asset_growth": 1.0,
+        "bs_issuance": 1.0,
+        "growth_longevity": 2.0,
+        "mom_resid_plain": 0.5,
+        "quality_QMJ": 1.0,
+        "quality_cfo_pat": 1.0,
+        "trend_ma65_slope": 0.5,
+        "value_EY": 2.0
+      }
+    },
+    "determinism_check": {
+      "pass": true,
+      "run1_shape": [
+        79194,
+        6
+      ],
+      "run2_shape": [
+        79194,
+        6
+      ]
+    },
+    "diagnostics": {
+      "legs_present": [
+        "bs_asset_growth",
+        "bs_issuance",
+        "defensive_BAB",
+        "mom_resid_peer",
+        "quality_QMJ",
+        "quality_cfo_pat",
+        "seasonality",
+        "trend_ma65_slope",
+        "value_EY",
+        "value_dcf_revgap",
+        "value_marketstate_M3",
+        "value_smallcap_M2"
+      ],
+      "n_after_gate": 79194,
+      "n_after_quality_only": 116045,
+      "n_before_gate": 144870,
+      "n_fg2_rows": 143907,
+      "n_growth_longevity_covered": 65236,
+      "n_legs_raw_rows": 1310958,
+      "n_panel_rows": 99415,
+      "n_panel_symbols": 933,
+      "n_scored_abs_merit_5Y": 79194,
+      "n_scored_composite_5Y": 79194,
+      "n_scored_sr_5Y": 79194,
+      "n_sectors": 22,
+      "panel_date_max": "2025-12-05",
+      "panel_date_min": "2005-04-29"
+    }
+  },
+  "shared_foundations": {
+    "band_cutoffs": {
+      "OVERVALUED_gte": 160.0,
+      "UNDERVALUED_lt": 65.0
+    },
+    "quality_gate_1Y": 0.1,
+    "quality_gate_5Y": 0.2,
+    "quality_score_formula": "rank_pct(0.5*rank_pct(quality_QMJ) + 0.5*rank_pct(quality_cfo_pat)), within-date",
+    "richness_empirical_gap": "richness never crossed ~139 in 21yr India sample; >=160 branch precautionary/never-fired",
+    "richness_index_formula": "100*exp(-0.25*EY_hist_zscore_expanding)  (causal, market_state.parquet)",
+    "washout_breadth_pctrank_threshold": 0.2
+  },
+  "verdicts": {
+    "absolute": {
+      "1M": "FAKE / DO-NOT-USE",
+      "1Y": "FRAGILE",
+      "5Y": "FRAGILE"
+    },
+    "relative": {
+      "1M": "REAL",
+      "1Y": "FRAGILE",
+      "5Y": "FRAGILE"
+    }
+  },
+  "version": "v1"
+}

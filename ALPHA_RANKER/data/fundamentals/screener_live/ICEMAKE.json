@@ -1,0 +1,980 @@
+{
+ "ticker": "ICEMAKE",
+ "url_path": "ICEMAKE/consolidated/",
+ "tables": {
+  "quarterly_results": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2023": "114",
+    "Jun 2023": "79",
+    "Sep 2023": "77",
+    "Dec 2023": "82",
+    "Mar 2024": "140",
+    "Jun 2024": "85",
+    "Sep 2024": "103",
+    "Dec 2024": "111",
+    "Mar 2025": "180",
+    "Jun 2025": "112",
+    "Sep 2025": "147",
+    "Dec 2025": "153",
+    "Mar 2026": "256"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2023": "101",
+    "Jun 2023": "71",
+    "Sep 2023": "69",
+    "Dec 2023": "78",
+    "Mar 2024": "119",
+    "Jun 2024": "79",
+    "Sep 2024": "95",
+    "Dec 2024": "104",
+    "Mar 2025": "159",
+    "Jun 2025": "107",
+    "Sep 2025": "138",
+    "Dec 2025": "143",
+    "Mar 2026": "234"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2023": "12",
+    "Jun 2023": "8",
+    "Sep 2023": "8",
+    "Dec 2023": "4",
+    "Mar 2024": "21",
+    "Jun 2024": "6",
+    "Sep 2024": "8",
+    "Dec 2024": "7",
+    "Mar 2025": "21",
+    "Jun 2025": "4",
+    "Sep 2025": "10",
+    "Dec 2025": "10",
+    "Mar 2026": "21"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2023": "11%",
+    "Jun 2023": "10%",
+    "Sep 2023": "10%",
+    "Dec 2023": "5%",
+    "Mar 2024": "15%",
+    "Jun 2024": "7%",
+    "Sep 2024": "8%",
+    "Dec 2024": "6%",
+    "Mar 2025": "12%",
+    "Jun 2025": "4%",
+    "Sep 2025": "7%",
+    "Dec 2025": "6%",
+    "Mar 2026": "8%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2023": "1",
+    "Jun 2023": "0",
+    "Sep 2023": "0",
+    "Dec 2023": "0",
+    "Mar 2024": "0",
+    "Jun 2024": "0",
+    "Sep 2024": "0",
+    "Dec 2024": "0",
+    "Mar 2025": "0",
+    "Jun 2025": "0",
+    "Sep 2025": "0",
+    "Dec 2025": "0",
+    "Mar 2026": "0"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2023": "0",
+    "Jun 2023": "0",
+    "Sep 2023": "1",
+    "Dec 2023": "1",
+    "Mar 2024": "1",
+    "Jun 2024": "0",
+    "Sep 2024": "1",
+    "Dec 2024": "1",
+    "Mar 2025": "2",
+    "Jun 2025": "2",
+    "Sep 2025": "3",
+    "Dec 2025": "4",
+    "Mar 2026": "4"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2023": "1",
+    "Jun 2023": "1",
+    "Sep 2023": "1",
+    "Dec 2023": "1",
+    "Mar 2024": "1",
+    "Jun 2024": "1",
+    "Sep 2024": "1",
+    "Dec 2024": "2",
+    "Mar 2025": "4",
+    "Jun 2025": "4",
+    "Sep 2025": "4",
+    "Dec 2025": "4",
+    "Mar 2026": "4"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2023": "12",
+    "Jun 2023": "7",
+    "Sep 2023": "6",
+    "Dec 2023": "3",
+    "Mar 2024": "19",
+    "Jun 2024": "5",
+    "Sep 2024": "7",
+    "Dec 2024": "4",
+    "Mar 2025": "16",
+    "Jun 2025": "-2",
+    "Sep 2025": "3",
+    "Dec 2025": "2",
+    "Mar 2026": "14"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2023": "26%",
+    "Jun 2023": "25%",
+    "Sep 2023": "25%",
+    "Dec 2023": "25%",
+    "Mar 2024": "26%",
+    "Jun 2024": "23%",
+    "Sep 2024": "28%",
+    "Dec 2024": "22%",
+    "Mar 2025": "27%",
+    "Jun 2025": "-20%",
+    "Sep 2025": "27%",
+    "Dec 2025": "24%",
+    "Mar 2026": "25%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2023": "9",
+    "Jun 2023": "5",
+    "Sep 2023": "4",
+    "Dec 2023": "2",
+    "Mar 2024": "14",
+    "Jun 2024": "4",
+    "Sep 2024": "5",
+    "Dec 2024": "3",
+    "Mar 2025": "12",
+    "Jun 2025": "-1",
+    "Sep 2025": "2",
+    "Dec 2025": "1",
+    "Mar 2026": "10"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2023": "5.47",
+    "Jun 2023": "3.40",
+    "Sep 2023": "2.86",
+    "Dec 2023": "1.28",
+    "Mar 2024": "9.06",
+    "Jun 2024": "2.35",
+    "Sep 2024": "3.05",
+    "Dec 2024": "1.82",
+    "Mar 2025": "7.42",
+    "Jun 2025": "-0.90",
+    "Sep 2025": "1.29",
+    "Dec 2025": "0.93",
+    "Mar 2026": "6.41"
+   },
+   {
+    "Unnamed: 0": "Raw PDF",
+    "Mar 2023": NaN,
+    "Jun 2023": NaN,
+    "Sep 2023": NaN,
+    "Dec 2023": NaN,
+    "Mar 2024": NaN,
+    "Jun 2024": NaN,
+    "Sep 2024": NaN,
+    "Dec 2024": NaN,
+    "Mar 2025": NaN,
+    "Jun 2025": NaN,
+    "Sep 2025": NaN,
+    "Dec 2025": NaN,
+    "Mar 2026": NaN
+   }
+  ],
+  "profit_loss": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2017": "88",
+    "Mar 2018": "103",
+    "Mar 2019": "132",
+    "Mar 2020": "138",
+    "Mar 2021": "135",
+    "Mar 2022": "206",
+    "Mar 2023": "312",
+    "Mar 2024": "378",
+    "Mar 2025": "480",
+    "Mar 2026": "668"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2017": "78",
+    "Mar 2018": "90",
+    "Mar 2019": "118",
+    "Mar 2020": "125",
+    "Mar 2021": "124",
+    "Mar 2022": "192",
+    "Mar 2023": "280",
+    "Mar 2024": "338",
+    "Mar 2025": "437",
+    "Mar 2026": "623"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2017": "10",
+    "Mar 2018": "13",
+    "Mar 2019": "14",
+    "Mar 2020": "13",
+    "Mar 2021": "10",
+    "Mar 2022": "14",
+    "Mar 2023": "32",
+    "Mar 2024": "41",
+    "Mar 2025": "43",
+    "Mar 2026": "45"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2017": "11%",
+    "Mar 2018": "12%",
+    "Mar 2019": "10%",
+    "Mar 2020": "9%",
+    "Mar 2021": "8%",
+    "Mar 2022": "7%",
+    "Mar 2023": "10%",
+    "Mar 2024": "11%",
+    "Mar 2025": "9%",
+    "Mar 2026": "7%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2017": "0",
+    "Mar 2018": "0",
+    "Mar 2019": "0",
+    "Mar 2020": "0",
+    "Mar 2021": "1",
+    "Mar 2022": "1",
+    "Mar 2023": "1",
+    "Mar 2024": "1",
+    "Mar 2025": "1",
+    "Mar 2026": "1"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2017": "1",
+    "Mar 2018": "2",
+    "Mar 2019": "1",
+    "Mar 2020": "2",
+    "Mar 2021": "2",
+    "Mar 2022": "2",
+    "Mar 2023": "1",
+    "Mar 2024": "2",
+    "Mar 2025": "4",
+    "Mar 2026": "13"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2017": "2",
+    "Mar 2018": "2",
+    "Mar 2019": "2",
+    "Mar 2020": "3",
+    "Mar 2021": "4",
+    "Mar 2022": "4",
+    "Mar 2023": "4",
+    "Mar 2024": "4",
+    "Mar 2025": "8",
+    "Mar 2026": "17"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2017": "7",
+    "Mar 2018": "10",
+    "Mar 2019": "11",
+    "Mar 2020": "8",
+    "Mar 2021": "5",
+    "Mar 2022": "10",
+    "Mar 2023": "28",
+    "Mar 2024": "35",
+    "Mar 2025": "31",
+    "Mar 2026": "16"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2017": "32%",
+    "Mar 2018": "32%",
+    "Mar 2019": "29%",
+    "Mar 2020": "26%",
+    "Mar 2021": "32%",
+    "Mar 2022": "25%",
+    "Mar 2023": "26%",
+    "Mar 2024": "26%",
+    "Mar 2025": "26%",
+    "Mar 2026": "26%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2017": "5",
+    "Mar 2018": "7",
+    "Mar 2019": "7",
+    "Mar 2020": "6",
+    "Mar 2021": "4",
+    "Mar 2022": "7",
+    "Mar 2023": "21",
+    "Mar 2024": "26",
+    "Mar 2025": "23",
+    "Mar 2026": "12"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2017": "6.95",
+    "Mar 2018": "4.23",
+    "Mar 2019": "4.77",
+    "Mar 2020": "3.64",
+    "Mar 2021": "2.30",
+    "Mar 2022": "4.66",
+    "Mar 2023": "13.18",
+    "Mar 2024": "16.64",
+    "Mar 2025": "14.65",
+    "Mar 2026": "7.73"
+   },
+   {
+    "Unnamed: 0": "Dividend Payout %",
+    "Mar 2017": "0%",
+    "Mar 2018": "24%",
+    "Mar 2019": "25%",
+    "Mar 2020": "33%",
+    "Mar 2021": "52%",
+    "Mar 2022": "26%",
+    "Mar 2023": "14%",
+    "Mar 2024": "12%",
+    "Mar 2025": "15%",
+    "Mar 2026": "29%"
+   }
+  ],
+  "balance_sheet": [
+   {
+    "Unnamed: 0": "Equity Capital",
+    "Mar 2017": 7,
+    "Mar 2018": 16,
+    "Mar 2019": 16,
+    "Mar 2020": 16,
+    "Mar 2021": 16,
+    "Mar 2022": 16,
+    "Mar 2023": 16,
+    "Mar 2024": 16,
+    "Mar 2025": 16,
+    "Mar 2026": 16
+   },
+   {
+    "Unnamed: 0": "Reserves",
+    "Mar 2017": 8,
+    "Mar 2018": 29,
+    "Mar 2019": 34,
+    "Mar 2020": 38,
+    "Mar 2021": 41,
+    "Mar 2022": 46,
+    "Mar 2023": 65,
+    "Mar 2024": 88,
+    "Mar 2025": 108,
+    "Mar 2026": 117
+   },
+   {
+    "Unnamed: 0": "Borrowings",
+    "Mar 2017": 15,
+    "Mar 2018": 10,
+    "Mar 2019": 3,
+    "Mar 2020": 17,
+    "Mar 2021": 10,
+    "Mar 2022": 11,
+    "Mar 2023": 5,
+    "Mar 2024": 27,
+    "Mar 2025": 86,
+    "Mar 2026": 158
+   },
+   {
+    "Unnamed: 0": "Other Liabilities",
+    "Mar 2017": 25,
+    "Mar 2018": 27,
+    "Mar 2019": 29,
+    "Mar 2020": 34,
+    "Mar 2021": 42,
+    "Mar 2022": 52,
+    "Mar 2023": 73,
+    "Mar 2024": 80,
+    "Mar 2025": 158,
+    "Mar 2026": 212
+   },
+   {
+    "Unnamed: 0": "Total Liabilities",
+    "Mar 2017": 55,
+    "Mar 2018": 81,
+    "Mar 2019": 83,
+    "Mar 2020": 105,
+    "Mar 2021": 108,
+    "Mar 2022": 125,
+    "Mar 2023": 159,
+    "Mar 2024": 211,
+    "Mar 2025": 368,
+    "Mar 2026": 504
+   },
+   {
+    "Unnamed: 0": "Fixed Assets",
+    "Mar 2017": 11,
+    "Mar 2018": 13,
+    "Mar 2019": 23,
+    "Mar 2020": 27,
+    "Mar 2021": 30,
+    "Mar 2022": 32,
+    "Mar 2023": 32,
+    "Mar 2024": 50,
+    "Mar 2025": 133,
+    "Mar 2026": 140
+   },
+   {
+    "Unnamed: 0": "CWIP",
+    "Mar 2017": 0,
+    "Mar 2018": 1,
+    "Mar 2019": 0,
+    "Mar 2020": 0,
+    "Mar 2021": 1,
+    "Mar 2022": 0,
+    "Mar 2023": 0,
+    "Mar 2024": 12,
+    "Mar 2025": 6,
+    "Mar 2026": 25
+   },
+   {
+    "Unnamed: 0": "Investments",
+    "Mar 2017": 0,
+    "Mar 2018": 0,
+    "Mar 2019": 0,
+    "Mar 2020": 0,
+    "Mar 2021": 0,
+    "Mar 2022": 0,
+    "Mar 2023": 5,
+    "Mar 2024": 0,
+    "Mar 2025": 0,
+    "Mar 2026": 0
+   },
+   {
+    "Unnamed: 0": "Other Assets",
+    "Mar 2017": 44,
+    "Mar 2018": 68,
+    "Mar 2019": 60,
+    "Mar 2020": 78,
+    "Mar 2021": 77,
+    "Mar 2022": 93,
+    "Mar 2023": 122,
+    "Mar 2024": 149,
+    "Mar 2025": 229,
+    "Mar 2026": 338
+   },
+   {
+    "Unnamed: 0": "Total Assets",
+    "Mar 2017": 55,
+    "Mar 2018": 81,
+    "Mar 2019": 83,
+    "Mar 2020": 105,
+    "Mar 2021": 108,
+    "Mar 2022": 125,
+    "Mar 2023": 159,
+    "Mar 2024": 211,
+    "Mar 2025": 368,
+    "Mar 2026": 504
+   }
+  ],
+  "cash_flow": [
+   {
+    "Unnamed: 0": "Cash from Operating Activity",
+    "Mar 2017": "8",
+    "Mar 2018": "-2",
+    "Mar 2019": "8",
+    "Mar 2020": "-1",
+    "Mar 2021": "12",
+    "Mar 2022": "8",
+    "Mar 2023": "24",
+    "Mar 2024": "10",
+    "Mar 2025": "30",
+    "Mar 2026": "-11"
+   },
+   {
+    "Unnamed: 0": "Cash from Investing Activity",
+    "Mar 2017": "-4",
+    "Mar 2018": "-4",
+    "Mar 2019": "-12",
+    "Mar 2020": "-7",
+    "Mar 2021": "-3",
+    "Mar 2022": "-5",
+    "Mar 2023": "-14",
+    "Mar 2024": "-23",
+    "Mar 2025": "-83",
+    "Mar 2026": "-40"
+   },
+   {
+    "Unnamed: 0": "Cash from Financing Activity",
+    "Mar 2017": "-0",
+    "Mar 2018": "16",
+    "Mar 2019": "-10",
+    "Mar 2020": "6",
+    "Mar 2021": "-9",
+    "Mar 2022": "-3",
+    "Mar 2023": "-9",
+    "Mar 2024": "17",
+    "Mar 2025": "49",
+    "Mar 2026": "52"
+   },
+   {
+    "Unnamed: 0": "Net Cash Flow",
+    "Mar 2017": "3",
+    "Mar 2018": "11",
+    "Mar 2019": "-13",
+    "Mar 2020": "-2",
+    "Mar 2021": "-0",
+    "Mar 2022": "0",
+    "Mar 2023": "1",
+    "Mar 2024": "4",
+    "Mar 2025": "-5",
+    "Mar 2026": "1"
+   },
+   {
+    "Unnamed: 0": "Free Cash Flow",
+    "Mar 2017": "4",
+    "Mar 2018": "-7",
+    "Mar 2019": "-3",
+    "Mar 2020": "-9",
+    "Mar 2021": "7",
+    "Mar 2022": "4",
+    "Mar 2023": "21",
+    "Mar 2024": "-23",
+    "Mar 2025": "-52",
+    "Mar 2026": "-50"
+   },
+   {
+    "Unnamed: 0": "CFO/OP",
+    "Mar 2017": "95%",
+    "Mar 2018": "14%",
+    "Mar 2019": "87%",
+    "Mar 2020": "12%",
+    "Mar 2021": "140%",
+    "Mar 2022": "74%",
+    "Mar 2023": "97%",
+    "Mar 2024": "47%",
+    "Mar 2025": "91%",
+    "Mar 2026": "-8%"
+   }
+  ],
+  "ratios": [
+   {
+    "Unnamed: 0": "Debtor Days",
+    "Mar 2017": 66.0,
+    "Mar 2018": "78",
+    "Mar 2019": "60",
+    "Mar 2020": "69",
+    "Mar 2021": "68",
+    "Mar 2022": "60",
+    "Mar 2023": "63",
+    "Mar 2024": "63",
+    "Mar 2025": "72",
+    "Mar 2026": "84"
+   },
+   {
+    "Unnamed: 0": "Inventory Days",
+    "Mar 2017": 114.0,
+    "Mar 2018": "135",
+    "Mar 2019": "121",
+    "Mar 2020": "156",
+    "Mar 2021": "161",
+    "Mar 2022": "123",
+    "Mar 2023": "86",
+    "Mar 2024": "84",
+    "Mar 2025": "118",
+    "Mar 2026": "114"
+   },
+   {
+    "Unnamed: 0": "Days Payable",
+    "Mar 2017": 109.0,
+    "Mar 2018": "96",
+    "Mar 2019": "85",
+    "Mar 2020": "92",
+    "Mar 2021": "103",
+    "Mar 2022": "83",
+    "Mar 2023": "84",
+    "Mar 2024": "76",
+    "Mar 2025": "121",
+    "Mar 2026": "108"
+   },
+   {
+    "Unnamed: 0": "Cash Conversion Cycle",
+    "Mar 2017": 71.0,
+    "Mar 2018": "116",
+    "Mar 2019": "96",
+    "Mar 2020": "132",
+    "Mar 2021": "125",
+    "Mar 2022": "100",
+    "Mar 2023": "64",
+    "Mar 2024": "71",
+    "Mar 2025": "69",
+    "Mar 2026": "89"
+   },
+   {
+    "Unnamed: 0": "Working Capital Days",
+    "Mar 2017": 9.0,
+    "Mar 2018": "52",
+    "Mar 2019": "64",
+    "Mar 2020": "62",
+    "Mar 2021": "69",
+    "Mar 2022": "53",
+    "Mar 2023": "43",
+    "Mar 2024": "48",
+    "Mar 2025": "21",
+    "Mar 2026": "23"
+   },
+   {
+    "Unnamed: 0": "ROCE %",
+    "Mar 2017": NaN,
+    "Mar 2018": "27%",
+    "Mar 2019": "22%",
+    "Mar 2020": "15%",
+    "Mar 2021": "10%",
+    "Mar 2022": "17%",
+    "Mar 2023": "37%",
+    "Mar 2024": "34%",
+    "Mar 2025": "21%",
+    "Mar 2026": "12%"
+   }
+  ],
+  "shareholding": [
+   {
+    "Unnamed: 0": "Promoters",
+    "Sep 2023": "74.49%",
+    "Dec 2023": "74.49%",
+    "Mar 2024": "74.49%",
+    "Jun 2024": "74.49%",
+    "Sep 2024": "74.49%",
+    "Dec 2024": "74.49%",
+    "Mar 2025": "74.41%",
+    "Jun 2025": "74.40%",
+    "Sep 2025": "74.36%",
+    "Dec 2025": "74.26%",
+    "Mar 2026": "74.20%",
+    "Jun 2026": "74.20%"
+   },
+   {
+    "Unnamed: 0": "FIIs",
+    "Sep 2023": "0.05%",
+    "Dec 2023": "0.02%",
+    "Mar 2024": "0.00%",
+    "Jun 2024": "0.02%",
+    "Sep 2024": "0.00%",
+    "Dec 2024": "0.00%",
+    "Mar 2025": "0.33%",
+    "Jun 2025": "0.01%",
+    "Sep 2025": "0.01%",
+    "Dec 2025": "0.11%",
+    "Mar 2026": "0.22%",
+    "Jun 2026": "0.31%"
+   },
+   {
+    "Unnamed: 0": "DIIs",
+    "Sep 2023": "0.00%",
+    "Dec 2023": "0.00%",
+    "Mar 2024": "0.00%",
+    "Jun 2024": "0.00%",
+    "Sep 2024": "0.00%",
+    "Dec 2024": "0.58%",
+    "Mar 2025": "0.87%",
+    "Jun 2025": "1.21%",
+    "Sep 2025": "1.31%",
+    "Dec 2025": "1.99%",
+    "Mar 2026": "1.64%",
+    "Jun 2026": "1.38%"
+   },
+   {
+    "Unnamed: 0": "Public",
+    "Sep 2023": "25.46%",
+    "Dec 2023": "25.49%",
+    "Mar 2024": "25.51%",
+    "Jun 2024": "25.50%",
+    "Sep 2024": "25.51%",
+    "Dec 2024": "24.93%",
+    "Mar 2025": "24.39%",
+    "Jun 2025": "24.38%",
+    "Sep 2025": "24.32%",
+    "Dec 2025": "23.64%",
+    "Mar 2026": "23.94%",
+    "Jun 2026": "24.11%"
+   },
+   {
+    "Unnamed: 0": "No. of Shareholders",
+    "Sep 2023": "14481",
+    "Dec 2023": "19285",
+    "Mar 2024": "22668",
+    "Jun 2024": "23225",
+    "Sep 2024": "24543",
+    "Dec 2024": "24776",
+    "Mar 2025": "24633",
+    "Jun 2025": "25656",
+    "Sep 2025": "25194",
+    "Dec 2025": "24249",
+    "Mar 2026": "25551",
+    "Jun 2026": "23616"
+   }
+  ]
+ },
+ "top_ratios": {
+  "Market Cap": "\u20b9 1,270 Cr.",
+  "Current Price": "\u20b9 805",
+  "High / Low": "\u20b9 920 / 660",
+  "Stock P/E": "104",
+  "Book Value": "\u20b9 84.3",
+  "Dividend Yield": "0.28 %",
+  "ROCE": "11.6 %",
+  "ROE": "9.49 %",
+  "Face Value": "\u20b9 10.0"
+ },
+ "documents": [
+  {
+   "text": "All",
+   "href": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=ICEMAKE&tabIndex=equity"
+  },
+  {
+   "text": "Certificate under SEBI (Depositories and Participants) Regulations, 2018 8 July ",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_08072026113842_Reg74.pdf"
+  },
+  {
+   "text": "Trading Window 25 June 2026 - Trading window closed from July 1, 2026 until 48 h",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_25062026102654_NSETradingWindow250626.pdf"
+  },
+  {
+   "text": "Analysts/Institutional Investor Meet/Con. Call Updates 10 June 2026 - Ice Make r",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_10062026155756_NSETranscript100626.pdf"
+  },
+  {
+   "text": "Analysts/Institutional Investor Meet/Con. Call Updates 4 June 2026 - Audio recor",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_04062026194329_NSEAudio04062026.pdf"
+  },
+  {
+   "text": "Analysts/Institutional Investor Meet/Con. Call Updates 1 June 2026 - Investor/an",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_01062026173728_NSEConferenceCall.pdf"
+  },
+  {
+   "text": "Financial Year 2025 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_28760_ICEMAKE_2024_2025_A_11130624_06092025161550.pdf"
+  },
+  {
+   "text": "Financial Year 2024 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_25833_ICEMAKE_2023_2024_050920241786.pdf"
+  },
+  {
+   "text": "Financial Year 2023 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_23000_ICEMAKE_2022_2023_28082023172442_08282023180021.zip"
+  },
+  {
+   "text": "Financial Year 2022 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_20849_ICEMAKE_2021_2022_25082022191615_08252022200005.zip"
+  },
+  {
+   "text": "Financial Year 2021 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_18944_ICEMAKE_2020_2021_27082021122104_08272021193558.zip"
+  },
+  {
+   "text": "DRHP",
+   "href": "https://www.sebi.gov.in/filings/public-issues/dec-2017/ice-make-refrigeration-ltd_37022.html"
+  },
+  {
+   "text": "Rating update 8 Jan from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/202601150108_Ice_Make_Refrigeration_Limited.pdf"
+  },
+  {
+   "text": "Rating update 20 Dec 2024 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/202412121222_Ice_Make_Refrigeration_Limited.pdf"
+  },
+  {
+   "text": "Rating update 5 Jan 2024 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/202401120150_Ice_Make_Refrigeration_Limited.pdf"
+  },
+  {
+   "text": "Rating update 23 Dec 2022 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/23122022071050_Ice_Make_Refrigeration_Limited.pdf"
+  },
+  {
+   "text": "Rating update 30 Dec 2021 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/30122021060927_Ice_Make_Refrigeration_Limited.pdf"
+  },
+  {
+   "text": "Rating update 5 Jan 2021 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/05012021070419_Ice_Make_Refrigeration_Limited.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_10062026155756_NSETranscript100626.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://fcs.apphost.in/pdf/com-Q4FY26-Earnings-Conference-Call-compressed.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_19022026110713_NSETranscript.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_03032026130112_NSEIntimation.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://youtu.be/0-x4J-EU_4g"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_20112025144006_NSE_Transcript.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://youtu.be/JCPZpRCnqH4"
+  },
+  {
+   "text": "PPT",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_29092025151001_NSEPPT.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_18082025114203_NSE_Transcript.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_23052025155656_TranscriptNSE.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_15022025142019_NSETranscript15022025.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_10022025145327_AnalystMeetNSE.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_22112024145354_TranscriptNSE22112024.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_18112024173844_NSEIntimation.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.icemakeindia.com/wp-content/uploads/2024/11/Q2FY25-Earnings-Conference-Call.mp3"
+  },
+  {
+   "text": "PPT",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_01102024160644_NSEPPT.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_24082024112158_InvestorPresentation.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_20082024125558_ConcallTranscript.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_22082024163123_InvestorPresentation.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_10062024120135_ConcallTranscriptNSE.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.icemakeindia.com/wp-content/uploads/2024/06/Q4FY24-Earnings-Conference-Call-10.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.icemakeindia.com/wp-content/uploads/2024/06/Q4FY2024-Conference-Call-Transcript.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_20022024103124_ConCallTranscriptNSE.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.icemakeindia.com/wp-content/uploads/2024/02/Q3FY24-Earnings-Conference-Call-1.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.icemakeindia.com/wp-content/uploads/2024/02/Q3FY24-Conference-Call-Transcript.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_01122023113111_IcemakeTranscript.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.icemakeindia.com/wp-content/uploads/2023/11/Q2FY24-Earnings-Conference-Call.mp3"
+  },
+  {
+   "text": "PPT",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_10102023102957_IceMaketoNSEPresentation.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://nsearchives.nseindia.com/corporate/ICEMAKE_22082023151715_IceMakeConcallTranscript22082023.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://archives.nseindia.com/corporate/ICEMAKE_07082023121031_IceMaketoNSEIntimationInvestorConference.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://archives.nseindia.com/corporate/ICEMAKE_07082023121031_IceMaketoNSEIntimationInvestorConference.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://archives.nseindia.com/corporate/ICEMAKE_05062023161604_ConcallTranscript.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://archives.nseindia.com/corporate/ICEMAKE_28062023172310_IntimationtoNSE.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://archives.nseindia.com/corporate/ICEMAKE_21022023142500_ConCallTranscriptNSE.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.icemakeindia.com/wp-content/uploads/2023/02/Q3FY23-Conference-Call-Transcript.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://archives.nseindia.com/corporate/ICEMAKE_23112022120512_IceMakeTranscriptforQ2FY23.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.icemakeindia.com/wp-content/uploads/2022/11/Q2FY23-Conference-Call-Transcript.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://archives.nseindia.com/corporate/ICEMAKE_28092022151048_IceMakeInvestorPresentation.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://archives.nseindia.com/corporate/ICEMAKE_22082022165200_IntimationofConferenceCallTranscripttoNSE.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.icemakeindia.com/wp-content/uploads/2022/09/Investor-Presentation-September-2022.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.icemakeindia.com/wp-content/uploads/2022/08/Q1FY23-Conference-Call-Transcript.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://archives.nseindia.com/corporate/ICEMAKE_07062022165233_IcemaketoNSE.pdf"
+  }
+ ]
+}

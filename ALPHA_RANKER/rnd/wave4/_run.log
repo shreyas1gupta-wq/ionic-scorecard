@@ -1,0 +1,25 @@
+[load] panel (40201, 28), 61 dates, 751 symbols (0.5s)
+[build] 30 sweep variants built (6.8s)
+[target] 42 valid dates for fwd_ret_1Y_resid
+[precompute] 30/30 variants have usable merged frames (8.4s)
+[real] best variant: H002_slope150 rescue_score=0.980 ic_mean=0.0758 mono=0.939 sign_frac=1.000
+[real] 30/30 variants individually clear 0.3
+[real-bootstrap] 100/100 = 1.000 clear 0.3 (39.1s)
+  [null] 20/100 done (80.0s)
+  [null] 40/100 done (131.7s)
+  [null] 60/100 done (197.4s)
+  [null] 80/100 done (256.3s)
+  [null] 100/100 done (315.6s)
+[null] 100/100 = 1.000 clear 0.3 on best-of-sweep
+[null] best-of-sweep dist: mean=0.729 p50=0.725 p90=0.782 max=0.834
+[null] P(null best-of-sweep >= real best 0.980) = 0.000
+
+=== TEST 2: orthogonality ===
+[load] 40 Tier-A cards
+[build] 40 of 40 Tier-A factor series built (360.8s)
+[corr] 40x40 matrix built. eigen participation ratio = 2.05 (400.6s)
+[corr] connected components at |corr|>=0.5: 1 clusters, sizes = [40]
+[corr] mean |corr| off-diagonal across all pairs: 0.665
+[corr] top eigenvalue = 27.25 / 40 (68.1% of total variance)
+
+[done] wrote C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\wave4\rescue_falsification_results.json (400.8s total)

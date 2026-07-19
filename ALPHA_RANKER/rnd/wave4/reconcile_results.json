@@ -1,0 +1,236 @@
+{
+  "composite_7leg": {
+    "label": "7-leg composite (PIT+liquidity+winsor)",
+    "n_periods": 141,
+    "mean_period_ls": 0.17437326668727407,
+    "ann_gross": 0.17437326668727407,
+    "turnover": 0.2552027635129739,
+    "blended_cost_bps_rt": 69.16951193335035,
+    "ann_cost_drag_1x": 0.02118270071548156,
+    "net_1x": 0.1531905659717925,
+    "ann_cost_drag_2x": 0.04236540143096312,
+    "net_2x": 0.13200786525631095,
+    "tier_dist": {
+      "small": 0.3738530066083214,
+      "mid": 0.3738430801467124,
+      "large": 0.25230391324496687,
+      "micro": 0.0
+    }
+  },
+  "composite_7leg_no_winsor": {
+    "label": "7-leg composite (PIT+liquidity, NO winsor)",
+    "n_periods": 141,
+    "mean_period_ls": 0.1770056637449718,
+    "ann_gross": 0.1770056637449718,
+    "turnover": 0.2552027635129739,
+    "blended_cost_bps_rt": 69.16951193335035,
+    "ann_cost_drag_1x": 0.02118270071548156,
+    "net_1x": 0.15582296302949022,
+    "ann_cost_drag_2x": 0.04236540143096312,
+    "net_2x": 0.13464026231400866,
+    "tier_dist": {
+      "small": 0.3738530066083214,
+      "mid": 0.3738430801467124,
+      "large": 0.25230391324496687,
+      "micro": 0.0
+    }
+  },
+  "ey_alone": {
+    "label": "EY alone (PIT+liquidity+winsor)",
+    "n_periods": 154,
+    "mean_period_ls": 0.13331215894093973,
+    "ann_gross": 0.13331215894093973,
+    "turnover": 0.1164127985021692,
+    "blended_cost_bps_rt": 69.21546411271052,
+    "ann_cost_drag_1x": 0.009669079052384512,
+    "net_1x": 0.12364307988855522,
+    "ann_cost_drag_2x": 0.019338158104769024,
+    "net_2x": 0.11397400083617071,
+    "tier_dist": {
+      "mid": 0.37355937649643045,
+      "small": 0.3748855316556383,
+      "large": 0.2515550918479312,
+      "micro": 0.0
+    }
+  },
+  "ey_alone_no_winsor": {
+    "label": "EY alone (PIT+liquidity, NO winsor)",
+    "n_periods": 154,
+    "mean_period_ls": 0.12599106345758093,
+    "ann_gross": 0.12599106345758093,
+    "turnover": 0.1164127985021692,
+    "blended_cost_bps_rt": 69.21546411271052,
+    "ann_cost_drag_1x": 0.009669079052384512,
+    "net_1x": 0.11632198440519642,
+    "ann_cost_drag_2x": 0.019338158104769024,
+    "net_2x": 0.10665290535281191,
+    "tier_dist": {
+      "mid": 0.37355937649643045,
+      "small": 0.3748855316556383,
+      "large": 0.2515550918479312,
+      "micro": 0.0
+    }
+  },
+  "momentum_alone": {
+    "label": "Momentum alone (plain, PIT+liquidity+winsor)",
+    "n_periods": 221,
+    "mean_period_ls": 0.11811720590351273,
+    "ann_gross": 0.11811720590351273,
+    "turnover": 0.2710681522737773,
+    "blended_cost_bps_rt": 69.06064330603124,
+    "ann_cost_drag_1x": 0.02246416917096515,
+    "net_1x": 0.09565303673254757,
+    "ann_cost_drag_2x": 0.0449283383419303,
+    "net_2x": 0.07318886756158242,
+    "tier_dist": {
+      "small": 0.37144756001617657,
+      "mid": 0.3744132652611211,
+      "large": 0.25413917472270214,
+      "micro": 0.0
+    }
+  },
+  "momentum_alone_no_winsor": {
+    "label": "Momentum alone (plain, PIT+liquidity, NO winsor)",
+    "n_periods": 221,
+    "mean_period_ls": 0.12386338362788926,
+    "ann_gross": 0.12386338362788926,
+    "turnover": 0.2710681522737773,
+    "blended_cost_bps_rt": 69.06064330603124,
+    "ann_cost_drag_1x": 0.02246416917096515,
+    "net_1x": 0.10139921445692411,
+    "ann_cost_drag_2x": 0.0449283383419303,
+    "net_2x": 0.07893504528595896,
+    "tier_dist": {
+      "small": 0.37144756001617657,
+      "mid": 0.3744132652611211,
+      "large": 0.25413917472270214,
+      "micro": 0.0
+    }
+  },
+  "composite_7leg_era_2005_2020": {
+    "label": "composite_7leg 2005-2020 (PIT+liquidity+winsor)",
+    "n_periods": 82,
+    "mean_period_ls": 0.19154415467361735,
+    "ann_gross": 0.19154415467361735,
+    "turnover": 0.2718255539276717,
+    "blended_cost_bps_rt": 69.14796237237047,
+    "ann_cost_drag_1x": 0.022555419809807284,
+    "net_1x": 0.16898873486381005,
+    "ann_cost_drag_2x": 0.04511083961961457,
+    "net_2x": 0.14643331505400278,
+    "tier_dist": {
+      "small": 0.37369601442380407,
+      "mid": 0.3731580825590121,
+      "large": 0.2531459030171842,
+      "micro": 0.0
+    }
+  },
+  "composite_7leg_era_2020_2025": {
+    "label": "composite_7leg 2020-2025 (PIT+liquidity+winsor)",
+    "n_periods": 59,
+    "mean_period_ls": 0.15050864270625455,
+    "ann_gross": 0.15050864270625455,
+    "turnover": 0.23293994868405032,
+    "blended_cost_bps_rt": 69.19946217064435,
+    "ann_cost_drag_1x": 0.019343183000392533,
+    "net_1x": 0.13116545970586202,
+    "ann_cost_drag_2x": 0.038686366000785066,
+    "net_2x": 0.11182227670546949,
+    "tier_dist": {
+      "mid": 0.37479511069232946,
+      "small": 0.3740711991359553,
+      "large": 0.25113369017171533,
+      "micro": 0.0
+    }
+  },
+  "ey_alone_era_2005_2020": {
+    "label": "ey_alone 2005-2020 (PIT+liquidity+winsor)",
+    "n_periods": 95,
+    "mean_period_ls": 0.1168897397892953,
+    "ann_gross": 0.1168897397892953,
+    "turnover": 0.12300459914334529,
+    "blended_cost_bps_rt": 69.21335171591146,
+    "ann_cost_drag_1x": 0.01021627269981967,
+    "net_1x": 0.10667346708947563,
+    "ann_cost_drag_2x": 0.02043254539963934,
+    "net_2x": 0.09645719438965597,
+    "tier_dist": {
+      "mid": 0.3729490749136258,
+      "small": 0.3750874043527786,
+      "large": 0.25196352073359585,
+      "micro": 0.0
+    }
+  },
+  "ey_alone_era_2020_2025": {
+    "label": "ey_alone 2020-2025 (PIT+liquidity+winsor)",
+    "n_periods": 59,
+    "mean_period_ls": 0.15975503723596035,
+    "ann_gross": 0.15975503723596035,
+    "turnover": 0.10625882009729558,
+    "blended_cost_bps_rt": 69.21886542959041,
+    "ann_cost_drag_1x": 0.008826137962826112,
+    "net_1x": 0.15092889927313424,
+    "ann_cost_drag_2x": 0.017652275925652224,
+    "net_2x": 0.14210276131030813,
+    "tier_dist": {
+      "mid": 0.37454206548569235,
+      "small": 0.37456048239753115,
+      "large": 0.25089745211677666,
+      "micro": 0.0
+    }
+  },
+  "momentum_alone_era_2005_2020": {
+    "label": "momentum_alone 2005-2020 (PIT+liquidity+winsor)",
+    "n_periods": 162,
+    "mean_period_ls": 0.12806573479405847,
+    "ann_gross": 0.12806573479405847,
+    "turnover": 0.2696175096194655,
+    "blended_cost_bps_rt": 69.13418969059319,
+    "ann_cost_drag_1x": 0.022367745664724957,
+    "net_1x": 0.10569798912933351,
+    "ann_cost_drag_2x": 0.044735491329449914,
+    "net_2x": 0.08333024346460856,
+    "tier_dist": {
+      "small": 0.3735164294575882,
+      "mid": 0.372918410885688,
+      "large": 0.2535651596567241,
+      "micro": 0.0
+    }
+  },
+  "momentum_alone_era_2020_2025": {
+    "label": "momentum_alone 2020-2025 (PIT+liquidity+winsor)",
+    "n_periods": 59,
+    "mean_period_ls": 0.0908009062379464,
+    "ann_gross": 0.0908009062379464,
+    "turnover": 0.2741904317195232,
+    "blended_cost_bps_rt": 68.85870238570874,
+    "ann_cost_drag_1x": 0.022656476801740367,
+    "net_1x": 0.06814442943620604,
+    "ann_cost_drag_2x": 0.045312953603480734,
+    "net_2x": 0.045487952634465666,
+    "tier_dist": {
+      "mid": 0.37851778066485325,
+      "small": 0.3657669354482332,
+      "large": 0.2557152838869139,
+      "micro": 0.0
+    }
+  },
+  "trend_ma65_candidate": {
+    "label": "Trend MA65-slope candidate (PIT+liquidity+winsor)",
+    "n_periods": 232,
+    "mean_period_ls": 0.08901354036117795,
+    "ann_gross": 0.08901354036117795,
+    "turnover": 0.4521307053823605,
+    "blended_cost_bps_rt": 69.21420948597546,
+    "ann_cost_drag_1x": 0.037552643228851865,
+    "net_1x": 0.051460897132326086,
+    "ann_cost_drag_2x": 0.07510528645770373,
+    "net_2x": 0.013908253903474221,
+    "tier_dist": {
+      "small": 0.37470647264006013,
+      "mid": 0.3739442926986226,
+      "large": 0.25134923466131737,
+      "micro": 0.0
+    }
+  }
+}

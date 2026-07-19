@@ -1,0 +1,41 @@
+{
+  "sanity": {
+    "ic_ir": 1.3450288630259197,
+    "ann_LS": 3.695972572048369,
+    "sanity_ok": true
+  },
+  "raw7_official": {
+    "ic_ir": 1.3450288630259197,
+    "ic_mean": 0.1889984545699352,
+    "ann_LS": 3.695972572048369,
+    "turnover": 0.24968349933024492,
+    "net_of_cost_ann_return": 3.6720139369576623,
+    "official_verdict_from_CANONICAL_7LEG_1Y_json": "KILL (PBO 0.909 > 0.5)"
+  },
+  "sr_v1_AGraw": {
+    "ic_mean": 0.11978265116858497,
+    "ic_ir": 1.5105425267750536,
+    "ann_LS": 1.7705020496749522,
+    "n_ic_dates": 141,
+    "turnover": 0.27311878401705525,
+    "net_of_cost_ann_return": 1.7442913475387172,
+    "verdict": "KILL (PBO 0.948 > 0.5)"
+  },
+  "sr_v2_AGneutral": {
+    "ic_mean": 0.11196266159607228,
+    "ic_ir": 1.4672900683945334,
+    "ann_LS": 1.4052848523957544,
+    "n_ic_dates": 139,
+    "turnover": 0.2725345765860319,
+    "net_of_cost_ann_return": 1.3791302155609795,
+    "verdict": "KILL (PBO 0.996 > 0.5)"
+  },
+  "audit_reference_full7neutral": {
+    "ic_mean": 0.11323376575711633,
+    "ic_ir": 1.4394182629691228,
+    "ann_LS": 1.5318342949307846,
+    "note": "SECTOR_BIAS_AUDIT.md Task 3 COMPOSITE_7LEG neutral -- ALL 7 legs sector-neutral (incl. cfo-pat, AG); this rebuild's v1/v2 keep cfo-pat raw per the audit's own leg-priority recommendation, so a small delta from this reference is expected, not an error"
+  },
+  "dropone_more_robust": "SR_v1",
+  "era_more_robust": "SR_v1"
+}

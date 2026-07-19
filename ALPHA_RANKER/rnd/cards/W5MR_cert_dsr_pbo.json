@@ -1,0 +1,100 @@
+{
+  "rev5d": {
+    "n_obs_ls_series": 42,
+    "dsr_by_n_trials": {
+      "N=1 (this exact test, no correction)": {
+        "dsr": 0.9996535066776735,
+        "sr_hat": 0.6164409776299132,
+        "sr0_expected_max": 0.0,
+        "skew": -0.14384829491912388,
+        "kurtosis": 3.791259387374649,
+        "n_obs": 42,
+        "n_trials": 1
+      },
+      "N=1_family_W5RG (own ledger, if logged)": {
+        "dsr": 0.70266162816784,
+        "sr_hat": 0.6164409776299132,
+        "sr0_expected_max": 0.5197553442805939,
+        "skew": -0.14384829491912388,
+        "kurtosis": 3.791259387374649,
+        "n_obs": 42,
+        "n_trials": 2
+      },
+      "N=125 (n distinct research families in program)": {
+        "dsr": 2.957834238144002e-28,
+        "sr_hat": 0.6164409776299132,
+        "sr0_expected_max": 2.6081391840235777,
+        "skew": -0.14384829491912388,
+        "kurtosis": 3.791259387374649,
+        "n_obs": 42,
+        "n_trials": 125
+      },
+      "N=615 (global program trial count)": {
+        "dsr": 2.7074139082030746e-43,
+        "sr_hat": 0.6164409776299132,
+        "sr0_expected_max": 3.114224971051759,
+        "skew": -0.14384829491912388,
+        "kurtosis": 3.791259387374649,
+        "n_obs": 42,
+        "n_trials": 615
+      }
+    },
+    "pbo_cscv": {
+      "pbo": 1.0,
+      "n_combos": 20,
+      "n_blocks": 6,
+      "n_obs": 42,
+      "median_is_sharpe": 0.6089548840359668,
+      "median_oos_sharpe": 0.6089548840359668
+    }
+  },
+  "rsi2_factor": {
+    "n_obs_ls_series": 42,
+    "dsr_by_n_trials": {
+      "N=1 (this exact test, no correction)": {
+        "dsr": 0.9999931409114821,
+        "sr_hat": 0.5188396231660931,
+        "sr0_expected_max": 0.0,
+        "skew": 1.5824209387660702,
+        "kurtosis": 7.014163541670842,
+        "n_obs": 42,
+        "n_trials": 1
+      },
+      "N=1_family_W5RG (own ledger, if logged)": {
+        "dsr": 0.49693833405546106,
+        "sr_hat": 0.5188396231660931,
+        "sr0_expected_max": 0.5197553442805939,
+        "skew": 1.5824209387660702,
+        "kurtosis": 7.014163541670842,
+        "n_obs": 42,
+        "n_trials": 2
+      },
+      "N=125 (n distinct research families in program)": {
+        "dsr": 5.995504967654515e-69,
+        "sr_hat": 0.5188396231660931,
+        "sr0_expected_max": 2.6081391840235777,
+        "skew": 1.5824209387660702,
+        "kurtosis": 7.014163541670842,
+        "n_obs": 42,
+        "n_trials": 125
+      },
+      "N=615 (global program trial count)": {
+        "dsr": 3.337746753421195e-105,
+        "sr_hat": 0.5188396231660931,
+        "sr0_expected_max": 3.114224971051759,
+        "skew": 1.5824209387660702,
+        "kurtosis": 7.014163541670842,
+        "n_obs": 42,
+        "n_trials": 615
+      }
+    },
+    "pbo_cscv": {
+      "pbo": 1.0,
+      "n_combos": 20,
+      "n_blocks": 6,
+      "n_obs": 42,
+      "median_is_sharpe": 0.5187024636094415,
+      "median_oos_sharpe": 0.5187024636094415
+    }
+  }
+}

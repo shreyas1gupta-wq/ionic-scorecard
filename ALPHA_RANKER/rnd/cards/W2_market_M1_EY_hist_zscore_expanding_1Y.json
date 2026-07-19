@@ -1,0 +1,22 @@
+{
+  "factor_id": "W2_market_M1_EY_hist_zscore_expanding_1Y",
+  "test": "M1_market_ey_vs_history_predicts_market_fwd_return",
+  "horizon": "1Y",
+  "factor_col": "EY_hist_zscore_expanding",
+  "n_obs": 215,
+  "spearman_rho": 0.3000193194716125,
+  "lag_test": {
+    "rho_lag": 0.2836278702425376,
+    "lag_test_delta": 0.0546346457219593,
+    "pass": true
+  },
+  "placebo": {
+    "placebo_ic": 0.00877759665773141,
+    "n_shuffles": 200,
+    "pass": true
+  },
+  "hard_gates_pass": true,
+  "pbo_dsr": "N/A -- univariate time-series test, not cross-sectional; PBO/DSR advisory-only per task brief",
+  "note": "custom test, NOT harness.evaluate() -- M1 is a single market-level series (no cross-section to rank per date), the harness's per-date Spearman-IC machinery does not apply; hard gates (lag+placebo) reimplemented with the same logic/thresholds as harness.verdict().",
+  "verdict": "PROMOTE-CANDIDATE (hard gates clean, |rho|=0.300)"
+}

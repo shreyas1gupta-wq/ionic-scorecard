@@ -1,0 +1,78 @@
+{
+  "factor_id": "COMPO_turnover_band_1Y",
+  "family": "COMPO",
+  "horizon": "1Y",
+  "return_basis": "resid",
+  "status": "OK",
+  "panel_source": "real",
+  "n_trials": 285,
+  "n_dates": 36,
+  "n_obs": 20291,
+  "generated_at": "2026-07-16T18:32:40.912785+00:00",
+  "ic": {
+    "ic_mean": 0.08828848382592823,
+    "ic_std": 0.050765131029824204,
+    "ic_ir": 1.7391560316087686,
+    "newey_west_t": 4.931738938355204,
+    "nw_lag": 11,
+    "n_ic_dates": 36
+  },
+  "deciles": {
+    "monotonicity": 0.5272727272727272,
+    "n_decile_dates": 36
+  },
+  "long_short": {
+    "ann_return_LS": 0.050192377040483474,
+    "hit_rate": 0.4722222222222222,
+    "n_periods": 36
+  },
+  "turnover": {
+    "avg_top_decile_turnover": 0.1111253367616063
+  },
+  "costs": {
+    "blended_cost_bps_roundtrip": 79.95723684210526,
+    "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+    "cost_approved": true,
+    "ann_cost_drag": 0.010662329844727753,
+    "net_of_cost_ann_return": 0.03953004719575572
+  },
+  "dsr": {
+    "dsr": 3.3505966620091287e-62,
+    "sr_hat": 0.02747048457005949,
+    "sr0_expected_max": 2.8793328688606836,
+    "skew": -1.1519461847520982,
+    "kurtosis": 6.742456658373915,
+    "n_obs": 36,
+    "n_trials": 285
+  },
+  "pbo": {
+    "pbo": 1.0,
+    "n_combos": 924,
+    "n_blocks": 12,
+    "n_obs": 36,
+    "median_is_sharpe": 0.028094252863649943,
+    "median_oos_sharpe": 0.028094252863649943
+  },
+  "regime_breakdown": {
+    "regime_trend": {
+      "bear": 0.021954006122913997,
+      "bull": 0.09998227741310145,
+      "sideways": 0.0779056085332797
+    },
+    "regime_vol": {
+      "high": 0.05502228894006624,
+      "low": 0.1009160491551379,
+      "normal": 0.08006856369427165
+    }
+  },
+  "lag_test": {
+    "ic_lag_mean": 0.08384427469066262,
+    "lag_test_delta": 0.050337359332480125
+  },
+  "placebo": {
+    "placebo_ic": 0.0023150835130720825,
+    "n_shuffles": 5,
+    "seed": 42
+  },
+  "verdict": "KILL (PBO 1.000 > 0.5)"
+}

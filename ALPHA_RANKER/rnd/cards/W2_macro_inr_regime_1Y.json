@@ -1,0 +1,36 @@
+{
+  "id": "W2_macro_inr_regime_1Y",
+  "family": "W2_macro",
+  "regime_col": "inr_regime",
+  "target": "fwd_ret_nifty500_1Y",
+  "n_obs": 115,
+  "bucket_means": {
+    "appreciating": 0.13415674345229114,
+    "depreciating": 0.15163460877036913,
+    "flat": 0.24182832242368466
+  },
+  "bucket_counts": {
+    "appreciating": 39,
+    "depreciating": 73,
+    "flat": 3
+  },
+  "spread_hi_minus_lo": 0.10767157897139351,
+  "hi_bucket": "flat",
+  "lo_bucket": "appreciating",
+  "lag_test": {
+    "lag_spread": 0.14040810336623463,
+    "lag_test_delta": 0.30404053425777894
+  },
+  "placebo": {
+    "placebo_spread_mean": 0.11176001338849754,
+    "placebo_spread_std": 0.06900272022001305,
+    "placebo_p_value_one_sided": 0.445,
+    "n_shuffles": 200
+  },
+  "gates": {
+    "lag_ok": true,
+    "placebo_ok": false
+  },
+  "pbo": "not computed -- advisory-skip, single macro time series (n=1 candidate, CSCV needs competing variants), disclosed not silent",
+  "verdict": "KILL (fails placebo gate -- spread not distinguishable from shuffled-label noise)"
+}

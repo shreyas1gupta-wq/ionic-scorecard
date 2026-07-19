@@ -1,0 +1,31 @@
+{
+  "factor_id": "W4X_copper_gold_ratio_sizing",
+  "family": "cross_asset_macro_sizing_overlay",
+  "author": "macro-strategist-cyrus-daruwalla",
+  "date_tested": "2026-07-17",
+  "description": "'Dr. Copper' -- global copper price (FRED PCOPPUSDM) divided by a USD gold proxy (goldbees INR / USDINR) -- classic risk-on/off cross-asset indicator, tested at LEVEL and at 3m/6m trailing change.",
+  "data": "FRED PCOPPUSDM (copper, monthly, 1992-2026) + DCOILBRENTEU/DFII10/DTWEXBGS (D-033 auto-fetch, spot-checked 2026-07-17 against known historical values, all OK) + datasets/etf_gold_silver/goldbees_daily_ext.parquet + macro_state.parquet usdinr.",
+  "variants": {
+    "level_1M": {"ic": -0.054, "n": 126, "nw_t_approx": -0.606, "lag_delta": 0.122, "lag_pass": true, "placebo_pass": true, "verdict": "KILL (weak IC)"},
+    "level_1Y": {"ic": -0.361, "n": 115, "nw_t_approx": -1.068, "lag_delta": 0.099, "lag_pass": true, "placebo_pass": true, "verdict": "KILL (largest raw IC of any signal tested, BUT n_eff~10 independent years at 1Y horizon -- not statistically distinguishable from noise at this sample size; DO NOT read the -0.36 headline number as validated)"},
+    "chg6m_1M": {"ic": 0.126, "n": 120, "nw_t_approx": 1.383, "lag_delta": 0.407, "lag_pass": false, "placebo_pass": true, "verdict": "KILL on linear-IC gate (lag-unstable)"}
+  },
+  "scalar_backtest_chg6m": {
+    "method": "expanding-window tercile scalar, orient=+1 (rising copper/gold ratio = risk-on, raise exposure)",
+    "n": 114,
+    "strategy": {"sharpe": 1.138, "maxDD": -0.164, "ann_ret": 0.169},
+    "buy_hold": {"sharpe": 0.797, "maxDD": -0.300, "ann_ret": 0.137},
+    "baseline_india_vix_scalar": {"sharpe": 0.816, "maxDD": -0.241},
+    "baseline_pct_above_200_scalar": {"sharpe": 1.049, "maxDD": -0.211},
+    "random_signal_placebo_n200": {"sharpe_mean": 0.744, "sharpe_std": 0.152, "sharpe_p95": 1.020},
+    "z_vs_random_noise_floor": 2.59,
+    "verdict": "CANDIDATE -- best scalar-backtest result of ALL signals tested (incl. incumbents): highest Sharpe (1.14), best maxDD (-16%), clears random-noise floor at z=2.59 (highest z of the set)."
+  },
+  "scalar_backtest_level": {
+    "n": 114, "strategy": {"sharpe": 0.936, "maxDD": -0.169}, "z_vs_random_noise_floor": 1.26,
+    "verdict": "KILL -- not clearly above noise floor"
+  },
+  "overall_verdict": "CANDIDATE (chg6m variant only; level variant KILL)",
+  "conditions_for_graduation": "The chg6m variant fails the linear-IC lag-stability gate (delta=0.41 > 0.25 threshold) despite the strongest scalar-backtest showing of the whole study -- this internal conflict (weak/unstable point-in-time IC vs. strong realized scalar performance) means the result may be driven by a small number of large regime turns rather than a stable monthly relationship. MUST go through overfit-analyst-sameer-bhat's subsample/era-split + PBO before being trusted with real sizing decisions. Flag to data-officer-kavya-reddy: PCOPPUSDM/DFII10/DCOILBRENTEU/DTWEXBGS pulled via FRED this session (D-033), sample-checked, NOT yet in DATA_CATALOG.md -- add if this line is pursued further.",
+  "confidence": "LOW-MEDIUM [INFERENCE]"
+}

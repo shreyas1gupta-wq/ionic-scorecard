@@ -1,0 +1,106 @@
+{
+  "horizon_scope": "ALL (1M, 1Y, 5Y) -- absolute scorecard",
+  "owner": "Arjun Rao (quant-head-arjun-rao)",
+  "built": "2026-07-17T19:39:42.960496+00:00",
+  "standalone_non_goal": "NEVER reads/transforms/is seeded by the RELATIVE score (Blueprint Sec 0.1)",
+  "g_floor": -0.2,
+  "g_cap": 0.4,
+  "rr_floor": 0.5,
+  "rr_cap": 2.0,
+  "regime_multiplier": {
+    "UNDERVALUED": 1.1,
+    "NEUTRAL": 1.0,
+    "OVERVALUED": 0.85
+  },
+  "band_cutoffs": {
+    "UNDERVALUED_lt": 65.0,
+    "OVERVALUED_gte": 160.0
+  },
+  "persistence_boost_5Y_only": 0.02,
+  "trailing_growth_blend": {
+    "op_growth_t": 0.5,
+    "rev_growth_t": 0.5
+  },
+  "g_blend_confirmed": {
+    "trailing": 0.5,
+    "forward_proxy_rev_accel": 0.5
+  },
+  "g_fallback_unconfirmed": "trailing_growth only (not blended with 0)",
+  "pup_band_cuts": [
+    0.35,
+    0.45,
+    0.55,
+    0.65
+  ],
+  "pup_band_labels": [
+    "strong-neg",
+    "neg",
+    "neutral",
+    "pos",
+    "strong-pos"
+  ],
+  "pup_g_tercile_cuts_by_horizon": {
+    "1M": {
+      "q1": 0.038901202925223366,
+      "q2": 0.19454081841260415
+    },
+    "1Y": {
+      "q1": 0.036849448086717695,
+      "q2": 0.1934380329145744
+    },
+    "5Y": {
+      "q1": 0.043181818181818155,
+      "q2": 0.1856674208144796
+    }
+  },
+  "div_yield": 0.0,
+  "div_yield_note": "No dividend-yield PIT source in Blueprint Sec 1.1 lineage; optional carry term set to 0, disclosed.",
+  "judgment_calls": {
+    "J1": "trailing_growth = mean(op_growth_t, rev_growth_t), skipna equal-weight -- blueprint names both, no split given.",
+    "J2": "forward_proxy = rev_accel (rate-scaled), NOT z_accel (unitless z-score) -- dimensional fit for additive blend against a growth rate.",
+    "J3": "PERSISTENCE_BOOST_5Y = +0.02 (2pp/yr), frozen constant, 5Y-only, when sub_op_persistent==1.",
+    "J4": "sector-median PE computed directly from stock_valuation_pit.parquet (groupby date,sector), not sector_context.parquet / market_state.PE_by_tier (neither contains a per-sector PE level on disk).",
+    "J5": "P(up) coarse-band cutoffs [0.35,0.45,0.55,0.65] are fixed absolute probability levels, not relative to each horizon's differing base 'up' rate."
+  },
+  "diagnostics_from_build": {
+    "1M": {
+      "n_rows": 99415,
+      "n_scored": 52210,
+      "n_dates": 249,
+      "band_counts": {
+        "NEUTRAL": 97007,
+        "UNDERVALUED": 2408
+      },
+      "g_tercile_cuts": {
+        "q1": 0.038901202925223366,
+        "q2": 0.19454081841260415
+      }
+    },
+    "1Y": {
+      "n_rows": 99415,
+      "n_scored": 52210,
+      "n_dates": 249,
+      "band_counts": {
+        "NEUTRAL": 97007,
+        "UNDERVALUED": 2408
+      },
+      "g_tercile_cuts": {
+        "q1": 0.036849448086717695,
+        "q2": 0.1934380329145744
+      }
+    },
+    "5Y": {
+      "n_rows": 99415,
+      "n_scored": 52210,
+      "n_dates": 249,
+      "band_counts": {
+        "NEUTRAL": 97007,
+        "UNDERVALUED": 2408
+      },
+      "g_tercile_cuts": {
+        "q1": 0.043181818181818155,
+        "q2": 0.1856674208144796
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+[data] 981 corrupted (symbol,date) prints flagged (unspliced |ratio|>4x or <0.25x)
+[Efficiency_MACD_V1] clean n=22085 (dropped 23) cagr=7.0 sharpe=0.484 maxdd=-57.96 vs_bench=-5.96
+  per-year (clean): {2015: 2.4, 2016: -4.1, 2017: 40.5, 2018: -26.5, 2019: -9.0, 2020: 31.5, 2021: 54.8, 2022: -9.1, 2023: 34.5, 2024: 17.4, 2025: -11.9, 2026: -11.0}
+[Efficiency_MACD_V2] clean n=20988 (dropped 20) cagr=6.96 sharpe=0.481 maxdd=-57.46 vs_bench=-6.0
+[Efficiency_MACD_V3] clean n=21282 (dropped 18) cagr=6.59 sharpe=0.461 maxdd=-57.65 vs_bench=-6.37
+[Efficiency_PPO_V1] clean n=22085 (dropped 24) cagr=6.99 sharpe=0.483 maxdd=-58.02 vs_bench=-5.97
+[Efficiency_PPO_V2] clean n=20986 (dropped 20) cagr=6.95 sharpe=0.481 maxdd=-57.53 vs_bench=-6.01
+[Efficiency_PPO_V3] clean n=21282 (dropped 18) cagr=6.59 sharpe=0.461 maxdd=-57.65 vs_bench=-6.37
+[Momentum_MACD_V1] clean n=73794 (dropped 56) cagr=-0.83 sharpe=0.079 maxdd=-63.74 vs_bench=-13.79
+[Momentum_MACD_V2] clean n=67816 (dropped 46) cagr=-2.48 sharpe=0.021 maxdd=-70.68 vs_bench=-15.44
+[Momentum_MACD_V3] clean n=72889 (dropped 57) cagr=-4.41 sharpe=-0.076 maxdd=-71.09 vs_bench=-17.37
+  per-year (clean): {2015: 9.8, 2016: -21.9, 2017: 18.8, 2018: -40.5, 2019: -20.7, 2020: 85.5, 2021: 25.0, 2022: -30.1, 2023: 15.2, 2024: -4.8, 2025: -22.3, 2026: -8.4}
+[Momentum_PPO_V1] clean n=73812 (dropped 56) cagr=-0.9 sharpe=0.076 maxdd=-63.95 vs_bench=-13.86
+[Momentum_PPO_V2] clean n=67813 (dropped 44) cagr=-2.28 sharpe=0.032 maxdd=-70.9 vs_bench=-15.24
+[Momentum_PPO_V3] clean n=72889 (dropped 57) cagr=-4.41 sharpe=-0.076 maxdd=-71.09 vs_bench=-17.37
+
+WROTE results_CLEANED.csv
+                  cell  n_clean_trades  n_dropped  win_pct  mean_net_pct  t_stat  cagr_clean_pct  sharpe_clean  maxdd_clean_pct  bench_cagr_pct  vs_bench_clean
+0   Efficiency_MACD_V1           22085         23    37.72        1.4748  13.192            7.00         0.484           -57.96           12.96           -5.96
+1   Efficiency_MACD_V2           20988         20    37.72        1.4708  12.794            6.96         0.481           -57.46           12.96           -6.00
+2   Efficiency_MACD_V3           21282         18    37.83        1.5259  13.156            6.59         0.461           -57.65           12.96           -6.37
+3    Efficiency_PPO_V1           22085         24    37.73        1.4745  13.187            6.99         0.483           -58.02           12.96           -5.97
+4    Efficiency_PPO_V2           20986         20    37.73        1.4718  12.801            6.95         0.481           -57.53           12.96           -6.01
+5    Efficiency_PPO_V3           21282         18    37.83        1.5259  13.156            6.59         0.461           -57.65           12.96           -6.37
+6     Momentum_MACD_V1           73794         56    37.57       -0.1665  -5.863           -0.83         0.079           -63.74           12.96          -13.79
+7     Momentum_MACD_V2           67816         46    37.53       -0.1839  -6.215           -2.48         0.021           -70.68           12.96          -15.44
+8     Momentum_MACD_V3           72889         57    37.60       -0.1787  -6.125           -4.41        -0.076           -71.09           12.96          -17.37
+9      Momentum_PPO_V1           73812         56    37.54       -0.1687  -5.946           -0.90         0.076           -63.95           12.96          -13.86
+10     Momentum_PPO_V2           67813         44    37.51       -0.1854  -6.265           -2.28         0.032           -70.90           12.96          -15.24
+11     Momentum_PPO_V3           72889         57    37.60       -0.1787  -6.125           -4.41        -0.076           -71.09           12.96          -17.37

@@ -1,0 +1,97 @@
+{
+  "factor_id": "H031_mom_regimecond_vol_1Y",
+  "family": "H031",
+  "horizon": "1Y",
+  "return_basis": "resid",
+  "status": "OK",
+  "panel_source": "real",
+  "n_trials": 144,
+  "n_dates": 10,
+  "n_obs": 6535,
+  "generated_at": "2026-07-16T18:07:57.428126+00:00",
+  "ic": {
+    "ic_mean": -0.025312413728567455,
+    "ic_std": 0.07004942002159388,
+    "ic_ir": -0.3613507966342118,
+    "newey_west_t": -1.7755794537399814,
+    "nw_lag": 11,
+    "n_ic_dates": 7
+  },
+  "deciles": {
+    "monotonicity": -0.6363636363636362,
+    "n_decile_dates": 10
+  },
+  "long_short": {
+    "ann_return_LS": -0.6992970305661432,
+    "hit_rate": 0.2,
+    "n_periods": 10
+  },
+  "turnover": {
+    "avg_top_decile_turnover": 0.4947109827706842
+  },
+  "costs": {
+    "blended_cost_bps_roundtrip": 79.97744360902256,
+    "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+    "cost_approved": true,
+    "ann_cost_drag": 0.047478863672767824,
+    "net_of_cost_ann_return": -0.7467758942389111
+  },
+  "dsr": {
+    "dsr": 2.1256883239042686e-13,
+    "sr_hat": -0.6023123194134198,
+    "sr0_expected_max": 2.6563359395531796,
+    "skew": 1.062652689883025,
+    "kurtosis": 2.979177689740172,
+    "n_obs": 10,
+    "n_trials": 144
+  },
+  "pbo": {
+    "pbo": 1.0,
+    "n_combos": 6,
+    "n_blocks": 4,
+    "n_obs": 10,
+    "median_is_sharpe": -0.5720774090530231,
+    "median_oos_sharpe": -0.5720774090530231
+  },
+  "regime_breakdown": {
+    "regime_trend": {
+      "bear": -0.06590280224949063,
+      "bull": -0.0023440146242222314,
+      "sideways": -0.02664901615050927
+    },
+    "regime_vol": {
+      "low": -0.0025383960013486326,
+      "normal": -0.042392927023981564
+    }
+  },
+  "lag_test": {
+    "ic_lag_mean": -0.05927918206315164,
+    "lag_test_delta": 1.3419015941671921
+  },
+  "placebo": {
+    "placebo_ic": 0.004853969225007438,
+    "n_shuffles": 5,
+    "seed": 42
+  },
+  "verdict": "KILL (IC_IR -0.361 < 0.2; lag_test_delta 1.342 > 0.25; PBO 1.000 > 0.5)",
+  "worker_note": {
+    "regime_col": "regime_vol",
+    "role": "TRAIN-gated_conditional_variant (K-015-style vol-regime precedent)",
+    "regime_weights_from_train": {
+      "low": 1.0,
+      "normal": 1.0
+    },
+    "regime_ic_train": {
+      "low": 0.16935570300688635,
+      "normal": 0.09627270492771316
+    },
+    "train_dates_span": [
+      "2022-07-29",
+      "2023-08-31"
+    ],
+    "oos_dates_span": [
+      "2024-09-30",
+      "2025-06-30"
+    ]
+  }
+}

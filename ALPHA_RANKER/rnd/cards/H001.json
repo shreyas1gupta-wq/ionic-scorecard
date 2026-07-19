@@ -1,0 +1,99 @@
+{
+  "id": "H001",
+  "name": "65DMA vs 50DMA",
+  "cat": "technical",
+  "horizons": [
+    "1M",
+    "1Y"
+  ],
+  "generated_at": "2026-07-16T17:53:00.034287+00:00",
+  "family": "H001",
+  "kill_criterion_registered": "65DMA not >= 50DMA on OOS IC_IR",
+  "kill_criterion_result": "65DMA IC_IR >= 50DMA IC_IR in 5/6 construct x horizon comparisons (all dist/slope pairs both horizons, and 1Y stack; only 1M stack has 50DMA marginally ahead: 0.145 vs 0.135)",
+  "kill_criterion_triggered": false,
+  "answer_to_principal": "65DMA wins (or ties) on IC_IR vs 50DMA in every comparison except one (1M stack score, a near-tie: 0.145 vs 0.135). The margin grows at the 1Y horizon (dist 0.686 vs 0.606, slope 0.717 vs 0.669, stack 0.947 vs 0.912) -- directionally consistent with the '50DMA is crowded/gamed, 65DMA is not' thesis. At 1M, DISTANCE-from-either-MA is actually NEGATIVE IC_IR for both lengths and fails the lag test badly (delta 1.4-1.8, mean-reversion artifact, not a clean trend signal) -- so the win for 65 at 1M is 'less bad', not tradeable. SLOPE is the construct that is both directionally right (+) and lag-stable at 1M for both lengths, and 65DMA-slope beats 50DMA-slope there too (0.126 vs 0.093).",
+  "harness_verdict": "KILL (all 12 sub-cards) -- every H001 variant fails PBO>0.5 (CSCV), most 1M variants also fail the IC_IR>=0.20 floor and/or lag_test_delta<=0.25. DSR is also ~0 across the board (see ISSUE note).",
+  "pairs": [
+    {
+      "horizon": "1M",
+      "construct": "dist",
+      "ic_ir_50dma": -0.12365080040214721,
+      "ic_ir_65dma": -0.07667996909823638,
+      "lag_delta_50dma": 1.375194462312848,
+      "lag_delta_65dma": 1.7955827194970257,
+      "pbo_50dma": 0.9956709956709957,
+      "pbo_65dma": 1.0,
+      "65_ge_50_on_ic_ir": true
+    },
+    {
+      "horizon": "1M",
+      "construct": "slope",
+      "ic_ir_50dma": 0.09250775655458925,
+      "ic_ir_65dma": 0.12559633731434033,
+      "lag_delta_50dma": 0.17554213848801292,
+      "lag_delta_65dma": 0.013819484237389126,
+      "pbo_50dma": 1.0,
+      "pbo_65dma": 0.9956709956709957,
+      "65_ge_50_on_ic_ir": true
+    },
+    {
+      "horizon": "1M",
+      "construct": "stack",
+      "ic_ir_50dma": 0.14538141865429569,
+      "ic_ir_65dma": 0.1347143591231865,
+      "lag_delta_50dma": 0.16078044559092183,
+      "lag_delta_65dma": 0.017887264155056794,
+      "pbo_50dma": 0.9956709956709957,
+      "pbo_65dma": 1.0,
+      "65_ge_50_on_ic_ir": false
+    },
+    {
+      "horizon": "1Y",
+      "construct": "dist",
+      "ic_ir_50dma": 0.6056514244899995,
+      "ic_ir_65dma": 0.686064848849948,
+      "lag_delta_50dma": 0.006535564612114435,
+      "lag_delta_65dma": 0.048074720547751734,
+      "pbo_50dma": 0.961038961038961,
+      "pbo_65dma": 0.9393939393939394,
+      "65_ge_50_on_ic_ir": true
+    },
+    {
+      "horizon": "1Y",
+      "construct": "slope",
+      "ic_ir_50dma": 0.6688933521730203,
+      "ic_ir_65dma": 0.7174031960184557,
+      "lag_delta_50dma": 0.14436903129237816,
+      "lag_delta_65dma": 0.13670965921649508,
+      "pbo_50dma": 0.8787878787878788,
+      "pbo_65dma": 0.8658008658008658,
+      "65_ge_50_on_ic_ir": true
+    },
+    {
+      "horizon": "1Y",
+      "construct": "stack",
+      "ic_ir_50dma": 0.9123177127668688,
+      "ic_ir_65dma": 0.9474211415569807,
+      "lag_delta_50dma": 0.09718238924581621,
+      "lag_delta_65dma": 0.09053416948934896,
+      "pbo_50dma": 0.9783549783549783,
+      "pbo_65dma": 0.987012987012987,
+      "65_ge_50_on_ic_ir": true
+    }
+  ],
+  "sub_cards": [
+    "H001_dist50_1M",
+    "H001_slope50_1M",
+    "H001_stack50_1M",
+    "H001_dist65_1M",
+    "H001_slope65_1M",
+    "H001_stack65_1M",
+    "H001_dist50_1Y",
+    "H001_slope50_1Y",
+    "H001_stack50_1Y",
+    "H001_dist65_1Y",
+    "H001_slope65_1Y",
+    "H001_stack65_1Y"
+  ],
+  "note": "[DATA] computed from rnd/panel/cube_close.parquet (751-symbol cube) via rnd/lib/builders_ma.py; dist=close/MA_n-1, slope=MA_n(t)/MA_n(t-21)-1, stack=count(close>MA_fast, MA_fast>MA150, MA150>MA200); basis=resid, run via rnd/run_ma_hypotheses.py. See ISSUE note in H002 card re: PBO/DSR near-universal fail."
+}

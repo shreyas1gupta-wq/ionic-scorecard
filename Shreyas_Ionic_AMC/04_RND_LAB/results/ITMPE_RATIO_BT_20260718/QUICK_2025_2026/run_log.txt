@@ -1,0 +1,90 @@
+[DATA] spot 'Nifty 50' rows=2599 range=2016-01-01..2026-07-16 file=datasets/index_daily/nse_official_all_indices.parquet
+[DATA] C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\05_DATA_OFFICE\data\fo_bhavcopy_hist\fo_idx_2024.parquet yr=2024 NIFTY-OPTIDX-CE/PE rows=402556
+[DATA] C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\05_DATA_OFFICE\data\fo_bhavcopy_hist\fo_idx_2025.parquet yr=2025 NIFTY-OPTIDX-CE/PE rows=394283
+[DATA] C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\05_DATA_OFFICE\data\fo_bhavcopy_hist\fo_idx_2026.parquet yr=2026 NIFTY-OPTIDX-CE/PE rows=230360
+[DATA] combined options rows=1027199 -> 1027199 after date parse; TIMESTAMP range 2024-01-01..2026-07-10
+[DATA] effective DATA_MAX (min of spot/options) = 2026-07-10
+[DATA] rows with spot_close match: 1027199 -> 1027199
+[DATA] monthly expiries in window (2025-01-01..2026-07-10): 18
+    2025-01-30
+    2025-02-27
+    2025-03-27
+    2025-04-30
+    2025-05-29
+    2025-06-26
+    2025-07-31
+    2025-08-28
+    2025-09-30
+    2025-10-28
+    2025-11-25
+    2025-12-30
+    2026-01-27
+    2026-02-24
+    2026-03-31
+    2026-04-28
+    2026-05-26
+    2026-06-30
+[DATA] cycles built: 18 (first 2025-01-01..2025-01-30, last 2026-05-27..2026-06-30)
+[INFO] warnings during simulation: 1
+  WARN: A cyc15 2026-02-25: no ITM CE strike found, structure open FAILED
+[OUTPUT] C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\ITMPE_RATIO_BT_20260718\QUICK_2025_2026\quick_trade_ledger.csv rows=208
+[OUTPUT] C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\ITMPE_RATIO_BT_20260718\QUICK_2025_2026\quick_margin_detail.csv rows=52
+[HEADLINE A] {
+  "cell": "A",
+  "n_cycles": 18,
+  "total_pnl_net_rupees": -306274.4125951365,
+  "total_pnl_x2_rupees": -319106.56061882555,
+  "win_rate": 0.4444444444444444,
+  "max_dd_rupees": -415690.9405092272,
+  "worst_cycle": {
+    "cycle": 16,
+    "start": "2026-04-01",
+    "end": "2026-04-28",
+    "pnl_net": -73501.49060801518,
+    "entry_signal": "bear"
+  },
+  "n_bull_entries": 10,
+  "n_bear_entries": 8,
+  "bear_side_pnl": -114831.98578623979,
+  "avg_credit_rupees_per_lot": 505.3553203125,
+  "avg_hedge_cost_rupees_per_2lot": 144.842328125,
+  "avg_margin_pts": 2776.007734375,
+  "avg_naked_margin_pts": 2920.8500624999997,
+  "avg_margin_drop_ratio": 0.9501903109773756,
+  "rom_annualized": -0.7482720854191283,
+  "rom_total_window": -0.8737018273705919,
+  "return_on_10L_notional": -0.3062744125951365
+}
+[HEADLINE B] {
+  "cell": "B",
+  "n_cycles": 18,
+  "total_pnl_net_rupees": -133576.69763440502,
+  "total_pnl_x2_rupees": -141057.45459249962,
+  "win_rate": 0.3333333333333333,
+  "max_dd_rupees": -225457.69170878606,
+  "worst_cycle": {
+    "cycle": 7,
+    "start": "2025-06-27",
+    "end": "2025-07-31",
+    "pnl_net": -58537.512826195816,
+    "entry_signal": "bull"
+  },
+  "n_bull_entries": 10,
+  "n_bear_entries": 8,
+  "bear_side_pnl": null,
+  "avg_credit_rupees_per_lot": 495.5255812500001,
+  "avg_hedge_cost_rupees_per_2lot": 149.54292500000003,
+  "avg_margin_pts": 2791.305475,
+  "avg_naked_margin_pts": 2940.8484,
+  "avg_margin_drop_ratio": 0.9490943578014598,
+  "rom_annualized": -0.4037028868966934,
+  "rom_total_window": -0.5395377194075728,
+  "return_on_10L_notional": -0.13357669763440502
+}
+[OUTPUT] C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\ITMPE_RATIO_BT_20260718\QUICK_2025_2026\premium_itm_depth_mapping.csv rows=52
+[DEPTH SUMMARY]
+      count        mean   median    min     max         std
+cell                                                       
+A        32  336.295312  351.900   29.4  570.40  166.054333
+B        20  417.930000  449.775  203.3  573.05  118.567062
+[OUTPUT] C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\ITMPE_RATIO_BT_20260718\QUICK_2025_2026\equity_curve.png

@@ -1,0 +1,80 @@
+{
+  "factor_id": "W5IN_cond_full_5Y",
+  "family": "W5IN",
+  "horizon": "5Y",
+  "return_basis": "resid",
+  "status": "OK",
+  "panel_source": "panel_long",
+  "n_trials": 611,
+  "n_dates": 162,
+  "n_obs": 51890,
+  "generated_at": "2026-07-17T09:20:17.937680+00:00",
+  "ic": {
+    "ic_mean": 0.006606092338557211,
+    "ic_std": 0.06265083834751907,
+    "ic_ir": 0.10544299985123516,
+    "newey_west_t": 0.43586366521714676,
+    "nw_lag": 59,
+    "n_ic_dates": 96
+  },
+  "deciles": {
+    "monotonicity": 0.006060606060606061,
+    "n_decile_dates": 96
+  },
+  "long_short": {
+    "ann_return_LS": 6.955659063705394,
+    "ann_return_LS_horizon_aware": 0.11592765106175655,
+    "hit_rate": 0.5729166666666666,
+    "n_periods": 96
+  },
+  "turnover": {
+    "avg_top_decile_turnover": 0.08180532244589238
+  },
+  "costs": {
+    "blended_cost_bps_roundtrip": 79.94063926940639,
+    "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+    "cost_approved": true,
+    "ann_cost_drag": 0.00784748372635747,
+    "net_of_cost_ann_return": 6.947811579979036,
+    "net_of_cost_ann_return_horizon_aware": 0.10808016733539907
+  },
+  "dsr": {
+    "dsr": 4.5976304126096673e-275,
+    "sr_hat": 0.3948816754890413,
+    "sr0_expected_max": 3.112296287078496,
+    "skew": 1.7557640167676687,
+    "kurtosis": 7.478789963345594,
+    "n_obs": 96,
+    "n_trials": 611
+  },
+  "pbo": {
+    "pbo": 0.9264069264069265,
+    "n_combos": 924,
+    "n_blocks": 12,
+    "n_obs": 96,
+    "median_is_sharpe": 0.40786492700115484,
+    "median_oos_sharpe": 0.40786492700115484
+  },
+  "regime_breakdown": {
+    "regime_trend": {
+      "bear": -0.011013495247773838,
+      "bull": 0.015007661476918321,
+      "sideways": 0.0016060116848887372
+    },
+    "regime_vol": {
+      "high": 0.012118118439177681,
+      "low": 0.005230884985979643,
+      "normal": 0.006518335621006069
+    }
+  },
+  "lag_test": {
+    "ic_lag_mean": 0.00635091449723025,
+    "lag_test_delta": 0.038627652816414074
+  },
+  "placebo": {
+    "placebo_ic": -0.004686292406663161,
+    "n_shuffles": 5,
+    "seed": 42
+  },
+  "verdict": "KILL (IC_IR 0.105 < 0.2; PBO 0.926 > 0.5)"
+}

@@ -1,0 +1,207 @@
+{
+  "target": "AUDIT_TRUE7_1Y (rnd/FINAL_MODEL.md 7-leg composite)",
+  "per_class": {
+    "T1_pit": [
+      {
+        "check": "T1_pit",
+        "severity": "INFO",
+        "detail": "0/1092384 rows have available_date before the fiscal-year-end proxy (source publication-before-event check)"
+      },
+      {
+        "check": "T1_pit",
+        "severity": "INFO",
+        "detail": "available_date column present in fundamentals source; all 4 fundamentals-based legs (EY, QMJ, issuance, asset-growth, cfo_pat) confirmed via source read to merge_asof(direction='backward') on this column, not on fiscal_year/quarter-end -- landmine #3 respected"
+      }
+    ],
+    "T2_tz": [
+      {
+        "check": "T2_tz",
+        "severity": "INFO",
+        "detail": "panel dates are month-end labels derived from daily-close parquet index (tz-naive IST trading-calendar dates), no raw UTC intraday timestamps in this pathway -- landmine #1 applies to the HF options data, not this equity panel"
+      }
+    ],
+    "T3_same_bar": [
+      {
+        "check": "T3_same_bar",
+        "severity": "INFO",
+        "detail": "harness.evaluate() is a cross-sectional rank/IC scorer (decision date == rebalance date, position held to next rebalance), not a signal/entry trade log with separate timestamps -- the T3 same-bar-execution check does not apply to this evaluation layer; it WOULD apply if/when this composite is wired into an actual order-placement pipeline, flagged for that gate"
+      }
+    ],
+    "T4_session": [
+      {
+        "check": "T4_session",
+        "severity": "INFO",
+        "detail": "no intraday bars are read anywhere in the fundamentals/monthly-rebalance pathway that builds this composite"
+      }
+    ],
+    "T5_universe": [
+      {
+        "check": "T5_universe",
+        "severity": "FAIL",
+        "detail": "ALPHA_RANKER's panel universe is built from `nifty_total_market_750.csv` (751 CURRENT constituents, single static snapshot per build_panel_long.py's own documented caveat), NOT the 42-PIT-snapshot `NIFTY500_TICKER_2005_2025_Final.xlsx` mandated by landmine #6/T5 for universe membership. Names delisted/removed from the CURRENT 750-name universe before today are absent from EVERY historical panel date, including 2005-2015 dates decades before this snapshot was taken -- classic survivorship bias in the panel's cross-section, distinct from (and in addition to) the already-disclosed current-snapshot sector/mktcap caveat."
+      },
+      {
+        "check": "T5_universe",
+        "severity": "INFO",
+        "detail": "the mandated PIT file exists on disk (1 sheets) and is NOT wired into this panel build -- an available fix, not a data gap"
+      }
+    ],
+    "T6_T7_code_scan": [
+      {
+        "check": "code_scan",
+        "severity": "WARN",
+        "detail": "run_long_confirm.py:94: pct = g.rank(pct=True) -> T6: full-sample percentile rank \u2014 the percentile at time t includes future cross-sections unless applied per-date group"
+      },
+      {
+        "check": "code_scan",
+        "severity": "WARN",
+        "detail": "run_long_confirm.py:111: ma_fast = close.rolling(fast_n, min_periods=fast_n).mean() -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+      },
+      {
+        "check": "code_scan",
+        "severity": "WARN",
+        "detail": "run_long_confirm.py:112: ma_mid = close.rolling(mid_n, min_periods=mid_n).mean() -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+      },
+      {
+        "check": "code_scan",
+        "severity": "WARN",
+        "detail": "run_long_confirm.py:113: ma_slow = close.rolling(slow_n, min_periods=slow_n).mean() -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+      },
+      {
+        "check": "code_scan",
+        "severity": "WARN",
+        "detail": "run_long_confirm.py:120: ma = close.rolling(n, min_periods=n).mean() -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+      },
+      {
+        "check": "code_scan",
+        "severity": "WARN",
+        "detail": "run_long_confirm.py:163: cov_ok = window.notna().mean() >= 0.80 -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+      },
+      {
+        "check": "code_scan",
+        "severity": "WARN",
+        "detail": "run_long_confirm.py:173: ma150 = close.rolling(150, min_periods=150).mean() -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+      },
+      {
+        "check": "code_scan",
+        "severity": "WARN",
+        "detail": "run_long_confirm.py:233: \"bear_ic_2008_11_20\": float(bear[\"ic\"].mean()) if len(bear) else None, -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+      },
+      {
+        "check": "code_scan",
+        "severity": "WARN",
+        "detail": "run_long_confirm.py:234: \"other_ic\": float(other[\"ic\"].mean()) if len(other) else None, -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+      },
+      {
+        "check": "code_scan",
+        "severity": "WARN",
+        "detail": "run_long_confirm.py:236: \"bear_ic_by_year\": {int(y): float(g[\"ic\"].mean()) for y, g in bear.groupby(\"year\")}, -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+      },
+      {
+        "check": "code_scan",
+        "severity": "WARN",
+        "detail": "builders_w2_profq.py:93: fresh_frac = df.groupby([\"symbol\", \"fiscal_year\"])[\"is_fresh\"].mean() -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+      },
+      {
+        "check": "code_scan",
+        "severity": "WARN",
+        "detail": "builders_w2_profq.py:143: g[\"ni_growth_std5y_neg\"] = -ni_growth.rolling(5, min_periods=3).std()  # IDG-G-12 stabilit -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+      },
+      {
+        "check": "code_scan",
+        "severity": "WARN",
+        "detail": "builders_w2_profq.py:198: return float((merged[\"is_fresh_frac\"] >= 0.5).mean()) -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+      },
+      {
+        "check": "code_scan",
+        "severity": "WARN",
+        "detail": "builders_w2_profq.py:205: return s.groupby(level=\"date\").rank(pct=True) -> T6: full-sample percentile rank \u2014 the percentile at time t includes future cross-sections unless applied per-date group"
+      },
+      {
+        "check": "code_scan",
+        "severity": "WARN",
+        "detail": "builders_w2_profq.py:211: return (x - x.mean()) / sd if sd and sd > 0 else pd.Series(np.nan, index=x.index) -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+      },
+      {
+        "check": "code_scan",
+        "severity": "WARN",
+        "detail": "builders_w2_issuance.py:75: return (v - v.mean()) / sd -> T6: bare .mean()/.std() \u2014 verify it is per-date/rolling/train-window, not full-sample normalization"
+      }
+    ],
+    "T9_oos": [
+      {
+        "check": "T9_oos",
+        "severity": "INFO",
+        "detail": "family ledger: AUDIT_TRUE7=1 trial(s), CAPSTONE_COMPO=1 trial(s), total_trials(all families)=455. The TRUE7 composite itself was built+scored via harness.evaluate() exactly ONCE (sameer_preic_audit.py, disclosed as +1 new honest trial) -- no repeat OOS opens on this specific construction. However the composite's 7 legs were each selected from a much larger multi-week search (H001-H050+, W2 series, 90 families, 454 trials total) -- the HONEST trial count for 'did we go looking for a 7-leg composite that works' is NOT 1, it is closer to the full program-level count. This is exactly the DSR/PBO n_trials ambiguity Gate 3 must resolve, not a T9 pass/fail on its own."
+      }
+    ],
+    "T10_backfill": [
+      {
+        "check": "T10_backfill",
+        "severity": "INFO",
+        "detail": "panel_long loaded: 148297 rows, 249 monthly dates, 969 symbols, date range 2005-04-29..2025-12-05. No config.json row-count/max-date snapshot stamp found alongside panel_long.parquet -- CLAUDE.md/LOOKAHEAD_CONTROLS.md standing rule ('backtests never read files newer than the run's declared data snapshot') is not mechanically enforced here; a future re-run against a silently-revised fundamentals source (screener_dump backfills, Angel purges) would not be automatically detected. Disclosed gap, not a demonstrated leak."
+      }
+    ]
+  },
+  "one_day_lag_test": [
+    {
+      "name": "COMPOSITE(AUDIT_TRUE7_1Y)",
+      "ic_mean": 0.19008992358092444,
+      "ic_lag_mean": 0.17892375571600563,
+      "collapse_ratio": 0.05874150325577455,
+      "verdict": "PASS"
+    },
+    {
+      "name": "value_EY",
+      "ic_mean": 0.07922785908062568,
+      "ic_lag_mean": 0.08003901584191951,
+      "collapse_ratio": 0.010238276923125726,
+      "verdict": "PASS"
+    },
+    {
+      "name": "mom_resid_plain",
+      "ic_mean": 0.11127098480382781,
+      "ic_lag_mean": 0.09833412930515706,
+      "collapse_ratio": 0.11626441090171528,
+      "verdict": "PASS"
+    },
+    {
+      "name": "trend_ma65_slope",
+      "ic_mean": 0.09572341627910882,
+      "ic_lag_mean": 0.0853377646068129,
+      "collapse_ratio": 0.10849645860960085,
+      "verdict": "PASS"
+    },
+    {
+      "name": "quality_QMJ",
+      "ic_mean": 0.14827387510095497,
+      "ic_lag_mean": 0.14655090464089132,
+      "collapse_ratio": 0.011620189051446374,
+      "verdict": "PASS"
+    },
+    {
+      "name": "bs_issuance",
+      "ic_mean": 0.060610682526194136,
+      "ic_lag_mean": 0.059959433486571324,
+      "collapse_ratio": 0.010744789738036048,
+      "verdict": "PASS"
+    },
+    {
+      "name": "bs_asset_growth",
+      "ic_mean": null,
+      "ic_lag_mean": null,
+      "collapse_ratio": null,
+      "verdict": null
+    },
+    {
+      "name": "quality_cfo_pat",
+      "ic_mean": 0.042046315841370516,
+      "ic_lag_mean": 0.04204178924715121,
+      "collapse_ratio": 0.00010765733284174257,
+      "verdict": "PASS"
+    }
+  ],
+  "verdict": "FAIL",
+  "n_fail": 1,
+  "n_warn": 16
+}

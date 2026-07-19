@@ -1,0 +1,78 @@
+{
+  "factor_id": "CAPSTONE_value_smallcap_M2_1Y",
+  "family": "CAPSTONE_value_smallcap_M2",
+  "horizon": "1Y",
+  "return_basis": "resid",
+  "status": "OK",
+  "panel_source": "real_panel_long_capstone",
+  "n_trials": 420,
+  "n_dates": 207,
+  "n_obs": 27414,
+  "generated_at": "2026-07-17T02:42:23.180364+00:00",
+  "ic": {
+    "ic_mean": 0.05653439154240884,
+    "ic_std": 0.08956820758098144,
+    "ic_ir": 0.631188153355579,
+    "newey_west_t": 3.2872312133541075,
+    "nw_lag": 11,
+    "n_ic_dates": 151
+  },
+  "deciles": {
+    "monotonicity": 0.5757575757575757,
+    "n_decile_dates": 151
+  },
+  "long_short": {
+    "ann_return_LS": 0.5594154768031946,
+    "hit_rate": 0.6291390728476821,
+    "n_periods": 151
+  },
+  "turnover": {
+    "avg_top_decile_turnover": 0.16279072867849959
+  },
+  "costs": {
+    "blended_cost_bps_roundtrip": 79.92456479690522,
+    "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+    "cost_approved": true,
+    "ann_cost_drag": 0.01561317377112019,
+    "net_of_cost_ann_return": 0.5438023030320744
+  },
+  "dsr": {
+    "dsr": 9.788341723198808e-262,
+    "sr_hat": 0.16137479839285634,
+    "sr0_expected_max": 2.9997214513334423,
+    "skew": 0.07092199298468849,
+    "kurtosis": 4.73587150022914,
+    "n_obs": 151,
+    "n_trials": 420
+  },
+  "pbo": {
+    "pbo": 0.9956709956709957,
+    "n_combos": 924,
+    "n_blocks": 12,
+    "n_obs": 151,
+    "median_is_sharpe": 0.16320097530251035,
+    "median_oos_sharpe": 0.16320097530251035
+  },
+  "regime_breakdown": {
+    "regime_trend": {
+      "bear": 0.10654625283623112,
+      "bull": 0.038862124665456424,
+      "sideways": 0.07259757674391218
+    },
+    "regime_vol": {
+      "high": 0.062366927713290755,
+      "low": 0.042448493834088316,
+      "normal": 0.07506362357696286
+    }
+  },
+  "lag_test": {
+    "ic_lag_mean": 0.05594119907666619,
+    "lag_test_delta": 0.01049259485348265
+  },
+  "placebo": {
+    "placebo_ic": -0.0021091850436568554,
+    "n_shuffles": 5,
+    "seed": 42
+  },
+  "verdict": "KILL (PBO 0.996 > 0.5)"
+}

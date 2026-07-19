@@ -1,0 +1,42 @@
+{
+  "two_sided": {
+    "monthly": {
+      "n_cycles": 88,
+      "sum_credit": 30194.75,
+      "sum_cost": 570.207626289,
+      "sum_net_pnl": -4798.007626289,
+      "avg_margin": 2031.373931818182,
+      "pin_risk_episodes": 7,
+      "maxdd_pts": -7871.1928247270025
+    },
+    "weekly": {
+      "n_cycles": 393,
+      "sum_credit": 60438.8,
+      "sum_cost": 424.62081072800004,
+      "sum_net_pnl": 1836.1791892720016,
+      "avg_margin": 2118.032916030534,
+      "pin_risk_episodes": 50,
+      "maxdd_pts": -2626.429612604008
+    }
+  },
+  "bull_only": {
+    "monthly": {
+      "n_cycles": 88,
+      "sum_credit": 29276.450000000004,
+      "sum_cost": 386.756838029,
+      "sum_net_pnl": -1223.456838029004,
+      "avg_margin": 2068.280159090909,
+      "pin_risk_episodes": 6,
+      "maxdd_pts": -3431.1317968990015
+    },
+    "weekly": {
+      "n_cycles": 393,
+      "sum_credit": 48905.8,
+      "sum_cost": 337.32386673999997,
+      "sum_net_pnl": 2272.9761332599983,
+      "avg_margin": 2135.5257659033077,
+      "pin_risk_episodes": 45,
+      "maxdd_pts": -1826.1156452930004
+    }
+  }
+}

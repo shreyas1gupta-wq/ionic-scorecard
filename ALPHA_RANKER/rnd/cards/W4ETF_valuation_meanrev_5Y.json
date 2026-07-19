@@ -1,0 +1,24 @@
+{
+  "card_id": "W4ETF_valuation_meanrev_5Y",
+  "sleeve": "ETF/Cross-Asset tactical allocation",
+  "family": "valuation_vs_own_history_meanreversion",
+  "horizon": "5Y",
+  "universe": ["GOLD", "SILVER", "COPPER", "NASDAQ", "SP500", "NIFTY50", "MIDCAP", "SMALLCAP", "MOMENTUM", "LOWVOL"],
+  "method": "Expanding percentile rank of current price level vs own trailing history (no PE/CAPE data available for global indices or India factor ETFs on disk -> price-percentile is an honest but weak proxy for 'cheap vs own history', flagged upfront in the brief as the fallback for commodities and used here uniformly.",
+  "factor_ic_pooled_asset_month": {
+    "px_pctile_meanrev_fwd_1M": {"full_history": -0.013, "concurrent_only": 0.023, "n_full": 1320, "n_concurrent": 318},
+    "px_pctile_meanrev_fwd_1Y": {"full_history": -0.069, "concurrent_only": 0.021, "n_full": 1254, "n_concurrent": 252},
+    "note": "Near-zero and SIGN-FLIPS between windows at both horizons -> no reliable signal detected."
+  },
+  "true_5Y_forward_test_availability": {
+    "SP500": "possible, 33.5y history", "NASDAQ": "possible, 27.3y history", "COPPER": "possible, 25.9y history",
+    "NIFTY50": "marginal, 13.5y history -> ~8.5y of completed 5Y-forward obs",
+    "MIDCAP": "marginal, 7.45y history -> ~2.5y of completed 5Y-forward obs, too few independent draws",
+    "GOLD": "NOT POSSIBLE - 5.47y history, ~0 completed 5Y-forward observations",
+    "SILVER/MOMENTUM/LOWVOL/SMALLCAP": "NOT POSSIBLE - all under 5y history, zero completed 5Y-forward observations"
+  },
+  "status": "KILL (as constructed) / DATA GAP (for true 5Y test)",
+  "verdict": "[DATA] Two independent problems, not one: (1) the price-percentile proxy itself shows no IC in the two horizons we CAN test (1M, 1Y) - sign flips between windows, magnitude near zero. (2) A genuine 5Y-horizon empirical test is only possible for SP500/NASDAQ/COPPER (long global history); NONE of the India-specific ETFs (gold/silver/factor sleeves) have enough history on disk to produce even one completed 5Y-forward observation. The '5Y' column of the scored snapshot table is therefore a RULE-BASED [INFERENCE] score only, not empirically validated for 8 of 10 assets - do not present it as tested. Needs either (a) a proper PE/CAPE or earnings-yield data source per asset class before the valuation leg is worth re-testing, or (b) several more years of India ETF history to even attempt the 5Y forward-return test honestly.",
+  "review_date": "2027-07-17 (earliest realistic re-test point for the India-ETF 5Y-forward gap)",
+  "generated_at": "2026-07-17"
+}

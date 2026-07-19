@@ -1,0 +1,36 @@
+{
+  "id": "W2_macro_risk_regime_1Y",
+  "family": "W2_macro",
+  "regime_col": "risk_regime",
+  "target": "fwd_ret_nifty500_1Y",
+  "n_obs": 103,
+  "bucket_means": {
+    "high": 0.20800999444566443,
+    "low": 0.14011208911646375,
+    "mid": 0.04446633328473725
+  },
+  "bucket_counts": {
+    "high": 38,
+    "low": 36,
+    "mid": 29
+  },
+  "spread_hi_minus_lo": 0.16354366116092717,
+  "hi_bucket": "high",
+  "lo_bucket": "mid",
+  "lag_test": {
+    "lag_spread": 0.16282495991395202,
+    "lag_test_delta": 0.0043945527565751865
+  },
+  "placebo": {
+    "placebo_spread_mean": 0.05725176617689613,
+    "placebo_spread_std": 0.030938356825207906,
+    "placebo_p_value_one_sided": 0.005,
+    "n_shuffles": 200
+  },
+  "gates": {
+    "lag_ok": true,
+    "placebo_ok": true
+  },
+  "pbo": "not computed -- advisory-skip, single macro time series (n=1 candidate, CSCV needs competing variants), disclosed not silent",
+  "verdict": "PARK (passes hard gates; PBO not computed -- advisory-skip for single macro series; small n, regime-conditioning signal only, not a tradeable factor by itself)"
+}

@@ -1,0 +1,64 @@
+panel_source=real rows=40201 dates=61 symbols=751
+-- running H029_quality_only_1M h=1M basis=resid ...
+   -> {'horizon': '1M', 'status': 'OK', 'verdict': 'KILL (IC_IR -0.152 < 0.2; PBO 0.987 > 0.5)', 'ic_mean': -0.012164303019154258, 'ic_ir': -0.1518707924852319, 'n_obs': 31269, 'n_dates': 53, 'net_of_cost_ann_return': -0.1890236359336222, 'monotonicity': -0.7333333333333332, 'pbo': 0.987012987012987, 'lag_test_delta': 0.08892808267460585, 'placebo_ic': -0.000650341883027118}
+-- running H029_momentum_only_1M h=1M basis=resid ...
+   -> {'horizon': '1M', 'status': 'OK', 'verdict': 'KILL (PBO 0.991 > 0.5)', 'ic_mean': 0.035078847598926384, 'ic_ir': 0.3035320828118074, 'n_obs': 29824, 'n_dates': 47, 'net_of_cost_ann_return': 0.2273949834229598, 'monotonicity': 0.9515151515151514, 'pbo': 0.9913419913419913, 'lag_test_delta': 0.1380497993805785, 'placebo_ic': -0.003664955282630735}
+-- running H029_interact_1M h=1M basis=resid ...
+   -> {'horizon': '1M', 'status': 'OK', 'verdict': 'KILL (IC_IR -0.103 < 0.2; lag_test_delta 0.556 > 0.25; PBO 0.996 > 0.5)', 'ic_mean': -0.005910073310484559, 'ic_ir': -0.10339600283175719, 'n_obs': 27277, 'n_dates': 47, 'net_of_cost_ann_return': -0.05708894341023853, 'monotonicity': -0.28484848484848485, 'pbo': 0.9956709956709957, 'lag_test_delta': 0.5557801109896618, 'placebo_ic': 0.00208038996759377}
+-- running H030_value_only_1M h=1M basis=resid ...
+   -> {'horizon': '1M', 'status': 'OK', 'verdict': 'KILL (PBO 1.000 > 0.5)', 'ic_mean': 0.039888003489662247, 'ic_ir': 0.39407740247227935, 'n_obs': 34138, 'n_dates': 53, 'net_of_cost_ann_return': 0.06338201759617516, 'monotonicity': 0.5393939393939393, 'pbo': 1.0, 'lag_test_delta': 0.04373916172212178, 'placebo_ic': 0.0011950242760275318}
+-- running H030_quality_only_1M h=1M basis=resid ...
+   -> {'horizon': '1M', 'status': 'OK', 'verdict': 'KILL (IC_IR -0.152 < 0.2; PBO 0.987 > 0.5)', 'ic_mean': -0.012164303019154258, 'ic_ir': -0.1518707924852319, 'n_obs': 31269, 'n_dates': 53, 'net_of_cost_ann_return': -0.1890236359336222, 'monotonicity': -0.7333333333333332, 'pbo': 0.987012987012987, 'lag_test_delta': 0.08892808267460585, 'placebo_ic': -0.000650341883027118}
+-- running H030_interact_1M h=1M basis=resid ...
+   -> {'horizon': '1M', 'status': 'OK', 'verdict': 'KILL (IC_IR -0.053 < 0.2; lag_test_delta 0.564 > 0.25; PBO 0.987 > 0.5)', 'ic_mean': -0.00299089275135248, 'ic_ir': -0.053330677154381875, 'n_obs': 31236, 'n_dates': 53, 'net_of_cost_ann_return': 0.06518703870249537, 'monotonicity': 0.6363636363636362, 'pbo': 0.987012987012987, 'lag_test_delta': 0.5641325968617713, 'placebo_ic': -0.0012406424891024752}
+-- running H046_ey_only_1M h=1M basis=resid ...
+   -> {'horizon': '1M', 'status': 'OK', 'verdict': 'KILL (PBO 1.000 > 0.5)', 'ic_mean': 0.039888003489662247, 'ic_ir': 0.39407740247227935, 'n_obs': 34138, 'n_dates': 53, 'net_of_cost_ann_return': 0.06338201759617516, 'monotonicity': 0.5393939393939393, 'pbo': 1.0, 'lag_test_delta': 0.04373916172212178, 'placebo_ic': 0.0011950242760275318}
+-- running H046_growth_only_1M h=1M basis=resid ...
+Traceback (most recent call last):
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\run_worker_h029_030_046_048.py", line 54, in <module>
+    run(f"H046_growth_only_{h}", bi.h046_growth, h)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\run_worker_h029_030_046_048.py", line 25, in run
+    card = run_experiment(fid, builder, horizon, basis=basis, panel=panel, panel_source=src)
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\harness.py", line 785, in run_experiment
+    factor = factor_builder_fn(panel)
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_interact.py", line 231, in h046_growth
+    return growth_sales_yoy(panel)
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_interact.py", line 123, in growth_sales_yoy
+    merged = pd.merge_asof(g.sort_values("date"), dsym.sort_values("date")[["date", "yoy"]],
+                            on="date", direction="backward")
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\reshape\merge.py", line 917, in merge_asof
+    op = _AsOfMerge(
+        left,
+    ...<13 lines>...
+        direction=direction,
+    )
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\reshape\merge.py", line 2353, in __init__
+    _OrderedMerge.__init__(
+    ~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<9 lines>...
+        fill_method=None,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\reshape\merge.py", line 2265, in __init__
+    _MergeOperation.__init__(
+    ~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<9 lines>...
+        sort=True,  # factorize sorts
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\reshape\merge.py", line 1026, in __init__
+    self._maybe_require_matching_dtypes(self.left_join_keys, self.right_join_keys)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\reshape\merge.py", line 2478, in _maybe_require_matching_dtypes
+    _check_dtype_match(lk, rk, i)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\reshape\merge.py", line 2474, in _check_dtype_match
+    raise MergeError(msg)
+pandas.errors.MergeError: incompatible merge keys [0] dtype('<M8[ns]') and dtype('<M8[us]'), must be the same type

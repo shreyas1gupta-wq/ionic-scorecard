@@ -1,0 +1,501 @@
+{
+  "coverage": {
+    "GOLD": {
+      "n_obs": 1357,
+      "date_min": "2021-01-11",
+      "date_max": "2026-07-03",
+      "years": 5.47
+    },
+    "SILVER": {
+      "n_obs": 1091,
+      "date_min": "2022-02-07",
+      "date_max": "2026-07-03",
+      "years": 4.4
+    },
+    "NIFTY50": {
+      "n_obs": 3346,
+      "date_min": "2013-01-01",
+      "date_max": "2026-07-10",
+      "years": 13.52
+    },
+    "COPPER": {
+      "n_obs": 6498,
+      "date_min": "2000-08-30",
+      "date_max": "2026-07-17",
+      "years": 25.88
+    },
+    "NASDAQ": {
+      "n_obs": 6880,
+      "date_min": "1999-03-10",
+      "date_max": "2026-07-16",
+      "years": 27.35
+    },
+    "SP500": {
+      "n_obs": 8422,
+      "date_min": "1993-01-29",
+      "date_max": "2026-07-16",
+      "years": 33.46
+    },
+    "MIDCAP": {
+      "n_obs": 1727,
+      "date_min": "2019-02-04",
+      "date_max": "2026-07-17",
+      "years": 7.45
+    },
+    "SMALLCAP": {
+      "n_obs": 578,
+      "date_min": "2024-03-18",
+      "date_max": "2026-07-17",
+      "years": 2.33
+    },
+    "MOMENTUM": {
+      "n_obs": 964,
+      "date_min": "2022-08-19",
+      "date_max": "2026-07-17",
+      "years": 3.91
+    },
+    "LOWVOL": {
+      "n_obs": 1067,
+      "date_min": "2022-03-22",
+      "date_max": "2026-07-17",
+      "years": 4.32
+    },
+    "MICROCAP": {
+      "status": "BLOCKED - no ETF with verified identity match for Nifty Microcap250 found (tried MICROCAP250.NS, MOMICROCAP.NS, MOM250.NS, MICROCAP.NS - all empty; MOM50.NS resolved but longName 'Motilal Oswal M50 ETF' is NOT confirmed as microcap -> excluded, not guessed)"
+    }
+  },
+  "factor_snapshot": {
+    "GOLD": {
+      "asof": "2026-07-31",
+      "mom_1m": -0.013205380577427817,
+      "mom_3m": -0.025277485214291517,
+      "mom_6m": -0.08579027355623092,
+      "mom_12m": 0.19806811392152968,
+      "cs_rank_12m1": 0.8,
+      "dist_200dma": -0.025002198222539573,
+      "rv_252": 0.2958098106389174,
+      "px_pctile": 0.9285,
+      "carry_trend": 0.008829468964092202
+    },
+    "SILVER": {
+      "asof": "2026-07-31",
+      "mom_1m": -0.03677750696378823,
+      "mom_3m": -0.02720879120879116,
+      "mom_6m": -0.12459950160199362,
+      "mom_12m": 0.595027027027027,
+      "cs_rank_12m1": 1.0,
+      "dist_200dma": -0.0670327543970366,
+      "rv_252": 0.5401690184143977,
+      "px_pctile": 0.9048507462686567,
+      "carry_trend": 0.005470490487173629
+    },
+    "NIFTY50": {
+      "asof": "2026-07-31",
+      "mom_1m": 0.007766990291262044,
+      "mom_3m": 0.004124990873914047,
+      "mom_6m": -0.007862939585211892,
+      "mom_12m": -0.055002061288992654,
+      "cs_rank_12m1": 0.1,
+      "dist_200dma": -0.005635527301101506,
+      "rv_252": 0.1160910044785289,
+      "px_pctile": 0.9196193561449686,
+      "carry_trend": -0.01777168280483621
+    },
+    "COPPER": {
+      "asof": "2026-07-31",
+      "mom_1m": 0.017585248180871815,
+      "mom_3m": -0.00031997629963387286,
+      "mom_6m": 0.0936214633047332,
+      "mom_12m": 0.2655932648733741,
+      "cs_rank_12m1": 0.9,
+      "dist_200dma": 0.04419858477403116,
+      "rv_252": 0.2438522358176667,
+      "px_pctile": 0.9953453929969321,
+      "carry_trend": 0.07158192624019089
+    },
+    "NASDAQ": {
+      "asof": "2026-07-31",
+      "mom_1m": -0.014573274477578502,
+      "mom_3m": -0.019241689949469398,
+      "mom_6m": 0.1819642884150725,
+      "mom_12m": 0.15411908735939495,
+      "cs_rank_12m1": 0.7,
+      "dist_200dma": 0.08163482858385507,
+      "rv_252": 0.16816429008864653,
+      "px_pctile": 0.9935942348113302,
+      "carry_trend": 0.09496943518991174
+    },
+    "SP500": {
+      "asof": "2026-07-31",
+      "mom_1m": 0.022361409755035755,
+      "mom_3m": 0.0034083000537525887,
+      "mom_6m": 0.12710562630220656,
+      "mom_12m": 0.11995938213274582,
+      "cs_rank_12m1": 0.6,
+      "dist_200dma": 0.063831178463432,
+      "rv_252": 0.1104448686080354,
+      "px_pctile": 0.9986090656193749,
+      "carry_trend": 0.07242931675988329
+    },
+    "MIDCAP": {
+      "asof": "2026-07-31",
+      "mom_1m": 0.007831438015706738,
+      "mom_3m": 0.03113566415035751,
+      "mom_6m": 0.13150469944006882,
+      "mom_12m": 0.041109702534123604,
+      "cs_rank_12m1": 0.4,
+      "dist_200dma": 0.048455916288336454,
+      "rv_252": 0.1482614685208846,
+      "px_pctile": 0.9456082322675486,
+      "carry_trend": 0.04554932142422885
+    },
+    "SMALLCAP": {
+      "asof": "2026-07-31",
+      "mom_1m": 0.016356510040313577,
+      "mom_3m": 0.07775126781080965,
+      "mom_6m": 0.20777482343282605,
+      "mom_12m": 0.05318526095560494,
+      "cs_rank_12m1": 0.5,
+      "dist_200dma": 0.09677088203380158,
+      "rv_252": 0.15713614219509872,
+      "px_pctile": 0.8908450704225352,
+      "carry_trend": 0.09264122757157667
+    },
+    "MOMENTUM": {
+      "asof": "2026-07-31",
+      "mom_1m": -0.03333330911303323,
+      "mom_3m": -0.0019665508191503145,
+      "mom_6m": 0.05692472500514234,
+      "mom_12m": -0.045753653759138535,
+      "cs_rank_12m1": 0.3,
+      "dist_200dma": -0.009656233694915861,
+      "rv_252": 0.17487861425238085,
+      "px_pctile": 0.516445066480056,
+      "carry_trend": -0.017985780318726552
+    },
+    "LOWVOL": {
+      "asof": "2026-07-31",
+      "mom_1m": 0.01685124572729113,
+      "mom_3m": 0.010043089113043635,
+      "mom_6m": 0.06237433253588631,
+      "mom_12m": -0.013545026167469332,
+      "cs_rank_12m1": 0.2,
+      "dist_200dma": 0.012913243513336337,
+      "rv_252": 0.1342093891255552,
+      "px_pctile": 0.8511716276124129,
+      "carry_trend": 0.0027402484079248612
+    }
+  },
+  "horizon_scores": {
+    "1M": {
+      "GOLD": -0.06602690288713908,
+      "SILVER": -0.18388753481894116,
+      "NIFTY50": 0.03883495145631022,
+      "COPPER": 0.08792624090435908,
+      "NASDAQ": -0.07286637238789251,
+      "SP500": 0.11180704877517877,
+      "MIDCAP": 0.03915719007853369,
+      "SMALLCAP": 0.08178255020156788,
+      "MOMENTUM": -0.16666654556516614,
+      "LOWVOL": 0.08425622863645565
+    },
+    "1Y": {
+      "GOLD": 0.34087487824511203,
+      "SILVER": 0.6721371571538404,
+      "NIFTY50": -0.3211063903308313,
+      "COPPER": 0.5153107694891069,
+      "NASDAQ": 0.3310488267628417,
+      "SP500": 0.21906890484838049,
+      "MIDCAP": 0.006289123113644601,
+      "SMALLCAP": 0.12809806820864664,
+      "MOMENTUM": -0.18182154949148557,
+      "LOWVOL": -0.20628976903705468
+    },
+    "5Y": {
+      "GOLD": -0.1785,
+      "SILVER": -0.1548507462686567,
+      "NIFTY50": -0.6696193561449686,
+      "COPPER": -0.24534539299693214,
+      "NASDAQ": -0.24359423481133025,
+      "SP500": -0.2486090656193749,
+      "MIDCAP": -0.19560823226754864,
+      "SMALLCAP": -0.14084507042253525,
+      "MOMENTUM": -0.26644506648005595,
+      "LOWVOL": -0.6011716276124129
+    }
+  },
+  "backtests": {
+    "core6_1y_full_history": {
+      "label": "CORE6_1Y_TSMOM_RS",
+      "universe": [
+        "GOLD",
+        "SILVER",
+        "COPPER",
+        "NASDAQ",
+        "SP500",
+        "NIFTY50"
+      ],
+      "n_months": 320,
+      "strategy_net": {
+        "n": 320,
+        "ann_ret": 0.1215,
+        "ann_vol": 0.1782,
+        "sharpe": 0.682,
+        "maxdd": -0.3483
+      },
+      "equal_weight_bh": {
+        "n": 320,
+        "ann_ret": 0.0723,
+        "ann_vol": 0.1035,
+        "sharpe": 0.699,
+        "maxdd": -0.3208
+      },
+      "avg_turnover": 0.178,
+      "drop_one_sharpe": {
+        "drop_GOLD": 0.647,
+        "drop_SILVER": 0.679,
+        "drop_COPPER": 0.737,
+        "drop_NASDAQ": 0.634,
+        "drop_SP500": 0.702,
+        "drop_NIFTY50": 0.704
+      },
+      "era_split": {
+        "era1_sharpe": 0.551,
+        "era2_sharpe": 0.845,
+        "era1_n": 160,
+        "era2_n": 160
+      }
+    },
+    "full9_1y_full_history": {
+      "label": "FULL9_1Y_TSMOM_RS",
+      "universe": [
+        "GOLD",
+        "SILVER",
+        "COPPER",
+        "NASDAQ",
+        "SP500",
+        "NIFTY50",
+        "MIDCAP",
+        "SMALLCAP",
+        "MOMENTUM",
+        "LOWVOL"
+      ],
+      "n_months": 320,
+      "strategy_net": {
+        "n": 320,
+        "ann_ret": 0.1169,
+        "ann_vol": 0.1728,
+        "sharpe": 0.677,
+        "maxdd": -0.3489
+      },
+      "equal_weight_bh": {
+        "n": 320,
+        "ann_ret": 0.0544,
+        "ann_vol": 0.0733,
+        "sharpe": 0.742,
+        "maxdd": -0.2037
+      },
+      "avg_turnover": 0.177,
+      "drop_one_sharpe": {
+        "drop_GOLD": 0.624,
+        "drop_SILVER": 0.637,
+        "drop_COPPER": 0.743,
+        "drop_NASDAQ": 0.63,
+        "drop_SP500": 0.69,
+        "drop_NIFTY50": 0.716,
+        "drop_MIDCAP": 0.676,
+        "drop_SMALLCAP": 0.68,
+        "drop_MOMENTUM": 0.665,
+        "drop_LOWVOL": 0.678
+      },
+      "era_split": {
+        "era1_sharpe": 0.546,
+        "era2_sharpe": 0.858,
+        "era1_n": 160,
+        "era2_n": 160
+      }
+    },
+    "core6_1m_full_history": {
+      "label": "CORE6_1M_TSMOM_RS",
+      "universe": [
+        "GOLD",
+        "SILVER",
+        "COPPER",
+        "NASDAQ",
+        "SP500",
+        "NIFTY50"
+      ],
+      "n_months": 328,
+      "strategy_net": {
+        "n": 328,
+        "ann_ret": 0.0528,
+        "ann_vol": 0.1747,
+        "sharpe": 0.302,
+        "maxdd": -0.5899
+      },
+      "equal_weight_bh": {
+        "n": 328,
+        "ann_ret": 0.0733,
+        "ann_vol": 0.1025,
+        "sharpe": 0.715,
+        "maxdd": -0.3208
+      },
+      "avg_turnover": 0.532,
+      "drop_one_sharpe": {
+        "drop_GOLD": 0.285,
+        "drop_SILVER": 0.314,
+        "drop_COPPER": 0.237,
+        "drop_NASDAQ": 0.346,
+        "drop_SP500": 0.251,
+        "drop_NIFTY50": 0.304
+      },
+      "era_split": {
+        "era1_sharpe": 0.206,
+        "era2_sharpe": 0.451,
+        "era1_n": 164,
+        "era2_n": 164
+      }
+    },
+    "core6_1y_concurrent_only": {
+      "label": "CORE6_1Y_CONCURRENT_SINCE_ALL6_LIVE",
+      "start_date": "2022-02-07",
+      "n_months": 53,
+      "strategy_net": {
+        "n": 53,
+        "ann_ret": 0.1394,
+        "ann_vol": 0.1812,
+        "sharpe": 0.769,
+        "maxdd": -0.1534
+      },
+      "equal_weight_bh": {
+        "n": 53,
+        "ann_ret": 0.1884,
+        "ann_vol": 0.1361,
+        "sharpe": 1.384,
+        "maxdd": -0.1568
+      }
+    },
+    "core6_1m_concurrent_only": {
+      "label": "CORE6_1M_CONCURRENT_SINCE_ALL6_LIVE",
+      "start_date": "2022-02-07",
+      "n_months": 53,
+      "strategy_net": {
+        "n": 53,
+        "ann_ret": 0.072,
+        "ann_vol": 0.1877,
+        "sharpe": 0.384,
+        "maxdd": -0.2429
+      },
+      "equal_weight_bh": {
+        "n": 53,
+        "ann_ret": 0.1884,
+        "ann_vol": 0.1361,
+        "sharpe": 1.384,
+        "maxdd": -0.1568
+      }
+    }
+  },
+  "factor_ic": {
+    "full_history": {
+      "mom_1m__fwd_1M": {
+        "n": 1319,
+        "spearman": -0.075
+      },
+      "mom_1m__fwd_1Y": {
+        "n": 1253,
+        "spearman": 0.023
+      },
+      "mom_3m__fwd_1M": {
+        "n": 1308,
+        "spearman": -0.0
+      },
+      "mom_3m__fwd_1Y": {
+        "n": 1242,
+        "spearman": 0.073
+      },
+      "mom_12m__fwd_1M": {
+        "n": 1272,
+        "spearman": 0.001
+      },
+      "mom_12m__fwd_1Y": {
+        "n": 1206,
+        "spearman": 0.054
+      },
+      "carry_trend__fwd_1M": {
+        "n": 1258,
+        "spearman": -0.008
+      },
+      "carry_trend__fwd_1Y": {
+        "n": 1192,
+        "spearman": 0.068
+      },
+      "dist_200dma__fwd_1M": {
+        "n": 1272,
+        "spearman": -0.004
+      },
+      "dist_200dma__fwd_1Y": {
+        "n": 1206,
+        "spearman": 0.075
+      },
+      "px_pctile_meanrev__fwd_1M": {
+        "n": 1320,
+        "spearman": -0.013
+      },
+      "px_pctile_meanrev__fwd_1Y": {
+        "n": 1254,
+        "spearman": -0.069
+      }
+    },
+    "concurrent_only": {
+      "mom_1m__fwd_1M": {
+        "n": 318,
+        "spearman": -0.122
+      },
+      "mom_1m__fwd_1Y": {
+        "n": 252,
+        "spearman": -0.058
+      },
+      "mom_3m__fwd_1M": {
+        "n": 316,
+        "spearman": -0.1
+      },
+      "mom_3m__fwd_1Y": {
+        "n": 250,
+        "spearman": -0.014
+      },
+      "mom_12m__fwd_1M": {
+        "n": 310,
+        "spearman": -0.076
+      },
+      "mom_12m__fwd_1Y": {
+        "n": 244,
+        "spearman": 0.112
+      },
+      "carry_trend__fwd_1M": {
+        "n": 310,
+        "spearman": -0.079
+      },
+      "carry_trend__fwd_1Y": {
+        "n": 244,
+        "spearman": 0.053
+      },
+      "dist_200dma__fwd_1M": {
+        "n": 312,
+        "spearman": -0.084
+      },
+      "dist_200dma__fwd_1Y": {
+        "n": 246,
+        "spearman": 0.013
+      },
+      "px_pctile_meanrev__fwd_1M": {
+        "n": 318,
+        "spearman": 0.023
+      },
+      "px_pctile_meanrev__fwd_1Y": {
+        "n": 252,
+        "spearman": 0.021
+      }
+    }
+  },
+  "cost_note": "ETF cost bps are a DRAFT proxy (not in COST_STANDARDS.md, which is equity-only) - large-liquid ETFs 5-15bps roundtrip, factor/smallcap ETFs 25-30bps roundtrip (low AUM/wide spread assumption). Flag to CIO/CEO before any paper capital."
+}

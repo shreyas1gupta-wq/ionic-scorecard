@@ -1,0 +1,11 @@
+{
+  "factor_id": "H035_delivery_flow",
+  "status": "PARK",
+  "verdict": "PARK (data-blocked, not run)",
+  "horizon": [
+    "1M"
+  ],
+  "generated_at": "2026-07-16T18:11:25.955775+00:00",
+  "reason": "Delivery%% data is stale to 2024-06 (per assignment note and D-033 delivery refresh status) and not present in this panel build at all -- panel has no volume/delivery columns. Cannot construct a delivery-accumulation factor on data that ends 13+ months before the panel's own history does.",
+  "needed_to_unpark": "D-033 delivery%% refresh to current date, then a delivery column joined into the panel build."
+}

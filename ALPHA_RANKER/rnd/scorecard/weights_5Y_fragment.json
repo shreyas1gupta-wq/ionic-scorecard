@@ -1,0 +1,86 @@
+{
+  "S3_relative_5Y": {
+    "quality_gate_threshold": 0.2,
+    "min_legs_of_7": 5,
+    "min_sector_peers": 5,
+    "min_names_per_date": 20,
+    "sector_grain": "panel_pit.sector (22-bucket macro_sector, static per symbol)",
+    "sector_neutral_legs": [
+      "value_EY",
+      "mom_resid_plain",
+      "trend_ma65_slope",
+      "quality_QMJ",
+      "bs_issuance"
+    ],
+    "raw_legs": [
+      "bs_asset_growth",
+      "quality_cfo_pat"
+    ],
+    "mom_resid_plain_source": "rebuilt fresh via run_long_confirm.build_mom_resid_12_1, NOT the cached mom_resid_peer",
+    "growth_longevity_construction": "rank_pct(0.5*rank_pct(composite_v2_confirmed) + 0.5*rank_pct(sub_op_persistent)), computed within the gated universe [MY CALL -- mirrors the S1.4 quality_score pattern]",
+    "sr5Y_weights": {
+      "value_EY": 2.0,
+      "growth_longevity": 2.0,
+      "mom_resid_plain": 0.5,
+      "trend_ma65_slope": 0.5,
+      "quality_QMJ": 1.0,
+      "bs_issuance": 1.0,
+      "bs_asset_growth": 1.0,
+      "quality_cfo_pat": 1.0
+    },
+    "abs_merit5Y_weights": {
+      "value_EY": 0.45,
+      "growth_longevity": 0.45,
+      "quality_score": 0.1
+    },
+    "blend": {
+      "sr_5Y": 0.6,
+      "abs_merit_5Y": 0.4
+    },
+    "placebo_seed": 42,
+    "n_placebo_shuffles": 5,
+    "output_range": "rel_score_5Y in [-100, +100] = 200*(rank_pct(composite_5Y) - 0.5)",
+    "data_thinness_flag": "pre-2012 fundamentals thin; 5Y magnitudes are DIRECTIONAL (blueprint S2.3)"
+  },
+  "determinism_check": {
+    "pass": true,
+    "run1_shape": [
+      79194,
+      6
+    ],
+    "run2_shape": [
+      79194,
+      6
+    ]
+  },
+  "diagnostics": {
+    "n_panel_rows": 99415,
+    "n_panel_symbols": 933,
+    "panel_date_min": "2005-04-29",
+    "panel_date_max": "2025-12-05",
+    "n_legs_raw_rows": 1310958,
+    "legs_present": [
+      "bs_asset_growth",
+      "bs_issuance",
+      "defensive_BAB",
+      "mom_resid_peer",
+      "quality_QMJ",
+      "quality_cfo_pat",
+      "seasonality",
+      "trend_ma65_slope",
+      "value_EY",
+      "value_dcf_revgap",
+      "value_marketstate_M3",
+      "value_smallcap_M2"
+    ],
+    "n_fg2_rows": 143907,
+    "n_sectors": 22,
+    "n_before_gate": 144870,
+    "n_after_quality_only": 116045,
+    "n_after_gate": 79194,
+    "n_scored_sr_5Y": 79194,
+    "n_scored_abs_merit_5Y": 79194,
+    "n_scored_composite_5Y": 79194,
+    "n_growth_longevity_covered": 65236
+  }
+}

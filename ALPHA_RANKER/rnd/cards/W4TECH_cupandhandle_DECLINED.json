@@ -1,0 +1,7 @@
+{
+  "factor_id": "W4TECH_cupandhandle_DECLINED",
+  "status": "DECLINED_NOT_TESTED",
+  "pattern": "Cup-and-handle base",
+  "reason": "Published definitions (O'Neil/IBD, Bulkowski, Minervini) disagree materially on every parameter that would need to be fixed to code it mechanically: cup depth (12-33% in one source, up to 50% in another), cup duration (7 weeks to 65 weeks), handle depth (<12% vs <15%), handle location (must be in upper half of the cup vs no such rule), and required right-side volume dry-up (mandatory in some, optional in others). Any single rigid parameterization we pick is one arbitrary choice among many defensible ones -- exactly the \"too many degrees of freedom\" overfit-trap the task flagged. A parameter sweep across the plausible range would itself be a multiple-testing problem (this program's own DSR/PBO machinery already blanket-fails at far lower trial counts per KILLED.md H002's disclosed issue). Declined rather than picking one arbitrary rigid version and presenting it as definitive.",
+  "resurrection_condition": "If the firm wants this tested, a SINGLE parameterization must be pre-registered (depth/duration/handle-depth thresholds fixed in advance, in writing) before any backtest is run, with no sweep permitted afterward."
+}

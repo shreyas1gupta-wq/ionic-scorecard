@@ -1,0 +1,31 @@
+{
+  "factor_id": "W4X_ratesfx_sizing_KILL",
+  "family": "cross_asset_macro_sizing_overlay",
+  "author": "macro-strategist-cyrus-daruwalla",
+  "date_tested": "2026-07-17",
+  "description": "Bundle card for real-rate (US 10Y TIPS, FRED DFII10), term-spread (10Y-2Y), dollar (FRED DTWEXBGS broad USD 3m chg), and INR-stress (usdinr 3m chg, combined dollar+INR stress rank) signals as leading exposure scalars. All KILLED on both the linear-IC and the scalar-backtest tests.",
+  "results_linear_ic_1M": {
+    "real_10y_level": {"ic": -0.064, "nw_t": -0.709},
+    "real_10y_chg3m": {"ic": -0.025, "nw_t": -0.272},
+    "term_spread_us": {"ic": 0.056, "nw_t": 0.626},
+    "dxy_chg3m": {"ic": 0.053, "nw_t": 0.584},
+    "usdinr_chg3m": {"ic": 0.031, "nw_t": 0.346},
+    "dollar_inr_stress": {"ic": 0.041, "nw_t": 0.446}
+  },
+  "results_linear_ic_1Y": {
+    "real_10y_level": {"ic": -0.187, "nw_t": -0.525},
+    "term_spread_us": {"ic": 0.037, "nw_t": 0.103},
+    "dxy_chg3m": {"ic": -0.066, "nw_t": -0.179},
+    "usdinr_chg3m": {"ic": -0.020, "nw_t": -0.054},
+    "dollar_inr_stress": {"ic": -0.069, "nw_t": -0.187}
+  },
+  "scalar_backtest": {
+    "real_10y_level": {"sharpe": 0.598, "maxDD": -0.425, "z_vs_noise": -0.96},
+    "real_10y_chg3m": {"sharpe": 0.651, "maxDD": -0.425, "z_vs_noise": -0.61},
+    "term_spread_us": {"sharpe": 0.969, "maxDD": -0.155, "z_vs_noise": 1.48},
+    "dollar_inr_stress": {"sharpe": 0.770, "maxDD": -0.317, "z_vs_noise": 0.17}
+  },
+  "verdict": "KILL (all variants) -- no signal clears |nw_t|>=1.645 on the linear test, and none except term_spread_us (z=1.48, still short of the z~2 bar the incumbent baselines themselves barely clear) shows any separation from the random-scalar noise floor. real_10y level/chg3m and dollar_inr_stress actively UNDERPERFORM buy-and-hold in the scalar backtest (Sharpe below both buy-hold 0.797 and the random-noise mean 0.744), consistent with genuinely no signal rather than a false negative.",
+  "note_for_data_catalog": "FRED DFII10 (real 10y), DCOILBRENTEU (Brent), DTWEXBGS (broad USD) pulled this session via the existing usdinr_fred_pull.py pattern (D-033 auto-fetch), sample-checked against known historical values (DFII10 2020-03-19=0.62 vs expect ~0.35-1.0 range OK; DCOILBRENTEU 2020-04-21=9.12 exact match; 2022-06-08=129.2 vs 122.8 OK; PCOPPUSDM 2022-01=9782 vs ~9750 OK). Not adopted into DATA_CATALOG.md by this agent (out of role scope) -- data-officer-kavya-reddy should formalize if any of these lines are revisited.",
+  "confidence": "MEDIUM-HIGH on the KILL (multiple independent tests agree; not a small-sample fluke of one method)"
+}

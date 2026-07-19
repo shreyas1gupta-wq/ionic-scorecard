@@ -1,0 +1,24 @@
+{
+  "factor_id": "H017_reverse_dcf_gap",
+  "status": "UNPARKED_2026-07-17",
+  "verdict": "SEE rnd/cards/W2_dcf_revgap_*.json -- money-first PASS at 5Y, marginal at 1Y",
+  "horizon": ["5Y", "1Y"],
+  "generated_at": "2026-07-17T00:00:00+00:00",
+  "reason_previously_parked": "Panel (rnd/panel/panel.parquet) carries NO fundamentals -- schema is technical/regime/FF6-beta only. Superseded: this pass instead used panel_long.parquet (21yr, has real fwd_ret_5Y_*) joined against rnd/panel/stock_valuation_pit.parquet (net_profit/mktcap PIT company-level basis, built by market_state.py) plus a fresh trailing-5Y-CAGR growth series from data/fundamentals/MASTER_fundamentals_pit.parquet.",
+  "how_built": "builder=rnd/lib/builders_w2_dcf.py (build_revgap_factor + build_dcf_value_factor); runner=rnd/lib/run_w2_dcf.py; full sensitivity grid WACC in {11,13,15%} x g_terminal in {3,5%}, both factors, both horizons (24 evaluate() calls) -> rnd/cards/W2_dcf_*.json + rnd/cards/W2_dcf_sensitivity_summary.csv.",
+  "result_summary": {
+    "revgap_5Y_IC_IR_range": [0.446, 0.477],
+    "revgap_1Y_IC_IR_range": [0.171, 0.174],
+    "dcfval_5Y_IC_IR_range": [0.467, 0.481],
+    "dcfval_1Y_IC_IR_range": [0.175, 0.176],
+    "sign_stable_across_grid": true,
+    "money_first_gate_all_24": "PASS (lag_test_delta<=0.25 and |placebo_ic|<=0.02 on every grid cell)",
+    "caveats": [
+      "[DATA] fundamentals-join coverage starts 2013-07 (needs a 5Y-trailing net_profit history before a row is scoreable) -- panel_long's own 2005-2013 rows are unfilled for this factor, confirming pre-2012 thinness.",
+      "[DATA] harness's PBO (CSCV, N=1 adaptation) reports 0.96-0.99 on every cell and DSR reports ~0.0 on every cell -- both are KNOWN structural harness artifacts on this monthly overlapping-return sample with a shared 'W2' family trial count of 340+ (CONSOLIDATION.md harness-fix #1/#2), NOT evidence specific to this factor. Both reported as ADVISORY per money-first scoring, not used as kill criteria here.",
+      "[INFERENCE] WACC/terminal-growth are flat assumptions (no CAPM/size-premium build), net_profit/mktcap is a company-level (not per-share) EY-style basis because no shares-outstanding series exists in the fundamentals source.",
+      "ann_return_LS / net_of_cost_ann_return at the 5Y horizon are NOT real annualized returns -- harness applies a uniform x12 annualization (CONSOLIDATION.md harness-fix #4) to a 5-year cumulative long-short spread, inflating the printed number by roughly 60x; use ranking/IC only, do not quote the return figure."
+    ]
+  },
+  "needed_to_unpark": "RESOLVED -- see result_summary. Not yet ADOPTION-gated (CONSOLIDATION.md: needs OOS-survivor + red-team + IC memo before any production weight)."
+}

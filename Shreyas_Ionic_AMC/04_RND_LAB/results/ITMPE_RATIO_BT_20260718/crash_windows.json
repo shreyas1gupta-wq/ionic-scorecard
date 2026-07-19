@@ -1,0 +1,104 @@
+{
+  "COVID_2020": {
+    "M_A_hedged": {
+      "label": "COVID_2020",
+      "n": 4,
+      "sum_net_pnl": 1120.3657772270003,
+      "sum_gross": 1142.6500000000005,
+      "worst_cycle": "2020-04-30",
+      "worst_pnl": 139.744554771
+    },
+    "M_A_naked": {
+      "label": "COVID_2020",
+      "n": 4,
+      "sum_net_pnl": 2145.1076036110003,
+      "sum_gross": 2163.8500000000004,
+      "worst_cycle": "2020-03-26",
+      "worst_pnl": 486.687531652
+    },
+    "W_A_hedged": {
+      "label": "COVID_2020",
+      "n": 17,
+      "sum_net_pnl": 1492.673963689999,
+      "sum_gross": 1513.349999999999,
+      "worst_cycle": "2020-02-13",
+      "worst_pnl": -127.00337025999964
+    },
+    "W_A_naked": {
+      "label": "COVID_2020",
+      "n": 17,
+      "sum_net_pnl": 1117.0795511739989,
+      "sum_gross": 1133.1499999999987,
+      "worst_cycle": "2020-04-09",
+      "worst_pnl": -881.6049584159996
+    }
+  },
+  "RateHike_2022H1": {
+    "M_A_hedged": {
+      "label": "RateHike_2022H1",
+      "n": 5,
+      "sum_net_pnl": -1089.2784746470006,
+      "sum_gross": -1045.3000000000006,
+      "worst_cycle": "2022-04-28",
+      "worst_pnl": -834.4756192540008
+    },
+    "M_A_naked": {
+      "label": "RateHike_2022H1",
+      "n": 5,
+      "sum_net_pnl": -430.5242293830006,
+      "sum_gross": -395.3000000000006,
+      "worst_cycle": "2022-04-28",
+      "worst_pnl": -663.6615360500007
+    },
+    "W_A_hedged": {
+      "label": "RateHike_2022H1",
+      "n": 25,
+      "sum_net_pnl": 12.886521736991906,
+      "sum_gross": 39.94999999999203,
+      "worst_cycle": "2022-01-27",
+      "worst_pnl": -404.8835836830014
+    },
+    "W_A_naked": {
+      "label": "RateHike_2022H1",
+      "n": 25,
+      "sum_net_pnl": 968.2411675849994,
+      "sum_gross": 990.0499999999993,
+      "worst_cycle": "2022-01-20",
+      "worst_pnl": -467.137540315
+    }
+  },
+  "Apr2026_dip": {
+    "M_A_hedged": {
+      "label": "Apr2026_dip",
+      "n": 2,
+      "sum_net_pnl": -1900.5927072920001,
+      "sum_gross": -1872.7000000000003,
+      "worst_cycle": "2026-04-28",
+      "worst_pnl": -1091.056536090001
+    },
+    "M_A_naked": {
+      "label": "Apr2026_dip",
+      "n": 2,
+      "sum_net_pnl": -2469.9569205419984,
+      "sum_gross": -2448.999999999998,
+      "worst_cycle": "2026-04-28",
+      "worst_pnl": -1728.107024893999
+    },
+    "W_A_hedged": {
+      "label": "Apr2026_dip",
+      "n": 6,
+      "sum_net_pnl": -405.40037260899993,
+      "sum_gross": -399.84999999999997,
+      "worst_cycle": "2026-04-28",
+      "worst_pnl": -242.50810341799928
+    },
+    "W_A_naked": {
+      "label": "Apr2026_dip",
+      "n": 6,
+      "sum_net_pnl": -53.16637659299999,
+      "sum_gross": -48.64999999999998,
+      "worst_cycle": "2026-04-28",
+      "worst_pnl": -173.70613266999928
+    }
+  }
+}

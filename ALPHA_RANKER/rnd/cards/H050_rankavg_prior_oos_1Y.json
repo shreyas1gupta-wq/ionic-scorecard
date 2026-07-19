@@ -1,0 +1,96 @@
+{
+  "factor_id": "H050_rankavg_prior_oos_1Y",
+  "family": "H050",
+  "horizon": "1Y",
+  "return_basis": "resid",
+  "status": "OK",
+  "panel_source": "real",
+  "n_trials": 146,
+  "n_dates": 10,
+  "n_obs": 6525,
+  "generated_at": "2026-07-16T18:08:06.598339+00:00",
+  "ic": {
+    "ic_mean": 0.03836905794245181,
+    "ic_std": 0.05482672456003143,
+    "ic_ir": 0.6998240046319085,
+    "newey_west_t": 2.600403733332493,
+    "nw_lag": 11,
+    "n_ic_dates": 10
+  },
+  "deciles": {
+    "monotonicity": 0.406060606060606,
+    "n_decile_dates": 10
+  },
+  "long_short": {
+    "ann_return_LS": 0.21407249559419322,
+    "hit_rate": 0.7,
+    "n_periods": 10
+  },
+  "turnover": {
+    "avg_top_decile_turnover": 0.24617858647709395
+  },
+  "costs": {
+    "blended_cost_bps_roundtrip": 79.97744360902256,
+    "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+    "cost_approved": true,
+    "ann_cost_drag": 0.023626480821264798,
+    "net_of_cost_ann_return": 0.19044601477292844
+  },
+  "dsr": {
+    "dsr": 1.2686614889014356e-13,
+    "sr_hat": 0.3093691238871889,
+    "sr0_expected_max": 2.6609954176049384,
+    "skew": 0.42798372866030276,
+    "kurtosis": 3.5937790148267967,
+    "n_obs": 10,
+    "n_trials": 146
+  },
+  "pbo": {
+    "pbo": 1.0,
+    "n_combos": 6,
+    "n_blocks": 4,
+    "n_obs": 10,
+    "median_is_sharpe": 0.4243780046080133,
+    "median_oos_sharpe": 0.4243780046080133
+  },
+  "regime_breakdown": {
+    "regime_trend": {
+      "bear": -0.02503954102580855,
+      "bull": 0.047625153933142324,
+      "sideways": 0.05641989226830842
+    },
+    "regime_vol": {
+      "high": 0.00593175328121862,
+      "low": 0.043670307868424074,
+      "normal": 0.0587210989938975
+    }
+  },
+  "lag_test": {
+    "ic_lag_mean": 0.03544325721391225,
+    "lag_test_delta": 0.07625417160170705
+  },
+  "placebo": {
+    "placebo_ic": 0.0052680044630524685,
+    "n_shuffles": 5,
+    "seed": 42
+  },
+  "verdict": "KILL (PBO 1.000 > 0.5)",
+  "worker_note": {
+    "role": "prior_baseline_same_OOS_window",
+    "feat_cols": [
+      "mom12_1",
+      "inv_idio_vol",
+      "inv_beta",
+      "neg_mktcap",
+      "ff_beta_WML"
+    ],
+    "train_dates_span": [
+      "2022-07-29",
+      "2023-08-31"
+    ],
+    "oos_dates_span": [
+      "2024-09-30",
+      "2025-06-30"
+    ]
+  }
+}

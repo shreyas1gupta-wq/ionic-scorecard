@@ -1,0 +1,171 @@
+{
+  "generated_at": "2026-07-17T19:33:13.165309+00:00",
+  "harness_card": {
+    "factor_id": "S1_REL_1M",
+    "family": "S1_REL_1M",
+    "horizon": "1M",
+    "return_basis": "excess",
+    "status": "OK",
+    "panel_source": "panel_pit_survivorship_free",
+    "n_trials": 703,
+    "n_dates": 235,
+    "n_obs": 92454,
+    "generated_at": "2026-07-17T19:32:53.971272+00:00",
+    "ic": {
+      "ic_mean": 0.071614301540037,
+      "ic_std": 0.17057832278076965,
+      "ic_ir": 0.4198323700959178,
+      "newey_west_t": 6.227884662952045,
+      "nw_lag": 1,
+      "n_ic_dates": 235
+    },
+    "deciles": {
+      "monotonicity": 0.8787878787878788,
+      "n_decile_dates": 235
+    },
+    "long_short": {
+      "ann_return_LS": 0.28408675534242667,
+      "ann_return_LS_horizon_aware": 0.28408675534242667,
+      "hit_rate": 0.6851063829787234,
+      "n_periods": 235
+    },
+    "turnover": {
+      "avg_top_decile_turnover": 0.38949033958374263
+    },
+    "costs": {
+      "blended_cost_bps_roundtrip": 79.96428571428572,
+      "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+      "cost_approved": true,
+      "ann_cost_drag": 0.037374380156914286,
+      "net_of_cost_ann_return": 0.24671237518551237,
+      "net_of_cost_ann_return_horizon_aware": 0.24671237518551237
+    },
+    "dsr": {
+      "dsr": 1.1262751132826429e-189,
+      "sr_hat": 0.2742817948434534,
+      "sr0_expected_max": 3.153528431191957,
+      "skew": -2.396330371491414,
+      "kurtosis": 32.602336716077716,
+      "n_obs": 235,
+      "n_trials": 703
+    },
+    "pbo": {
+      "pbo": 0.9956709956709957,
+      "n_combos": 924,
+      "n_blocks": 12,
+      "n_obs": 235,
+      "median_is_sharpe": 0.2793992671978678,
+      "median_oos_sharpe": 0.2793992671978678
+    },
+    "regime_breakdown": {
+      "regime_trend": {
+        "bear": 0.08032928298532567,
+        "bull": 0.07280461162638253,
+        "sideways": 0.06628563600741562
+      },
+      "regime_vol": {
+        "high": 0.02941231371841083,
+        "low": 0.08396964929214494,
+        "normal": 0.08438027108940749
+      }
+    },
+    "lag_test": {
+      "ic_lag_mean": 0.05739327135494956,
+      "lag_test_delta": 0.19857807559760918
+    },
+    "placebo": {
+      "placebo_ic": -0.002011140594520268,
+      "n_shuffles": 5,
+      "seed": 42
+    },
+    "verdict": "KILL (PBO 0.996 > 0.5)"
+  },
+  "ls_sharpe_extra": {
+    "ls_sharpe_ann": 0.9501400085200891,
+    "ls_mean_monthly": 0.023673896278535556,
+    "ls_std_monthly": 0.0863123135534659,
+    "n_periods": 235
+  },
+  "era_split": {
+    "era_buckets": {
+      "2005-2011": {
+        "ic_mean": 0.07058367473455723,
+        "n_dates": 69
+      },
+      "2012-2015": {
+        "ic_mean": 0.09128529016622111,
+        "n_dates": 48
+      },
+      "2015-2018": {
+        "ic_mean": 0.08981738455523658,
+        "n_dates": 48
+      },
+      "2018-2021": {
+        "ic_mean": 0.08595460059299709,
+        "n_dates": 48
+      },
+      "2021-2024": {
+        "ic_mean": 0.04786164324719793,
+        "n_dates": 48
+      },
+      "2024-2026": {
+        "ic_mean": 0.01464593003648814,
+        "n_dates": 22
+      }
+    },
+    "single_year_slices": {
+      "2018": {
+        "ic_mean": 0.13574671971397076,
+        "n_dates": 12
+      },
+      "2020": {
+        "ic_mean": 0.023443626088286443,
+        "n_dates": 12
+      },
+      "2022": {
+        "ic_mean": 0.054296570806132434,
+        "n_dates": 12
+      },
+      "2024": {
+        "ic_mean": -0.014182087620886193,
+        "n_dates": 12
+      },
+      "2026": {
+        "ic_mean": null,
+        "n_dates": 0
+      }
+    }
+  },
+  "drop_one_leg": {
+    "drop_mom": {
+      "kept_legs": [
+        "earn",
+        "qual"
+      ],
+      "ic_mean": 0.03467406838873892,
+      "ic_ir": 0.1777868492396431,
+      "n_dates": 242,
+      "ls_sharpe_ann": 0.25999957592648404
+    },
+    "drop_earn": {
+      "kept_legs": [
+        "mom",
+        "qual"
+      ],
+      "ic_mean": 0.07290483135445568,
+      "ic_ir": 0.4236285374954203,
+      "n_dates": 235,
+      "ls_sharpe_ann": 0.9936424378513103
+    },
+    "drop_qual": {
+      "kept_legs": [
+        "mom",
+        "earn"
+      ],
+      "ic_mean": 0.06509858142213265,
+      "ic_ir": 0.3968785334756132,
+      "n_dates": 235,
+      "ls_sharpe_ann": 0.9022525804591357
+    }
+  }
+}

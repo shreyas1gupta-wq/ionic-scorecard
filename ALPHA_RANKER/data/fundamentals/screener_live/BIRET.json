@@ -1,0 +1,768 @@
+{
+ "ticker": "BIRET",
+ "url_path": "BIRET/consolidated/",
+ "tables": {
+  "quarterly_results": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2023": "302",
+    "Jun 2023": "314",
+    "Sep 2023": "400",
+    "Dec 2023": "531",
+    "Mar 2024": "547",
+    "Jun 2024": "574",
+    "Sep 2024": "590",
+    "Dec 2024": "602",
+    "Mar 2025": "620",
+    "Jun 2025": "642",
+    "Sep 2025": "671",
+    "Dec 2025": "697",
+    "Mar 2026": "960"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2023": "96",
+    "Jun 2023": "103",
+    "Sep 2023": "131",
+    "Dec 2023": "154",
+    "Mar 2024": "138",
+    "Jun 2024": "160",
+    "Sep 2024": "171",
+    "Dec 2024": "192",
+    "Mar 2025": "187",
+    "Jun 2025": "192",
+    "Sep 2025": "206",
+    "Dec 2025": "206",
+    "Mar 2026": "263"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2023": "207",
+    "Jun 2023": "211",
+    "Sep 2023": "269",
+    "Dec 2023": "377",
+    "Mar 2024": "409",
+    "Jun 2024": "414",
+    "Sep 2024": "419",
+    "Dec 2024": "409",
+    "Mar 2025": "433",
+    "Jun 2025": "450",
+    "Sep 2025": "465",
+    "Dec 2025": "491",
+    "Mar 2026": "696"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2023": "68%",
+    "Jun 2023": "67%",
+    "Sep 2023": "67%",
+    "Dec 2023": "71%",
+    "Mar 2024": "75%",
+    "Jun 2024": "72%",
+    "Sep 2024": "71%",
+    "Dec 2024": "68%",
+    "Mar 2025": "70%",
+    "Jun 2025": "70%",
+    "Sep 2025": "69%",
+    "Dec 2025": "70%",
+    "Mar 2026": "73%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2023": "5",
+    "Jun 2023": "7",
+    "Sep 2023": "19",
+    "Dec 2023": "30",
+    "Mar 2024": "3",
+    "Jun 2024": "18",
+    "Sep 2024": "13",
+    "Dec 2024": "34",
+    "Mar 2025": "20",
+    "Jun 2025": "12",
+    "Sep 2025": "23",
+    "Dec 2025": "37",
+    "Mar 2026": "27"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2023": "115",
+    "Jun 2023": "120",
+    "Sep 2023": "185",
+    "Dec 2023": "273",
+    "Mar 2024": "275",
+    "Jun 2024": "279",
+    "Sep 2024": "287",
+    "Dec 2024": "286",
+    "Mar 2025": "227",
+    "Jun 2025": "205",
+    "Sep 2025": "202",
+    "Dec 2025": "212",
+    "Mar 2026": "355"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2023": "71",
+    "Jun 2023": "120",
+    "Sep 2023": "84",
+    "Dec 2023": "105",
+    "Mar 2024": "103",
+    "Jun 2024": "102",
+    "Sep 2024": "105",
+    "Dec 2024": "112",
+    "Mar 2025": "111",
+    "Jun 2025": "105",
+    "Sep 2025": "107",
+    "Dec 2025": "113",
+    "Mar 2026": "145"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2023": "27",
+    "Jun 2023": "-22",
+    "Sep 2023": "20",
+    "Dec 2023": "30",
+    "Mar 2024": "35",
+    "Jun 2024": "51",
+    "Sep 2024": "40",
+    "Dec 2024": "46",
+    "Mar 2025": "115",
+    "Jun 2025": "153",
+    "Sep 2025": "179",
+    "Dec 2025": "203",
+    "Mar 2026": "223"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2023": "-21%",
+    "Jun 2023": "22%",
+    "Sep 2023": "90%",
+    "Dec 2023": "44%",
+    "Mar 2024": "95%",
+    "Jun 2024": "23%",
+    "Sep 2024": "44%",
+    "Dec 2024": "49%",
+    "Mar 2025": "31%",
+    "Jun 2025": "13%",
+    "Sep 2025": "17%",
+    "Dec 2025": "1%",
+    "Mar 2026": "76%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2023": "33",
+    "Jun 2023": "-27",
+    "Sep 2023": "2",
+    "Dec 2023": "17",
+    "Mar 2024": "2",
+    "Jun 2024": "39",
+    "Sep 2024": "23",
+    "Dec 2024": "23",
+    "Mar 2025": "79",
+    "Jun 2025": "132",
+    "Sep 2025": "149",
+    "Dec 2025": "201",
+    "Mar 2026": "54"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2023": "0.98",
+    "Jun 2023": "-0.81",
+    "Sep 2023": "0.04",
+    "Dec 2023": "0.38",
+    "Mar 2024": "0.27",
+    "Jun 2024": "1.08",
+    "Sep 2024": "0.64",
+    "Dec 2024": "0.53",
+    "Mar 2025": "1.22",
+    "Jun 2025": "2.05",
+    "Sep 2025": "2.18",
+    "Dec 2025": "2.41",
+    "Mar 2026": "0.49"
+   },
+   {
+    "Unnamed: 0": "Raw PDF",
+    "Mar 2023": NaN,
+    "Jun 2023": NaN,
+    "Sep 2023": NaN,
+    "Dec 2023": NaN,
+    "Mar 2024": NaN,
+    "Jun 2024": NaN,
+    "Sep 2024": NaN,
+    "Dec 2024": NaN,
+    "Mar 2025": NaN,
+    "Jun 2025": NaN,
+    "Sep 2025": NaN,
+    "Dec 2025": NaN,
+    "Mar 2026": NaN
+   }
+  ],
+  "profit_loss": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2021": "131",
+    "Mar 2022": "877",
+    "Mar 2023": "1197",
+    "Mar 2024": "1787",
+    "Mar 2025": "2390",
+    "Mar 2026": "2971"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2021": "48",
+    "Mar 2022": "258",
+    "Mar 2023": "381",
+    "Mar 2024": "531",
+    "Mar 2025": "716",
+    "Mar 2026": "869"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2021": "83",
+    "Mar 2022": "618",
+    "Mar 2023": "816",
+    "Mar 2024": "1256",
+    "Mar 2025": "1674",
+    "Mar 2026": "2102"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2021": "63%",
+    "Mar 2022": "71%",
+    "Mar 2023": "68%",
+    "Mar 2024": "70%",
+    "Mar 2025": "70%",
+    "Mar 2026": "71%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2021": "5",
+    "Mar 2022": "22",
+    "Mar 2023": "32",
+    "Mar 2024": "61",
+    "Mar 2025": "83",
+    "Mar 2026": "100"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2021": "41",
+    "Mar 2022": "208",
+    "Mar 2023": "432",
+    "Mar 2024": "852",
+    "Mar 2025": "1078",
+    "Mar 2026": "975"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2021": "32",
+    "Mar 2022": "208",
+    "Mar 2023": "275",
+    "Mar 2024": "411",
+    "Mar 2025": "430",
+    "Mar 2026": "469"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2021": "15",
+    "Mar 2022": "224",
+    "Mar 2023": "140",
+    "Mar 2024": "54",
+    "Mar 2025": "250",
+    "Mar 2026": "758"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2021": "-69%",
+    "Mar 2022": "-10%",
+    "Mar 2023": "7%",
+    "Mar 2024": "128%",
+    "Mar 2025": "36%",
+    "Mar 2026": "29%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2021": "25",
+    "Mar 2022": "246",
+    "Mar 2023": "131",
+    "Mar 2024": "-15",
+    "Mar 2025": "160",
+    "Mar 2026": "537"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2021": "0.84",
+    "Mar 2022": "7.35",
+    "Mar 2023": "3.92",
+    "Mar 2024": "0.28",
+    "Mar 2025": "3.04",
+    "Mar 2026": "6.42"
+   },
+   {
+    "Unnamed: 0": "Dividend Payout %",
+    "Mar 2021": "-0%",
+    "Mar 2022": "274%",
+    "Mar 2023": "-0%",
+    "Mar 2024": "-0%",
+    "Mar 2025": "622%",
+    "Mar 2026": "-0%"
+   }
+  ],
+  "balance_sheet": [
+   {
+    "Unnamed: 0": "Equity Capital",
+    "Mar 2021": 8177,
+    "Mar 2022": 8987,
+    "Mar 2023": 8656,
+    "Mar 2024": 10910,
+    "Mar 2025": 16419,
+    "Mar 2026": 20812
+   },
+   {
+    "Unnamed: 0": "Reserves",
+    "Mar 2021": 25,
+    "Mar 2022": -105,
+    "Mar 2023": -322,
+    "Mar 2024": -786,
+    "Mar 2025": -1081,
+    "Mar 2026": -1292
+   },
+   {
+    "Unnamed: 0": "Borrowings",
+    "Mar 2021": 2111,
+    "Mar 2022": 5190,
+    "Mar 2023": 5508,
+    "Mar 2024": 12113,
+    "Mar 2025": 9083,
+    "Mar 2026": 16583
+   },
+   {
+    "Unnamed: 0": "Other Liabilities",
+    "Mar 2021": 681,
+    "Mar 2022": 713,
+    "Mar 2023": 799,
+    "Mar 2024": 3302,
+    "Mar 2025": 2166,
+    "Mar 2026": 3313
+   },
+   {
+    "Unnamed: 0": "Total Liabilities",
+    "Mar 2021": 10995,
+    "Mar 2022": 14786,
+    "Mar 2023": 14641,
+    "Mar 2024": 25539,
+    "Mar 2025": 26588,
+    "Mar 2026": 39416
+   },
+   {
+    "Unnamed: 0": "Fixed Assets",
+    "Mar 2021": 10107,
+    "Mar 2022": 13632,
+    "Mar 2023": 13546,
+    "Mar 2024": 23998,
+    "Mar 2025": 23855,
+    "Mar 2026": 36640
+   },
+   {
+    "Unnamed: 0": "CWIP",
+    "Mar 2021": 0,
+    "Mar 2022": 0,
+    "Mar 2023": 0,
+    "Mar 2024": 0,
+    "Mar 2025": 0,
+    "Mar 2026": 0
+   },
+   {
+    "Unnamed: 0": "Investments",
+    "Mar 2021": 0,
+    "Mar 2022": 0,
+    "Mar 2023": 0,
+    "Mar 2024": 0,
+    "Mar 2025": 1072,
+    "Mar 2026": 883
+   },
+   {
+    "Unnamed: 0": "Other Assets",
+    "Mar 2021": 887,
+    "Mar 2022": 1154,
+    "Mar 2023": 1095,
+    "Mar 2024": 1540,
+    "Mar 2025": 1660,
+    "Mar 2026": 1892
+   },
+   {
+    "Unnamed: 0": "Total Assets",
+    "Mar 2021": 10995,
+    "Mar 2022": 14786,
+    "Mar 2023": 14641,
+    "Mar 2024": 25539,
+    "Mar 2025": 26588,
+    "Mar 2026": 39416
+   }
+  ],
+  "cash_flow": [
+   {
+    "Unnamed: 0": "Cash from Operating Activity",
+    "Mar 2021": "140",
+    "Mar 2022": "606",
+    "Mar 2023": "953",
+    "Mar 2024": "1433",
+    "Mar 2025": "1841",
+    "Mar 2026": "2285"
+   },
+   {
+    "Unnamed: 0": "Cash from Investing Activity",
+    "Mar 2021": "30",
+    "Mar 2022": "-1385",
+    "Mar 2023": "-109",
+    "Mar 2024": "-2028",
+    "Mar 2025": "-74",
+    "Mar 2026": "-6048"
+   },
+   {
+    "Unnamed: 0": "Cash from Financing Activity",
+    "Mar 2021": "146",
+    "Mar 2022": "667",
+    "Mar 2023": "-838",
+    "Mar 2024": "756",
+    "Mar 2025": "-1571",
+    "Mar 2026": "3862"
+   },
+   {
+    "Unnamed: 0": "Net Cash Flow",
+    "Mar 2021": "316",
+    "Mar 2022": "-111",
+    "Mar 2023": "5",
+    "Mar 2024": "161",
+    "Mar 2025": "196",
+    "Mar 2026": "100"
+   },
+   {
+    "Unnamed: 0": "Free Cash Flow",
+    "Mar 2021": "91",
+    "Mar 2022": "492",
+    "Mar 2023": "948",
+    "Mar 2024": "1415",
+    "Mar 2025": "1840",
+    "Mar 2026": "2284"
+   },
+   {
+    "Unnamed: 0": "CFO/OP",
+    "Mar 2021": "100%",
+    "Mar 2022": "101%",
+    "Mar 2023": "114%",
+    "Mar 2024": "112%",
+    "Mar 2025": "110%",
+    "Mar 2026": "110%"
+   }
+  ],
+  "ratios": [
+   {
+    "Unnamed: 0": "Debtor Days",
+    "Mar 2021": 67.0,
+    "Mar 2022": "9",
+    "Mar 2023": "16",
+    "Mar 2024": "15",
+    "Mar 2025": "10",
+    "Mar 2026": "14"
+   },
+   {
+    "Unnamed: 0": "Inventory Days",
+    "Mar 2021": NaN,
+    "Mar 2022": NaN,
+    "Mar 2023": NaN,
+    "Mar 2024": NaN,
+    "Mar 2025": NaN,
+    "Mar 2026": NaN
+   },
+   {
+    "Unnamed: 0": "Days Payable",
+    "Mar 2021": NaN,
+    "Mar 2022": NaN,
+    "Mar 2023": NaN,
+    "Mar 2024": NaN,
+    "Mar 2025": NaN,
+    "Mar 2026": NaN
+   },
+   {
+    "Unnamed: 0": "Cash Conversion Cycle",
+    "Mar 2021": 67.0,
+    "Mar 2022": "9",
+    "Mar 2023": "16",
+    "Mar 2024": "15",
+    "Mar 2025": "10",
+    "Mar 2026": "14"
+   },
+   {
+    "Unnamed: 0": "Working Capital Days",
+    "Mar 2021": -1239.0,
+    "Mar 2022": "-193",
+    "Mar 2023": "-153",
+    "Mar 2024": "-321",
+    "Mar 2025": "-153",
+    "Mar 2026": "-176"
+   },
+   {
+    "Unnamed: 0": "ROCE %",
+    "Mar 2021": NaN,
+    "Mar 2022": "4%",
+    "Mar 2023": "4%",
+    "Mar 2024": "5%",
+    "Mar 2025": "5%",
+    "Mar 2026": "5%"
+   }
+  ],
+  "shareholding": null
+ },
+ "top_ratios": {
+  "Market Cap": "\u20b9 28,171 Cr.",
+  "Current Price": "\u20b9 340",
+  "High / Low": "\u20b9 376 / 306",
+  "Stock P/E": "58.8",
+  "Book Value": "\u20b9 260",
+  "Dividend Yield": "7.40 %",
+  "ROCE": "5.36 %",
+  "ROE": "2.75 %",
+  "Face Value": "\u20b9 323"
+ },
+ "documents": [
+  {
+   "text": "All",
+   "href": "https://www.bseindia.com/stock-share-price/brookfield-india-real-estate-trust/BIRET/543261/corp-announcements/"
+  },
+  {
+   "text": "Reg 23(5)(i): Disclosure of material issue 11 Jul - Seaview Developers' scheme o",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=9b503bfe-b154-4088-9ffb-33ca7fa61ec0.pdf"
+  },
+  {
+   "text": "Reg 23(5)(i): Disclosure of material issue 7 Jul - Kairos Properties approved sc",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b8f4e769-c933-40b3-839c-3d3f57c888d1.pdf"
+  },
+  {
+   "text": "Reg 23(5)(i): Disclosure of material issue 2 Jul - Brookfield India REIT held in",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=e29249a7-a248-4d9a-8e13-7ff05d59b152.pdf"
+  },
+  {
+   "text": "Reg 23(5)(i): Disclosure of material issue 29 Jun - Trading window closed until ",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c28fd93a-d0c5-4df4-8351-85876b43753f.pdf"
+  },
+  {
+   "text": "Reg 23(5)(i): Disclosure of material issue 26 Jun - Brookfield India REIT held i",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=8e3e7121-6dcd-462f-92aa-1b74e621ba2e.pdf"
+  },
+  {
+   "text": "Financial Year 2022 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/543261/73323543261.pdf"
+  },
+  {
+   "text": "Financial Year 2021 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/543261/69116543261.pdf"
+  },
+  {
+   "text": "Rating update 23 Apr from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/BrookfieldIndiaRealEstateTrust_April 23_ 2026_RR_393868.html"
+  },
+  {
+   "text": "Rating update 10 Apr from icra",
+   "href": "https://www.icra.in/Rationale/ShowRationaleReport/?Id=142311"
+  },
+  {
+   "text": "Rating update 11 Dec 2025 from icra",
+   "href": "https://www.icra.in/Rationale/ShowRationaleReport/?Id=139554"
+  },
+  {
+   "text": "Rating update 9 Dec 2025 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/BrookfieldIndiaRealEstateTrust_December 09_ 2025_RR_384694.html"
+  },
+  {
+   "text": "Rating update 29 Apr 2025 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/BrookfieldIndiaRealEstateTrust_April 29_ 2025_RR_367406.html"
+  },
+  {
+   "text": "Rating update 18 Mar 2025 from icra",
+   "href": "https://www.icra.in/Rationale/ShowRationaleReport/?Id=133678"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://media.brookfieldindiareit.in/Call_Transcript_Q4_FY_2026_a0df6c9dba.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://media.brookfieldindiareit.in/BIRET_Q4_FY_2026_Investor_Presentation_5bbca64a61.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://media.brookfieldindiareit.in/Brookfield_REIT_Earnings_Jan30_2026_f4421e7b0a.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://media.brookfieldindiareit.in/BIRET_Q3_FY_2026_Investor_Presentation_03ddb5dd08.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.brookfieldindiareit.in/files//call/Call-Transcript-Q1-8-aug-2025.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.brookfieldindiareit.in/files//presentation/Earnings_Presentation_01_aug_2025.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.brookfieldindiareit.in/files//call/10034933-Q1-2026.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.brookfieldindiareit.in/files//call/Brookfield-Earnings-May06--Q4-2025.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.brookfieldindiareit.in/files//presentation/Earning-Presentation-Q4-FY2025.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.brookfieldindiareit.in/files/call/Earning_Call_Q3_FY_25_Transcript_2025.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.brookfieldindiareit.in/files//presentation/BIRET_Q3_FY2025_Investor_Presentation_300125.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.brookfieldindiareit.in/files//call//Brookfield_REIT-Earnings-Nov%2007_2024_Transcript.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.brookfieldindiareit.in/files//presentation/BIRET_Q2_FY2025_Investor_Presentation_Final_7_nov_2024.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.brookfieldindiareit.in/files//call/Call_Recording.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.brookfieldindiareit.in/files//call/Earning-Call-Transcript-Fy-2025.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.brookfieldindiareit.in/files//presentation/BIRET%20Q1%20FY2025%20Investor%20Presentation.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.brookfieldindiareit.in/files//call/Brookfield-Earnings-May_16_2024.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.brookfieldindiareit.in/files//presentation/Earning%20PresentationQ42024.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.brookfieldindiareit.in/files//call/Call%20Transcript_Feb2024.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.brookfieldindiareit.in/files//presentation/Earning%20Presentation_q324.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.brookfieldindiareit.in/files//call/Brookfield%20India%20REIT%20Earnings%20Call%20Transcript%20Q2%20FY%2024.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b1b6b6cd-b6b3-4f1d-aff1-38c269644d06.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.brookfieldindiareit.in/files//presentation/Investor-Presentation-20231106.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.brookfieldindiareit.in/files//call/Call-Transcript-2023-08-22.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d9069a3b-96ae-4fd7-83e0-5898f35e7004.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.brookfieldindiareit.in/files/videos/August%20EGM%20Video.mp4"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.brookfieldindiareit.in/files/videos/FULL_BrookfieldREIT_ThirdEGM27.7.23.mp4"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.brookfieldindiareit.in/files//call/Call%20Transcript_Q4_23.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=2700ac14-edf7-48b8-a5b6-f1320dc05bba.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.brookfieldindiareit.in/files/call/BAI0820230519147162.mp3"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=5160f039-87ae-4389-bc99-7a58ef9057c5.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=8ae31d98-3003-4e76-8771-921d874c8722.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.brookfieldindiareit.in/files//presentation/Earning-Presentation-Q1-FY-2023.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.brookfieldindiareit.in/files/videos/Video-of-the-Meeting.mp4"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.brookfieldindiareit.in/files/videos/Video-of-the-meeting_extra.mp4"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.brookfieldindiareit.in/files//call/Call-Transcript-Q4-FY-2022.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.brookfieldindiareit.in/files//presentation/Earning-Presentation-Q4-FY-2022.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.brookfieldindiareit.in/wp-content/themes/brookfieldindia/templates/images/docs/Call-Transcript-Q3-FY-2022.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.brookfieldindiareit.in/files//presentation/Earning-Presentation-Q3-FY-2022.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.brookfieldindiareit.in/files//n2/N2-Acquisition-Investor-Presentation.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.brookfieldindiareit.in/files/videos/Video-of-Extraordinary-Meeting-of-Unitholders-dated-January-17-2022.mp4"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.brookfieldindiareit.in/wp-content/themes/brookfieldindia/templates/images/docs/Earnings-Call-Transcript-Q2-FY-2022.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.brookfieldindiareit.in/files//presentation/Earning-Presentation-Q2-FY-2022.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.brookfieldindiareit.in/wp-content/themes/brookfieldindia/templates/images/docs/Call-Transcript-Q1-FY22.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.brookfieldindiareit.in/files//presentation/Investor-Presentation-Q1-FY-2022.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.brookfieldindiareit.in/wp-content/themes/brookfieldindia/templates/images/BIRET-Earnings-Call-Transcript-May-21-2021.pdf"
+  }
+ ]
+}

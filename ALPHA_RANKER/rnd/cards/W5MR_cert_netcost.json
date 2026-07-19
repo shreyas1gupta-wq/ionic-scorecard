@@ -1,0 +1,39 @@
+{
+  "cost_assumptions": {
+    "source": "Shreyas_Ionic_AMC/06_TRADING_DESK/COST_STANDARDS.md (APPROVED, D-021)",
+    "stt_equity_delivery_roundtrip": 0.002,
+    "slippage_oneway_midcap_tier": 0.002,
+    "slippage_roundtrip": 0.004,
+    "misc_brokerage_exch_sebi_gst_roundtrip_approx": 0.0003,
+    "cost_per_leg_roundtrip_1x": 0.0063,
+    "cost_LS_both_legs_1x": 0.0126,
+    "cost_LS_both_legs_2x_stress": 0.0252,
+    "note": "MR fires ONLY in oversold-extreme months (rare, ~42/249=17% of history) -- turnover is bounded to those active months, not a permanent monthly book. Full decile re-rank assumed each active month (conservative: 100% turnover per leg per active month, no partial-overlap credit)."
+  },
+  "rev5d": {
+    "n_active_months": 42,
+    "gross_ls_mean_monthly": 0.03721211702136623,
+    "gross_ls_ann_approx": 0.5502829839958114,
+    "net_ls_mean_monthly_1x_cost": 0.02461211702136623,
+    "net_ls_ann_approx_1x_cost": 0.33879428637966646,
+    "net_ls_mean_monthly_2x_stress": 0.012012117021366231,
+    "net_ls_ann_approx_2x_stress": 0.15406042679047816,
+    "ir_active_months_gross": 0.6164409776299132,
+    "ir_active_months_net_2x_stress": 0.19898790374662909,
+    "survives_1x_cost": true,
+    "survives_2x_stress": true
+  },
+  "rsi2_factor": {
+    "n_active_months": 42,
+    "gross_ls_mean_monthly": 0.022837858915379868,
+    "gross_ls_ann_approx": 0.3112380204191225,
+    "net_ls_mean_monthly_1x_cost": 0.010237858915379868,
+    "net_ls_ann_approx_1x_cost": 0.13001361806564904,
+    "net_ls_mean_monthly_2x_stress": -0.002362141084620132,
+    "net_ls_ann_approx_2x_stress": -0.027980316383319326,
+    "ir_active_months_gross": 0.5188396231660931,
+    "ir_active_months_net_2x_stress": -0.053664066966632736,
+    "survives_1x_cost": true,
+    "survives_2x_stress": false
+  }
+}

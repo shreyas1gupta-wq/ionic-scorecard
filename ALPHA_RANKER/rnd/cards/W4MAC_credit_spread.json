@@ -1,0 +1,22 @@
+{
+  "factor_id": "W4MAC_credit_spread",
+  "family": "market_regime_macro",
+  "author": "macro-strategist-cyrus-daruwalla",
+  "date_tested": "2026-07-17",
+  "description": "US corporate credit spread (Moody's BAA - AAA seasoned yields, FRED, 1919-2026, n=1290) as a GLOBAL risk-appetite gauge for India forward equity returns. Own-history expanding z-score; tested both under a naive 'tight spread = risk-on = bullish' sign prior AND against the empirical result.",
+  "data": "FRED series BAA + AAA this session -> Shreyas_Ionic_AMC/05_DATA_OFFICE/data/credit_spread_baa_aaa.parquet (D-009 PASS: 1919-01 BAA=7.12 exact match, re-read from disk confirmed 1290/1290 non-null). Forward targets from EW-cube proxy index (see W4MAC_cape_india card).",
+  "buildable": true,
+  "non_null_months": 226,
+  "first_valid_date": "2007-03-30",
+  "results": {
+    "corr_fwd_ret_1Y": -0.196, "n_1Y": 213,
+    "corr_fwd_ret_5Y": -0.25, "n_5Y": 164,
+    "corr_fwd_maxdd_1Y": 0.107, "n_maxdd": 213,
+    "era_split": "H1(2007-03..2015-12,n=106)=-0.10 | H2(2016-01..2024-11,n=107)=-0.65 -- same sign, stable",
+    "dropone_bear": {"GFC_2008": -0.202, "COVID_2020": -0.187, "HIKE_2022": -0.191, "note": "all three bears reachable -- longest-history gauge in the whole battery"},
+    "dropone_sign_stable": true
+  },
+  "interpretation": "[INFERENCE/OPINION] The gauge was ORIENTED so that a tight (low) spread = risk-on = bullish, per the naive textbook prior. The empirical sign came out NEGATIVE and (unusually among this whole battery) BOTH era-split and drop-one-bear-of-3 are sign-stable -- this is the single most internally-consistent result in the study. Read correctly, that means: tight/compressed credit spreads (empirically) precede WEAKER forward India returns, and wide/stressed spreads precede STRONGER forward returns. This is not actually anti-economic-logic once you flip the lens from 'risk-on/off' to 'credit cycle stage': spreads compress to multi-year lows exactly at late-cycle complacency (right before a top) and blow out at capitulation (right before the mean-reversion low) -- a well-documented CONTRARIAN credit-spread pattern, not a risk-on/off coincident indicator. The gauge is real and stable; my initial sign convention was the wrong prior, not the data.",
+  "overall_verdict": "BUILDABLE, predicts fwd return (weak-to-moderate, |r|~0.2-0.25) with the MOST robust sign of any single gauge tested (passes both era-split and 3-bear drop-one) -- but only once read as a CONTRARIAN/late-cycle indicator, not a coincident risk-on gauge. Weak on crash-risk (maxdd corr only 0.107, wrong direction under the naive prior, consistent-but-weak under the corrected contrarian read). Global (US), not India-specific -- appropriate as a supporting, not primary, India regime input per the task's cross-asset-corroboration intent.",
+  "confidence": "MEDIUM-HIGH on sign-stability (dropone + era-split both hold cleanly, longest history of any gauge here); LOW-MEDIUM on using it for TIMING given the weak absolute correlation magnitude."
+}

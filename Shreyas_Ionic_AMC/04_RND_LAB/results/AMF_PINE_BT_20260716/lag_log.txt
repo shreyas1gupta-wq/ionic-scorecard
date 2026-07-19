@@ -1,0 +1,11 @@
+[load] 914 symbols, 1.5s
+  [lag=0] n_trades=22108 total_net_pct_sum=41648.17
+  [lag=1] n_trades=22078 total_net_pct_sum=38405.77
+  [lag=1] n_trades=22078 total_net_pct_sum=38405.77
+
+=== ONE-DAY-LAG AUDIT: Efficiency/MACD/V1 ===
+base (lag=0, normal next-bar exec)  total_net_pct_sum = 41648.17
+lagged (lag=+1 extra day)            total_net_pct_sum = 38405.77
+collapse_ratio = 0.078
+verdict = PASS -- graceful decay
+elapsed 28.8s

@@ -1,0 +1,998 @@
+{
+ "ticker": "MEP",
+ "url_path": "MEP/consolidated/",
+ "tables": {
+  "quarterly_results": [
+   {
+    "Unnamed: 0": "Sales",
+    "Dec 2020": "282",
+    "Mar 2021": "282",
+    "Jun 2021": "277",
+    "Sep 2021": "217",
+    "Dec 2021": "240",
+    "Mar 2022": "234",
+    "Jun 2022": "150",
+    "Sep 2022": "81",
+    "Dec 2022": "2",
+    "Mar 2023": "11",
+    "Jun 2023": "6",
+    "Sep 2023": "13",
+    "Dec 2023": "19"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Dec 2020": "181",
+    "Mar 2021": "166",
+    "Jun 2021": "134",
+    "Sep 2021": "131",
+    "Dec 2021": "111",
+    "Mar 2022": "292",
+    "Jun 2022": "165",
+    "Sep 2022": "100",
+    "Dec 2022": "52",
+    "Mar 2023": "97",
+    "Jun 2023": "58",
+    "Sep 2023": "49",
+    "Dec 2023": "48"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Dec 2020": "101",
+    "Mar 2021": "116",
+    "Jun 2021": "143",
+    "Sep 2021": "86",
+    "Dec 2021": "129",
+    "Mar 2022": "-58",
+    "Jun 2022": "-15",
+    "Sep 2022": "-19",
+    "Dec 2022": "-50",
+    "Mar 2023": "-86",
+    "Jun 2023": "-52",
+    "Sep 2023": "-35",
+    "Dec 2023": "-29"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Dec 2020": "36%",
+    "Mar 2021": "41%",
+    "Jun 2021": "51%",
+    "Sep 2021": "40%",
+    "Dec 2021": "54%",
+    "Mar 2022": "-25%",
+    "Jun 2022": "-10%",
+    "Sep 2022": "-23%",
+    "Dec 2022": "-1,991%",
+    "Mar 2023": "-802%",
+    "Jun 2023": "-816%",
+    "Sep 2023": "-262%",
+    "Dec 2023": "-155%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Dec 2020": "128",
+    "Mar 2021": "-64",
+    "Jun 2021": "17",
+    "Sep 2021": "7",
+    "Dec 2021": "3",
+    "Mar 2022": "50",
+    "Jun 2022": "17",
+    "Sep 2022": "13",
+    "Dec 2022": "15",
+    "Mar 2023": "30",
+    "Jun 2023": "24",
+    "Sep 2023": "11",
+    "Dec 2023": "-68"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Dec 2020": "89",
+    "Mar 2021": "82",
+    "Jun 2021": "72",
+    "Sep 2021": "75",
+    "Dec 2021": "69",
+    "Mar 2022": "74",
+    "Jun 2022": "26",
+    "Sep 2022": "19",
+    "Dec 2022": "15",
+    "Mar 2023": "6",
+    "Jun 2023": "14",
+    "Sep 2023": "24",
+    "Dec 2023": "16"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Dec 2020": "49",
+    "Mar 2021": "49",
+    "Jun 2021": "65",
+    "Sep 2021": "60",
+    "Dec 2021": "63",
+    "Mar 2022": "69",
+    "Jun 2022": "40",
+    "Sep 2022": "19",
+    "Dec 2022": "2",
+    "Mar 2023": "2",
+    "Jun 2023": "2",
+    "Sep 2023": "1",
+    "Dec 2023": "1"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Dec 2020": "91",
+    "Mar 2021": "-79",
+    "Jun 2021": "24",
+    "Sep 2021": "-41",
+    "Dec 2021": "1",
+    "Mar 2022": "-151",
+    "Jun 2022": "-64",
+    "Sep 2022": "-45",
+    "Dec 2022": "-52",
+    "Mar 2023": "-63",
+    "Jun 2023": "-42",
+    "Sep 2023": "-49",
+    "Dec 2023": "-113"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Dec 2020": "7%",
+    "Mar 2021": "8%",
+    "Jun 2021": "69%",
+    "Sep 2021": "29%",
+    "Dec 2021": "2,122%",
+    "Mar 2022": "8%",
+    "Jun 2022": "0%",
+    "Sep 2022": "1%",
+    "Dec 2022": "-0%",
+    "Mar 2023": "0%",
+    "Jun 2023": "-2%",
+    "Sep 2023": "6%",
+    "Dec 2023": "3%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Dec 2020": "85",
+    "Mar 2021": "-85",
+    "Jun 2021": "3",
+    "Sep 2021": "-53",
+    "Dec 2021": "-13",
+    "Mar 2022": "-163",
+    "Jun 2022": "-64",
+    "Sep 2022": "-45",
+    "Dec 2022": "-52",
+    "Mar 2023": "-63",
+    "Jun 2023": "-42",
+    "Sep 2023": "-52",
+    "Dec 2023": "-116"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Dec 2020": "4.87",
+    "Mar 2021": "-5.00",
+    "Jun 2021": "0.28",
+    "Sep 2021": "-2.81",
+    "Dec 2021": "-0.66",
+    "Mar 2022": "-8.83",
+    "Jun 2022": "-3.47",
+    "Sep 2022": "-2.46",
+    "Dec 2022": "-2.69",
+    "Mar 2023": "-3.16",
+    "Jun 2023": "-2.26",
+    "Sep 2023": "-2.82",
+    "Dec 2023": "-6.33"
+   },
+   {
+    "Unnamed: 0": "Raw PDF",
+    "Dec 2020": NaN,
+    "Mar 2021": NaN,
+    "Jun 2021": NaN,
+    "Sep 2021": NaN,
+    "Dec 2021": NaN,
+    "Mar 2022": NaN,
+    "Jun 2022": NaN,
+    "Sep 2022": NaN,
+    "Dec 2022": NaN,
+    "Mar 2023": NaN,
+    "Jun 2023": NaN,
+    "Sep 2023": NaN,
+    "Dec 2023": NaN
+   }
+  ],
+  "profit_loss": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2012": "1080",
+    "Mar 2013": "1280",
+    "Mar 2014": "1198",
+    "Mar 2015": "2009",
+    "Mar 2016": "1905",
+    "Mar 2017": "1729",
+    "Mar 2018": "2322",
+    "Mar 2019": "2815",
+    "Mar 2020": "2056",
+    "Mar 2021": "1123",
+    "Mar 2022": "967",
+    "Mar 2023": "245",
+    "TTM": "49"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2012": "731",
+    "Mar 2013": "915",
+    "Mar 2014": "886",
+    "Mar 2015": "1564",
+    "Mar 2016": "374",
+    "Mar 2017": "440",
+    "Mar 2018": "1449",
+    "Mar 2019": "1855",
+    "Mar 2020": "1699",
+    "Mar 2021": "675",
+    "Mar 2022": "673",
+    "Mar 2023": "406",
+    "TTM": "251"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2012": "349",
+    "Mar 2013": "365",
+    "Mar 2014": "312",
+    "Mar 2015": "445",
+    "Mar 2016": "1531",
+    "Mar 2017": "1289",
+    "Mar 2018": "873",
+    "Mar 2019": "960",
+    "Mar 2020": "358",
+    "Mar 2021": "448",
+    "Mar 2022": "295",
+    "Mar 2023": "-162",
+    "TTM": "-202"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2012": "32%",
+    "Mar 2013": "29%",
+    "Mar 2014": "26%",
+    "Mar 2015": "22%",
+    "Mar 2016": "80%",
+    "Mar 2017": "75%",
+    "Mar 2018": "38%",
+    "Mar 2019": "34%",
+    "Mar 2020": "17%",
+    "Mar 2021": "40%",
+    "Mar 2022": "30%",
+    "Mar 2023": "-66%",
+    "TTM": "-411%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2012": "56",
+    "Mar 2013": "22",
+    "Mar 2014": "42",
+    "Mar 2015": "31",
+    "Mar 2016": "71",
+    "Mar 2017": "244",
+    "Mar 2018": "125",
+    "Mar 2019": "94",
+    "Mar 2020": "406",
+    "Mar 2021": "97",
+    "Mar 2022": "78",
+    "Mar 2023": "68",
+    "TTM": "-2"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2012": "377",
+    "Mar 2013": "376",
+    "Mar 2014": "380",
+    "Mar 2015": "404",
+    "Mar 2016": "642",
+    "Mar 2017": "493",
+    "Mar 2018": "470",
+    "Mar 2019": "464",
+    "Mar 2020": "414",
+    "Mar 2021": "343",
+    "Mar 2022": "289",
+    "Mar 2023": "67",
+    "TTM": "60"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2012": "95",
+    "Mar 2013": "99",
+    "Mar 2014": "130",
+    "Mar 2015": "180",
+    "Mar 2016": "1012",
+    "Mar 2017": "868",
+    "Mar 2018": "419",
+    "Mar 2019": "494",
+    "Mar 2020": "392",
+    "Mar 2021": "253",
+    "Mar 2022": "256",
+    "Mar 2023": "63",
+    "TTM": "4"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2012": "-66",
+    "Mar 2013": "-88",
+    "Mar 2014": "-156",
+    "Mar 2015": "-107",
+    "Mar 2016": "-52",
+    "Mar 2017": "172",
+    "Mar 2018": "109",
+    "Mar 2019": "95",
+    "Mar 2020": "-43",
+    "Mar 2021": "-51",
+    "Mar 2022": "-172",
+    "Mar 2023": "-224",
+    "TTM": "-267"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2012": "-19%",
+    "Mar 2013": "5%",
+    "Mar 2014": "-15%",
+    "Mar 2015": "7%",
+    "Mar 2016": "-30%",
+    "Mar 2017": "37%",
+    "Mar 2018": "35%",
+    "Mar 2019": "41%",
+    "Mar 2020": "99%",
+    "Mar 2021": "50%",
+    "Mar 2022": "31%",
+    "Mar 2023": "0%",
+    "TTM": NaN
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2012": "-53",
+    "Mar 2013": "-93",
+    "Mar 2014": "-128",
+    "Mar 2015": "-115",
+    "Mar 2016": "-37",
+    "Mar 2017": "109",
+    "Mar 2018": "71",
+    "Mar 2019": "56",
+    "Mar 2020": "-86",
+    "Mar 2021": "-77",
+    "Mar 2022": "-225",
+    "Mar 2023": "-225",
+    "TTM": "-273"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2012": "-4.77",
+    "Mar 2013": "-9.29",
+    "Mar 2014": "-12.92",
+    "Mar 2015": "-10.34",
+    "Mar 2016": "-2.25",
+    "Mar 2017": "6.70",
+    "Mar 2018": "4.37",
+    "Mar 2019": "3.07",
+    "Mar 2020": "-4.21",
+    "Mar 2021": "-4.18",
+    "Mar 2022": "-12.02",
+    "Mar 2023": "-11.78",
+    "TTM": "-14.57"
+   },
+   {
+    "Unnamed: 0": "Dividend Payout %",
+    "Mar 2012": "0%",
+    "Mar 2013": "0%",
+    "Mar 2014": "0%",
+    "Mar 2015": "0%",
+    "Mar 2016": "-9%",
+    "Mar 2017": "4%",
+    "Mar 2018": "7%",
+    "Mar 2019": "10%",
+    "Mar 2020": "0%",
+    "Mar 2021": "0%",
+    "Mar 2022": "0%",
+    "Mar 2023": "0%",
+    "TTM": NaN
+   }
+  ],
+  "balance_sheet": [
+   {
+    "Unnamed: 0": "Equity Capital",
+    "Mar 2012": 100,
+    "Mar 2013": 100,
+    "Mar 2014": 100,
+    "Mar 2015": 111,
+    "Mar 2016": 163,
+    "Mar 2017": 163,
+    "Mar 2018": 163,
+    "Mar 2019": 183,
+    "Mar 2020": 183,
+    "Mar 2021": 183,
+    "Mar 2022": 183,
+    "Mar 2023": 183,
+    "Sep 2023": 186
+   },
+   {
+    "Unnamed: 0": "Reserves",
+    "Mar 2012": 7,
+    "Mar 2013": -85,
+    "Mar 2014": -188,
+    "Mar 2015": -338,
+    "Mar 2016": -275,
+    "Mar 2017": -170,
+    "Mar 2018": -103,
+    "Mar 2019": 82,
+    "Mar 2020": -2,
+    "Mar 2021": -79,
+    "Mar 2022": -298,
+    "Mar 2023": -650,
+    "Sep 2023": -584
+   },
+   {
+    "Unnamed: 0": "Borrowings",
+    "Mar 2012": 3150,
+    "Mar 2013": 3089,
+    "Mar 2014": 3220,
+    "Mar 2015": 3336,
+    "Mar 2016": 3053,
+    "Mar 2017": 2958,
+    "Mar 2018": 3032,
+    "Mar 2019": 2768,
+    "Mar 2020": 2431,
+    "Mar 2021": 2303,
+    "Mar 2022": 2097,
+    "Mar 2023": 414,
+    "Sep 2023": 392
+   },
+   {
+    "Unnamed: 0": "Other Liabilities",
+    "Mar 2012": 74,
+    "Mar 2013": 171,
+    "Mar 2014": 402,
+    "Mar 2015": 526,
+    "Mar 2016": 2494,
+    "Mar 2017": 1946,
+    "Mar 2018": 1847,
+    "Mar 2019": 2174,
+    "Mar 2020": 2286,
+    "Mar 2021": 2346,
+    "Mar 2022": 1723,
+    "Mar 2023": 3259,
+    "Sep 2023": 3210
+   },
+   {
+    "Unnamed: 0": "Total Liabilities",
+    "Mar 2012": 3331,
+    "Mar 2013": 3274,
+    "Mar 2014": 3534,
+    "Mar 2015": 3636,
+    "Mar 2016": 5435,
+    "Mar 2017": 4896,
+    "Mar 2018": 4939,
+    "Mar 2019": 5207,
+    "Mar 2020": 4899,
+    "Mar 2021": 4753,
+    "Mar 2022": 3706,
+    "Mar 2023": 3207,
+    "Sep 2023": 3205
+   },
+   {
+    "Unnamed: 0": "Fixed Assets",
+    "Mar 2012": 2207,
+    "Mar 2013": 2151,
+    "Mar 2014": 2364,
+    "Mar 2015": 2156,
+    "Mar 2016": 3588,
+    "Mar 2017": 2465,
+    "Mar 2018": 2479,
+    "Mar 2019": 2082,
+    "Mar 2020": 1478,
+    "Mar 2021": 1265,
+    "Mar 2022": 1124,
+    "Mar 2023": 45,
+    "Sep 2023": 39
+   },
+   {
+    "Unnamed: 0": "CWIP",
+    "Mar 2012": 0,
+    "Mar 2013": 0,
+    "Mar 2014": 6,
+    "Mar 2015": 16,
+    "Mar 2016": 7,
+    "Mar 2017": 28,
+    "Mar 2018": 27,
+    "Mar 2019": 26,
+    "Mar 2020": 0,
+    "Mar 2021": 0,
+    "Mar 2022": 0,
+    "Mar 2023": 0,
+    "Sep 2023": 0
+   },
+   {
+    "Unnamed: 0": "Investments",
+    "Mar 2012": 3,
+    "Mar 2013": 3,
+    "Mar 2014": 1,
+    "Mar 2015": 32,
+    "Mar 2016": 22,
+    "Mar 2017": 166,
+    "Mar 2018": 240,
+    "Mar 2019": 280,
+    "Mar 2020": 332,
+    "Mar 2021": 317,
+    "Mar 2022": 85,
+    "Mar 2023": 65,
+    "Sep 2023": 53
+   },
+   {
+    "Unnamed: 0": "Other Assets",
+    "Mar 2012": 1121,
+    "Mar 2013": 1120,
+    "Mar 2014": 1164,
+    "Mar 2015": 1431,
+    "Mar 2016": 1818,
+    "Mar 2017": 2237,
+    "Mar 2018": 2193,
+    "Mar 2019": 2819,
+    "Mar 2020": 3090,
+    "Mar 2021": 3171,
+    "Mar 2022": 2496,
+    "Mar 2023": 3097,
+    "Sep 2023": 3113
+   },
+   {
+    "Unnamed: 0": "Total Assets",
+    "Mar 2012": 3331,
+    "Mar 2013": 3274,
+    "Mar 2014": 3534,
+    "Mar 2015": 3636,
+    "Mar 2016": 5435,
+    "Mar 2017": 4896,
+    "Mar 2018": 4939,
+    "Mar 2019": 5207,
+    "Mar 2020": 4899,
+    "Mar 2021": 4753,
+    "Mar 2022": 3706,
+    "Mar 2023": 3207,
+    "Sep 2023": 3205
+   }
+  ],
+  "cash_flow": [
+   {
+    "Unnamed: 0": "Cash from Operating Activity",
+    "Mar 2012": "281",
+    "Mar 2013": "743",
+    "Mar 2014": "470",
+    "Mar 2015": "276",
+    "Mar 2016": "453",
+    "Mar 2017": "463",
+    "Mar 2018": "710",
+    "Mar 2019": "503",
+    "Mar 2020": "767",
+    "Mar 2021": "547",
+    "Mar 2022": "306",
+    "Mar 2023": "378"
+   },
+   {
+    "Unnamed: 0": "Cash from Investing Activity",
+    "Mar 2012": "108",
+    "Mar 2013": "-350",
+    "Mar 2014": "-48",
+    "Mar 2015": "-87",
+    "Mar 2016": "-73",
+    "Mar 2017": "-57",
+    "Mar 2018": "-373",
+    "Mar 2019": "-19",
+    "Mar 2020": "-31",
+    "Mar 2021": "-72",
+    "Mar 2022": "113",
+    "Mar 2023": "-16"
+   },
+   {
+    "Unnamed: 0": "Cash from Financing Activity",
+    "Mar 2012": "-375",
+    "Mar 2013": "-393",
+    "Mar 2014": "-396",
+    "Mar 2015": "-216",
+    "Mar 2016": "-374",
+    "Mar 2017": "-426",
+    "Mar 2018": "-338",
+    "Mar 2019": "-482",
+    "Mar 2020": "-743",
+    "Mar 2021": "-497",
+    "Mar 2022": "-415",
+    "Mar 2023": "-361"
+   },
+   {
+    "Unnamed: 0": "Net Cash Flow",
+    "Mar 2012": "14",
+    "Mar 2013": "-0",
+    "Mar 2014": "25",
+    "Mar 2015": "-27",
+    "Mar 2016": "6",
+    "Mar 2017": "-20",
+    "Mar 2018": "-1",
+    "Mar 2019": "2",
+    "Mar 2020": "-6",
+    "Mar 2021": "-22",
+    "Mar 2022": "4",
+    "Mar 2023": "1"
+   },
+   {
+    "Unnamed: 0": "Free Cash Flow",
+    "Mar 2012": "233",
+    "Mar 2013": "700",
+    "Mar 2014": "454",
+    "Mar 2015": "249",
+    "Mar 2016": "364",
+    "Mar 2017": "484",
+    "Mar 2018": "320",
+    "Mar 2019": "522",
+    "Mar 2020": "758",
+    "Mar 2021": "518",
+    "Mar 2022": "310",
+    "Mar 2023": "381"
+   },
+   {
+    "Unnamed: 0": "CFO/OP",
+    "Mar 2012": "84%",
+    "Mar 2013": "204%",
+    "Mar 2014": "153%",
+    "Mar 2015": "71%",
+    "Mar 2016": "31%",
+    "Mar 2017": "39%",
+    "Mar 2018": "83%",
+    "Mar 2019": "57%",
+    "Mar 2020": "230%",
+    "Mar 2021": "111%",
+    "Mar 2022": "89%",
+    "Mar 2023": "-233%"
+   }
+  ],
+  "ratios": [
+   {
+    "Unnamed: 0": "Debtor Days",
+    "Mar 2012": "2",
+    "Mar 2013": "11",
+    "Mar 2014": "9",
+    "Mar 2015": "5",
+    "Mar 2016": "0",
+    "Mar 2017": "7",
+    "Mar 2018": "14",
+    "Mar 2019": "11",
+    "Mar 2020": "7",
+    "Mar 2021": "22",
+    "Mar 2022": "1",
+    "Mar 2023": "31"
+   },
+   {
+    "Unnamed: 0": "Inventory Days",
+    "Mar 2012": NaN,
+    "Mar 2013": NaN,
+    "Mar 2014": NaN,
+    "Mar 2015": NaN,
+    "Mar 2016": NaN,
+    "Mar 2017": NaN,
+    "Mar 2018": NaN,
+    "Mar 2019": NaN,
+    "Mar 2020": NaN,
+    "Mar 2021": NaN,
+    "Mar 2022": NaN,
+    "Mar 2023": NaN
+   },
+   {
+    "Unnamed: 0": "Days Payable",
+    "Mar 2012": NaN,
+    "Mar 2013": NaN,
+    "Mar 2014": NaN,
+    "Mar 2015": NaN,
+    "Mar 2016": NaN,
+    "Mar 2017": NaN,
+    "Mar 2018": NaN,
+    "Mar 2019": NaN,
+    "Mar 2020": NaN,
+    "Mar 2021": NaN,
+    "Mar 2022": NaN,
+    "Mar 2023": NaN
+   },
+   {
+    "Unnamed: 0": "Cash Conversion Cycle",
+    "Mar 2012": "2",
+    "Mar 2013": "11",
+    "Mar 2014": "9",
+    "Mar 2015": "5",
+    "Mar 2016": "0",
+    "Mar 2017": "7",
+    "Mar 2018": "14",
+    "Mar 2019": "11",
+    "Mar 2020": "7",
+    "Mar 2021": "22",
+    "Mar 2022": "1",
+    "Mar 2023": "31"
+   },
+   {
+    "Unnamed: 0": "Working Capital Days",
+    "Mar 2012": "201",
+    "Mar 2013": "-41",
+    "Mar 2014": "-135",
+    "Mar 2015": "-96",
+    "Mar 2016": "-314",
+    "Mar 2017": "-186",
+    "Mar 2018": "-138",
+    "Mar 2019": "-78",
+    "Mar 2020": "-118",
+    "Mar 2021": "-263",
+    "Mar 2022": "-546",
+    "Mar 2023": "-998"
+   },
+   {
+    "Unnamed: 0": "ROCE %",
+    "Mar 2012": "9%",
+    "Mar 2013": "9%",
+    "Mar 2014": "7%",
+    "Mar 2015": "10%",
+    "Mar 2016": "20%",
+    "Mar 2017": "17%",
+    "Mar 2018": "19%",
+    "Mar 2019": "19%",
+    "Mar 2020": "5%",
+    "Mar 2021": "14%",
+    "Mar 2022": "3%",
+    "Mar 2023": "-21%"
+   }
+  ],
+  "shareholding": [
+   {
+    "Unnamed: 0": "Promoters",
+    "Jun 2023": "41.27%",
+    "Sep 2023": "39.39%",
+    "Dec 2023": "39.12%",
+    "Mar 2024": "32.41%",
+    "Jun 2024": "30.99%",
+    "Sep 2024": "30.64%",
+    "Dec 2024": "28.22%",
+    "Mar 2025": "28.22%",
+    "Jun 2025": "26.76%",
+    "Sep 2025": "25.87%",
+    "Dec 2025": "25.95%",
+    "Mar 2026": "25.68%"
+   },
+   {
+    "Unnamed: 0": "FIIs",
+    "Jun 2023": "3.95%",
+    "Sep 2023": "3.91%",
+    "Dec 2023": "3.76%",
+    "Mar 2024": "3.59%",
+    "Jun 2024": "3.57%",
+    "Sep 2024": "0.44%",
+    "Dec 2024": "0.44%",
+    "Mar 2025": "0.12%",
+    "Jun 2025": "0.12%",
+    "Sep 2025": "0.12%",
+    "Dec 2025": "0.12%",
+    "Mar 2026": "0.12%"
+   },
+   {
+    "Unnamed: 0": "DIIs",
+    "Jun 2023": "5.60%",
+    "Sep 2023": "5.50%",
+    "Dec 2023": "5.37%",
+    "Mar 2024": "10.01%",
+    "Jun 2024": "6.36%",
+    "Sep 2024": "7.25%",
+    "Dec 2024": "5.84%",
+    "Mar 2025": "5.30%",
+    "Jun 2025": "5.30%",
+    "Sep 2025": "5.30%",
+    "Dec 2025": "4.41%",
+    "Mar 2026": "4.41%"
+   },
+   {
+    "Unnamed: 0": "Public",
+    "Jun 2023": "49.17%",
+    "Sep 2023": "51.19%",
+    "Dec 2023": "51.76%",
+    "Mar 2024": "54.00%",
+    "Jun 2024": "59.07%",
+    "Sep 2024": "61.66%",
+    "Dec 2024": "65.48%",
+    "Mar 2025": "66.36%",
+    "Jun 2025": "67.82%",
+    "Sep 2025": "68.72%",
+    "Dec 2025": "69.51%",
+    "Mar 2026": "69.81%"
+   },
+   {
+    "Unnamed: 0": "No. of Shareholders",
+    "Jun 2023": "28089",
+    "Sep 2023": "30725",
+    "Dec 2023": "32347",
+    "Mar 2024": "32933",
+    "Jun 2024": "34843",
+    "Sep 2024": "34330",
+    "Dec 2024": "34830",
+    "Mar 2025": "34565",
+    "Jun 2025": "34249",
+    "Sep 2025": "33930",
+    "Dec 2025": "33541",
+    "Mar 2026": "33432"
+   }
+  ]
+ },
+ "top_ratios": {
+  "Market Cap": "\u20b9 10.8 Cr.",
+  "Current Price": "\u20b9 0.60",
+  "High / Low": "\u20b9 2.90 / 0.60",
+  "Stock P/E": "",
+  "Book Value": "\u20b9 -21.7",
+  "Dividend Yield": "0.00 %",
+  "ROCE": "-20.7 %",
+  "ROE": "%",
+  "Face Value": "\u20b9 10.0"
+ },
+ "documents": [
+  {
+   "text": "All",
+   "href": "https://www.bseindia.com/stock-share-price/mep-infrastructure-developers-ltd/MEP/539126/corp-announcements/"
+  },
+  {
+   "text": "Compliances-Certificate under Reg. 74 (5) of SEBI (DP) Regulations, 2018 1d - Ce",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=7ef593cc-073f-42b8-ae55-dbce4997d190.pdf"
+  },
+  {
+   "text": "Closure of Trading Window 25 Jun",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=7222f769-b5f4-40e1-a8e8-f9bf8334259a.pdf"
+  },
+  {
+   "text": "Corporate Insolvency Resolution Process (CIRP)-Updates - Corporate Insolvency Re",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=7c61ee3f-1149-4fd8-9b01-d3147321644a.pdf"
+  },
+  {
+   "text": "Announcement under Regulation 30 (LODR)-Change in Management 1 Jun - MEPIDL CFO ",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=96bc0d9a-8b90-470a-874b-292a6cf78309.pdf"
+  },
+  {
+   "text": "Format of the Initial Disclosure to be made by an entity identified as a Large C",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=22e34b0e-a82f-40ef-b281-f0d60b775fbf.pdf"
+  },
+  {
+   "text": "Financial Year 2023 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/06617195-3b77-4064-b660-d71aa747cc54.pdf"
+  },
+  {
+   "text": "Financial Year 2022 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/539126/77066539126.pdf"
+  },
+  {
+   "text": "Financial Year 2021 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/539126/71870539126.pdf"
+  },
+  {
+   "text": "Financial Year 2020 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/539126/67244539126.pdf"
+  },
+  {
+   "text": "Financial Year 2019 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/539126/5391260319.pdf"
+  },
+  {
+   "text": "Financial Year 2018 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/539126/5391260318.pdf"
+  },
+  {
+   "text": "Financial Year 2017 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/539126/5391260317.pdf"
+  },
+  {
+   "text": "Financial Year 2016 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/539126/5391260316.pdf"
+  },
+  {
+   "text": "Financial Year 2015 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/539126/5391260315.pdf"
+  },
+  {
+   "text": "DRHP",
+   "href": "https://www.sebi.gov.in/filings/public-issues/may-2015/mep-infrastructure-developers-limited-prospectus_29735.html"
+  },
+  {
+   "text": "Rating update 31 Dec 2025 from smera",
+   "href": "https://www.acuite.in/documents/ratings/revised/24929-RR-20251231.pdf"
+  },
+  {
+   "text": "Rating update 11 Oct 2024 from smera",
+   "href": "https://www.acuite.in/documents/ratings/revised/24929-RR-20241011.pdf"
+  },
+  {
+   "text": "Rating update 17 Jul 2023 from smera",
+   "href": "https://www.acuite.in/documents/ratings/revised/24929-RR-20230717.pdf"
+  },
+  {
+   "text": "Rating update 18 Apr 2022 from smera",
+   "href": "https://www.acuite.in/documents/ratings/revised/24929-RR-20220418.pdf"
+  },
+  {
+   "text": "Rating update 18 May 2021 from smera",
+   "href": "https://www.acuite.in/documents/ratings/revised/24929-RR-20210518.pdf"
+  },
+  {
+   "text": "Rating update 19 Apr 2021 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/19042021061742_MEP_Infrastructure_Developers_Limited.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mepinfra.com/pdf/financial-reports/transcripts/MEPIDL-4Q-FY19-Earnings-Concall-Transcript-24th-May-2019.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=8ed622aa-8bf1-407e-8bcc-8ef7b0bda9f3.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mepinfra.com/pdf/financial-reports/transcripts/MEPInfra-EarningsCall-Feb18-2019.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=6894e09c-3730-4d3e-a199-9a4b5c230657.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mepinfra.com/pdf/financial-reports/transcripts/Q2-FY-19-Earnings-Concall-Transcript.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=0e0b3e8f-c19c-4c7f-ad49-fdee8c0bfabf.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mepinfra.com/pdf/financial-reports/transcripts/AnandRathi-MEPInfrastructure-16Aug-2018.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=cbd6697f-da92-4ee2-9ca2-57fb6d094e7a.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=1f1be40b-5a7d-472c-930e-dba9b8472f87.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mepinfra.com/pdf/financial-reports/transcripts/4Q18-Earnings-Concall-Transcript.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=3c631d02-ceef-477d-ab11-b2e937695d83.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mepinfra.com/pdf/financial-reports/transcripts/3QFY18-earnings-concall-transcript.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mepinfra.com/pdf/financial-reports/transcripts/MEP%20Infra-Transcript_2Q18-29-11-17-new.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mepinfra.com/pdf/financial-reports/transcripts/MEP-Infra-Q1FY18-Earnings-Call-Transcript.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mepinfra.com/pdf/financial-reports/transcripts/MEPInfra1Q17-Concalltranscript.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mepinfra.com/pdf/financial-reports/transcripts/MEP-Infra-Transcript-Equirus-May-30-2017v2.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mepinfra.com/pdf/financial-reports/transcripts/Q3-FY-17-earnings-conference-call-Transcript.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mepinfra.com/pdf/financial-reports/transcripts/2Q17-earnings-concall-transcript.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=C486659D_D060_4866_8B5E_DCA38B8236EC_095149.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mepinfra.com/pdf/financial-reports/transcripts/Q3FY16-Concall-transcript.pdf"
+  }
+ ]
+}

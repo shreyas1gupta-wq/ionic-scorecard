@@ -1,0 +1,64 @@
+{
+  "note": "global counter shared across whole research program (662+ trials before this script), crushes DSR toward 0 regardless of true skill; local = honest count of the 3 NEW trials this rebuild made (sanity, v1, v2)",
+  "global_trial_count_at_run": 664,
+  "sanity": {
+    "local_dsr_n3": {
+      "dsr": 0.3625876896125265,
+      "sr_hat": 0.8214758989643902,
+      "sr0_expected_max": 0.8528044961506949,
+      "skew": 1.2555663873237235,
+      "kurtosis": 7.96481491061473,
+      "n_obs": 145,
+      "n_trials": 3
+    },
+    "global_dsr": {
+      "dsr": 4.591701734396105e-149,
+      "sr_hat": 0.8214758989643902,
+      "sr0_expected_max": 3.1363640560885324,
+      "skew": 1.2555663873237235,
+      "kurtosis": 7.96481491061473,
+      "n_obs": 145,
+      "n_trials": 663
+    }
+  },
+  "v1_AGraw": {
+    "local_dsr_n3": {
+      "dsr": 0.0008492747236525047,
+      "sr_hat": 0.5074738229572013,
+      "sr0_expected_max": 0.8528044961506949,
+      "skew": -0.4816088992085819,
+      "kurtosis": 7.998955509070411,
+      "n_obs": 141,
+      "n_trials": 3
+    },
+    "global_dsr": {
+      "dsr": 1.6901945854362074e-126,
+      "sr_hat": 0.5074738229572013,
+      "sr0_expected_max": 3.1368066672158035,
+      "skew": -0.4816088992085819,
+      "kurtosis": 7.998955509070411,
+      "n_obs": 141,
+      "n_trials": 664
+    }
+  },
+  "v2_AGneutral": {
+    "local_dsr_n3": {
+      "dsr": 4.42843864193791e-05,
+      "sr_hat": 0.40998231826716186,
+      "sr0_expected_max": 0.8528044961506949,
+      "skew": -0.9540111116280494,
+      "kurtosis": 9.803766535891626,
+      "n_obs": 139,
+      "n_trials": 3
+    },
+    "global_dsr": {
+      "dsr": 4.4998393033465145e-129,
+      "sr_hat": 0.40998231826716186,
+      "sr0_expected_max": 3.1372485584599783,
+      "skew": -0.9540111116280494,
+      "kurtosis": 9.803766535891626,
+      "n_obs": 139,
+      "n_trials": 665
+    }
+  }
+}

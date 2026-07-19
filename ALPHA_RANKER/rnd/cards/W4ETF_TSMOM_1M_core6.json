@@ -1,0 +1,21 @@
+{
+  "card_id": "W4ETF_TSMOM_1M_core6",
+  "sleeve": "ETF/Cross-Asset tactical allocation",
+  "family": "ts_momentum_rotation",
+  "horizon": "1M",
+  "universe": ["GOLD", "SILVER", "COPPER", "NASDAQ", "SP500", "NIFTY50"],
+  "method": "Same rotation mechanics as W4ETF_TSMOM_RS_1Y_core6 but scored on trailing 1-month return instead of 12-1.",
+  "windows": {
+    "full_history_1994_2026": {"n_months": 328, "strategy_net_sharpe": 0.302, "strategy_net_maxdd": -0.5899, "equal_weight_bh_sharpe": 0.715, "equal_weight_bh_maxdd": -0.3208},
+    "concurrent_only_since_2022_02": {"n_months": 53, "strategy_net_sharpe": 0.384, "strategy_net_maxdd": -0.2429, "equal_weight_bh_sharpe": 1.384, "equal_weight_bh_maxdd": -0.1568}
+  },
+  "avg_monthly_turnover": 0.532,
+  "factor_ic_pooled_asset_month": {
+    "mom_1m_fwd_1M": {"full_history": -0.075, "concurrent_only": -0.122, "n_full": 1319, "n_concurrent": 318},
+    "note": "NEGATIVE in BOTH windows - 1-month absolute momentum in this cross-asset universe is weakly ANTI-persistent (mean-reverting), not trend-following. This is CONSISTENT with the poor 1M rotation backtest above (turnover 53%/month chasing a signal with the wrong sign is exactly how you get maxDD -59%)."
+  },
+  "status": "KILL",
+  "verdict": "[DATA] 1-month TS-momentum rotation is a clear KILL for this universe: worse Sharpe than buy-hold in BOTH windows, worst maxDD of any variant tested (-59% full-history), and the underlying factor IC is negative-signed in both windows (the strategy is trading against its own weak edge once turnover/whipsaw is added). Matches the brief's own hypothesis that 1M should lean mean-reversion, not momentum - the data agrees with that prior, which is a good internal-consistency signal for the analysis, but it means the SPECIFIC rule tested (chase 1m winners) is wrong-signed and should not be resurrected without flipping to a reversal rule and re-testing from scratch.",
+  "review_date": "2026-10-17",
+  "generated_at": "2026-07-17"
+}

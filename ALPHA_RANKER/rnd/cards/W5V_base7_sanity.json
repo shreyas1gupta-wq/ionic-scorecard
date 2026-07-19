@@ -1,0 +1,20 @@
+{
+  "official_ic_ir": 1.3450288630259197,
+  "official_ic_mean": 0.1889984545699352,
+  "official_n_obs": 86838,
+  "official_n_ic_dates": 145,
+  "rebuilt_correct_base7": {
+    "ic_mean": 0.1889984545699352,
+    "ic_ir": 1.3450288630259197,
+    "n_ic_dates": 145,
+    "n_obs": 86838
+  },
+  "sanity_check_pass": true,
+  "buggy_base7_reconstructed_actually_used_in_W5_pipeline": {
+    "ic_mean": 0.1794048837187967,
+    "ic_ir": 1.3373574525898886,
+    "n_ic_dates": 145,
+    "n_obs": 86838
+  },
+  "root_cause": "run_w5_convex.py SEVEN_LEGS used 'mom_resid_peer' (capstone_legs.parquet cache) instead of the official 'mom_resid_plain' (freshly built via run_long_confirm.build_mom_resid_12_1) that CANONICAL_7LEG_1Y.json's own construction.legs field specifies. capstone_legs.parquet has NO mom_resid_plain row at all -- the substitution was silent, not a deliberate choice."
+}

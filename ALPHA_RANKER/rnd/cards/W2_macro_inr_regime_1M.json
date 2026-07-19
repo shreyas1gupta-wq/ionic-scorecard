@@ -1,0 +1,36 @@
+{
+  "id": "W2_macro_inr_regime_1M",
+  "family": "W2_macro",
+  "regime_col": "inr_regime",
+  "target": "fwd_ret_nifty500_1M",
+  "n_obs": 126,
+  "bucket_means": {
+    "appreciating": 0.012896395118083447,
+    "depreciating": 0.01089243371807139,
+    "flat": 0.015831749804316415
+  },
+  "bucket_counts": {
+    "appreciating": 39,
+    "depreciating": 84,
+    "flat": 3
+  },
+  "spread_hi_minus_lo": 0.004939316086245024,
+  "hi_bucket": "flat",
+  "lo_bucket": "depreciating",
+  "lag_test": {
+    "lag_spread": 0.0437309763801669,
+    "lag_test_delta": 7.853650103897713
+  },
+  "placebo": {
+    "placebo_spread_mean": 0.027925044119099632,
+    "placebo_spread_std": 0.01940302150575761,
+    "placebo_p_value_one_sided": 0.96,
+    "n_shuffles": 200
+  },
+  "gates": {
+    "lag_ok": false,
+    "placebo_ok": false
+  },
+  "pbo": "not computed -- advisory-skip, single macro time series (n=1 candidate, CSCV needs competing variants), disclosed not silent",
+  "verdict": "KILL (fails lag-robustness gate)"
+}

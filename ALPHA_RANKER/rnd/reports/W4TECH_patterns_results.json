@@ -1,0 +1,470 @@
+{
+  "W4TECH_breakout_retest": {
+    "standalone": {
+      "factor_id": "W4TECH_breakout_retest",
+      "status": "OK",
+      "ic_mean": 0.020367213790374636,
+      "ic_ir": 0.418557306256679,
+      "n_ic_dates": 225,
+      "mono": 0.19999999999999998,
+      "lag_test_delta": 0.07706139283392983,
+      "placebo_ic": -0.00010637018536196947,
+      "pbo": 1.0,
+      "dsr": 0.0,
+      "n_obs": 131401,
+      "verdict": "KILL (PBO 1.000 > 0.5; DSR 0.000 <= 0.0)"
+    },
+    "clubbed": {
+      "status": "OK",
+      "n_total_topq_with_pattern_data": 17663,
+      "pattern_present_or_high": {
+        "mean": 0.47024999947035157,
+        "median": 0.21915394161320267,
+        "n": 859
+      },
+      "pattern_absent_or_low": {
+        "mean": 0.44486215855161576,
+        "median": 0.1997009031352046,
+        "n": 16804
+      },
+      "delta_mean": 0.025387840918735805,
+      "welch_t": 0.7192019750440318,
+      "welch_p": 0.4721902695116114,
+      "date_min": "2007-05-31 00:00:00",
+      "date_max": "2024-11-29 00:00:00",
+      "n_dates": 211,
+      "era_split": {
+        "pre2015_pattern_present": {
+          "mean": 0.9908787805753096,
+          "median": 0.6729311183071183,
+          "n": 140
+        },
+        "pre2015_pattern_absent": {
+          "mean": 0.9735417525601601,
+          "median": 0.5903158225037676,
+          "n": 2044
+        },
+        "post2015_pattern_present": {
+          "mean": 0.36887582790610385,
+          "median": 0.1683234580405777,
+          "n": 719
+        },
+        "post2015_pattern_absent": {
+          "mean": 0.37164934756560863,
+          "median": 0.16181979719872808,
+          "n": 14760
+        }
+      }
+    },
+    "era_split": {
+      "status": "OK",
+      "pre2015": {
+        "ic_mean": 0.024333603738638812,
+        "ic_ir": 0.44633615935931925,
+        "n_dates": 107
+      },
+      "post2015": {
+        "ic_mean": 0.016770572057626613,
+        "ic_ir": 0.3938611521222451,
+        "n_dates": 118
+      },
+      "date_min": "2005-09-30 00:00:00",
+      "date_max": "2024-11-29 00:00:00"
+    },
+    "n_obs": 243024,
+    "n_dates_covered": 249,
+    "date_min": "2005-04-29 00:00:00",
+    "date_max": "2025-12-05 00:00:00",
+    "volume_dependent": false
+  },
+  "W4TECH_downchannel_breakout": {
+    "standalone": {
+      "factor_id": "W4TECH_downchannel_breakout",
+      "status": "OK",
+      "ic_mean": -0.0038563464559230316,
+      "ic_ir": -0.06823820704015648,
+      "n_ic_dates": 217,
+      "mono": 0.2121212121212121,
+      "lag_test_delta": 0.5392216016665099,
+      "placebo_ic": 0.0011165985003823901,
+      "pbo": 1.0,
+      "dsr": 0.0,
+      "n_obs": 131401,
+      "verdict": "KILL (IC_IR -0.068 < 0.2; lag_test_delta 0.539 > 0.25; PBO 1.000 > 0.5; DSR 0.000 <= 0.0)"
+    },
+    "clubbed": {
+      "status": "OK",
+      "n_total_topq_with_pattern_data": 17663,
+      "pattern_present_or_high": {
+        "mean": 0.43185866260028677,
+        "median": 0.21030455375156276,
+        "n": 404
+      },
+      "pattern_absent_or_low": {
+        "mean": 0.44643012701523077,
+        "median": 0.20053117103617102,
+        "n": 17259
+      },
+      "delta_mean": -0.014571464414944002,
+      "welch_t": -0.35610284098956446,
+      "welch_p": 0.7219345181994976,
+      "date_min": "2007-05-31 00:00:00",
+      "date_max": "2024-11-29 00:00:00",
+      "n_dates": 211,
+      "era_split": {
+        "pre2015_pattern_present": {
+          "mean": 1.1312276520230489,
+          "median": 0.9168675028951299,
+          "n": 45
+        },
+        "pre2015_pattern_absent": {
+          "mean": 0.9713591057374816,
+          "median": 0.590234605685384,
+          "n": 2139
+        },
+        "post2015_pattern_present": {
+          "mean": 0.3441940260431161,
+          "median": 0.1704789594821392,
+          "n": 359
+        },
+        "post2015_pattern_absent": {
+          "mean": 0.37216934093805515,
+          "median": 0.16203035423111822,
+          "n": 15120
+        }
+      }
+    },
+    "era_split": {
+      "status": "OK",
+      "pre2015": {
+        "ic_mean": -0.008953659116843798,
+        "ic_ir": -0.14064215075817652,
+        "n_dates": 101
+      },
+      "post2015": {
+        "ic_mean": 0.0005818309471200487,
+        "ic_ir": 0.011799013805033398,
+        "n_dates": 116
+      },
+      "date_min": "2005-09-30 00:00:00",
+      "date_max": "2024-11-29 00:00:00"
+    },
+    "n_obs": 243024,
+    "n_dates_covered": 249,
+    "date_min": "2005-04-29 00:00:00",
+    "date_max": "2025-12-05 00:00:00",
+    "volume_dependent": false
+  },
+  "W4TECH_flag": {
+    "standalone": {
+      "factor_id": "W4TECH_flag",
+      "status": "OK",
+      "ic_mean": 0.007271281747633633,
+      "ic_ir": 0.14722229279842747,
+      "n_ic_dates": 115,
+      "mono": 0.09090909090909088,
+      "lag_test_delta": 0.19951742660593622,
+      "placebo_ic": -0.0008260509022661993,
+      "pbo": 0.9913419913419913,
+      "dsr": 0.0,
+      "n_obs": 131401,
+      "verdict": "KILL (IC_IR 0.147 < 0.2; PBO 0.991 > 0.5; DSR 0.000 <= 0.0)"
+    },
+    "clubbed": {
+      "status": "OK",
+      "n_total_topq_with_pattern_data": 17663,
+      "pattern_present_or_high": {
+        "mean": 0.8780614899901488,
+        "median": 0.44228431774666477,
+        "n": 54
+      },
+      "pattern_absent_or_low": {
+        "mean": 0.44477216999187436,
+        "median": 0.19997639705733072,
+        "n": 17609
+      },
+      "delta_mean": 0.4332893199982744,
+      "welch_t": 1.9237102304739415,
+      "welch_p": 0.05975447629421378,
+      "date_min": "2007-05-31 00:00:00",
+      "date_max": "2024-11-29 00:00:00",
+      "n_dates": 211,
+      "era_split": {
+        "pre2015_pattern_present": {
+          "mean": 1.4554504081242967,
+          "median": 1.1577080424298782,
+          "n": 11
+        },
+        "pre2015_pattern_absent": {
+          "mean": 0.9722192439135496,
+          "median": 0.5932891765452968,
+          "n": 2173
+        },
+        "post2015_pattern_present": {
+          "mean": 0.7303573481418787,
+          "median": 0.36788067776281075,
+          "n": 43
+        },
+        "post2015_pattern_absent": {
+          "mean": 0.37052090725335396,
+          "median": 0.16195275999042502,
+          "n": 15436
+        }
+      }
+    },
+    "era_split": {
+      "status": "OK",
+      "pre2015": {
+        "ic_mean": 0.007217811995389553,
+        "ic_ir": 0.13262988837057105,
+        "n_dates": 52
+      },
+      "post2015": {
+        "ic_mean": 0.007315415511390653,
+        "ic_ir": 0.1616062376346618,
+        "n_dates": 63
+      },
+      "date_min": "2005-09-30 00:00:00",
+      "date_max": "2024-11-29 00:00:00"
+    },
+    "n_obs": 243024,
+    "n_dates_covered": 249,
+    "date_min": "2005-04-29 00:00:00",
+    "date_max": "2025-12-05 00:00:00",
+    "volume_dependent": false
+  },
+  "W4TECH_efficiency_ratio": {
+    "standalone": {
+      "factor_id": "W4TECH_efficiency_ratio",
+      "status": "OK",
+      "ic_mean": 0.0028571628300143952,
+      "ic_ir": 0.03421036798870878,
+      "n_ic_dates": 231,
+      "mono": 0.5272727272727272,
+      "lag_test_delta": 0.25506345479568543,
+      "placebo_ic": -0.0012363676850396896,
+      "pbo": 1.0,
+      "dsr": 0.0,
+      "n_obs": 130619,
+      "verdict": "KILL (IC_IR 0.034 < 0.2; lag_test_delta 0.255 > 0.25; PBO 1.000 > 0.5; DSR 0.000 <= 0.0)"
+    },
+    "clubbed": {
+      "status": "OK",
+      "n_total_topq_with_pattern_data": 17663,
+      "pattern_present_or_high": {
+        "mean": 0.45224592369769934,
+        "median": 0.20488390034453374,
+        "n": 5911
+      },
+      "pattern_absent_or_low": {
+        "mean": 0.43166428449237476,
+        "median": 0.1981941781891181,
+        "n": 5700
+      },
+      "delta_mean": 0.020581639205324576,
+      "welch_t": 1.0397578984599274,
+      "welch_p": 0.2984745426257936,
+      "date_min": "2007-05-31 00:00:00",
+      "date_max": "2024-11-29 00:00:00",
+      "n_dates": 211,
+      "era_split": {
+        "pre2015_pattern_present": {
+          "mean": 0.9720468062577634,
+          "median": 0.5709957960121052,
+          "n": 764
+        },
+        "pre2015_pattern_absent": {
+          "mean": 1.0092346437427584,
+          "median": 0.6238899882518351,
+          "n": 672
+        },
+        "post2015_pattern_present": {
+          "mean": 0.3750887691851893,
+          "median": 0.16557595688705562,
+          "n": 5147
+        },
+        "post2015_pattern_absent": {
+          "mean": 0.35447110998635684,
+          "median": 0.1595286103489254,
+          "n": 5028
+        }
+      }
+    },
+    "era_split": {
+      "status": "OK",
+      "pre2015": {
+        "ic_mean": 0.0017478074752843634,
+        "ic_ir": 0.018550780005115324,
+        "n_dates": 112
+      },
+      "post2015": {
+        "ic_mean": 0.003901261987407367,
+        "ic_ir": 0.05387815288899654,
+        "n_dates": 119
+      },
+      "date_min": "2005-09-30 00:00:00",
+      "date_max": "2024-11-29 00:00:00"
+    },
+    "n_obs": 243024,
+    "n_dates_covered": 249,
+    "date_min": "2005-04-29 00:00:00",
+    "date_max": "2025-12-05 00:00:00",
+    "volume_dependent": false
+  },
+  "W4TECH_vcp": {
+    "standalone": {
+      "factor_id": "W4TECH_vcp",
+      "status": "OK",
+      "ic_mean": 0.005163477351169303,
+      "ic_ir": 0.10396756740115809,
+      "n_ic_dates": 36,
+      "mono": 0.4545454545454545,
+      "lag_test_delta": 1.4837565265812636,
+      "placebo_ic": 0.007094518375913375,
+      "pbo": 0.9523809523809523,
+      "dsr": 1.7436894480999454e-49,
+      "n_obs": 21757,
+      "verdict": "KILL (IC_IR 0.104 < 0.2; lag_test_delta 1.484 > 0.25; PBO 0.952 > 0.5)"
+    },
+    "clubbed": {
+      "status": "OK",
+      "n_total_topq_with_pattern_data": 12632,
+      "pattern_present_or_high": {
+        "mean": 0.6187990009973903,
+        "median": 0.3421851899914673,
+        "n": 140
+      },
+      "pattern_absent_or_low": {
+        "mean": 0.4382170883546092,
+        "median": 0.24575408016147526,
+        "n": 4458
+      },
+      "delta_mean": 0.18058191264278106,
+      "welch_t": 2.099808517819927,
+      "welch_p": 0.03746213933655968,
+      "date_min": "2007-09-28 00:00:00",
+      "date_max": "2024-11-29 00:00:00",
+      "n_dates": 203,
+      "era_split": {
+        "pre2015_pattern_present": {
+          "mean": null,
+          "median": null,
+          "n": 0
+        },
+        "pre2015_pattern_absent": {
+          "mean": null,
+          "median": null,
+          "n": 0
+        },
+        "post2015_pattern_present": {
+          "mean": 0.6187990009973903,
+          "median": 0.3421851899914673,
+          "n": 140
+        },
+        "post2015_pattern_absent": {
+          "mean": 0.4382170883546092,
+          "median": 0.24575408016147526,
+          "n": 4458
+        }
+      }
+    },
+    "era_split": {
+      "status": "OK",
+      "pre2015": {
+        "ic_mean": null,
+        "ic_ir": null,
+        "n_dates": 0
+      },
+      "post2015": {
+        "ic_mean": 0.005163477351169303,
+        "ic_ir": 0.10396756740115809,
+        "n_dates": 36
+      },
+      "date_min": "2021-07-30 00:00:00",
+      "date_max": "2024-11-29 00:00:00"
+    },
+    "n_obs": 150396,
+    "n_dates_covered": 249,
+    "date_min": "2005-04-29 00:00:00",
+    "date_max": "2025-12-05 00:00:00",
+    "volume_dependent": true
+  },
+  "W4TECH_volprofile_approx": {
+    "standalone": {
+      "factor_id": "W4TECH_volprofile_approx",
+      "status": "OK",
+      "ic_mean": 0.03812608822970859,
+      "ic_ir": 0.38543805536328996,
+      "n_ic_dates": 39,
+      "mono": 0.6,
+      "lag_test_delta": 0.052630811790791154,
+      "placebo_ic": -0.0019075121047193184,
+      "pbo": 0.9826839826839827,
+      "dsr": 6.880066930610874e-68,
+      "n_obs": 20780,
+      "verdict": "KILL (PBO 0.983 > 0.5)"
+    },
+    "clubbed": {
+      "status": "OK",
+      "n_total_topq_with_pattern_data": 12632,
+      "pattern_present_or_high": {
+        "mean": 0.44479181076949503,
+        "median": 0.2594513721013878,
+        "n": 1465
+      },
+      "pattern_absent_or_low": {
+        "mean": 0.4867163573881581,
+        "median": 0.27417738023951743,
+        "n": 1426
+      },
+      "delta_mean": -0.04192454661866307,
+      "welch_t": -1.2975271832783541,
+      "welch_p": 0.19456499015566994,
+      "date_min": "2007-09-28 00:00:00",
+      "date_max": "2024-11-29 00:00:00",
+      "n_dates": 203,
+      "era_split": {
+        "pre2015_pattern_present": {
+          "mean": null,
+          "median": null,
+          "n": 0
+        },
+        "pre2015_pattern_absent": {
+          "mean": null,
+          "median": null,
+          "n": 0
+        },
+        "post2015_pattern_present": {
+          "mean": 0.44479181076949503,
+          "median": 0.2594513721013878,
+          "n": 1465
+        },
+        "post2015_pattern_absent": {
+          "mean": 0.4867163573881581,
+          "median": 0.27417738023951743,
+          "n": 1426
+        }
+      }
+    },
+    "era_split": {
+      "status": "OK",
+      "pre2015": {
+        "ic_mean": null,
+        "ic_ir": null,
+        "n_dates": 0
+      },
+      "post2015": {
+        "ic_mean": 0.03812608822970859,
+        "ic_ir": 0.38543805536328996,
+        "n_dates": 39
+      },
+      "date_min": "2021-09-30 00:00:00",
+      "date_max": "2024-11-29 00:00:00"
+    },
+    "n_obs": 150396,
+    "n_dates_covered": 249,
+    "date_min": "2005-04-29 00:00:00",
+    "date_max": "2025-12-05 00:00:00",
+    "volume_dependent": true
+  }
+}

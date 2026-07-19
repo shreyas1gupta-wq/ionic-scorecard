@@ -1,0 +1,39 @@
+[load] panel/universe/benchmark ...
+[data] panel rows=6663504 symbols=2511 universe tickers=1004 overlap=914 missing=90
+[grid] 12 cells: [('Efficiency', 'MACD', 'V1'), ('Efficiency', 'MACD', 'V2'), ('Efficiency', 'MACD', 'V3'), ('Efficiency', 'PPO', 'V1'), ('Efficiency', 'PPO', 'V2'), ('Efficiency', 'PPO', 'V3'), ('Momentum', 'MACD', 'V1'), ('Momentum', 'MACD', 'V2'), ('Momentum', 'MACD', 'V3'), ('Momentum', 'PPO', 'V1'), ('Momentum', 'PPO', 'V2'), ('Momentum', 'PPO', 'V3')]
+[progress] 100/914 symbols, 24.7s elapsed
+[progress] 200/914 symbols, 50.1s elapsed
+[progress] 300/914 symbols, 71.8s elapsed
+[progress] 400/914 symbols, 92.3s elapsed
+[progress] 500/914 symbols, 109.3s elapsed
+[progress] 600/914 symbols, 126.8s elapsed
+[progress] 700/914 symbols, 144.8s elapsed
+[progress] 800/914 symbols, 162.1s elapsed
+[progress] 900/914 symbols, 182.0s elapsed
+[compute] done all symbols in 183.8s
+[cell] Efficiency/MACD/V1: n_trades=22108 cagr=49.12 sharpe=1.54 vs_bench=36.16
+[cell] Efficiency/MACD/V2: n_trades=21008 cagr=47.19 sharpe=1.481 vs_bench=34.23
+[cell] Efficiency/MACD/V3: n_trades=21300 cagr=52.89 sharpe=1.532 vs_bench=39.93
+[cell] Efficiency/PPO/V1: n_trades=22109 cagr=48.99 sharpe=1.537 vs_bench=36.03
+[cell] Efficiency/PPO/V2: n_trades=21006 cagr=47.19 sharpe=1.481 vs_bench=34.23
+[cell] Efficiency/PPO/V3: n_trades=21300 cagr=52.89 sharpe=1.532 vs_bench=39.93
+[cell] Momentum/MACD/V1: n_trades=73850 cagr=28.07 sharpe=0.825 vs_bench=15.11
+[cell] Momentum/MACD/V2: n_trades=67862 cagr=27.34 sharpe=0.78 vs_bench=14.38
+[cell] Momentum/MACD/V3: n_trades=72946 cagr=40.67 sharpe=1.054 vs_bench=27.71
+[cell] Momentum/PPO/V1: n_trades=73868 cagr=25.68 sharpe=0.78 vs_bench=12.72
+[cell] Momentum/PPO/V2: n_trades=67857 cagr=24.28 sharpe=0.721 vs_bench=11.32
+[cell] Momentum/PPO/V3: n_trades=72946 cagr=40.67 sharpe=1.054 vs_bench=27.71
+[done] results.csv written -- 312.2s total
+        engine  mode variant  n_trades  win_pct  mean_net_pct  t_stat  avg_hold_d  exposure_pct   cagr  sharpe  maxdd  turnover  placebo_mean  beats_placebo  cagr_2x  vs_benchmark_cagr
+0   Efficiency  MACD      V1     22108    37.73        1.8839   6.199        27.6         50.67  49.12   1.540 -57.39      8.93        3.6608          False    39.15              36.16
+1   Efficiency  MACD      V2     21008    37.74        1.7925   6.053        28.2         49.23  47.19   1.481 -56.95      8.74        4.1031          False    37.60              34.23
+2   Efficiency  MACD      V3     21300    37.85        1.8485   6.308        28.6         50.64  52.89   1.532 -40.21      8.61        2.1179          False    43.05              39.93
+3   Efficiency   PPO      V1     22109    37.74        1.8791   6.183        27.6         50.67  48.99   1.537 -57.80      8.93        2.0374          False    39.03              36.03
+4   Efficiency   PPO      V2     21006    37.75        1.7936   6.056        28.2         49.23  47.19   1.481 -57.02      8.74        1.9370          False    37.60              34.23
+5   Efficiency   PPO      V3     21300    37.85        1.8485   6.308        28.6         50.64  52.89   1.532 -40.21      8.61        2.1687          False    43.05              39.93
+6     Momentum  MACD      V1     73850    37.57       -0.1070  -1.981         7.9         48.09  28.07   0.825 -55.20     31.48        1.8914          False     1.07              15.11
+7     Momentum  MACD      V2     67862    37.53       -0.1127  -1.943         7.9         44.52  27.34   0.780 -55.54     31.24        2.0791          False     0.67              14.38
+8     Momentum  MACD      V3     72946    37.61        0.0879   0.851         8.0         48.06  40.67   1.054 -55.86     31.11        1.4164          False    11.42              27.71
+9     Momentum   PPO      V1     73868    37.54       -0.1119  -2.071         7.9         48.09  25.68   0.780 -55.18     31.49        0.4002          False    -0.82              12.72
+10    Momentum   PPO      V2     67857    37.52       -0.1156  -1.990         7.9         44.50  24.28   0.721 -57.80     31.25        0.4854          False    -1.76              11.32
+11    Momentum   PPO      V3     72946    37.61        0.0879   0.851         8.0         48.06  40.67   1.054 -55.86     31.11        6.1050          False    11.42              27.71

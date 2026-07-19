@@ -1,0 +1,878 @@
+{
+ "ticker": "FAIRCHEMOR",
+ "url_path": "FAIRCHEMOR/",
+ "tables": {
+  "quarterly_results": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2023": "151.90",
+    "Jun 2023": "160.59",
+    "Sep 2023": "152.21",
+    "Dec 2023": "148.11",
+    "Mar 2024": "160.56",
+    "Jun 2024": "164.93",
+    "Sep 2024": "138.62",
+    "Dec 2024": "113.57",
+    "Mar 2025": "120.78",
+    "Jun 2025": "131.06",
+    "Sep 2025": "111.52",
+    "Dec 2025": "100.13",
+    "Mar 2026": "116.93"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2023": "132.66",
+    "Jun 2023": "148.96",
+    "Sep 2023": "135.38",
+    "Dec 2023": "128.36",
+    "Mar 2024": "141.79",
+    "Jun 2024": "143.16",
+    "Sep 2024": "129.86",
+    "Dec 2024": "105.74",
+    "Mar 2025": "116.36",
+    "Jun 2025": "125.83",
+    "Sep 2025": "107.33",
+    "Dec 2025": "95.96",
+    "Mar 2026": "108.90"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2023": "19.24",
+    "Jun 2023": "11.63",
+    "Sep 2023": "16.83",
+    "Dec 2023": "19.75",
+    "Mar 2024": "18.77",
+    "Jun 2024": "21.77",
+    "Sep 2024": "8.76",
+    "Dec 2024": "7.83",
+    "Mar 2025": "4.42",
+    "Jun 2025": "5.23",
+    "Sep 2025": "4.19",
+    "Dec 2025": "4.17",
+    "Mar 2026": "8.03"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2023": "12.67%",
+    "Jun 2023": "7.24%",
+    "Sep 2023": "11.06%",
+    "Dec 2023": "13.33%",
+    "Mar 2024": "11.69%",
+    "Jun 2024": "13.20%",
+    "Sep 2024": "6.32%",
+    "Dec 2024": "6.89%",
+    "Mar 2025": "3.66%",
+    "Jun 2025": "3.99%",
+    "Sep 2025": "3.76%",
+    "Dec 2025": "4.16%",
+    "Mar 2026": "6.87%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2023": "0.17",
+    "Jun 2023": "0.15",
+    "Sep 2023": "0.46",
+    "Dec 2023": "0.25",
+    "Mar 2024": "0.28",
+    "Jun 2024": "0.24",
+    "Sep 2024": "0.38",
+    "Dec 2024": "0.48",
+    "Mar 2025": "0.24",
+    "Jun 2025": "0.13",
+    "Sep 2025": "0.37",
+    "Dec 2025": "-0.62",
+    "Mar 2026": "0.54"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2023": "1.32",
+    "Jun 2023": "1.35",
+    "Sep 2023": "1.30",
+    "Dec 2023": "0.97",
+    "Mar 2024": "0.62",
+    "Jun 2024": "0.81",
+    "Sep 2024": "1.02",
+    "Dec 2024": "0.93",
+    "Mar 2025": "0.91",
+    "Jun 2025": "1.01",
+    "Sep 2025": "0.61",
+    "Dec 2025": "0.96",
+    "Mar 2026": "1.12"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2023": "2.13",
+    "Jun 2023": "2.15",
+    "Sep 2023": "2.18",
+    "Dec 2023": "2.40",
+    "Mar 2024": "2.55",
+    "Jun 2024": "2.59",
+    "Sep 2024": "2.64",
+    "Dec 2024": "2.67",
+    "Mar 2025": "2.64",
+    "Jun 2025": "2.74",
+    "Sep 2025": "2.78",
+    "Dec 2025": "2.80",
+    "Mar 2026": "2.72"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2023": "15.96",
+    "Jun 2023": "8.28",
+    "Sep 2023": "13.81",
+    "Dec 2023": "16.63",
+    "Mar 2024": "15.88",
+    "Jun 2024": "18.61",
+    "Sep 2024": "5.48",
+    "Dec 2024": "4.71",
+    "Mar 2025": "1.11",
+    "Jun 2025": "1.61",
+    "Sep 2025": "1.17",
+    "Dec 2025": "-0.21",
+    "Mar 2026": "4.73"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2023": "25.69%",
+    "Jun 2023": "25.97%",
+    "Sep 2023": "25.56%",
+    "Dec 2023": "25.86%",
+    "Mar 2024": "25.88%",
+    "Jun 2024": "25.63%",
+    "Sep 2024": "26.82%",
+    "Dec 2024": "25.48%",
+    "Mar 2025": "46.85%",
+    "Jun 2025": "27.33%",
+    "Sep 2025": "35.04%",
+    "Dec 2025": "-47.62%",
+    "Mar 2026": "21.99%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2023": "11.86",
+    "Jun 2023": "6.12",
+    "Sep 2023": "10.29",
+    "Dec 2023": "12.33",
+    "Mar 2024": "11.76",
+    "Jun 2024": "13.85",
+    "Sep 2024": "4.01",
+    "Dec 2024": "3.52",
+    "Mar 2025": "0.59",
+    "Jun 2025": "1.17",
+    "Sep 2025": "0.77",
+    "Dec 2025": "-0.10",
+    "Mar 2026": "3.69"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2023": "9.11",
+    "Jun 2023": "4.70",
+    "Sep 2023": "7.90",
+    "Dec 2023": "9.47",
+    "Mar 2024": "9.03",
+    "Jun 2024": "10.64",
+    "Sep 2024": "3.08",
+    "Dec 2024": "2.70",
+    "Mar 2025": "0.45",
+    "Jun 2025": "0.90",
+    "Sep 2025": "0.59",
+    "Dec 2025": "-0.08",
+    "Mar 2026": "2.93"
+   },
+   {
+    "Unnamed: 0": "Raw PDF",
+    "Mar 2023": NaN,
+    "Jun 2023": NaN,
+    "Sep 2023": NaN,
+    "Dec 2023": NaN,
+    "Mar 2024": NaN,
+    "Jun 2024": NaN,
+    "Sep 2024": NaN,
+    "Dec 2024": NaN,
+    "Mar 2025": NaN,
+    "Jun 2025": NaN,
+    "Sep 2025": NaN,
+    "Dec 2025": NaN,
+    "Mar 2026": NaN
+   }
+  ],
+  "profit_loss": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2020": "306",
+    "Mar 2021": "397",
+    "Mar 2022": "643",
+    "Mar 2023": "648",
+    "Mar 2024": "621",
+    "Mar 2025": "538",
+    "Mar 2026": "460"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2020": "258",
+    "Mar 2021": "328",
+    "Mar 2022": "538",
+    "Mar 2023": "576",
+    "Mar 2024": "554",
+    "Mar 2025": "495",
+    "Mar 2026": "438"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2020": "49",
+    "Mar 2021": "69",
+    "Mar 2022": "105",
+    "Mar 2023": "72",
+    "Mar 2024": "67",
+    "Mar 2025": "43",
+    "Mar 2026": "22"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2020": "16%",
+    "Mar 2021": "17%",
+    "Mar 2022": "16%",
+    "Mar 2023": "11%",
+    "Mar 2024": "11%",
+    "Mar 2025": "8%",
+    "Mar 2026": "5%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2020": "6",
+    "Mar 2021": "0",
+    "Mar 2022": "0",
+    "Mar 2023": "1",
+    "Mar 2024": "1",
+    "Mar 2025": "1",
+    "Mar 2026": "0"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2020": "7",
+    "Mar 2021": "7",
+    "Mar 2022": "7",
+    "Mar 2023": "6",
+    "Mar 2024": "4",
+    "Mar 2025": "4",
+    "Mar 2026": "4"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2020": "6",
+    "Mar 2021": "7",
+    "Mar 2022": "7",
+    "Mar 2023": "8",
+    "Mar 2024": "9",
+    "Mar 2025": "11",
+    "Mar 2026": "11"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2020": "42",
+    "Mar 2021": "56",
+    "Mar 2022": "91",
+    "Mar 2023": "59",
+    "Mar 2024": "55",
+    "Mar 2025": "30",
+    "Mar 2026": "7"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2020": "18%",
+    "Mar 2021": "24%",
+    "Mar 2022": "26%",
+    "Mar 2023": "26%",
+    "Mar 2024": "26%",
+    "Mar 2025": "27%",
+    "Mar 2026": "24%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2020": "35",
+    "Mar 2021": "42",
+    "Mar 2022": "68",
+    "Mar 2023": "44",
+    "Mar 2024": "40",
+    "Mar 2025": "22",
+    "Mar 2026": "6"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2020": NaN,
+    "Mar 2021": "32.62",
+    "Mar 2022": "52.15",
+    "Mar 2023": "33.41",
+    "Mar 2024": "31.10",
+    "Mar 2025": "16.87",
+    "Mar 2026": "4.40"
+   },
+   {
+    "Unnamed: 0": "Dividend Payout %",
+    "Mar 2020": "0%",
+    "Mar 2021": "11%",
+    "Mar 2022": "25%",
+    "Mar 2023": "22%",
+    "Mar 2024": "24%",
+    "Mar 2025": "44%",
+    "Mar 2026": "0%"
+   }
+  ],
+  "balance_sheet": [
+   {
+    "Unnamed: 0": "Equity Capital",
+    "Mar 2020": 0.0,
+    "Mar 2021": 13,
+    "Mar 2022": 13,
+    "Mar 2023": 13,
+    "Mar 2024": 13,
+    "Mar 2025": 13,
+    "Mar 2026": 13
+   },
+   {
+    "Unnamed: 0": "Reserves",
+    "Mar 2020": 127.0,
+    "Mar 2021": 156,
+    "Mar 2022": 219,
+    "Mar 2023": 246,
+    "Mar 2024": 277,
+    "Mar 2025": 289,
+    "Mar 2026": 250
+   },
+   {
+    "Unnamed: 0": "Borrowings",
+    "Mar 2020": 67.0,
+    "Mar 2021": 57,
+    "Mar 2022": 62,
+    "Mar 2023": 50,
+    "Mar 2024": 7,
+    "Mar 2025": 63,
+    "Mar 2026": 84
+   },
+   {
+    "Unnamed: 0": "Other Liabilities",
+    "Mar 2020": 25.0,
+    "Mar 2021": 33,
+    "Mar 2022": 30,
+    "Mar 2023": 33,
+    "Mar 2024": 37,
+    "Mar 2025": 37,
+    "Mar 2026": 44
+   },
+   {
+    "Unnamed: 0": "Total Liabilities",
+    "Mar 2020": 219.0,
+    "Mar 2021": 259,
+    "Mar 2022": 324,
+    "Mar 2023": 342,
+    "Mar 2024": 334,
+    "Mar 2025": 402,
+    "Mar 2026": 391
+   },
+   {
+    "Unnamed: 0": "Fixed Assets",
+    "Mar 2020": 126.0,
+    "Mar 2021": 126,
+    "Mar 2022": 141,
+    "Mar 2023": 156,
+    "Mar 2024": 191,
+    "Mar 2025": 201,
+    "Mar 2026": 196
+   },
+   {
+    "Unnamed: 0": "CWIP",
+    "Mar 2020": 9.0,
+    "Mar 2021": 29,
+    "Mar 2022": 42,
+    "Mar 2023": 35,
+    "Mar 2024": 6,
+    "Mar 2025": 12,
+    "Mar 2026": 18
+   },
+   {
+    "Unnamed: 0": "Investments",
+    "Mar 2020": 0.0,
+    "Mar 2021": 0,
+    "Mar 2022": 0,
+    "Mar 2023": 0,
+    "Mar 2024": 0,
+    "Mar 2025": 0,
+    "Mar 2026": 0
+   },
+   {
+    "Unnamed: 0": "Other Assets",
+    "Mar 2020": 83.0,
+    "Mar 2021": 103,
+    "Mar 2022": 141,
+    "Mar 2023": 151,
+    "Mar 2024": 137,
+    "Mar 2025": 189,
+    "Mar 2026": 176
+   },
+   {
+    "Unnamed: 0": "Total Assets",
+    "Mar 2020": 219.0,
+    "Mar 2021": 259,
+    "Mar 2022": 324,
+    "Mar 2023": 342,
+    "Mar 2024": 334,
+    "Mar 2025": 402,
+    "Mar 2026": 391
+   }
+  ],
+  "cash_flow": [
+   {
+    "Unnamed: 0": "Cash from Operating Activity",
+    "Mar 2020": "31",
+    "Mar 2021": "40",
+    "Mar 2022": "40",
+    "Mar 2023": "50",
+    "Mar 2024": "74",
+    "Mar 2025": "-17",
+    "Mar 2026": "42"
+   },
+   {
+    "Unnamed: 0": "Cash from Investing Activity",
+    "Mar 2020": "-24",
+    "Mar 2021": "-23",
+    "Mar 2022": "-34",
+    "Mar 2023": "-14",
+    "Mar 2024": "-18",
+    "Mar 2025": "-26",
+    "Mar 2026": "-14"
+   },
+   {
+    "Unnamed: 0": "Cash from Financing Activity",
+    "Mar 2020": "-7",
+    "Mar 2021": "-17",
+    "Mar 2022": "-6",
+    "Mar 2023": "-35",
+    "Mar 2024": "-57",
+    "Mar 2025": "42",
+    "Mar 2026": "-28"
+   },
+   {
+    "Unnamed: 0": "Net Cash Flow",
+    "Mar 2020": "0",
+    "Mar 2021": "0",
+    "Mar 2022": "-0",
+    "Mar 2023": "0",
+    "Mar 2024": "0",
+    "Mar 2025": "0",
+    "Mar 2026": "0"
+   },
+   {
+    "Unnamed: 0": "Free Cash Flow",
+    "Mar 2020": "1",
+    "Mar 2021": "17",
+    "Mar 2022": "6",
+    "Mar 2023": "35",
+    "Mar 2024": "57",
+    "Mar 2025": "-42",
+    "Mar 2026": "28"
+   },
+   {
+    "Unnamed: 0": "CFO/OP",
+    "Mar 2020": "82%",
+    "Mar 2021": "77%",
+    "Mar 2022": "60%",
+    "Mar 2023": "88%",
+    "Mar 2024": "131%",
+    "Mar 2025": "-15%",
+    "Mar 2026": "180%"
+   }
+  ],
+  "ratios": [
+   {
+    "Unnamed: 0": "Debtor Days",
+    "Mar 2020": 45.0,
+    "Mar 2021": "43",
+    "Mar 2022": "35",
+    "Mar 2023": "35",
+    "Mar 2024": "33",
+    "Mar 2025": "58",
+    "Mar 2026": "54"
+   },
+   {
+    "Unnamed: 0": "Inventory Days",
+    "Mar 2020": 65.0,
+    "Mar 2021": "64",
+    "Mar 2022": "57",
+    "Mar 2023": "61",
+    "Mar 2024": "57",
+    "Mar 2025": "87",
+    "Mar 2026": "96"
+   },
+   {
+    "Unnamed: 0": "Days Payable",
+    "Mar 2020": 12.0,
+    "Mar 2021": "15",
+    "Mar 2022": "7",
+    "Mar 2023": "8",
+    "Mar 2024": "11",
+    "Mar 2025": "8",
+    "Mar 2026": "12"
+   },
+   {
+    "Unnamed: 0": "Cash Conversion Cycle",
+    "Mar 2020": 98.0,
+    "Mar 2021": "91",
+    "Mar 2022": "85",
+    "Mar 2023": "89",
+    "Mar 2024": "80",
+    "Mar 2025": "137",
+    "Mar 2026": "139"
+   },
+   {
+    "Unnamed: 0": "Working Capital Days",
+    "Mar 2020": 14.0,
+    "Mar 2021": "43",
+    "Mar 2022": "40",
+    "Mar 2023": "46",
+    "Mar 2024": "63",
+    "Mar 2025": "68",
+    "Mar 2026": "53"
+   },
+   {
+    "Unnamed: 0": "ROCE %",
+    "Mar 2020": NaN,
+    "Mar 2021": "30%",
+    "Mar 2022": "38%",
+    "Mar 2023": "22%",
+    "Mar 2024": "19%",
+    "Mar 2025": "10%",
+    "Mar 2026": "3%"
+   }
+  ],
+  "shareholding": [
+   {
+    "Unnamed: 0": "Promoters",
+    "Sep 2023": "58.89%",
+    "Dec 2023": "58.89%",
+    "Mar 2024": "58.89%",
+    "Jun 2024": "58.71%",
+    "Sep 2024": "58.71%",
+    "Dec 2024": "61.20%",
+    "Mar 2025": "61.20%",
+    "Jun 2025": "61.20%",
+    "Sep 2025": "61.20%",
+    "Dec 2025": "61.20%",
+    "Mar 2026": "63.25%",
+    "Jun 2026": "63.25%"
+   },
+   {
+    "Unnamed: 0": "FIIs",
+    "Sep 2023": "6.19%",
+    "Dec 2023": "6.22%",
+    "Mar 2024": "6.29%",
+    "Jun 2024": "6.29%",
+    "Sep 2024": "6.36%",
+    "Dec 2024": "6.31%",
+    "Mar 2025": "6.31%",
+    "Jun 2025": "6.28%",
+    "Sep 2025": "6.18%",
+    "Dec 2025": "6.34%",
+    "Mar 2026": "6.35%",
+    "Jun 2026": "6.34%"
+   },
+   {
+    "Unnamed: 0": "DIIs",
+    "Sep 2023": "5.33%",
+    "Dec 2023": "5.28%",
+    "Mar 2024": "5.26%",
+    "Jun 2024": "5.16%",
+    "Sep 2024": "5.16%",
+    "Dec 2024": "5.16%",
+    "Mar 2025": "5.69%",
+    "Jun 2025": "5.77%",
+    "Sep 2025": "5.77%",
+    "Dec 2025": "5.42%",
+    "Mar 2026": "3.99%",
+    "Jun 2026": "2.80%"
+   },
+   {
+    "Unnamed: 0": "Public",
+    "Sep 2023": "29.59%",
+    "Dec 2023": "29.61%",
+    "Mar 2024": "29.56%",
+    "Jun 2024": "29.84%",
+    "Sep 2024": "29.79%",
+    "Dec 2024": "27.33%",
+    "Mar 2025": "26.80%",
+    "Jun 2025": "26.76%",
+    "Sep 2025": "26.86%",
+    "Dec 2025": "27.05%",
+    "Mar 2026": "26.40%",
+    "Jun 2026": "27.60%"
+   },
+   {
+    "Unnamed: 0": "No. of Shareholders",
+    "Sep 2023": "33352",
+    "Dec 2023": "31665",
+    "Mar 2024": "31496",
+    "Jun 2024": "31601",
+    "Sep 2024": "31171",
+    "Dec 2024": "30267",
+    "Mar 2025": "29823",
+    "Jun 2025": "29051",
+    "Sep 2025": "28990",
+    "Dec 2025": "32298",
+    "Mar 2026": "26622",
+    "Jun 2026": "25690"
+   }
+  ]
+ },
+ "top_ratios": {
+  "Market Cap": "\u20b9 874 Cr.",
+  "Current Price": "\u20b9 702",
+  "High / Low": "\u20b9 967 / 428",
+  "Stock P/E": "141",
+  "Book Value": "\u20b9 209",
+  "Dividend Yield": "0.14 %",
+  "ROCE": "3.33 %",
+  "ROE": "2.19 %",
+  "Face Value": "\u20b9 10.0"
+ },
+ "documents": [
+  {
+   "text": "All",
+   "href": "https://www.bseindia.com/stock-share-price/fairchem-organics-ltd/FAIRCHEMOR/543252/corp-announcements/"
+  },
+  {
+   "text": "Announcement under Regulation 30 (LODR)-Analyst / Investor Meet - Intimation 2d ",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=83758d5b-6ad0-4b1f-8e86-082354aafc59.pdf"
+  },
+  {
+   "text": "Board Meeting Intimation for Unaudited Financial Results For The Quarter Ended J",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=2d99f51c-eddc-4cd5-a07b-89b137ce8619.pdf"
+  },
+  {
+   "text": "Compliances-Certificate under Reg. 74 (5) of SEBI (DP) Regulations, 2018 6 Jul -",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=624e9a98-db98-4133-a1e8-7435109d13dd.pdf"
+  },
+  {
+   "text": "Announcement under Regulation 30 (LODR)-Credit Rating 30 Jun - CARE reaffirmed F",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=7b0ae36f-e9cb-4460-b443-8b31267a31eb.pdf"
+  },
+  {
+   "text": "Announcement under Regulation 30 (LODR)-Newspaper Publication 26 Jun - We attach",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=35d0753b-c001-42a8-a5a5-3c7a8a65084a.pdf"
+  },
+  {
+   "text": "Financial Year 2026 from bse",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=028c32f6-1491-4ecd-be47-bdf506128f2d.pdf"
+  },
+  {
+   "text": "Financial Year 2025 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/e22a7413-cd37-4e91-8b16-d9e7cae05bd7.pdf"
+  },
+  {
+   "text": "Financial Year 2024 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/fbaa1b0a-45ea-4a8b-b4ad-e21e04b56464.pdf"
+  },
+  {
+   "text": "Financial Year 2023 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/9b5b0f59-ec23-454a-b0b1-ce54f32b5788.pdf"
+  },
+  {
+   "text": "Financial Year 2022 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/543252/73710543252.pdf"
+  },
+  {
+   "text": "Financial Year 2021 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/543252/69401543252.pdf"
+  },
+  {
+   "text": "Rating update 29 Jun from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/202606130621_Fairchem_Organics_Limited.pdf"
+  },
+  {
+   "text": "Rating update 5 Jun 2025 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/202506120614_Fairchem_Organics_Limited.pdf"
+  },
+  {
+   "text": "Rating update 4 Jul 2024 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/202407120717_Fairchem_Organics_Limited.pdf"
+  },
+  {
+   "text": "Rating update 3 Aug 2023 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/202308140842_Fairchem_Organics_Limited.pdf"
+  },
+  {
+   "text": "Rating update 18 Aug 2022 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/18082022064441_Fairchem_Organics_Limited.pdf"
+  },
+  {
+   "text": "Rating update 20 Aug 2021 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/20082021061223_Fairchem_Organics_Limited.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=319a8838-0c70-4afe-88d8-9b4cb112a8e6.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=82b4a2f6-e867-433a-84fc-4349dbd72bba.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://fairchem.in/investor-relations/Investor-Presentation/Concall-Fairchem-Organics-Ltd-07-05-2026.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=9f30aac4-bb2e-4ca4-b95c-cad6d54b27b7.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=a094641b-6e86-43d8-8596-da015fd0b357.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=77ef7e4a-ad22-4ced-a638-0dfc35f4ae3f.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=ded95670-cdc3-4769-aa9d-2dfe50af10b7.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://fairchem.in/investor-relations/Investor-Presentation/Concall-Fairchem-Organics-Ltd-11-11-2025.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=fe8b82e5-03f9-4781-b3f1-ba25ee914dc6.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=be90f5c9-9a1f-48fc-aef9-d2d625c9e87f.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://fairchem.in/investor-relations/Investor-Presentation/Concall-Fairchem-Organics-Ltd-13-08-2025.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=cd90b81f-fce6-4e9b-97ff-2130d2434765.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=746ad911-5286-4e74-b23a-36dbe1789d2c.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=ffb29428-2ef2-440b-846c-28aa543f4b76.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=2bf2596a-c5c7-4905-b1ec-4d94208f09d6.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=bd428d40-7062-45bf-b9a4-b139de44a8a3.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=59613ed8-5e33-4177-ae8b-27b4feee4195.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://fairchem.in/investor-relations/Investor-Presentation/Concall-FairChemOrganics-20241114-3.00.mp3"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=2fa3506b-2cd2-4a85-bab4-778e74cbf982.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=fd244067-8572-4e35-abf2-f6b226329ce8.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=9ecd023a-e2dc-4f93-9e53-158c12af7163.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=6c932ffe-004d-4148-b288-27dff67df50c.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=f29b3d8e-3f76-49a0-b141-87bc5dccec93.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=f02a8856-e84d-4e1c-96fa-dd7df3f3b2bb.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "http://fairchem.in/investor-relations/Investor-Presentation/Concall-Fairchem-Organics-Ltd-24052024.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c9e94d8f-46af-497c-85b0-76ff1059fbe2.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=0e3ddb25-82e2-4222-a092-9824719262ff.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://fairchem.in/investor-relations/Investor-Presentation/Concall-Fairchem-Organics-Ltd-08-02-2024.mp3"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=4a2b6955-2f2d-4613-8601-bcfb80c92775.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://fairchem.in/investor-relations/Investor-Presentation/Transcript-of-Earnings-Con-call-for-Q2-FY-2023-24.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://fairchem.in/investor-relations/Investor-Presentation/Q2-FY-24-Earnings-Concall-Audio-Recording-08-11-2023.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=92e0dccd-8a3c-45a5-8726-1ff71591efe4.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=fceb7a7d-dc1e-4e43-82aa-71ba4c51055d.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=095ece74-b1e0-476b-a0b6-fe817d447701.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=6ee07261-01e8-4e01-9829-27934e3900c5.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://fairchem.in/investor-relations/Investor-Presentation/Q1-FY24-Earnings-Concall-Audio-Recording-10-08-2023.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d517dad3-43b0-47c5-aef5-d10b727bec2f.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=35b08502-6ce7-4e57-b655-eaf7d64ee3d6.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=bd8d0632-812c-45fe-a895-d508cda16a20.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=6c60e62e-3ae9-4694-90e9-56aa310c9fdf.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b329ba6e-b9e8-4455-b618-8e4229da3145.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d0ffb5d2-c28b-426c-a1b1-20209e4bcb8a.pdf"
+  }
+ ]
+}

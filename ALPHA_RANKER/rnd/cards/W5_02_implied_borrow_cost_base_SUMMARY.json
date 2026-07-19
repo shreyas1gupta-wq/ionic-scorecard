@@ -1,0 +1,69 @@
+{
+  "factor_id": "W5_02_implied_borrow_cost_base",
+  "family": "W5_02",
+  "ic_mean": 0.005626422185974146,
+  "ic_ir": 0.07216282774357131,
+  "n_ic_dates": 141,
+  "mono": -0.5515151515151515,
+  "net_v2_horizon_aware_ann_return": -0.032021392780156886,
+  "dsr": 0.0,
+  "pbo": 0.9956709956709957,
+  "n_obs": 56851,
+  "lag_test_delta": 0.12400005808650627,
+  "lag_pass": true,
+  "placebo_ic": 0.0004723720929316716,
+  "placebo_pass": true,
+  "gates_pass": true,
+  "corr_vs_composite": 0.028054126392135118,
+  "n_corr_dates": 154,
+  "corr_vs_legs": {
+    "value_EY": 0.07707271777271442,
+    "mom_resid_peer": -0.002846723849436335,
+    "trend_ma65_slope": 0.01194612871309629,
+    "quality_QMJ": 0.04748638110459288,
+    "bs_issuance": 0.07794275471254904,
+    "bs_asset_growth": -0.050308909083321314,
+    "quality_cfo_pat": -0.16065197790789426
+  },
+  "nearest_leg": "quality_cfo_pat",
+  "nearest_leg_corr": -0.16065197790789426,
+  "incremental_8leg": {
+    "ic_ir_7leg_base": 1.3373574525898886,
+    "ic_ir_8leg_with_candidate": 1.2386356382471742,
+    "delta_ic_ir": -0.09872181434271443,
+    "raises_ir": false
+  },
+  "verdict": "PARK (weak linear + not convex)",
+  "convex_hedge_candidate": false,
+  "payoff_shape": {
+    "n_dates": 156,
+    "n_dates_dropped_thin": 0,
+    "mean_LS_monthly": -0.003364068450232396,
+    "hit_rate": 0.44871794871794873,
+    "avg_win": 0.01935695328573562,
+    "avg_loss": -0.021857923351601714,
+    "skew": 0.009784292713903584,
+    "worst_month_LS": -0.08825681540745267,
+    "worst_month_date": "2020-05-29",
+    "best_month_LS": 0.09920502752678534,
+    "mean_LS_worst_decile_mkt_months": 0.03489881306988224,
+    "episodes": {
+      "GFC_2008-09": {
+        "n_months": 0,
+        "mean_LS": null,
+        "worst_LS": null
+      },
+      "COVID_2020-02_03": {
+        "n_months": 3,
+        "mean_LS": 0.04358714841360823,
+        "worst_LS": -0.04431174238152463
+      },
+      "SELLOFF_2022": {
+        "n_months": 7,
+        "mean_LS": 0.00237910708352893,
+        "worst_LS": -0.014960949274982108
+      }
+    },
+    "shape_class": "LINEAR/mixed"
+  }
+}

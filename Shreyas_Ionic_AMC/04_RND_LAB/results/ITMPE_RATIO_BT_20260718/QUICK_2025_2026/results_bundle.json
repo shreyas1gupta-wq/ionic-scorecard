@@ -1,0 +1,409 @@
+{
+  "hlA": {
+    "cell": "A",
+    "n_cycles": 18,
+    "total_pnl_net_rupees": -306274.4125951365,
+    "total_pnl_x2_rupees": -319106.56061882555,
+    "win_rate": 0.4444444444444444,
+    "max_dd_rupees": -415690.9405092272,
+    "worst_cycle": {
+      "cycle": 16,
+      "start": "2026-04-01",
+      "end": "2026-04-28",
+      "pnl_net": -73501.49060801518,
+      "entry_signal": "bear"
+    },
+    "n_bull_entries": 10,
+    "n_bear_entries": 8,
+    "bear_side_pnl": -114831.98578623979,
+    "avg_credit_rupees_per_lot": 505.3553203125,
+    "avg_hedge_cost_rupees_per_2lot": 144.842328125,
+    "avg_margin_pts": 2776.007734375,
+    "avg_naked_margin_pts": 2920.8500624999997,
+    "avg_margin_drop_ratio": 0.9501903109773756,
+    "rom_annualized": -0.7482720854191283,
+    "rom_total_window": -0.8737018273705919,
+    "return_on_10L_notional": -0.3062744125951365
+  },
+  "hlB": {
+    "cell": "B",
+    "n_cycles": 18,
+    "total_pnl_net_rupees": -133576.69763440502,
+    "total_pnl_x2_rupees": -141057.45459249962,
+    "win_rate": 0.3333333333333333,
+    "max_dd_rupees": -225457.69170878606,
+    "worst_cycle": {
+      "cycle": 7,
+      "start": "2025-06-27",
+      "end": "2025-07-31",
+      "pnl_net": -58537.512826195816,
+      "entry_signal": "bull"
+    },
+    "n_bull_entries": 10,
+    "n_bear_entries": 8,
+    "bear_side_pnl": null,
+    "avg_credit_rupees_per_lot": 495.5255812500001,
+    "avg_hedge_cost_rupees_per_2lot": 149.54292500000003,
+    "avg_margin_pts": 2791.305475,
+    "avg_naked_margin_pts": 2940.8484,
+    "avg_margin_drop_ratio": 0.9490943578014598,
+    "rom_annualized": -0.4037028868966934,
+    "rom_total_window": -0.5395377194075728,
+    "return_on_10L_notional": -0.13357669763440502
+  },
+  "n_cycles": 18,
+  "cycles": [
+    {
+      "cycle": 1,
+      "start": "2025-01-01",
+      "end": "2025-01-30"
+    },
+    {
+      "cycle": 2,
+      "start": "2025-01-31",
+      "end": "2025-02-27"
+    },
+    {
+      "cycle": 3,
+      "start": "2025-02-28",
+      "end": "2025-03-27"
+    },
+    {
+      "cycle": 4,
+      "start": "2025-03-28",
+      "end": "2025-04-30"
+    },
+    {
+      "cycle": 5,
+      "start": "2025-05-02",
+      "end": "2025-05-29"
+    },
+    {
+      "cycle": 6,
+      "start": "2025-05-30",
+      "end": "2025-06-26"
+    },
+    {
+      "cycle": 7,
+      "start": "2025-06-27",
+      "end": "2025-07-31"
+    },
+    {
+      "cycle": 8,
+      "start": "2025-08-01",
+      "end": "2025-08-28"
+    },
+    {
+      "cycle": 9,
+      "start": "2025-08-29",
+      "end": "2025-09-30"
+    },
+    {
+      "cycle": 10,
+      "start": "2025-10-01",
+      "end": "2025-10-28"
+    },
+    {
+      "cycle": 11,
+      "start": "2025-10-29",
+      "end": "2025-11-25"
+    },
+    {
+      "cycle": 12,
+      "start": "2025-11-26",
+      "end": "2025-12-30"
+    },
+    {
+      "cycle": 13,
+      "start": "2025-12-31",
+      "end": "2026-01-27"
+    },
+    {
+      "cycle": 14,
+      "start": "2026-01-28",
+      "end": "2026-02-24"
+    },
+    {
+      "cycle": 15,
+      "start": "2026-02-25",
+      "end": "2026-03-31"
+    },
+    {
+      "cycle": 16,
+      "start": "2026-04-01",
+      "end": "2026-04-28"
+    },
+    {
+      "cycle": 17,
+      "start": "2026-04-29",
+      "end": "2026-05-26"
+    },
+    {
+      "cycle": 18,
+      "start": "2026-05-27",
+      "end": "2026-06-30"
+    }
+  ],
+  "cycle_pnl_A": [
+    {
+      "cycle": 1,
+      "start": "2025-01-01",
+      "end": "2025-01-30",
+      "entry_signal": "bear",
+      "pnl_net": 25737.29803238881
+    },
+    {
+      "cycle": 2,
+      "start": "2025-01-31",
+      "end": "2025-02-27",
+      "entry_signal": "bull",
+      "pnl_net": 1866.103904765063
+    },
+    {
+      "cycle": 3,
+      "start": "2025-02-28",
+      "end": "2025-03-27",
+      "entry_signal": "bear",
+      "pnl_net": 778.4081117773312
+    },
+    {
+      "cycle": 4,
+      "start": "2025-03-28",
+      "end": "2025-04-30",
+      "entry_signal": "bull",
+      "pnl_net": 4521.742784602393
+    },
+    {
+      "cycle": 5,
+      "start": "2025-05-02",
+      "end": "2025-05-29",
+      "entry_signal": "bull",
+      "pnl_net": 25317.037981137313
+    },
+    {
+      "cycle": 6,
+      "start": "2025-05-30",
+      "end": "2025-06-26",
+      "entry_signal": "bull",
+      "pnl_net": 25712.127657545745
+    },
+    {
+      "cycle": 7,
+      "start": "2025-06-27",
+      "end": "2025-07-31",
+      "entry_signal": "bull",
+      "pnl_net": -57750.95925091808
+    },
+    {
+      "cycle": 8,
+      "start": "2025-08-01",
+      "end": "2025-08-28",
+      "entry_signal": "bear",
+      "pnl_net": -18640.289343491117
+    },
+    {
+      "cycle": 9,
+      "start": "2025-08-29",
+      "end": "2025-09-30",
+      "entry_signal": "bear",
+      "pnl_net": -57632.15241052231
+    },
+    {
+      "cycle": 10,
+      "start": "2025-10-01",
+      "end": "2025-10-28",
+      "entry_signal": "bear",
+      "pnl_net": 19862.781113020326
+    },
+    {
+      "cycle": 11,
+      "start": "2025-10-29",
+      "end": "2025-11-25",
+      "entry_signal": "bull",
+      "pnl_net": -27568.56510702106
+    },
+    {
+      "cycle": 12,
+      "start": "2025-11-26",
+      "end": "2025-12-30",
+      "entry_signal": "bull",
+      "pnl_net": -31727.24258039173
+    },
+    {
+      "cycle": 13,
+      "start": "2025-12-31",
+      "end": "2026-01-27",
+      "entry_signal": "bull",
+      "pnl_net": 4508.11848074483
+    },
+    {
+      "cycle": 14,
+      "start": "2026-01-28",
+      "end": "2026-02-24",
+      "entry_signal": "bear",
+      "pnl_net": -42729.00906504603
+    },
+    {
+      "cycle": 15,
+      "start": "2026-02-25",
+      "end": "2026-03-31",
+      "entry_signal": "bear",
+      "pnl_net": 0.0
+    },
+    {
+      "cycle": 16,
+      "start": "2026-04-01",
+      "end": "2026-04-28",
+      "entry_signal": "bear",
+      "pnl_net": -73501.49060801518
+    },
+    {
+      "cycle": 17,
+      "start": "2026-04-29",
+      "end": "2026-05-26",
+      "entry_signal": "bull",
+      "pnl_net": -50562.4900720015
+    },
+    {
+      "cycle": 18,
+      "start": "2026-05-27",
+      "end": "2026-06-30",
+      "entry_signal": "bull",
+      "pnl_net": -54465.8322237113
+    }
+  ],
+  "cycle_pnl_B": [
+    {
+      "cycle": 1,
+      "start": "2025-01-01",
+      "end": "2025-01-30",
+      "entry_signal": "bear",
+      "pnl_net": -17606.052278899064
+    },
+    {
+      "cycle": 2,
+      "start": "2025-01-31",
+      "end": "2025-02-27",
+      "entry_signal": "bull",
+      "pnl_net": -23518.974530735562
+    },
+    {
+      "cycle": 3,
+      "start": "2025-02-28",
+      "end": "2025-03-27",
+      "entry_signal": "bear",
+      "pnl_net": 24149.50523524831
+    },
+    {
+      "cycle": 4,
+      "start": "2025-03-28",
+      "end": "2025-04-30",
+      "entry_signal": "bull",
+      "pnl_net": 21497.560076266327
+    },
+    {
+      "cycle": 5,
+      "start": "2025-05-02",
+      "end": "2025-05-29",
+      "entry_signal": "bull",
+      "pnl_net": 25317.037981137313
+    },
+    {
+      "cycle": 6,
+      "start": "2025-05-30",
+      "end": "2025-06-26",
+      "entry_signal": "bull",
+      "pnl_net": 25712.12765754575
+    },
+    {
+      "cycle": 7,
+      "start": "2025-06-27",
+      "end": "2025-07-31",
+      "entry_signal": "bull",
+      "pnl_net": -58537.512826195816
+    },
+    {
+      "cycle": 8,
+      "start": "2025-08-01",
+      "end": "2025-08-28",
+      "entry_signal": "bear",
+      "pnl_net": -15189.090652192259
+    },
+    {
+      "cycle": 9,
+      "start": "2025-08-29",
+      "end": "2025-09-30",
+      "entry_signal": "bear",
+      "pnl_net": -18737.375637080608
+    },
+    {
+      "cycle": 10,
+      "start": "2025-10-01",
+      "end": "2025-10-28",
+      "entry_signal": "bear",
+      "pnl_net": 26977.429279924065
+    },
+    {
+      "cycle": 11,
+      "start": "2025-10-29",
+      "end": "2025-11-25",
+      "entry_signal": "bull",
+      "pnl_net": -27568.56510702106
+    },
+    {
+      "cycle": 12,
+      "start": "2025-11-26",
+      "end": "2025-12-30",
+      "entry_signal": "bull",
+      "pnl_net": -31727.242580391743
+    },
+    {
+      "cycle": 13,
+      "start": "2025-12-31",
+      "end": "2026-01-27",
+      "entry_signal": "bull",
+      "pnl_net": -17362.21786915284
+    },
+    {
+      "cycle": 14,
+      "start": "2026-01-28",
+      "end": "2026-02-24",
+      "entry_signal": "bear",
+      "pnl_net": -27648.45144551978
+    },
+    {
+      "cycle": 15,
+      "start": "2026-02-25",
+      "end": "2026-03-31",
+      "entry_signal": "bear",
+      "pnl_net": 0.0
+    },
+    {
+      "cycle": 16,
+      "start": "2026-04-01",
+      "end": "2026-04-28",
+      "entry_signal": "bear",
+      "pnl_net": 5667.646936188365
+    },
+    {
+      "cycle": 17,
+      "start": "2026-04-29",
+      "end": "2026-05-26",
+      "entry_signal": "bull",
+      "pnl_net": -23310.704955418594
+    },
+    {
+      "cycle": 18,
+      "start": "2026-05-27",
+      "end": "2026-06-30",
+      "entry_signal": "bull",
+      "pnl_net": -1691.8169181078265
+    }
+  ],
+  "data_max": "2026-07-10",
+  "window_start": "2025-01-01",
+  "n_warnings": 1,
+  "warnings_sample": [
+    "A cyc15 2026-02-25: no ITM CE strike found, structure open FAILED"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "factor_id": "W4MAC_breadth_thrust",
+  "family": "market_regime_macro",
+  "author": "macro-strategist-cyrus-daruwalla",
+  "date_tested": "2026-07-17",
+  "description": "Breadth THRUST (momentum of breadth, not level): 3-month change in market_state.breadth_pct_above_200dma (already on disk, built from cube_close_long.parquet, 2005-2025). Distinguished from the existing breadth LEVEL already consumed by the validated s_mkt exposure scalar in ABSOLUTE_SCORER_SPEC -- this tests whether the RATE OF CHANGE of breadth carries incremental information the level scalar does not.",
+  "data": "ALPHA_RANKER/rnd/panel/market_state.parquet breadth_pct_above_200dma (built off rnd/panel/cube_close_long.parquet, 976 names, 2005-2025). Forward targets from EW-cube proxy index.",
+  "buildable": true,
+  "non_null_months": 239,
+  "first_valid_date": "2006-02-28",
+  "results": {
+    "corr_fwd_ret_1Y": 0.105, "n_1Y": 226,
+    "corr_fwd_ret_5Y": 0.118, "n_5Y": 177,
+    "corr_fwd_maxdd_1Y": 0.167, "n_maxdd": 226,
+    "era_split": "H1(2006-02..2015-06,n=113)=0.13 | H2(2015-07..2024-11,n=113)=0.06 -- same sign, weakens but stable",
+    "dropone_bear": {"GFC_2008": 0.058, "COVID_2020": 0.124, "HIKE_2022": 0.096, "note": "all 3 bears reachable, longest history of the new gauges alongside credit spread and buffett"},
+    "dropone_sign_stable": true
+  },
+  "interpretation": "[INFERENCE/OPINION] Consistently the WEAKEST-magnitude gauge in the battery on every axis, but also one of only two (with credit spread) that is sign-stable on BOTH era-split and all-3-bear drop-one -- a genuinely boring, low-drama, dependable signal rather than a powerful-but-fragile one. Its best relative showing is crash-risk (maxdd corr 0.167), better than the plain valuation-band's -0.088 (wrong-signed) though weaker than the Buffett indicator's 0.489. A classic Zweig-style discrete 10-day-threshold thrust flag (from <40% to >61.5% breadth in 10 trading days) was considered but not built in this pass -- it would be a sparse, few-dozen-occurrence-over-20-years event flag, too low-n on its own to test meaningfully within this task's low-t discipline; the continuous 3-month breadth-change version tested here is the more usable soft input for an M-adjacent ensemble.",
+  "overall_verdict": "BUILDABLE, WEAK but ROBUST (passes both era-split and drop-one cleanly) -- best used as a low-weight stabilizing ingredient in an ensemble (as tested in W4MAC_ensemble_vs_valband) rather than a standalone signal. Complements the already-validated breadth LEVEL/s_mkt scalar; does not replace it.",
+  "confidence": "MEDIUM-HIGH on the sign-stability finding (long history, clean drop-one, plausible mechanism -- accelerating participation modestly favors continuation); LOW on standalone usefulness given the small magnitude."
+}

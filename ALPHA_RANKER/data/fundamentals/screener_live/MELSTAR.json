@@ -1,0 +1,853 @@
+{
+ "ticker": "MELSTAR",
+ "url_path": "MELSTAR/consolidated/",
+ "tables": {
+  "quarterly_results": [
+   {
+    "Unnamed: 0": "Sales",
+    "Dec 2023": -0.0,
+    "Mar 2024": "-0.00",
+    "Sep 2024": "-0.00",
+    "Dec 2024": "-0.00",
+    "Mar 2025": "-0.00",
+    "Jun 2025": "-0.00",
+    "Sep 2025": "-0.00",
+    "Dec 2025": "-0.00",
+    "Mar 2026": "0.75"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Dec 2023": -0.0,
+    "Mar 2024": "0.54",
+    "Sep 2024": "0.07",
+    "Dec 2024": "0.28",
+    "Mar 2025": "0.86",
+    "Jun 2025": "0.71",
+    "Sep 2025": "0.86",
+    "Dec 2025": "0.67",
+    "Mar 2026": "0.65"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Dec 2023": -0.0,
+    "Mar 2024": "-0.54",
+    "Sep 2024": "-0.07",
+    "Dec 2024": "-0.28",
+    "Mar 2025": "-0.86",
+    "Jun 2025": "-0.71",
+    "Sep 2025": "-0.86",
+    "Dec 2025": "-0.67",
+    "Mar 2026": "0.10"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Dec 2023": NaN,
+    "Mar 2024": NaN,
+    "Sep 2024": NaN,
+    "Dec 2024": NaN,
+    "Mar 2025": NaN,
+    "Jun 2025": NaN,
+    "Sep 2025": NaN,
+    "Dec 2025": NaN,
+    "Mar 2026": "13.33%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Dec 2023": -0.0,
+    "Mar 2024": "12.14",
+    "Sep 2024": "-0.00",
+    "Dec 2024": "-0.00",
+    "Mar 2025": "-0.00",
+    "Jun 2025": "-0.00",
+    "Sep 2025": "-0.00",
+    "Dec 2025": "-0.00",
+    "Mar 2026": "-0.00"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Dec 2023": -0.0,
+    "Mar 2024": "0.32",
+    "Sep 2024": "-0.00",
+    "Dec 2024": "-0.00",
+    "Mar 2025": "-0.00",
+    "Jun 2025": "-0.00",
+    "Sep 2025": "-0.00",
+    "Dec 2025": "-0.00",
+    "Mar 2026": "-0.00"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Dec 2023": -0.0,
+    "Mar 2024": "-0.00",
+    "Sep 2024": "-0.00",
+    "Dec 2024": "-0.00",
+    "Mar 2025": "-0.00",
+    "Jun 2025": "-0.00",
+    "Sep 2025": "-0.00",
+    "Dec 2025": "-0.00",
+    "Mar 2026": "-0.00"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Dec 2023": -0.0,
+    "Mar 2024": "11.28",
+    "Sep 2024": "-0.07",
+    "Dec 2024": "-0.28",
+    "Mar 2025": "-0.86",
+    "Jun 2025": "-0.71",
+    "Sep 2025": "-0.86",
+    "Dec 2025": "-0.67",
+    "Mar 2026": "0.10"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Dec 2023": NaN,
+    "Mar 2024": "-0.00%",
+    "Sep 2024": "-0.00%",
+    "Dec 2024": "-0.00%",
+    "Mar 2025": "-0.00%",
+    "Jun 2025": "-0.00%",
+    "Sep 2025": "-0.00%",
+    "Dec 2025": "-0.00%",
+    "Mar 2026": "-0.00%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Dec 2023": -0.0,
+    "Mar 2024": "11.28",
+    "Sep 2024": "-0.07",
+    "Dec 2024": "-0.28",
+    "Mar 2025": "-0.86",
+    "Jun 2025": "-0.71",
+    "Sep 2025": "-0.86",
+    "Dec 2025": "-0.67",
+    "Mar 2026": "0.10"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Dec 2023": -0.0,
+    "Mar 2024": "7.90",
+    "Sep 2024": "-0.05",
+    "Dec 2024": "-0.20",
+    "Mar 2025": "-0.60",
+    "Jun 2025": "-0.50",
+    "Sep 2025": "-0.60",
+    "Dec 2025": "-0.47",
+    "Mar 2026": "0.07"
+   },
+   {
+    "Unnamed: 0": "Raw PDF",
+    "Dec 2023": NaN,
+    "Mar 2024": NaN,
+    "Sep 2024": NaN,
+    "Dec 2024": NaN,
+    "Mar 2025": NaN,
+    "Jun 2025": NaN,
+    "Sep 2025": NaN,
+    "Dec 2025": NaN,
+    "Mar 2026": NaN
+   }
+  ],
+  "profit_loss": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2008": "32.35",
+    "Mar 2009": "28.68",
+    "Mar 2010": "20.39",
+    "Mar 2011": "25.50",
+    "Mar 2012": "53.53",
+    "Mar 2013": "21.05",
+    "Mar 2014": "18.60",
+    "Mar 2015": "22.31",
+    "Mar 2016": "31.48",
+    "Mar 2024": "-0.00",
+    "Mar 2025": "-0.00",
+    "Mar 2026": "0.75"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2008": "34.73",
+    "Mar 2009": "29.40",
+    "Mar 2010": "23.14",
+    "Mar 2011": "24.05",
+    "Mar 2012": "51.99",
+    "Mar 2013": "22.60",
+    "Mar 2014": "20.29",
+    "Mar 2015": "21.11",
+    "Mar 2016": "29.80",
+    "Mar 2024": "0.54",
+    "Mar 2025": "1.21",
+    "Mar 2026": "2.89"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2008": "-2.38",
+    "Mar 2009": "-0.72",
+    "Mar 2010": "-2.75",
+    "Mar 2011": "1.45",
+    "Mar 2012": "1.54",
+    "Mar 2013": "-1.55",
+    "Mar 2014": "-1.69",
+    "Mar 2015": "1.20",
+    "Mar 2016": "1.68",
+    "Mar 2024": "-0.54",
+    "Mar 2025": "-1.21",
+    "Mar 2026": "-2.14"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2008": "-7.36%",
+    "Mar 2009": "-2.51%",
+    "Mar 2010": "-13.49%",
+    "Mar 2011": "5.69%",
+    "Mar 2012": "2.88%",
+    "Mar 2013": "-7.36%",
+    "Mar 2014": "-9.09%",
+    "Mar 2015": "5.38%",
+    "Mar 2016": "5.34%",
+    "Mar 2024": NaN,
+    "Mar 2025": NaN,
+    "Mar 2026": "-285.33%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2008": "1.57",
+    "Mar 2009": "1.62",
+    "Mar 2010": "6.82",
+    "Mar 2011": "2.79",
+    "Mar 2012": "1.64",
+    "Mar 2013": "1.81",
+    "Mar 2014": "1.07",
+    "Mar 2015": "-0.78",
+    "Mar 2016": "0.25",
+    "Mar 2024": "12.14",
+    "Mar 2025": "-0.00",
+    "Mar 2026": "-0.00"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2008": "0.38",
+    "Mar 2009": "0.37",
+    "Mar 2010": "0.50",
+    "Mar 2011": "0.52",
+    "Mar 2012": "0.46",
+    "Mar 2013": "0.81",
+    "Mar 2014": "0.92",
+    "Mar 2015": "1.37",
+    "Mar 2016": "1.58",
+    "Mar 2024": "0.32",
+    "Mar 2025": "-0.00",
+    "Mar 2026": "-0.00"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2008": "1.05",
+    "Mar 2009": "0.94",
+    "Mar 2010": "0.93",
+    "Mar 2011": "0.86",
+    "Mar 2012": "0.86",
+    "Mar 2013": "0.84",
+    "Mar 2014": "0.82",
+    "Mar 2015": "0.71",
+    "Mar 2016": "0.69",
+    "Mar 2024": "-0.00",
+    "Mar 2025": "-0.00",
+    "Mar 2026": "-0.00"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2008": "-2.24",
+    "Mar 2009": "-0.41",
+    "Mar 2010": "2.64",
+    "Mar 2011": "2.86",
+    "Mar 2012": "1.86",
+    "Mar 2013": "-1.39",
+    "Mar 2014": "-2.36",
+    "Mar 2015": "-1.66",
+    "Mar 2016": "-0.34",
+    "Mar 2024": "11.28",
+    "Mar 2025": "-1.21",
+    "Mar 2026": "-2.14"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2008": "-61.16%",
+    "Mar 2009": "370.73%",
+    "Mar 2010": "-11.36%",
+    "Mar 2011": "-0.00%",
+    "Mar 2012": "19.89%",
+    "Mar 2013": "-5.76%",
+    "Mar 2014": "2.97%",
+    "Mar 2015": "-0.00%",
+    "Mar 2016": "11.76%",
+    "Mar 2024": "-0.00%",
+    "Mar 2025": "-0.00%",
+    "Mar 2026": "-0.00%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2008": "-0.87",
+    "Mar 2009": "-1.93",
+    "Mar 2010": "2.94",
+    "Mar 2011": "2.86",
+    "Mar 2012": "1.49",
+    "Mar 2013": "-1.31",
+    "Mar 2014": "-2.43",
+    "Mar 2015": "-1.66",
+    "Mar 2016": "-0.38",
+    "Mar 2024": "11.28",
+    "Mar 2025": "-1.21",
+    "Mar 2026": "-2.14"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2008": "-0.61",
+    "Mar 2009": "-1.35",
+    "Mar 2010": "2.06",
+    "Mar 2011": "2.00",
+    "Mar 2012": "1.04",
+    "Mar 2013": "-0.92",
+    "Mar 2014": "-1.70",
+    "Mar 2015": "-1.16",
+    "Mar 2016": "-0.27",
+    "Mar 2024": "7.90",
+    "Mar 2025": "-0.85",
+    "Mar 2026": "-1.50"
+   },
+   {
+    "Unnamed: 0": "Dividend Payout %",
+    "Mar 2008": "-0.00%",
+    "Mar 2009": "-0.00%",
+    "Mar 2010": "-0.00%",
+    "Mar 2011": "-0.00%",
+    "Mar 2012": "-0.00%",
+    "Mar 2013": "-0.00%",
+    "Mar 2014": "-0.00%",
+    "Mar 2015": "-0.00%",
+    "Mar 2016": "-0.00%",
+    "Mar 2024": "-0.00%",
+    "Mar 2025": "-0.00%",
+    "Mar 2026": "-0.00%"
+   }
+  ],
+  "balance_sheet": [
+   {
+    "Unnamed: 0": "Equity Capital",
+    "Mar 2008": 14.28,
+    "Mar 2009": 14.28,
+    "Mar 2010": 14.28,
+    "Mar 2011": 14.28,
+    "Mar 2012": 14.28,
+    "Mar 2013": 14.28,
+    "Mar 2014": 14.28,
+    "Mar 2015": 14.28,
+    "Mar 2016": 14.28,
+    "Mar 2024": 14.28,
+    "Mar 2025": 2.79,
+    "Mar 2026": 2.79
+   },
+   {
+    "Unnamed: 0": "Reserves",
+    "Mar 2008": -5.49,
+    "Mar 2009": -7.28,
+    "Mar 2010": -4.6,
+    "Mar 2011": -2.18,
+    "Mar 2012": -0.73,
+    "Mar 2013": -2.04,
+    "Mar 2014": -4.55,
+    "Mar 2015": -6.5,
+    "Mar 2016": -6.91,
+    "Mar 2024": -8.2,
+    "Mar 2025": 4.22,
+    "Mar 2026": 2.08
+   },
+   {
+    "Unnamed: 0": "Borrowings",
+    "Mar 2008": 3.15,
+    "Mar 2009": 2.74,
+    "Mar 2010": 3.36,
+    "Mar 2011": 2.96,
+    "Mar 2012": 1.84,
+    "Mar 2013": 5.27,
+    "Mar 2014": 7.95,
+    "Mar 2015": 8.79,
+    "Mar 2016": 11.14,
+    "Mar 2024": 2.88,
+    "Mar 2025": 2.88,
+    "Mar 2026": 8.54
+   },
+   {
+    "Unnamed: 0": "Other Liabilities",
+    "Mar 2008": 12.66,
+    "Mar 2009": 10.3,
+    "Mar 2010": 6.12,
+    "Mar 2011": 4.83,
+    "Mar 2012": 17.89,
+    "Mar 2013": 13.64,
+    "Mar 2014": 3.28,
+    "Mar 2015": 5.57,
+    "Mar 2016": 10.67,
+    "Mar 2024": 1.03,
+    "Mar 2025": 0.43,
+    "Mar 2026": 0.5
+   },
+   {
+    "Unnamed: 0": "Total Liabilities",
+    "Mar 2008": 24.6,
+    "Mar 2009": 20.04,
+    "Mar 2010": 19.16,
+    "Mar 2011": 19.89,
+    "Mar 2012": 33.28,
+    "Mar 2013": 31.15,
+    "Mar 2014": 20.96,
+    "Mar 2015": 22.14,
+    "Mar 2016": 29.18,
+    "Mar 2024": 9.99,
+    "Mar 2025": 10.32,
+    "Mar 2026": 13.91
+   },
+   {
+    "Unnamed: 0": "Fixed Assets",
+    "Mar 2008": 14.46,
+    "Mar 2009": 13.34,
+    "Mar 2010": 12.35,
+    "Mar 2011": 11.67,
+    "Mar 2012": 10.85,
+    "Mar 2013": 9.99,
+    "Mar 2014": 9.14,
+    "Mar 2015": 8.17,
+    "Mar 2016": 8.45,
+    "Mar 2024": -0.0,
+    "Mar 2025": 0.02,
+    "Mar 2026": 0.01
+   },
+   {
+    "Unnamed: 0": "CWIP",
+    "Mar 2008": -0.0,
+    "Mar 2009": -0.0,
+    "Mar 2010": -0.0,
+    "Mar 2011": -0.0,
+    "Mar 2012": -0.0,
+    "Mar 2013": -0.0,
+    "Mar 2014": -0.0,
+    "Mar 2015": 0.91,
+    "Mar 2016": 2.33,
+    "Mar 2024": -0.0,
+    "Mar 2025": -0.0,
+    "Mar 2026": -0.0
+   },
+   {
+    "Unnamed: 0": "Investments",
+    "Mar 2008": 0.13,
+    "Mar 2009": 0.13,
+    "Mar 2010": -0.0,
+    "Mar 2011": -0.0,
+    "Mar 2012": -0.0,
+    "Mar 2013": -0.0,
+    "Mar 2014": -0.0,
+    "Mar 2015": 0.35,
+    "Mar 2016": 0.35,
+    "Mar 2024": -0.0,
+    "Mar 2025": -0.0,
+    "Mar 2026": -0.0
+   },
+   {
+    "Unnamed: 0": "Other Assets",
+    "Mar 2008": 10.01,
+    "Mar 2009": 6.57,
+    "Mar 2010": 6.81,
+    "Mar 2011": 8.22,
+    "Mar 2012": 22.43,
+    "Mar 2013": 21.16,
+    "Mar 2014": 11.82,
+    "Mar 2015": 12.71,
+    "Mar 2016": 18.05,
+    "Mar 2024": 9.99,
+    "Mar 2025": 10.3,
+    "Mar 2026": 13.9
+   },
+   {
+    "Unnamed: 0": "Total Assets",
+    "Mar 2008": 24.6,
+    "Mar 2009": 20.04,
+    "Mar 2010": 19.16,
+    "Mar 2011": 19.89,
+    "Mar 2012": 33.28,
+    "Mar 2013": 31.15,
+    "Mar 2014": 20.96,
+    "Mar 2015": 22.14,
+    "Mar 2016": 29.18,
+    "Mar 2024": 9.99,
+    "Mar 2025": 10.32,
+    "Mar 2026": 13.91
+   }
+  ],
+  "cash_flow": [
+   {
+    "Unnamed: 0": "Cash from Operating Activity",
+    "Mar 2008": "0.01",
+    "Mar 2009": "0.46",
+    "Mar 2010": "-1.69",
+    "Mar 2011": "0.93",
+    "Mar 2012": "1.17",
+    "Mar 2013": "-0.26",
+    "Mar 2014": "-2.30",
+    "Mar 2015": "1.00",
+    "Mar 2016": "1.55",
+    "Mar 2024": "0.54",
+    "Mar 2025": "-2.27",
+    "Mar 2026": "0.14"
+   },
+   {
+    "Unnamed: 0": "Cash from Investing Activity",
+    "Mar 2008": "-0.17",
+    "Mar 2009": "0.33",
+    "Mar 2010": "0.05",
+    "Mar 2011": "-0.18",
+    "Mar 2012": "0.06",
+    "Mar 2013": "-2.64",
+    "Mar 2014": "0.38",
+    "Mar 2015": "-0.48",
+    "Mar 2016": "-2.40",
+    "Mar 2024": "-0.00",
+    "Mar 2025": "-0.02",
+    "Mar 2026": "-0.25"
+   },
+   {
+    "Unnamed: 0": "Cash from Financing Activity",
+    "Mar 2008": "-0.93",
+    "Mar 2009": "-0.77",
+    "Mar 2010": "1.25",
+    "Mar 2011": "-1.14",
+    "Mar 2012": "-1.25",
+    "Mar 2013": "2.89",
+    "Mar 2014": "1.78",
+    "Mar 2015": "-0.49",
+    "Mar 2016": "0.81",
+    "Mar 2024": "-0.32",
+    "Mar 2025": "2.14",
+    "Mar 2026": "-0.00"
+   },
+   {
+    "Unnamed: 0": "Net Cash Flow",
+    "Mar 2008": "-1.09",
+    "Mar 2009": "0.02",
+    "Mar 2010": "-0.39",
+    "Mar 2011": "-0.39",
+    "Mar 2012": "-0.02",
+    "Mar 2013": "-0.01",
+    "Mar 2014": "-0.14",
+    "Mar 2015": "0.03",
+    "Mar 2016": "-0.03",
+    "Mar 2024": "0.22",
+    "Mar 2025": "-0.14",
+    "Mar 2026": "-0.11"
+   },
+   {
+    "Unnamed: 0": "Free Cash Flow",
+    "Mar 2008": "-0.30",
+    "Mar 2009": "0.39",
+    "Mar 2010": "-1.92",
+    "Mar 2011": "0.74",
+    "Mar 2012": "1.11",
+    "Mar 2013": "-0.26",
+    "Mar 2014": "-2.30",
+    "Mar 2015": "0.07",
+    "Mar 2016": "-0.05",
+    "Mar 2024": "0.54",
+    "Mar 2025": "-2.29",
+    "Mar 2026": "-0.11"
+   },
+   {
+    "Unnamed: 0": "CFO/OP",
+    "Mar 2008": "-12%",
+    "Mar 2009": "28%",
+    "Mar 2010": "87%",
+    "Mar 2011": "130%",
+    "Mar 2012": "98%",
+    "Mar 2013": "-8%",
+    "Mar 2014": "149%",
+    "Mar 2015": "144%",
+    "Mar 2016": "193%",
+    "Mar 2024": "-100%",
+    "Mar 2025": "188%",
+    "Mar 2026": "-7%"
+   }
+  ],
+  "ratios": [
+   {
+    "Unnamed: 0": "Debtor Days",
+    "Mar 2008": "49.64",
+    "Mar 2009": "33.47",
+    "Mar 2010": "69.46",
+    "Mar 2011": "67.27",
+    "Mar 2012": "127.58",
+    "Mar 2013": "216.23",
+    "Mar 2014": "61.81",
+    "Mar 2015": "73.13",
+    "Mar 2016": "56.00",
+    "Mar 2024": NaN,
+    "Mar 2025": NaN,
+    "Mar 2026": "700.80"
+   },
+   {
+    "Unnamed: 0": "Inventory Days",
+    "Mar 2008": NaN,
+    "Mar 2009": NaN,
+    "Mar 2010": NaN,
+    "Mar 2011": NaN,
+    "Mar 2012": "-0.00",
+    "Mar 2013": NaN,
+    "Mar 2014": NaN,
+    "Mar 2015": NaN,
+    "Mar 2016": NaN,
+    "Mar 2024": NaN,
+    "Mar 2025": NaN,
+    "Mar 2026": NaN
+   },
+   {
+    "Unnamed: 0": "Days Payable",
+    "Mar 2008": NaN,
+    "Mar 2009": NaN,
+    "Mar 2010": NaN,
+    "Mar 2011": NaN,
+    "Mar 2012": NaN,
+    "Mar 2013": NaN,
+    "Mar 2014": NaN,
+    "Mar 2015": NaN,
+    "Mar 2016": NaN,
+    "Mar 2024": NaN,
+    "Mar 2025": NaN,
+    "Mar 2026": NaN
+   },
+   {
+    "Unnamed: 0": "Cash Conversion Cycle",
+    "Mar 2008": "49.64",
+    "Mar 2009": "33.47",
+    "Mar 2010": "69.46",
+    "Mar 2011": "67.27",
+    "Mar 2012": "127.58",
+    "Mar 2013": "216.23",
+    "Mar 2014": "61.81",
+    "Mar 2015": "73.13",
+    "Mar 2016": "56.00",
+    "Mar 2024": NaN,
+    "Mar 2025": NaN,
+    "Mar 2026": "700.80"
+   },
+   {
+    "Unnamed: 0": "Working Capital Days",
+    "Mar 2008": "-56.41",
+    "Mar 2009": "-62.23",
+    "Mar 2010": "0.72",
+    "Mar 2011": "-18.18",
+    "Mar 2012": "2.52",
+    "Mar 2013": "-9.36",
+    "Mar 2014": "-37.28",
+    "Mar 2015": "-77.38",
+    "Mar 2016": "-96.35",
+    "Mar 2024": NaN,
+    "Mar 2025": NaN,
+    "Mar 2026": "2331.13"
+   },
+   {
+    "Unnamed: 0": "ROCE %",
+    "Mar 2008": "-14.87%",
+    "Mar 2009": "0.55%",
+    "Mar 2010": "28.09%",
+    "Mar 2011": "14.38%",
+    "Mar 2012": "15.30%",
+    "Mar 2013": "-3.53%",
+    "Mar 2014": "-8.01%",
+    "Mar 2015": "8.76%",
+    "Mar 2016": "7.07%",
+    "Mar 2024": NaN,
+    "Mar 2025": "-12.84%",
+    "Mar 2026": "-18.37%"
+   }
+  ],
+  "shareholding": [
+   {
+    "Unnamed: 0": "Promoters",
+    "Sep 2020": "47.06%",
+    "Dec 2020": "47.06%",
+    "Dec 2023": "47.06%",
+    "Mar 2024": "41.07%",
+    "Jun 2024": "47.06%",
+    "Sep 2024": "47.06%",
+    "Dec 2024": "47.06%",
+    "Mar 2025": "47.06%",
+    "Jun 2025": "55.32%",
+    "Sep 2025": "55.32%",
+    "Dec 2025": "55.32%",
+    "Mar 2026": "94.57%"
+   },
+   {
+    "Unnamed: 0": "DIIs",
+    "Sep 2020": "0.70%",
+    "Dec 2020": "0.00%",
+    "Dec 2023": "0.00%",
+    "Mar 2024": "0.00%",
+    "Jun 2024": "0.00%",
+    "Sep 2024": "0.00%",
+    "Dec 2024": "0.00%",
+    "Mar 2025": "0.00%",
+    "Jun 2025": "0.00%",
+    "Sep 2025": "0.00%",
+    "Dec 2025": "0.00%",
+    "Mar 2026": "0.00%"
+   },
+   {
+    "Unnamed: 0": "Public",
+    "Sep 2020": "52.24%",
+    "Dec 2020": "52.94%",
+    "Dec 2023": "52.96%",
+    "Mar 2024": "58.93%",
+    "Jun 2024": "52.94%",
+    "Sep 2024": "52.94%",
+    "Dec 2024": "52.94%",
+    "Mar 2025": "52.94%",
+    "Jun 2025": "44.69%",
+    "Sep 2025": "44.69%",
+    "Dec 2025": "44.69%",
+    "Mar 2026": "5.43%"
+   },
+   {
+    "Unnamed: 0": "No. of Shareholders",
+    "Sep 2020": "10127",
+    "Dec 2020": "10122",
+    "Dec 2023": "10263",
+    "Mar 2024": "10335",
+    "Jun 2024": "10364",
+    "Sep 2024": "10438",
+    "Dec 2024": "10438",
+    "Mar 2025": "10438",
+    "Jun 2025": "10439",
+    "Sep 2025": "10439",
+    "Dec 2025": "10436",
+    "Mar 2026": "10430"
+   }
+  ]
+ },
+ "top_ratios": {
+  "Market Cap": "\u20b9 6.07 Cr.",
+  "Current Price": "\u20b9 4.25",
+  "High / Low": "\u20b9 /",
+  "Stock P/E": "",
+  "Book Value": "\u20b9 3.41",
+  "Dividend Yield": "0.00 %",
+  "ROCE": "-18.4 %",
+  "ROE": "-36.0 %",
+  "Face Value": "\u20b9 10.0"
+ },
+ "documents": [
+  {
+   "text": "All",
+   "href": "https://www.bseindia.com/stock-share-price/melstar-information-technologies-ltd/MELSTAR/532307/corp-announcements/"
+  },
+  {
+   "text": "Compliances-Certificate under Reg. 74 (5) of SEBI (DP) Regulations, 2018 1d - Ce",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=982bd70d-4cbd-4e0a-86a1-8fb0696c498a.pdf"
+  },
+  {
+   "text": "Closure of Trading Window 26 Jun - Trading window closed from 1 July 2026 until ",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d8aff34a-3a8a-4208-a369-2744e96667d6.pdf"
+  },
+  {
+   "text": "Compliances-Reg.24(A)-Annual Secretarial Compliance 29 May - Submitted FY26 secr",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d57af251-94d3-4322-93b6-7e978d82ba1c.pdf"
+  },
+  {
+   "text": "Announcement under Regulation 30 (LODR)-Newspaper Publication 27 May - Newspaper",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=5ad6d958-cdc3-42e6-960a-30a36178d40a.pdf"
+  },
+  {
+   "text": "Announcement under Regulation 30 (LODR)-Change in Management 25 May - Board appr",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=391beb1d-8d01-484e-8c64-a6f576ba8233.pdf"
+  },
+  {
+   "text": "Financial Year 2020 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/532307/68201532307.pdf"
+  },
+  {
+   "text": "Financial Year 2019 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/532307/5323070319.pdf"
+  },
+  {
+   "text": "Financial Year 2018 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/532307/5323070318.pdf"
+  },
+  {
+   "text": "Financial Year 2017 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/532307/5323070317.pdf"
+  },
+  {
+   "text": "Financial Year 2016 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/532307/5323070316.pdf"
+  },
+  {
+   "text": "Financial Year 2015 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/532307/5323070315.pdf"
+  },
+  {
+   "text": "Financial Year 2014 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/532307/5323070314.pdf"
+  },
+  {
+   "text": "Financial Year 2013 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/532307/5323070313.pdf"
+  },
+  {
+   "text": "Financial Year 2012 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/532307/5323070312.pdf"
+  },
+  {
+   "text": "Financial Year 2011 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_MELSTAR_2010_2011_21072011071211.zip"
+  },
+  {
+   "text": "Financial Year 2011 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/532307/5323070311.pdf"
+  },
+  {
+   "text": "Financial Year 2010 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/532307/5323070310.pdf"
+  },
+  {
+   "text": "Financial Year 2010 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_MELSTAR_2009_2010_01092010120000.zip"
+  },
+  {
+   "text": "Financial Year 2009 from bse",
+   "href": "https://www.bseindia.com/HIS_ANN_RPT/HISTANNR/2009/MELSTAR_INFORMATION_TECHNOLOGIES_LTD-532307-MARCH-2009.PDF"
+  },
+  {
+   "text": "Financial Year 2009 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_MELSTAR_2008_2009_03092009151000.zip"
+  },
+  {
+   "text": "Rating update 22 Jan from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/202601130105_Melstar_Information_Technologies_Limited.pdf"
+  },
+  {
+   "text": "Rating update 27 Nov 2025 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/MelstarInformationTechnologiesLimited_November 27_ 2025_RR_382649.html"
+  },
+  {
+   "text": "Rating update 15 Nov 2024 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/202411121130_Melstar_Information_Technologies_Limited.pdf"
+  },
+  {
+   "text": "Rating update 30 Sep 2024 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/MelstarInformationTechnologiesLimited_September 30_ 2024_RR_353302.html"
+  },
+  {
+   "text": "Rating update 26 Oct 2023 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/202310131054_Melstar_Information_Technologies_Limited.pdf"
+  },
+  {
+   "text": "Rating update 31 Jul 2023 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/MelstarInformationTechnologiesLimited_July 31, 2023_RR_324522.html"
+  }
+ ]
+}

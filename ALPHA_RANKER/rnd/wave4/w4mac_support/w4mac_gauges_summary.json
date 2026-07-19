@@ -1,0 +1,216 @@
+{
+  "g_valband_EY": {
+    "corr_fwd_ret_1Y": 0.26,
+    "n_fwd_ret_1Y": 213,
+    "corr_fwd_ret_5Y": 0.277,
+    "n_fwd_ret_5Y": 164,
+    "corr_fwd_maxdd_1Y": -0.088,
+    "n_fwd_maxdd_1Y": 213,
+    "era_split": "H1(2007-03-30-2015-12-31,n=106)=0.27 | H2(2016-01-29-2024-11-29,n=107)=0.25",
+    "era_split_sign_stable": true,
+    "bears_present": [
+      "GFC_2008",
+      "COVID_2020",
+      "HIKE_2022"
+    ],
+    "full_corr_1Y": 0.26,
+    "dropone": {
+      "GFC_2008": -0.025,
+      "COVID_2020": 0.256,
+      "HIKE_2022": 0.27
+    },
+    "dropone_sign_stable": false
+  },
+  "g_cape": {
+    "corr_fwd_ret_1Y": 0.114,
+    "n_fwd_ret_1Y": 94,
+    "corr_fwd_ret_5Y": 0.904,
+    "n_fwd_ret_5Y": 45,
+    "corr_fwd_maxdd_1Y": 0.086,
+    "n_fwd_maxdd_1Y": 94,
+    "era_split": "H1(2017-02-28-2020-12-31,n=47)=0.48 | H2(2021-01-29-2024-11-29,n=47)=0.51",
+    "era_split_sign_stable": true,
+    "bears_present": [
+      "COVID_2020",
+      "HIKE_2022"
+    ],
+    "full_corr_1Y": 0.114,
+    "dropone": {
+      "COVID_2020": -0.016,
+      "HIKE_2022": 0.168
+    },
+    "dropone_sign_stable": false
+  },
+  "g_term_spread": {
+    "corr_fwd_ret_1Y": -0.26,
+    "n_fwd_ret_1Y": 107,
+    "corr_fwd_ret_5Y": -0.459,
+    "n_fwd_ret_5Y": 58,
+    "corr_fwd_maxdd_1Y": -0.199,
+    "n_fwd_maxdd_1Y": 107,
+    "era_split": "H1(2016-01-29-2020-05-29,n=53)=0.53 | H2(2020-06-30-2024-11-29,n=54)=-0.6",
+    "era_split_sign_stable": false,
+    "bears_present": [
+      "COVID_2020",
+      "HIKE_2022"
+    ],
+    "full_corr_1Y": -0.26,
+    "dropone": {
+      "COVID_2020": -0.285,
+      "HIKE_2022": -0.186
+    },
+    "dropone_sign_stable": true
+  },
+  "g_credit_spread": {
+    "corr_fwd_ret_1Y": -0.196,
+    "n_fwd_ret_1Y": 213,
+    "corr_fwd_ret_5Y": -0.25,
+    "n_fwd_ret_5Y": 164,
+    "corr_fwd_maxdd_1Y": 0.107,
+    "n_fwd_maxdd_1Y": 213,
+    "era_split": "H1(2007-03-30-2015-12-31,n=106)=-0.1 | H2(2016-01-29-2024-11-29,n=107)=-0.65",
+    "era_split_sign_stable": true,
+    "bears_present": [
+      "GFC_2008",
+      "COVID_2020",
+      "HIKE_2022"
+    ],
+    "full_corr_1Y": -0.196,
+    "dropone": {
+      "GFC_2008": -0.202,
+      "COVID_2020": -0.187,
+      "HIKE_2022": -0.191
+    },
+    "dropone_sign_stable": true
+  },
+  "g_buffett": {
+    "corr_fwd_ret_1Y": 0.362,
+    "n_fwd_ret_1Y": 205,
+    "corr_fwd_ret_5Y": 0.309,
+    "n_fwd_ret_5Y": 156,
+    "corr_fwd_maxdd_1Y": 0.489,
+    "n_fwd_maxdd_1Y": 205,
+    "era_split": "H1(2007-11-30-2016-04-29,n=102)=0.49 | H2(2016-05-31-2024-11-29,n=103)=-0.12",
+    "era_split_sign_stable": false,
+    "bears_present": [
+      "GFC_2008",
+      "COVID_2020",
+      "HIKE_2022"
+    ],
+    "full_corr_1Y": 0.362,
+    "dropone": {
+      "GFC_2008": 0.124,
+      "COVID_2020": 0.361,
+      "HIKE_2022": 0.387
+    },
+    "dropone_sign_stable": true
+  },
+  "g_breadth_thrust": {
+    "corr_fwd_ret_1Y": 0.105,
+    "n_fwd_ret_1Y": 226,
+    "corr_fwd_ret_5Y": 0.118,
+    "n_fwd_ret_5Y": 177,
+    "corr_fwd_maxdd_1Y": 0.167,
+    "n_fwd_maxdd_1Y": 226,
+    "era_split": "H1(2006-02-28-2015-06-30,n=113)=0.13 | H2(2015-07-31-2024-11-29,n=113)=0.06",
+    "era_split_sign_stable": true,
+    "bears_present": [
+      "GFC_2008",
+      "COVID_2020",
+      "HIKE_2022"
+    ],
+    "full_corr_1Y": 0.105,
+    "dropone": {
+      "GFC_2008": 0.058,
+      "COVID_2020": 0.124,
+      "HIKE_2022": 0.096
+    },
+    "dropone_sign_stable": true
+  },
+  "g_india10y_chg": {
+    "corr_fwd_ret_1Y": -0.073,
+    "n_fwd_ret_1Y": 153,
+    "corr_fwd_ret_5Y": 0.078,
+    "n_fwd_ret_5Y": 104,
+    "corr_fwd_maxdd_1Y": -0.05,
+    "n_fwd_maxdd_1Y": 153,
+    "era_split": "H1(2012-03-30-2018-06-29,n=76)=-0.17 | H2(2018-07-31-2024-11-29,n=77)=0.06",
+    "era_split_sign_stable": false,
+    "bears_present": [
+      "COVID_2020",
+      "HIKE_2022"
+    ],
+    "full_corr_1Y": -0.073,
+    "dropone": {
+      "COVID_2020": -0.12,
+      "HIKE_2022": -0.072
+    },
+    "dropone_sign_stable": true
+  },
+  "ensemble_all": {
+    "corr_fwd_ret_1Y": 0.112,
+    "n_fwd_ret_1Y": 226,
+    "corr_fwd_ret_5Y": 0.102,
+    "n_fwd_ret_5Y": 177,
+    "corr_fwd_maxdd_1Y": 0.204,
+    "n_fwd_maxdd_1Y": 226,
+    "era_split": "H1(2006-02-28-2015-06-30,n=113)=0.16 | H2(2015-07-31-2024-11-29,n=113)=-0.09",
+    "era_split_sign_stable": false,
+    "bears_present": [
+      "GFC_2008",
+      "COVID_2020",
+      "HIKE_2022"
+    ],
+    "full_corr_1Y": 0.112,
+    "dropone": {
+      "GFC_2008": -0.016,
+      "COVID_2020": 0.113,
+      "HIKE_2022": 0.116
+    },
+    "dropone_sign_stable": false
+  },
+  "ensemble_new4": {
+    "corr_fwd_ret_1Y": 0.063,
+    "n_fwd_ret_1Y": 213,
+    "corr_fwd_ret_5Y": -0.022,
+    "n_fwd_ret_5Y": 164,
+    "corr_fwd_maxdd_1Y": 0.328,
+    "n_fwd_maxdd_1Y": 213,
+    "era_split": "H1(2007-03-30-2015-12-31,n=106)=0.15 | H2(2016-01-29-2024-11-29,n=107)=-0.24",
+    "era_split_sign_stable": false,
+    "bears_present": [
+      "GFC_2008",
+      "COVID_2020",
+      "HIKE_2022"
+    ],
+    "full_corr_1Y": 0.063,
+    "dropone": {
+      "GFC_2008": 0.058,
+      "COVID_2020": 0.057,
+      "HIKE_2022": 0.075
+    },
+    "dropone_sign_stable": true
+  },
+  "ensemble_new5_w_breadth": {
+    "corr_fwd_ret_1Y": 0.086,
+    "n_fwd_ret_1Y": 226,
+    "corr_fwd_ret_5Y": 0.074,
+    "n_fwd_ret_5Y": 177,
+    "corr_fwd_maxdd_1Y": 0.257,
+    "n_fwd_maxdd_1Y": 226,
+    "era_split": "H1(2006-02-28-2015-06-30,n=113)=0.14 | H2(2015-07-31-2024-11-29,n=113)=-0.13",
+    "era_split_sign_stable": false,
+    "bears_present": [
+      "GFC_2008",
+      "COVID_2020",
+      "HIKE_2022"
+    ],
+    "full_corr_1Y": 0.086,
+    "dropone": {
+      "GFC_2008": 0.029,
+      "COVID_2020": 0.088,
+      "HIKE_2022": 0.088
+    },
+    "dropone_sign_stable": true
+  }
+}

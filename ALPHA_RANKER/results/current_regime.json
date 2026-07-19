@@ -1,0 +1,46 @@
+{
+  "generated_note": "[DATA] Input columns update at two different cadences: NIFTY 500, NIFTY 100 Low Vol 30, NIFTY 200 Momentum 30 and Nifty Midcap Momentum 50 run through the file's last date; the other 16 factor/breadth columns (Value/Quality/Alpha indices, High Beta 50, GOLDBEES, Midcap150/Smallcap250/Nifty100/Smallcap100/Multicap/Liquid Fund) stop ~38 trading days earlier (vendor lag, verified: gap is a clean trailing NaN block with zero internal gaps, not a data error). Each lens below reports its OWN as_of date rather than silently using stale or forward-filled inputs.",
+  "file_last_date": "2026-02-27",
+  "trend": {
+    "as_of": "2026-02-27",
+    "label": "sideways",
+    "nifty500": 23166.85,
+    "ma50": 23471.69,
+    "ma200": 23309.4,
+    "price_above_ma200": false,
+    "ma50_slope_up_20d": false,
+    "ma200_slope_up_20d": true
+  },
+  "volatility": {
+    "as_of": "2026-02-27",
+    "label": "normal",
+    "rv21_annualized": 0.1655,
+    "expanding_tertile_q33": 0.1198,
+    "expanding_tertile_q67": 0.1701
+  },
+  "breadth": {
+    "as_of": "2026-01-05",
+    "label": "narrow/large-cap-led",
+    "rs_3m_vs_nifty100": -0.0285,
+    "rs_6m_vs_nifty100": -0.0455,
+    "conflict_3m_vs_6m": false
+  },
+  "risk_appetite": {
+    "as_of": "2026-01-05",
+    "label": "risk-off",
+    "vote_beta_vs_lowvol_3m": 0.0059,
+    "vote_equity_vs_gold_3m": -0.1185
+  },
+  "factor_leadership": {
+    "as_of": "2026-01-05",
+    "leading_factor": "Value",
+    "leading_factor(s)": "Value",
+    "scores_3m6m_blend": {
+      "Value": 0.1276,
+      "LowVol": 0.0551,
+      "Quality": 0.035,
+      "Momentum": 0.0278,
+      "Alpha": 0.0166
+    }
+  }
+}

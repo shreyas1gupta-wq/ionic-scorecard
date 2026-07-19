@@ -1,0 +1,873 @@
+{
+  "H024_1Y": {
+    "factor_id": "H024_1Y",
+    "family": "H024",
+    "horizon": "1Y",
+    "return_basis": "resid",
+    "status": "OK",
+    "panel_source": "real",
+    "n_trials": 251,
+    "n_dates": 42,
+    "n_obs": 25528,
+    "generated_at": "2026-07-16T18:23:48.687768+00:00",
+    "ic": {
+      "ic_mean": -0.051900306564106116,
+      "ic_std": 0.0880349462296947,
+      "ic_ir": -0.589542094212126,
+      "newey_west_t": -1.4029893373701803,
+      "nw_lag": 11,
+      "n_ic_dates": 42
+    },
+    "deciles": {
+      "monotonicity": -0.5878787878787878,
+      "n_decile_dates": 42
+    },
+    "long_short": {
+      "ann_return_LS": -1.9010755965353745,
+      "hit_rate": 0.16666666666666666,
+      "n_periods": 42
+    },
+    "turnover": {
+      "avg_top_decile_turnover": 0.06641595305416319
+    },
+    "costs": {
+      "blended_cost_bps_roundtrip": 79.94566813509545,
+      "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+      "cost_approved": true,
+      "ann_cost_drag": 0.0063716012900930505,
+      "net_of_cost_ann_return": -1.9074471978254675
+    },
+    "dsr": {
+      "dsr": 6.44579750448546e-257,
+      "sr_hat": -0.8761290796764396,
+      "sr0_expected_max": 2.838953816457884,
+      "skew": -1.0340783276863,
+      "kurtosis": 3.028498312968854,
+      "n_obs": 42,
+      "n_trials": 251
+    },
+    "pbo": {
+      "pbo": 0.7792207792207793,
+      "n_combos": 924,
+      "n_blocks": 12,
+      "n_obs": 42,
+      "median_is_sharpe": -0.913959454804701,
+      "median_oos_sharpe": -0.913959454804701
+    },
+    "regime_breakdown": {
+      "regime_trend": {
+        "bear": -0.018209225551395803,
+        "bull": -0.036217636162823,
+        "sideways": -0.07814101196800961
+      },
+      "regime_vol": {
+        "high": -0.05306509106073222,
+        "low": -0.05727806016239902,
+        "normal": -0.04500463094885937
+      }
+    },
+    "lag_test": {
+      "ic_lag_mean": -0.053831335453486444,
+      "lag_test_delta": 0.03720650256651496
+    },
+    "placebo": {
+      "placebo_ic": 0.0003893846339376141,
+      "n_shuffles": 5,
+      "seed": 42
+    },
+    "verdict": "KILL (IC_IR -0.590 < 0.2; PBO 0.779 > 0.5)"
+  },
+  "H025_1M": {
+    "factor_id": "H025_1M",
+    "family": "H025",
+    "horizon": "1M",
+    "return_basis": "resid",
+    "status": "OK",
+    "panel_source": "real",
+    "n_trials": 252,
+    "n_dates": 53,
+    "n_obs": 31906,
+    "generated_at": "2026-07-16T18:23:57.499972+00:00",
+    "ic": {
+      "ic_mean": 0.02030540569518971,
+      "ic_std": 0.05102324893682836,
+      "ic_ir": 0.3979637933352644,
+      "newey_west_t": 2.701582472982004,
+      "nw_lag": 1,
+      "n_ic_dates": 53
+    },
+    "deciles": {
+      "monotonicity": 0.4545454545454545,
+      "n_decile_dates": 53
+    },
+    "long_short": {
+      "ann_return_LS": 0.06762887115677021,
+      "hit_rate": 0.6037735849056604,
+      "n_periods": 53
+    },
+    "turnover": {
+      "avg_top_decile_turnover": 0.26215251531474193
+    },
+    "costs": {
+      "blended_cost_bps_roundtrip": 79.96220930232558,
+      "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+      "cost_approved": true,
+      "ann_cost_drag": 0.025154753158474208,
+      "net_of_cost_ann_return": 0.04247411799829601
+    },
+    "dsr": {
+      "dsr": 1.8287569503219713e-79,
+      "sr_hat": 0.23167537527164295,
+      "sr0_expected_max": 2.8402249989632438,
+      "skew": 0.15508997702593166,
+      "kurtosis": 3.4571565004809437,
+      "n_obs": 53,
+      "n_trials": 252
+    },
+    "pbo": {
+      "pbo": 1.0,
+      "n_combos": 924,
+      "n_blocks": 12,
+      "n_obs": 53,
+      "median_is_sharpe": 0.23165413070435148,
+      "median_oos_sharpe": 0.23165413070435148
+    },
+    "regime_breakdown": {
+      "regime_trend": {
+        "bear": -0.01526957704763444,
+        "bull": 0.016884826265848817,
+        "sideways": 0.027994983053669497
+      },
+      "regime_vol": {
+        "high": 0.04957484372050482,
+        "low": 0.01368415168982196,
+        "normal": 0.018431371597903416
+      }
+    },
+    "lag_test": {
+      "ic_lag_mean": 0.010630799699099304,
+      "lag_test_delta": 0.47645470084758224
+    },
+    "placebo": {
+      "placebo_ic": -0.0028045488776068652,
+      "n_shuffles": 5,
+      "seed": 42
+    },
+    "verdict": "KILL (lag_test_delta 0.476 > 0.25; PBO 1.000 > 0.5)"
+  },
+  "H025_1Y": {
+    "factor_id": "H025_1Y",
+    "family": "H025",
+    "horizon": "1Y",
+    "return_basis": "resid",
+    "status": "OK",
+    "panel_source": "real",
+    "n_trials": 253,
+    "n_dates": 42,
+    "n_obs": 24597,
+    "generated_at": "2026-07-16T18:24:02.579622+00:00",
+    "ic": {
+      "ic_mean": 0.041648020813181724,
+      "ic_std": 0.051206983761902025,
+      "ic_ir": 0.8133269674080634,
+      "newey_west_t": 5.474598805907834,
+      "nw_lag": 11,
+      "n_ic_dates": 42
+    },
+    "deciles": {
+      "monotonicity": 0.13939393939393938,
+      "n_decile_dates": 42
+    },
+    "long_short": {
+      "ann_return_LS": 0.5607636980299497,
+      "hit_rate": 0.7142857142857143,
+      "n_periods": 42
+    },
+    "turnover": {
+      "avg_top_decile_turnover": 0.27123557067334303
+    },
+    "costs": {
+      "blended_cost_bps_roundtrip": 79.94402420574886,
+      "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+      "cost_approved": true,
+      "ann_cost_drag": 0.026020395632843814,
+      "net_of_cost_ann_return": 0.5347433023971059
+    },
+    "dsr": {
+      "dsr": 1.7930949342197782e-40,
+      "sr_hat": 0.3001456288160507,
+      "sr0_expected_max": 2.841490670079148,
+      "skew": -1.3582935585806717,
+      "kurtosis": 5.292335160287856,
+      "n_obs": 42,
+      "n_trials": 253
+    },
+    "pbo": {
+      "pbo": 1.0,
+      "n_combos": 924,
+      "n_blocks": 12,
+      "n_obs": 42,
+      "median_is_sharpe": 0.31387400105980656,
+      "median_oos_sharpe": 0.31387400105980656
+    },
+    "regime_breakdown": {
+      "regime_trend": {
+        "bear": -0.016097365156486593,
+        "bull": 0.039036974926499456,
+        "sideways": 0.055217383602359074
+      },
+      "regime_vol": {
+        "high": 0.02977750660220171,
+        "low": 0.039465257332845734,
+        "normal": 0.04943340241338446
+      }
+    },
+    "lag_test": {
+      "ic_lag_mean": 0.0342980195999206,
+      "lag_test_delta": 0.17647900355771115
+    },
+    "placebo": {
+      "placebo_ic": 0.000749607637945724,
+      "n_shuffles": 5,
+      "seed": 42
+    },
+    "verdict": "KILL (PBO 1.000 > 0.5)"
+  },
+  "H026_1M": {
+    "factor_id": "H026_1M",
+    "family": "H026",
+    "horizon": "1M",
+    "return_basis": "resid",
+    "status": "OK",
+    "panel_source": "real",
+    "n_trials": 254,
+    "n_dates": 50,
+    "n_obs": 12075,
+    "generated_at": "2026-07-16T18:24:07.945974+00:00",
+    "ic": {
+      "ic_mean": 0.0040350075460652635,
+      "ic_std": 0.07611085874190487,
+      "ic_ir": 0.05301487347223533,
+      "newey_west_t": 0.3323337683574233,
+      "nw_lag": 1,
+      "n_ic_dates": 45
+    },
+    "deciles": {
+      "monotonicity": 0.38181818181818183,
+      "n_decile_dates": 45
+    },
+    "long_short": {
+      "ann_return_LS": 0.08293537996905591,
+      "hit_rate": 0.5777777777777777,
+      "n_periods": 45
+    },
+    "turnover": {
+      "avg_top_decile_turnover": 0.5891510573036561
+    },
+    "costs": {
+      "blended_cost_bps_roundtrip": 79.93721286370597,
+      "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+      "cost_approved": true,
+      "ann_cost_drag": 0.05651411217187175,
+      "net_of_cost_ann_return": 0.026421267797184157
+    },
+    "dsr": {
+      "dsr": 4.5096110240596116e-66,
+      "sr_hat": 0.21409995311326394,
+      "sr0_expected_max": 2.8427508756804842,
+      "skew": -0.058019769301652695,
+      "kurtosis": 3.077195406442078,
+      "n_obs": 45,
+      "n_trials": 254
+    },
+    "pbo": {
+      "pbo": 1.0,
+      "n_combos": 924,
+      "n_blocks": 12,
+      "n_obs": 45,
+      "median_is_sharpe": 0.21182907467343431,
+      "median_oos_sharpe": 0.21182907467343431
+    },
+    "regime_breakdown": {
+      "regime_trend": {
+        "bear": -0.048989463673847856,
+        "bull": 0.006277976717648734,
+        "sideways": 0.009366962834469379
+      },
+      "regime_vol": {
+        "high": -0.022234241469600853,
+        "low": 0.0029556224392628993,
+        "normal": 0.011681704906784156
+      }
+    },
+    "lag_test": {
+      "ic_lag_mean": 0.015007760574265137,
+      "lag_test_delta": 2.7193884776993666
+    },
+    "placebo": {
+      "placebo_ic": -0.006960823516271408,
+      "n_shuffles": 5,
+      "seed": 42
+    },
+    "verdict": "KILL (IC_IR 0.053 < 0.2; lag_test_delta 2.719 > 0.25; PBO 1.000 > 0.5)"
+  },
+  "H044_1Y": {
+    "error": "'opm_fy1ago'"
+  },
+  "H027_1Y": {
+    "factor_id": "H027_1Y",
+    "family": "H027",
+    "horizon": "1Y",
+    "return_basis": "resid",
+    "status": "OK",
+    "panel_source": "real",
+    "n_trials": 255,
+    "n_dates": 42,
+    "n_obs": 26338,
+    "generated_at": "2026-07-16T18:24:19.046317+00:00",
+    "ic": {
+      "ic_mean": 0.07521699808776845,
+      "ic_std": 0.08922494934331279,
+      "ic_ir": 0.8430040996532748,
+      "newey_west_t": 2.5280923514696325,
+      "nw_lag": 11,
+      "n_ic_dates": 42
+    },
+    "deciles": {
+      "monotonicity": 0.6969696969696969,
+      "n_decile_dates": 42
+    },
+    "long_short": {
+      "ann_return_LS": 2.0910874264896115,
+      "hit_rate": 0.7857142857142857,
+      "n_periods": 42
+    },
+    "turnover": {
+      "avg_top_decile_turnover": 0.4348311684209689
+    },
+    "costs": {
+      "blended_cost_bps_roundtrip": 79.96531791907515,
+      "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+      "cost_approved": true,
+      "ann_cost_drag": 0.04172569514868683,
+      "net_of_cost_ann_return": 2.049361731340925
+    },
+    "dsr": {
+      "dsr": 6.541995742744233e-65,
+      "sr_hat": 0.6695647741993968,
+      "sr0_expected_max": 2.8440056610797226,
+      "skew": 1.1473776947103345,
+      "kurtosis": 4.9363862055011865,
+      "n_obs": 42,
+      "n_trials": 255
+    },
+    "pbo": {
+      "pbo": 0.961038961038961,
+      "n_combos": 924,
+      "n_blocks": 12,
+      "n_obs": 42,
+      "median_is_sharpe": 0.6750937259795684,
+      "median_oos_sharpe": 0.6750937259795684
+    },
+    "regime_breakdown": {
+      "regime_trend": {
+        "bear": 0.022233327568909556,
+        "bull": 0.08638936237902986,
+        "sideways": 0.07010870380240525
+      },
+      "regime_vol": {
+        "high": 0.026709419346859078,
+        "low": 0.1040490074647206,
+        "normal": 0.062201052651785625
+      }
+    },
+    "lag_test": {
+      "ic_lag_mean": 0.05964604776782518,
+      "lag_test_delta": 0.20701371652420905
+    },
+    "placebo": {
+      "placebo_ic": -0.0013827017338344685,
+      "n_shuffles": 5,
+      "seed": 42
+    },
+    "verdict": "KILL (PBO 0.961 > 0.5)"
+  },
+  "H027_leg_c_1Y": {
+    "factor_id": "H027_leg_c_1Y",
+    "family": "H027",
+    "horizon": "1Y",
+    "return_basis": "resid",
+    "status": "OK",
+    "panel_source": "real",
+    "n_trials": 256,
+    "n_dates": 42,
+    "n_obs": 23043,
+    "generated_at": "2026-07-16T18:24:27.872925+00:00",
+    "ic": {
+      "ic_mean": 0.032530813661962074,
+      "ic_std": 0.052687778338633674,
+      "ic_ir": 0.6174261790444224,
+      "newey_west_t": 1.818929885928203,
+      "nw_lag": 11,
+      "n_ic_dates": 42
+    },
+    "deciles": {
+      "monotonicity": 0.23636363636363633,
+      "n_decile_dates": 42
+    },
+    "long_short": {
+      "ann_return_LS": 1.6203401832811943,
+      "hit_rate": 0.8095238095238095,
+      "n_periods": 42
+    },
+    "turnover": {
+      "avg_top_decile_turnover": 0.22665240775704923
+    },
+    "costs": {
+      "blended_cost_bps_roundtrip": 79.9337442218798,
+      "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+      "cost_approved": true,
+      "ann_cost_drag": 0.02174061070671021,
+      "net_of_cost_ann_return": 1.5985995725744842
+    },
+    "dsr": {
+      "dsr": 2.9602230194302377e-101,
+      "sr_hat": 0.5148488806247712,
+      "sr0_expected_max": 2.845255071035962,
+      "skew": 1.5671639901713323,
+      "kurtosis": 5.470263334250182,
+      "n_obs": 42,
+      "n_trials": 256
+    },
+    "pbo": {
+      "pbo": 0.9177489177489178,
+      "n_combos": 924,
+      "n_blocks": 12,
+      "n_obs": 42,
+      "median_is_sharpe": 0.6003250388753039,
+      "median_oos_sharpe": 0.6003250388753039
+    },
+    "regime_breakdown": {
+      "regime_trend": {
+        "bear": -0.02326001113470877,
+        "bull": 0.03634698514102545,
+        "sideways": 0.03743767847670436
+      },
+      "regime_vol": {
+        "high": 0.014969394127947734,
+        "low": 0.03946132188479397,
+        "normal": 0.031983956193480496
+      }
+    },
+    "lag_test": {
+      "ic_lag_mean": 0.02141875608298595,
+      "lag_test_delta": 0.3415856023290722
+    },
+    "placebo": {
+      "placebo_ic": -0.003539965041780525,
+      "n_shuffles": 5,
+      "seed": 42
+    },
+    "verdict": "KILL (lag_test_delta 0.342 > 0.25; PBO 0.918 > 0.5)"
+  },
+  "H027_leg_a_1Y": {
+    "factor_id": "H027_leg_a_1Y",
+    "family": "H027",
+    "horizon": "1Y",
+    "return_basis": "resid",
+    "status": "OK",
+    "panel_source": "real",
+    "n_trials": 257,
+    "n_dates": 42,
+    "n_obs": 22440,
+    "generated_at": "2026-07-16T18:24:34.665853+00:00",
+    "ic": {
+      "ic_mean": 0.011172105567213311,
+      "ic_std": 0.05176279567991783,
+      "ic_ir": 0.21583273122065352,
+      "newey_west_t": 0.6975840139300535,
+      "nw_lag": 11,
+      "n_ic_dates": 42
+    },
+    "deciles": {
+      "monotonicity": 0.23636363636363633,
+      "n_decile_dates": 42
+    },
+    "long_short": {
+      "ann_return_LS": 0.4468282418729995,
+      "hit_rate": 0.40476190476190477,
+      "n_periods": 42
+    },
+    "turnover": {
+      "avg_top_decile_turnover": 0.09364158114870236
+    },
+    "costs": {
+      "blended_cost_bps_roundtrip": 79.94063926940639,
+      "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+      "cost_approved": true,
+      "ann_cost_drag": 0.008982921431070313,
+      "net_of_cost_ann_return": 0.4378453204419292
+    },
+    "dsr": {
+      "dsr": 4.7213331102697e-72,
+      "sr_hat": 0.20820201221551654,
+      "sr0_expected_max": 2.846499149763849,
+      "skew": 0.5739695535140393,
+      "kurtosis": 1.8267006629986802,
+      "n_obs": 42,
+      "n_trials": 257
+    },
+    "pbo": {
+      "pbo": 0.9913419913419913,
+      "n_combos": 924,
+      "n_blocks": 12,
+      "n_obs": 42,
+      "median_is_sharpe": 0.2074445451827279,
+      "median_oos_sharpe": 0.2074445451827279
+    },
+    "regime_breakdown": {
+      "regime_trend": {
+        "bear": 0.02946536970717931,
+        "bull": 0.004752481835510077,
+        "sideways": 0.016251630842364678
+      },
+      "regime_vol": {
+        "high": -0.012215086612135283,
+        "low": 0.01646700623494185,
+        "normal": 0.015116307602750685
+      }
+    },
+    "lag_test": {
+      "ic_lag_mean": 0.010252848809118496,
+      "lag_test_delta": 0.08228142426370819
+    },
+    "placebo": {
+      "placebo_ic": -0.001926178455127241,
+      "n_shuffles": 5,
+      "seed": 42
+    },
+    "verdict": "KILL (PBO 0.991 > 0.5)"
+  },
+  "H027_leg_n_1Y": {
+    "factor_id": "H027_leg_n_1Y",
+    "family": "H027",
+    "horizon": "1Y",
+    "return_basis": "resid",
+    "status": "OK",
+    "panel_source": "real",
+    "n_trials": 258,
+    "n_dates": 42,
+    "n_obs": 26338,
+    "generated_at": "2026-07-16T18:24:40.912246+00:00",
+    "ic": {
+      "ic_mean": 0.07102529905059245,
+      "ic_std": 0.05675300373393611,
+      "ic_ir": 1.2514808799119483,
+      "newey_west_t": 13.231968020446567,
+      "nw_lag": 11,
+      "n_ic_dates": 42
+    },
+    "deciles": {
+      "monotonicity": 0.28484848484848485,
+      "n_decile_dates": 42
+    },
+    "long_short": {
+      "ann_return_LS": -0.2660035497803098,
+      "hit_rate": 0.47619047619047616,
+      "n_periods": 42
+    },
+    "turnover": {
+      "avg_top_decile_turnover": 0.6786107982853893
+    },
+    "costs": {
+      "blended_cost_bps_roundtrip": 79.96531791907515,
+      "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+      "cost_approved": true,
+      "ann_cost_drag": 0.06511839387385024,
+      "net_of_cost_ann_return": -0.33112194365416003
+    },
+    "dsr": {
+      "dsr": 1.1376635220343951e-92,
+      "sr_hat": -0.13374055385527764,
+      "sr0_expected_max": 2.8477379409422783,
+      "skew": -1.0830917262562354,
+      "kurtosis": 5.900231247665397,
+      "n_obs": 42,
+      "n_trials": 258
+    },
+    "pbo": {
+      "pbo": 0.9913419913419913,
+      "n_combos": 924,
+      "n_blocks": 12,
+      "n_obs": 42,
+      "median_is_sharpe": -0.13494496639350922,
+      "median_oos_sharpe": -0.13494496639350922
+    },
+    "regime_breakdown": {
+      "regime_trend": {
+        "bear": 0.034804345875664104,
+        "bull": 0.07004253391853589,
+        "sideways": 0.07868904566412357
+      },
+      "regime_vol": {
+        "high": 0.0874420601738396,
+        "low": 0.07694978609882312,
+        "normal": 0.05680763768939791
+      }
+    },
+    "lag_test": {
+      "ic_lag_mean": 0.06019659202757256,
+      "lag_test_delta": 0.1524626741142818
+    },
+    "placebo": {
+      "placebo_ic": -0.0009108362315232617,
+      "n_shuffles": 5,
+      "seed": 42
+    },
+    "verdict": "KILL (PBO 0.991 > 0.5)"
+  },
+  "H027_leg_s_1Y": {
+    "factor_id": "H027_leg_s_1Y",
+    "family": "H027",
+    "horizon": "1Y",
+    "return_basis": "resid",
+    "status": "OK",
+    "panel_source": "real",
+    "n_trials": 259,
+    "n_dates": 42,
+    "n_obs": 26338,
+    "generated_at": "2026-07-16T18:24:46.995392+00:00",
+    "ic": {
+      "ic_mean": 0.0011089718584219716,
+      "ic_std": 0.07945792255453953,
+      "ic_ir": 0.01395671850923083,
+      "newey_west_t": 0.06490138847211083,
+      "nw_lag": 11,
+      "n_ic_dates": 42
+    },
+    "deciles": {
+      "monotonicity": -0.16363636363636364,
+      "n_decile_dates": 42
+    },
+    "long_short": {
+      "ann_return_LS": 0.22023140001325184,
+      "hit_rate": 0.42857142857142855,
+      "n_periods": 42
+    },
+    "turnover": {
+      "avg_top_decile_turnover": 0.7187416527787454
+    },
+    "costs": {
+      "blended_cost_bps_roundtrip": 79.96531791907515,
+      "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+      "cost_approved": true,
+      "ann_cost_drag": 0.06896928571936067,
+      "net_of_cost_ann_return": 0.15126211429389116
+    },
+    "dsr": {
+      "dsr": 1.4429764287933633e-76,
+      "sr_hat": 0.06728748261526239,
+      "sr0_expected_max": 2.848971487722993,
+      "skew": 1.1150974900772386,
+      "kurtosis": 4.351450349596137,
+      "n_obs": 42,
+      "n_trials": 259
+    },
+    "pbo": {
+      "pbo": 1.0,
+      "n_combos": 924,
+      "n_blocks": 12,
+      "n_obs": 42,
+      "median_is_sharpe": 0.06739817682003282,
+      "median_oos_sharpe": 0.06739817682003282
+    },
+    "regime_breakdown": {
+      "regime_trend": {
+        "bear": -0.03683478069527706,
+        "bull": 0.009125868716655978,
+        "sideways": -0.0025698795074633797
+      },
+      "regime_vol": {
+        "high": -0.023797425162287777,
+        "low": 0.005475757219875858,
+        "normal": 0.006819962938256002
+      }
+    },
+    "lag_test": {
+      "ic_lag_mean": -0.005524898518637529,
+      "lag_test_delta": 5.982000649231323
+    },
+    "placebo": {
+      "placebo_ic": 0.003260644283955882,
+      "n_shuffles": 5,
+      "seed": 42
+    },
+    "verdict": "KILL (IC_IR 0.014 < 0.2; lag_test_delta 5.982 > 0.25; PBO 1.000 > 0.5)"
+  },
+  "H027_leg_l_1Y": {
+    "factor_id": "H027_leg_l_1Y",
+    "family": "H027",
+    "horizon": "1Y",
+    "return_basis": "resid",
+    "status": "OK",
+    "panel_source": "real",
+    "n_trials": 260,
+    "n_dates": 42,
+    "n_obs": 26336,
+    "generated_at": "2026-07-16T18:24:53.138940+00:00",
+    "ic": {
+      "ic_mean": 0.0816835784787351,
+      "ic_std": 0.11980647539165717,
+      "ic_ir": 0.6817960232258298,
+      "newey_west_t": 1.935374470306761,
+      "nw_lag": 11,
+      "n_ic_dates": 42
+    },
+    "deciles": {
+      "monotonicity": 0.9878787878787878,
+      "n_decile_dates": 42
+    },
+    "long_short": {
+      "ann_return_LS": 2.3360889816541803,
+      "hit_rate": 0.7380952380952381,
+      "n_periods": 42
+    },
+    "turnover": {
+      "avg_top_decile_turnover": 0.3331406397683548
+    },
+    "costs": {
+      "blended_cost_bps_roundtrip": 79.96531791907515,
+      "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+      "cost_approved": true,
+      "ann_cost_drag": 0.0319676366050087,
+      "net_of_cost_ann_return": 2.3041213450491718
+    },
+    "dsr": {
+      "dsr": 3.106605976552366e-61,
+      "sr_hat": 0.7281839185660947,
+      "sr0_expected_max": 2.8501998327389577,
+      "skew": 0.6996514070177217,
+      "kurtosis": 2.4350174653846537,
+      "n_obs": 42,
+      "n_trials": 260
+    },
+    "pbo": {
+      "pbo": 0.9437229437229437,
+      "n_combos": 924,
+      "n_blocks": 12,
+      "n_obs": 42,
+      "median_is_sharpe": 0.7331511525852448,
+      "median_oos_sharpe": 0.7331511525852448
+    },
+    "regime_breakdown": {
+      "regime_trend": {
+        "bear": 0.058869824985556596,
+        "bull": 0.08398860774256564,
+        "sideways": 0.0827265559302212
+      },
+      "regime_vol": {
+        "high": 0.028036030677063145,
+        "low": 0.11666311634074825,
+        "normal": 0.06361617943082597
+      }
+    },
+    "lag_test": {
+      "ic_lag_mean": 0.0659084652143413,
+      "lag_test_delta": 0.19312465930346798
+    },
+    "placebo": {
+      "placebo_ic": -0.0010075136344884423,
+      "n_shuffles": 5,
+      "seed": 42
+    },
+    "verdict": "KILL (PBO 0.944 > 0.5)"
+  },
+  "H027_leg_i_1Y": {
+    "factor_id": "H027_leg_i_1Y",
+    "family": "H027",
+    "horizon": "1Y",
+    "return_basis": "resid",
+    "status": "OK",
+    "panel_source": "real",
+    "n_trials": 261,
+    "n_dates": 20,
+    "n_obs": 12463,
+    "generated_at": "2026-07-16T18:24:58.976540+00:00",
+    "ic": {
+      "ic_mean": -0.007886775527230706,
+      "ic_std": 0.031481592011364024,
+      "ic_ir": -0.25052022541883484,
+      "newey_west_t": -0.9962075012138372,
+      "nw_lag": 11,
+      "n_ic_dates": 20
+    },
+    "deciles": {
+      "monotonicity": -0.29696969696969694,
+      "n_decile_dates": 20
+    },
+    "long_short": {
+      "ann_return_LS": -0.13561665428862862,
+      "hit_rate": 0.5,
+      "n_periods": 20
+    },
+    "turnover": {
+      "avg_top_decile_turnover": 0.264471760150705
+    },
+    "costs": {
+      "blended_cost_bps_roundtrip": 79.96531791907515,
+      "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+      "cost_approved": true,
+      "ann_cost_drag": 0.025378282057282216,
+      "net_of_cost_ann_return": -0.16099493634591083
+    },
+    "dsr": {
+      "dsr": 4.873800545675356e-39,
+      "sr_hat": -0.1307237261832963,
+      "sr0_expected_max": 2.8514230181125333,
+      "skew": -0.041487568134720494,
+      "kurtosis": 1.605007291468837,
+      "n_obs": 20,
+      "n_trials": 261
+    },
+    "pbo": {
+      "pbo": 1.0,
+      "n_combos": 252,
+      "n_blocks": 10,
+      "n_obs": 20,
+      "median_is_sharpe": -0.1273187619003113,
+      "median_oos_sharpe": -0.1273187619003113
+    },
+    "regime_breakdown": {
+      "regime_trend": {
+        "bear": -0.01256367975663003,
+        "bull": 0.0026862282600465305,
+        "sideways": -0.027473815025318735
+      },
+      "regime_vol": {
+        "high": -0.002241586836019273,
+        "low": -0.008759722645356315,
+        "normal": -0.009990237056047171
+      }
+    },
+    "lag_test": {
+      "ic_lag_mean": -0.009787725825604018,
+      "lag_test_delta": 0.24103010055375515
+    },
+    "placebo": {
+      "placebo_ic": -0.002878980355335057,
+      "n_shuffles": 5,
+      "seed": 42
+    },
+    "verdict": "KILL (IC_IR -0.251 < 0.2; PBO 1.000 > 0.5)"
+  },
+  "H027_leg_m_1Y": {
+    "factor_id": "H027_leg_m_1Y",
+    "horizon": "1Y",
+    "return_basis": "resid",
+    "status": "FAIL_NO_OVERLAP",
+    "note": "factor did not overlap panel on (date,symbol) with enough dates to score",
+    "panel_source": "real",
+    "n_trials": 262,
+    "generated_at": "2026-07-16T18:25:03.755382+00:00"
+  }
+}

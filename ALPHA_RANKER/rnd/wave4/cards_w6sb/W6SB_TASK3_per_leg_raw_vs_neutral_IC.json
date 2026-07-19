@@ -1,0 +1,99 @@
+{
+  "value_EY": {
+    "label": "EY",
+    "raw_ic_mean": 0.07739998296170687,
+    "raw_ic_ir": 0.7628084010701381,
+    "raw_n_dates": 157,
+    "neutral_ic_mean": 0.05170270476718865,
+    "neutral_ic_ir": 0.5785757128749393,
+    "neutral_n_dates": 151,
+    "delta_ic_mean": -0.025697278194518225,
+    "ic_retention_pct": 66.79937486907228
+  },
+  "mom_resid_plain": {
+    "label": "mom-resid",
+    "raw_ic_mean": 0.11127098480382781,
+    "raw_ic_ir": 0.6879939280377914,
+    "raw_n_dates": 221,
+    "neutral_ic_mean": 0.064343890002,
+    "neutral_ic_ir": 0.501861373619177,
+    "neutral_n_dates": 221,
+    "delta_ic_mean": -0.046927094801827815,
+    "ic_retention_pct": 57.82629686925043
+  },
+  "trend_ma65_slope": {
+    "label": "MA65",
+    "raw_ic_mean": 0.0956713549917019,
+    "raw_ic_ir": 0.7056392888460867,
+    "raw_n_dates": 231,
+    "neutral_ic_mean": 0.05495155587475638,
+    "neutral_ic_ir": 0.5085209224751271,
+    "neutral_n_dates": 231,
+    "delta_ic_mean": -0.040719799116945524,
+    "ic_retention_pct": 57.43783589092328
+  },
+  "quality_QMJ": {
+    "label": "QMJ",
+    "raw_ic_mean": 0.14606904474234467,
+    "raw_ic_ir": 0.7672808955502419,
+    "raw_n_dates": 231,
+    "neutral_ic_mean": 0.09303628823957001,
+    "neutral_ic_ir": 0.6397900142497619,
+    "neutral_n_dates": 231,
+    "delta_ic_mean": -0.053032756502774656,
+    "ic_retention_pct": 63.69336391819318
+  },
+  "bs_issuance": {
+    "label": "issuance",
+    "raw_ic_mean": 0.060948972664150246,
+    "raw_ic_ir": 0.945789278176067,
+    "raw_n_dates": 145,
+    "neutral_ic_mean": 0.024171227477140976,
+    "neutral_ic_ir": 0.5105409273877919,
+    "neutral_n_dates": 139,
+    "delta_ic_mean": -0.03677774518700927,
+    "ic_retention_pct": 39.658137652840736
+  },
+  "bs_asset_growth": {
+    "label": "asset-growth",
+    "raw_ic_mean": 0.03510389276922915,
+    "raw_ic_ir": 0.2892577326905104,
+    "raw_n_dates": 145,
+    "neutral_ic_mean": 0.025200611588511845,
+    "neutral_ic_ir": 0.3319028706951191,
+    "neutral_n_dates": 139,
+    "delta_ic_mean": -0.009903281180717306,
+    "ic_retention_pct": 71.78865248415362
+  },
+  "quality_cfo_pat": {
+    "label": "cfo-pat",
+    "raw_ic_mean": 0.03863851756866517,
+    "raw_ic_ir": 0.5649393617467189,
+    "raw_n_dates": 90,
+    "neutral_ic_mean": 0.04515243952474149,
+    "neutral_ic_ir": 0.749353688742473,
+    "neutral_n_dates": 90,
+    "delta_ic_mean": 0.006513921956076321,
+    "ic_retention_pct": 116.85862286124285
+  },
+  "mom_resid_peer_cached_crosscheck": {
+    "label": "mom-resid (cached sub_sector peer_relative-z, upstream build)",
+    "raw_ic_mean": 0.06256430023441505,
+    "raw_ic_ir": 0.5446012845211471,
+    "raw_n_dates": 221
+  },
+  "COMPOSITE_7LEG": {
+    "label": "composite (equal-weight rank-avg, min_legs=5)",
+    "raw_ic_mean": 0.1889984545699352,
+    "raw_ic_ir": 1.3450288630259197,
+    "raw_n_dates": 145,
+    "raw_ann_LS": 3.695972572048369,
+    "neutral_ic_mean": 0.11323376575711633,
+    "neutral_ic_ir": 1.4394182629691228,
+    "neutral_n_dates": 139,
+    "neutral_ann_LS": 1.5318342949307846,
+    "delta_ic_mean": -0.07576468881281886,
+    "ic_retention_pct": 59.912535271666144,
+    "ls_retention_pct": 41.446040658300035
+  }
+}

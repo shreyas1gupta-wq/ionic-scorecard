@@ -1,0 +1,778 @@
+{
+  "_meta": {
+    "purpose": "Pre-registered hypothesis queue for the ALPHA_RANKER model-improvement loop. Each item is registered BEFORE results exist (RESEARCH_PROTOCOL.md \u00a70). Status: queued|running|done. Verdict filled by card. Children spawned by the prioritizer.",
+    "kill_default": "OOS IC_IR < 0.20 OR lag_test_delta > 25% OR PBO > 0.5 OR fails placebo",
+    "priority_scale": "1=highest",
+    "return_basis_default": "residual (market+FF neutralized) unless noted"
+  },
+  "hypotheses": [
+    {
+      "id": "H001",
+      "cat": "technical",
+      "horizon": [
+        "1M",
+        "1Y"
+      ],
+      "name": "65DMA vs 50DMA",
+      "construct": "dist_from_65DMA and 65DMA-slope vs the 50DMA equivalents; also 65>150>200 stack vs 50>150>200",
+      "sign": "+",
+      "kill": "65DMA not >= 50DMA on OOS IC_IR",
+      "priority": 1,
+      "rationale": "Principal: 50DMA overcrowded/manipulated; 65 less-gamed",
+      "status": "done",
+      "verdict": "KILL",
+      "card": "rnd/cards/H001.json"
+    },
+    {
+      "id": "H002",
+      "cat": "technical",
+      "horizon": [
+        "1M",
+        "1Y"
+      ],
+      "name": "MA-period sweep",
+      "construct": "dist & slope for DMA in {20,30,40,50,55,60,65,75,100,120,150,200}; find robust plateau, not a single lucky length",
+      "sign": "+",
+      "kill": "no stable plateau (isolated spike only)",
+      "priority": 2,
+      "rationale": "avoid overfitting one MA length",
+      "status": "done",
+      "verdict": "KILL",
+      "card": "rnd/cards/H002.json"
+    },
+    {
+      "id": "H003",
+      "cat": "momentum",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "12-1 residual momentum",
+      "construct": "12m return skip last 1m, on RESIDUAL return (FF-neutralized)",
+      "sign": "+",
+      "kill": "default",
+      "priority": 1,
+      "status": "queued"
+    },
+    {
+      "id": "H004",
+      "cat": "momentum",
+      "horizon": [
+        "1M",
+        "1Y"
+      ],
+      "name": "vol-scaled momentum",
+      "construct": "trailing return / realized vol (Sharpe-momentum) at 3/6/12m",
+      "sign": "+",
+      "kill": "default",
+      "priority": 2,
+      "status": "queued"
+    },
+    {
+      "id": "H005",
+      "cat": "momentum",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "raw vs residual momentum",
+      "construct": "compare raw 12-1 vs residual 12-1 incremental IR \u2014 is momentum just beta?",
+      "sign": "+",
+      "kill": "residual adds nothing over raw",
+      "priority": 2,
+      "status": "queued"
+    },
+    {
+      "id": "H006",
+      "cat": "technical",
+      "horizon": [
+        "1M"
+      ],
+      "name": "52w-high proximity (O'Neil)",
+      "construct": "close / 252d-high; and new-52w-high flag",
+      "sign": "+",
+      "kill": "default",
+      "priority": 2,
+      "status": "queued"
+    },
+    {
+      "id": "H007",
+      "cat": "technical",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "RS-line new high (O'Neil)",
+      "construct": "stock/NIFTY ratio making new 6m high while price bases",
+      "sign": "+",
+      "kill": "default",
+      "priority": 3,
+      "status": "queued"
+    },
+    {
+      "id": "H008",
+      "cat": "technical",
+      "horizon": [
+        "1M"
+      ],
+      "name": "VCP / volatility contraction (Minervini)",
+      "construct": "declining ATR% + volume dry-up within an uptrend (price>200DMA)",
+      "sign": "+",
+      "kill": "default",
+      "priority": 3,
+      "status": "queued"
+    },
+    {
+      "id": "H009",
+      "cat": "technical",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "Weinstein stage-2",
+      "construct": "price>30wk MA & 30wk MA rising & RS positive \u2192 stage-2 flag",
+      "sign": "+",
+      "kill": "default",
+      "priority": 3,
+      "status": "queued"
+    },
+    {
+      "id": "H010",
+      "cat": "vol",
+      "horizon": [
+        "1Y",
+        "5Y"
+      ],
+      "name": "low-vol anomaly",
+      "construct": "trailing 252d realized vol, inverse; also idiosyncratic vol",
+      "sign": "-",
+      "kill": "default",
+      "priority": 1,
+      "rationale": "low-vol/low-idio-vol historically outperforms risk-adjusted",
+      "status": "queued"
+    },
+    {
+      "id": "H011",
+      "cat": "vol",
+      "horizon": [
+        "1M",
+        "1Y"
+      ],
+      "name": "idiosyncratic vol (residual)",
+      "construct": "std of FF-regression residuals, 63/252d",
+      "sign": "-",
+      "kill": "default",
+      "priority": 2,
+      "status": "queued"
+    },
+    {
+      "id": "H012",
+      "cat": "vol",
+      "horizon": [
+        "1M"
+      ],
+      "name": "downside beta / semideviation",
+      "construct": "beta to down-market days; downside deviation",
+      "sign": "-",
+      "kill": "default",
+      "priority": 3,
+      "status": "queued"
+    },
+    {
+      "id": "H013",
+      "cat": "vol",
+      "horizon": [
+        "1M",
+        "1Y"
+      ],
+      "name": "vol term-structure",
+      "construct": "ratio short-vol(21d)/long-vol(252d) \u2014 vol expansion vs contraction",
+      "sign": "context",
+      "kill": "default",
+      "priority": 3,
+      "status": "queued"
+    },
+    {
+      "id": "H014",
+      "cat": "value",
+      "horizon": [
+        "1Y",
+        "5Y"
+      ],
+      "name": "earnings yield",
+      "construct": "TTM EPS / price (inverse P/E); PIT",
+      "sign": "+",
+      "kill": "default",
+      "priority": 1,
+      "status": "queued"
+    },
+    {
+      "id": "H015",
+      "cat": "value",
+      "horizon": [
+        "1Y",
+        "5Y"
+      ],
+      "name": "FCF yield",
+      "construct": "TTM FCF / EV",
+      "sign": "+",
+      "kill": "default",
+      "priority": 1,
+      "status": "queued"
+    },
+    {
+      "id": "H016",
+      "cat": "value",
+      "horizon": [
+        "5Y"
+      ],
+      "name": "EV/EBITDA vs own history",
+      "construct": "current EV/EBITDA z-score vs own 5y history (cheap vs self)",
+      "sign": "-",
+      "kill": "default",
+      "priority": 2,
+      "status": "queued"
+    },
+    {
+      "id": "H017",
+      "cat": "value",
+      "horizon": [
+        "5Y"
+      ],
+      "name": "reverse-DCF implied growth gap",
+      "construct": "growth implied by price vs analyst/hist growth \u2014 lower implied = cheaper",
+      "sign": "-",
+      "kill": "needs growth+WACC assumptions; sensitivity-test",
+      "priority": 3,
+      "status": "done"
+    },
+    {
+      "id": "H018",
+      "cat": "value",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "Greenblatt magic formula",
+      "construct": "rank(EY) + rank(ROIC), combined",
+      "sign": "+",
+      "kill": "default",
+      "priority": 2,
+      "status": "queued"
+    },
+    {
+      "id": "H019",
+      "cat": "quality",
+      "horizon": [
+        "1Y",
+        "5Y"
+      ],
+      "name": "ROIC level & stability",
+      "construct": "ROIC mean and 1/std over 5y",
+      "sign": "+",
+      "kill": "default",
+      "priority": 1,
+      "status": "queued"
+    },
+    {
+      "id": "H020",
+      "cat": "quality",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "Piotroski F-score",
+      "construct": "9-point fundamental score, PIT",
+      "sign": "+",
+      "kill": "default",
+      "priority": 2,
+      "status": "queued"
+    },
+    {
+      "id": "H021",
+      "cat": "quality",
+      "horizon": [
+        "1Y",
+        "5Y"
+      ],
+      "name": "gross profitability (Novy-Marx)",
+      "construct": "gross profit / total assets",
+      "sign": "+",
+      "kill": "default",
+      "priority": 1,
+      "status": "queued"
+    },
+    {
+      "id": "H022",
+      "cat": "quality",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "accruals (Sloan)",
+      "construct": "(NI - CFO)/assets; high accruals bad",
+      "sign": "-",
+      "kill": "default",
+      "priority": 2,
+      "status": "queued"
+    },
+    {
+      "id": "H023",
+      "cat": "quality",
+      "horizon": [
+        "5Y"
+      ],
+      "name": "earnings stability & margin trend",
+      "construct": "std of EPS growth; OPM 5y slope",
+      "sign": "+",
+      "kill": "default",
+      "priority": 2,
+      "status": "queued"
+    },
+    {
+      "id": "H024",
+      "cat": "growth",
+      "horizon": [
+        "1Y",
+        "5Y"
+      ],
+      "name": "sales/EPS CAGR 3y & 5y",
+      "construct": "PIT CAGR; winsorized",
+      "sign": "+",
+      "kill": "default",
+      "priority": 1,
+      "status": "done",
+      "verdict": "KILL",
+      "card": "rnd/cards/H024_1Y.json"
+    },
+    {
+      "id": "H025",
+      "cat": "growth",
+      "horizon": [
+        "1M",
+        "1Y"
+      ],
+      "name": "growth acceleration",
+      "construct": "latest YoY minus prior YoY (sales & EPS)",
+      "sign": "+",
+      "kill": "default",
+      "priority": 1,
+      "status": "done",
+      "verdict": "KILL",
+      "card": "rnd/cards/H025_1Y.json"
+    },
+    {
+      "id": "H026",
+      "cat": "growth",
+      "horizon": [
+        "1M"
+      ],
+      "name": "earnings surprise / PEAD",
+      "construct": "actual vs own-trend expectation; post-earnings drift window",
+      "sign": "+",
+      "kill": "default",
+      "priority": 1,
+      "status": "done",
+      "verdict": "KILL",
+      "card": "rnd/cards/H026_1M.json"
+    },
+    {
+      "id": "H027",
+      "cat": "growth",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "O'Neil CANSLIM composite",
+      "construct": "C(qtr EPS accel)+A(annual EPS)+N(new high/product)+S(vol/float)+L(RS leader)+I(instituional)+M(mkt regime) proxies",
+      "sign": "+",
+      "kill": "composite adds over parts",
+      "priority": 2,
+      "status": "done",
+      "verdict": "KILL",
+      "card": "rnd/cards/H027_1Y.json"
+    },
+    {
+      "id": "H028",
+      "cat": "size",
+      "horizon": [
+        "1Y",
+        "5Y"
+      ],
+      "name": "size / marketcap tilt",
+      "construct": "log mktcap; small-cap premium conditional on quality",
+      "sign": "-",
+      "kill": "default",
+      "priority": 2,
+      "status": "queued"
+    },
+    {
+      "id": "H029",
+      "cat": "interaction",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "quality x momentum",
+      "construct": "double-sort / product of quality and residual momentum ranks",
+      "sign": "+",
+      "kill": "beats either alone",
+      "priority": 1,
+      "status": "queued"
+    },
+    {
+      "id": "H030",
+      "cat": "interaction",
+      "horizon": [
+        "5Y"
+      ],
+      "name": "value x quality (QARP)",
+      "construct": "cheap AND high-quality intersection",
+      "sign": "+",
+      "kill": "beats either alone",
+      "priority": 1,
+      "status": "queued"
+    },
+    {
+      "id": "H031",
+      "cat": "interaction",
+      "horizon": [
+        "1M",
+        "1Y"
+      ],
+      "name": "factor x regime conditioning",
+      "construct": "factor efficacy split by regime_timeline (bull/bear/vol/leadership) \u2192 regime-conditional weights",
+      "sign": "context",
+      "kill": "regime split not stable OOS",
+      "priority": 1,
+      "status": "queued"
+    },
+    {
+      "id": "H032",
+      "cat": "neutralization",
+      "horizon": [
+        "1M",
+        "1Y",
+        "5Y"
+      ],
+      "name": "raw vs market-excess vs residual scoring",
+      "construct": "re-score current model on each return basis; measure how much of score is closet-beta",
+      "sign": "na",
+      "kill": "na (diagnostic)",
+      "priority": 1,
+      "status": "queued"
+    },
+    {
+      "id": "H033",
+      "cat": "neutralization",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "beta as a standalone factor",
+      "construct": "low-beta long-short after size/value control",
+      "sign": "-",
+      "kill": "default",
+      "priority": 3,
+      "status": "queued"
+    },
+    {
+      "id": "H034",
+      "cat": "technical",
+      "horizon": [
+        "1M"
+      ],
+      "name": "mean-reversion short-term",
+      "construct": "1-5d reversal; RSI2; overbought/oversold extremes (non-monotone)",
+      "sign": "-",
+      "kill": "default",
+      "priority": 2,
+      "status": "queued"
+    },
+    {
+      "id": "H035",
+      "cat": "flow",
+      "horizon": [
+        "1M"
+      ],
+      "name": "delivery% accumulation (when refreshed)",
+      "construct": "delivery% spike on up-days; needs D-033 delivery refresh",
+      "sign": "+",
+      "kill": "data stale \u2192 PARK",
+      "priority": 4,
+      "status": "queued"
+    },
+    {
+      "id": "H036",
+      "cat": "technical",
+      "horizon": [
+        "1M"
+      ],
+      "name": "volume-price divergence",
+      "construct": "OBV slope vs price slope divergence",
+      "sign": "+",
+      "kill": "default",
+      "priority": 3,
+      "status": "queued"
+    },
+    {
+      "id": "H037",
+      "cat": "seasonality",
+      "horizon": [
+        "1M"
+      ],
+      "name": "event/earnings-window drift",
+      "construct": "pre/post results-date abnormal return pattern",
+      "sign": "context",
+      "kill": "default",
+      "priority": 3,
+      "status": "queued"
+    },
+    {
+      "id": "H038",
+      "cat": "quality",
+      "horizon": [
+        "5Y"
+      ],
+      "name": "capital allocation (reinvestment x ROIC)",
+      "construct": "reinvestment rate \u00d7 incremental ROIC (compounding runway)",
+      "sign": "+",
+      "kill": "default",
+      "priority": 2,
+      "status": "queued"
+    },
+    {
+      "id": "H039",
+      "cat": "value",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "shareholder yield",
+      "construct": "(dividends + buybacks)/mktcap",
+      "sign": "+",
+      "kill": "buyback data sparse \u2192 PARK",
+      "priority": 3,
+      "status": "queued"
+    },
+    {
+      "id": "H040",
+      "cat": "forensic",
+      "horizon": [
+        "1Y",
+        "5Y"
+      ],
+      "name": "forensic penalty efficacy",
+      "construct": "does the forensic score predict negative residual return? size/regime-scaled",
+      "sign": "-",
+      "kill": "no predictive power \u2192 recalibrate",
+      "priority": 2,
+      "status": "queued"
+    },
+    {
+      "id": "H041",
+      "cat": "momentum",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "52w-high vs 12-1 horse-race",
+      "construct": "which momentum proxy has higher OOS IR & lower turnover",
+      "sign": "+",
+      "kill": "na (selection)",
+      "priority": 2,
+      "status": "queued"
+    },
+    {
+      "id": "H042",
+      "cat": "technical",
+      "horizon": [
+        "1M"
+      ],
+      "name": "MA slope vs distance",
+      "construct": "is 65DMA SLOPE more robust than DISTANCE-from-MA?",
+      "sign": "+",
+      "kill": "default",
+      "priority": 2,
+      "status": "done",
+      "verdict": "KILL",
+      "card": "rnd/cards/H042.json"
+    },
+    {
+      "id": "H043",
+      "cat": "vol",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "beta-adjusted momentum",
+      "construct": "momentum after removing beta contribution",
+      "sign": "+",
+      "kill": "default",
+      "priority": 3,
+      "status": "queued"
+    },
+    {
+      "id": "H044",
+      "cat": "growth",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "margin expansion",
+      "construct": "OPM/NPM YoY change, PIT",
+      "sign": "+",
+      "kill": "default",
+      "priority": 2,
+      "status": "done",
+      "verdict": "KILL",
+      "card": "rnd/cards/H044_1Y.json"
+    },
+    {
+      "id": "H045",
+      "cat": "quality",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "cash-conversion (CFO/EBITDA)",
+      "construct": "multi-year CFO/EBITDA; low = earnings-quality risk",
+      "sign": "+",
+      "kill": "default",
+      "priority": 2,
+      "status": "queued"
+    },
+    {
+      "id": "H046",
+      "cat": "interaction",
+      "horizon": [
+        "5Y"
+      ],
+      "name": "growth-at-reasonable-price (PEG-like)",
+      "construct": "growth / valuation (EY\u00d7growth)",
+      "sign": "+",
+      "kill": "beats value & growth alone",
+      "priority": 2,
+      "status": "queued"
+    },
+    {
+      "id": "H047",
+      "cat": "technical",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "trend persistence / Hurst",
+      "construct": "trending vs mean-reverting regime per stock",
+      "sign": "context",
+      "kill": "default",
+      "priority": 4,
+      "status": "queued"
+    },
+    {
+      "id": "H048",
+      "cat": "neutralization",
+      "horizon": [
+        "1M",
+        "1Y",
+        "5Y"
+      ],
+      "name": "sector-neutral vs sector-tilted scoring",
+      "construct": "demean factors within sector \u2014 how much score is a sector bet?",
+      "sign": "na",
+      "kill": "na (diagnostic)",
+      "priority": 2,
+      "status": "queued"
+    },
+    {
+      "id": "H049",
+      "cat": "macro",
+      "horizon": [
+        "1M",
+        "1Y"
+      ],
+      "name": "macro/US regime conditioning",
+      "construct": "condition factor weights on US (SPX/DXY/UST) + India macro state",
+      "sign": "context",
+      "kill": "not stable OOS",
+      "priority": 3,
+      "status": "queued"
+    },
+    {
+      "id": "H050",
+      "cat": "ensemble",
+      "horizon": [
+        "1M",
+        "1Y",
+        "5Y"
+      ],
+      "name": "weight-learning vs equal/prior",
+      "construct": "compare prior weights vs ridge/rank-combination learned on TRAIN, tested OOS (DSR-deflated); guard turnover",
+      "sign": "na",
+      "kill": "learned weights don't beat prior OOS after deflation",
+      "priority": 1,
+      "status": "queued"
+    },
+    {
+      "id": "W2SEC-S1",
+      "cat": "sector",
+      "horizon": [
+        "1M",
+        "1Y"
+      ],
+      "name": "sector-momentum tilt (own macro-sector RS as stock factor)",
+      "construct": "own_sector_rs_factor(panel, level='macro_sector', lookback=252, skip=21) = (sector composite mom - NIFTY mom), broadcast to every stock in that sector; closes FRAMEWORK_CATALOG.md's flagged HIGH-PRIORITY GAP #1 (sector-momentum tilt).",
+      "sign": "+",
+      "kill": "default",
+      "priority": 1,
+      "rationale": "KNOWLEDGE_BASE.md #11 / MULTIBAGGER_DNA.md: every era's giant winners cluster in one hot sector.",
+      "status": "done",
+      "cards": [
+        "rnd/cards/W2_sector_S1_secRS_macro_1M.json",
+        "rnd/cards/W2_sector_S1_secRS_macro_1Y.json"
+      ],
+      "verdict_by_card": {
+        "W2_sector_S1_secRS_macro_1M": "KILL (IC_IR 0.155 < 0.2; PBO 1.000 > 0.5)",
+        "W2_sector_S1_secRS_macro_1Y": "KILL (IC_IR 0.181 < 0.2; PBO 0.983 > 0.5)"
+      }
+    },
+    {
+      "id": "W2SEC-S2",
+      "cat": "sector",
+      "horizon": [
+        "1M",
+        "1Y"
+      ],
+      "name": "within-sub-sector residual momentum (peer-relative) vs plain",
+      "construct": "PLAIN=build_mom_resid_12_1(panel) (builders_mom.py H003); PEER=peer_relative(PLAIN, level='sub_sector', method='z') -- z-score demeaned within sub_sector at each date. Tests whether sector-neutralizing residual momentum adds edge over the raw factor.",
+      "sign": "+",
+      "kill": "default",
+      "priority": 1,
+      "rationale": "FRAMEWORK_CATALOG.md #1 'Residual/idiosyncratic momentum' + 'Relative strength vs sector' rows.",
+      "status": "done",
+      "cards": [
+        "rnd/cards/W2_sector_S2_plain_residmom_1M.json",
+        "rnd/cards/W2_sector_S2_plain_residmom_1Y.json",
+        "rnd/cards/W2_sector_S2_peer_residmom_subsector_1M.json",
+        "rnd/cards/W2_sector_S2_peer_residmom_subsector_1Y.json"
+      ],
+      "verdict_by_card": {
+        "W2_sector_S2_plain_residmom_1M": "KILL (PBO 0.983 > 0.5)",
+        "W2_sector_S2_plain_residmom_1Y": "KILL (PBO 0.974 > 0.5)",
+        "W2_sector_S2_peer_residmom_subsector_1M": "KILL (PBO 0.978 > 0.5)",
+        "W2_sector_S2_peer_residmom_subsector_1Y": "KILL (PBO 0.948 > 0.5)"
+      }
+    },
+    {
+      "id": "W2SEC-S3",
+      "cat": "sector",
+      "horizon": [
+        "1M",
+        "1Y"
+      ],
+      "name": "within-sub-sector earnings yield (peer-relative) vs plain",
+      "construct": "PLAIN=build_H014_earnings_yield(panel) (builders_value.py); PEER=peer_relative(PLAIN, level='sub_sector', method='z'). Tests whether sector-relative value beats absolute value cross-sectionally.",
+      "sign": "+",
+      "kill": "default",
+      "priority": 1,
+      "rationale": "FRAMEWORK_CATALOG.md #2 'Valuation vs own history percentile + vs sector peers'.",
+      "status": "done",
+      "cards": [
+        "rnd/cards/W2_sector_S3_plain_earnyield_1M.json",
+        "rnd/cards/W2_sector_S3_plain_earnyield_1Y.json",
+        "rnd/cards/W2_sector_S3_peer_earnyield_subsector_1M.json",
+        "rnd/cards/W2_sector_S3_peer_earnyield_subsector_1Y.json"
+      ],
+      "verdict_by_card": {
+        "W2_sector_S3_plain_earnyield_1M": "KILL (PBO 1.000 > 0.5)",
+        "W2_sector_S3_plain_earnyield_1Y": "KILL (PBO 1.000 > 0.5)",
+        "W2_sector_S3_peer_earnyield_subsector_1M": "KILL (PBO 0.996 > 0.5)",
+        "W2_sector_S3_peer_earnyield_subsector_1Y": "KILL (PBO 1.000 > 0.5)"
+      }
+    }
+  ]
+}

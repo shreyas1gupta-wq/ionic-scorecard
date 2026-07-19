@@ -1,0 +1,18 @@
+{
+  "value_EY": {
+    "n_dates": 154,
+    "ann_total_LS": -0.03438517591637303,
+    "ann_sector_timing": 0.224527806659582,
+    "ann_stock_selection": -0.25891298257595485,
+    "pct_from_sector_timing": -652.9785021476932
+  },
+  "COMPOSITE_7LEG": {
+    "n_dates": 141,
+    "ann_total_LS": 3.0473094057641736,
+    "ann_sector_timing": 1.2580053753525082,
+    "ann_stock_selection": 1.7893040304116656,
+    "pct_from_sector_timing": 41.28249573124782,
+    "cross_check_sector_neutral_composite_ann_LS": 1.5318342949307846,
+    "cross_check_note": "sector_neutral composite's OWN decile-LS should roughly track the stock_selection component here (independent construction, same target) -- reported for triangulation, not identical by construction"
+  }
+}

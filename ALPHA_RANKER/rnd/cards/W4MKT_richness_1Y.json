@@ -1,0 +1,20 @@
+{
+  "factor_id": "W4MKT_richness_1Y",
+  "author": "macro-strategist-cyrus-daruwalla",
+  "test": "market_richness_index_predicts_market_fwd_return_and_crashrisk",
+  "horizon": "1Y",
+  "construction": "richness_index = 100*exp(-0.25*EY_hist_zscore_expanding); EY_hist_zscore_expanding is the ALREADY-VALIDATED market_state.parquet column (W2_market_M1 card, PROMOTE-CANDIDATE). 0.25 is a shape-calibration constant chosen so +-2sigma EY z-scores land near Principal's illustrative 60-70/160+ bands -- NOT fit to forward returns.",
+  "n_obs": 215,
+  "spearman_rho_vs_fwd_return": -0.3000193194716125,
+  "spearman_rho_vs_fwd_vol": -0.3175990539680064,
+  "spearman_rho_vs_fwd_maxdrawdown_from_window_peak": 0.03823407745713863,
+  "spearman_rho_vs_fwd_worst_return_from_entry": 0.012012850433654923,
+  "drop_one_era": {
+    "2008_GFC": {"rho_excl": -0.3825767186581913, "n": 193},
+    "2020_COVID": {"rho_excl": -0.2639269432593796, "n": 203},
+    "2022_SELLOFF": {"rho_excl": -0.2903993963580653, "n": 203}
+  },
+  "robustness": "sign and rough magnitude STABLE under drop-one for all 3 crisis eras (rho stays in -0.26 to -0.38 band; never flips sign, never collapses to ~0).",
+  "honesty_note": "n=215 monthly obs, index-level, inherently low-power per firm low-t rule -- judged on economic logic + drop-one, NOT t/DSR. The return-level relationship is real and stable; the crash-risk-specific claims (worst-return-from-entry, peak-relative drawdown) are WEAK (rho~0 to +0.35, wrong/no sign) -- richness predicts DIRECTION of average forward return well but does NOT clearly flag the SIZE of the worst forward drawdown at 1Y horizon.",
+  "verdict": "PARTIAL SUPPORT -- fwd-return direction robust; crash-magnitude claim not confirmed at 1Y."
+}

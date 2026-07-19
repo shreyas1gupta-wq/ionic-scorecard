@@ -1,0 +1,124 @@
+{
+  "factor_id": "W4MVE_momentum_12_1_raw",
+  "family": "W4MVE",
+  "hypothesis": "Momentum forward edge strong in NEUTRAL valuation zone (richness 65-160), weak/negative in BOTH tails (<65, >=160).",
+  "factor_construction": "p[t-21]/p[t-252]-1, built fresh from cube_close_long.parquet (976 tickers, 2005-04-01->2025-12-05), NOT taken from capstone_legs.parquet (no 'mom_resid_plain' leg exists there -- checked, available legs listed in card note).",
+  "richness_formula": "100*exp(-0.25*EY_hist_zscore_expanding), REUSED from rnd/wave4/w4mkt_regime_test.py (MARKET_REGIME.md) -- not refit.",
+  "zone_definition": {
+    "under": "richness<65",
+    "neutral": "65<=richness<160",
+    "over": "richness>=160"
+  },
+  "zone_n_dates_market_grid": {
+    "under": 7,
+    "neutral": 219,
+    "over": 0,
+    "nan_early_history": 23
+  },
+  "under_zone_dates": [
+    "2008-09",
+    "2008-10",
+    "2008-11",
+    "2008-12",
+    "2009-01",
+    "2009-02",
+    "2009-03"
+  ],
+  "over_zone_dates": [],
+  "caveat_covid_2020": "2020-03 COVID crash richness only dipped to ~97 (still NEUTRAL) -- EY-based valuation gauge did NOT register 2020 as an undervalued extreme (earnings hadn't reprinted yet, V-shaped price recovery within ~2 months). The 'under' zone in this 21yr sample is a SINGLE episode (2008-09 GFC), not two.",
+  "results": {
+    "1M": {
+      "under": {
+        "n_dates_ic": 7,
+        "n_dates_ls": 7,
+        "ic_mean": -0.0415,
+        "ic_ir": -0.159,
+        "ls_ret_mean_period": -0.06866,
+        "ls_ret_ann": -0.8239
+      },
+      "neutral": {
+        "n_dates_ic": 217,
+        "n_dates_ls": 217,
+        "ic_mean": 0.0573,
+        "ic_ir": 0.386,
+        "ls_ret_mean_period": 0.01859,
+        "ls_ret_ann": 0.2231
+      },
+      "over": {
+        "n_dates": 0,
+        "ic_mean": NaN,
+        "ic_ir": NaN,
+        "ls_ret_mean": NaN,
+        "ls_ret_ann": NaN,
+        "n_ls_dates": 0
+      },
+      "ALL": {
+        "n_dates_ic": 224,
+        "n_dates_ls": 224,
+        "ic_mean": 0.0542,
+        "ic_ir": 0.354,
+        "ls_ret_mean_period": 0.01586,
+        "ls_ret_ann": 0.1904
+      }
+    },
+    "1Y": {
+      "under": {
+        "n_dates_ic": 7,
+        "n_dates_ls": 7,
+        "ic_mean": -0.1695,
+        "ic_ir": -1.966,
+        "ls_ret_mean_period": -0.91624,
+        "ls_ret_ann": -0.9162
+      },
+      "neutral": {
+        "n_dates_ic": 206,
+        "n_dates_ls": 206,
+        "ic_mean": 0.1049,
+        "ic_ir": 0.72,
+        "ls_ret_mean_period": 0.16531,
+        "ls_ret_ann": 0.1653
+      },
+      "over": {
+        "n_dates": 0,
+        "ic_mean": NaN,
+        "ic_ir": NaN,
+        "ls_ret_mean": NaN,
+        "ls_ret_ann": NaN,
+        "n_ls_dates": 0
+      },
+      "ALL": {
+        "n_dates_ic": 213,
+        "n_dates_ls": 213,
+        "ic_mean": 0.0959,
+        "ic_ir": 0.63,
+        "ls_ret_mean_period": 0.12976,
+        "ls_ret_ann": 0.1298
+      }
+    }
+  },
+  "robustness_neutral_zone_1M": {
+    "era_split_IC_mean": {
+      "pre_2015": {
+        "ic_mean": 0.065,
+        "n_dates": 87
+      },
+      "post_2015": {
+        "ic_mean": 0.0521,
+        "n_dates": 130
+      }
+    },
+    "note": "IC stable across eras (0.065 -> 0.052), no decay -- genuine, not a single-period artifact.",
+    "placebo_shuffle_target_within_date": {
+      "n_shuffles": 5,
+      "ic_means": [
+        0.0011,
+        0.0018,
+        0.0018,
+        -0.0021,
+        -0.0043
+      ],
+      "note": "placebo IC ~0 (as expected), confirms the 0.057 real-target IC is not a methodology artifact."
+    }
+  },
+  "verdict_note": "under-zone n=7 is 7 CONSECUTIVE overlapping months of ONE crisis episode, not 7 independent trials -- read as n=1 event, directionally consistent with 'momentum crash' but not statistically certified (fails >=30 obs/parameter gate by construction). neutral-zone n=217-224 is genuine repeated-sample evidence, era-stable, placebo-clean."
+}

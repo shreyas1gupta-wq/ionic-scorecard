@@ -1,0 +1,23 @@
+{
+  "factor_id": "W4MAC_buffett_indicator",
+  "family": "market_regime_macro",
+  "author": "macro-strategist-cyrus-daruwalla",
+  "date_tested": "2026-07-17",
+  "description": "India Buffett Indicator (total-market-cap / GDP). OFFICIAL series (FRED DDDM01INA156NWDB, World Bank, annual 2000-2020) D-009 verified (2007=161.2%, 2008=66.0% -- matches the well-known India pre/post-GFC history exactly) but STALE (no post-2020 print). Built a PROXY (our-universe aggregate mktcap from stock_valuation_pit / India nominal GDP in INR, FRED MKTGDPINA646NWDB x USDINR) to extend to present; proxy validated at r=0.965 vs official over the 2005-2020 overlap (16 yrs) -- strong enough to trust the proxy's trend past 2020. LOOKAHEAD FIX applied: an annual reading must only become visible via merge_asof(direction='backward') stamped at that year's actual last observation date -- an earlier draft of this script incorrectly joined by calendar year and let e.g. Jan-2020 see Dec-2020's year-end level; caught and fixed before these numbers were produced.",
+  "data": "FRED DDDM01INA156NWDB + MKTGDPINA646NWDB this session -> Shreyas_Ionic_AMC/05_DATA_OFFICE/data/buffett_indicator_india_official_worldbank.parquet + india_gdp_usd_annual_fred.parquet. Proxy numerator from ALPHA_RANKER/rnd/panel/stock_valuation_pit.parquet aggregate mktcap. Forward targets from EW-cube proxy index.",
+  "buildable": true,
+  "non_null_months": 218,
+  "first_valid_date": "2007-11-30",
+  "current_reading_proxy_pct": {"2024": 138.9, "2025": 135.5},
+  "results": {
+    "corr_fwd_ret_1Y": 0.362, "n_1Y": 205,
+    "corr_fwd_ret_5Y": 0.309, "n_5Y": 156,
+    "corr_fwd_maxdd_1Y": 0.489, "n_maxdd": 205,
+    "era_split": "H1(2007-11..2016-04,n=102)=+0.49 | H2(2016-05..2024-11,n=103)=-0.12 -- SIGN FLIPS",
+    "dropone_bear": {"GFC_2008": 0.124, "COVID_2020": 0.361, "HIKE_2022": 0.387, "note": "sign holds under every single drop, but magnitude nearly halves (0.362->0.124) when GFC alone is removed -- a large chunk of this gauge's edge lives in one crisis"},
+    "dropone_sign_stable": true
+  },
+  "interpretation": "[INFERENCE/OPINION] This is the STRONGEST single crash-risk predictor found in the whole W4-MAC battery (maxdd corr 0.489, more than 5x market_state's plain EY-valuation-band at -0.088) and the strongest 1Y return predictor after era-split-stable candidates are excluded. It passes drop-one-bear (sign never flips) but the magnitude is meaningfully GFC-dependent -- exactly the kind of single-crisis concentration ABSOLUTE_SCORER_SPEC §4.2 warns about needing a leave-one-bear-out gate for. It also fails a simple era-split (strong pre-2016, weak/wrong-signed post-2016) -- 2016-2024 was a period of persistent India market-cap/GDP re-rating (see the by-year proxy series: 71% in 2016 climbing steadily to 139% in 2024) where 'expensive-by-Buffett-standard' did NOT reliably precede weak forward returns, i.e. the market kept re-rating structurally rather than mean-reverting on the old schedule. That is a real, disclosable regime-dependency, not a data bug.",
+  "overall_verdict": "BUILDABLE (both official-historical and live proxy, cross-validated r=0.965). Best-in-class CRASH-RISK signal among everything tested here, genuinely worth a place in the M/s_mkt design as a standalone conditioner -- but ship it with the GFC-concentration and era-split caveats stated explicitly, and do not average it away inside an unweighted ensemble (see W4MAC_ensemble_vs_valband card: blending dilutes this signal's crash-risk power from 0.489 down to 0.257-0.328).",
+  "confidence": "MEDIUM-HIGH on the crash-risk finding (large gauge-vs-baseline gap, structurally sensible mechanism); MEDIUM on the return-prediction claim given the clean era-split failure -- state as directionally-right-but-regime-dependent, not a stable timing rule."
+}

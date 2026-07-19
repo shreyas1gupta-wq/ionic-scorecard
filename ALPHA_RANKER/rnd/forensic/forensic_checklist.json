@@ -1,0 +1,371 @@
+{
+  "_meta": {
+    "purpose": "Forward per-stock CA-grade forensic checklist for ALPHA_RANKER analyst-agent deep-dives (NOT a backtest signal). Builds on 08_FORENSICS_REDFLAGS.md, rnd/FRAMEWORK_CATALOG.md sec 8, rnd/wave4/FORENSIC_METHODS.md.",
+    "owner": "compliance-farhan-qureshi",
+    "severity_tiers": ["HARD-VETO", "HEAVY-PENALTY", "WATCH-FLAG"],
+    "data_screenable_values": {
+      "Y": "computable now from MASTER_fundamentals_pit.parquet fields with no filing read",
+      "PARTIAL": "a coarse level/trend proxy exists on aggregated fields, but confirming the actual mechanism (counterparty identity, ageing, purpose-of-use, auditor opinion) requires a filing read",
+      "N": "BLOCKED or FILING-READ-ONLY -- no numeric proxy possible / requires reading filing text"
+    },
+    "data_source_reference": "ALPHA_RANKER/rnd/wave4/FORENSIC_METHODS.md sec B -- 34 metric_norm values in MASTER_fundamentals_pit.parquet; NO receivables/inventory/payables/current-split/cash/intangibles/goodwill/gross-block line exists; CFO only 749/4613 symbols (16%)",
+    "epistemic_note": "where_to_find fields cite named Indian statutes/standards/regulations from training knowledge (D-035: verify live clause text before using as sole HARD-VETO basis); modus_operandi fields are [INFERENCE]; severity assignments are [OPINION] calibrated to the existing 08_FORENSICS_REDFLAGS.md tiering discipline",
+    "item_count": 32,
+    "counts_by_tier": {"HARD-VETO": 11, "HEAVY-PENALTY": 16, "WATCH-FLAG": 5},
+    "counts_by_screenability": {"Y": 1, "PARTIAL": 5, "N": 26}
+  },
+  "items": [
+    {
+      "id": "RP-01",
+      "category": "Related-Party Abuse",
+      "red_flag": "Related-party sales/purchases at non-arm's-length pricing",
+      "modus_operandi": "Revenue or cost shifted to/from promoter-owned entities at off-market prices to manage reported margins or extract value at the operating-line level.",
+      "where_to_find": "Ind AS 24 related-party note (nature/amount of every RPT category); SEBI LODR Regulation 23 (RPT policy, materiality threshold ~10% of consolidated turnover or Rs 1000cr whichever lower, audit-committee + shareholder approval); Regulation 23(9) half-yearly RPT disclosure to exchanges.",
+      "severity": "HEAVY-PENALTY",
+      "escalation_note": "Escalates toward HARD-VETO (RP-03) if pricing/matched-leg pattern suggests round-tripping.",
+      "data_screenable": "N",
+      "what_to_check": "Read the Ind AS 24 note category-by-category; compare stated RPT pricing basis against market/arm's-length comparables where disclosed; check SEBI LODR Reg 23(9) half-yearly filing for finer transaction-level detail than the AR note."
+    },
+    {
+      "id": "RP-02",
+      "category": "Related-Party Abuse",
+      "red_flag": "Loans/advances/guarantees to related parties -- overdue, interest-free, or non-recoverable",
+      "modus_operandi": "Direct siphoning channel: cash leaves as a 'loan' to a promoter/group entity never genuinely intended for recovery, sometimes relabeled 'ICD' to soften optics.",
+      "where_to_find": "Ind AS 24 related-party note (loans/advances given, terms, balance outstanding); CARO 2020 clause (iii) (auditor must report terms/repayment schedule/overdue amount for loans-advances-guarantees-security to related parties, and opine on prejudice to company interest); Sections 185/186 Companies Act 2013.",
+      "severity": "HARD-VETO",
+      "escalation_note": "HARD-VETO once CARO clause (iii) discloses overdue/non-commercial terms to a related party; commercial-terms-only disclosure without overdue flag is HEAVY-PENALTY (see RP-01).",
+      "data_screenable": "N",
+      "what_to_check": "Read CARO clause (iii) in full; check repayment schedule vs actual balance movement year-on-year; flag any 'no fixed repayment terms' or overdue-amount disclosure."
+    },
+    {
+      "id": "RP-03",
+      "category": "Related-Party Abuse",
+      "red_flag": "Circular transactions / round-tripping to inflate revenue",
+      "modus_operandi": "Sham sales/purchases routed through related/connected entities and back, or cash advanced out returning disguised as revenue from a shell/connected customer -- manufactures revenue growth with no real economic substance.",
+      "where_to_find": "Cross-read of Ind AS 24 RPT note against unusually large sales/other-income growth with non-conversion to cash; CARO clause (viii) (undisclosed income/transactions not recorded); CARO clause (xi) (fraud noticed/reported).",
+      "severity": "HARD-VETO",
+      "escalation_note": "Applies at ANY cap size once credibly established -- not restricted to microcap (existing framework's microcap-only hard-veto is broadened here).",
+      "data_screenable": "PARTIAL",
+      "what_to_check": "Compare CFO/PAT divergence (existing leg) and W4F-02 clean-surplus gap against sales growth; both are consistent-with, not confirmatory-of, round-tripping. Confirmation requires reading the RPT note, matched buy-sell legs with a connected party, or an auditor/forensic finding."
+    },
+    {
+      "id": "RP-04",
+      "category": "Related-Party Abuse",
+      "red_flag": "RPT as % of revenue/PAT -- level and trend",
+      "modus_operandi": "A rising RPT ratio signals a widening extraction channel even without proof of any single abusive transaction.",
+      "where_to_find": "Ind AS 24 note aggregate; SEBI LODR Reg 23(9) half-yearly filing; Board's Report aggregate RPT figure.",
+      "severity": "HEAVY-PENALTY",
+      "escalation_note": "Size-scaled: a given RPT ratio is far more dangerous for a small/microcap than a diversified large-cap with genuine intra-group commercial logic.",
+      "data_screenable": "N",
+      "what_to_check": "Compute RPT-total / revenue and RPT-total / PAT from the AR note across 3-5 years; flag rising trend regardless of absolute level."
+    },
+    {
+      "id": "PT-01",
+      "category": "Promoter Tunneling/Siphoning",
+      "red_flag": "Inter-corporate deposits (ICDs) to group/unrelated entities",
+      "modus_operandi": "Cash parked with a group NBFC/shell/connected party as an 'ICD', often never genuinely returned or perpetually rolled -- the ICD label sometimes chosen specifically to avoid related-party-loan disclosure optics.",
+      "where_to_find": "BS 'Loans'/'Other financial assets' note; Ind AS 24; CARO clauses (iii)/(iv) (Section 185/186 compliance for investments/loans/guarantees to other body corporates beyond prescribed limits).",
+      "severity": "HEAVY-PENALTY",
+      "escalation_note": "Escalates to HARD-VETO tier (RP-02-style) if overdue/unrecoverable.",
+      "data_screenable": "PARTIAL",
+      "what_to_check": "Rising investments/total-assets ratio (computable on 'investments' metric_norm, FULL universe) is a coarse lead only; read the loans/advances note to identify counterparty and recoverability."
+    },
+    {
+      "id": "PT-02",
+      "category": "Promoter Tunneling/Siphoning",
+      "red_flag": "Investments in unrelated/unlisted/shell entities",
+      "modus_operandi": "Diworsification or outright value diversion disguised as 'strategic investment'; unlisted/unquoted holdings are far harder for outside shareholders to verify or value.",
+      "where_to_find": "BS 'Non-current investments' note -- Schedule III requires quoted-vs-unquoted split and aggregate market value of quoted investments.",
+      "severity": "HEAVY-PENALTY",
+      "escalation_note": "Rising unquoted share of the investment book is itself a screenable-from-the-note tell once the filing is read.",
+      "data_screenable": "PARTIAL",
+      "what_to_check": "Read the quoted/unquoted split in the investments note; check entity identity against the Ind AS 24 related-party list; track unquoted-share trend."
+    },
+    {
+      "id": "PT-03",
+      "category": "Promoter Tunneling/Siphoning",
+      "red_flag": "Capex gold-plating / CWIP that never capitalizes",
+      "modus_operandi": "Capex invoiced through a related/connected EPC or equipment vendor at inflated cost; cash leaves as 'capex' while the asset is never commissioned, or is commissioned at a fraction of invoiced cost.",
+      "where_to_find": "Schedule III (2021 amendment) mandatory CWIP ageing schedule (<1yr/1-2yr/2-3yr/>3yr buckets, plus a specific 'completion overdue vs original plan' disclosure) -- the key post-2021 public window into this fraud.",
+      "severity": "HEAVY-PENALTY",
+      "escalation_note": "Escalates to HARD-VETO when the ageing schedule shows multi-year overdue completion combined with a related-party vendor (co-fires with RP-01/PT-01).",
+      "data_screenable": "PARTIAL",
+      "what_to_check": "cwip/total-assets level+trend is already computable (metric_norm 'cwip', FULL universe, feeds existing W4F-01); read the ageing schedule and vendor identity in the AR note for the confirming layer."
+    },
+    {
+      "id": "PT-04",
+      "category": "Promoter Tunneling/Siphoning",
+      "red_flag": "Preferential allotment / warrants to promoters at a discount",
+      "modus_operandi": "Promoters raise stake cheaply, diluting minority holders; warrants used as a near-free option via repeated forfeiture-on-adverse-price-move patterns.",
+      "where_to_find": "SEBI ICDR Regulations Chapter V (pricing formula: higher of 90-trading-day or 10-trading-day average high-low preceding the relevant date; warrants require 25% upfront, balance within 18 months or forfeiture); stock-exchange filing/postal-ballot notice; Board's Report.",
+      "severity": "HEAVY-PENALTY",
+      "escalation_note": "WATCH-FLAG if priced at/above statutory floor with no forfeiture history; escalates with a repeated forfeiture pattern.",
+      "data_screenable": "N",
+      "what_to_check": "Check allotment price vs the ICDR statutory floor at the relevant date; check history of warrant forfeitures across prior cycles for the same promoter group."
+    },
+    {
+      "id": "PT-05",
+      "category": "Promoter Tunneling/Siphoning",
+      "red_flag": "Subsidiary/associate shenanigans",
+      "modus_operandi": "Asset/value transfer between listed parent and unlisted subsidiary/associate at non-market terms -- losses parked downstream, or profitable assets/contracts transferred down into an entity where the promoter holds a larger private stake.",
+      "where_to_find": "Consolidated FS notes (Ind AS 27/28/110/111); SEBI LODR Regulation 24 (material unlisted subsidiary governance -- common independent director, shareholder special-resolution requirement for subsidiary asset disposal >20% of its own assets); CARO commentary on subsidiaries/associates.",
+      "severity": "HEAVY-PENALTY",
+      "escalation_note": "Escalates to HARD-VETO with documented below-fair-value transfer to a promoter-controlled unlisted entity.",
+      "data_screenable": "N",
+      "what_to_check": "Compare standalone vs consolidated financials line-by-line for material divergence; check Reg 24 compliance (independent director on subsidiary board, special-resolution history for major subsidiary asset disposals)."
+    },
+    {
+      "id": "PT-06",
+      "category": "Promoter Tunneling/Siphoning",
+      "red_flag": "Evergreening of loans",
+      "modus_operandi": "A stressed borrower's overdue loan kept 'standard' via a fresh loan (direct, related-lender, or restructuring) whose proceeds repay the old loan, with no genuine improvement in repayment capacity.",
+      "where_to_find": "CARO 2020 clause (ix) (default in repayment of loans/borrowings; whether term-loan proceeds were applied for their stated purpose -- a 'diverted' finding is the direct tell); cross-read against borrowings trend and rating-agency commentary.",
+      "severity": "HARD-VETO",
+      "escalation_note": "HARD-VETO once CARO clause (ix) or an independent rating-agency report confirms evergreening/purpose-diversion.",
+      "data_screenable": "N",
+      "what_to_check": "Read CARO clause (ix) in full including the purpose-of-use sub-finding; cross-check against rating-agency downgrade/watch commentary."
+    },
+    {
+      "id": "FA-01",
+      "category": "Fake Assets/Cash",
+      "red_flag": "Large cash/FD balances earning low/no interest alongside high-cost debt (Satyam pattern)",
+      "modus_operandi": "Fabricated or diverted cash plugs a hole left by siphoned funds or fabricated profits; the tell is reported interest/other income on the cash balance being far too low for the balance shown.",
+      "where_to_find": "BS 'Cash and cash equivalents'/'Bank balances other than cash equivalents' note vs P&L 'Other income' (interest-income sub-line) vs 'Finance costs'; the actual confirming audit step is SA 505 (External Confirmations) -- direct bank confirmation, the exact procedure found deficient in the Satyam case.",
+      "severity": "HARD-VETO",
+      "escalation_note": "HARD-VETO once bank-confirmation mismatch or auditor finding surfaces; the low-yield screening pattern alone (Data col) is HEAVY-PENALTY pre-confirmation, not itself a veto.",
+      "data_screenable": "PARTIAL",
+      "what_to_check": "NEW coarse full-universe proxy (not yet built): other-income yield on investments+cash-containing 'other assets' vs rising 'interest' expense -- flagged to quant-head-arjun-rao as a candidate 7th forensic-lane gate item, not yet tested. Confirming actual fictitiousness requires reading the cash note + auditor's bank-confirmation procedures."
+    },
+    {
+      "id": "FA-02",
+      "category": "Fake Assets/Cash",
+      "red_flag": "Fictitious/unrecoverable receivables (auditor-qualified)",
+      "modus_operandi": "Revenue booked against trade receivables that do not exist or are structurally unrecoverable -- the natural companion to round-tripping (RP-03) and channel-stuffing.",
+      "where_to_find": "BS 'Trade receivables' note -- Schedule III (2021 amendment) mandatory ageing schedule (<6mo/6mo-1yr/1-2yr/2-3yr/>3yr, disputed vs undisputed split); Ind AS 109 ECL provisioning note; confirming step is SA 505 external debtor confirmation.",
+      "severity": "HARD-VETO",
+      "escalation_note": "HARD-VETO specifically when the auditor's report is qualified on receivable existence/recoverability (SA 705 modified opinion); ageing deterioration alone without a qualification is HEAVY-PENALTY.",
+      "data_screenable": "N",
+      "what_to_check": "No receivables metric_norm exists in MASTER_fundamentals_pit at all (BLOCKED). Read the ageing schedule and ECL note directly; check the auditor's report for any qualification specifically on receivables."
+    },
+    {
+      "id": "FA-03",
+      "category": "Fake Assets/Cash",
+      "red_flag": "Unverifiable intangibles/goodwill from acquisitions, never impaired",
+      "modus_operandi": "Overpaying for acquisitions creates goodwill that functions as a receptacle for unexplained value transfer to the seller (often related-party); management avoids the P&L hit of impairment even when the acquired business underperforms.",
+      "where_to_find": "Ind AS 103 (Business Combinations -- goodwill = consideration less fair value of net identifiable assets at acquisition date); Ind AS 36 (mandatory ANNUAL impairment test for goodwill regardless of impairment indicators); BS 'Goodwill'/'Other intangible assets' note + impairment-testing assumptions; CARO clause (i)(e) revaluation disclosure.",
+      "severity": "HEAVY-PENALTY",
+      "escalation_note": "Escalates toward HARD-VETO when goodwill/net-worth is large AND the segment note shows the acquired business destroying value over multiple years with zero impairment booked.",
+      "data_screenable": "N",
+      "what_to_check": "No intangibles/goodwill metric_norm exists in MASTER_fundamentals_pit (BLOCKED). Read the goodwill note, impairment-testing assumptions (discount rate, growth, headroom), and cross-check the acquired segment's disclosed performance."
+    },
+    {
+      "id": "AG-01",
+      "category": "Auditor/Governance",
+      "red_flag": "Auditor resignation mid-term",
+      "modus_operandi": "The auditor sees something they are unwilling to certify and exits rather than sign -- functionally a refusal-to-opine, often worse than a qualification because no specifics get locked into a report.",
+      "where_to_find": "Companies Act 2013 Section 140(2) + Form ADT-3 (reason filed with RoC within 30 days); SEBI LODR Regulation 30 (material event, 2019-circular-mandated DETAILED reason, not generic 'personal reasons').",
+      "severity": "HARD-VETO",
+      "escalation_note": "Read the actual ADT-3/exchange-filed reason text: 'unable to obtain sufficient appropriate audit evidence' or 'non-cooperation of management' is materially worse than 'other professional commitments' and should trigger immediate CIO escalation.",
+      "data_screenable": "N",
+      "what_to_check": "Retrieve the ADT-3 filing or exchange disclosure text verbatim; classify the stated reason; check timing vs any pending results/qualification."
+    },
+    {
+      "id": "AG-02",
+      "category": "Auditor/Governance",
+      "red_flag": "Modified audit opinion (qualified / adverse / disclaimer)",
+      "modus_operandi": "N/A -- direct auditor-issued signal.",
+      "where_to_find": "Auditor's Report 'Basis for Qualified/Adverse Opinion' or 'Basis for Disclaimer of Opinion' paragraph under SA 705, stating the specific line item and, where practicable, rupee quantification.",
+      "severity": "HARD-VETO",
+      "escalation_note": "Do not conflate with an Emphasis of Matter paragraph (SA 706, see AG-02-EOM) -- only a true modified opinion is HARD-VETO.",
+      "data_screenable": "N",
+      "what_to_check": "Read the auditor's opinion paragraph type (unmodified/qualified/adverse/disclaimer) and the specific basis paragraph line-item + amount."
+    },
+    {
+      "id": "AG-03",
+      "category": "Auditor/Governance",
+      "red_flag": "Small/unknown auditor for a large or complex company",
+      "modus_operandi": "Promoters shop for a compliant small/regional firm unlikely to push back, especially right after a large-firm resignation.",
+      "where_to_find": "Auditor's Report signature block (firm name + firm registration number, cross-checkable against ICAI records and NFRA's scrutiny list).",
+      "severity": "HEAVY-PENALTY",
+      "escalation_note": "Escalates toward HARD-VETO when it directly follows a large/Big-4-style auditor's resignation in the same or prior year (co-fires with AG-01).",
+      "data_screenable": "N",
+      "what_to_check": "Check current auditor firm size/reputation vs company scale; check auditor-change history for a large-to-small transition pattern."
+    },
+    {
+      "id": "AG-04",
+      "category": "Auditor/Governance",
+      "red_flag": "Low or anomalous audit fee; non-audit-fee conflict",
+      "modus_operandi": "A fee too low for audit scale/complexity implies a token engagement; a large non-audit fee to the same network alongside a small audit fee creates an independence conflict.",
+      "where_to_find": "Board's Report/AGM notice 'Remuneration to Auditors' note (audit fee + fee for other services to the same network).",
+      "severity": "WATCH-FLAG",
+      "escalation_note": "Escalates to HEAVY-PENALTY if non-audit fee exceeds audit fee to the same network.",
+      "data_screenable": "N",
+      "what_to_check": "Compare audit fee vs peer-group benchmark (as % of revenue or absolute scale); compute non-audit-fee / audit-fee ratio to the same network."
+    },
+    {
+      "id": "AG-05",
+      "category": "Auditor/Governance",
+      "red_flag": "Delayed/postponed quarterly or annual results",
+      "modus_operandi": "Repeated board-meeting deferrals usually signal a management-auditor standoff over a number, or a scramble to complete an internal/forensic/special audit before disclosure.",
+      "where_to_find": "SEBI LODR Regulation 33 (quarterly results due within 45 days of quarter-end, annual within 60 days of year-end) and Regulation 30 disclosure of the delay reason.",
+      "severity": "WATCH-FLAG",
+      "escalation_note": "Escalates to HEAVY-PENALTY (and toward HARD-VETO) with a second consecutive delay or if it coincides with an auditor change.",
+      "data_screenable": "N",
+      "what_to_check": "Track actual results-approval date vs the Reg 33 deadline across quarters; read the stated reason for any delay."
+    },
+    {
+      "id": "AG-06",
+      "category": "Auditor/Governance",
+      "red_flag": "Independent-director and CFO churn",
+      "modus_operandi": "An ID or CFO resigning, especially with a terse 'personal reasons' letter contradicted by market chatter, usually means they refused to sign off on something.",
+      "where_to_find": "Board's Report (directors' changes with stated reasons), Form DIR-12, SEBI LODR Regulation 30 (detailed-reason mandate, same 2019-circular tightening as auditor resignations).",
+      "severity": "HEAVY-PENALTY",
+      "escalation_note": "Escalates with clustering -- 2+ exits within a short window is HARD-VETO-adjacent and should be escalated to CIO immediately.",
+      "data_screenable": "N",
+      "what_to_check": "Count ID/CFO exits per trailing 12 months; read the stated reason in each Reg 30 disclosure; check for clustering around results dates."
+    },
+    {
+      "id": "AG-07",
+      "category": "Auditor/Governance",
+      "red_flag": "Going-concern material uncertainty (SA 570)",
+      "modus_operandi": "N/A -- direct auditor-issued signal, though it typically trails (not leads) actual solvency deterioration.",
+      "where_to_find": "SA 570 (Going Concern) -- dedicated 'Material Uncertainty Related to Going Concern' section in the audit report; Schedule III management's own going-concern assessment note (cross-read for contradiction).",
+      "severity": "HARD-VETO",
+      "escalation_note": "Broader than the existing 'debt-covenant breach with going-concern doubt' rule -- an SA 570 paragraph is HARD-VETO on its own, independent of any specific covenant breach.",
+      "data_screenable": "N",
+      "what_to_check": "Check for the SA 570 paragraph verbatim; compare against management's own going-concern note for any contradiction (auditor flags doubt, management note says none)."
+    },
+    {
+      "id": "AG-08a",
+      "category": "Auditor/Governance",
+      "red_flag": "CARO clause (xi): fraud noticed or reported by the auditor",
+      "modus_operandi": "N/A -- the auditor's own written statement under a specific statutory reporting duty.",
+      "where_to_find": "CARO 2020 clause (xi); Companies Act 2013 Section 143(12) (mandatory fraud reporting above threshold) and Section 447 (punishment for fraud).",
+      "severity": "HARD-VETO",
+      "escalation_note": "More precise and more serious than the generic 'confirmed fraud/SEBI-ED action' bucket -- this comes from the statutory auditor under an explicit reporting duty.",
+      "data_screenable": "N",
+      "what_to_check": "Read CARO clause (xi) verbatim; check whether a Section 143(12) report was filed and to whom (Audit Committee vs Central Government, which signals materiality)."
+    },
+    {
+      "id": "AG-08b",
+      "category": "Auditor/Governance",
+      "red_flag": "CARO clause (ix): default in repayment of borrowings to banks/FIs",
+      "modus_operandi": "N/A -- direct auditor disclosure of an actual repayment default, plus a willful-defaulter and purpose-of-use sub-finding (overlaps PT-06 evergreening).",
+      "where_to_find": "CARO 2020 clause (ix)(a)-(f).",
+      "severity": "HARD-VETO",
+      "escalation_note": "Harder and more public than a mere covenant breach (which can be waived/cured quietly) -- an actual CARO-reported default should HARD-VETO even absent an explicit going-concern paragraph.",
+      "data_screenable": "N",
+      "what_to_check": "Read CARO clause (ix) in full including period/amount of default and the term-loan purpose-of-use sub-finding."
+    },
+    {
+      "id": "AG-08c",
+      "category": "Auditor/Governance",
+      "red_flag": "CARO clauses (vi)/(vii)/(xvii): cost records, statutory-dues arrears, cash losses",
+      "modus_operandi": "Clause (vi) cost records not maintained where mandated; clause (vii) statutory dues (PF/ESI/GST/income-tax) in arrears >6 months, a hard-to-fake cash-stress signal; clause (xvii) cash losses in current and/or preceding FY.",
+      "where_to_find": "CARO 2020 clauses (vi), (vii), (xvii).",
+      "severity": "HEAVY-PENALTY",
+      "escalation_note": "Statutory-dues arrears (vii) is the most reliable genuine distress signal of the three and should be weighted higher within this bucket.",
+      "data_screenable": "N",
+      "what_to_check": "Read each of the three clauses; flag any arrears amount and ageing for clause (vii) specifically."
+    },
+    {
+      "id": "AG-09",
+      "category": "Auditor/Governance",
+      "red_flag": "Promoter pledge level/trend and traceable fund-use",
+      "modus_operandi": "Pledge is a leverage/distress proxy on its own; the more dangerous pattern is pledge-raised funds flowing into an ICD/RPT (co-firing with PT-01/RP-01) -- promoter borrowing against listed shares to fund a related-party siphon elsewhere.",
+      "where_to_find": "SEBI LODR Regulation 31 (promoter/promoter-group shareholding and encumbrance disclosed within 2 working days of creation/invocation/release, plus standing quarterly disclosure).",
+      "severity": "HEAVY-PENALTY",
+      "escalation_note": "Escalates to HARD-VETO-adjacent on pledge INVOCATION (forced sale by lender = confirmed distress, not a proxy) or where use-of-proceeds is traceable to an ICD/RPT.",
+      "data_screenable": "N",
+      "what_to_check": "Track Reg 31 disclosures for level/trend and any invocation event; where possible, cross-read timing of pledge creation against ICD/RPT note movements in the same period."
+    },
+    {
+      "id": "CO-01",
+      "category": "Contingent/Off-Balance-Sheet",
+      "red_flag": "Ballooning contingent liabilities",
+      "modus_operandi": "Real liability exposure kept off the recognized balance sheet by arguing the outflow is only 'possible', not 'probable' (the Ind AS 37 recognition threshold) -- understates true leverage/risk even with full technical compliance.",
+      "where_to_find": "Schedule III-mandated 'Contingent Liabilities and Commitments' note under Ind AS 37, split by category (disputed direct/indirect tax, guarantees given, claims not acknowledged as debts, other commitments).",
+      "severity": "HEAVY-PENALTY",
+      "escalation_note": "Escalates with size vs net worth and with adverse court/tribunal news-flow on the specific disputes named.",
+      "data_screenable": "N",
+      "what_to_check": "No contingent-liability metric_norm exists (BLOCKED). Read the note's trend vs net worth across 3-5 years, not just the single-year level."
+    },
+    {
+      "id": "CO-02",
+      "category": "Contingent/Off-Balance-Sheet",
+      "red_flag": "Promoter/group guarantees given by the company",
+      "modus_operandi": "The listed company's balance sheet guarantees an unlisted/promoter-owned entity's borrowing -- a hidden capital call on minority shareholders if invoked.",
+      "where_to_find": "Same Ind AS 37 contingent-liability note (guarantees given, disclosed separately) + CARO clause (iv) (Section 185/186 compliance for guarantees to related parties beyond prescribed limits).",
+      "severity": "HEAVY-PENALTY",
+      "escalation_note": "Escalates to HARD-VETO tier when guarantee/net-worth is large AND the guaranteed entity is promoter/group-owned and independently known to be financially weak.",
+      "data_screenable": "N",
+      "what_to_check": "Identify the guaranteed entity and its own financial health where disclosed or inferable; size the guarantee against the company's own net worth."
+    },
+    {
+      "id": "CO-03",
+      "category": "Contingent/Off-Balance-Sheet",
+      "red_flag": "Disputed tax demands, especially transfer-pricing-related",
+      "modus_operandi": "Not itself fraud, but a pattern of large repeated disputed demands -- especially transfer-pricing additions touching related-party pricing -- mirrors the same aggressive-positioning mindset as EQ-02 and RP-01.",
+      "where_to_find": "Same Ind AS 37 note, income-tax vs indirect-tax split; Ind AS 12 (deferred tax) note may show a large unrecognized deferred-tax asset/liability tied to the same dispute.",
+      "severity": "WATCH-FLAG",
+      "escalation_note": "Escalates to HEAVY-PENALTY specifically when transfer-pricing-related (ties to RP-01) or when demand size vs net worth is large.",
+      "data_screenable": "N",
+      "what_to_check": "Read the tax-dispute breakdown; flag any transfer-pricing-specific demand and cross-reference against the RPT note for the same counterparties."
+    },
+    {
+      "id": "CO-04",
+      "category": "Contingent/Off-Balance-Sheet",
+      "red_flag": "Off-balance-sheet SPV / consolidation-scope avoidance",
+      "modus_operandi": "An entity the company genuinely CONTROLS (per the Ind AS 110 control test -- power + variable-returns exposure + ability to use power to affect returns, broader than simple >50% ownership) is kept outside consolidation to keep its debt/losses off the group balance sheet.",
+      "where_to_find": "Consolidated FS 'basis of consolidation' note (Ind AS 110/111/28); mandatory Schedule III list of 'entities not consolidated, with reasons'.",
+      "severity": "HARD-VETO",
+      "escalation_note": "HARD-VETO once control is evident from board composition/guarantee exposure/offtake terms but consolidation is avoided on a technical ownership-percentage argument.",
+      "data_screenable": "N",
+      "what_to_check": "Read the non-consolidated-entity list and stated reasons; interrogate the reasons against actual control facts (board seats, guarantee exposure, offtake agreement terms, puttable/convertible instruments)."
+    },
+    {
+      "id": "EQ-01",
+      "category": "Cash-Flow/Earnings-Quality (footnote-level)",
+      "red_flag": "Capitalized interest that should have been expensed",
+      "modus_operandi": "Excessive/aggressive capitalization of borrowing costs into CWIP inflates current-period PAT; a distinct face of the PT-03 siphon story when the underlying capex never converts to a revenue-generating asset.",
+      "where_to_find": "Ind AS 23 (Borrowing Costs) -- interest on borrowings funding a 'qualifying asset' under construction must be capitalized; note discloses quantum capitalized in the year.",
+      "severity": "HEAVY-PENALTY",
+      "escalation_note": "Escalates when capitalized-interest/total-interest ratio is high AND CWIP conversion is stalled (co-fires with PT-03).",
+      "data_screenable": "N",
+      "what_to_check": "No separate capitalized-interest metric_norm exists (BLOCKED) -- the dataset's 'interest' field is presumably net P&L expense. Read the Ind AS 23 note for the capitalized quantum and compute capitalized/(capitalized+expensed) ratio."
+    },
+    {
+      "id": "EQ-02",
+      "category": "Cash-Flow/Earnings-Quality (footnote-level)",
+      "red_flag": "Aggressive revenue recognition (Ind AS 115 judgment areas)",
+      "modus_operandi": "Pulling revenue forward via aggressive percentage-of-completion/over-time recognition estimates (concentrated in EPC/real-estate/long-contract businesses), or switching recognition policy year-on-year without a compelling business reason.",
+      "where_to_find": "Ind AS 115 (5-step model; over-time-vs-point-in-time judgment in 'significant accounting policies'); Ind AS 8 for any disclosed accounting-policy/estimate change.",
+      "severity": "HEAVY-PENALTY",
+      "escalation_note": "Escalates to HARD-VETO if the auditor specifically qualifies revenue recognition (folds into AG-02 in that case, not double-counted).",
+      "data_screenable": "N",
+      "what_to_check": "No unbilled-revenue/contract-asset/percentage-of-completion field exists (BLOCKED beyond the W4F-03 proxy). Read the accounting-policy note for recognition method and any year-on-year change, timed against quarter performance."
+    },
+    {
+      "id": "AG-02-EOM",
+      "category": "Auditor/Governance",
+      "red_flag": "Emphasis of Matter paragraph alone (SA 706), no modified opinion",
+      "modus_operandi": "Auditor draws attention to a disclosed matter (litigation, an adequately-disclosed going-concern note, a subsequent event) without modifying the opinion -- materially lighter than AG-02's true modification.",
+      "where_to_find": "SA 706 (Emphasis of Matter and Other Matter Paragraphs).",
+      "severity": "WATCH-FLAG",
+      "escalation_note": "Escalates only if the same EOM topic repeats 3+ years running or is later followed by an actual modification/going-concern paragraph.",
+      "data_screenable": "N",
+      "what_to_check": "Read the EOM paragraph topic; track whether the same topic recurs across consecutive years' audit reports."
+    },
+    {
+      "id": "EQ-03",
+      "category": "Cash-Flow/Earnings-Quality (footnote-level)",
+      "red_flag": "Other-income dependence (qualitative breakup read)",
+      "modus_operandi": "Propping up a weak operating quarter with one-off gains (asset sales, FX marks, investment write-backs) labeled 'exceptional' each time despite recurring every year.",
+      "where_to_find": "P&L 'Other Income' note breakup (Schedule III requires interest/dividend/profit-on-sale/FX-gain/miscellaneous split).",
+      "severity": "WATCH-FLAG",
+      "escalation_note": "ALREADY-COVERED quantitatively by existing W4-04 leg (OI/PBT level + delta-OI-share) -- this item adds only the qualitative instruction to read the breakup note and explicitly exempt genuine investment/holding companies from a false-positive read.",
+      "data_screenable": "Y",
+      "what_to_check": "Quantitative leg already running on 'other income' + 'profit before tax' (both FULL universe, 49,352 rows). Qualitatively, read the breakup note before trusting the ratio; confirm the company is an operating business, not a genuine treasury/holding entity, before flagging."
+    }
+  ]
+}

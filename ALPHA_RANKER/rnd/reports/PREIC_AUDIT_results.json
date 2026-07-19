@@ -1,0 +1,352 @@
+{
+  "true7_card_summary": {
+    "factor_id": "AUDIT_TRUE7_1Y",
+    "n_trials": 454,
+    "ic_ir": 1.3563036195202887,
+    "ic_mean": 0.19008992358092444,
+    "mono": 0.9999999999999999,
+    "ann_LS": 3.806005708416926,
+    "net_of_cost": 3.78207286476794,
+    "turnover": {
+      "avg_top_decile_turnover": 0.24941471534496326
+    },
+    "dsr": 7.531170209790804e-120,
+    "pbo": 0.9307359307359307,
+    "lag_delta": 0.05874150325577455,
+    "placebo_ic": 0.0027427797442148667,
+    "regime_breakdown": {
+      "regime_trend": {
+        "bear": 0.16539856184214566,
+        "bull": 0.20701765162173802,
+        "sideways": 0.1672299512038231
+      },
+      "regime_vol": {
+        "high": 0.11994887628090307,
+        "low": 0.22085709694430727,
+        "normal": 0.17387487147464514
+      }
+    },
+    "verdict": "KILL (PBO 0.931 > 0.5)"
+  },
+  "perturb_baseline": {
+    "ic_mean": 0.1900899235809244,
+    "ic_ir": 1.3563036195202884,
+    "ann_LS_v1": 3.806005708416926,
+    "mono": 0.9999999999999999,
+    "n_dates": 211,
+    "n_obs": 87237
+  },
+  "perturb_leg_weight_tilts": {
+    "overweight_EY_2x": {
+      "ic_mean": 0.18328391395431703,
+      "ic_ir": 1.9327029548883607,
+      "ann_LS_v1": 3.414665330897142,
+      "mono": 0.9999999999999999,
+      "n_dates": 220,
+      "n_obs": 93651
+    },
+    "overweight_mom_2x": {
+      "ic_mean": 0.18916336762357694,
+      "ic_ir": 1.5192469017445651,
+      "ann_LS_v1": 3.580484582265333,
+      "mono": 0.9999999999999999,
+      "n_dates": 220,
+      "n_obs": 93651
+    },
+    "overweight_quality_block_2x": {
+      "ic_mean": 0.1989758069869297,
+      "ic_ir": 1.571258034648524,
+      "ann_LS_v1": 2.6079379498993576,
+      "mono": 0.9999999999999999,
+      "n_dates": 220,
+      "n_obs": 93651
+    },
+    "overweight_bs_block_2x": {
+      "ic_mean": 0.1705950329314372,
+      "ic_ir": 1.5763778945128102,
+      "ann_LS_v1": 3.6434695711731058,
+      "mono": 0.9999999999999999,
+      "n_dates": 220,
+      "n_obs": 93651
+    },
+    "drop_weakest_leg_bs_issuance": {
+      "ic_mean": 0.19440700600287392,
+      "ic_ir": 1.6474033340948344,
+      "ann_LS_v1": 3.452288849285548,
+      "mono": 0.9999999999999999,
+      "n_dates": 220,
+      "n_obs": 93621
+    }
+  },
+  "perturb_quintile": {
+    "ic_mean": 0.1900899235809244,
+    "ic_ir": 1.3563036195202884,
+    "ann_LS_v1": 2.9305918951376166,
+    "mono": 0.9999999999999999,
+    "n_dates": 211,
+    "n_obs": 87237
+  },
+  "perturb_rebalance_offset": {
+    "offset_-2m": {
+      "ic_mean": 0.2904271992263849,
+      "ic_ir": 2.3014834004280518,
+      "ann_LS_v1": 6.254620612538215,
+      "mono": 0.9999999999999999,
+      "n_dates": 211,
+      "n_obs": 88334
+    },
+    "offset_-1m": {
+      "ic_mean": 0.21979246968733074,
+      "ic_ir": 1.5868347607218296,
+      "ann_LS_v1": 4.539381710836099,
+      "mono": 0.9999999999999999,
+      "n_dates": 211,
+      "n_obs": 87786
+    },
+    "offset_+1m": {
+      "ic_mean": 0.17889081178670319,
+      "ic_ir": 1.2800601863067589,
+      "ann_LS_v1": 3.5929763426559562,
+      "mono": 0.9999999999999999,
+      "n_dates": 210,
+      "n_obs": 86682
+    },
+    "offset_+2m": {
+      "ic_mean": 0.16720196173277227,
+      "ic_ir": 1.2206851128357705,
+      "ann_LS_v1": 3.283873741227584,
+      "mono": 0.9999999999999999,
+      "n_dates": 209,
+      "n_obs": 86118
+    }
+  },
+  "perturb_universe_drop20pct": {
+    "seed_0": {
+      "ic_mean": 0.1675182201450913,
+      "ic_ir": 1.5792009559909308,
+      "ann_LS_v1": 3.278889108700874,
+      "mono": 0.9999999999999999,
+      "n_dates": 211,
+      "n_obs": 70880
+    },
+    "seed_1": {
+      "ic_mean": 0.16575894853032289,
+      "ic_ir": 1.6300441623467483,
+      "ann_LS_v1": 2.9923908986387815,
+      "mono": 0.9999999999999999,
+      "n_dates": 211,
+      "n_obs": 70640
+    },
+    "seed_2": {
+      "ic_mean": 0.16570862633330735,
+      "ic_ir": 1.697934134791843,
+      "ann_LS_v1": 3.2522485390313767,
+      "mono": 0.9999999999999999,
+      "n_dates": 211,
+      "n_obs": 68902
+    },
+    "seed_3": {
+      "ic_mean": 0.17590953538710838,
+      "ic_ir": 1.6266673479683846,
+      "ann_LS_v1": 3.6318565157631273,
+      "mono": 0.9999999999999999,
+      "n_dates": 211,
+      "n_obs": 70792
+    },
+    "seed_4": {
+      "ic_mean": 0.17214996638338975,
+      "ic_ir": 1.7719283902168528,
+      "ann_LS_v1": 3.2848391547502573,
+      "mono": 0.9999999999999999,
+      "n_dates": 211,
+      "n_obs": 69703
+    }
+  },
+  "perturb_universe_drop20pct_ic_ir_range": [
+    1.5792009559909308,
+    1.7719283902168528
+  ],
+  "perturb_drop_each_sector": {
+    "Automobile and Auto Components": {
+      "ic_mean": 0.19229004435640124,
+      "ic_ir": 1.3811249902709044,
+      "n_dates_scored": 145,
+      "n_dates_total": 211,
+      "n_obs": 83005
+    },
+    "Capital Goods": {
+      "ic_mean": 0.19081008749370704,
+      "ic_ir": 1.2790027165292912,
+      "n_dates_scored": 145,
+      "n_dates_total": 211,
+      "n_obs": 79092
+    },
+    "Chemicals": {
+      "ic_mean": 0.17259945734923554,
+      "ic_ir": 1.6921477681133252,
+      "n_dates_scored": 141,
+      "n_dates_total": 211,
+      "n_obs": 82508
+    },
+    "Construction": {
+      "ic_mean": 0.1912006752088353,
+      "ic_ir": 1.3630400496451136,
+      "n_dates_scored": 145,
+      "n_dates_total": 211,
+      "n_obs": 85219
+    },
+    "Construction Materials": {
+      "ic_mean": 0.19257190215541328,
+      "ic_ir": 1.3784765091173303,
+      "n_dates_scored": 145,
+      "n_dates_total": 211,
+      "n_obs": 85396
+    },
+    "Consumer Durables": {
+      "ic_mean": 0.1921572237997393,
+      "ic_ir": 1.3551909247525904,
+      "n_dates_scored": 145,
+      "n_dates_total": 211,
+      "n_obs": 84090
+    },
+    "Consumer Services": {
+      "ic_mean": 0.18965785533756008,
+      "ic_ir": 1.3448730961765722,
+      "n_dates_scored": 145,
+      "n_dates_total": 211,
+      "n_obs": 85206
+    },
+    "Diversified": {
+      "ic_mean": 0.19021402248856806,
+      "ic_ir": 1.35359768550558,
+      "n_dates_scored": 145,
+      "n_dates_total": 211,
+      "n_obs": 86820
+    },
+    "Fast Moving Consumer Goods": {
+      "ic_mean": 0.17482066729242762,
+      "ic_ir": 1.8007625774762615,
+      "n_dates_scored": 141,
+      "n_dates_total": 211,
+      "n_obs": 83081
+    },
+    "Financial Services": {
+      "ic_mean": 0.16495983643575843,
+      "ic_ir": 1.5478526467384706,
+      "n_dates_scored": 141,
+      "n_dates_total": 211,
+      "n_obs": 77411
+    },
+    "Forest Materials": {
+      "ic_mean": 0.19010718522382689,
+      "ic_ir": 1.3545591636637984,
+      "n_dates_scored": 145,
+      "n_dates_total": 211,
+      "n_obs": 87098
+    },
+    "Healthcare": {
+      "ic_mean": 0.18993553191255094,
+      "ic_ir": 1.3357563127255203,
+      "n_dates_scored": 145,
+      "n_dates_total": 211,
+      "n_obs": 81818
+    },
+    "Information Technology": {
+      "ic_mean": 0.19228002149801376,
+      "ic_ir": 1.3597231577505315,
+      "n_dates_scored": 145,
+      "n_dates_total": 211,
+      "n_obs": 84439
+    },
+    "Media Entertainment & Publication": {
+      "ic_mean": 0.18988465609357338,
+      "ic_ir": 1.3537285286143321,
+      "n_dates_scored": 145,
+      "n_dates_total": 211,
+      "n_obs": 86624
+    },
+    "Metals & Mining": {
+      "ic_mean": 0.19176563822880147,
+      "ic_ir": 1.3615804010890702,
+      "n_dates_scored": 145,
+      "n_dates_total": 211,
+      "n_obs": 84847
+    },
+    "Oil Gas & Consumable Fuels": {
+      "ic_mean": 0.19250445789427142,
+      "ic_ir": 1.3800022055261552,
+      "n_dates_scored": 145,
+      "n_dates_total": 211,
+      "n_obs": 85268
+    },
+    "Power": {
+      "ic_mean": 0.18707451057928587,
+      "ic_ir": 1.345923818376742,
+      "n_dates_scored": 145,
+      "n_dates_total": 211,
+      "n_obs": 85047
+    },
+    "Realty": {
+      "ic_mean": 0.19089466075262904,
+      "ic_ir": 1.367516559872449,
+      "n_dates_scored": 145,
+      "n_dates_total": 211,
+      "n_obs": 85584
+    },
+    "Services": {
+      "ic_mean": 0.1931084836260394,
+      "ic_ir": 1.3772240066363068,
+      "n_dates_scored": 145,
+      "n_dates_total": 211,
+      "n_obs": 85366
+    },
+    "Telecommunication": {
+      "ic_mean": 0.1895030686852776,
+      "ic_ir": 1.3694712219413667,
+      "n_dates_scored": 145,
+      "n_dates_total": 211,
+      "n_obs": 85921
+    },
+    "Textiles": {
+      "ic_mean": 0.18889900942643575,
+      "ic_ir": 1.3604103607147902,
+      "n_dates_scored": 145,
+      "n_dates_total": 211,
+      "n_obs": 86011
+    },
+    "Utilities": {
+      "ic_mean": 0.1895887586298774,
+      "ic_ir": 1.3529246509526385,
+      "n_dates_scored": 145,
+      "n_dates_total": 211,
+      "n_obs": 87070
+    }
+  },
+  "era_split_ic": {
+    "2005-10": {
+      "ic_mean": NaN,
+      "ic_ir": NaN,
+      "n_dates": 32
+    },
+    "2010-15": {
+      "ic_mean": 0.3682986638621617,
+      "ic_ir": 1.8235317713552743,
+      "n_dates": 60
+    },
+    "2015-20": {
+      "ic_mean": 0.19034049523507918,
+      "ic_ir": 3.760752283016032,
+      "n_dates": 60
+    },
+    "2020-25": {
+      "ic_mean": 0.11130243974089976,
+      "ic_ir": 1.2421575933912052,
+      "n_dates": 59
+    }
+  },
+  "era_2005_10_coverage_check": {
+    "n_dates_with_any_obs": 32,
+    "max_names_any_date": 5,
+    "dates_with_ge20_names": 0
+  }
+}

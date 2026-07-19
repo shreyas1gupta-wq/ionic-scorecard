@@ -1,0 +1,797 @@
+{
+  "_meta": {
+    "purpose": "Pre-registered hypothesis queue from the Opportunity Scout pass (2026-07-16), distinct from rnd/backlog.json (stock-scoring MA-hypothesis model). These are practical, money-first, event/flow/microstructure edges testable with data already on disk. Status: queued|running|done. Verdict filled by cheap-test card. kill_default applies unless a row overrides it.",
+    "kill_default": "gross edge <= 0 in the stated horizon OR fails same-exit/turnover-matched placebo OR PIT-join reveals lookahead",
+    "priority_scale": "1=highest (matches SCOUT_OPPORTUNITIES.md rank order)",
+    "source": "ALPHA_RANKER/rnd/SCOUT_OPPORTUNITIES.md (top 15 of 25)",
+    "idg_scout_pass": "IDG-I-01..15 appended 2026-07-17 (Dhruv Kapoor scout: technical + Indian-PMS + market-breadth cross-sectional edges, orthogonal to H001-H050 and W2* backlog). Each row carries source citation + incremental-vs-existing-card kill condition."
+  },
+  "hypotheses": [
+    {
+      "id": "W2S-01",
+      "cat": "event-driven",
+      "horizon": [
+        "5d",
+        "20d"
+      ],
+      "name": "PEAD via PIT earnings surprise",
+      "construct": "join datasets/derived/earnings_beat_miss.parquet on available_date; long strong_beat/turnaround minus short miss/deterioration decile, 5-20d hold, liquid bucket only",
+      "sign": "+",
+      "kill": "liquid-bucket top-minus-bottom drift <1.5%/event gross OR edge only in illiquid bucket",
+      "priority": 1,
+      "status": "queued"
+    },
+    {
+      "id": "W2S-02",
+      "cat": "event-driven",
+      "horizon": [
+        "5d",
+        "20d"
+      ],
+      "name": "Turnaround/deterioration flag sharper PEAD cut",
+      "construct": "same join as W2S-01, filter to turnaround==True / deterioration==True only (sign-flip surprises)",
+      "sign": "+",
+      "kill": "default",
+      "priority": 2,
+      "status": "queued"
+    },
+    {
+      "id": "W2S-03",
+      "cat": "flow/positioning",
+      "horizon": [
+        "1q"
+      ],
+      "name": "FII/DII institutional accumulation drift",
+      "construct": "datasets/derived/shareholding_changes.parquet: FIIs_qoq>0 AND DIIs_qoq>0 for 2 consecutive quarters, PIT available_date, hold to next filing",
+      "sign": "+",
+      "kill": "default",
+      "priority": 3,
+      "status": "done",
+      "verdict": "PARK -- coverage 36.1% of full 21yr panel_long dates (90/249), below the 40% gate; DATA-TRUST: shareholding_changes.parquet frozen at available_date<=2023-12-26, staleness-capped join (270d) so no scored dates past 2024-08. Where data exists: 1Y basis=resid hard-gate-clean (lag_test_delta 0.020, placebo_ic 0.003) but IC_IR -0.496 (NEGATIVE, opposite the hypothesized '+' sign) -- i.e. rising FII/DII ownership weakly PREDICTS LOWER fwd 1Y returns in this window, a contrarian pattern, not the accumulation-drift story tested. 1M basis=resid fails lag test badly (delta 3.77, noisy small-IC ratio). PBO 0.91-0.99 both horizons (advisory per this pass, not a kill driver). Net: does not support the hypothesized sign; combined with thin coverage, PARK rather than KILL outright -- worth a clean re-test (with correct sign) only if fresher shareholding data lands.",
+      "card": "rnd/cards/W2S_flow_fii_dii_1M.json, rnd/cards/W2S_flow_fii_dii_1Y.json",
+      "note": "Coverage/run detail: rnd/reports/W2S_flow_run.json. Builder: rnd/lib/builders_w2_flow.py. 1Q horizon not testable -- shared harness only has fwd_ret_{1M,1Y,5Y}; 1M used as the closest available sub-annual proxy, disclosed."
+    },
+    {
+      "id": "W2S-04",
+      "cat": "flow/positioning",
+      "horizon": [
+        "1q",
+        "2q"
+      ],
+      "name": "Promoter buying drift",
+      "construct": "shareholding_changes.parquet Promoters_qoq>0 for 2 consecutive quarters, PIT",
+      "sign": "+",
+      "kill": "default",
+      "priority": 4,
+      "status": "done",
+      "verdict": "PARK -- coverage 36.1% of full 21yr panel_long dates (90/249), below the 40% gate; DATA-TRUST: shareholding_changes.parquet frozen at available_date<=2023-12-26, staleness-capped join (270d) so no scored dates past 2024-08. Where data exists: 1Y basis=resid is the standout of this whole pass -- IC_IR 1.331 (correct '+' sign), monotonicity 0.72, hard-gate-clean (lag_test_delta 0.033, placebo_ic -0.008), n=90 dates/24,881 obs. PBO 0.913 (advisory per this pass, not a kill driver; net_of_cost_ann_return figure not to be quoted -- known flat x12 annualization artifact, ranking only is trustworthy). 1M basis=resid fails the lag-robustness hard gate (delta 0.816, an artifact of dividing by a small/noisy 1M IC_mean) -- do not use at 1M. Net: promoter buying DOES predict higher fwd 1Y returns in the covered window on real hard-gate-clean stats, but thin coverage (<40% gate) means PARK not PROMOTE -- a strong resurrection candidate the moment shareholding_changes.parquet is refreshed past 2023-12.",
+      "card": "rnd/cards/W2S_flow_promoter_1M.json, rnd/cards/W2S_flow_promoter_1Y.json",
+      "note": "Coverage/run detail: rnd/reports/W2S_flow_run.json. Builder: rnd/lib/builders_w2_flow.py. 1Q/2Q horizon not testable -- shared harness only has fwd_ret_{1M,1Y,5Y}; 1M used as closest available sub-annual proxy, disclosed."
+    },
+    {
+      "id": "W2S-05",
+      "cat": "options-flow",
+      "horizon": [
+        "1d",
+        "3d"
+      ],
+      "name": "PCR-OI contrarian mean-reversion (NIFTY)",
+      "construct": "datasets/derived/nifty_oi_daily_summary.parquet pcr_oi trailing-1yr percentile extremes (>90th/<10th) -> next 1-3d NIFTY index return, contrarian sign",
+      "sign": "-",
+      "kill": "extreme-decile edge <5bps/day OR fails random-day-shuffle placebo",
+      "priority": 5,
+      "status": "queued"
+    },
+    {
+      "id": "W2S-06",
+      "cat": "options-flow",
+      "horizon": [
+        "0d",
+        "2d"
+      ],
+      "name": "Max-pain magnet into expiry",
+      "construct": "nifty_oi_daily_summary.parquet max_pain_strike vs same-day spot (index_daily/nifty50.parquet), conditioned on dte<=2 vs dte>5",
+      "sign": "+",
+      "kill": "no measurable pull vs random-walk null in expiry week",
+      "priority": 6,
+      "status": "done",
+      "verdict": "KILL -- near-expiry (dte<=2, n=153) Spearman rho=-0.123 vs shuffle-null empirical p=0.134 (not significant); far (dte>5, n=47) also non-significant (p=0.28). No measurable magnet pull beyond random-walk, exactly the pre-registered kill condition. Coverage caveat: only 248 distinct trade_dates in the 2021-06..2024-07 span (~33% of trading days, patchy source), disclosed not hidden.",
+      "card": "rnd/cards/W2S06_maxpain_magnet.json"
+    },
+    {
+      "id": "W2S-07",
+      "cat": "options-flow",
+      "horizon": [
+        "1d",
+        "3d"
+      ],
+      "name": "OI-buildup classification as momentum confirmation filter",
+      "construct": "nifty_oi_surface.parquet / banknifty_oi_surface.parquet ATM strike oi_change vs close direction -> long-buildup/short-buildup/short-covering/long-unwind class as a FILTER on existing futures-direction signal",
+      "sign": "+",
+      "kill": "filter does not beat unconditional parent signal",
+      "priority": 7,
+      "status": "queued"
+    },
+    {
+      "id": "W2S-08",
+      "cat": "options-flow",
+      "horizon": [
+        "1d",
+        "2d"
+      ],
+      "name": "PCR-vol vs PCR-OI divergence",
+      "construct": "nifty_oi_daily_summary.parquet pcr_vol (fresh flow) vs pcr_oi (stock of positions) spread as a positioning-shift signal",
+      "sign": "+/-",
+      "kill": "default",
+      "priority": 8,
+      "status": "queued"
+    },
+    {
+      "id": "W2S-09",
+      "cat": "options-flow",
+      "horizon": [
+        "2d",
+        "5d"
+      ],
+      "name": "Strike-wall migration as breakout confirmation",
+      "construct": "nifty_oi_daily_summary.parquet max_ce_oi_strike/max_pe_oi_strike day-over-day shift as a FILTER on directional futures breakout (not standalone -- K-postbreakout-orb killed standalone price breakouts)",
+      "sign": "+",
+      "kill": "filter does not beat unconditional breakout parent; standalone use not permitted (see KILLED_IDEAS K-postbreakout-orb)",
+      "priority": 9,
+      "status": "queued"
+    },
+    {
+      "id": "W2S-10",
+      "cat": "options-flow",
+      "horizon": [
+        "1d",
+        "3d"
+      ],
+      "name": "Cross-index PCR divergence (NIFTY vs BANKNIFTY)",
+      "construct": "build BANKNIFTY daily OI summary from banknifty_oi_surface.parquet (same construction as nifty_oi_daily_summary.parquet), compare PCR divergence vs NIFTY",
+      "sign": "+/-",
+      "kill": "default; also kill if BANKNIFTY summary construction reveals <400/~1300 days coverage (per Track-3 GEX one-pager caveat on this same surface file)",
+      "priority": 10,
+      "status": "queued"
+    },
+    {
+      "id": "W2S-11",
+      "cat": "sector-rotation",
+      "horizon": [
+        "1m",
+        "3m"
+      ],
+      "name": "Sector relative-PE + momentum rotation",
+      "construct": "datasets/index_daily/nse_official_all_indices.parquet 40+ sector indices, rank by PE-percentile-vs-own-10yr-history, monthly tilt to bottom-quartile-PE sectors with positive 3M momentum",
+      "sign": "+",
+      "kill": "tilt does not beat equal-weight-sector benchmark net of turnover costs",
+      "priority": 11,
+      "status": "done",
+      "verdict": "KILL -- 15 genuine NSE sector indices w/ clean PE history (2016-01..2026-07, ~127mo; dropped PSU Bank/Media/MNC for >13% PE-null and indices with <1yr history, not the full '40+' since most 'sector-named' indices on disk are thematic/factor/subindex, not clean single-sector). Cross-sectional IC_IR 0.03 (near-zero), lag_test_delta 1.15 (fails hard gate on a noisy small-N=15 IC series). Tilt portfolio net-of-turnover-cost excess vs equal-weight-sector benchmark = -12.0%/yr (turnover ~140%/mo, cost 50bps RT assumed) -- fails the pre-registered kill condition outright.",
+      "card": "rnd/cards/W2S11_sector_relpe_mom_1M.json"
+    },
+    {
+      "id": "W2S-12",
+      "cat": "flow/positioning",
+      "horizon": [
+        "2d",
+        "10d"
+      ],
+      "name": "Passive index-weight-change pressure",
+      "construct": "datasets/nifty50_weights/weights.csv MoM weight-delta per stock, top-decile weight-INCREASE names around effective rebal date",
+      "sign": "+",
+      "kill": "top-decile weight-add drift indistinguishable from matched-control placebo",
+      "priority": 12,
+      "status": "queued"
+    },
+    {
+      "id": "W2S-13",
+      "cat": "event-driven",
+      "horizon": [
+        "1d",
+        "10d"
+      ],
+      "name": "Ex-dividend/bonus record-date drift",
+      "construct": "datasets/derived/corporate_action_factors.parquet ex_date/dividend_amount/adjustment_factor vs close_all.parquet price recovery speed",
+      "sign": "+/-",
+      "kill": "default; thin n=613 -- treat as exploratory only",
+      "priority": 13,
+      "status": "queued"
+    },
+    {
+      "id": "W2S-14",
+      "cat": "microstructure",
+      "horizon": [
+        "5d",
+        "10d"
+      ],
+      "name": "Delivery-% spike accumulation",
+      "construct": "datasets/nse_bhavcopy_daily/delivery_2022_2026.parquet deliv_per z-score >=2 vs 20d trailing mean, co-occurring with up-day + volume spike -> forward drift",
+      "sign": "+",
+      "kill": "default",
+      "priority": 14,
+      "status": "queued"
+    },
+    {
+      "id": "W2S-15",
+      "cat": "microstructure",
+      "horizon": [
+        "5d",
+        "10d"
+      ],
+      "name": "Delivery-% divergence (distribution fade)",
+      "construct": "same file: new price high while deliv_per trend falling (rising volume, shrinking delivery-share) -> fade/avoid signal",
+      "sign": "-",
+      "kill": "default",
+      "priority": 15,
+      "status": "queued"
+    },
+    {
+      "id": "W2SEC-C1",
+      "cat": "sector",
+      "horizon": [
+        "1M",
+        "1Y"
+      ],
+      "name": "sector-neutral residual momentum (sub-sector demean) -- full backtest candidate",
+      "construct": "peer_relative(build_mom_resid_12_1(panel), level='sub_sector', method='z'); W2SEC-S2 harness pass showed peer-relative BEATS plain residual momentum on IC_IR at both 1M (0.348 vs 0.321) and 1Y (0.920 vs 0.720) with lower cost drag, clearing the lag+placebo hard gates both horizons",
+      "sign": "+",
+      "kill": "default plus: must beat plain (non-peer) residual momentum on IC_IR net of a turnover-matched placebo (FRAMEWORK_CATALOG.md anti-overfit lesson #6) at full backtest, else no differentiation from the existing H003 factor",
+      "priority": 1,
+      "rationale": "W2SEC-S2 cards (rnd/cards/W2_sector_S2_*_1M.json, _1Y.json): only cheap-test-tier evaluate() run so far (61 monthly dates, single-factor CSCV PBO~0.95-0.98 -- advisory per this pass brief, not yet DSR/PBO-honest at full trial count). Needs a real Gate-4 backtest + turnover-matched cost check before promotion.",
+      "status": "queued"
+    },
+    {
+      "id": "W2SEC-C2",
+      "cat": "sector",
+      "horizon": [
+        "1M",
+        "1Y"
+      ],
+      "name": "sector-momentum tilt at sub_sector (finer) granularity",
+      "construct": "own_sector_rs_factor(panel, level='sub_sector', lookback=252, skip=21) -- same construct as W2SEC-S1 but at the 62-bucket sub_sector composite level instead of the 21-bucket macro_sector level, to test whether finer sector granularity sharpens the weak macro-level signal (IC_IR only 0.155/1M, 0.181/1Y, both below the 0.20 informal bar though hard gates (lag+placebo) passed)",
+      "sign": "+",
+      "kill": "default; park if IC_IR does not clear macro-level IC_IR by a visible margin",
+      "priority": 2,
+      "rationale": "W2SEC-S1 macro-level sector RS cleared lag+placebo hard gates but showed weak IC_IR both horizons; sub_sector composites (rnd/lib/sector_analytics.py build_sector_composites) are already built and available, this is a one-line level swap.",
+      "status": "queued"
+    },
+    {
+      "id": "W2SEC-C3",
+      "cat": "sector",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "sector-neutral quality-momentum composite (peer-relative residual momentum x plain earnings yield)",
+      "construct": "Combine W2SEC-S2 peer-relative residual momentum (the stronger sector-adjusted signal) with W2SEC-S3 PLAIN earnings yield (which itself beat its own peer-relative version, IC_IR 1.52 vs 1.26 at 1Y) into a two-factor composite score -- directly answers FRAMEWORK_CATALOG.md GAP #2 (quality-momentum composite, HIGH PRIORITY, not yet built) with the sector-aware finding this pass surfaced: neutralize momentum by sector, but do NOT neutralize value by sector.",
+      "sign": "+",
+      "kill": "default; must beat BOTH single-factor parents on IC_IR net of cost",
+      "priority": 1,
+      "rationale": "W2SEC-S2/S3 cards this pass: peer-relative helps momentum, hurts value monotonicity -- asymmetric finding worth a combined test rather than assuming peer-relative treatment is uniform across factor families.",
+      "status": "queued"
+    },
+    {
+      "id": "W2MKT-01",
+      "cat": "market-state",
+      "horizon": [
+        "1Y",
+        "5Y"
+      ],
+      "name": "market cheap-vs-own-history predicts forward MARKET return",
+      "construct": "rnd/lib/market_state.py EY_hist_zscore_expanding (expanding-window z-score of cap-aware median market EY vs its OWN history to t, no full-sample lookahead) vs NIFTY500 forward return; custom time-series test (rnd/lib/test_market_state.py run_m1) since this is a single market-level series not a per-date cross-section -- harness.evaluate() does not apply. Spearman rho=0.300 (1Y, n=215 months), rho=0.253 (5Y, n=167); BOTH pass hard gates: lag_test_delta 0.05-0.05 (<<0.25), placebo_ic 0.009-0.012 (<<0.02).",
+      "sign": "+",
+      "kill": "rho does not hold sign/magnitude on an independent re-check period, or PIT audit of EY_hist_zscore_expanding finds a full-sample stat leaking into the expanding window",
+      "priority": 1,
+      "rationale": "Direct answer to the WAVE-2 market-state brief KEY question (does cheap-market-vs-history predict 5Y). Positive, hard-gate-clean, moderate (rho~0.25-0.30) -- a real market-timing/exposure-overlay signal, not proven tradeable-scale yet (no cost/turnover model exists for a single market-level series; that is the natural next step before promoting to the weight book).",
+      "status": "queued"
+    },
+    {
+      "id": "W2MKT-02",
+      "cat": "market-state",
+      "horizon": [
+        "1M",
+        "1Y"
+      ],
+      "name": "small-cap-tier relative earnings-yield -> small-cap forward returns",
+      "construct": "stock_valuation_pit.parquet EY, PIT cross-sectional percentile cap_tier==\"small\" subset only, evaluated via shared harness.evaluate() (rnd/lib/test_market_state.py run_m2) against panel_long fwd_ret_{1M,1Y}_resid restricted to the same small-cap subset -- the harness IC is already computed ONLY across small-cap names per date, i.e. tier-relative by construction.",
+      "sign": "+",
+      "kill": "money-first verdict_v2 != PROMOTE*/CANDIDATE, or edge disappears once turnover-matched vs the existing full-universe earnings-yield card (H014, IC_IR 1.52 @1Y) -- must show INCREMENTAL value over the whole-universe EY factor, not just restate it on a subset",
+      "priority": 1,
+      "rationale": "Money-first scoreboard (rnd/scoreboard.csv, family W2market_M2): 1M ic_ir=0.311 mono=0.60 verdict_v2=CANDIDATE; 1Y ic_ir=0.631 mono=0.58 hit=0.63 verdict_v2=PROMOTE*. Both hard-gate clean (lag 0.05/0.002, placebo 0.002/0.002). PBO 1.0/0.996 (advisory, structurally saturated on this sample per known harness calibration issue, not a kill under money-first rules).",
+      "status": "queued"
+    },
+    {
+      "id": "W2MKT-03",
+      "cat": "market-state",
+      "horizon": [
+        "5Y"
+      ],
+      "name": "per-stock 5Y composite: tier-relative valuation + market-state overlay",
+      "construct": "per-stock factor = (EY - own cap_tier median that date)/tier_std [cheap vs size-matched peers] + market EY_hist_zscore_expanding [broadcast market-wide cheap-vs-history tilt that date], simple SUM (rank-average discipline, no learned weights per CONSOLIDATION.md), evaluated via harness.evaluate() horizon=5Y basis=raw/resid.",
+      "sign": "+",
+      "kill": "money-first verdict_v2 != PROMOTE*, or the composite does not beat its OWN tier-relative-only leg (i.e. the market-state overlay term is not adding anything -- re-test tier_rel_z alone as a control before trusting the combination)",
+      "priority": 1,
+      "rationale": "Money-first scoreboard: 5Y raw ic_ir=2.342 mono=0.685 hit=0.743 verdict_v2=PROMOTE*; 5Y resid ic_ir=1.974 mono=0.636 hit=0.743 verdict_v2=PROMOTE*. Hard-gate clean (lag<0.01, placebo<0.01). CAVEAT flagged, not hidden: net_LS (2318%/2521%) is a KNOWN harness scaling artifact -- evaluate() annualizes every horizon by a flat x12 (documented in CONSOLIDATION.md HARNESS FIXES #4), nonsensical for a 5Y forward-return series; the IC_IR/monotonicity/hit-rate RANKING is trustworthy, the magnitude is NOT and must not be quoted as a real return. Also un-decomposed vs W2MKT-01/02: needs an ablation (tier_rel_z alone vs market overlay alone vs sum) before IC memo.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-G-01",
+      "cat": "profitability",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "Operating profitability (Novy-Marx / FF RMW proxy)",
+      "construct": "MASTER_fundamentals_pit latest-annual PIT (merge_asof on available_date): operating_profit / total_assets, cross-sectional z per date on panel_long; sector-agnostic (do NOT peer-neutralize per CONSOLIDATION value-lesson). builders_quality.py pattern.",
+      "sign": "+",
+      "kill": "default; ALSO park if IC_IR<0.20 at 1Y OR |corr| to existing earnings-yield card (H014) >0.6 (then it is value in disguise, not orthogonal quality)",
+      "priority": 1,
+      "source_person": "Novy-Marx / Fama-French",
+      "rationale": "Durable: gross/operating profitability premium replicates across 40yr US + 23 intl markets, survives OOS, and is NEGATIVELY correlated with value so it complements our confirmed EY leg rather than duplicating it. Orthogonal to momentum/trend.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-G-02",
+      "cat": "quality-composite",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "QMJ quality-minus-junk composite (AQR)",
+      "construct": "rank-average (NO learned weights, per CONSOLIDATION) of 4 sub-scores from MASTER_fundamentals_pit PIT + panel: profitability=op_profit/total_assets; growth=sign 3y net_profit CAGR; safety=z(-beta_252)+z(-borrowings/op_profit); payout=dividend_payout%. Score = mean of the 4 cross-sectional ranks.",
+      "sign": "+",
+      "kill": "default; must beat its own single strongest leg (IDG-G-01) on IC_IR net of turnover-matched placebo, else the composite adds nothing over plain profitability",
+      "priority": 2,
+      "source_person": "Asness-Frazzini-Pedersen (AQR)",
+      "rationale": "Durable: quality premium documented in 24 countries and 4 asset-decade windows; each leg has independent economic rationale (profits, growth, low risk, shareholder return). Regime-conditional strength in bears matches our regime-map.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-G-03",
+      "cat": "investment-anomaly",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "Asset-growth anomaly (Cooper-Gulen-Schill)",
+      "construct": "MASTER_fundamentals_pit total_assets YoY % change (this-year vs prior-year annual, PIT available_date join), cross-sectional z per date; long low asset-growth, short high.",
+      "sign": "-",
+      "kill": "default; park if IC_IR<0.20 at 1Y or sign flips vs prior-decade split on panel_long 21yr",
+      "priority": 1,
+      "source_person": "Cooper-Gulen-Schill",
+      "rationale": "Durable: over-investment/empire-building predicts LOW future returns; one of the most robust anomalies (survives 1968-2003 OOS + intl). Purely balance-sheet-driven, fully orthogonal to price momentum, trend and earnings yield.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-G-04",
+      "cat": "investment-anomaly",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "Net share issuance (Pontiff-Woodgate / Daniel-Titman)",
+      "construct": "MASTER_fundamentals_pit equity_capital YoY % change as share-count issuance proxy (PIT available_date); cross-sectional z. Long net-repurchasers (shrinking equity_capital), short net-issuers.",
+      "sign": "-",
+      "kill": "default; NOTE equity_capital is face-value share capital not float \u00e2\u20ac\u201d park if the proxy is dominated by bonus/split noise (check |change| distribution before trusting) or IC_IR<0.15",
+      "priority": 1,
+      "source_person": "Pontiff-Woodgate / Daniel-Titman",
+      "rationale": "Durable: firms that issue stock underperform, repurchasers outperform, globally and across decades (managers time issuance against overvaluation). Orthogonal to the confirmed factors; a corporate-action-timing edge.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-G-05",
+      "cat": "earnings-quality",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "Accruals anomaly (Sloan)",
+      "construct": "MASTER_fundamentals_pit: (net_profit - cash_from_operating_activity) / total_assets, latest-annual PIT; cross-sectional z per date. Low/negative accruals = high-quality earnings.",
+      "sign": "-",
+      "kill": "default; park if IC_IR<0.20 at 1Y or edge lives only in illiquid/microcap tier (check cap_tier split)",
+      "priority": 1,
+      "source_person": "Richard Sloan",
+      "rationale": "Durable: cash-based earnings persist, accrual-based earnings mean-revert; investors naively fixate on headline PAT. Robust behavioral mispricing, orthogonal to value/momentum; directly measures earnings quality our EY leg ignores.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-G-06",
+      "cat": "low-risk",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "Betting-against-beta / BAB (Frazzini-Pedersen)",
+      "construct": "panel_long beta_252 cross-sectional rank per date; long-only low-beta tilt (score = -z(beta_252)). Judge as risk-adjusted (Sharpe/DD), not raw CAGR, per CONSOLIDATION regime-overlay lesson #11.",
+      "sign": "-",
+      "kill": "default; judge on Sharpe not CAGR (BAB is a risk-adjusted claim); park if low-beta Sharpe does not exceed high-beta Sharpe net of cost",
+      "priority": 2,
+      "source_person": "Frazzini-Pedersen",
+      "rationale": "Durable: leverage-constrained investors bid up high-beta, so low-beta wins risk-adjusted; documented in 20 markets and multiple asset classes. Distinct from our resurrected total-vol LowVol50 sleeve (beta, not realized vol). Defensive/bear leg.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-G-07",
+      "cat": "low-risk",
+      "horizon": [
+        "1M",
+        "1Y"
+      ],
+      "name": "Idiosyncratic-volatility anomaly (Ang-Hodrick-Xing-Zhang)",
+      "construct": "panel_long idio_vol_252 (residual vol from trailing FF6 regression, already built) cross-sectional z per date; long low idio-vol.",
+      "sign": "-",
+      "kill": "default; ALSO kill if |corr| to the resurrected N500 LowVol50 (total-vol) sleeve >0.7 (then not incrementally orthogonal) OR IC_IR<0.20",
+      "priority": 2,
+      "source_person": "Ang-Hodrick-Xing-Zhang",
+      "rationale": "Durable low-risk anomaly (arbitrage-limits + lottery demand); idio (not total) vol is the sharper form and is built on the residual so it is orthogonal to beta and to total-vol. Regime-conditional bear defense.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-G-08",
+      "cat": "momentum-quality",
+      "horizon": [
+        "1M",
+        "1Y"
+      ],
+      "name": "Frog-in-the-pan / information discreteness (Da-Gutierrez-Warachka)",
+      "construct": "cube_close_long daily returns over the 12-1 formation window: ID = sign(cum_ret) * (%neg_days - %pos_days); path-smoothness overlay ON residual momentum (H003) -- boost momentum names with continuous (low-ID, many small same-sign days) paths, fade discrete (jumpy) ones. Test as a FILTER/interaction, not standalone.",
+      "sign": "+",
+      "kill": "filter must beat the unconditional residual-momentum parent (H003) on IC_IR net of turnover-matched placebo; standalone use not permitted",
+      "priority": 2,
+      "source_person": "Da-Gutierrez-Warachka",
+      "rationale": "Durable: gradual/continuous information diffuses under limited attention and momentum CONTINUES; jumpy discrete moves reverse. A momentum-QUALITY refinement orthogonal to momentum magnitude; behavioral rationale not a curve-fit.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-G-09",
+      "cat": "behavioral",
+      "horizon": [
+        "1M"
+      ],
+      "name": "MAX lottery-demand (Bali-Cakici-Whitelaw)",
+      "construct": "cube_close_long: max single-day return over trailing 21 sessions per name, cross-sectional z per month-end date on panel.",
+      "sign": "-",
+      "kill": "default; park if IC_IR<0.20 at 1M OR edge fully subsumed by idio-vol (IDG-G-07) once both are in the panel (run the pair, keep the incremental one)",
+      "priority": 2,
+      "source_person": "Bali-Cakici-Whitelaw",
+      "rationale": "Durable behavioral: investors overpay for lottery-like extreme-upside stocks which then underperform. Orthogonal to smooth momentum (it is the single extreme day, not the drift). Persistent across markets incl. emerging.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-G-10",
+      "cat": "seasonality",
+      "horizon": [
+        "1M"
+      ],
+      "name": "Cross-sectional return seasonality (Heston-Sadka)",
+      "construct": "panel_long (21yr): for each name, mean historical own-return in the SAME upcoming calendar month across all prior years (expanding, PIT -- only years < t); cross-sectional z per date. e.g. rank names by their historical-January return going into January.",
+      "sign": "+",
+      "kill": "default; STRICT PIT: only prior-year same-month returns (no full-sample mean); park if IC_IR<0.15 or fails one-day-lag/placebo",
+      "priority": 3,
+      "source_person": "Heston-Sadka",
+      "rationale": "Durable: same-calendar-month cross-sectional seasonality persists for 20 years and is orthogonal to size/value/momentum (rooted in seasonal cash-flow/dividend/tax patterns). Only feasible because we have the 21yr panel_long.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-G-11",
+      "cat": "value-quality-composite",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "Greenblatt Magic Formula (EY + return-on-capital)",
+      "construct": "rank-average of (a) earnings yield EY (stock_valuation_pit) and (b) return-on-capital proxy = operating_profit/total_assets (MASTER PIT). [INFERENCE: pure Greenblatt uses EBIT/(net WC + net fixed assets); our annual data lacks clean net-WC so op_profit/total_assets is the codable proxy.]",
+      "sign": "+",
+      "kill": "MUST beat plain earnings-yield (H014, already confirmed) on IC_IR net of cost -- else the ROC leg adds nothing and it is just EY re-labeled",
+      "priority": 2,
+      "source_person": "Joel Greenblatt",
+      "rationale": "Durable: buy cheap (EY) AND good (ROC); the two legs are individually documented and their rank-combine is the canonical Magic Formula. Value leg overlaps our confirmed EY, so the test is specifically whether quality-on-capital is incremental.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-G-12",
+      "cat": "quality-composite",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "Buffett's Alpha (cheap-quality-safe composite)",
+      "construct": "rank-average of: op_profitability (op_profit/total_assets), -beta_252 (safe/BAB), -(borrowings/op_profit) (low leverage), earnings-stability (inverse std of trailing 5y annual net_profit growth, panel_long+MASTER PIT). Simple mean of 4 cross-sectional ranks, no learned weights.",
+      "sign": "+",
+      "kill": "default; must beat QMJ (IDG-G-02) OR add measurable orthogonality vs it (they overlap by design) -- if redundant with IDG-G-02, keep the simpler one",
+      "priority": 3,
+      "source_person": "Frazzini-Kabiller-Pedersen",
+      "rationale": "Durable: the paper decomposes Berkshire's 40yr record into cheap+quality+safe+low-leverage; a first-principles, published, non-fit combination. Regime-conditional bear defense; orthogonal to momentum/trend.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-G-13",
+      "cat": "value-growth-composite",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "Lynch GARP / PEG",
+      "construct": "PE (stock_valuation_pit) divided by trailing 3y net_profit CAGR (MASTER PIT), PIT available_date; cross-sectional rank, low PEG preferred. Guard: drop names with negative/near-zero trailing growth (PEG undefined) rather than impute.",
+      "sign": "-",
+      "kill": "default; must beat plain EY (H014) net of cost AND not merely re-express momentum via the growth term; park if IC_IR<0.20",
+      "priority": 3,
+      "source_person": "Peter Lynch",
+      "rationale": "Durable: growth-adjusted valuation is the convergent rule across 6/10 studied PMS managers (FRAMEWORK_CATALOG value-row) and Lynch's core GARP heuristic; normalizes cheapness by growth rather than static low-PE. Orthogonal-ish to plain EY (adds the growth denominator).",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-G-14",
+      "cat": "earnings-quality",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "Earnings stability / low earnings variability (defensive)",
+      "construct": "MASTER_fundamentals_pit: inverse coefficient-of-variation of trailing 5y annual net_profit (or annual EPS) growth, PIT available_date; cross-sectional z. High stability = high score.",
+      "sign": "+",
+      "kill": "default; expected to be a REGIME leg (stronger in bears) -- judge on 21yr panel_long across bear windows, not bull-only IC; park if no positive IC in any regime split",
+      "priority": 3,
+      "source_person": "Graham / AQR defensive",
+      "rationale": "Durable: predictable-earnings firms command a premium and defend in drawdowns (matches our regime-map: quality wins in bears). Orthogonal to momentum; a quality dimension distinct from profitability LEVEL (this is profitability STABILITY).",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-G-15",
+      "cat": "profitability-trend",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "Profitability improvement (delta-ROA / margin expansion)",
+      "construct": "MASTER_fundamentals_pit YoY change in op_profit/total_assets (or delta opm %), latest two annuals PIT available_date; cross-sectional z. Improving operating profitability = high score.",
+      "sign": "+",
+      "kill": "default; must add incremental IC over the profitability LEVEL factor (IDG-G-01) -- run both, keep the one that survives the pair; park if IC_IR<0.15",
+      "priority": 2,
+      "source_person": "Piotroski / Novy-Marx",
+      "rationale": "Durable: the 2nd-derivative of fundamentals (improving margins/ROA) predicts returns beyond the level (Piotroski F-score core component; Novy-Marx). Behavioral under-reaction to fundamental TREND; orthogonal to price momentum and to level-value.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-I-01",
+      "cat": "quality-growth",
+      "horizon": [
+        "1Y",
+        "5Y"
+      ],
+      "name": "Asset-growth anomaly (Cooper-Gulen-Schill) -- overinvestment penalty",
+      "construct": "YoY change in log(total assets) per stock from data/fundamentals/MASTER_fundamentals_pit.parquet (long-format, metric_norm+available_date, join PIT on available_date) (metric_norm='total assets'); cross-sectional rank, SHORT high-asset-growth / LONG low-asset-growth. NOT in H001-H050 (FRAMEWORK_CATALOG GAP: 'not yet coded'). Sector-neutralize (sector_map) since capex-intensity is sector-structural.",
+      "sign": "-",
+      "source": "Cooper-Gulen-Schill (2008) asset-growth anomaly; FRAMEWORK_CATALOG sec4 [DATA-flagged not-coded]",
+      "kill": "default; also kill if incremental IC_IR over the existing value block (H014 EY, H016 EV/EBITDA) is ~0 net of a turnover-matched placebo (i.e. it is just cheapness re-labelled)",
+      "priority": 1,
+      "rationale": "Named-not-coded academic quality/growth gap; orthogonal to price momentum and to level-valuation; balance-sheet-only so cheap to build. Durable in US/EM; India replication untested here.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-I-02",
+      "cat": "quality",
+      "horizon": [
+        "1Y",
+        "5Y"
+      ],
+      "name": "Andrade capital-efficiency-at-cycle (rising asset-turnover x low asset growth)",
+      "construct": "asset_turnover = sales/total_assets (both data/fundamentals/MASTER_fundamentals_pit.parquet (long-format, metric_norm+available_date, join PIT on available_date)); factor = trailing 2-3y SLOPE of asset_turnover (rising = sweating assets) rank-averaged with LOW total-asset growth (sign of IDG-I-01). LONG improving capital efficiency WITHOUT growing the asset base. Distinct from H038 (reinvestment-rate x ROIC = compounding runway); opposite emphasis (low reinvest, rising turns).",
+      "sign": "+",
+      "source": "Kenneth Andrade (Old Bridge) capital-efficiency-through-the-cycle; FRAMEWORK_CATALOG Kenneth Andrade row [DATA]",
+      "kill": "default; must beat BOTH legs (turnover-slope alone, asset-growth alone) net of cost, else not a real interaction",
+      "priority": 2,
+      "rationale": "Indian-PMS-specific, cycle-aware; orthogonal to momentum/value; a named source not yet operationalised. 5Y tentative (PIT fundamentals thin pre-2012).",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-I-03",
+      "cat": "quality",
+      "horizon": [
+        "1Y",
+        "5Y"
+      ],
+      "name": "ROCE-longevity streak (Motilal QGLP-L / Marcellus 10y filter)",
+      "construct": "Count of CONSECUTIVE fiscal years with ROCE% > 15 (COC proxy) from data/fundamentals/consolidated/ratios.parquet (metric='ROCE %'); rank by streak length. PIT CAVEAT: ratios.parquet keyed by 'period' (annual, no available_date) -- apply a conservative +6-month reporting lag before streak is knowable at t. Distinct from H019 (ROIC level & stddev-stability): a consecutive-year persistence COUNT, a different (nonlinear) construction.",
+      "sign": "+",
+      "source": "Motilal QGLP 'Longevity' + Marcellus 'ROCE>COC for 10 consecutive years' Consistent-Compounders filter; FRAMEWORK_CATALOG Quality rows [DATA]",
+      "kill": "default; must beat H019 incrementally net of cost; park if the +6m lag collapses coverage below ~40% of universe in most years",
+      "priority": 2,
+      "rationale": "The most-convergent Indian-PMS quality construct, tested here as PERSISTENCE not level -- the specific longevity claim; orthogonal to a static ROE cutoff.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-I-04",
+      "cat": "value-behavioral",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "PPFAS under-owned contrarian value (cheap AND low/falling institutional ownership)",
+      "construct": "Interaction: high earnings yield (cheap, as H014) AND low + FALLING combined institutional holding (FIIs+DIIs) from ../datasets/derived/shareholding_changes.parquet (PIT available_date, same source as W2S-03) or consolidated/shareholding.parquet with reporting lag. LONG cheap-and-under-owned (not-yet-crowded value); avoid cheap-and-already-crowded (value trap).",
+      "sign": "+",
+      "source": "Parag Parikh / PPFAS value+behavioral (buy un-loved, avoid crowded); FRAMEWORK_CATALOG PPFAS row [DATA]",
+      "kill": "default; must beat plain EY (H014) incrementally net of cost -- the ownership leg must add, not restate cheapness",
+      "priority": 3,
+      "rationale": "Operationalises the crowding/behavioral leg no card owns; orthogonal value x positioning interaction. Ownership quarterly+lagged (thin), so 1Y-only.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-I-05",
+      "cat": "growth-smallcap",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "Kedia SMILE (small-in-size, scalable) composite -- small-tier only",
+      "construct": "Within SMALL cap_tier (bottom mktcap_log tercile of rnd/panel/panel_long.parquet cross-section each date): rank-average of (a) sales-growth ACCELERATION (2nd derivative +, data/fundamentals/MASTER_fundamentals_pit.parquet (long-format, metric_norm+available_date, join PIT on available_date) 'sales'), (b) LOW net-debt/EBITDA (borrowings vs operating profit), (c) operating-margin EXPANSION (opm % trend). LONG top composite within small-tier only.",
+      "sign": "+",
+      "source": "Vijay Kedia SMILE (Small in size, Medium in experience, Large aspiration, Extra-large market potential); FRAMEWORK_CATALOG Vijay Kedia row [DATA]",
+      "kill": "default; MANDATORY circuit/thin-volume execution-realism overlay (lib/execution_realism) before any verdict -- anti-overfit #9: small-cap net must clear +2.4-4.2pp/yr drag or the edge is a cost illusion. Kill if gross edge does not survive that drag.",
+      "priority": 3,
+      "rationale": "Indian small-cap-multibagger-specific; distinct from W2MKT-02 (small-tier EY value) -- this is small-tier GROWTH-quality. Cost-inversion flagged up-front.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-I-06",
+      "cat": "quality-change",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "Deleveraging momentum (falling net-debt/EBITDA = balance-sheet-repair re-rating)",
+      "construct": "YoY DECLINE in net-debt/EBITDA, net-debt = borrowings - (cash&investments proxy), EBITDA proxy = operating profit, all data/fundamentals/MASTER_fundamentals_pit.parquet (long-format, metric_norm+available_date, join PIT on available_date). Rank by magnitude of improvement (winsorized). A CHANGE/trend factor -- H001-H050 contain NO balance-sheet-leverage factor (level or change).",
+      "sign": "+",
+      "source": "Convergent PMS low-debt aversion (5/10 managers, SYNTHESIS sec1 row4) reframed as a first-difference re-rating signal [DATA]",
+      "kill": "default; kill if it is just distressed-name mean-reversion (control: survive after excluding names with prior net-debt/EBITDA>5x -- repair vs dead-cat)",
+      "priority": 2,
+      "rationale": "Genuine whitespace (no leverage factor tested); change-based so orthogonal to level-quality; a documented Indian re-rating driver.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-I-07",
+      "cat": "quality-forensic",
+      "horizon": [
+        "1Y",
+        "5Y"
+      ],
+      "name": "Cash-flow authenticity: cumulative CFO / cumulative PAT (Mukherjea forensic)",
+      "construct": "Trailing 5y sum(cash from operating activity) / sum(net profit), both data/fundamentals/MASTER_fundamentals_pit.parquet (long-format, metric_norm+available_date, join PIT on available_date); cross-sectional rank, LOW ratio = profits not turning to cash = penalty. Distinct from H045 (CFO/EBITDA single-period) and H022 (accruals, balance-sheet): a multi-year cumulative cash-conversion 'through a full cycle' test.",
+      "sign": "+",
+      "source": "Saurabh Mukherjea forensic accounting-quality (cumulative cash conversion) + Sloan cash-vs-accrual lineage; FRAMEWORK_CATALOG forensic rows [DATA]",
+      "kill": "default; must beat H045 and H022 incrementally net of cost, else redundant with existing cash-quality cards",
+      "priority": 3,
+      "rationale": "Multi-year cumulative construction is a distinct (cycle-robust) forensic lens vs single-period cash cards; orthogonal to price factors.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-I-08",
+      "cat": "technical-momentum",
+      "horizon": [
+        "1M",
+        "1Y"
+      ],
+      "name": "MAX-effect / lottery-demand (Bali-Cakici-Whitelaw) -- overpriced-lottery penalty",
+      "construct": "Max single-day return over trailing 21 sessions per stock from rnd/panel/cube_close_long.parquet (5131 dates x 976 tickers, 2005-2025, close-only); cross-sectional rank, SHORT high-MAX / LONG low-MAX. Price-only. Distinct from H010 (low-vol) and H004 (vol-scaled mom): MAX is a single extreme-day (lottery-preference) measure, not dispersion.",
+      "sign": "-",
+      "source": "Bali, Cakici & Whitelaw (2011) 'Maxing Out'; documented to hold in Indian equities [DATA-published]",
+      "kill": "default; must beat plain low-vol (H010) incrementally net of cost (MAX and idio-vol correlate -- need incremental lottery premium vs turnover-matched placebo)",
+      "priority": 2,
+      "rationale": "Well-published, robust in EM incl. India, cheap price-only build; genuinely new (no H-card); orthogonal refinement of the vol family. Negative sign -- verify with SIGNED IC_IR (harness-fix #3).",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-I-09",
+      "cat": "technical-momentum",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "Frog-in-the-pan / information-discreteness momentum (Da-Gurun-Warachka)",
+      "construct": "12-1 momentum (as H003) WEIGHTED by path-continuity: ID = sign(cum ret) x (%neg-days - %pos-days) over the 12-1 formation window from rnd/panel/cube_close_long.parquet (5131 dates x 976 tickers, 2005-2025, close-only); smooth/continuous momentum (many small same-sign moves, low ID) sustains, jumpy momentum fades. Factor = momentum rank tilted toward low-ID (continuous) names. Refines H003/H004.",
+      "sign": "+",
+      "source": "Da, Gurun & Warachka (2014) 'Frog in the Pan: Continuous Information and Momentum' [DATA-published]",
+      "kill": "default; must beat plain residual momentum (H003) incrementally net of cost (turnover-matched), else the continuity tilt adds nothing",
+      "priority": 2,
+      "rationale": "A published, durable momentum REFINEMENT distinct from vol-scaling; directly relevant to the confirmed durable momentum core (CONSOLIDATION). Price-only, cheap.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-I-10",
+      "cat": "technical-trend",
+      "horizon": [
+        "1M",
+        "1Y"
+      ],
+      "name": "Trend-quality R-squared (price-vs-time linearity / smoothness)",
+      "construct": "R-squared of OLS regression of log(price) on time over trailing 126 sessions from rnd/panel/cube_close_long.parquet (5131 dates x 976 tickers, 2005-2025, close-only); high R2 = clean persistent low-noise trend. Cross-sectional rank. Distinct from H042 (MA slope = direction/magnitude) and H047 (Hurst = persistence of increments): R2 measures goodness-of-linear-fit (smoothness).",
+      "sign": "+",
+      "source": "Trend-quality literature (adjacent to Minervini tight-trend, systematic trend R2 filters) [INFERENCE-construction, concept published]",
+      "kill": "default; must beat H042 (slope) AND H047 (Hurst) incrementally net of cost, else a re-labelled trend measure",
+      "priority": 3,
+      "rationale": "Closest kin to tested trend cards (lower priority), but the smoothness dimension is untested and pairs with the confirmed MA-slope core. Include only if it clears the incremental bar.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-I-11",
+      "cat": "market-indicator-breadth",
+      "horizon": [
+        "overlay-1M"
+      ],
+      "name": "Breadth (%-universe>200DMA) as continuous momentum-exposure scalar",
+      "construct": "Per date, %-of-universe with close>200DMA from rnd/panel/cube_close_long.parquet (5131 dates x 976 tickers, 2005-2025, close-only) ('panel breadth'). Use as a CONTINUOUS (magnitude-preserving) scalar on momentum-leg exposure: high breadth -> full momentum weight; deteriorating breadth -> scale down. Judge on Sharpe/DD of the momentum sleeve, NOT raw CAGR (lesson #11 / K-015: overlays are risk tools).",
+      "sign": "+",
+      "source": "Classic market-breadth regime indicator (% above 200DMA); FRAMEWORK_CATALOG sec6 regime-gate [DATA]",
+      "kill": "MUST beat the STATIC full-weight momentum parent on Sharpe/maxDD, pre-registered (K-015: a discrete regime switch LOST to holding momentum by 4.8pp/yr). Kill if it only cuts vol without improving risk-adjusted return.",
+      "priority": 2,
+      "rationale": "Operationalises the confirmed regime map via a breadth indicator (not trailing-VIX, which K-015 flagged non-predictive); continuous form addresses the wave-3 gap. Overlay, not a stock factor.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-I-12",
+      "cat": "market-indicator-breadth",
+      "horizon": [
+        "overlay-1M",
+        "overlay-1Y"
+      ],
+      "name": "Breadth divergence de-risk (index new-high while breadth falling)",
+      "construct": "Signal fires when broad index is at/near a trailing high WHILE %-universe>200DMA (and %>50DMA) is falling vs its own 3M trend -- computed from rnd/panel/cube_close_long.parquet (5131 dates x 976 tickers, 2005-2025, close-only). Time-series signal predicting forward MARKET return/drawdown; test as an exposure-reduction overlay. Distinct from W2MKT-01 (valuation-based): this is breadth-based.",
+      "sign": "-",
+      "source": "Advance-decline / breadth-divergence (Hindenburg-omen family) market-top indicator [DATA-published concept]",
+      "kill": "signal does not separate forward 1-3M market drawdowns from a random-date null (bootstrap), OR fires too rarely (<~8 episodes in 21y) to be meaningful",
+      "priority": 3,
+      "rationale": "A genuine market-top de-risk indicator absent from the queue; low-frequency so framed as a tail/drawdown overlay, not a return-enhancer.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-I-13",
+      "cat": "market-indicator",
+      "horizon": [
+        "overlay-1M"
+      ],
+      "name": "Cross-sectional return-dispersion as factor-timing scalar",
+      "construct": "Per date, cross-sectional stdev of trailing 21d stock returns from rnd/panel/cube_close_long.parquet (5131 dates x 976 tickers, 2005-2025, close-only) = dispersion. Hypothesis: when dispersion is high, cross-sectional factor payoffs (momentum/value IC) are larger next period -> use dispersion percentile to scale factor exposure. Test: regress next-period realised factor IC (H003 momentum, H014 EY) on dispersion percentile.",
+      "sign": "+",
+      "source": "Factor-timing-via-dispersion / opportunity-set literature (dispersion predicts cross-sectional payoff) [INFERENCE-concept published, India untested]",
+      "kill": "dispersion has ~0 (or wrong-sign) predictive relationship to next-period factor IC; OR timed exposure fails to beat static-exposure on Sharpe net of the extra turnover it induces (turnover-matched, lesson #6)",
+      "priority": 3,
+      "rationale": "A market-indicator that conditions the CROSS-SECTION (not single-series timing) -- the most on-mandate framing; orthogonal to breadth (dispersion != direction). Judge as a risk/efficiency overlay.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-I-14",
+      "cat": "market-indicator-breadth",
+      "horizon": [
+        "overlay-1M",
+        "overlay-1Y"
+      ],
+      "name": "New-highs-minus-new-lows breadth ratio as market-state regime",
+      "construct": "Per date, (%-universe at 52w-high) - (%-universe at 52w-low) from rnd/panel/cube_close_long.parquet (5131 dates x 976 tickers, 2005-2025, close-only); use as a market-state regime series predicting forward broad-index return and as a gate on aggregate momentum exposure. Distinct from IDG-I-11 (MA-based level) and IDG-I-12 (divergence): a highs-vs-lows breadth-momentum construct.",
+      "sign": "+",
+      "source": "New-highs/new-lows breadth indicator (Zweig / classic market-breadth) [DATA-published]",
+      "kill": "NH-NL series has no sign-stable relationship to forward market return on an independent sub-period; OR adds nothing over IDG-I-11 (simpler)",
+      "priority": 3,
+      "rationale": "Explicitly on the brief's market-indicator list; cheap from the same cube. Lower priority as it likely correlates with the %-above-200DMA level -- kept as a distinct construction to race against it.",
+      "status": "queued"
+    },
+    {
+      "id": "IDG-I-15",
+      "cat": "sector-breadth",
+      "horizon": [
+        "1M",
+        "3M"
+      ],
+      "name": "Sector-breadth rotation (tilt to sectors with fastest-rising internal breadth)",
+      "construct": "Per date per sector (sector_map), %-of-sector-members with close>200DMA from rnd/panel/cube_close_long.parquet (5131 dates x 976 tickers, 2005-2025, close-only); factor = 1M CHANGE in that intra-sector breadth; tilt cross-section toward stocks in sectors whose internal participation is broadening fastest. Distinct from W2S-11 (sector relative-PE) and W2SEC-S1/C2 (sector PRICE momentum): uses intra-sector PARTICIPATION breadth, not index price or valuation.",
+      "sign": "+",
+      "source": "Sector-breadth rotation (breadth-based sector leadership); brief 'sector breadth' market-indicator [DATA-published concept]",
+      "kill": "default; must beat both an equal-weight-sector benchmark AND the existing sector price-momentum tilt (W2SEC-S1) net of turnover cost, else no incremental value over price-momentum sector rotation",
+      "priority": 3,
+      "rationale": "A third, orthogonal sector-rotation input (participation vs price vs valuation); catches early rotation before price momentum confirms. Same cube + sector_map, cheap.",
+      "status": "done",
+      "verdict": "KILL -- built via cube_close_long (200DMA breadth per panel_long's own 22-sector column) + evaluated through harness.evaluate() at 1M/1Y (basis=resid). Both horizons fail the hard gates: 1M IC_IR 0.190 (< 0.20) AND lag_test_delta 0.921 (>>0.25); 1Y IC_IR 0.152 AND lag_test_delta 0.348 (>0.25). Placebo clean both horizons (0.0004/0.003) so it is not raw lookahead, but the factor is unstable to a 1-rebalance shift -- does not clear the pre-registered gate, no need to even reach the vs-W2SEC-S1 incremental test.",
+      "card": "rnd/cards/IDG_I_15_sectorbreadth_1M.json, rnd/cards/IDG_I_15_sectorbreadth_1Y.json"
+    },
+    {
+      "id": "W2S-MACRO-01",
+      "cat": "macro-regime",
+      "horizon": [
+        "1Y"
+      ],
+      "name": "India VIX regime (expanding-tercile) conditions forward NIFTY 500 1Y return",
+      "construct": "rnd/lib/macro_state.py risk_regime (India VIX expanding-window tercile band, causal) vs fwd_ret_nifty500_1Y (market-level, not cross-sectional); see rnd/lib/analyze_macro_regime.py",
+      "sign": "+ (high-VIX bucket forward-outperforms; contrarian/mean-reversion pattern)",
+      "kill": "default; PBO not computed (single macro series, advisory-skip disclosed) -- treat as regime-conditioning input to market exposure/sizing, NOT a standalone tradeable factor",
+      "priority": 2,
+      "status": "done",
+      "verdict": "PARK -- passes lag-robustness (delta 0.004) and placebo-shuffle gates (p=0.005, spread 16.4pp: high-VIX bucket fwd 1Y +20.8% vs mid +4.4%, n=103 month-obs 2016-2026) on real disk data (india_vix.parquet). Bucket pattern is high>low>mid (not monotonic across the tercile), economically consistent with vol-spike mean-reversion but small-n and single time series -- do not size off this alone.",
+      "card": "rnd/cards/W2_macro_risk_regime_1Y.json",
+      "note": "Companion tests KILLed on hard gates: rate_regime (US10Y trailing-3M direction) at 1M/1Y and inr_regime (USDINR trailing-3M direction) at 1M/1Y all fail lag-robustness or placebo gates -- cards W2_macro_rate_regime_1M/1Y.json, W2_macro_inr_regime_1M/1Y.json, W2_macro_risk_regime_1M.json. India 10Y G-sec / Brent / DXY / India CPI all PARKED -- not found on disk, stooq/FRED blocked this session (JS proof-of-work challenge verified 2026-07-17)."
+    }
+  ]
+}

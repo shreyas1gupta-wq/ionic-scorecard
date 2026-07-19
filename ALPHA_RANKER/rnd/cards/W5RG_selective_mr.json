@@ -1,0 +1,202 @@
+{
+  "rev5d": {
+    "unconditional": {
+      "n_months": 235,
+      "ic_mean": 0.027000310557572012,
+      "ic_std": 0.11102734344500718,
+      "ic_ir": 0.2431861352329438,
+      "ic_hit_rate_pos": 0.6,
+      "ls_mean_monthly": 0.007290435664534405,
+      "ls_ann_approx": 0.0910798204191714,
+      "ls_hit_rate_pos": 0.5702127659574469
+    },
+    "oversold_extreme_only": {
+      "n_months": 42,
+      "ic_mean": 0.0786758580494226,
+      "ic_std": 0.12864541905139862,
+      "ic_ir": 0.6115713923555155,
+      "ic_hit_rate_pos": 0.8333333333333334,
+      "ls_mean_monthly": 0.03721211702136623,
+      "ls_ann_approx": 0.5502829839958114,
+      "ls_hit_rate_pos": 0.7857142857142857
+    },
+    "oversold_drop_one_episodes": {
+      "episode_0_excl_2007-03-30_2007-03-30": {
+        "n_months_excluded": 1,
+        "ic_mean_excl": 0.07662642194473118,
+        "n_months_remaining": 41
+      },
+      "episode_1_excl_2008-01-31_2009-03-31": {
+        "n_months_excluded": 15,
+        "ic_mean_excl": 0.1082155552794548,
+        "n_months_remaining": 27
+      },
+      "episode_2_excl_2011-02-28_2011-02-28": {
+        "n_months_excluded": 1,
+        "ic_mean_excl": 0.07586242555512238,
+        "n_months_remaining": 41
+      },
+      "episode_3_excl_2011-11-30_2011-12-30": {
+        "n_months_excluded": 2,
+        "ic_mean_excl": 0.07238340731589979,
+        "n_months_remaining": 40
+      },
+      "episode_4_excl_2013-03-28_2013-03-28": {
+        "n_months_excluded": 1,
+        "ic_mean_excl": 0.07224260857647694,
+        "n_months_remaining": 41
+      },
+      "episode_5_excl_2013-06-28_2013-08-30": {
+        "n_months_excluded": 3,
+        "ic_mean_excl": 0.07936060257333978,
+        "n_months_remaining": 39
+      },
+      "episode_6_excl_2016-02-29_2016-02-29": {
+        "n_months_excluded": 1,
+        "ic_mean_excl": 0.07454335059587999,
+        "n_months_remaining": 41
+      },
+      "episode_7_excl_2018-06-29_2019-02-28": {
+        "n_months_excluded": 7,
+        "ic_mean_excl": 0.07735901082498435,
+        "n_months_remaining": 35
+      },
+      "episode_8_excl_2019-07-31_2019-08-30": {
+        "n_months_excluded": 2,
+        "ic_mean_excl": 0.08367314597617728,
+        "n_months_remaining": 40
+      },
+      "episode_9_excl_2020-03-31_2020-05-29": {
+        "n_months_excluded": 3,
+        "ic_mean_excl": 0.07668011911400252,
+        "n_months_remaining": 39
+      },
+      "episode_10_excl_2022-05-31_2022-06-30": {
+        "n_months_excluded": 2,
+        "ic_mean_excl": 0.08014973149363905,
+        "n_months_remaining": 40
+      },
+      "episode_11_excl_2025-01-31_2025-04-30": {
+        "n_months_excluded": 4,
+        "ic_mean_excl": 0.07670406412152334,
+        "n_months_remaining": 38
+      },
+      "_episodes_found": [
+        "2007-03-30..2007-03-30 (1mo)",
+        "2008-01-31..2009-03-31 (15mo)",
+        "2011-02-28..2011-02-28 (1mo)",
+        "2011-11-30..2011-12-30 (2mo)",
+        "2013-03-28..2013-03-28 (1mo)",
+        "2013-06-28..2013-08-30 (3mo)",
+        "2016-02-29..2016-02-29 (1mo)",
+        "2018-06-29..2019-02-28 (7mo)",
+        "2019-07-31..2019-08-30 (2mo)",
+        "2020-03-31..2020-05-29 (3mo)",
+        "2022-05-31..2022-06-30 (2mo)",
+        "2025-01-31..2025-04-30 (4mo)"
+      ]
+    },
+    "oversold_placebo_ic_mean": 0.0011085297761679682,
+    "oversold_lag_test_ic_mean": -0.004682376138258944
+  },
+  "rsi2_factor": {
+    "unconditional": {
+      "n_months": 230,
+      "ic_mean": 0.02529503864848043,
+      "ic_std": 0.08136855462500844,
+      "ic_ir": 0.31086995172833093,
+      "ic_hit_rate_pos": 0.6217391304347826,
+      "ls_mean_monthly": 0.010571366231445624,
+      "ls_ann_approx": 0.13449833823516677,
+      "ls_hit_rate_pos": 0.6212765957446809
+    },
+    "oversold_extreme_only": {
+      "n_months": 42,
+      "ic_mean": 0.05008902732419893,
+      "ic_std": 0.08047197952555407,
+      "ic_ir": 0.6224406013063596,
+      "ic_hit_rate_pos": 0.6666666666666666,
+      "ls_mean_monthly": 0.022837858915379868,
+      "ls_ann_approx": 0.3112380204191225,
+      "ls_hit_rate_pos": 0.6666666666666666
+    },
+    "oversold_drop_one_episodes": {
+      "episode_0_excl_2007-03-30_2007-03-30": {
+        "n_months_excluded": 1,
+        "ic_mean_excl": 0.05162939707926457,
+        "n_months_remaining": 41
+      },
+      "episode_1_excl_2008-01-31_2009-03-31": {
+        "n_months_excluded": 15,
+        "ic_mean_excl": 0.04826622694872733,
+        "n_months_remaining": 27
+      },
+      "episode_2_excl_2011-02-28_2011-02-28": {
+        "n_months_excluded": 1,
+        "ic_mean_excl": 0.05125164587090793,
+        "n_months_remaining": 41
+      },
+      "episode_3_excl_2011-11-30_2011-12-30": {
+        "n_months_excluded": 2,
+        "ic_mean_excl": 0.052325875552610576,
+        "n_months_remaining": 40
+      },
+      "episode_4_excl_2013-03-28_2013-03-28": {
+        "n_months_excluded": 1,
+        "ic_mean_excl": 0.05019195955717135,
+        "n_months_remaining": 41
+      },
+      "episode_5_excl_2013-06-28_2013-08-30": {
+        "n_months_excluded": 3,
+        "ic_mean_excl": 0.04950668878386909,
+        "n_months_remaining": 39
+      },
+      "episode_6_excl_2016-02-29_2016-02-29": {
+        "n_months_excluded": 1,
+        "ic_mean_excl": 0.04767062146619121,
+        "n_months_remaining": 41
+      },
+      "episode_7_excl_2018-06-29_2019-02-28": {
+        "n_months_excluded": 7,
+        "ic_mean_excl": 0.054029018187451754,
+        "n_months_remaining": 35
+      },
+      "episode_8_excl_2019-07-31_2019-08-30": {
+        "n_months_excluded": 2,
+        "ic_mean_excl": 0.05280883936605969,
+        "n_months_remaining": 40
+      },
+      "episode_9_excl_2020-03-31_2020-05-29": {
+        "n_months_excluded": 3,
+        "ic_mean_excl": 0.04997760821853885,
+        "n_months_remaining": 39
+      },
+      "episode_10_excl_2022-05-31_2022-06-30": {
+        "n_months_excluded": 2,
+        "ic_mean_excl": 0.04895704363908227,
+        "n_months_remaining": 40
+      },
+      "episode_11_excl_2025-01-31_2025-04-30": {
+        "n_months_excluded": 4,
+        "ic_mean_excl": 0.044023167139066045,
+        "n_months_remaining": 38
+      },
+      "_episodes_found": [
+        "2007-03-30..2007-03-30 (1mo)",
+        "2008-01-31..2009-03-31 (15mo)",
+        "2011-02-28..2011-02-28 (1mo)",
+        "2011-11-30..2011-12-30 (2mo)",
+        "2013-03-28..2013-03-28 (1mo)",
+        "2013-06-28..2013-08-30 (3mo)",
+        "2016-02-29..2016-02-29 (1mo)",
+        "2018-06-29..2019-02-28 (7mo)",
+        "2019-07-31..2019-08-30 (2mo)",
+        "2020-03-31..2020-05-29 (3mo)",
+        "2022-05-31..2022-06-30 (2mo)",
+        "2025-01-31..2025-04-30 (4mo)"
+      ]
+    },
+    "oversold_placebo_ic_mean": 0.0004706358476218588,
+    "oversold_lag_test_ic_mean": -0.006579391246874215
+  }
+}

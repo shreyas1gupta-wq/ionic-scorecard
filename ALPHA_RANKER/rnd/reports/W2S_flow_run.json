@@ -1,0 +1,85 @@
+{
+  "staleness_cap_days": 270,
+  "coverage_vs_full_21yr_panel": {
+    "fii_dii": {
+      "n_dates_with_data": 90,
+      "total_panel_dates": 249,
+      "pct_dates_covered": 36.1,
+      "n_obs": 25606,
+      "total_panel_obs": 148297,
+      "pct_obs_covered": 17.27,
+      "date_min": "2017-03-31 00:00:00",
+      "date_max": "2024-08-30 00:00:00"
+    },
+    "promoter": {
+      "n_dates_with_data": 90,
+      "total_panel_dates": 249,
+      "pct_dates_covered": 36.1,
+      "n_obs": 24955,
+      "total_panel_obs": 148297,
+      "pct_obs_covered": 16.83,
+      "date_min": "2017-03-31 00:00:00",
+      "date_max": "2024-08-30 00:00:00"
+    }
+  },
+  "coverage_gate": "40pct of panel dates",
+  "coverage_verdict": "PARK_THIN_COVERAGE (36.1% < 40% threshold, measured against the full 2005-2025 panel_long \u2014 the honest denominator since evaluate() scores whatever panel is passed in). Numbers below are advisory/diagnostic, not a promote signal.",
+  "harness_results": {
+    "W2S_flow_fii_dii_1M": {
+      "status": "OK",
+      "n_dates": 90,
+      "n_obs": 25539,
+      "ic_ir": 0.05518675540666801,
+      "ic_mean": 0.00472549775179469,
+      "mono": -0.35757575757575755,
+      "net_of_cost_ann_return": -0.09278183381851128,
+      "lag_test_delta": 3.773707628171853,
+      "placebo_ic": -0.0017551347882359188,
+      "pbo": 0.987012987012987,
+      "dsr": 7.389529272336158e-106,
+      "harness_verdict": "KILL (IC_IR 0.055 < 0.2; lag_test_delta 3.774 > 0.25; PBO 0.987 > 0.5)"
+    },
+    "W2S_flow_fii_dii_1Y": {
+      "status": "OK",
+      "n_dates": 90,
+      "n_obs": 25532,
+      "ic_ir": -0.4962369858263258,
+      "ic_mean": -0.03998554296414775,
+      "mono": -0.6727272727272726,
+      "net_of_cost_ann_return": -0.9229848267550251,
+      "lag_test_delta": 0.019767024561396326,
+      "placebo_ic": 0.0027097500366360903,
+      "pbo": 0.9696969696969697,
+      "dsr": 5.6841496577742595e-173,
+      "harness_verdict": "KILL (IC_IR -0.496 < 0.2; PBO 0.970 > 0.5)"
+    },
+    "W2S_flow_promoter_1M": {
+      "status": "OK",
+      "n_dates": 90,
+      "n_obs": 24888,
+      "ic_ir": 0.3667745411252068,
+      "ic_mean": 0.023562194670595157,
+      "mono": 0.8545454545454544,
+      "net_of_cost_ann_return": 0.1252075481705632,
+      "lag_test_delta": 0.8156642687097716,
+      "placebo_ic": -0.0049463957476899925,
+      "pbo": 0.9956709956709957,
+      "dsr": 3.604739474982703e-44,
+      "harness_verdict": "KILL (lag_test_delta 0.816 > 0.25; PBO 0.996 > 0.5)"
+    },
+    "W2S_flow_promoter_1Y": {
+      "status": "OK",
+      "n_dates": 90,
+      "n_obs": 24881,
+      "ic_ir": 1.3307626643990438,
+      "ic_mean": 0.10033642996440549,
+      "mono": 0.7212121212121211,
+      "net_of_cost_ann_return": 2.5131741527651204,
+      "lag_test_delta": 0.03329432216080979,
+      "placebo_ic": -0.008060024521865331,
+      "pbo": 0.9134199134199135,
+      "dsr": 4.611600452527409e-28,
+      "harness_verdict": "KILL (PBO 0.913 > 0.5)"
+    }
+  }
+}

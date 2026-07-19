@@ -1,0 +1,912 @@
+{
+ "ticker": "CHEMPLASTS",
+ "url_path": "CHEMPLASTS/consolidated/",
+ "tables": {
+  "quarterly_results": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2023": "1147",
+    "Jun 2023": "996",
+    "Sep 2023": "988",
+    "Dec 2023": "888",
+    "Mar 2024": "1051",
+    "Jun 2024": "1145",
+    "Sep 2024": "993",
+    "Dec 2024": "1058",
+    "Mar 2025": "1151",
+    "Jun 2025": "1100",
+    "Sep 2025": "1033",
+    "Dec 2025": "835",
+    "Mar 2026": "1256"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2023": "1049",
+    "Jun 2023": "1031",
+    "Sep 2023": "942",
+    "Dec 2023": "895",
+    "Mar 2024": "1030",
+    "Jun 2024": "1021",
+    "Sep 2024": "967",
+    "Dec 2024": "1026",
+    "Mar 2025": "1114",
+    "Jun 2025": "1083",
+    "Sep 2025": "990",
+    "Dec 2025": "892",
+    "Mar 2026": "1061"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2023": "97",
+    "Jun 2023": "-35",
+    "Sep 2023": "46",
+    "Dec 2023": "-7",
+    "Mar 2024": "21",
+    "Jun 2024": "124",
+    "Sep 2024": "26",
+    "Dec 2024": "32",
+    "Mar 2025": "37",
+    "Jun 2025": "17",
+    "Sep 2025": "43",
+    "Dec 2025": "-57",
+    "Mar 2026": "194"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2023": "8%",
+    "Jun 2023": "-3%",
+    "Sep 2023": "5%",
+    "Dec 2023": "-1%",
+    "Mar 2024": "2%",
+    "Jun 2024": "11%",
+    "Sep 2024": "3%",
+    "Dec 2024": "3%",
+    "Mar 2025": "3%",
+    "Jun 2025": "2%",
+    "Sep 2025": "4%",
+    "Dec 2025": "-7%",
+    "Mar 2026": "15%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2023": "31",
+    "Jun 2023": "18",
+    "Sep 2023": "37",
+    "Dec 2023": "13",
+    "Mar 2024": "13",
+    "Jun 2024": "12",
+    "Sep 2024": "11",
+    "Dec 2024": "11",
+    "Mar 2025": "14",
+    "Jun 2025": "9",
+    "Sep 2025": "7",
+    "Dec 2025": "5",
+    "Mar 2026": "-143"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2023": "38",
+    "Jun 2023": "44",
+    "Sep 2023": "39",
+    "Dec 2023": "47",
+    "Mar 2024": "51",
+    "Jun 2024": "59",
+    "Sep 2024": "57",
+    "Dec 2024": "59",
+    "Mar 2025": "62",
+    "Jun 2025": "59",
+    "Sep 2025": "60",
+    "Dec 2025": "58",
+    "Mar 2026": "58"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2023": "33",
+    "Jun 2023": "32",
+    "Sep 2023": "35",
+    "Dec 2023": "38",
+    "Mar 2024": "46",
+    "Jun 2024": "45",
+    "Sep 2024": "45",
+    "Dec 2024": "47",
+    "Mar 2025": "62",
+    "Jun 2025": "53",
+    "Sep 2025": "52",
+    "Dec 2025": "53",
+    "Mar 2026": "55"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2023": "56",
+    "Jun 2023": "-93",
+    "Sep 2023": "9",
+    "Dec 2023": "-78",
+    "Mar 2024": "-63",
+    "Jun 2024": "32",
+    "Sep 2024": "-65",
+    "Dec 2024": "-63",
+    "Mar 2025": "-73",
+    "Jun 2025": "-86",
+    "Sep 2025": "-62",
+    "Dec 2025": "-163",
+    "Mar 2026": "-61"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2023": "18%",
+    "Jun 2023": "-31%",
+    "Sep 2023": "-182%",
+    "Dec 2023": "14%",
+    "Mar 2024": "-51%",
+    "Jun 2024": "26%",
+    "Sep 2024": "-52%",
+    "Dec 2024": "-22%",
+    "Mar 2025": "-26%",
+    "Jun 2025": "-26%",
+    "Sep 2025": "-18%",
+    "Dec 2025": "-27%",
+    "Mar 2026": "-26%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2023": "46",
+    "Jun 2023": "-64",
+    "Sep 2023": "26",
+    "Dec 2023": "-89",
+    "Mar 2024": "-31",
+    "Jun 2024": "24",
+    "Sep 2024": "-31",
+    "Dec 2024": "-49",
+    "Mar 2025": "-54",
+    "Jun 2025": "-64",
+    "Sep 2025": "-51",
+    "Dec 2025": "-119",
+    "Mar 2026": "-45"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2023": "2.91",
+    "Jun 2023": "-4.05",
+    "Sep 2023": "1.65",
+    "Dec 2023": "-5.65",
+    "Mar 2024": "-1.97",
+    "Jun 2024": "1.51",
+    "Sep 2024": "-1.98",
+    "Dec 2024": "-3.09",
+    "Mar 2025": "-3.43",
+    "Jun 2025": "-4.06",
+    "Sep 2025": "-3.23",
+    "Dec 2025": "-7.54",
+    "Mar 2026": "-2.87"
+   },
+   {
+    "Unnamed: 0": "Raw PDF",
+    "Mar 2023": NaN,
+    "Jun 2023": NaN,
+    "Sep 2023": NaN,
+    "Dec 2023": NaN,
+    "Mar 2024": NaN,
+    "Jun 2024": NaN,
+    "Sep 2024": NaN,
+    "Dec 2024": NaN,
+    "Mar 2025": NaN,
+    "Jun 2025": NaN,
+    "Sep 2025": NaN,
+    "Dec 2025": NaN,
+    "Mar 2026": NaN
+   }
+  ],
+  "profit_loss": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2019": "1254",
+    "Mar 2020": "1258",
+    "Mar 2021": "3799",
+    "Mar 2022": "5892",
+    "Mar 2023": "4941",
+    "Mar 2024": "3923",
+    "Mar 2025": "4346",
+    "Mar 2026": "4224"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2019": "969",
+    "Mar 2020": "1011",
+    "Mar 2021": "3171",
+    "Mar 2022": "4695",
+    "Mar 2023": "4473",
+    "Mar 2024": "3902",
+    "Mar 2025": "4127",
+    "Mar 2026": "4026"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2019": "286",
+    "Mar 2020": "247",
+    "Mar 2021": "628",
+    "Mar 2022": "1197",
+    "Mar 2023": "468",
+    "Mar 2024": "21",
+    "Mar 2025": "219",
+    "Mar 2026": "198"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2019": "23%",
+    "Mar 2020": "20%",
+    "Mar 2021": "17%",
+    "Mar 2022": "20%",
+    "Mar 2023": "9%",
+    "Mar 2024": "1%",
+    "Mar 2025": "5%",
+    "Mar 2026": "5%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2019": "12",
+    "Mar 2020": "8",
+    "Mar 2021": "484",
+    "Mar 2022": "57",
+    "Mar 2023": "-1",
+    "Mar 2024": "85",
+    "Mar 2025": "47",
+    "Mar 2026": "-122"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2019": "48",
+    "Mar 2020": "95",
+    "Mar 2021": "433",
+    "Mar 2022": "322",
+    "Mar 2023": "154",
+    "Mar 2024": "181",
+    "Mar 2025": "236",
+    "Mar 2026": "235"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2019": "56",
+    "Mar 2020": "87",
+    "Mar 2021": "131",
+    "Mar 2022": "137",
+    "Mar 2023": "142",
+    "Mar 2024": "151",
+    "Mar 2025": "199",
+    "Mar 2026": "213"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2019": "193",
+    "Mar 2020": "72",
+    "Mar 2021": "547",
+    "Mar 2022": "796",
+    "Mar 2023": "172",
+    "Mar 2024": "-226",
+    "Mar 2025": "-169",
+    "Mar 2026": "-372"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2019": "39%",
+    "Mar 2020": "36%",
+    "Mar 2021": "25%",
+    "Mar 2022": "18%",
+    "Mar 2023": "11%",
+    "Mar 2024": "-30%",
+    "Mar 2025": "-35%",
+    "Mar 2026": "-25%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2019": "118",
+    "Mar 2020": "46",
+    "Mar 2021": "410",
+    "Mar 2022": "649",
+    "Mar 2023": "152",
+    "Mar 2024": "-158",
+    "Mar 2025": "-110",
+    "Mar 2026": "-280"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2019": "14.81",
+    "Mar 2020": "6.88",
+    "Mar 2021": "30.59",
+    "Mar 2022": "41.03",
+    "Mar 2023": "9.64",
+    "Mar 2024": "-10.02",
+    "Mar 2025": "-6.98",
+    "Mar 2026": "-17.70"
+   },
+   {
+    "Unnamed: 0": "Dividend Payout %",
+    "Mar 2019": "0%",
+    "Mar 2020": "0%",
+    "Mar 2021": "0%",
+    "Mar 2022": "0%",
+    "Mar 2023": "0%",
+    "Mar 2024": "0%",
+    "Mar 2025": "0%",
+    "Mar 2026": "0%"
+   }
+  ],
+  "balance_sheet": [
+   {
+    "Unnamed: 0": "Equity Capital",
+    "Mar 2019": 67,
+    "Mar 2020": 67,
+    "Mar 2021": 67,
+    "Mar 2022": 79,
+    "Mar 2023": 79,
+    "Mar 2024": 79,
+    "Mar 2025": 79,
+    "Mar 2026": 79
+   },
+   {
+    "Unnamed: 0": "Reserves",
+    "Mar 2019": 2433,
+    "Mar 2020": 1845,
+    "Mar 2021": -417,
+    "Mar 2022": 1626,
+    "Mar 2023": 1779,
+    "Mar 2024": 1622,
+    "Mar 2025": 1989,
+    "Mar 2026": 1676
+   },
+   {
+    "Unnamed: 0": "Borrowings",
+    "Mar 2019": 253,
+    "Mar 2020": 1289,
+    "Mar 2021": 2127,
+    "Mar 2022": 882,
+    "Mar 2023": 1019,
+    "Mar 2024": 1548,
+    "Mar 2025": 1842,
+    "Mar 2026": 1952
+   },
+   {
+    "Unnamed: 0": "Other Liabilities",
+    "Mar 2019": 1049,
+    "Mar 2020": 906,
+    "Mar 2021": 2709,
+    "Mar 2022": 3015,
+    "Mar 2023": 2959,
+    "Mar 2024": 2782,
+    "Mar 2025": 2593,
+    "Mar 2026": 2609
+   },
+   {
+    "Unnamed: 0": "Total Liabilities",
+    "Mar 2019": 3802,
+    "Mar 2020": 4108,
+    "Mar 2021": 4487,
+    "Mar 2022": 5602,
+    "Mar 2023": 5837,
+    "Mar 2024": 6030,
+    "Mar 2025": 6503,
+    "Mar 2026": 6315
+   },
+   {
+    "Unnamed: 0": "Fixed Assets",
+    "Mar 2019": 2108,
+    "Mar 2020": 2174,
+    "Mar 2021": 3148,
+    "Mar 2022": 3259,
+    "Mar 2023": 3186,
+    "Mar 2024": 3907,
+    "Mar 2025": 4499,
+    "Mar 2026": 4386
+   },
+   {
+    "Unnamed: 0": "CWIP",
+    "Mar 2019": 117,
+    "Mar 2020": 8,
+    "Mar 2021": 25,
+    "Mar 2022": 34,
+    "Mar 2023": 402,
+    "Mar 2024": 190,
+    "Mar 2025": 137,
+    "Mar 2026": 341
+   },
+   {
+    "Unnamed: 0": "Investments",
+    "Mar 2019": 1159,
+    "Mar 2020": 1458,
+    "Mar 2021": 0,
+    "Mar 2022": 0,
+    "Mar 2023": 0,
+    "Mar 2024": 0,
+    "Mar 2025": 0,
+    "Mar 2026": 8
+   },
+   {
+    "Unnamed: 0": "Other Assets",
+    "Mar 2019": 418,
+    "Mar 2020": 467,
+    "Mar 2021": 1313,
+    "Mar 2022": 2309,
+    "Mar 2023": 2249,
+    "Mar 2024": 1934,
+    "Mar 2025": 1866,
+    "Mar 2026": 1580
+   },
+   {
+    "Unnamed: 0": "Total Assets",
+    "Mar 2019": 3802,
+    "Mar 2020": 4108,
+    "Mar 2021": 4487,
+    "Mar 2022": 5602,
+    "Mar 2023": 5837,
+    "Mar 2024": 6030,
+    "Mar 2025": 6503,
+    "Mar 2026": 6315
+   }
+  ],
+  "cash_flow": [
+   {
+    "Unnamed: 0": "Cash from Operating Activity",
+    "Mar 2019": NaN,
+    "Mar 2020": "166",
+    "Mar 2021": "1076",
+    "Mar 2022": "901",
+    "Mar 2023": "355",
+    "Mar 2024": "-245",
+    "Mar 2025": "172",
+    "Mar 2026": "294"
+   },
+   {
+    "Unnamed: 0": "Cash from Investing Activity",
+    "Mar 2019": NaN,
+    "Mar 2020": "-438",
+    "Mar 2021": "2152",
+    "Mar 2022": "108",
+    "Mar 2023": "-217",
+    "Mar 2024": "-524",
+    "Mar 2025": "-407",
+    "Mar 2026": "-232"
+   },
+   {
+    "Unnamed: 0": "Cash from Financing Activity",
+    "Mar 2019": NaN,
+    "Mar 2020": "298",
+    "Mar 2021": "-3017",
+    "Mar 2022": "-313",
+    "Mar 2023": "-27",
+    "Mar 2024": "382",
+    "Mar 2025": "66",
+    "Mar 2026": "-187"
+   },
+   {
+    "Unnamed: 0": "Net Cash Flow",
+    "Mar 2019": NaN,
+    "Mar 2020": "26",
+    "Mar 2021": "211",
+    "Mar 2022": "696",
+    "Mar 2023": "111",
+    "Mar 2024": "-387",
+    "Mar 2025": "-170",
+    "Mar 2026": "-124"
+   },
+   {
+    "Unnamed: 0": "Free Cash Flow",
+    "Mar 2019": NaN,
+    "Mar 2020": "116",
+    "Mar 2021": "1022",
+    "Mar 2022": "849",
+    "Mar 2023": "-64",
+    "Mar 2024": "-833",
+    "Mar 2025": "-188",
+    "Mar 2026": "-22"
+   },
+   {
+    "Unnamed: 0": "CFO/OP",
+    "Mar 2019": NaN,
+    "Mar 2020": "83%",
+    "Mar 2021": "181%",
+    "Mar 2022": "90%",
+    "Mar 2023": "96%",
+    "Mar 2024": "-1,049%",
+    "Mar 2025": "67%",
+    "Mar 2026": "149%"
+   }
+  ],
+  "ratios": [
+   {
+    "Unnamed: 0": "Debtor Days",
+    "Mar 2019": 19.0,
+    "Mar 2020": "14",
+    "Mar 2021": "7",
+    "Mar 2022": "12",
+    "Mar 2023": "11",
+    "Mar 2024": "18",
+    "Mar 2025": "13",
+    "Mar 2026": "8"
+   },
+   {
+    "Unnamed: 0": "Inventory Days",
+    "Mar 2019": 183.0,
+    "Mar 2020": "158",
+    "Mar 2021": "70",
+    "Mar 2022": "70",
+    "Mar 2023": "73",
+    "Mar 2024": "77",
+    "Mar 2025": "87",
+    "Mar 2026": "82"
+   },
+   {
+    "Unnamed: 0": "Days Payable",
+    "Mar 2019": 200.0,
+    "Mar 2020": "187",
+    "Mar 2021": "285",
+    "Mar 2022": "189",
+    "Mar 2023": "212",
+    "Mar 2024": "235",
+    "Mar 2025": "221",
+    "Mar 2026": "224"
+   },
+   {
+    "Unnamed: 0": "Cash Conversion Cycle",
+    "Mar 2019": 2.0,
+    "Mar 2020": "-16",
+    "Mar 2021": "-208",
+    "Mar 2022": "-108",
+    "Mar 2023": "-128",
+    "Mar 2024": "-141",
+    "Mar 2025": "-121",
+    "Mar 2026": "-133"
+   },
+   {
+    "Unnamed: 0": "Working Capital Days",
+    "Mar 2019": -45.0,
+    "Mar 2020": "-5",
+    "Mar 2021": "-124",
+    "Mar 2022": "-76",
+    "Mar 2023": "-95",
+    "Mar 2024": "-134",
+    "Mar 2025": "-140",
+    "Mar 2026": "-172"
+   },
+   {
+    "Unnamed: 0": "ROCE %",
+    "Mar 2019": NaN,
+    "Mar 2020": "6%",
+    "Mar 2021": "21%",
+    "Mar 2022": "50%",
+    "Mar 2023": "15%",
+    "Mar 2024": "-2%",
+    "Mar 2025": "2%",
+    "Mar 2026": "0%"
+   }
+  ],
+  "shareholding": [
+   {
+    "Unnamed: 0": "Promoters",
+    "Jun 2023": "54.99%",
+    "Sep 2023": "54.99%",
+    "Dec 2023": "54.99%",
+    "Mar 2024": "54.99%",
+    "Jun 2024": "54.99%",
+    "Sep 2024": "54.99%",
+    "Dec 2024": "54.99%",
+    "Mar 2025": "54.99%",
+    "Jun 2025": "54.99%",
+    "Sep 2025": "54.99%",
+    "Dec 2025": "54.99%",
+    "Mar 2026": "54.99%"
+   },
+   {
+    "Unnamed: 0": "FIIs",
+    "Jun 2023": "11.45%",
+    "Sep 2023": "11.59%",
+    "Dec 2023": "11.17%",
+    "Mar 2024": "10.83%",
+    "Jun 2024": "11.27%",
+    "Sep 2024": "13.42%",
+    "Dec 2024": "13.19%",
+    "Mar 2025": "13.27%",
+    "Jun 2025": "13.33%",
+    "Sep 2025": "13.15%",
+    "Dec 2025": "13.16%",
+    "Mar 2026": "12.48%"
+   },
+   {
+    "Unnamed: 0": "DIIs",
+    "Jun 2023": "26.63%",
+    "Sep 2023": "26.94%",
+    "Dec 2023": "27.51%",
+    "Mar 2024": "28.15%",
+    "Jun 2024": "28.39%",
+    "Sep 2024": "25.75%",
+    "Dec 2024": "25.82%",
+    "Mar 2025": "25.81%",
+    "Jun 2025": "25.65%",
+    "Sep 2025": "25.62%",
+    "Dec 2025": "25.52%",
+    "Mar 2026": "25.62%"
+   },
+   {
+    "Unnamed: 0": "Public",
+    "Jun 2023": "6.92%",
+    "Sep 2023": "6.48%",
+    "Dec 2023": "6.33%",
+    "Mar 2024": "6.02%",
+    "Jun 2024": "5.35%",
+    "Sep 2024": "5.85%",
+    "Dec 2024": "6.00%",
+    "Mar 2025": "5.93%",
+    "Jun 2025": "6.02%",
+    "Sep 2025": "6.23%",
+    "Dec 2025": "6.33%",
+    "Mar 2026": "6.91%"
+   },
+   {
+    "Unnamed: 0": "No. of Shareholders",
+    "Jun 2023": "92610",
+    "Sep 2023": "93594",
+    "Dec 2023": "90184",
+    "Mar 2024": "85649",
+    "Jun 2024": "74800",
+    "Sep 2024": "72772",
+    "Dec 2024": "70994",
+    "Mar 2025": "68751",
+    "Jun 2025": "66577",
+    "Sep 2025": "64908",
+    "Dec 2025": "64051",
+    "Mar 2026": "62594"
+   }
+  ]
+ },
+ "top_ratios": {
+  "Market Cap": "\u20b9 3,130 Cr.",
+  "Current Price": "\u20b9 198",
+  "High / Low": "\u20b9 478 / 193",
+  "Stock P/E": "",
+  "Book Value": "\u20b9 111",
+  "Dividend Yield": "0.00 %",
+  "ROCE": "0.34 %",
+  "ROE": "-6.80 %",
+  "Face Value": "\u20b9 5.00"
+ },
+ "documents": [
+  {
+   "text": "All",
+   "href": "https://www.bseindia.com/stock-share-price/chemplast-sanmar-ltd/CHEMPLASTS/543336/corp-announcements/"
+  },
+  {
+   "text": "Announcement under Regulation 30 (LODR)-Newspaper Publication 1d - Newspapers Pu",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=5d8d4cef-1275-4666-a15a-282da39d8a4e.pdf"
+  },
+  {
+   "text": "Letter Under Reg.36(1)(B) Of SEBI Listing Regulations 1d - Chemplast Sanmar\u2019s 42",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=79792b19-a770-4fc7-a32f-dcddf34b2af3.pdf"
+  },
+  {
+   "text": "Reg. 34 (1) Annual Report. 2d",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=ef686842-da71-403a-8ab6-4dec4094435f.pdf"
+  },
+  {
+   "text": "Notice Of 42Nd Annual General Meeting 2d",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=064ff308-4908-4a53-9cc7-b3c5a5d09477.pdf"
+  },
+  {
+   "text": "Compliances-Certificate under Reg. 74 (5) of SEBI (DP) Regulations, 2018 11 Jul",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=64e1e658-26ae-46ff-a8e4-e8410efbafd4.pdf"
+  },
+  {
+   "text": "Financial Year 2026 from bse",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=ef686842-da71-403a-8ab6-4dec4094435f.pdf"
+  },
+  {
+   "text": "Financial Year 2025 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/b5705db8-5243-46f4-b269-c61353857a47.pdf"
+  },
+  {
+   "text": "Financial Year 2024 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/f31ee0a4-9ebd-41dc-a4d8-bc6ac7f4148c.pdf"
+  },
+  {
+   "text": "Financial Year 2023 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/4aa85957-36e0-40c2-8c17-54e426e28fbb.pdf"
+  },
+  {
+   "text": "Financial Year 2022 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/543336/73053543336.pdf"
+  },
+  {
+   "text": "Financial Year 2021 from web",
+   "href": "https://www.chemplastsanmar.com/downloads/cslfinancials/chemplast-annual-report-2020-21.pdf"
+  },
+  {
+   "text": "Financial Year 2020 from web",
+   "href": "https://www.chemplastsanmar.com/downloads/cslfinancials/chemplast-annual-report-2019-20.pdf"
+  },
+  {
+   "text": "Financial Year 2019 from web",
+   "href": "https://www.chemplastsanmar.com/downloads/cslfinancials/chemplast-annual-report-2018-19.pdf"
+  },
+  {
+   "text": "Financial Year 2018 from web",
+   "href": "https://www.chemplastsanmar.com/downloads/cslfinancials/chemplast-annual-report-2017-18.pdf"
+  },
+  {
+   "text": "Financial Year 2011 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/543336/5063550311.pdf"
+  },
+  {
+   "text": "Financial Year 2011 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_CHEMPLAST_2010_2011_14072011120506.zip"
+  },
+  {
+   "text": "Financial Year 2010 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/543336/5063550310.pdf"
+  },
+  {
+   "text": "Financial Year 2010 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_CHEMPLAST_2009_2010_18082010121500.zip"
+  },
+  {
+   "text": "DRHP",
+   "href": "https://www.sebi.gov.in/filings/public-issues/aug-2021/chemplast-sanmar-limited_51873.html"
+  },
+  {
+   "text": "Rating update 25 Mar from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/ChemplastSanmarLimited_March 25_ 2026_RR_389217.html"
+  },
+  {
+   "text": "Rating update 16 Sep 2025 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/ChemplastSanmarLimited_September 16_ 2025_RR_374738.html"
+  },
+  {
+   "text": "Rating update 12 May 2025 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/ChemplastSanmarLimited_May 12_ 2025_RR_367593.html"
+  },
+  {
+   "text": "Rating update 26 Dec 2024 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/ChemplastSanmarLimited_December 26_ 2024_RR_359760.html"
+  },
+  {
+   "text": "Rating update 2 Dec 2024 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/ChemplastSanmarLimited_December 02_ 2024_RR_356808.html"
+  },
+  {
+   "text": "Rating update 2 Jan 2024 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/ChemplastSanmarLimited_January 02, 2024_RR_334785.html"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c60a4498-b233-4fe2-9079-0b002f24c37e.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=98a639b8-d9c6-48df-9b99-3f4ae05b0cde.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.chemplastsanmar.com/downloads/investor-relations/2025-26/Q4/10043000.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=eb404d97-6bc2-4162-b4e0-e071f3163d7d.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=60a38004-6e47-4279-887f-e3be1960b71a.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=9453f2ea-c062-4e22-9197-7dc216df57c2.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c5c29f79-2fd6-41e4-8f29-a68194650cbb.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=00c35f2c-080f-4078-b887-5e0506beb9bc.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=70e049f7-a58c-4b43-9b7d-9217cdd644c2.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=cc514d5c-1101-4c17-81a2-db687cd7e217.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=afa05302-adc1-4a0b-b09d-dd2f73ff49b7.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=539d3f50-b732-4e17-b3ee-2422eb0b63f7.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=734bf2e2-3ca7-4d90-8fc1-bdb2d430f663.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.chemplastsanmar.com/downloads/investor-relations/2024-25/Q3/Q3%20FY25%20analyst%20call%20audio%20file.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=5d62883b-5223-4654-a328-1aed192e7086.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=5ad73088-0f81-4c2a-aa80-dff8acc5e80b.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.chemplastsanmar.com/downloads/investor-relations/2024-25/Q2/CSL_Earnings-Call_FY2025-Q2.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=8061b9f7-4a79-4644-b502-47a0ec4317c9.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=23a7a17e-7021-41e7-a46e-22a2dee23e19.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.chemplastsanmar.com/downloads/investor-relations/2024-25/Q1/CSL_Earnings_Call_FY2025-Q1.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=542225aa-3155-4052-ba4c-e3792deffe14.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=a37b0c80-2cbe-4873-b927-9a1f502e4d93.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=2e931d6d-b706-44ce-8297-b64e93fdb405.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=53959cbe-a930-4057-b2cf-cfebdb884455.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=34cbcb42-d8f5-4e31-9115-e9c851778a41.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=58c71eb8-0d09-440b-a464-efa4a4ba6741.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=623302c0-6ba1-48c2-8090-8a393a163e36.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=76875442-1d16-4415-90c1-e97c049956e2.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.chemplastsanmar.com/downloads/investor-relations/2023-24/call-transcripts/CSL_EarningsCall_FY2024-Q1.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=110faae5-0629-4812-a960-b103b57c26c9.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=eedac7df-2ed4-429e-b5ba-f815b3c99685.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=17766918-b450-433c-8516-d45747eae102.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=5d1b127e-022d-4938-bd47-7200f3004fe7.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d7f7330e-f17a-4810-ab48-118e48d506c1.pdf"
+  }
+ ]
+}

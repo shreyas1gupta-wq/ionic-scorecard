@@ -1,0 +1,204 @@
+{
+  "_meta": {
+    "curator": "librarian-lakshmi-narayanan (E-024)",
+    "date": "2026-07-17",
+    "purpose": "Forward-use pattern library, NOT a backtest. Machine-readable companion to FRAUD_CASE_LIBRARY.md.",
+    "taxonomy_source": "ALPHA_RANKER/08_FORENSICS_REDFLAGS.md sections A-F",
+    "epistemic_note": "Built from trained knowledge of well-documented public cases; no live WebSearch/WebFetch verification pass was run. Figures marked confidence='approximate' are widely-reported estimates, not verified from primary source in this pass. Do not use for any real-money or reputational claim without a source-verification pass.",
+    "status_legend": ["ADJUDICATED_CONVICTED", "REGULATORY_ACTION_CHARGES_PENDING", "ALLEGATIONS_DISPUTED_NO_ADJUDICATION", "MIXED"]
+  },
+  "cases": [
+    {
+      "id": "SATYAM_2009",
+      "name": "Satyam Computer Services",
+      "status": "ADJUDICATED_CONVICTED",
+      "status_note": "Raju confession 7-Jan-2009 public record; CBI special court conviction 2015 (appeals adjusted some sentences); SEBI 2018 order vs auditors litigated.",
+      "mo": "Fictitious sales invoices, forged FD receipts/bank statements, fabricated interest income, understated liabilities, sustained for years.",
+      "taxonomy_flags": ["A.margin_smoothness_vs_peers", "B.cash_vs_interest_income_mismatch", "C.related_party_acquisition_attempt_maytas", "C.long_auditor_tenure_no_rotation"],
+      "data_screenable_now": ["A.margin_smoothness_vs_peers", "B.cash_vs_interest_income_mismatch"],
+      "filing_read_only": ["C.related_party_acquisition_attempt_maytas", "C.long_auditor_tenure_no_rotation", "whistleblower_history"],
+      "lesson": "Self-dealing acquisition attempt was the biggest tell, not the accounting ratios."
+    },
+    {
+      "id": "GITANJALI_PNB_LOU_2018",
+      "name": "Gitanjali Gems / Mehul Choksi (PNB LoU fraud)",
+      "status": "REGULATORY_ACTION_CHARGES_PENDING",
+      "status_note": "Choksi declared fugitive economic offender; extradition litigation ongoing; Indian criminal trial pending.",
+      "mo": "Fraudulent LoUs issued without collateral/CBS entry, drew unsecured buyer's credit from other banks' overseas branches, ~Rs 11,000-14,000cr combined exposure (approximate, contested).",
+      "taxonomy_flags": ["D.unsecured_guarantee_credit_growth", "C.related_entity_conduits", "B.receivables_inventory_implausible_for_turnover", "C.promoter_pledge"],
+      "data_screenable_now": ["B.receivables_inventory_implausible_for_turnover (if inventory-turn data populated)"],
+      "filing_read_only": ["D.unsecured_guarantee_credit_growth", "C.related_entity_conduits"],
+      "outside_equity_scope": ["SWIFT-core-banking-system reconciliation gap (bank-side control failure, not borrower filing)"],
+      "lesson": "Some fraud enablers live in counterparty/bank control failures no borrower-side ratio analysis would surface."
+    },
+    {
+      "id": "YESBANK_RANAKAPOOR_2020",
+      "name": "Yes Bank / Rana Kapoor",
+      "status": "MIXED",
+      "status_note": "RBI moratorium/reconstruction (Mar-2020) settled fact; Kapoor ED arrest/chargesheet in DHFL-linked case, criminal trial ongoing.",
+      "mo": "Alleged loan evergreening; alleged kickbacks via Kapoor-family entities for loan sanctions to stressed borrowers (incl. DHFL); understated NPAs vs RBI divergence; rapid AT-1 issuance.",
+      "taxonomy_flags": ["D.npa_divergence_vs_rbi", "B.loan_concentration_to_stressed_names", "C.promoter_linked_entity_kickback_pattern"],
+      "data_screenable_now": ["D.npa_divergence_vs_rbi (if ingested)"],
+      "filing_read_only": ["C.promoter_linked_entity_kickback_pattern"],
+      "gap_note": "RBI divergence reports / large-exposure disclosures not currently ingested by ALPHA_RANKER.",
+      "lesson": "Bank-disclosed NPA-divergence (RBI-mandated since 2018) is a rare structured red flag hiding in plain sight."
+    },
+    {
+      "id": "DHFL_2019_2020",
+      "name": "DHFL (Dewan Housing Finance, Wadhawan brothers)",
+      "status": "REGULATORY_ACTION_CHARGES_PENDING",
+      "status_note": "CBI/ED chargesheet 2022, ~Rs 34,000cr (approximate, widely reported); NCLT resolution to Piramal Capital (2021) settled; trial outcome unknown.",
+      "mo": "Loans to ~80 shell/related entities sharing addresses with promoter entities; alleged parallel 'Bandra Book' unrecorded loan book (~Rs 14,000cr alleged); securitization gains booked upfront.",
+      "taxonomy_flags": ["B.aum_growth_vs_peer_disbursement_quality", "C.related_party_address_matching", "A.securitization_gains_upfront", "D.rating_agency_lag"],
+      "data_screenable_now": ["B.aum_growth_vs_peer_disbursement_quality"],
+      "filing_read_only": ["C.related_party_address_matching (MCA/ROC level)"],
+      "gap_note": "Credit-rating-agency action history not ingested.",
+      "lesson": "Shell-company lending footprint is address-overlap between borrower and promoter entities, an MCA/ROC filing-read task."
+    },
+    {
+      "id": "ILFS_2018",
+      "name": "IL&FS (Infrastructure Leasing & Financial Services)",
+      "status": "REGULATORY_ACTION_CHARGES_PENDING",
+      "status_note": "NCLT board supersession Oct-2018; SFIO chargesheets vs former execs; final adjudication outcomes unknown.",
+      "mo": "300+ subsidiary/SPV group structure rolling over debt, related-party ICDs between group entities, asset-liability duration mismatch, AAA rating held until days before default.",
+      "taxonomy_flags": ["C.opaque_group_structure_icd_web", "B.asset_liability_duration_mismatch", "D.rating_cliff_aaa_to_d"],
+      "data_screenable_now": [],
+      "filing_read_only": ["C.opaque_group_structure_icd_web (AR notes, group ICD schedules)"],
+      "gap_note": "Group-structure/ICD-volume not ingested; rating trajectory not ingested.",
+      "lesson": "AAA-to-D in months proves ratings are lagging; group ICD web is the true leading indicator and lives in AR footnotes."
+    },
+    {
+      "id": "MANPASAND_2018",
+      "name": "Manpasand Beverages",
+      "status": "REGULATORY_ACTION_CHARGES_PENDING",
+      "status_note": "Deloitte resigned May-2018 citing fake-sales/GST-invoice concerns (public exchange filing); SFIO/EOW chargesheet vs promoter; trial outcome unknown.",
+      "mo": "Fake sales via fictitious/related distributors to inflate revenue and claim fraudulent GST input-tax-credit; channel stuffing.",
+      "taxonomy_flags": ["C.auditor_resignation_for_cause_HARD_VETO", "A.receivable_days_vs_peer", "A.revenue_vs_external_gst_crosscheck"],
+      "data_screenable_now": ["A.receivable_days_vs_peer"],
+      "filing_read_only": [],
+      "gap_note": "CONFIRMED GAP: auditor-change/resignation event not currently a computed flag in universe_forensic.py despite being 08's own hard-veto item #1. Highest-priority fix.",
+      "lesson": "Auditor resignation-for-cause is the cheapest, hardest, least-noisy hard-veto signal in the taxonomy -- and is currently unimplemented."
+    },
+    {
+      "id": "VAKRANGEE_2018",
+      "name": "Vakrangee Ltd",
+      "status": "ALLEGATIONS_DISPUTED_NO_ADJUDICATION",
+      "status_note": "SEBI 2018 interim restraining orders; SAT later granted relief diluting parts of the order. No settled adjudication of guilt.",
+      "mo": "Alleged circular trading supporting share price; exaggerated/unverified business-partnership claims (disputed Amazon-India tie-up characterization); ~70%+ single-day crash Jan-2018.",
+      "taxonomy_flags": ["D.valuation_vs_fundamentals_gap", "D.unverified_thirdparty_partnership_claim", "C.promoter_pledge_trend"],
+      "data_screenable_now": ["C.promoter_pledge_trend (if pledge data existed)"],
+      "filing_read_only": ["D.unverified_thirdparty_partnership_claim (counterparty confirmation needed)"],
+      "gap_note": "Pledge data gap (see synthesis rank #2).",
+      "lesson": "An unverifiable third-party partnership claim underlying a valuation narrative is itself the red flag, independent of ratios."
+    },
+    {
+      "id": "PCJEWELLER_2019",
+      "name": "PC Jeweller",
+      "status": "ALLEGATIONS_DISPUTED_NO_ADJUDICATION",
+      "status_note": "Some lenders NPA/fraud-classified accounts 2020-21; ED provisional attachment reported; SFIO probe reported; no final adjudication known; ongoing/unresolved.",
+      "mo": "Alleged circular transactions between related entities; alleged gold/diamond inventory mismatch vs physical verification; high related-sundry-debtor receivables; alleged buyer's-credit misuse.",
+      "taxonomy_flags": ["C.promoter_family_public_disputes", "B.profitable_on_paper_cash_poor", "A.inventory_turnover_vs_peer"],
+      "data_screenable_now": ["B.profitable_on_paper_cash_poor", "A.inventory_turnover_vs_peer"],
+      "filing_read_only": ["C.promoter_family_public_disputes"],
+      "lesson": "'Profitable on paper, cannot pay debt' is the strongest cross-sector tell in this library; CFO/PAT divergence is the right first-pass screen."
+    },
+    {
+      "id": "COXKINGS_2019",
+      "name": "Cox & Kings",
+      "status": "REGULATORY_ACTION_CHARGES_PENDING",
+      "status_note": "SFIO/ED investigation into Kerkar family; chargesheets reported filed; trial outcome unknown. CP/NCD default Sept-2019 is settled market fact.",
+      "mo": "Alleged siphoning via related-party forex/travel-card financial-services subsidiary; unsecured CP funding that subsidiary; default despite reported strong cash.",
+      "taxonomy_flags": ["B.cash_and_debt_and_default_08_named_flag", "C.related_party_loan_share_ballooning", "B.unsecured_cp_funding_unrelated_subsidiary"],
+      "data_screenable_now": ["B.cash_and_debt_and_default_08_named_flag"],
+      "filing_read_only": ["C.related_party_loan_share_ballooning (AR-note level)"],
+      "lesson": "Reported cash is not verified cash; large-cash-then-sudden-default is a textbook match for 08's own named §B flag, currently under-weighted."
+    },
+    {
+      "id": "ZEE_ESSEL_2019",
+      "name": "Zee Entertainment / Essel Group (Subhash Chandra)",
+      "status": "ALLEGATIONS_DISPUTED_NO_ADJUDICATION",
+      "status_note": "SEBI 2022 interim order (~Rs 200cr alleged, approximate) stayed/modified on SAT appeal; Goenka reinstated on interim relief. Jan-2019 pledge invocation is a settled market event, not itself adjudicated fraud.",
+      "mo": "Essel promoter entities borrowed via ICDs from MFs pledging Zee shares for group infra/EPC stress; separately alleged fund diversion to shell entities.",
+      "taxonomy_flags": ["C.rising_promoter_pledge_pct", "C.complex_multientity_group_structure", "B.group_level_icd_web_outside_listed_entity"],
+      "data_screenable_now": ["C.rising_promoter_pledge_pct (if pledge data existed)"],
+      "filing_read_only": ["B.group_level_icd_web_outside_listed_entity"],
+      "gap_note": "CONFIRMED GAP: promoter pledge, zero coverage in ALPHA_RANKER (universe_forensic.py explicit insufficient-data hook).",
+      "lesson": "Promoter pledge is a top-tier recurring flag ALPHA_RANKER currently cannot compute at all -- highest-value data gap in this library."
+    },
+    {
+      "id": "RICOH_2016",
+      "name": "Ricoh India",
+      "status": "ADJUDICATED_CONVICTED",
+      "status_note": "SEBI 2020 order found erstwhile management complicit; FY2015-16 accounts formally restated profit-to-loss (settled fact); some individual appeals contested, final outcomes not fully verified.",
+      "mo": "Revenue on fictitious sale-and-leaseback/operating-lease transactions without genuine underlying assets/customers; inflated receivables tied to fictitious leases.",
+      "taxonomy_flags": ["A.revenue_mix_shift_anomaly", "A.receivables_untethered_from_asset_register", "C.thin_local_oversight_foreign_parent_subsidiary"],
+      "data_screenable_now": ["A.receivables_untethered_from_asset_register (sparse coverage per in-code caveat)"],
+      "filing_read_only": ["asset_existence_verification (needs physical/site check)"],
+      "lesson": "A sudden shift in WHAT KIND of revenue a company books (not just how much) is a screenable business-model-mix anomaly."
+    },
+    {
+      "id": "AMTEK_AUTO_2015_2016",
+      "name": "Amtek Auto",
+      "status": "ALLEGATIONS_DISPUTED_NO_ADJUDICATION",
+      "status_note": "Primarily a leverage/governance collapse (JM Financial MF redemption gating 2015); IBC resolution protracted; no major adjudicated fraud conviction known to me. 'Fraud' framing here is allegation, not adjudication.",
+      "mo": "Aggressive debt-funded global M&A; related-party corporate guarantees/inter-group loans obscuring consolidated leverage; rating held high until sudden multi-notch downgrade.",
+      "taxonomy_flags": ["B.debt_ebitda_rising_via_acquisitions", "C.corporate_guarantees_to_group_entities", "D.rating_cliff_edge_downgrade"],
+      "data_screenable_now": ["B.debt_ebitda_rising_via_acquisitions"],
+      "filing_read_only": ["C.corporate_guarantees_to_group_entities (AR contingent-liability notes, guarantee-specific)"],
+      "gap_note": "Rating-history ingestion missing -- THIRD case (with IL&FS, DHFL) pointing at same gap.",
+      "lesson": "Credit-rating-history ingestion gap has recurred across three independent cases -- a pattern, not a coincidence."
+    },
+    {
+      "id": "KINGFISHER_MALLYA_2012",
+      "name": "Kingfisher Airlines / Vijay Mallya",
+      "status": "MIXED",
+      "status_note": "FEOA fugitive-economic-offender declaration (2019, civil-forfeiture-style, not criminal conviction); UK extradition ordered/upheld, delayed by other proceedings; some IDBI officials separately implicated in related case (unverified specifics); Mallya's own criminal trial outcome in India unresolved/unknown.",
+      "mo": "Alleged inadequately-diligenced IDBI loan (~Rs 900cr approximate) allegedly diverted outside sanctioned purpose incl. to other UB Group entities; continued borrowing/CDR restructuring despite worsening financials; personal guarantees not honored.",
+      "taxonomy_flags": ["B.persistent_negative_cfo_funded_by_debt", "C.fund_transfers_to_group_entities_under_stress", "D.repeated_cdr_restructuring_no_turnaround"],
+      "data_screenable_now": ["B.persistent_negative_cfo_funded_by_debt"],
+      "filing_read_only": ["C.fund_transfers_to_group_entities_under_stress", "D.repeated_cdr_restructuring_no_turnaround (not in data catalog)"],
+      "lesson": "Multi-year negative-CFO-funded-by-fresh-debt was visible years before collapse; detection existed, enforcement didn't -- itself the lesson."
+    },
+    {
+      "id": "EDUCOMP_2013",
+      "name": "Educomp Solutions",
+      "status": "ALLEGATIONS_DISPUTED_NO_ADJUDICATION",
+      "status_note": "Default and insolvency settled facts; auditor qualifications documented; no marquee criminal fraud conviction of promoters known to me as final. 'Fraud' framing is allegation/aggressive-accounting, not adjudication.",
+      "mo": "Upfront revenue recognition on multi-year 'Smart Class' annuity contracts (full value at signing, not over service period); receivables ballooned vs collections; promoter pledge near 100%; serial QIP dilution.",
+      "taxonomy_flags": ["A.revenue_recognition_more_aggressive_than_peers", "A.receivables_vs_collections_divergence", "C.promoter_pledge_near_100pct", "C.serial_dilution_qip_as_patch"],
+      "data_screenable_now": ["A.receivables_vs_collections_divergence"],
+      "filing_read_only": ["A.revenue_recognition_more_aggressive_than_peers (accounting-policy footnote read)"],
+      "gap_note": "Pledge gap -- FOURTH case (with Zee, PC Jeweller, Vakrangee) pointing at same missing pledge dataset.",
+      "lesson": "Promoter pledge near 100% recurs in 4/15 cases and is entirely missing from ALPHA_RANKER's current data -- near hard-veto grade."
+    },
+    {
+      "id": "KARVY_2019_2020",
+      "name": "Karvy Stock Broking",
+      "status": "REGULATORY_ACTION_CHARGES_PENDING",
+      "status_note": "SEBI 2019 orders + NSE corroboration found client-securities misuse via PoA; Karvy barred from new broking clients; some findings later contested/modified before SAT, final disposition unverified.",
+      "mo": "Client securities pooled via PoA into single demat account, pledged to raise loans (~Rs 2,300cr approximate) diverted to promoter's unrelated real-estate arm (Karvy Realty).",
+      "taxonomy_flags": ["D.poa_enabled_client_asset_commingling", "B.short_term_borrowing_growth_inconsistent_with_business_model", "C.related_party_fund_flow_to_unrelated_line_of_business"],
+      "data_screenable_now": [],
+      "filing_read_only": [],
+      "outside_equity_scope": ["depository (NSDL/CDSL) account-level reconciliation; unlisted-entity (Karvy Realty) not in listed-equity universe at all"],
+      "lesson": "Worst frauds are sometimes custodian/intermediary control failures invisible to any equity-fundamentals screen -- needs a different data source category entirely."
+    }
+  ],
+  "cross_case_synthesis": {
+    "top_5_recurring_patterns": [
+      {"rank": 1, "pattern": "CFO/PAT divergence (profitable on paper, cash-poor/defaulting in fact)", "taxonomy": "A", "case_count": 7, "cases": ["SATYAM_2009","DHFL_2019_2020","COXKINGS_2019","PCJEWELLER_2019","KINGFISHER_MALLYA_2012","EDUCOMP_2013","RICOH_2016"], "data_screenable_now": true, "implementation": "src/forensic/universe_forensic.py: cfo_pat_divergence_multiyear, sloan_accruals_asset_scaled_proxy, cash_conversion_cfo_op"},
+      {"rank": 2, "pattern": "Promoter pledge level/trend", "taxonomy": "C", "case_count": 4, "cases": ["ZEE_ESSEL_2019","PCJEWELLER_2019","VAKRANGEE_2018","EDUCOMP_2013"], "data_screenable_now": false, "gap": "No pledge column in any dataset checked; shareholding data stale to 2023-12 even where present. HIGHEST PRIORITY FIX."},
+      {"rank": 3, "pattern": "Opaque group structure / related-party ICD web obscuring leverage and cash location", "taxonomy": "C,B", "case_count": 6, "cases": ["ILFS_2018","DHFL_2019_2020","AMTEK_AUTO_2015_2016","ZEE_ESSEL_2019","COXKINGS_2019","KINGFISHER_MALLYA_2012"], "data_screenable_now": false, "gap": "Related-party-loan-%-of-balance-sheet and group ICD mapping need AR-note extraction, not in current schema."},
+      {"rank": 4, "pattern": "Credit-rating trajectory / ratings-cliff", "taxonomy": "D", "case_count": 4, "cases": ["ILFS_2018","DHFL_2019_2020","AMTEK_AUTO_2015_2016","KINGFISHER_MALLYA_2012"], "data_screenable_now": false, "gap": "No credit-rating-agency action history ingested anywhere in the pipeline."},
+      {"rank": 5, "pattern": "Auditor resignation/qualification-for-cause", "taxonomy": "C (08's own hard-veto item #1)", "case_count": 4, "cases": ["MANPASAND_2018","SATYAM_2009","RICOH_2016","COXKINGS_2019"], "data_screenable_now": false, "gap": "Not a computed flag despite being named explicitly in 08_FORENSICS_REDFLAGS.md's hard-veto list."}
+    ],
+    "outside_current_taxonomy_frame": [
+      {"pattern": "Intermediary/custodian control failures (bank SWIFT-CBS gap, broker PoA-commingling)", "cases": ["GITANJALI_PNB_LOU_2018","KARVY_2019_2020"], "note": "Invisible to any equity-fundamentals screen; needs a different data source category (banking/depository-audit disclosures)."},
+      {"pattern": "Business-model-mix anomaly (sudden revenue/debt in a line unrelated to stated core business)", "cases": ["RICOH_2016","COXKINGS_2019","KARVY_2019_2020"], "note": "Detectable from revenue/debt-mix trend, not currently a named flag category in 08_FORENSICS_REDFLAGS.md."}
+    ],
+    "data_screenable_now_summary": ["cfo_pat_divergence_multiyear", "sloan_accruals_asset_scaled_proxy", "cash_conversion_cfo_op", "other_income_dependence", "tax_rate_anomaly", "receivables_inventory_growth_vs_sales (sparse)", "beneish_SGI_TATA_DSRI_GMI (AQI and composite M-score NOT computed)", "interest_coverage_trend", "debt_to_ebitda_trend", "contingent_liabilities_to_networth"],
+    "confirmed_gaps_priority_list": ["promoter_pledge (recurs 4x)", "credit_rating_agency_history (recurs 4x, incl. Amtek)", "auditor_change_resignation_event (taxonomy's own hard-veto item, recurs 4x)", "related_party_loan_pct_of_balance_sheet_group_icd_mapping (recurs 6x)"],
+    "filing_read_only_by_nature": ["related_party_acquisition_attempts", "promoter_family_litigation_disputes", "unverified_thirdparty_partnership_claims", "MCA_ROC_address_matching_shell_entities", "physical_asset_existence_verification"],
+    "outside_equity_fundamentals_scope": ["bank/depository-level control failures (SWIFT-CBS reconciliation, PoA client-asset commingling)"]
+  }
+}

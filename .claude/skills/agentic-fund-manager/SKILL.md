@@ -1,0 +1,40 @@
+---
+name: agentic-fund-manager
+description: Run the Ionic Wealth NDPMS client-portfolio review — convert the scored stock universe + a client's holdings into Sell/Trim/Hold recommendations with trim targets, concentration/mcap/sector analysis, and the two-sheet Ionic Wealth client workbook (Before-vs-After). Use for /agentic-fund-manager <client holdings>, "review this client portfolio", "generate client recommendations", or any NDPMS portfolio-feedback ask.
+---
+
+# Agentic Fund Manager — NDPMS client portfolio review (FROZEN v1, 2026-07-18)
+**Contract: `Shreyas_Ionic_AMC/04_RND_LAB/STOCK_SCORECARD_750/FROZEN_METHODOLOGY.md` (v6) — read its CLIENT PORTFOLIO LAYER section first; it governs every number this skill produces. Client identity: Ionic Wealth. Vocabulary: Sell / Trim / Hold — NEVER Buy.**
+
+## Inputs
+1. Client holdings (NSDL CAS or equivalent): symbol, value_inr; purchase dates/costs if available (activates tax-aware notes; otherwise sheet carries the "confirm tax status" line).
+2. Scored universe: quant CSV (per-stock pillar scores, final_3y_adj/final_1y_adj) + `pf_qual_<SYMBOL>.json` analyst files. Any holding NOT in the scored universe → research it first via the scorecard-analyst workflow (one Sonnet sector-persona agent per stock); never score a client holding quant-only without flagging it.
+3. Client profile if provided (risk band, IPS constraints, mcap tolerance, sector exclusions); else the standard NDPMS template.
+
+## Step 1 — Mechanical layer (script, not judgment; ~0 tokens)
+Compute per holding: `ionic_score` (0.60×3Y + 0.40×1Y base, then growth leg −6…+6 from expected_next_3y_growth_pct bands and conviction leg ±6, total clamp ±10 — exact bands in FROZEN_METHODOLOGY.md); % of portfolio; sector weights; mcap band (Large/Mid/Small/Micro by mcap tercile/size); flags:
+- Gate A: analyst Sell → Sell; else ionic_score <40 → Sell-candidate
+- Gate B: ionic_score 40-50 AND weight >2.5% → Trim-candidate
+- Concentration: weight 5-10% + forward growth modest → note; >10% → "little bad" Trim-advice zone; >20% → extreme
+- Sector: any sector >20-25% of book → check vs Sector&Macro pillar + current regime call; overweight + weak forward view → tighten the Trim band for that sector's weakest names
+- Mcap: micro/small positions judged on a lower comfort band than large-caps at the same weight; note book-level mcap mix
+- Liquidity: position value vs stock's median turnover (days-to-exit at ~20% ADV) — a Trim that takes >10 trading days to execute must say so
+- Clutter: positions <0.25% → consolidation note (not a forced Sell)
+
+## Step 2 — FM judgment pass (agent, Sonnet)
+Summon ONE fund-manager persona (fm-fundamental-sanjay-kulkarni for long-only quality books; fm-vikram-shah for allocation-heavy questions) with the mechanical flag list + per-stock analyst summaries. The FM:
+- Sets the final action per flagged name and the **Trim target ("Trim to ~X% of portfolio")** — judgment, NOT formula: company future expectations + score + conviction + buying price/IPS if known + mcap context (Principal ruling: no hard caps).
+- May override a mechanical flag with stated reasoning (e.g., keep a 12% position intact on high conviction) — overrides are logged.
+- Writes the one-line client-appropriate reason per action and the Sheet-2 Before-vs-After narrative.
+- Never invents facts; anything shaky goes back to the analyst layer, not into the client sheet.
+Output: `pf_fm_actions.json` — per stock: {symbol, action, trim_target_pct|null, client_reason, fm_note}.
+
+## Step 3 — Verification gate (MANDATORY before building the workbook — Principal: "double sure of all checks and correctness")
+Script-verify: weights sum to 100.00 (±0.05) before AND after; after-weights = before minus actions with freed cash as its own line (never auto-redeployed — no Buy advice); every Sell/Trim has a client_reason; every Trim has a target < current weight; vocabulary ∈ {Sell, Trim, Hold}; score-vs-call divergences (score >50 with Sell, or <40 with Hold) each carry an auto-footnote; no technical/chart language anywhere client-facing; escalated names either resolved by Principal or excluded from action (noted as "under review").
+
+## Step 4 — Build + ship gate
+Build the Ionic Wealth two-sheet workbook via `Shreyas_Ionic_AMC/09_PRODUCT/scripts/build_client_excel.py` (v3: Sheet 1 Recommendations with ONE Ionic Score + Trim-to column; Sheet 2 Portfolio Before-vs-After). Also refresh the analyst Excel (`build_analyst_excel.py`) so the internal book matches.
+**No client deliverable ships without Principal sign-off.** Present: action list, biggest concentration findings, book-score before/after, and all open escalations.
+
+## Cadence
+Quarterly after each results season (per SCRAPING_SOP.md refresh) + event-driven single-name re-checks (escalation events, knife-edge earnings prints). Log every run to the client's PROGRESS file so any session can resume.

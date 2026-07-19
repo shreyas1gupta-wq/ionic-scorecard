@@ -1,0 +1,102 @@
+{
+  "QUADRANT_1Y": {
+    "mean": {
+      "Q1_cheap_growing_GARP": 0.4410086998014576,
+      "Q2_expensive_growing_STORY": 0.3298514079319016,
+      "Q3_cheap_notgrowing_VALUETRAP": 0.366320328028797,
+      "Q4_expensive_notgrowing_AVOID": 0.24443981135520945
+    },
+    "std": {
+      "Q1_cheap_growing_GARP": 1.0831908036192712,
+      "Q2_expensive_growing_STORY": 0.9484147519811221,
+      "Q3_cheap_notgrowing_VALUETRAP": 0.8539934177120445,
+      "Q4_expensive_notgrowing_AVOID": 0.7389095162662933
+    },
+    "count": {
+      "Q1_cheap_growing_GARP": 21535,
+      "Q2_expensive_growing_STORY": 19507,
+      "Q3_cheap_notgrowing_VALUETRAP": 18862,
+      "Q4_expensive_notgrowing_AVOID": 20769
+    },
+    "ann_1yr_equiv": {
+      "Q1_cheap_growing_GARP": 0.4410086998014576,
+      "Q2_expensive_growing_STORY": 0.3298514079319016,
+      "Q3_cheap_notgrowing_VALUETRAP": 0.366320328028797,
+      "Q4_expensive_notgrowing_AVOID": 0.24443981135520945
+    },
+    "t_stat": {
+      "Q1_cheap_growing_GARP": 59.74679739713258,
+      "Q2_expensive_growing_STORY": 48.57527675080544,
+      "Q3_cheap_notgrowing_VALUETRAP": 58.91153873018791,
+      "Q4_expensive_notgrowing_AVOID": 47.67475537042409
+    }
+  },
+  "QUADRANT_Q2_SPLIT_1Y": {
+    "mean": {
+      "0.0": 0.40991650920140593,
+      "1.0": 0.2909043756497312
+    },
+    "std": {
+      "0.0": 0.9733009286231017,
+      "1.0": 0.8745548608638495
+    },
+    "count": {
+      "0.0": 3972,
+      "1.0": 13379
+    },
+    "t_stat": {
+      "0.0": 26.54317631191484,
+      "1.0": 38.47468055097452
+    }
+  },
+  "QUADRANT_5Y": {
+    "mean": {
+      "Q1_cheap_growing_GARP": 2.5325017399979446,
+      "Q2_expensive_growing_STORY": 2.6748350045763436,
+      "Q3_cheap_notgrowing_VALUETRAP": 2.2397281332319463,
+      "Q4_expensive_notgrowing_AVOID": 2.1912096926393905
+    },
+    "std": {
+      "Q1_cheap_growing_GARP": 5.259560923746496,
+      "Q2_expensive_growing_STORY": 8.776700938494177,
+      "Q3_cheap_notgrowing_VALUETRAP": 4.697128094994386,
+      "Q4_expensive_notgrowing_AVOID": 5.003446386650443
+    },
+    "count": {
+      "Q1_cheap_growing_GARP": 12970,
+      "Q2_expensive_growing_STORY": 11669,
+      "Q3_cheap_notgrowing_VALUETRAP": 11024,
+      "Q4_expensive_notgrowing_AVOID": 12228
+    },
+    "ann_1yr_equiv": {
+      "Q1_cheap_growing_GARP": 0.5065003479995889,
+      "Q2_expensive_growing_STORY": 0.5349670009152687,
+      "Q3_cheap_notgrowing_VALUETRAP": 0.44794562664638926,
+      "Q4_expensive_notgrowing_AVOID": 0.43824193852787807
+    },
+    "t_stat": {
+      "Q1_cheap_growing_GARP": 54.83656599800565,
+      "Q2_expensive_growing_STORY": 32.921720058820526,
+      "Q3_cheap_notgrowing_VALUETRAP": 50.064802070448174,
+      "Q4_expensive_notgrowing_AVOID": 48.42753958431453
+    }
+  },
+  "QUADRANT_Q2_SPLIT_5Y": {
+    "mean": {
+      "0.0": 3.195685716904178,
+      "1.0": 2.4315097447962346
+    },
+    "std": {
+      "0.0": 8.130943979216033,
+      "1.0": 9.085640884120542
+    },
+    "count": {
+      "0.0": 2361,
+      "1.0": 8199
+    },
+    "t_stat": {
+      "0.0": 19.09726111785729,
+      "1.0": 24.232648934155684
+    }
+  }
+}

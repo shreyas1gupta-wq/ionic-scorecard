@@ -1,0 +1,781 @@
+{
+ "ticker": "TSFINV",
+ "url_path": "TSFINV/consolidated/",
+ "tables": {
+  "quarterly_results": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2023": "35",
+    "Jun 2023": "24",
+    "Sep 2023": "24",
+    "Dec 2023": "25",
+    "Mar 2024": "218",
+    "Jun 2024": "43",
+    "Sep 2024": "30",
+    "Dec 2024": "33",
+    "Mar 2025": "49",
+    "Jun 2025": "179",
+    "Sep 2025": "250",
+    "Dec 2025": "258",
+    "Mar 2026": "298"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2023": "10",
+    "Jun 2023": "14",
+    "Sep 2023": "11",
+    "Dec 2023": "12",
+    "Mar 2024": "11",
+    "Jun 2024": "9",
+    "Sep 2024": "9",
+    "Dec 2024": "9",
+    "Mar 2025": "12",
+    "Jun 2025": "132",
+    "Sep 2025": "200",
+    "Dec 2025": "210",
+    "Mar 2026": "240"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2023": "24",
+    "Jun 2023": "10",
+    "Sep 2023": "13",
+    "Dec 2023": "13",
+    "Mar 2024": "207",
+    "Jun 2024": "34",
+    "Sep 2024": "21",
+    "Dec 2024": "24",
+    "Mar 2025": "37",
+    "Jun 2025": "47",
+    "Sep 2025": "50",
+    "Dec 2025": "49",
+    "Mar 2026": "57"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2023": "70%",
+    "Jun 2023": "41%",
+    "Sep 2023": "54%",
+    "Dec 2023": "52%",
+    "Mar 2024": "95%",
+    "Jun 2024": "79%",
+    "Sep 2024": "70%",
+    "Dec 2024": "72%",
+    "Mar 2025": "76%",
+    "Jun 2025": "26%",
+    "Sep 2025": "20%",
+    "Dec 2025": "19%",
+    "Mar 2026": "19%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2023": "1",
+    "Jun 2023": "1",
+    "Sep 2023": "2",
+    "Dec 2023": "2",
+    "Mar 2024": "0",
+    "Jun 2024": "1",
+    "Sep 2024": "2",
+    "Dec 2024": "0",
+    "Mar 2025": "2",
+    "Jun 2025": "43",
+    "Sep 2025": "4",
+    "Dec 2025": "2",
+    "Mar 2026": "9"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2023": "0",
+    "Jun 2023": "0",
+    "Sep 2023": "0",
+    "Dec 2023": "0",
+    "Mar 2024": "0",
+    "Jun 2024": "0",
+    "Sep 2024": "0",
+    "Dec 2024": "0",
+    "Mar 2025": "0",
+    "Jun 2025": "5",
+    "Sep 2025": "7",
+    "Dec 2025": "7",
+    "Mar 2026": "7"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2023": "1",
+    "Jun 2023": "1",
+    "Sep 2023": "1",
+    "Dec 2023": "1",
+    "Mar 2024": "1",
+    "Jun 2024": "1",
+    "Sep 2024": "1",
+    "Dec 2024": "1",
+    "Mar 2025": "1",
+    "Jun 2025": "3",
+    "Sep 2025": "4",
+    "Dec 2025": "4",
+    "Mar 2026": "4"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2023": "24",
+    "Jun 2023": "10",
+    "Sep 2023": "14",
+    "Dec 2023": "15",
+    "Mar 2024": "206",
+    "Jun 2024": "34",
+    "Sep 2024": "22",
+    "Dec 2024": "23",
+    "Mar 2025": "38",
+    "Jun 2025": "82",
+    "Sep 2025": "44",
+    "Dec 2025": "40",
+    "Mar 2026": "56"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2023": "18%",
+    "Jun 2023": "133%",
+    "Sep 2023": "37%",
+    "Dec 2023": "24%",
+    "Mar 2024": "15%",
+    "Jun 2024": "29%",
+    "Sep 2024": "35%",
+    "Dec 2024": "25%",
+    "Mar 2025": "44%",
+    "Jun 2025": "24%",
+    "Sep 2025": "36%",
+    "Dec 2025": "37%",
+    "Mar 2026": "9%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2023": "99",
+    "Jun 2023": "71",
+    "Sep 2023": "91",
+    "Dec 2023": "102",
+    "Mar 2024": "269",
+    "Jun 2024": "110",
+    "Sep 2024": "89",
+    "Dec 2024": "106",
+    "Mar 2025": "107",
+    "Jun 2025": "158",
+    "Sep 2025": "103",
+    "Dec 2025": "105",
+    "Mar 2026": "164"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2023": "4.44",
+    "Jun 2023": "3.18",
+    "Sep 2023": "4.08",
+    "Dec 2023": "4.61",
+    "Mar 2024": "12.13",
+    "Jun 2024": "4.97",
+    "Sep 2024": "4.00",
+    "Dec 2024": "4.76",
+    "Mar 2025": "4.82",
+    "Jun 2025": "7.13",
+    "Sep 2025": "4.52",
+    "Dec 2025": "4.64",
+    "Mar 2026": "7.25"
+   },
+   {
+    "Unnamed: 0": "Raw PDF",
+    "Mar 2023": NaN,
+    "Jun 2023": NaN,
+    "Sep 2023": NaN,
+    "Dec 2023": NaN,
+    "Mar 2024": NaN,
+    "Jun 2024": NaN,
+    "Sep 2024": NaN,
+    "Dec 2024": NaN,
+    "Mar 2025": NaN,
+    "Jun 2025": NaN,
+    "Sep 2025": NaN,
+    "Dec 2025": NaN,
+    "Mar 2026": NaN
+   }
+  ],
+  "profit_loss": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2018": "69",
+    "Mar 2019": "100",
+    "Mar 2020": "93",
+    "Mar 2021": "59",
+    "Mar 2022": "85",
+    "Mar 2023": "91",
+    "Mar 2024": "291",
+    "Mar 2025": "155",
+    "Mar 2026": "1027"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2018": "49",
+    "Mar 2019": "59",
+    "Mar 2020": "62",
+    "Mar 2021": "48",
+    "Mar 2022": "61",
+    "Mar 2023": "45",
+    "Mar 2024": "48",
+    "Mar 2025": "39",
+    "Mar 2026": "782"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2018": "21",
+    "Mar 2019": "41",
+    "Mar 2020": "31",
+    "Mar 2021": "10",
+    "Mar 2022": "24",
+    "Mar 2023": "46",
+    "Mar 2024": "243",
+    "Mar 2025": "116",
+    "Mar 2026": "245"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2018": "30%",
+    "Mar 2019": "41%",
+    "Mar 2020": "33%",
+    "Mar 2021": "18%",
+    "Mar 2022": "28%",
+    "Mar 2023": "50%",
+    "Mar 2024": "83%",
+    "Mar 2025": "75%",
+    "Mar 2026": "24%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2018": "3",
+    "Mar 2019": "2",
+    "Mar 2020": "5",
+    "Mar 2021": "6",
+    "Mar 2022": "3",
+    "Mar 2023": "3",
+    "Mar 2024": "6",
+    "Mar 2025": "5",
+    "Mar 2026": "18"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2018": "0",
+    "Mar 2019": "0",
+    "Mar 2020": "0",
+    "Mar 2021": "0",
+    "Mar 2022": "1",
+    "Mar 2023": "0",
+    "Mar 2024": "1",
+    "Mar 2025": "1",
+    "Mar 2026": "25"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2018": "1",
+    "Mar 2019": "1",
+    "Mar 2020": "1",
+    "Mar 2021": "2",
+    "Mar 2022": "4",
+    "Mar 2023": "2",
+    "Mar 2024": "3",
+    "Mar 2025": "3",
+    "Mar 2026": "16"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2018": "23",
+    "Mar 2019": "42",
+    "Mar 2020": "35",
+    "Mar 2021": "14",
+    "Mar 2022": "22",
+    "Mar 2023": "47",
+    "Mar 2024": "245",
+    "Mar 2025": "117",
+    "Mar 2026": "221"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2018": "22%",
+    "Mar 2019": "28%",
+    "Mar 2020": "16%",
+    "Mar 2021": "32%",
+    "Mar 2022": "21%",
+    "Mar 2023": "32%",
+    "Mar 2024": "21%",
+    "Mar 2025": "34%",
+    "Mar 2026": "25%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2018": "130",
+    "Mar 2019": "137",
+    "Mar 2020": "78",
+    "Mar 2021": "74",
+    "Mar 2022": "161",
+    "Mar 2023": "238",
+    "Mar 2024": "533",
+    "Mar 2025": "412",
+    "Mar 2026": "530"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2018": "5.84",
+    "Mar 2019": "6.19",
+    "Mar 2020": "3.52",
+    "Mar 2021": "3.33",
+    "Mar 2022": "7.35",
+    "Mar 2023": "10.70",
+    "Mar 2024": "24.00",
+    "Mar 2025": "18.55",
+    "Mar 2026": "23.49"
+   },
+   {
+    "Unnamed: 0": "Dividend Payout %",
+    "Mar 2018": "17%",
+    "Mar 2019": "19%",
+    "Mar 2020": "24%",
+    "Mar 2021": "10%",
+    "Mar 2022": "37%",
+    "Mar 2023": "37%",
+    "Mar 2024": "32%",
+    "Mar 2025": "32%",
+    "Mar 2026": "47%"
+   }
+  ],
+  "balance_sheet": [
+   {
+    "Unnamed: 0": "Equity Capital",
+    "Mar 2018": 76,
+    "Mar 2019": 76,
+    "Mar 2020": 76,
+    "Mar 2021": 76,
+    "Mar 2022": 111,
+    "Mar 2023": 111,
+    "Mar 2024": 111,
+    "Mar 2025": 111,
+    "Mar 2026": 111
+   },
+   {
+    "Unnamed: 0": "Reserves",
+    "Mar 2018": 2736,
+    "Mar 2019": 2290,
+    "Mar 2020": 1782,
+    "Mar 2021": 2119,
+    "Mar 2022": 2891,
+    "Mar 2023": 3459,
+    "Mar 2024": 4682,
+    "Mar 2025": 5496,
+    "Mar 2026": 5922
+   },
+   {
+    "Unnamed: 0": "Borrowings",
+    "Mar 2018": 0,
+    "Mar 2019": 0,
+    "Mar 2020": 2,
+    "Mar 2021": 4,
+    "Mar 2022": 3,
+    "Mar 2023": 18,
+    "Mar 2024": 18,
+    "Mar 2025": 16,
+    "Mar 2026": 235
+   },
+   {
+    "Unnamed: 0": "Other Liabilities",
+    "Mar 2018": 128,
+    "Mar 2019": 87,
+    "Mar 2020": 63,
+    "Mar 2021": 107,
+    "Mar 2022": 90,
+    "Mar 2023": 46,
+    "Mar 2024": 137,
+    "Mar 2025": 214,
+    "Mar 2026": 475
+   },
+   {
+    "Unnamed: 0": "Total Liabilities",
+    "Mar 2018": 2940,
+    "Mar 2019": 2453,
+    "Mar 2020": 1922,
+    "Mar 2021": 2306,
+    "Mar 2022": 3096,
+    "Mar 2023": 3635,
+    "Mar 2024": 4948,
+    "Mar 2025": 5837,
+    "Mar 2026": 6743
+   },
+   {
+    "Unnamed: 0": "Fixed Assets",
+    "Mar 2018": 6,
+    "Mar 2019": 6,
+    "Mar 2020": 9,
+    "Mar 2021": 10,
+    "Mar 2022": 9,
+    "Mar 2023": 41,
+    "Mar 2024": 40,
+    "Mar 2025": 49,
+    "Mar 2026": 423
+   },
+   {
+    "Unnamed: 0": "CWIP",
+    "Mar 2018": 0,
+    "Mar 2019": 0,
+    "Mar 2020": 0,
+    "Mar 2021": 0,
+    "Mar 2022": 0,
+    "Mar 2023": 0,
+    "Mar 2024": 0,
+    "Mar 2025": 0,
+    "Mar 2026": 1
+   },
+   {
+    "Unnamed: 0": "Investments",
+    "Mar 2018": 2910,
+    "Mar 2019": 2420,
+    "Mar 2020": 1879,
+    "Mar 2021": 2269,
+    "Mar 2022": 3053,
+    "Mar 2023": 3553,
+    "Mar 2024": 4708,
+    "Mar 2025": 5738,
+    "Mar 2026": 5781
+   },
+   {
+    "Unnamed: 0": "Other Assets",
+    "Mar 2018": 24,
+    "Mar 2019": 27,
+    "Mar 2020": 35,
+    "Mar 2021": 27,
+    "Mar 2022": 34,
+    "Mar 2023": 40,
+    "Mar 2024": 200,
+    "Mar 2025": 50,
+    "Mar 2026": 538
+   },
+   {
+    "Unnamed: 0": "Total Assets",
+    "Mar 2018": 2940,
+    "Mar 2019": 2453,
+    "Mar 2020": 1922,
+    "Mar 2021": 2306,
+    "Mar 2022": 3096,
+    "Mar 2023": 3635,
+    "Mar 2024": 4948,
+    "Mar 2025": 5837,
+    "Mar 2026": 6743
+   }
+  ],
+  "cash_flow": [
+   {
+    "Unnamed: 0": "Cash from Operating Activity",
+    "Mar 2018": "147",
+    "Mar 2019": "58",
+    "Mar 2020": "62",
+    "Mar 2021": "19",
+    "Mar 2022": "30",
+    "Mar 2023": "100",
+    "Mar 2024": "132",
+    "Mar 2025": "188",
+    "Mar 2026": "266"
+   },
+   {
+    "Unnamed: 0": "Cash from Investing Activity",
+    "Mar 2018": "-146",
+    "Mar 2019": "-30",
+    "Mar 2020": "-11",
+    "Mar 2021": "-10",
+    "Mar 2022": "-345",
+    "Mar 2023": "-25",
+    "Mar 2024": "136",
+    "Mar 2025": "-144",
+    "Mar 2026": "-145"
+   },
+   {
+    "Unnamed: 0": "Cash from Financing Activity",
+    "Mar 2018": "-1",
+    "Mar 2019": "-28",
+    "Mar 2020": "-46",
+    "Mar 2021": "-8",
+    "Mar 2022": "319",
+    "Mar 2023": "-73",
+    "Mar 2024": "-103",
+    "Mar 2025": "-211",
+    "Mar 2026": "-50"
+   },
+   {
+    "Unnamed: 0": "Net Cash Flow",
+    "Mar 2018": "1",
+    "Mar 2019": "1",
+    "Mar 2020": "5",
+    "Mar 2021": "1",
+    "Mar 2022": "3",
+    "Mar 2023": "2",
+    "Mar 2024": "166",
+    "Mar 2025": "-167",
+    "Mar 2026": "71"
+   },
+   {
+    "Unnamed: 0": "Free Cash Flow",
+    "Mar 2018": "146",
+    "Mar 2019": "80",
+    "Mar 2020": "60",
+    "Mar 2021": "18",
+    "Mar 2022": "30",
+    "Mar 2023": "82",
+    "Mar 2024": "131",
+    "Mar 2025": "187",
+    "Mar 2026": "263"
+   },
+   {
+    "Unnamed: 0": "CFO/OP",
+    "Mar 2018": "735%",
+    "Mar 2019": "173%",
+    "Mar 2020": "218%",
+    "Mar 2021": "221%",
+    "Mar 2022": "173%",
+    "Mar 2023": "250%",
+    "Mar 2024": "69%",
+    "Mar 2025": "195%",
+    "Mar 2026": "124%"
+   }
+  ],
+  "ratios": [
+   {
+    "Unnamed: 0": "Debtor Days",
+    "Mar 2018": 55.0,
+    "Mar 2019": "38",
+    "Mar 2020": "30",
+    "Mar 2021": "33",
+    "Mar 2022": "22",
+    "Mar 2023": "28",
+    "Mar 2024": "8",
+    "Mar 2025": "14",
+    "Mar 2026": "74"
+   },
+   {
+    "Unnamed: 0": "Inventory Days",
+    "Mar 2018": NaN,
+    "Mar 2019": NaN,
+    "Mar 2020": NaN,
+    "Mar 2021": NaN,
+    "Mar 2022": NaN,
+    "Mar 2023": NaN,
+    "Mar 2024": NaN,
+    "Mar 2025": NaN,
+    "Mar 2026": "113"
+   },
+   {
+    "Unnamed: 0": "Days Payable",
+    "Mar 2018": NaN,
+    "Mar 2019": NaN,
+    "Mar 2020": NaN,
+    "Mar 2021": NaN,
+    "Mar 2022": NaN,
+    "Mar 2023": NaN,
+    "Mar 2024": NaN,
+    "Mar 2025": NaN,
+    "Mar 2026": "89"
+   },
+   {
+    "Unnamed: 0": "Cash Conversion Cycle",
+    "Mar 2018": 55.0,
+    "Mar 2019": "38",
+    "Mar 2020": "30",
+    "Mar 2021": "33",
+    "Mar 2022": "22",
+    "Mar 2023": "28",
+    "Mar 2024": "8",
+    "Mar 2025": "14",
+    "Mar 2026": "98"
+   },
+   {
+    "Unnamed: 0": "Working Capital Days",
+    "Mar 2018": 61.0,
+    "Mar 2019": "60",
+    "Mar 2020": "69",
+    "Mar 2021": "34",
+    "Mar 2022": "52",
+    "Mar 2023": "69",
+    "Mar 2024": "13",
+    "Mar 2025": "54",
+    "Mar 2026": "66"
+   },
+   {
+    "Unnamed: 0": "ROCE %",
+    "Mar 2018": NaN,
+    "Mar 2019": "2%",
+    "Mar 2020": "2%",
+    "Mar 2021": "1%",
+    "Mar 2022": "1%",
+    "Mar 2023": "1%",
+    "Mar 2024": "6%",
+    "Mar 2025": "2%",
+    "Mar 2026": "3%"
+   }
+  ],
+  "shareholding": [
+   {
+    "Unnamed: 0": "Promoters",
+    "Jun 2023": "55.59%",
+    "Sep 2023": "55.59%",
+    "Dec 2023": "55.29%",
+    "Mar 2024": "54.97%",
+    "Jun 2024": "54.97%",
+    "Sep 2024": "54.97%",
+    "Dec 2024": "54.97%",
+    "Mar 2025": "54.97%",
+    "Jun 2025": "54.97%",
+    "Sep 2025": "54.97%",
+    "Dec 2025": "55.01%",
+    "Mar 2026": "54.99%"
+   },
+   {
+    "Unnamed: 0": "FIIs",
+    "Jun 2023": "0.19%",
+    "Sep 2023": "0.22%",
+    "Dec 2023": "0.29%",
+    "Mar 2024": "0.23%",
+    "Jun 2024": "0.79%",
+    "Sep 2024": "1.04%",
+    "Dec 2024": "1.02%",
+    "Mar 2025": "1.01%",
+    "Jun 2025": "1.43%",
+    "Sep 2025": "2.60%",
+    "Dec 2025": "3.15%",
+    "Mar 2026": "3.20%"
+   },
+   {
+    "Unnamed: 0": "DIIs",
+    "Jun 2023": "5.58%",
+    "Sep 2023": "5.46%",
+    "Dec 2023": "5.46%",
+    "Mar 2024": "5.45%",
+    "Jun 2024": "5.30%",
+    "Sep 2024": "5.19%",
+    "Dec 2024": "5.19%",
+    "Mar 2025": "5.19%",
+    "Jun 2025": "5.15%",
+    "Sep 2025": "4.90%",
+    "Dec 2025": "4.78%",
+    "Mar 2026": "4.75%"
+   },
+   {
+    "Unnamed: 0": "Public",
+    "Jun 2023": "38.01%",
+    "Sep 2023": "38.09%",
+    "Dec 2023": "38.32%",
+    "Mar 2024": "38.72%",
+    "Jun 2024": "38.31%",
+    "Sep 2024": "38.17%",
+    "Dec 2024": "38.19%",
+    "Mar 2025": "38.19%",
+    "Jun 2025": "37.81%",
+    "Sep 2025": "36.89%",
+    "Dec 2025": "36.42%",
+    "Mar 2026": "36.41%"
+   },
+   {
+    "Unnamed: 0": "Others",
+    "Jun 2023": "0.00%",
+    "Sep 2023": "0.00%",
+    "Dec 2023": "0.00%",
+    "Mar 2024": "0.00%",
+    "Jun 2024": "0.00%",
+    "Sep 2024": "0.64%",
+    "Dec 2024": "0.64%",
+    "Mar 2025": "0.64%",
+    "Jun 2025": "0.64%",
+    "Sep 2025": "0.64%",
+    "Dec 2025": "0.64%",
+    "Mar 2026": "0.64%"
+   },
+   {
+    "Unnamed: 0": "No. of Shareholders",
+    "Jun 2023": "30407",
+    "Sep 2023": "32104",
+    "Dec 2023": "33559",
+    "Mar 2024": "33201",
+    "Jun 2024": "34448",
+    "Sep 2024": "37142",
+    "Dec 2024": "39448",
+    "Mar 2025": "39001",
+    "Jun 2025": "37271",
+    "Sep 2025": "37901",
+    "Dec 2025": "36504",
+    "Mar 2026": "35782"
+   }
+  ]
+ },
+ "top_ratios": {
+  "Market Cap": "\u20b9 10,552 Cr.",
+  "Current Price": "\u20b9 475",
+  "High / Low": "\u20b9 702 / 332",
+  "Stock P/E": "22.0",
+  "Book Value": "\u20b9 272",
+  "Dividend Yield": "2.35 %",
+  "ROCE": "3.38 %",
+  "ROE": "8.23 %",
+  "Face Value": "\u20b9 5.00"
+ },
+ "documents": [
+  {
+   "text": "All",
+   "href": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=TSFINV&tabIndex=equity"
+  },
+  {
+   "text": "Certificate under SEBI (Depositories and Participants) Regulations, 2018 6 July ",
+   "href": "https://nsearchives.nseindia.com/corporate/SUNDARMHLD_06072026102810_TSFREG745.pdf"
+  },
+  {
+   "text": "Copy of Newspaper Publication 2 July 2026 - TSF INVESTMENTS LIMITED has informed",
+   "href": "https://nsearchives.nseindia.com/corporate/SUNDARMHLD_02072026103737_NSEPB.pdf"
+  },
+  {
+   "text": "Shareholders meeting 30 June 2026 - AGM on 23 July 2026; final dividend Rs4.45/s",
+   "href": "https://nsearchives.nseindia.com/corporate/SUNDARMHLD_30062026165851_TSFILAGMNotice202526.pdf"
+  },
+  {
+   "text": "Trading Window 26 June 2026 - Trading window closed from 1 July 2026 until 48 ho",
+   "href": "https://nsearchives.nseindia.com/corporate/SUNDARMHLD_26062026124254_sdTSFILTWC30062026.pdf"
+  },
+  {
+   "text": "Copy of Newspaper Publication 21 May 2026 - TSF INVESTMENTS LIMITED has informed",
+   "href": "https://nsearchives.nseindia.com/corporate/SUNDARMHLD_21052026090843_NSEQ4PAPERPUBLICATIONS.pdf"
+  },
+  {
+   "text": "Financial Year 2026 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_29494_TSFINV_2025_2026_A_2708538_30062026170530.pdf"
+  },
+  {
+   "text": "Financial Year 2025 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_26643_SUNDARMHLD_2024_2025_A_30062025151444.pdf"
+  },
+  {
+   "text": "Financial Year 2024 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_24173_SUNDARMHLD_2023_2024_24062024154617.pdf"
+  },
+  {
+   "text": "Financial Year 2023 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_22049_SUNDARMHLD_2022_2023_21062023182234.zip"
+  },
+  {
+   "text": "Financial Year 2022 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_20083_SUNDARMHLD_2021_2022_21062022155056_06212022160005.zip"
+  },
+  {
+   "text": "Financial Year 2021 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_18162_SUNDARMHLD_2020_2021_19062021173833_19062021180007.zip"
+  },
+  {
+   "text": "Financial Year 2020 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_16307_SUNDARMHLD_2019_2020_22062020200845_22062020210002.zip"
+  },
+  {
+   "text": "Financial Year 2019 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_14544_SUNDARMHLD_2018_2019_17062019165241_17062019170003.zip"
+  },
+  {
+   "text": "Financial Year 2018 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_12538_SUNDARMHLD_2017_2018_18072018190104.zip"
+  }
+ ]
+}

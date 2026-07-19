@@ -1,0 +1,71 @@
+{
+  "n_analyst": 113,
+  "n_merged": 83,
+  "spearman_checks": {
+    "exp_growth vs revenue_cagr_3y (historical growth)": [
+      0.696,
+      73
+    ],
+    "exp_growth vs revenue_growth_1y": [
+      0.675,
+      74
+    ],
+    "exp_growth vs growth_3y_score(pctile)": [
+      0.696,
+      73
+    ],
+    "exp_growth vs quality_score": [
+      -0.171,
+      83
+    ],
+    "exp_growth vs roe": [
+      -0.177,
+      83
+    ],
+    "exp_growth vs value_score (cheapness)": [
+      -0.439,
+      83
+    ],
+    "exp_growth vs final_3y_adj": [
+      0.11,
+      83
+    ]
+  },
+  "growth_tercile_means": {
+    "exp_growth": {
+      "Low": 7.605,
+      "Mid": 12.081,
+      "High": 17.987
+    },
+    "revenue_cagr_3y": {
+      "Low": 4.659,
+      "Mid": 12.475,
+      "High": 37.316
+    },
+    "revenue_growth_1y": {
+      "Low": 4.434,
+      "Mid": 12.555,
+      "High": 31.382
+    },
+    "quality_score": {
+      "Low": 65.674,
+      "Mid": 57.97,
+      "High": 58.757
+    },
+    "roe": {
+      "Low": 0.228,
+      "Mid": 0.181,
+      "High": 23.754
+    }
+  },
+  "exp_growth_by_rec": {
+    "mean": {
+      "Hold": 12.5,
+      "Sell": 12.72
+    },
+    "count": {
+      "Hold": 81,
+      "Sell": 32
+    }
+  }
+}

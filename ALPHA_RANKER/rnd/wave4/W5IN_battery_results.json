@@ -1,0 +1,526 @@
+{
+  "panel": {
+    "rows": 148297,
+    "dates": 249,
+    "symbols": 969
+  },
+  "coverage_diagnostics": {
+    "n_symbol_years": 25242,
+    "n_symbols": 2356,
+    "n_turnaround_flagged": 4644,
+    "n_loss_to_profit_flagged": 1623,
+    "pct_turnaround_flagged": 0.18397908248157832
+  },
+  "bs_asset_growth_leg_sanity_check": {
+    "1Y": {
+      "ic_mean": 0.0352901970988775,
+      "ic_ir": 0.2911902683309104,
+      "n_dates_scored": 145,
+      "n_obs": 87281
+    },
+    "5Y": {
+      "ic_mean": 0.03621246313071873,
+      "ic_ir": 0.3965503031847053,
+      "n_dates_scored": 96,
+      "n_obs": 51890
+    }
+  },
+  "factors": {
+    "W5IN_supp_raw": {
+      "1Y": {
+        "verdict_harness": "KILL (IC_IR -0.000 < 0.2; lag_test_delta 3.422 > 0.25; PBO 0.974 > 0.5; DSR 0.000 <= 0.0)",
+        "ic_mean": -3.505879763804274e-05,
+        "ic_ir": -0.0004074704862267011,
+        "newey_west_t": -0.0020025314753554925,
+        "n_dates": 223,
+        "n_obs": 94138,
+        "monotonicity": -0.24848484848484845,
+        "ann_return_LS_horizon_aware": -0.08239481082793318,
+        "net_of_cost_ann_return_horizon_aware": -0.08787173665124073,
+        "hit_rate": 0.4012345679012346,
+        "lag_test_delta": 3.4222626862138825,
+        "placebo_ic": -0.00014059220067263388,
+        "dsr": 0.0,
+        "pbo": 0.974025974025974,
+        "skew": -0.9578530521826266,
+        "era_split": {
+          "split_date": "2016-03-31",
+          "pre": {
+            "ic_mean": -0.0010998081931149323,
+            "ic_ir": -0.009708543754058606,
+            "n_dates_scored": 57,
+            "n_obs": 24504
+          },
+          "post": {
+            "ic_mean": 0.0005429480170494093,
+            "ic_ir": 0.008049853154363866,
+            "n_dates_scored": 105,
+            "n_obs": 69634
+          },
+          "both_hold_positive_sign": false
+        },
+        "drop_one_sector": {
+          "n_sign_flips": 8,
+          "n_sectors": 22,
+          "worst_sector_drop": [
+            "Financial Services",
+            -0.0349576561971309
+          ]
+        },
+        "drop_one_year": {
+          "n_sign_flips": 7,
+          "n_years": 20,
+          "worst_year_drop": [
+            2011,
+            -0.011304238983610894
+          ]
+        },
+        "orthogonality": {
+          "n_overlap": 98465,
+          "corr_vs_bs_asset_growth": -0.0614002319280471,
+          "corr_vs_canonical_7leg_composite": -0.0593758895398076
+        },
+        "incremental_after_residualization": {
+          "ic_mean": 0.02198831884701122,
+          "ic_ir": 0.3362754388803184,
+          "n_dates_scored": 145,
+          "n_obs": 86895,
+          "n_used_for_residualization": 98465
+        }
+      },
+      "5Y": {
+        "verdict_harness": "KILL (IC_IR 0.169 < 0.2; PBO 0.970 > 0.5)",
+        "ic_mean": 0.009369348664814576,
+        "ic_ir": 0.16884546123493968,
+        "newey_west_t": 0.4569253579508923,
+        "n_dates": 174,
+        "n_obs": 58717,
+        "monotonicity": 0.04242424242424241,
+        "ann_return_LS_horizon_aware": -0.09619390266529125,
+        "net_of_cost_ann_return_horizon_aware": -0.10216018628808983,
+        "hit_rate": 0.2743362831858407,
+        "lag_test_delta": 0.001042682594807065,
+        "placebo_ic": 0.0016817987606162917,
+        "dsr": 6.627628746452117e-285,
+        "pbo": 0.9696969696969697,
+        "skew": -0.033999637384281856,
+        "era_split": {
+          "split_date": "2016-03-31",
+          "pre": {
+            "ic_mean": -0.01936441273431648,
+            "ic_ir": -0.43173212068483935,
+            "n_dates_scored": 57,
+            "n_obs": 24504
+          },
+          "post": {
+            "ic_mean": 0.03861621294607298,
+            "ic_ir": 0.7730260252676308,
+            "n_dates_scored": 56,
+            "n_obs": 34213
+          },
+          "both_hold_positive_sign": false
+        },
+        "drop_one_sector": {
+          "n_sign_flips": 1,
+          "n_sectors": 22,
+          "worst_sector_drop": [
+            "Financial Services",
+            -0.04166953460084866
+          ]
+        },
+        "drop_one_year": {
+          "n_sign_flips": 1,
+          "n_years": 20,
+          "worst_year_drop": [
+            2019,
+            -0.001241112515508101
+          ]
+        },
+        "orthogonality": {
+          "n_overlap": 98465,
+          "corr_vs_bs_asset_growth": -0.0614002319280471,
+          "corr_vs_canonical_7leg_composite": -0.0593758895398076
+        },
+        "incremental_after_residualization": {
+          "ic_mean": 0.06882775881395346,
+          "ic_ir": 1.065843618408336,
+          "n_dates_scored": 96,
+          "n_obs": 51509,
+          "n_used_for_residualization": 98465
+        }
+      }
+    },
+    "W5IN_cond_noqual": {
+      "1Y": {
+        "verdict_harness": "KILL (IC_IR -0.215 < 0.2; PBO 1.000 > 0.5; DSR 0.000 <= 0.0)",
+        "ic_mean": -0.016011563128513623,
+        "ic_ir": -0.21539043598965465,
+        "newey_west_t": -1.2235779152636685,
+        "n_dates": 211,
+        "n_obs": 87281,
+        "monotonicity": -0.006060606060606061,
+        "ann_return_LS_horizon_aware": 0.04417715600034583,
+        "net_of_cost_ann_return_horizon_aware": 0.036581179024195505,
+        "hit_rate": 0.4,
+        "lag_test_delta": 0.021378849436669057,
+        "placebo_ic": -0.0006209510441426409,
+        "dsr": 0.0,
+        "pbo": 1.0,
+        "skew": 1.4363237038653769,
+        "era_split": {
+          "split_date": "2016-09-30",
+          "pre": {
+            "ic_mean": -0.0001901416014890288,
+            "ic_ir": -0.0017709017901909516,
+            "n_dates_scored": 46,
+            "n_obs": 21188
+          },
+          "post": {
+            "ic_mean": -0.02336293070672707,
+            "ic_ir": -0.45348170362479506,
+            "n_dates_scored": 99,
+            "n_obs": 66093
+          },
+          "both_hold_positive_sign": false
+        },
+        "drop_one_sector": {
+          "n_sign_flips": 0,
+          "n_sectors": 22,
+          "worst_sector_drop": [
+            "Financial Services",
+            -0.029795365530739953
+          ]
+        },
+        "drop_one_year": {
+          "n_sign_flips": 0,
+          "n_years": 19,
+          "worst_year_drop": [
+            2012,
+            -0.020667432779025937
+          ]
+        },
+        "orthogonality": {
+          "n_overlap": 98465,
+          "corr_vs_bs_asset_growth": 0.11886902613598971,
+          "corr_vs_canonical_7leg_composite": 0.04255925798745046
+        },
+        "incremental_after_residualization": {
+          "ic_mean": -0.023795295215175576,
+          "ic_ir": -0.5110169666138067,
+          "n_dates_scored": 145,
+          "n_obs": 86895,
+          "n_used_for_residualization": 98465
+        }
+      },
+      "5Y": {
+        "verdict_harness": "KILL (PBO 0.853 > 0.5; DSR 0.000 <= 0.0)",
+        "ic_mean": 0.03247491028354269,
+        "ic_ir": 0.3969149429398615,
+        "newey_west_t": 1.5153970144019853,
+        "n_dates": 162,
+        "n_obs": 51890,
+        "monotonicity": 0.35757575757575755,
+        "ann_return_LS_horizon_aware": 0.20140725067948745,
+        "net_of_cost_ann_return_horizon_aware": 0.19365457582623977,
+        "hit_rate": 0.625,
+        "lag_test_delta": 0.006190007825332441,
+        "placebo_ic": -0.006743482200285864,
+        "dsr": 0.0,
+        "pbo": 0.8528138528138528,
+        "skew": 1.743895791644826,
+        "era_split": {
+          "split_date": "2016-09-30",
+          "pre": {
+            "ic_mean": 0.04226598687088207,
+            "ic_ir": 0.42051731143621707,
+            "n_dates_scored": 46,
+            "n_obs": 21188
+          },
+          "post": {
+            "ic_mean": 0.023467119823190465,
+            "ic_ir": 0.3950707942645654,
+            "n_dates_scored": 50,
+            "n_obs": 30702
+          },
+          "both_hold_positive_sign": true
+        },
+        "drop_one_sector": {
+          "n_sign_flips": 0,
+          "n_sectors": 22,
+          "worst_sector_drop": [
+            "Financial Services",
+            0.0033155514298335354
+          ]
+        },
+        "drop_one_year": {
+          "n_sign_flips": 0,
+          "n_years": 19,
+          "worst_year_drop": [
+            2013,
+            0.0220888503325872
+          ]
+        },
+        "orthogonality": {
+          "n_overlap": 98465,
+          "corr_vs_bs_asset_growth": 0.11886902613598971,
+          "corr_vs_canonical_7leg_composite": 0.04255925798745046
+        },
+        "incremental_after_residualization": {
+          "ic_mean": 0.026933934498024392,
+          "ic_ir": 0.5781812426961683,
+          "n_dates_scored": 96,
+          "n_obs": 51509,
+          "n_used_for_residualization": 98465
+        }
+      }
+    },
+    "W5IN_cond_full": {
+      "1Y": {
+        "verdict_harness": "KILL (IC_IR -0.275 < 0.2; PBO 0.987 > 0.5)",
+        "ic_mean": -0.018392219365480078,
+        "ic_ir": -0.2750285068263813,
+        "newey_west_t": -1.5776934979425672,
+        "n_dates": 211,
+        "n_obs": 87281,
+        "monotonicity": -0.7333333333333332,
+        "ann_return_LS_horizon_aware": -0.023455647357320454,
+        "net_of_cost_ann_return_horizon_aware": -0.03137914151977932,
+        "hit_rate": 0.2896551724137931,
+        "lag_test_delta": 0.03593695168688085,
+        "placebo_ic": -0.0007619948043046408,
+        "dsr": 5.782612538397232e-275,
+        "pbo": 0.987012987012987,
+        "skew": 1.5474943197425597,
+        "era_split": {
+          "split_date": "2016-09-30",
+          "pre": {
+            "ic_mean": -0.009850268636474252,
+            "ic_ir": -0.1232913976592338,
+            "n_dates_scored": 46,
+            "n_obs": 21188
+          },
+          "post": {
+            "ic_mean": -0.022361206572896922,
+            "ic_ir": -0.37320034647221756,
+            "n_dates_scored": 99,
+            "n_obs": 66093
+          },
+          "both_hold_positive_sign": false
+        },
+        "drop_one_sector": {
+          "n_sign_flips": 0,
+          "n_sectors": 22,
+          "worst_sector_drop": [
+            "Financial Services",
+            -0.027956244503050644
+          ]
+        },
+        "drop_one_year": {
+          "n_sign_flips": 0,
+          "n_years": 19,
+          "worst_year_drop": [
+            2022,
+            -0.02317563256624351
+          ]
+        },
+        "orthogonality": {
+          "n_overlap": 98465,
+          "corr_vs_bs_asset_growth": -0.04873337164972948,
+          "corr_vs_canonical_7leg_composite": 0.09713754033390061
+        },
+        "incremental_after_residualization": {
+          "ic_mean": -0.043414177220760734,
+          "ic_ir": -0.8486130430973909,
+          "n_dates_scored": 145,
+          "n_obs": 86895,
+          "n_used_for_residualization": 98465
+        }
+      },
+      "5Y": {
+        "verdict_harness": "KILL (IC_IR 0.105 < 0.2; PBO 0.926 > 0.5)",
+        "ic_mean": 0.006606092338557211,
+        "ic_ir": 0.10544299985123516,
+        "newey_west_t": 0.43586366521714676,
+        "n_dates": 162,
+        "n_obs": 51890,
+        "monotonicity": 0.006060606060606061,
+        "ann_return_LS_horizon_aware": 0.11592765106175655,
+        "net_of_cost_ann_return_horizon_aware": 0.10808016733539907,
+        "hit_rate": 0.5729166666666666,
+        "lag_test_delta": 0.038627652816414074,
+        "placebo_ic": -0.004686292406663161,
+        "dsr": 4.5976304126096673e-275,
+        "pbo": 0.9264069264069265,
+        "skew": 1.7557640167676687,
+        "era_split": {
+          "split_date": "2016-09-30",
+          "pre": {
+            "ic_mean": 0.020788976418130628,
+            "ic_ir": 0.27394881755119094,
+            "n_dates_scored": 46,
+            "n_obs": 21188
+          },
+          "post": {
+            "ic_mean": -0.006442161014650334,
+            "ic_ir": -0.14556061575483115,
+            "n_dates_scored": 50,
+            "n_obs": 30702
+          },
+          "both_hold_positive_sign": false
+        },
+        "drop_one_sector": {
+          "n_sign_flips": 3,
+          "n_sectors": 22,
+          "worst_sector_drop": [
+            "Financial Services",
+            -0.01805168385634693
+          ]
+        },
+        "drop_one_year": {
+          "n_sign_flips": 0,
+          "n_years": 19,
+          "worst_year_drop": [
+            2013,
+            0.000891006265499075
+          ]
+        },
+        "orthogonality": {
+          "n_overlap": 98465,
+          "corr_vs_bs_asset_growth": -0.04873337164972948,
+          "corr_vs_canonical_7leg_composite": 0.09713754033390061
+        },
+        "incremental_after_residualization": {
+          "ic_mean": -0.02718023684504184,
+          "ic_ir": -0.5419765892306727,
+          "n_dates_scored": 96,
+          "n_obs": 51509,
+          "n_used_for_residualization": 98465
+        }
+      }
+    },
+    "W5IN_turnaround": {
+      "1Y": {
+        "verdict_harness": "KILL (IC_IR -0.494 < 0.2; PBO 0.996 > 0.5; DSR 0.000 <= 0.0)",
+        "ic_mean": -0.0378579870879894,
+        "ic_ir": -0.49395783511889874,
+        "newey_west_t": -2.5674611277435937,
+        "n_dates": 175,
+        "n_obs": 58963,
+        "monotonicity": -0.07878787878787878,
+        "ann_return_LS_horizon_aware": 0.1423814086413354,
+        "net_of_cost_ann_return_horizon_aware": 0.1393703005311896,
+        "hit_rate": 0.4172661870503597,
+        "lag_test_delta": 0.020684155038126747,
+        "placebo_ic": -0.002893559208474123,
+        "dsr": 0.0,
+        "pbo": 0.9956709956709957,
+        "skew": 3.406341811978025,
+        "era_split": {
+          "split_date": "2018-03-28",
+          "pre": {
+            "ic_mean": -0.05098075879799727,
+            "ic_ir": -0.6111062842119495,
+            "n_dates_scored": 58,
+            "n_obs": 13502
+          },
+          "post": {
+            "ic_mean": -0.028461434505514645,
+            "ic_ir": -0.40413432316085085,
+            "n_dates_scored": 81,
+            "n_obs": 45461
+          },
+          "both_hold_positive_sign": false
+        },
+        "drop_one_sector": {
+          "n_sign_flips": 0,
+          "n_sectors": 22,
+          "worst_sector_drop": [
+            "Financial Services",
+            -0.05156750306254887
+          ]
+        },
+        "drop_one_year": {
+          "n_sign_flips": 0,
+          "n_years": 16,
+          "worst_year_drop": [
+            2020,
+            -0.04408811025546798
+          ]
+        },
+        "orthogonality": {
+          "n_overlap": 68549,
+          "corr_vs_bs_asset_growth": 0.09054799522372244,
+          "corr_vs_canonical_7leg_composite": -0.08172959326442017
+        },
+        "incremental_after_residualization": {
+          "ic_mean": 0.028120372116084584,
+          "ic_ir": 0.313240361438319,
+          "n_dates_scored": 139,
+          "n_obs": 58838,
+          "n_used_for_residualization": 68549
+        }
+      },
+      "5Y": {
+        "verdict_harness": "KILL (IC_IR -0.374 < 0.2; PBO 0.887 > 0.5)",
+        "ic_mean": -0.020060500838417303,
+        "ic_ir": -0.374464887258207,
+        "newey_west_t": -2.0921550911694724,
+        "n_dates": 126,
+        "n_obs": 29062,
+        "monotonicity": 0.2606060606060606,
+        "ann_return_LS_horizon_aware": 0.12137894650979793,
+        "net_of_cost_ann_return_horizon_aware": 0.11770244754023629,
+        "hit_rate": 0.8222222222222222,
+        "lag_test_delta": 0.13576530420130942,
+        "placebo_ic": -0.007142504532361006,
+        "dsr": 1.022412059709937e-124,
+        "pbo": 0.8874458874458875,
+        "skew": 0.5640555208087868,
+        "era_split": {
+          "split_date": "2018-03-28",
+          "pre": {
+            "ic_mean": -0.033626283768375134,
+            "ic_ir": -0.6062440306311697,
+            "n_dates_scored": 58,
+            "n_obs": 13502
+          },
+          "post": {
+            "ic_mean": 0.004527480722131272,
+            "ic_ir": 0.11269384887354451,
+            "n_dates_scored": 32,
+            "n_obs": 15560
+          },
+          "both_hold_positive_sign": false
+        },
+        "drop_one_sector": {
+          "n_sign_flips": 1,
+          "n_sectors": 22,
+          "worst_sector_drop": [
+            "Financial Services",
+            -0.05704009218832974
+          ]
+        },
+        "drop_one_year": {
+          "n_sign_flips": 0,
+          "n_years": 16,
+          "worst_year_drop": [
+            2020,
+            -0.026947372797604917
+          ]
+        },
+        "orthogonality": {
+          "n_overlap": 68549,
+          "corr_vs_bs_asset_growth": 0.09054799522372244,
+          "corr_vs_canonical_7leg_composite": -0.08172959326442017
+        },
+        "incremental_after_residualization": {
+          "ic_mean": 0.02558424864795653,
+          "ic_ir": 0.33606480732301197,
+          "n_dates_scored": 90,
+          "n_obs": 28937,
+          "n_used_for_residualization": 68549
+        }
+      }
+    }
+  }
+}

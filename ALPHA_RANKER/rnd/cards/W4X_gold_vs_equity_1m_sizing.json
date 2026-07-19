@@ -1,0 +1,26 @@
+{
+  "factor_id": "W4X_gold_vs_equity_1m_sizing",
+  "family": "cross_asset_macro_sizing_overlay",
+  "author": "macro-strategist-cyrus-daruwalla",
+  "date_tested": "2026-07-17",
+  "description": "Gold-vs-equity 1-month momentum (goldbees_ret_1m - nifty500_ret_1m) as a leading risk-off scalar for the sizing layer. High trailing gold-outperformance -> cut exposure (flight-to-safety signal).",
+  "data": "ALPHA_RANKER/rnd/panel/macro_state.parquet + datasets/etf_gold_silver/goldbees_daily_ext.parquet (fuller-coverage recompute, 125 obs vs macro_state's own 66-obs col)",
+  "test_1_linear_ic": {
+    "horizon_1M": {"ic": -0.048, "n": 125, "nw_t_approx": -0.528, "lag_delta": 1.911, "lag_pass": false, "placebo_signed_mean": 0.003, "placebo_pass": true, "verdict": "KILL"},
+    "horizon_1Y": {"ic": -0.011, "n": 114, "nw_t_approx": -0.031, "verdict": "KILL"},
+    "note": "Weak/unstable linear correlation with forward returns. Fails the lag-stability check (adding one extra month of staleness swings the IC), consistent with a NON-LINEAR / tail-driven relationship rather than a stable monotonic one."
+  },
+  "test_2_exposure_scalar_backtest": {
+    "method": "expanding-window tercile scalar (0.5x/1.0x/1.5x exposure on nifty500 1M fwd return), orient=-1 (high gold-vs-equity momentum = risk-off, cut exposure)",
+    "n": 114,
+    "strategy": {"sharpe": 1.100, "maxDD": -0.150, "ann_ret": 0.155},
+    "buy_hold": {"sharpe": 0.797, "maxDD": -0.300, "ann_ret": 0.137},
+    "baseline_india_vix_scalar": {"sharpe": 0.816, "maxDD": -0.241, "ann_ret": 0.124},
+    "random_signal_placebo_n200": {"sharpe_mean": 0.744, "sharpe_std": 0.152, "sharpe_p95": 1.020},
+    "z_vs_random_noise_floor": 2.34,
+    "verdict": "CANDIDATE -- clears the random-scalar noise floor (z=2.34) and BEATS the incumbent India-VIX-alone scalar on both Sharpe (1.10 vs 0.82) and maxDD (-15% vs -24%)."
+  },
+  "overall_verdict": "CANDIDATE",
+  "conditions_for_graduation": "Linear-IC gate FAILS (weak/unstable) but scalar-backtest shows real, noise-floor-beating improvement -- mixed evidence typical of a tail/regime-driven (not linear) signal. Route to overfit-analyst-sameer-bhat for era-split (pre/post-2020) + PBO check before any sizing-layer adoption. n=114 months is NOT enough for standalone certification.",
+  "confidence": "LOW-MEDIUM [INFERENCE]"
+}

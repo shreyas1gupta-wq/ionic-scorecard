@@ -1,0 +1,53 @@
+{
+  "test": "STOCK_SCORECARD_750 Gate-3 cheap-test (Quality+Value 2-pillar stand-in)",
+  "owner": "Arjun Rao (quant-head)",
+  "date": "2026-07-17",
+  "seed": 20260717,
+  "pillars_tested": {
+    "quality": "avg(sector-neutral pctile ROE, ROCE)",
+    "value": "sector-neutral pctile of P/E (cheap=high)",
+    "combined": "equal-weight avg(quality, value)"
+  },
+  "note": "STAND-IN for the 8-pillar framework, NOT the framework itself.",
+  "quantiles": 5,
+  "n_placebo": 200,
+  "primary": {
+    "horizon_months": 12,
+    "formation": "month-end 2021-08-31..2025-06-30",
+    "sector_neutral": true,
+    "min_group_size": 5,
+    "pe_price_col": "Close (split-adj)",
+    "return_col": "Adj Close",
+    "costs": "NONE (gross; Gate-3 predictive-power read)"
+  },
+  "secondary": {
+    "horizon_months": 36,
+    "formation": [
+      "2021-12-31",
+      "2022-06-30",
+      "2022-12-31",
+      "2023-06-30"
+    ],
+    "caveat": "windows overlap heavily; context only, not primary stat read"
+  },
+  "data_snapshot": {
+    "universe_file": "ALPHA_RANKER/data/universe/symbols_750.txt",
+    "universe_n": 751,
+    "priced_symbols": 751,
+    "price_span": [
+      "2021-07-16",
+      "2026-07-16"
+    ],
+    "fundamentals_file": "ALPHA_RANKER/data/fundamentals/MASTER_fundamentals_pit.parquet",
+    "fund_rows_universe_needed_metrics": 56476,
+    "fund_symbols_covered": 750,
+    "sector_file": "ALPHA_RANKER/data/universe/sector_map.parquet"
+  },
+  "known_limitations": [
+    "Universe = CURRENT Nifty-750 membership -> survivor-biased BASELINE (absolute quintile returns inflated, NOT tradeable). Placebo shuffles within same survivor set so the real-vs-placebo DECISION is unaffected. Gate-4 must use PIT membership.",
+    "P/E numerator = Close (split-adj not raw); residual split mis-scaling adds NOISE to value rank -> conservative (weakens real vs placebo), cannot inflate.",
+    "12M windows overlap 11/12 -> naive t inflated; Newey-West(11) reported; t NOT a kill gate.",
+    "Gross of costs (Gate-3). Gate-4 must beat cap+turnover-matched random benchmark (D-029).",
+    "2 of 8 pillars only; blend/weights/regime-tilt/DCF entirely untested here."
+  ]
+}

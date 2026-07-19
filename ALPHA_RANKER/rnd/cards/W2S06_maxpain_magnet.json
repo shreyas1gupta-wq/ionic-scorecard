@@ -1,0 +1,37 @@
+{
+  "factor_id": "W2S06_maxpain_magnet",
+  "hypothesis": "W2S-06",
+  "horizon": "0d-2d (expiry week) vs far",
+  "universe": "NIFTY index-level, front (min-dte) weekly/monthly contract per trade date",
+  "n_obs_total": 248,
+  "date_range": [
+    "2021-06-01",
+    "2024-07-04"
+  ],
+  "coverage_caveat": "Only 248 distinct trade_dates within a 2021-06..2024-07 span (~33% of trading days) -- patchy source coverage, not a data-quality bug in this test; treat n as the honest sample size.",
+  "near_expiry": {
+    "bucket": "dte<=2 (expiry week)",
+    "n": 153,
+    "spearman_rho": -0.12317546202899411,
+    "parametric_p": 0.1292959680686069,
+    "null_mean_rho": -0.0007814497149879361,
+    "null_std_rho": 0.08220422655584099,
+    "empirical_p_vs_shuffle": 0.134,
+    "significant_vs_null_p05": false,
+    "mean_abs_pull_pct": 0.2317517440332197,
+    "mean_fwd_ret_pct": 0.09054712643001095
+  },
+  "far_expiry": {
+    "bucket": "dte>5 (far)",
+    "n": 47,
+    "spearman_rho": -0.16165587419056432,
+    "parametric_p": 0.27766767529132547,
+    "null_mean_rho": -0.0014743871415356144,
+    "null_std_rho": 0.14922240511240575,
+    "empirical_p_vs_shuffle": 0.2795,
+    "significant_vs_null_p05": false,
+    "mean_abs_pull_pct": 0.30120099261979355,
+    "mean_fwd_ret_pct": 0.48171259269597505
+  },
+  "verdict": "KILL (no measurable pull vs random-walk null in expiry week -- per backlog kill condition)"
+}

@@ -159,3 +159,4 @@ nd["year"] = nd["date"].dt.year
 for yr, g in nd.groupby("year"):
     print(f"  {yr}: {(g['nav'].iloc[-1]/g['nav'].iloc[0]-1)*100:+.1f}%")
 led.to_csv(os.path.join(OUT, "sector_rotation_ledger.csv"), index=False)
+nd.to_csv(os.path.join(OUT, "sector_rotation_navcurve.csv"), index=False)

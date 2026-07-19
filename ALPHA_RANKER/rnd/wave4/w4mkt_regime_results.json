@@ -1,0 +1,146 @@
+{
+  "richness_calibration": {
+    "scale_const": 0.25,
+    "formula": "100*exp(-0.25*EY_hist_zscore_expanding)"
+  },
+  "latest": {
+    "date": "2025-12-05",
+    "EY_hist_zscore_expanding": -0.5801344919106209,
+    "richness_index": 115.60784404141226
+  },
+  "predictive_tests": {
+    "1Y": {
+      "n_obs": 215,
+      "rho_richness_vs_fwd_return": -0.3000193194716125,
+      "rho_richness_vs_fwd_maxdrawdown_from_window_peak": 0.03823407745713863,
+      "rho_richness_vs_fwd_worst_return_from_entry": 0.012012850433654923,
+      "rho_richness_vs_fwd_vol": -0.3175990539680064,
+      "drop_one_era": {
+        "2008_GFC": {
+          "rho_excl": -0.3825767186581913,
+          "n": 193
+        },
+        "2020_COVID": {
+          "rho_excl": -0.2639269432593796,
+          "n": 203
+        },
+        "2022_SELLOFF": {
+          "rho_excl": -0.2903993963580653,
+          "n": 203
+        }
+      },
+      "full_sample_rho": -0.3000193194716125
+    },
+    "5Y": {
+      "n_obs": 167,
+      "rho_richness_vs_fwd_return": -0.25320014016716996,
+      "rho_richness_vs_fwd_maxdrawdown_from_window_peak": 0.3539377915042982,
+      "rho_richness_vs_fwd_worst_return_from_entry": 0.07252751114766554,
+      "rho_richness_vs_fwd_vol": -0.3716393123075124,
+      "drop_one_era": {
+        "2008_GFC": {
+          "rho_excl": -0.49992127224059196,
+          "n": 145
+        },
+        "2020_COVID": {
+          "rho_excl": -0.23510360607134803,
+          "n": 155
+        },
+        "2022_SELLOFF": {
+          "rho_excl": -0.25320014016716996,
+          "n": 167
+        }
+      },
+      "full_sample_rho": -0.25320014016716996
+    }
+  },
+  "cross_asset": {
+    "smallcap_nifty50": {
+      "n_months": 101,
+      "latest_level": 0.7900464961054103,
+      "latest_z": 1.5034788251896842,
+      "predictive": {
+        "1Y": {
+          "rho_vs_fwd_market_return": -0.2685110663983903,
+          "n_mkt": 71,
+          "rho_vs_fwd_smallcap_return": -0.36573952363426043,
+          "n_small": 77
+        },
+        "5Y": {
+          "rho_vs_fwd_market_return": -0.650197628458498,
+          "n_mkt": 23,
+          "rho_vs_fwd_smallcap_return": -0.8985221674876845,
+          "n_small": 29
+        }
+      }
+    },
+    "smallcap_gold": {
+      "n_months": 101,
+      "latest_level": 159.38076635358655,
+      "latest_z": -0.7843567604378191,
+      "predictive": {
+        "1Y": {
+          "rho_vs_fwd_market_return": -0.4319919517102615,
+          "n_mkt": 71,
+          "rho_vs_fwd_smallcap_return": -0.45170618854829375,
+          "n_small": 77
+        },
+        "5Y": {
+          "rho_vs_fwd_market_return": -0.7717391304347826,
+          "n_mkt": 23,
+          "rho_vs_fwd_smallcap_return": -0.9369458128078817,
+          "n_small": 29
+        }
+      }
+    },
+    "nifty50_gold": {
+      "n_months": 101,
+      "latest_level": 201.735932175214,
+      "latest_z": -1.0969280497574379,
+      "predictive": {
+        "1Y": {
+          "rho_vs_fwd_market_return": -0.5754862508383635,
+          "n_mkt": 71,
+          "rho_vs_fwd_smallcap_return": -0.5247647089752353,
+          "n_small": 77
+        },
+        "5Y": {
+          "rho_vs_fwd_market_return": -0.6996047430830039,
+          "n_mkt": 23,
+          "rho_vs_fwd_smallcap_return": -0.8793103448275861,
+          "n_small": 29
+        }
+      }
+    }
+  },
+  "exposure_scalar_backtest": {
+    "always_invested": {
+      "ann_return": 0.11486170090954073,
+      "ann_vol": 0.21819112360508963,
+      "sharpe": 0.526427010465523,
+      "max_drawdown": -0.6091097540478457,
+      "n_months": 225
+    },
+    "richness_scaled_symmetric_lever_and_derisk": {
+      "ann_return": 0.10482680791840382,
+      "ann_vol": 0.2345364257379154,
+      "sharpe": 0.4469532081790288,
+      "max_drawdown": -0.6940523659153196,
+      "n_months": 225
+    },
+    "richness_scaled_derisk_only_no_leverage": {
+      "ann_return": 0.1058325738529029,
+      "ann_vol": 0.20686188401807834,
+      "sharpe": 0.5116098325956165,
+      "max_drawdown": -0.6091097540478457,
+      "n_months": 225
+    },
+    "avg_scalar_symmetric": 0.9227093211138975,
+    "avg_scalar_derisk_only": 0.894773414712254,
+    "scalar_range_symmetric": [
+      0.8131484671415131,
+      1.4
+    ],
+    "note": "monthly rebalance, scalar known at start of month (prior month-end richness, lagged by 1 to avoid same-month contamination), no transaction costs modeled (this is a sizing-value test, not a tradeable strategy claim)."
+  }
+}

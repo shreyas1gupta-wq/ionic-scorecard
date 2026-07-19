@@ -1,0 +1,380 @@
+{
+  "sr_5Y": {
+    "factor_id": "S3_REL5Y_sr_5Y",
+    "family": "S3_REL5Y",
+    "horizon": "5Y",
+    "return_basis": "resid",
+    "status": "OK",
+    "panel_source": "panel_pit_survivorship_free",
+    "n_trials": 699,
+    "n_dates": 162,
+    "n_obs": 28863,
+    "generated_at": "2026-07-17T19:22:10.368725+00:00",
+    "ic": {
+      "ic_mean": 0.08310507417050786,
+      "ic_std": 0.04562924318419539,
+      "ic_ir": 1.8213116933592486,
+      "newey_west_t": 8.694354308815768,
+      "nw_lag": 59,
+      "n_ic_dates": 92
+    },
+    "deciles": {
+      "monotonicity": 0.4545454545454545,
+      "n_decile_dates": 92
+    },
+    "long_short": {
+      "ann_return_LS": 5.721776323532385,
+      "ann_return_LS_horizon_aware": 0.09536293872553976,
+      "hit_rate": 0.782608695652174,
+      "n_periods": 92
+    },
+    "turnover": {
+      "avg_top_decile_turnover": 0.1611525570310646
+    },
+    "costs": {
+      "blended_cost_bps_roundtrip": 79.97297297297297,
+      "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+      "cost_approved": true,
+      "ann_cost_drag": 0.015465418905564975,
+      "net_of_cost_ann_return": 5.70631090462682,
+      "net_of_cost_ann_return_horizon_aware": 0.07989751981997478
+    },
+    "dsr": {
+      "dsr": 8.300131368355955e-97,
+      "sr_hat": 0.8845777871547567,
+      "sr0_expected_max": 3.1518600927188567,
+      "skew": 0.30937862070283817,
+      "kurtosis": 2.7900112535709507,
+      "n_obs": 92,
+      "n_trials": 699
+    },
+    "pbo": {
+      "pbo": 0.9653679653679653,
+      "n_combos": 924,
+      "n_blocks": 12,
+      "n_obs": 92,
+      "median_is_sharpe": 0.886770687692519,
+      "median_oos_sharpe": 0.886770687692519
+    },
+    "regime_breakdown": {
+      "regime_trend": {
+        "bear": 0.06038806871493443,
+        "bull": 0.08813154095828316,
+        "sideways": 0.08588831874408781
+      },
+      "regime_vol": {
+        "high": 0.08803500056162258,
+        "low": 0.07264537146028784,
+        "normal": 0.09574317361249661
+      }
+    },
+    "lag_test": {
+      "ic_lag_mean": 0.07958507181980473,
+      "lag_test_delta": 0.042356046075851986
+    },
+    "placebo": {
+      "placebo_ic": 0.0031123870942249914,
+      "n_shuffles": 5,
+      "seed": 42
+    },
+    "verdict": "KILL (PBO 0.965 > 0.5)"
+  },
+  "abs_merit_5Y": {
+    "factor_id": "S3_REL5Y_abs_merit_5Y",
+    "family": "S3_REL5Y",
+    "horizon": "5Y",
+    "return_basis": "resid",
+    "status": "OK",
+    "panel_source": "panel_pit_survivorship_free",
+    "n_trials": 700,
+    "n_dates": 162,
+    "n_obs": 28863,
+    "generated_at": "2026-07-17T19:22:13.792179+00:00",
+    "ic": {
+      "ic_mean": 0.05202304790632272,
+      "ic_std": 0.061103341837494565,
+      "ic_ir": 0.8513944792852566,
+      "newey_west_t": 3.974352069904649,
+      "nw_lag": 59,
+      "n_ic_dates": 92
+    },
+    "deciles": {
+      "monotonicity": 0.9272727272727272,
+      "n_decile_dates": 92
+    },
+    "long_short": {
+      "ann_return_LS": 6.807041447151189,
+      "ann_return_LS_horizon_aware": 0.11345069078585315,
+      "hit_rate": 0.8260869565217391,
+      "n_periods": 92
+    },
+    "turnover": {
+      "avg_top_decile_turnover": 0.12515247635143495
+    },
+    "costs": {
+      "blended_cost_bps_roundtrip": 79.97297297297297,
+      "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+      "cost_approved": true,
+      "ann_cost_drag": 0.012010578730504736,
+      "net_of_cost_ann_return": 6.795030868420684,
+      "net_of_cost_ann_return_horizon_aware": 0.10144011205534842
+    },
+    "dsr": {
+      "dsr": 1.7899951644543212e-299,
+      "sr_hat": 0.7438958982913404,
+      "sr0_expected_max": 3.1522781423261392,
+      "skew": 1.6692288775434567,
+      "kurtosis": 5.538877940095054,
+      "n_obs": 92,
+      "n_trials": 700
+    },
+    "pbo": {
+      "pbo": 0.8961038961038961,
+      "n_combos": 924,
+      "n_blocks": 12,
+      "n_obs": 92,
+      "median_is_sharpe": 0.7789133123185541,
+      "median_oos_sharpe": 0.7789133123185541
+    },
+    "regime_breakdown": {
+      "regime_trend": {
+        "bear": 0.05825465257905592,
+        "bull": 0.05187618716047936,
+        "sideways": 0.04957960148646475
+      },
+      "regime_vol": {
+        "high": 0.07703918909975786,
+        "low": 0.042360228356488554,
+        "normal": 0.05563758923292016
+      }
+    },
+    "lag_test": {
+      "ic_lag_mean": 0.049162308582409865,
+      "lag_test_delta": 0.05498984467546298
+    },
+    "placebo": {
+      "placebo_ic": 0.00040428320404246816,
+      "n_shuffles": 5,
+      "seed": 42
+    },
+    "verdict": "KILL (PBO 0.896 > 0.5)"
+  },
+  "composite_5Y": {
+    "factor_id": "S3_REL5Y_composite_5Y",
+    "family": "S3_REL5Y",
+    "horizon": "5Y",
+    "return_basis": "resid",
+    "status": "OK",
+    "panel_source": "panel_pit_survivorship_free",
+    "n_trials": 701,
+    "n_dates": 162,
+    "n_obs": 28863,
+    "generated_at": "2026-07-17T19:22:16.376704+00:00",
+    "ic": {
+      "ic_mean": 0.07935736870314644,
+      "ic_std": 0.04982126416742521,
+      "ic_ir": 1.592841330490223,
+      "newey_west_t": 6.121429955616727,
+      "nw_lag": 59,
+      "n_ic_dates": 92
+    },
+    "deciles": {
+      "monotonicity": 0.709090909090909,
+      "n_decile_dates": 92
+    },
+    "long_short": {
+      "ann_return_LS": 8.469441836807732,
+      "ann_return_LS_horizon_aware": 0.1411573639467955,
+      "hit_rate": 0.9130434782608695,
+      "n_periods": 92
+    },
+    "turnover": {
+      "avg_top_decile_turnover": 0.1604162025769017
+    },
+    "costs": {
+      "blended_cost_bps_roundtrip": 79.97297297297297,
+      "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+      "cost_approved": true,
+      "ann_cost_drag": 0.015394752759731421,
+      "net_of_cost_ann_return": 8.454047084048002,
+      "net_of_cost_ann_return_horizon_aware": 0.12576261118706408
+    },
+    "dsr": {
+      "dsr": 1.7862214604077974e-213,
+      "sr_hat": 0.9405715424153577,
+      "sr0_expected_max": 3.1526955473276628,
+      "skew": 1.3023887648539745,
+      "kurtosis": 4.090792149600354,
+      "n_obs": 92,
+      "n_trials": 701
+    },
+    "pbo": {
+      "pbo": 0.9264069264069265,
+      "n_combos": 924,
+      "n_blocks": 12,
+      "n_obs": 92,
+      "median_is_sharpe": 0.973650968156577,
+      "median_oos_sharpe": 0.973650968156577
+    },
+    "regime_breakdown": {
+      "regime_trend": {
+        "bear": 0.06508202207006077,
+        "bull": 0.08121838915400122,
+        "sideways": 0.08287582120541113
+      },
+      "regime_vol": {
+        "high": 0.09067854698904845,
+        "low": 0.06689028828843643,
+        "normal": 0.09227586510799296
+      }
+    },
+    "lag_test": {
+      "ic_lag_mean": 0.07601527644778071,
+      "lag_test_delta": 0.04211445401960792
+    },
+    "placebo": {
+      "placebo_ic": 0.001389687092224767,
+      "n_shuffles": 5,
+      "seed": 42
+    },
+    "verdict": "KILL (PBO 0.926 > 0.5)"
+  },
+  "dsr_local_n3": {
+    "sr_5Y": {
+      "dsr": 0.6149067495152133,
+      "sr_hat": 0.8845777871547567,
+      "sr0_expected_max": 0.8528044961506949,
+      "skew": 0.30937862070283817,
+      "kurtosis": 2.7900112535709507,
+      "n_obs": 92,
+      "n_trials": 3
+    },
+    "abs_merit_5Y": {
+      "dsr": 0.04728472558909788,
+      "sr_hat": 0.7438958982913404,
+      "sr0_expected_max": 0.8528044961506949,
+      "skew": 1.6692288775434567,
+      "kurtosis": 5.538877940095054,
+      "n_obs": 92,
+      "n_trials": 3
+    },
+    "composite_5Y": {
+      "dsr": 0.8918332606848287,
+      "sr_hat": 0.9405715424153577,
+      "sr0_expected_max": 0.8528044961506949,
+      "skew": 1.3023887648539745,
+      "kurtosis": 4.090792149600354,
+      "n_obs": 92,
+      "n_trials": 3
+    }
+  },
+  "dropone": {
+    "sr_5Y": {
+      "value_EY": {
+        "ic_mean": 0.08214062187244005,
+        "n_dates": 92
+      },
+      "growth_longevity": {
+        "ic_mean": 0.11956792002726979,
+        "n_dates": 92
+      },
+      "mom_resid_plain": {
+        "ic_mean": 0.08228734017118305,
+        "n_dates": 92
+      },
+      "trend_ma65_slope": {
+        "ic_mean": 0.08136431531434761,
+        "n_dates": 92
+      },
+      "quality_QMJ": {
+        "ic_mean": 0.0597071079126432,
+        "n_dates": 92
+      },
+      "bs_issuance": {
+        "ic_mean": 0.07107077069998788,
+        "n_dates": 92
+      },
+      "bs_asset_growth": {
+        "ic_mean": 0.036879940357781194,
+        "n_dates": 90
+      },
+      "quality_cfo_pat": {
+        "ic_mean": 0.0806687400146779,
+        "n_dates": 92
+      }
+    },
+    "abs_merit_5Y": {
+      "value_EY": {
+        "ic_mean": 0.05213013599770444,
+        "n_dates": 92
+      },
+      "growth_longevity": {
+        "ic_mean": 0.0837242566574488,
+        "n_dates": 92
+      },
+      "quality_score": {
+        "ic_mean": 0.03322276212317783,
+        "n_dates": 92
+      }
+    },
+    "sr_5Y_std": 0.02342790415523642,
+    "abs_merit_5Y_std": 0.02551495704251599,
+    "blend_dropone_note": "drop-limb IC = the solo limb IC already computed via harness (card_sr, card_abs)",
+    "blend_drop_sr": {
+      "ic_mean": 0.05202304790632272
+    },
+    "blend_drop_abs": {
+      "ic_mean": 0.08310507417050786
+    }
+  },
+  "era_split": {
+    "era1_2013-2015": {
+      "sr_5Y_ic": 0.12055975394873074,
+      "abs_merit_5Y_ic": 0.09356854884635185,
+      "composite_5Y_ic": 0.12857982387303105,
+      "n": 23
+    },
+    "era2_2015-2016": {
+      "sr_5Y_ic": 0.07537967581392153,
+      "abs_merit_5Y_ic": 0.01637071680383477,
+      "composite_5Y_ic": 0.05857686031016598,
+      "n": 23
+    },
+    "era3_2017-2018": {
+      "sr_5Y_ic": 0.04115971406157727,
+      "abs_merit_5Y_ic": 0.007471342239643756,
+      "composite_5Y_ic": 0.030742549235962945,
+      "n": 23
+    },
+    "era4_2018-2020": {
+      "sr_5Y_ic": 0.09532115285780185,
+      "abs_merit_5Y_ic": 0.09068158373546056,
+      "composite_5Y_ic": 0.09953024139342583,
+      "n": 23
+    }
+  },
+  "year_slices": {
+    "2018": {
+      "sr_5Y_ic": 0.04739420905391687,
+      "composite_5Y_ic": 0.027783503423393942,
+      "n": 12
+    },
+    "2020": {
+      "sr_5Y_ic": 0.09596591772421277,
+      "composite_5Y_ic": 0.10988485767560212,
+      "n": 10
+    },
+    "2022": {
+      "n": 0,
+      "note": "no dates with a scored composite in this year"
+    },
+    "2024": {
+      "n": 0,
+      "note": "no dates with a scored composite in this year"
+    },
+    "2026": {
+      "n": 0,
+      "note": "no dates with a scored composite in this year"
+    }
+  }
+}

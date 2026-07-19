@@ -1,0 +1,35 @@
+{
+  "panel_long.parquet": {
+    "rows": 148297,
+    "symbols": 969,
+    "date_min": "2005-04-29",
+    "date_max": "2025-12-05"
+  },
+  "capstone_legs.parquet": {
+    "rows": 1310958,
+    "legs_present": [
+      "bs_asset_growth",
+      "bs_issuance",
+      "defensive_BAB",
+      "mom_resid_peer",
+      "quality_QMJ",
+      "quality_cfo_pat",
+      "seasonality",
+      "trend_ma65_slope",
+      "value_EY",
+      "value_dcf_revgap",
+      "value_marketstate_M3",
+      "value_smallcap_M2"
+    ]
+  },
+  "canonical_7leg_scores.parquet": {
+    "rows": 98465,
+    "used_as": "reference only, not recomputed from"
+  },
+  "sector_map.parquet": {
+    "used": false,
+    "reason": "panel_long.sector (22-bucket macro_sector) used instead, to match SECTOR_BIAS_AUDIT.md Task 3 grain for direct comparability"
+  },
+  "corp_action_guard_rows_dropped": 1215,
+  "mom_resid_plain_source": "rebuilt fresh via run_long_confirm.build_mom_resid_12_1 (NOT cached mom_resid_peer, which is already sub_sector peer-relative-z upstream)"
+}

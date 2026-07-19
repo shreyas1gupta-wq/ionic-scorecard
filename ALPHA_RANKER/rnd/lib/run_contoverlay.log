@@ -1,0 +1,99 @@
+panel_short (40201, 28) src=real
+panel_long (148297, 31) dates=249
+Traceback (most recent call last):
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\_run_w2_contoverlay.py", line 76, in <module>
+    run(f"W2_contoverlay_cont_short_{horizon}", C.build_continuous_overlay_short(panel_short),
+                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w2_contoverlay.py", line 175, in build_continuous_overlay_short
+    score = regime_score_for_dates(panel["date"])
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w2_contoverlay.py", line 140, in regime_score_for_dates
+    merged = pd.merge_asof(dates_df, daily, on="date", direction="backward")
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\reshape\merge.py", line 917, in merge_asof
+    op = _AsOfMerge(
+        left,
+    ...<13 lines>...
+        direction=direction,
+    )
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\reshape\merge.py", line 2353, in __init__
+    _OrderedMerge.__init__(
+    ~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<9 lines>...
+        fill_method=None,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\reshape\merge.py", line 2265, in __init__
+    _MergeOperation.__init__(
+    ~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<9 lines>...
+        sort=True,  # factorize sorts
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\reshape\merge.py", line 1026, in __init__
+    self._maybe_require_matching_dtypes(self.left_join_keys, self.right_join_keys)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\reshape\merge.py", line 2478, in _maybe_require_matching_dtypes
+    _check_dtype_match(lk, rk, i)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\reshape\merge.py", line 2474, in _check_dtype_match
+    raise MergeError(msg)
+pandas.errors.MergeError: incompatible merge keys [0] dtype('<M8[ms]') and dtype('<M8[us]'), must be the same type
+-- reused W2_contoverlay_staticmom_short_1M <- W2_static_momentum_1M: {'status': 'OK', 'n_obs': 29824, 'harness_verdict': 'KILL (PBO 0.996 > 0.5)', 'ic_ir': 0.22071337240219566, 'ic_mean': 0.0269137003334333, 'mono': 0.9878787878787878, 'turnover': 0.27135384111990496, 'net_of_cost_ann': 0.1268242748876323, 'lag_delta': 0.06730058638121825, 'placebo_ic': -0.0031944888005461724, 'pbo': 0.9956709956709957, 'regime_breakdown': {'regime_trend': {'bear': -0.18520061228120754, 'bull': 0.05021498396354628, 'sideways': 0.01899852705725614}, 'regime_vol': {'high': -0.038272705764942516, 'low': 0.03683309730005533, 'normal': 0.02762262812387509}}, 'money_first_hard_gates': 'PASS', 'money_first_note': 'PBO advisory only (not a kill), per CONSOLIDATION.md fix #1', '_reused_from': 'W2_static_momentum_1M'}
+-- reused W2_contoverlay_discrete_short_1M <- W2_regimeswitch_trend_1M: {'status': 'OK', 'n_obs': 29824, 'harness_verdict': 'KILL (IC_IR 0.196 < 0.2; PBO 0.991 > 0.5)', 'ic_ir': 0.1955062226131177, 'ic_mean': 0.027017536757883782, 'mono': 0.9272727272727272, 'turnover': 0.32860252170852516, 'net_of_cost_ann': 0.05924338387984945, 'lag_delta': 0.023864913365181085, 'placebo_ic': -0.002071666049216516, 'pbo': 0.9913419913419913, 'regime_breakdown': {'regime_trend': {'bear': -0.0671934188448526, 'bull': 0.05021498396354628, 'sideways': 0.007441823311079289}, 'regime_vol': {'high': -0.018834568188203633, 'low': 0.05530695601702357, 'normal': -0.002083966669568725}}, 'money_first_hard_gates': 'PASS', 'money_first_note': 'PBO advisory only (not a kill), per CONSOLIDATION.md fix #1', '_reused_from': 'W2_regimeswitch_trend_1M'}
+-- running W2_contoverlay_cont_long_1M ...
+W2_contoverlay_cont_long_1M {'status': 'OK', 'n_obs': 100635, 'harness_verdict': 'KILL (PBO 0.983 > 0.5)', 'ic_ir': 0.43473168705953275, 'ic_mean': 0.07442223342750995, 'mono': 0.9757575757575757, 'turnover': 0.31385346554545035, 'net_of_cost_ann': 0.14758833688690362, 'lag_delta': 0.0670100474051457, 'placebo_ic': -0.00028178058979056906, 'pbo': 0.9826839826839827, 'regime_breakdown': {'regime_trend': {'bear': 0.0031293108641444337, 'bull': 0.09673847549116771, 'sideways': 0.06599129946483984}, 'regime_vol': {'high': 0.022308830159626914, 'low': 0.08099256746136804, 'normal': 0.08509106479889945}}, 'money_first_hard_gates': 'PASS', 'money_first_note': 'PBO advisory only (not a kill), per CONSOLIDATION.md fix #1'}
+-- running W2_contoverlay_staticmom_long_1M ...
+W2_contoverlay_staticmom_long_1M {'status': 'OK', 'n_obs': 135411, 'harness_verdict': 'KILL (PBO 0.996 > 0.5; DSR 0.000 <= 0.0)', 'ic_ir': 0.31277098027362676, 'ic_mean': 0.04895662018498886, 'mono': 0.8181818181818182, 'turnover': 0.26286130383565304, 'net_of_cost_ann': 0.2065467979553935, 'lag_delta': 0.0911003234002844, 'placebo_ic': 0.0006639328192083522, 'pbo': 0.9956709956709957, 'regime_breakdown': {'regime_trend': {'bear': -0.04511412642800578, 'bull': 0.07174681559403683, 'sideways': 0.05323712628047056}, 'regime_vol': {'high': -0.029666986192087602, 'low': 0.07901975544039941, 'normal': 0.061576818203144645}}, 'money_first_hard_gates': 'PASS', 'money_first_note': 'PBO advisory only (not a kill), per CONSOLIDATION.md fix #1'}
+-- running W2_contoverlay_discrete_long_1M ...
+W2_contoverlay_discrete_long_1M {'status': 'OK', 'n_obs': 100635, 'harness_verdict': 'KILL (PBO 0.996 > 0.5)', 'ic_ir': 0.45551082337450355, 'ic_mean': 0.07153340772417538, 'mono': 0.9999999999999999, 'turnover': 0.34211995409379553, 'net_of_cost_ann': 0.1793049726574466, 'lag_delta': 0.025401209659706245, 'placebo_ic': 4.6725335933798205e-06, 'pbo': 0.9956709956709957, 'regime_breakdown': {'regime_trend': {'bear': 0.04274250240866275, 'bull': 0.07556638550226268, 'sideways': 0.07576916616169252}, 'regime_vol': {'high': 0.025394674474225613, 'low': 0.07237469333284473, 'normal': 0.08802810085770786}}, 'money_first_hard_gates': 'PASS', 'money_first_note': 'PBO advisory only (not a kill), per CONSOLIDATION.md fix #1'}
+Traceback (most recent call last):
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\_run_w2_contoverlay.py", line 76, in <module>
+    run(f"W2_contoverlay_cont_short_{horizon}", C.build_continuous_overlay_short(panel_short),
+                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w2_contoverlay.py", line 175, in build_continuous_overlay_short
+    score = regime_score_for_dates(panel["date"])
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\lib\builders_w2_contoverlay.py", line 140, in regime_score_for_dates
+    merged = pd.merge_asof(dates_df, daily, on="date", direction="backward")
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\reshape\merge.py", line 917, in merge_asof
+    op = _AsOfMerge(
+        left,
+    ...<13 lines>...
+        direction=direction,
+    )
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\reshape\merge.py", line 2353, in __init__
+    _OrderedMerge.__init__(
+    ~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<9 lines>...
+        fill_method=None,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\reshape\merge.py", line 2265, in __init__
+    _MergeOperation.__init__(
+    ~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<9 lines>...
+        sort=True,  # factorize sorts
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\reshape\merge.py", line 1026, in __init__
+    self._maybe_require_matching_dtypes(self.left_join_keys, self.right_join_keys)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\reshape\merge.py", line 2478, in _maybe_require_matching_dtypes
+    _check_dtype_match(lk, rk, i)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\reshape\merge.py", line 2474, in _check_dtype_match
+    raise MergeError(msg)
+pandas.errors.MergeError: incompatible merge keys [0] dtype('<M8[ms]') and dtype('<M8[us]'), must be the same type
+-- reused W2_contoverlay_staticmom_short_1Y <- W2_static_momentum_1Y: {'status': 'OK', 'n_obs': 22249, 'harness_verdict': 'KILL (PBO 0.961 > 0.5)', 'ic_ir': 0.7742586672412052, 'ic_mean': 0.08959107531400629, 'mono': 0.9878787878787878, 'turnover': 0.26017384673408606, 'net_of_cost_ann': 2.516644844968216, 'lag_delta': 0.10184160848595104, 'placebo_ic': -0.0032104573165626328, 'pbo': 0.961038961038961, 'regime_breakdown': {'regime_trend': {'bear': -0.02247090010131951, 'bull': 0.10201290062937231, 'sideways': 0.08549472480505621}, 'regime_vol': {'high': 0.013199724965290151, 'low': 0.12782327504350904, 'normal': 0.05721827581664566}}, 'money_first_hard_gates': 'PASS', 'money_first_note': 'PBO advisory only (not a kill), per CONSOLIDATION.md fix #1', '_reused_from': 'W2_static_momentum_1Y'}
+-- reused W2_contoverlay_discrete_short_1Y <- W2_regimeswitch_trend_1Y: {'status': 'OK', 'n_obs': 22249, 'harness_verdict': 'KILL (lag_test_delta 0.255 > 0.25; PBO 0.974 > 0.5)', 'ic_ir': 0.6288885962214773, 'ic_mean': 0.07157768865682085, 'mono': 0.8181818181818182, 'turnover': 0.32637333758450926, 'net_of_cost_ann': 1.1584132608701587, 'lag_delta': 0.2550501418689401, 'placebo_ic': -0.00028288482388833143, 'pbo': 0.974025974025974, 'regime_breakdown': {'regime_trend': {'bear': -0.04635713347463279, 'bull': 0.10201290062937231, 'sideways': 0.035435603729052155}, 'regime_vol': {'high': -0.006926764738503193, 'low': 0.09997034277684913, 'normal': 0.05423594906457157}}, 'money_first_hard_gates': 'FAIL', 'money_first_note': 'PBO advisory only (not a kill), per CONSOLIDATION.md fix #1', '_reused_from': 'W2_regimeswitch_trend_1Y'}
+-- running W2_contoverlay_cont_long_1Y ...

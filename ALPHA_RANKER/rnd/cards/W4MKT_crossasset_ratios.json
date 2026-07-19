@@ -1,0 +1,24 @@
+{
+  "factor_id": "W4MKT_crossasset_ratios",
+  "author": "macro-strategist-cyrus-daruwalla",
+  "test": "smallcap_vs_nifty50_vs_gold_trailing_zscore_predicts_fwd_market_and_smallcap_return",
+  "data_window": "2016-07 to 2026-07 (NSE official smallcap100 series start; monthly, n=101 months) -- SHORT history, only ~one full boom-bust-boom cycle (2018 IL&FS/NBFC stress, 2020 COVID, 2021-24 rally).",
+  "ratios_tested": ["smallcap100/nifty50", "smallcap100/goldbees", "nifty50/goldbees"],
+  "method": "24-month trailing rolling z-score of each ratio (backward-only, no lookahead) vs forward 1Y/5Y NIFTY500 and Smallcap100 returns, Spearman.",
+  "results_1Y": {
+    "smallcap_nifty50": {"rho_vs_fwd_market": -0.269, "rho_vs_fwd_smallcap": -0.366, "n": 71},
+    "smallcap_gold": {"rho_vs_fwd_market": -0.432, "rho_vs_fwd_smallcap": -0.452, "n": 77},
+    "nifty50_gold": {"rho_vs_fwd_market": -0.575, "rho_vs_fwd_smallcap": -0.525, "n": 71}
+  },
+  "results_5Y": {
+    "smallcap_nifty50": {"rho_vs_fwd_market": -0.650, "rho_vs_fwd_smallcap": -0.899, "n": 23},
+    "smallcap_gold": {"rho_vs_fwd_market": -0.772, "rho_vs_fwd_smallcap": -0.937, "n": 29},
+    "nifty50_gold": {"rho_vs_fwd_market": -0.700, "rho_vs_fwd_smallcap": -0.879, "n": 23}
+  },
+  "latest_reading": {
+    "smallcap_nifty50_z": 1.50, "smallcap_gold_z": -0.78, "nifty50_gold_z": -1.10,
+    "as_of": "2026-06/07"
+  },
+  "honesty_note": "1Y readings (n=71-77, monthly, ~4-6 independent non-overlapping periods) are directionally consistent with the richness-index sign (extreme cross-asset risk-appetite readings -> lower fwd returns) and moderately credible. The 5Y readings (n=23-29) are NOT independently informative -- with 60-month overlapping windows on a 10-year sample there are effectively 1-2 non-overlapping 5Y periods; the |rho| 0.65-0.94 numbers are real arithmetic on the data but should be read as 'consistent with the same regime story', NOT as a separately validated 5Y edge. Do not quote the 5Y cross-asset rho as if it had comparable power to the market_state EY panel's 167-obs, 20-year 5Y test.",
+  "verdict": "SUPPLEMENTARY CONTEXT ONLY -- directionally corroborates the richness index at 1Y; 5Y readings too sparse/overlapping to add independent evidence. Useful as a qualitative cross-check in the memo, not as a standalone timing signal."
+}

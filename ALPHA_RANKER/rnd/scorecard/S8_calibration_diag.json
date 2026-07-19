@@ -1,0 +1,439 @@
+{
+  "calibration_table": [
+    {
+      "scorecard": "ABSOLUTE",
+      "horizon": "1M",
+      "bucket": "<0",
+      "bucket_rank": 0,
+      "n": 25648,
+      "n_years": 19,
+      "hit_rate": 0.5429663131628197,
+      "mean_log_realized_return": 0.011332972358004161,
+      "yearly_hitrate_std": 0.09430237767236078,
+      "frac_years_beats_below": NaN
+    },
+    {
+      "scorecard": "ABSOLUTE",
+      "horizon": "1M",
+      "bucket": "0-30",
+      "bucket_rank": 1,
+      "n": 7618,
+      "n_years": 14,
+      "hit_rate": 0.5515883433972171,
+      "mean_log_realized_return": 0.011255950344020053,
+      "yearly_hitrate_std": 0.08905463313137628,
+      "frac_years_beats_below": 0.6428571428571429
+    },
+    {
+      "scorecard": "ABSOLUTE",
+      "horizon": "1M",
+      "bucket": "30-50",
+      "bucket_rank": 2,
+      "n": 5202,
+      "n_years": 17,
+      "hit_rate": 0.5495963091118801,
+      "mean_log_realized_return": 0.012505589335357708,
+      "yearly_hitrate_std": 0.11255334924273996,
+      "frac_years_beats_below": 0.42857142857142855
+    },
+    {
+      "scorecard": "ABSOLUTE",
+      "horizon": "1M",
+      "bucket": "50-75",
+      "bucket_rank": 3,
+      "n": 6404,
+      "n_years": 14,
+      "hit_rate": 0.5451280449718926,
+      "mean_log_realized_return": 0.013114751537047177,
+      "yearly_hitrate_std": 0.06840305351639998,
+      "frac_years_beats_below": 0.5
+    },
+    {
+      "scorecard": "ABSOLUTE",
+      "horizon": "1M",
+      "bucket": ">75",
+      "bucket_rank": 4,
+      "n": 6514,
+      "n_years": 19,
+      "hit_rate": 0.5508136321768499,
+      "mean_log_realized_return": 0.015428076135203202,
+      "yearly_hitrate_std": 0.11640263170443678,
+      "frac_years_beats_below": 0.6428571428571429
+    },
+    {
+      "scorecard": "ABSOLUTE",
+      "horizon": "1Y",
+      "bucket": "<0",
+      "bucket_rank": 0,
+      "n": 23484,
+      "n_years": 18,
+      "hit_rate": 0.636561062851303,
+      "mean_log_realized_return": 0.1347772290288699,
+      "yearly_hitrate_std": 0.27047224154989735,
+      "frac_years_beats_below": NaN
+    },
+    {
+      "scorecard": "ABSOLUTE",
+      "horizon": "1Y",
+      "bucket": "0-30",
+      "bucket_rank": 1,
+      "n": 6974,
+      "n_years": 13,
+      "hit_rate": 0.6423860051620304,
+      "mean_log_realized_return": 0.14071853129977355,
+      "yearly_hitrate_std": 0.20726918927531918,
+      "frac_years_beats_below": 0.6923076923076923
+    },
+    {
+      "scorecard": "ABSOLUTE",
+      "horizon": "1Y",
+      "bucket": "30-50",
+      "bucket_rank": 2,
+      "n": 4766,
+      "n_years": 16,
+      "hit_rate": 0.6101552664708351,
+      "mean_log_realized_return": 0.13027020565025385,
+      "yearly_hitrate_std": 0.22252966585773237,
+      "frac_years_beats_below": 0.15384615384615385
+    },
+    {
+      "scorecard": "ABSOLUTE",
+      "horizon": "1Y",
+      "bucket": "50-75",
+      "bucket_rank": 3,
+      "n": 5856,
+      "n_years": 13,
+      "hit_rate": 0.631318306010929,
+      "mean_log_realized_return": 0.1469017922196288,
+      "yearly_hitrate_std": 0.26709205520229523,
+      "frac_years_beats_below": 0.6153846153846154
+    },
+    {
+      "scorecard": "ABSOLUTE",
+      "horizon": "1Y",
+      "bucket": ">75",
+      "bucket_rank": 4,
+      "n": 5977,
+      "n_years": 18,
+      "hit_rate": 0.6175338798728459,
+      "mean_log_realized_return": 0.1485378279858785,
+      "yearly_hitrate_std": 0.24686425361266992,
+      "frac_years_beats_below": 0.46153846153846156
+    },
+    {
+      "scorecard": "ABSOLUTE",
+      "horizon": "5Y",
+      "bucket": "<0",
+      "bucket_rank": 0,
+      "n": 14223,
+      "n_years": 14,
+      "hit_rate": 0.7856289109189342,
+      "mean_log_realized_return": 0.5495537186220597,
+      "yearly_hitrate_std": 0.14422569165744956,
+      "frac_years_beats_below": NaN
+    },
+    {
+      "scorecard": "ABSOLUTE",
+      "horizon": "5Y",
+      "bucket": "0-30",
+      "bucket_rank": 1,
+      "n": 4211,
+      "n_years": 9,
+      "hit_rate": 0.820945143671337,
+      "mean_log_realized_return": 0.6362575782000963,
+      "yearly_hitrate_std": 0.1929166448226181,
+      "frac_years_beats_below": 0.5555555555555556
+    },
+    {
+      "scorecard": "ABSOLUTE",
+      "horizon": "5Y",
+      "bucket": "30-50",
+      "bucket_rank": 2,
+      "n": 2902,
+      "n_years": 12,
+      "hit_rate": 0.812198483804273,
+      "mean_log_realized_return": 0.6417438111879452,
+      "yearly_hitrate_std": 0.14493339686807286,
+      "frac_years_beats_below": 0.5555555555555556
+    },
+    {
+      "scorecard": "ABSOLUTE",
+      "horizon": "5Y",
+      "bucket": "50-75",
+      "bucket_rank": 3,
+      "n": 3537,
+      "n_years": 9,
+      "hit_rate": 0.7650551314673452,
+      "mean_log_realized_return": 0.48138090014522705,
+      "yearly_hitrate_std": 0.10145480763006623,
+      "frac_years_beats_below": 0.2222222222222222
+    },
+    {
+      "scorecard": "ABSOLUTE",
+      "horizon": "5Y",
+      "bucket": ">75",
+      "bucket_rank": 4,
+      "n": 3639,
+      "n_years": 14,
+      "hit_rate": 0.765045342126958,
+      "mean_log_realized_return": 0.5630396413379413,
+      "yearly_hitrate_std": 0.15160392560091068,
+      "frac_years_beats_below": 0.5555555555555556
+    },
+    {
+      "scorecard": "RELATIVE",
+      "horizon": "1M",
+      "bucket": "<0",
+      "bucket_rank": 0,
+      "n": 46174,
+      "n_years": 20,
+      "hit_rate": 0.47496426560401955,
+      "mean_log_realized_return": 0.003984866701896618,
+      "yearly_hitrate_std": 0.022703907249765367,
+      "frac_years_beats_below": NaN
+    },
+    {
+      "scorecard": "RELATIVE",
+      "horizon": "1M",
+      "bucket": "0-30",
+      "bucket_rank": 1,
+      "n": 13795,
+      "n_years": 20,
+      "hit_rate": 0.5091699891264951,
+      "mean_log_realized_return": 0.01107969521156143,
+      "yearly_hitrate_std": 0.024111862170421442,
+      "frac_years_beats_below": 0.85
+    },
+    {
+      "scorecard": "RELATIVE",
+      "horizon": "1M",
+      "bucket": "30-50",
+      "bucket_rank": 2,
+      "n": 9284,
+      "n_years": 20,
+      "hit_rate": 0.5208961654459284,
+      "mean_log_realized_return": 0.01287960604299827,
+      "yearly_hitrate_std": 0.03523565257156357,
+      "frac_years_beats_below": 0.65
+    },
+    {
+      "scorecard": "RELATIVE",
+      "horizon": "1M",
+      "bucket": "50-75",
+      "bucket_rank": 3,
+      "n": 11538,
+      "n_years": 20,
+      "hit_rate": 0.5240942971052175,
+      "mean_log_realized_return": 0.014299147350863075,
+      "yearly_hitrate_std": 0.03332978197466362,
+      "frac_years_beats_below": 0.55
+    },
+    {
+      "scorecard": "RELATIVE",
+      "horizon": "1M",
+      "bucket": ">75",
+      "bucket_rank": 4,
+      "n": 11663,
+      "n_years": 20,
+      "hit_rate": 0.5430849695618623,
+      "mean_log_realized_return": 0.019254962230209345,
+      "yearly_hitrate_std": 0.0391315475889407,
+      "frac_years_beats_below": 0.7
+    },
+    {
+      "scorecard": "RELATIVE",
+      "horizon": "1Y",
+      "bucket": "<0",
+      "bucket_rank": 0,
+      "n": 13834,
+      "n_years": 12,
+      "hit_rate": 0.46125487928292613,
+      "mean_log_realized_return": 0.1124171950220747,
+      "yearly_hitrate_std": 0.1988215457610108,
+      "frac_years_beats_below": NaN
+    },
+    {
+      "scorecard": "RELATIVE",
+      "horizon": "1Y",
+      "bucket": "0-30",
+      "bucket_rank": 1,
+      "n": 4110,
+      "n_years": 8,
+      "hit_rate": 0.5345498783454988,
+      "mean_log_realized_return": 0.1606644885723965,
+      "yearly_hitrate_std": 0.023495863320618097,
+      "frac_years_beats_below": 0.875
+    },
+    {
+      "scorecard": "RELATIVE",
+      "horizon": "1Y",
+      "bucket": "30-50",
+      "bucket_rank": 2,
+      "n": 2794,
+      "n_years": 10,
+      "hit_rate": 0.5221904080171796,
+      "mean_log_realized_return": 0.15934724388181237,
+      "yearly_hitrate_std": 0.1299494930366808,
+      "frac_years_beats_below": 0.5
+    },
+    {
+      "scorecard": "RELATIVE",
+      "horizon": "1Y",
+      "bucket": "50-75",
+      "bucket_rank": 3,
+      "n": 3446,
+      "n_years": 8,
+      "hit_rate": 0.5403366221706326,
+      "mean_log_realized_return": 0.17188849922024627,
+      "yearly_hitrate_std": 0.06980223607888653,
+      "frac_years_beats_below": 0.625
+    },
+    {
+      "scorecard": "RELATIVE",
+      "horizon": "1Y",
+      "bucket": ">75",
+      "bucket_rank": 4,
+      "n": 3574,
+      "n_years": 15,
+      "hit_rate": 0.5408505875769446,
+      "mean_log_realized_return": 0.18698365683529453,
+      "yearly_hitrate_std": 0.27440420206613564,
+      "frac_years_beats_below": 0.5
+    },
+    {
+      "scorecard": "RELATIVE",
+      "horizon": "5Y",
+      "bucket": "<0",
+      "bucket_rank": 0,
+      "n": 14913,
+      "n_years": 14,
+      "hit_rate": 0.47240662509220144,
+      "mean_log_realized_return": 0.5025383427506283,
+      "yearly_hitrate_std": 0.2613291721066201,
+      "frac_years_beats_below": NaN
+    },
+    {
+      "scorecard": "RELATIVE",
+      "horizon": "5Y",
+      "bucket": "0-30",
+      "bucket_rank": 1,
+      "n": 4417,
+      "n_years": 11,
+      "hit_rate": 0.5195834276658365,
+      "mean_log_realized_return": 0.6028649825815321,
+      "yearly_hitrate_std": 0.15362510007855232,
+      "frac_years_beats_below": 0.9090909090909091
+    },
+    {
+      "scorecard": "RELATIVE",
+      "horizon": "5Y",
+      "bucket": "30-50",
+      "bucket_rank": 2,
+      "n": 2883,
+      "n_years": 13,
+      "hit_rate": 0.5542837322233785,
+      "mean_log_realized_return": 0.6913064565240506,
+      "yearly_hitrate_std": 0.2581860857344836,
+      "frac_years_beats_below": 0.5454545454545454
+    },
+    {
+      "scorecard": "RELATIVE",
+      "horizon": "5Y",
+      "bucket": "50-75",
+      "bucket_rank": 3,
+      "n": 3669,
+      "n_years": 11,
+      "hit_rate": 0.5287544289997275,
+      "mean_log_realized_return": 0.6491078308849355,
+      "yearly_hitrate_std": 0.16290888993293054,
+      "frac_years_beats_below": 0.5
+    },
+    {
+      "scorecard": "RELATIVE",
+      "horizon": "5Y",
+      "bucket": ">75",
+      "bucket_rank": 4,
+      "n": 3391,
+      "n_years": 12,
+      "hit_rate": 0.5057505160719552,
+      "mean_log_realized_return": 0.620298770844241,
+      "yearly_hitrate_std": 0.2454793858010704,
+      "frac_years_beats_below": 0.4
+    }
+  ],
+  "monotonicity": [
+    {
+      "scorecard": "ABSOLUTE",
+      "horizon": "1M",
+      "spearman_hitrate": 0.3,
+      "spearman_logret": 0.8999999999999998,
+      "n_buckets": 5,
+      "mean_yearly_hitrate_std": 0.09614320905346276
+    },
+    {
+      "scorecard": "ABSOLUTE",
+      "horizon": "1Y",
+      "spearman_hitrate": -0.6,
+      "spearman_logret": 0.7,
+      "n_buckets": 5,
+      "mean_yearly_hitrate_std": 0.24284548109958282
+    },
+    {
+      "scorecard": "ABSOLUTE",
+      "horizon": "5Y",
+      "spearman_hitrate": -0.7,
+      "spearman_logret": -0.09999999999999999,
+      "n_buckets": 5,
+      "mean_yearly_hitrate_std": 0.14702689331582347
+    },
+    {
+      "scorecard": "RELATIVE",
+      "horizon": "1M",
+      "spearman_hitrate": 0.9999999999999999,
+      "spearman_logret": 0.9999999999999999,
+      "n_buckets": 5,
+      "mean_yearly_hitrate_std": 0.030902550311070937
+    },
+    {
+      "scorecard": "RELATIVE",
+      "horizon": "1Y",
+      "spearman_hitrate": 0.8999999999999998,
+      "spearman_logret": 0.8999999999999998,
+      "n_buckets": 5,
+      "mean_yearly_hitrate_std": 0.13929466805266638
+    },
+    {
+      "scorecard": "RELATIVE",
+      "horizon": "5Y",
+      "spearman_hitrate": 0.3,
+      "spearman_logret": 0.6,
+      "n_buckets": 5,
+      "mean_yearly_hitrate_std": 0.2163057267307314
+    }
+  ],
+  "n_rows_absolute_by_horizon": {
+    "1M": 51386,
+    "1Y": 47057,
+    "5Y": 28512
+  },
+  "n_rows_relative_by_horizon": {
+    "1M": 92454,
+    "1Y": 27758,
+    "5Y": 29273
+  },
+  "bucket_edges": [
+    -100.0001,
+    0,
+    30,
+    50,
+    75,
+    100.0001
+  ],
+  "bucket_labels": [
+    "<0",
+    "0-30",
+    "30-50",
+    "50-75",
+    ">75"
+  ]
+}

@@ -1,0 +1,853 @@
+{
+ "ticker": "LIBERTSHOE",
+ "url_path": "LIBERTSHOE/consolidated/",
+ "tables": {
+  "quarterly_results": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2005": "45.19",
+    "Jun 2005": "48.74",
+    "Sep 2005": "49.18",
+    "Dec 2005": "50.18",
+    "Mar 2006": "58.88",
+    "Jun 2006": "46.34",
+    "Sep 2006": "44.78",
+    "Dec 2006": "62.64",
+    "Mar 2007": "66.36"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2005": "38.57",
+    "Jun 2005": "41.15",
+    "Sep 2005": "41.15",
+    "Dec 2005": "42.03",
+    "Mar 2006": "50.63",
+    "Jun 2006": "40.24",
+    "Sep 2006": "38.57",
+    "Dec 2006": "53.43",
+    "Mar 2007": "57.59"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2005": "6.62",
+    "Jun 2005": "7.59",
+    "Sep 2005": "8.03",
+    "Dec 2005": "8.15",
+    "Mar 2006": "8.25",
+    "Jun 2006": "6.10",
+    "Sep 2006": "6.21",
+    "Dec 2006": "9.21",
+    "Mar 2007": "8.77"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2005": "14.65%",
+    "Jun 2005": "15.57%",
+    "Sep 2005": "16.33%",
+    "Dec 2005": "16.24%",
+    "Mar 2006": "14.01%",
+    "Jun 2006": "13.16%",
+    "Sep 2006": "13.87%",
+    "Dec 2006": "14.70%",
+    "Mar 2007": "13.22%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2005": "0.15",
+    "Jun 2005": "0.21",
+    "Sep 2005": "0.20",
+    "Dec 2005": "0.43",
+    "Mar 2006": "0.26",
+    "Jun 2006": "0.77",
+    "Sep 2006": "0.52",
+    "Dec 2006": "0.13",
+    "Mar 2007": "0.00"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2005": "1.45",
+    "Jun 2005": "1.05",
+    "Sep 2005": "1.00",
+    "Dec 2005": "0.96",
+    "Mar 2006": "1.10",
+    "Jun 2006": "1.61",
+    "Sep 2006": "1.74",
+    "Dec 2006": "2.01",
+    "Mar 2007": "2.71"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2005": "1.11",
+    "Jun 2005": "0.93",
+    "Sep 2005": "1.02",
+    "Dec 2005": "1.10",
+    "Mar 2006": "1.13",
+    "Jun 2006": "1.07",
+    "Sep 2006": "1.16",
+    "Dec 2006": "1.24",
+    "Mar 2007": "1.61"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2005": "4.21",
+    "Jun 2005": "5.82",
+    "Sep 2005": "6.21",
+    "Dec 2005": "6.52",
+    "Mar 2006": "6.28",
+    "Jun 2006": "4.19",
+    "Sep 2006": "3.83",
+    "Dec 2006": "6.09",
+    "Mar 2007": "4.45"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2005": "27.32%",
+    "Jun 2005": "19.93%",
+    "Sep 2005": "24.64%",
+    "Dec 2005": "23.62%",
+    "Mar 2006": "20.70%",
+    "Jun 2006": "14.32%",
+    "Sep 2006": "9.66%",
+    "Dec 2006": "24.30%",
+    "Mar 2007": "18.65%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2005": "3.06",
+    "Jun 2005": "4.56",
+    "Sep 2005": "4.62",
+    "Dec 2005": "4.98",
+    "Mar 2006": "4.88",
+    "Jun 2006": "3.49",
+    "Sep 2006": "3.36",
+    "Dec 2006": "4.61",
+    "Mar 2007": "3.52"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2005": NaN,
+    "Jun 2005": NaN,
+    "Sep 2005": NaN,
+    "Dec 2005": NaN,
+    "Mar 2006": "2.85",
+    "Jun 2006": "2.03",
+    "Sep 2006": "1.99",
+    "Dec 2006": "2.71",
+    "Mar 2007": "2.07"
+   },
+   {
+    "Unnamed: 0": "Raw PDF",
+    "Mar 2005": NaN,
+    "Jun 2005": NaN,
+    "Sep 2005": NaN,
+    "Dec 2005": NaN,
+    "Mar 2006": NaN,
+    "Jun 2006": NaN,
+    "Sep 2006": NaN,
+    "Dec 2006": NaN,
+    "Mar 2007": NaN
+   }
+  ],
+  "profit_loss": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2006": "206",
+    "Mar 2007": "226",
+    "Mar 2008": "260",
+    "Mar 2009": "260",
+    "Mar 2010": "268",
+    "Mar 2011": "311",
+    "Mar 2012": "357",
+    "Mar 2013": "362",
+    "Mar 2014": "484",
+    "Mar 2015": "526",
+    "Mar 2016": "454",
+    "Mar 2017": "497"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2006": "175",
+    "Mar 2007": "199",
+    "Mar 2008": "241",
+    "Mar 2009": "244",
+    "Mar 2010": "246",
+    "Mar 2011": "287",
+    "Mar 2012": "326",
+    "Mar 2013": "332",
+    "Mar 2014": "443",
+    "Mar 2015": "482",
+    "Mar 2016": "411",
+    "Mar 2017": "458"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2006": "31",
+    "Mar 2007": "27",
+    "Mar 2008": "19",
+    "Mar 2009": "17",
+    "Mar 2010": "22",
+    "Mar 2011": "24",
+    "Mar 2012": "31",
+    "Mar 2013": "30",
+    "Mar 2014": "41",
+    "Mar 2015": "44",
+    "Mar 2016": "43",
+    "Mar 2017": "39"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2006": "15%",
+    "Mar 2007": "12%",
+    "Mar 2008": "7%",
+    "Mar 2009": "6%",
+    "Mar 2010": "8%",
+    "Mar 2011": "8%",
+    "Mar 2012": "9%",
+    "Mar 2013": "8%",
+    "Mar 2014": "8%",
+    "Mar 2015": "8%",
+    "Mar 2016": "9%",
+    "Mar 2017": "8%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2006": "1",
+    "Mar 2007": "2",
+    "Mar 2008": "8",
+    "Mar 2009": "0",
+    "Mar 2010": "0",
+    "Mar 2011": "0",
+    "Mar 2012": "-4",
+    "Mar 2013": "-0",
+    "Mar 2014": "0",
+    "Mar 2015": "-0",
+    "Mar 2016": "-1",
+    "Mar 2017": "0"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2006": "5",
+    "Mar 2007": "9",
+    "Mar 2008": "15",
+    "Mar 2009": "15",
+    "Mar 2010": "10",
+    "Mar 2011": "10",
+    "Mar 2012": "14",
+    "Mar 2013": "14",
+    "Mar 2014": "16",
+    "Mar 2015": "16",
+    "Mar 2016": "16",
+    "Mar 2017": "16"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2006": "4",
+    "Mar 2007": "5",
+    "Mar 2008": "8",
+    "Mar 2009": "8",
+    "Mar 2010": "8",
+    "Mar 2011": "9",
+    "Mar 2012": "10",
+    "Mar 2013": "10",
+    "Mar 2014": "11",
+    "Mar 2015": "12",
+    "Mar 2016": "14",
+    "Mar 2017": "14"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2006": "23",
+    "Mar 2007": "14",
+    "Mar 2008": "4",
+    "Mar 2009": "-6",
+    "Mar 2010": "4",
+    "Mar 2011": "6",
+    "Mar 2012": "4",
+    "Mar 2013": "5",
+    "Mar 2014": "14",
+    "Mar 2015": "15",
+    "Mar 2016": "12",
+    "Mar 2017": "10"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2006": "21%",
+    "Mar 2007": "18%",
+    "Mar 2008": "14%",
+    "Mar 2009": "-3%",
+    "Mar 2010": "3%",
+    "Mar 2011": "-0%",
+    "Mar 2012": "-10%",
+    "Mar 2013": "-2%",
+    "Mar 2014": "5%",
+    "Mar 2015": "-14%",
+    "Mar 2016": "18%",
+    "Mar 2017": "36%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2006": "18",
+    "Mar 2007": "12",
+    "Mar 2008": "4",
+    "Mar 2009": "-6",
+    "Mar 2010": "4",
+    "Mar 2011": "6",
+    "Mar 2012": "4",
+    "Mar 2013": "5",
+    "Mar 2014": "13",
+    "Mar 2015": "17",
+    "Mar 2016": "10",
+    "Mar 2017": "6"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2006": "10.77",
+    "Mar 2007": "6.74",
+    "Mar 2008": "2.35",
+    "Mar 2009": "-3.09",
+    "Mar 2010": "2.55",
+    "Mar 2011": "3.63",
+    "Mar 2012": "2.57",
+    "Mar 2013": "3.16",
+    "Mar 2014": "7.79",
+    "Mar 2015": "9.93",
+    "Mar 2016": "5.90",
+    "Mar 2017": "3.75"
+   },
+   {
+    "Unnamed: 0": "Dividend Payout %",
+    "Mar 2006": "46%",
+    "Mar 2007": "0%",
+    "Mar 2008": "0%",
+    "Mar 2009": "0%",
+    "Mar 2010": "0%",
+    "Mar 2011": "0%",
+    "Mar 2012": "0%",
+    "Mar 2013": "0%",
+    "Mar 2014": "19%",
+    "Mar 2015": "15%",
+    "Mar 2016": "0%",
+    "Mar 2017": "0%"
+   }
+  ],
+  "balance_sheet": [
+   {
+    "Unnamed: 0": "Equity Capital",
+    "Mar 2006": 17,
+    "Mar 2007": 17,
+    "Mar 2008": 17,
+    "Mar 2009": 17,
+    "Mar 2010": 17,
+    "Mar 2011": 17,
+    "Mar 2012": 17,
+    "Mar 2013": 17,
+    "Mar 2014": 17,
+    "Mar 2015": 17,
+    "Mar 2016": 17,
+    "Mar 2017": 17
+   },
+   {
+    "Unnamed: 0": "Reserves",
+    "Mar 2006": 63,
+    "Mar 2007": 78,
+    "Mar 2008": 91,
+    "Mar 2009": 86,
+    "Mar 2010": 104,
+    "Mar 2011": 115,
+    "Mar 2012": 115,
+    "Mar 2013": 120,
+    "Mar 2014": 121,
+    "Mar 2015": 129,
+    "Mar 2016": 139,
+    "Mar 2017": 145
+   },
+   {
+    "Unnamed: 0": "Borrowings",
+    "Mar 2006": 72,
+    "Mar 2007": 136,
+    "Mar 2008": 134,
+    "Mar 2009": 121,
+    "Mar 2010": 99,
+    "Mar 2011": 110,
+    "Mar 2012": 105,
+    "Mar 2013": 115,
+    "Mar 2014": 117,
+    "Mar 2015": 139,
+    "Mar 2016": 135,
+    "Mar 2017": 143
+   },
+   {
+    "Unnamed: 0": "Other Liabilities",
+    "Mar 2006": 44,
+    "Mar 2007": 67,
+    "Mar 2008": 68,
+    "Mar 2009": 84,
+    "Mar 2010": 60,
+    "Mar 2011": 87,
+    "Mar 2012": 96,
+    "Mar 2013": 100,
+    "Mar 2014": 114,
+    "Mar 2015": 121,
+    "Mar 2016": 100,
+    "Mar 2017": 121
+   },
+   {
+    "Unnamed: 0": "Total Liabilities",
+    "Mar 2006": 196,
+    "Mar 2007": 298,
+    "Mar 2008": 311,
+    "Mar 2009": 308,
+    "Mar 2010": 280,
+    "Mar 2011": 329,
+    "Mar 2012": 332,
+    "Mar 2013": 352,
+    "Mar 2014": 369,
+    "Mar 2015": 406,
+    "Mar 2016": 391,
+    "Mar 2017": 426
+   },
+   {
+    "Unnamed: 0": "Fixed Assets",
+    "Mar 2006": 52,
+    "Mar 2007": 88,
+    "Mar 2008": 103,
+    "Mar 2009": 101,
+    "Mar 2010": 94,
+    "Mar 2011": 102,
+    "Mar 2012": 103,
+    "Mar 2013": 110,
+    "Mar 2014": 99,
+    "Mar 2015": 97,
+    "Mar 2016": 98,
+    "Mar 2017": 93
+   },
+   {
+    "Unnamed: 0": "CWIP",
+    "Mar 2006": 1,
+    "Mar 2007": 9,
+    "Mar 2008": 2,
+    "Mar 2009": 0,
+    "Mar 2010": 0,
+    "Mar 2011": 1,
+    "Mar 2012": 0,
+    "Mar 2013": 0,
+    "Mar 2014": 0,
+    "Mar 2015": 1,
+    "Mar 2016": 1,
+    "Mar 2017": 1
+   },
+   {
+    "Unnamed: 0": "Investments",
+    "Mar 2006": 0,
+    "Mar 2007": 0,
+    "Mar 2008": 0,
+    "Mar 2009": 0,
+    "Mar 2010": 0,
+    "Mar 2011": 0,
+    "Mar 2012": 0,
+    "Mar 2013": 0,
+    "Mar 2014": 0,
+    "Mar 2015": 0,
+    "Mar 2016": 0,
+    "Mar 2017": 0
+   },
+   {
+    "Unnamed: 0": "Other Assets",
+    "Mar 2006": 142,
+    "Mar 2007": 202,
+    "Mar 2008": 206,
+    "Mar 2009": 207,
+    "Mar 2010": 186,
+    "Mar 2011": 226,
+    "Mar 2012": 229,
+    "Mar 2013": 241,
+    "Mar 2014": 270,
+    "Mar 2015": 308,
+    "Mar 2016": 291,
+    "Mar 2017": 332
+   },
+   {
+    "Unnamed: 0": "Total Assets",
+    "Mar 2006": 196,
+    "Mar 2007": 298,
+    "Mar 2008": 311,
+    "Mar 2009": 308,
+    "Mar 2010": 280,
+    "Mar 2011": 329,
+    "Mar 2012": 332,
+    "Mar 2013": 352,
+    "Mar 2014": 369,
+    "Mar 2015": 406,
+    "Mar 2016": 391,
+    "Mar 2017": 426
+   }
+  ],
+  "cash_flow": [
+   {
+    "Unnamed: 0": "Cash from Operating Activity",
+    "Mar 2006": "27",
+    "Mar 2007": "45",
+    "Mar 2008": "14",
+    "Mar 2009": "30",
+    "Mar 2010": "16",
+    "Mar 2011": "8",
+    "Mar 2012": "21",
+    "Mar 2013": "30",
+    "Mar 2014": "12",
+    "Mar 2015": "35",
+    "Mar 2016": "39",
+    "Mar 2017": "21"
+   },
+   {
+    "Unnamed: 0": "Cash from Investing Activity",
+    "Mar 2006": "-15",
+    "Mar 2007": "-49",
+    "Mar 2008": "-13",
+    "Mar 2009": "-5",
+    "Mar 2010": "-3",
+    "Mar 2011": "-16",
+    "Mar 2012": "-9",
+    "Mar 2013": "-18",
+    "Mar 2014": "-8",
+    "Mar 2015": "-17",
+    "Mar 2016": "-16",
+    "Mar 2017": "-8"
+   },
+   {
+    "Unnamed: 0": "Cash from Financing Activity",
+    "Mar 2006": "-12",
+    "Mar 2007": "6",
+    "Mar 2008": "-1",
+    "Mar 2009": "-25",
+    "Mar 2010": "-14",
+    "Mar 2011": "7",
+    "Mar 2012": "-20",
+    "Mar 2013": "-10",
+    "Mar 2014": "-11",
+    "Mar 2015": "-19",
+    "Mar 2016": "-22",
+    "Mar 2017": "-12"
+   },
+   {
+    "Unnamed: 0": "Net Cash Flow",
+    "Mar 2006": "-0",
+    "Mar 2007": "2",
+    "Mar 2008": "-0",
+    "Mar 2009": "0",
+    "Mar 2010": "-1",
+    "Mar 2011": "-2",
+    "Mar 2012": "-8",
+    "Mar 2013": "2",
+    "Mar 2014": "-8",
+    "Mar 2015": "-1",
+    "Mar 2016": "0",
+    "Mar 2017": "1"
+   },
+   {
+    "Unnamed: 0": "Free Cash Flow",
+    "Mar 2006": "12",
+    "Mar 2007": "0",
+    "Mar 2008": "0",
+    "Mar 2009": "24",
+    "Mar 2010": "6",
+    "Mar 2011": "-10",
+    "Mar 2012": "11",
+    "Mar 2013": "20",
+    "Mar 2014": "2",
+    "Mar 2015": "17",
+    "Mar 2016": "22",
+    "Mar 2017": "12"
+   },
+   {
+    "Unnamed: 0": "CFO/OP",
+    "Mar 2006": "106%",
+    "Mar 2007": "183%",
+    "Mar 2008": "87%",
+    "Mar 2009": "181%",
+    "Mar 2010": "79%",
+    "Mar 2011": "41%",
+    "Mar 2012": "75%",
+    "Mar 2013": "103%",
+    "Mar 2014": "35%",
+    "Mar 2015": "87%",
+    "Mar 2016": "97%",
+    "Mar 2017": "59%"
+   }
+  ],
+  "ratios": [
+   {
+    "Unnamed: 0": "Debtor Days",
+    "Mar 2006": 88.0,
+    "Mar 2007": "120",
+    "Mar 2008": "107",
+    "Mar 2009": "107",
+    "Mar 2010": "85",
+    "Mar 2011": "73",
+    "Mar 2012": "73",
+    "Mar 2013": "80",
+    "Mar 2014": "87",
+    "Mar 2015": "80",
+    "Mar 2016": "77",
+    "Mar 2017": "88"
+   },
+   {
+    "Unnamed: 0": "Inventory Days",
+    "Mar 2006": 232.0,
+    "Mar 2007": "313",
+    "Mar 2008": "255",
+    "Mar 2009": "232",
+    "Mar 2010": "225",
+    "Mar 2011": "248",
+    "Mar 2012": "219",
+    "Mar 2013": "236",
+    "Mar 2014": "162",
+    "Mar 2015": "191",
+    "Mar 2016": "243",
+    "Mar 2017": "249"
+   },
+   {
+    "Unnamed: 0": "Days Payable",
+    "Mar 2006": 54.0,
+    "Mar 2007": "158",
+    "Mar 2008": "126",
+    "Mar 2009": "165",
+    "Mar 2010": "98",
+    "Mar 2011": "165",
+    "Mar 2012": "144",
+    "Mar 2013": "150",
+    "Mar 2014": "118",
+    "Mar 2015": "121",
+    "Mar 2016": "127",
+    "Mar 2017": "142"
+   },
+   {
+    "Unnamed: 0": "Cash Conversion Cycle",
+    "Mar 2006": 266.0,
+    "Mar 2007": "275",
+    "Mar 2008": "235",
+    "Mar 2009": "175",
+    "Mar 2010": "211",
+    "Mar 2011": "155",
+    "Mar 2012": "148",
+    "Mar 2013": "166",
+    "Mar 2014": "131",
+    "Mar 2015": "150",
+    "Mar 2016": "193",
+    "Mar 2017": "195"
+   },
+   {
+    "Unnamed: 0": "Working Capital Days",
+    "Mar 2006": 191.0,
+    "Mar 2007": "221",
+    "Mar 2008": "197",
+    "Mar 2009": "175",
+    "Mar 2010": "173",
+    "Mar 2011": "6",
+    "Mar 2012": "7",
+    "Mar 2013": "18",
+    "Mar 2014": "28",
+    "Mar 2015": "28",
+    "Mar 2016": "35",
+    "Mar 2017": "41"
+   },
+   {
+    "Unnamed: 0": "ROCE %",
+    "Mar 2006": NaN,
+    "Mar 2007": "12%",
+    "Mar 2008": "7%",
+    "Mar 2009": "5%",
+    "Mar 2010": "7%",
+    "Mar 2011": "7%",
+    "Mar 2012": "9%",
+    "Mar 2013": "8%",
+    "Mar 2014": "12%",
+    "Mar 2015": "12%",
+    "Mar 2016": "10%",
+    "Mar 2017": "9%"
+   }
+  ],
+  "shareholding": [
+   {
+    "Unnamed: 0": "Promoters",
+    "Jun 2023": "58.50%",
+    "Sep 2023": "58.50%",
+    "Dec 2023": "58.50%",
+    "Mar 2024": "58.50%",
+    "Jun 2024": "58.50%",
+    "Sep 2024": "58.36%",
+    "Dec 2024": "58.32%",
+    "Mar 2025": "58.32%",
+    "Jun 2025": "58.32%",
+    "Sep 2025": "58.52%",
+    "Dec 2025": "58.46%",
+    "Mar 2026": "59.10%"
+   },
+   {
+    "Unnamed: 0": "FIIs",
+    "Jun 2023": "0.00%",
+    "Sep 2023": "0.15%",
+    "Dec 2023": "0.00%",
+    "Mar 2024": "0.67%",
+    "Jun 2024": "0.64%",
+    "Sep 2024": "0.56%",
+    "Dec 2024": "0.68%",
+    "Mar 2025": "0.73%",
+    "Jun 2025": "0.39%",
+    "Sep 2025": "0.17%",
+    "Dec 2025": "0.18%",
+    "Mar 2026": "0.11%"
+   },
+   {
+    "Unnamed: 0": "Public",
+    "Jun 2023": "41.50%",
+    "Sep 2023": "41.35%",
+    "Dec 2023": "41.50%",
+    "Mar 2024": "40.83%",
+    "Jun 2024": "40.86%",
+    "Sep 2024": "41.08%",
+    "Dec 2024": "41.01%",
+    "Mar 2025": "40.96%",
+    "Jun 2025": "41.29%",
+    "Sep 2025": "41.30%",
+    "Dec 2025": "41.36%",
+    "Mar 2026": "40.79%"
+   },
+   {
+    "Unnamed: 0": "No. of Shareholders",
+    "Jun 2023": "27575",
+    "Sep 2023": "28828",
+    "Dec 2023": "27829",
+    "Mar 2024": "25183",
+    "Jun 2024": "23290",
+    "Sep 2024": "21328",
+    "Dec 2024": "20693",
+    "Mar 2025": "20949",
+    "Jun 2025": "21081",
+    "Sep 2025": "21561",
+    "Dec 2025": "21434",
+    "Mar 2026": "21548"
+   }
+  ]
+ },
+ "top_ratios": {
+  "Market Cap": "\u20b9 434 Cr.",
+  "Current Price": "\u20b9 256",
+  "High / Low": "\u20b9 405 / 210",
+  "Stock P/E": "64.5",
+  "Book Value": "\u20b9 95.2",
+  "Dividend Yield": "0.00 %",
+  "ROCE": "8.81 %",
+  "ROE": "4.23 %",
+  "Face Value": "\u20b9 10.0"
+ },
+ "documents": [
+  {
+   "text": "All",
+   "href": "https://www.bseindia.com/stock-share-price/liberty-shoes-ltd/LIBERTSHOE/526596/corp-announcements/"
+  },
+  {
+   "text": "Compliances-Certificate under Reg. 74 (5) of SEBI (DP) Regulations, 2018 1h",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=16fdcecc-3111-431b-a99c-2f042f972078.pdf"
+  },
+  {
+   "text": "Disclosures under Reg. 29(2) of SEBI (SAST) Regulations, 2011 3 Jul - Promoter g",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=9A4DA6A0_64C6_4284_8604_1EAF56823C43_162453.pdf"
+  },
+  {
+   "text": "Closure of Trading Window 30 Jun - Trading window closed from July 1, 2026 until",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b7974b73-5c54-4075-b39c-7cbf8f552a73.pdf"
+  },
+  {
+   "text": "Compliances-Reg.24(A)-Annual Secretarial Compliance 26 May - Liberty Shoes filed",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=3a066e5c-a062-4df0-a516-0d2e39c6373d.pdf"
+  },
+  {
+   "text": "Board Meeting Outcome for Outcome Of Board Meeting And Audited Financial Results",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=013ec615-6c50-410a-ad15-074e375f34dd.pdf"
+  },
+  {
+   "text": "Financial Year 2025 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/e326e8b5-96fa-4af9-8601-e498dc5327c1.pdf"
+  },
+  {
+   "text": "Financial Year 2024 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/586a0ee2-7070-4eec-abf3-53ddecd67bfe.pdf"
+  },
+  {
+   "text": "Financial Year 2023 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/f79bd29f-ea03-4856-8ef1-a4f823d94976.pdf"
+  },
+  {
+   "text": "Financial Year 2022 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/526596/77061526596.pdf"
+  },
+  {
+   "text": "Financial Year 2021 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/526596/71527526596.pdf"
+  },
+  {
+   "text": "Financial Year 2020 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/526596/66614526596.pdf"
+  },
+  {
+   "text": "Financial Year 2019 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/526596/5265960319.pdf"
+  },
+  {
+   "text": "Financial Year 2018 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/526596/5265960318.pdf"
+  },
+  {
+   "text": "Financial Year 2017 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/526596/5265960317.pdf"
+  },
+  {
+   "text": "Financial Year 2016 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/526596/5265960316.pdf"
+  },
+  {
+   "text": "Financial Year 2015 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/526596/5265960315.pdf"
+  },
+  {
+   "text": "Financial Year 2014 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/526596/5265960314.pdf"
+  },
+  {
+   "text": "Financial Year 2013 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/526596/5265960313.pdf"
+  },
+  {
+   "text": "Financial Year 2012 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/526596/5265960312.pdf"
+  },
+  {
+   "text": "Financial Year 2011 from nse",
+   "href": "https://archives.nseindia.com/annual_reports/AR_LIBERTSHOE_2010_2011_20092011025454.zip"
+  },
+  {
+   "text": "Rating update 18 Dec 2025 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/202512131201_Liberty_Shoes_Limited.pdf"
+  },
+  {
+   "text": "Rating update 31 Dec 2024 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/202412121237_Liberty_Shoes_Limited.pdf"
+  },
+  {
+   "text": "Rating update 1 Dec 2023 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/202312121212_Liberty_Shoes_Limited.pdf"
+  },
+  {
+   "text": "Rating update 28 Sep 2023 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/202309120926_Liberty_Shoes_Limited.pdf"
+  },
+  {
+   "text": "Rating update 30 Sep 2022 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/30092022061957_Liberty_Shoes_Limited.pdf"
+  },
+  {
+   "text": "Rating update 23 Dec 2021 from care",
+   "href": "https://www.careratings.com/upload/CompanyFiles/PR/23122021062659_Liberty_Shoes_Limited.pdf"
+  }
+ ]
+}

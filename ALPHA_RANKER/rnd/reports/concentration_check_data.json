@@ -1,0 +1,487 @@
+{
+  "raw": {
+    "ic_ir": 1.2456101983596133,
+    "ic_mean": 0.1770667158164167,
+    "mono": 0.9878787878787878,
+    "verdict": "KILL (PBO 0.952 > 0.5)",
+    "n_obs": 132486
+  },
+  "per_sector_ic": [
+    {
+      "group": "Consumer Services",
+      "ic_mean": 0.18546316724826875,
+      "ic_std": 0.21378734623474602,
+      "n_dates": 162,
+      "avg_n": 22.85185185185185,
+      "ic_ir": 0.8675123692523115
+    },
+    {
+      "group": "Financial Services",
+      "ic_mean": 0.18051322686010987,
+      "ic_std": 0.20538132875375284,
+      "n_dates": 231,
+      "avg_n": 69.08658008658008,
+      "ic_ir": 0.8789174164733387
+    },
+    {
+      "group": "Textiles",
+      "ic_mean": 0.17949541467695143,
+      "ic_std": 0.28697634425869434,
+      "n_dates": 231,
+      "avg_n": 16.354978354978353,
+      "ic_ir": 0.6254711172818677
+    },
+    {
+      "group": "Consumer Durables",
+      "ic_mean": 0.16449600236783218,
+      "ic_std": 0.2628777867086843,
+      "n_dates": 231,
+      "avg_n": 26.32900432900433,
+      "ic_ir": 0.6257508647930121
+    },
+    {
+      "group": "Services",
+      "ic_mean": 0.15349183478433542,
+      "ic_std": 0.2663465494706357,
+      "n_dates": 214,
+      "avg_n": 21.630841121495326,
+      "ic_ir": 0.5762861771230029
+    },
+    {
+      "group": "Capital Goods",
+      "ic_mean": 0.15326381470951084,
+      "ic_std": 0.17570745742663238,
+      "n_dates": 231,
+      "avg_n": 65.05627705627705,
+      "ic_ir": 0.8722669882893672
+    },
+    {
+      "group": "Chemicals",
+      "ic_mean": 0.15296502350322078,
+      "ic_std": 0.19671270161264745,
+      "n_dates": 231,
+      "avg_n": 43.705627705627705,
+      "ic_ir": 0.7776062361465023
+    },
+    {
+      "group": "Oil Gas & Consumable Fuels",
+      "ic_mean": 0.1481980499229504,
+      "ic_std": 0.3335752021134398,
+      "n_dates": 231,
+      "avg_n": 16.575757575757574,
+      "ic_ir": 0.4442717833460304
+    },
+    {
+      "group": "Construction",
+      "ic_mean": 0.14491772815840157,
+      "ic_std": 0.2432910651280123,
+      "n_dates": 231,
+      "avg_n": 25.835497835497836,
+      "ic_ir": 0.595655775859053
+    },
+    {
+      "group": "Power",
+      "ic_mean": 0.14411290639085284,
+      "ic_std": 0.29619613428755404,
+      "n_dates": 206,
+      "avg_n": 16.723300970873787,
+      "ic_ir": 0.48654553422005403
+    },
+    {
+      "group": "Telecommunication",
+      "ic_mean": 0.13921557508514032,
+      "ic_std": 0.3523168508128589,
+      "n_dates": 207,
+      "avg_n": 11.48792270531401,
+      "ic_ir": 0.395143107018426
+    },
+    {
+      "group": "Diversified",
+      "ic_mean": 0.11925996951122579,
+      "ic_std": 0.30617880187799773,
+      "n_dates": 199,
+      "avg_n": 11.195979899497488,
+      "ic_ir": 0.389510863520679
+    },
+    {
+      "group": "Fast Moving Consumer Goods",
+      "ic_mean": 0.11387611818115022,
+      "ic_std": 0.24776144096688688,
+      "n_dates": 231,
+      "avg_n": 31.96969696969697,
+      "ic_ir": 0.45962001890507925
+    },
+    {
+      "group": "Information Technology",
+      "ic_mean": 0.11125495370603714,
+      "ic_std": 0.26538977193999763,
+      "n_dates": 231,
+      "avg_n": 23.16017316017316,
+      "ic_ir": 0.41921341916368554
+    },
+    {
+      "group": "Healthcare",
+      "ic_mean": 0.10998901569400564,
+      "ic_std": 0.21516782676827267,
+      "n_dates": 231,
+      "avg_n": 45.484848484848484,
+      "ic_ir": 0.5111777970990965
+    },
+    {
+      "group": "Automobile and Auto Components",
+      "ic_mean": 0.0845758934193532,
+      "ic_std": 0.2026355483789163,
+      "n_dates": 231,
+      "avg_n": 41.99134199134199,
+      "ic_ir": 0.417379349753585
+    },
+    {
+      "group": "Construction Materials",
+      "ic_mean": 0.08103349855932311,
+      "ic_std": 0.26255738629937303,
+      "n_dates": 231,
+      "avg_n": 19.142857142857142,
+      "ic_ir": 0.3086315708023051
+    },
+    {
+      "group": "Realty",
+      "ic_mean": 0.07681573662717323,
+      "ic_std": 0.23146503984349903,
+      "n_dates": 203,
+      "avg_n": 19.428571428571427,
+      "ic_ir": 0.33186755407689567
+    },
+    {
+      "group": "Media Entertainment & Publication",
+      "ic_mean": 0.06439913785337223,
+      "ic_std": 0.29744157954722494,
+      "n_dates": 209,
+      "avg_n": 15.909090909090908,
+      "ic_ir": 0.21651020664764709
+    },
+    {
+      "group": "Metals & Mining",
+      "ic_mean": 0.03962223373485207,
+      "ic_std": 0.242259034091557,
+      "n_dates": 231,
+      "avg_n": 18.67965367965368,
+      "ic_ir": 0.16355317308776865
+    }
+  ],
+  "per_sector_ic_summary": {
+    "n_sectors_scored": 20,
+    "n_sectors_ic_ir_gt_0.20": 19,
+    "pooled_overall_ic_ir": 1.2456101983596133,
+    "median_sector_ic_ir": 0.47308277656256664,
+    "avg_names_weighted_sector_ic_mean": 0.13316620359755102
+  },
+  "top_quintile_sector_exposure": [
+    {
+      "group": "Fast Moving Consumer Goods",
+      "mean_overweight": 0.02680304884499685,
+      "std_overweight": 0.034400450787794495,
+      "mean_uni_share": 0.05811748784612197,
+      "mean_top_share": 0.08492053669111882,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.3722943722943723
+    },
+    {
+      "group": "Chemicals",
+      "mean_overweight": 0.018570649074170498,
+      "std_overweight": 0.03377223548009856,
+      "mean_uni_share": 0.0781037413655167,
+      "mean_top_share": 0.09667439043968722,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.33766233766233766
+    },
+    {
+      "group": "Healthcare",
+      "mean_overweight": 0.015452184133388272,
+      "std_overweight": 0.049886977159635554,
+      "mean_uni_share": 0.0817530997199196,
+      "mean_top_share": 0.09720528385330789,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.3463203463203463
+    },
+    {
+      "group": "Automobile and Auto Components",
+      "mean_overweight": 0.013995889514734619,
+      "std_overweight": 0.03798476928030808,
+      "mean_uni_share": 0.0768910573789046,
+      "mean_top_share": 0.09088694689363923,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.2727272727272727
+    },
+    {
+      "group": "Oil Gas & Consumable Fuels",
+      "mean_overweight": 0.01169928689995676,
+      "std_overweight": 0.02610977752337581,
+      "mean_uni_share": 0.03030389697691908,
+      "mean_top_share": 0.042003183876875835,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.23376623376623376
+    },
+    {
+      "group": "Textiles",
+      "mean_overweight": 0.007530047697273305,
+      "std_overweight": 0.021300743865904324,
+      "mean_uni_share": 0.029625886876867586,
+      "mean_top_share": 0.03715593457414089,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.16017316017316016
+    },
+    {
+      "group": "Information Technology",
+      "mean_overweight": 0.007345642163276303,
+      "std_overweight": 0.03171270074583258,
+      "mean_uni_share": 0.04149639412436591,
+      "mean_top_share": 0.04884203628764221,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.20346320346320346
+    },
+    {
+      "group": "Power",
+      "mean_overweight": 0.004195371734898766,
+      "std_overweight": 0.02676577572464658,
+      "mean_uni_share": 0.028256903609151465,
+      "mean_top_share": 0.03245227534405023,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.20346320346320346
+    },
+    {
+      "group": "Consumer Durables",
+      "mean_overweight": 0.0022618798086071726,
+      "std_overweight": 0.028169600699711257,
+      "mean_uni_share": 0.04706320366502268,
+      "mean_top_share": 0.04932508347362985,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.16017316017316016
+    },
+    {
+      "group": "Capital Goods",
+      "mean_overweight": 0.002133646403375504,
+      "std_overweight": 0.03246641730264042,
+      "mean_uni_share": 0.11760802412212143,
+      "mean_top_share": 0.11974167052549693,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.1774891774891775
+    },
+    {
+      "group": "Diversified",
+      "mean_overweight": 0.0019873421653710368,
+      "std_overweight": 0.011999695387086472,
+      "mean_uni_share": 0.01956841973452348,
+      "mean_top_share": 0.021555761899894513,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.030303030303030304
+    },
+    {
+      "group": "Construction Materials",
+      "mean_overweight": 0.0011566455241795869,
+      "std_overweight": 0.026182330224556388,
+      "mean_uni_share": 0.035198205890998584,
+      "mean_top_share": 0.03635485141517817,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.1341991341991342
+    },
+    {
+      "group": "Agriculture",
+      "mean_overweight": 0.0005866990456944132,
+      "std_overweight": 0.006345449690892506,
+      "mean_uni_share": 0.006726051772497225,
+      "mean_top_share": 0.007312750818191639,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.0
+    },
+    {
+      "group": "Forest Materials",
+      "mean_overweight": 7.705602321243462e-05,
+      "std_overweight": 0.003676623211463657,
+      "mean_uni_share": 0.00186298704704842,
+      "mean_top_share": 0.0019400430702608549,
+      "n_dates": 228,
+      "frac_dates_top3_overweight": 0.0
+    },
+    {
+      "group": "Metals & Mining",
+      "mean_overweight": -0.0006575015553804117,
+      "std_overweight": 0.027664600106642262,
+      "mean_uni_share": 0.033786177031792444,
+      "mean_top_share": 0.03312867547641203,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.1471861471861472
+    },
+    {
+      "group": "Consumer services",
+      "mean_overweight": -0.0012992773808783648,
+      "std_overweight": 5.150898032107757e-06,
+      "mean_uni_share": 0.0012992773808783648,
+      "mean_top_share": 0.0,
+      "n_dates": 3,
+      "frac_dates_top3_overweight": 0.0
+    },
+    {
+      "group": "Utilities",
+      "mean_overweight": -0.0014747313719846772,
+      "std_overweight": 0.0016152268401445971,
+      "mean_uni_share": 0.0018819691475081201,
+      "mean_top_share": 0.00040723777552344306,
+      "n_dates": 164,
+      "frac_dates_top3_overweight": 0.0
+    },
+    {
+      "group": "Services",
+      "mean_overweight": -0.003132331369997824,
+      "std_overweight": 0.01511064209711158,
+      "mean_uni_share": 0.035992510414628476,
+      "mean_top_share": 0.03286017904463064,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.025974025974025976
+    },
+    {
+      "group": "Media Entertainment & Publication",
+      "mean_overweight": -0.005927599464599485,
+      "std_overweight": 0.01557027914239432,
+      "mean_uni_share": 0.026874655877035806,
+      "mean_top_share": 0.02094705641243632,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.047619047619047616
+    },
+    {
+      "group": "Telecommunication",
+      "mean_overweight": -0.009315803815374342,
+      "std_overweight": 0.010383124957379,
+      "mean_uni_share": 0.020477537795562807,
+      "mean_top_share": 0.011161733980188467,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.0
+    },
+    {
+      "group": "Consumer Services",
+      "mean_overweight": -0.011768740090271018,
+      "std_overweight": 0.017061356790664277,
+      "mean_uni_share": 0.030180925490018363,
+      "mean_top_share": 0.018412185399747344,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.008658008658008658
+    },
+    {
+      "group": "Construction",
+      "mean_overweight": -0.015858049331395712,
+      "std_overweight": 0.01854793236312973,
+      "mean_uni_share": 0.04546084277545957,
+      "mean_top_share": 0.029602793444063864,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.008658008658008658
+    },
+    {
+      "group": "Realty",
+      "mean_overweight": -0.020062526082165234,
+      "std_overweight": 0.013677517700094862,
+      "mean_uni_share": 0.031638341667272966,
+      "mean_top_share": 0.011575815585107738,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.004329004329004329
+    },
+    {
+      "group": "Financial Services",
+      "mean_overweight": -0.046007967431233934,
+      "std_overweight": 0.05059728420101445,
+      "mean_uni_share": 0.12168485309880138,
+      "mean_top_share": 0.07567688566756745,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.09090909090909091
+    }
+  ],
+  "top_quintile_cap_tier_exposure": [
+    {
+      "group": "mid",
+      "mean_overweight": 0.02355630800836103,
+      "std_overweight": 0.0654913685970915,
+      "mean_uni_share": 0.2999457808448289,
+      "mean_top_share": 0.32350208885318993,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.9177489177489178
+    },
+    {
+      "group": "small",
+      "mean_overweight": 0.016649156192166118,
+      "std_overweight": 0.051832859397113656,
+      "mean_uni_share": 0.2984892931399491,
+      "mean_top_share": 0.3151384493321152,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.9004329004329005
+    },
+    {
+      "group": "micro",
+      "mean_overweight": -0.012090347473478003,
+      "std_overweight": 0.07537498030980953,
+      "mean_uni_share": 0.19961879950754802,
+      "mean_top_share": 0.18752845203407,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.6017316017316018
+    },
+    {
+      "group": "large",
+      "mean_overweight": -0.02811511672704915,
+      "std_overweight": 0.06423330384128095,
+      "mean_uni_share": 0.201946126507674,
+      "mean_top_share": 0.17383100978062485,
+      "n_dates": 231,
+      "frac_dates_top3_overweight": 0.5714285714285714
+    }
+  ],
+  "per_cap_tier_ic": [
+    {
+      "group": "large",
+      "ic_mean": 0.20269027148623844,
+      "ic_std": 0.1839577727794232,
+      "n_dates": 231,
+      "avg_n": 111.3073593073593,
+      "ic_ir": 1.1018304278410496
+    },
+    {
+      "group": "mid",
+      "ic_mean": 0.17463916450985928,
+      "ic_std": 0.1564440171975728,
+      "n_dates": 231,
+      "avg_n": 165.16450216450215,
+      "ic_ir": 1.1163045262977864
+    },
+    {
+      "group": "small",
+      "ic_mean": 0.16239028495319546,
+      "ic_std": 0.1358317013562116,
+      "n_dates": 231,
+      "avg_n": 164.57575757575756,
+      "ic_ir": 1.1955256639783622
+    },
+    {
+      "group": "micro",
+      "ic_mean": 0.15865394255635062,
+      "ic_std": 0.1441415772123431,
+      "n_dates": 231,
+      "avg_n": 110.23376623376623,
+      "ic_ir": 1.1006813275161305
+    }
+  ],
+  "sector_neutral": {
+    "ic_ir": 1.0541354265714498,
+    "ic_mean": 0.1296116182109748,
+    "mono": 0.9636363636363635,
+    "verdict": "KILL (PBO 0.835 > 0.5)"
+  },
+  "size_neutral": {
+    "ic_ir": 1.3286284049475379,
+    "ic_mean": 0.16953055896671798,
+    "mono": 0.9878787878787878,
+    "verdict": "KILL (PBO 0.827 > 0.5)"
+  },
+  "both_neutral": {
+    "ic_ir": 1.1770744962783386,
+    "ic_mean": 0.12743631626516003,
+    "mono": 0.9878787878787878,
+    "verdict": "KILL (PBO 0.745 > 0.5; DSR 0.000 <= 0.0)",
+    "n_obs": 108531
+  }
+}

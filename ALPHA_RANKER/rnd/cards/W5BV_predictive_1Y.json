@@ -1,0 +1,36 @@
+{
+  "n_obs": 118,
+  "rho_richness_vs_fwd_return": -0.30188920418232484,
+  "rho_richness_vs_fwd_maxdrawdown_from_window_peak": -0.15559559780021578,
+  "drop_one_era": {
+    "2008_GFC": {
+      "rho_excl": -0.30188920418232484,
+      "n": 118
+    },
+    "2020_COVID": {
+      "rho_excl": -0.18497619467466056,
+      "n": 106
+    },
+    "2022_SELLOFF": {
+      "rho_excl": -0.271511701136106,
+      "n": 106
+    }
+  },
+  "boundary_tests": {
+    "below_65": {
+      "n": 5,
+      "mean_fwd_return": null,
+      "pct_positive": null
+    },
+    "below_80": {
+      "n": 26,
+      "mean_fwd_return": 0.15314364348099488,
+      "pct_positive": 0.7307692307692307
+    },
+    "above_160": {
+      "n": 0,
+      "mean_fwd_return": null,
+      "pct_positive": null
+    }
+  }
+}

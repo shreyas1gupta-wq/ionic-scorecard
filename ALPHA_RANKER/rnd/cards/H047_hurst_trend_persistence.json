@@ -1,0 +1,11 @@
+{
+  "factor_id": "H047_hurst_trend_persistence",
+  "status": "PARK",
+  "verdict": "PARK (data-blocked, not run)",
+  "horizon": [
+    "1Y"
+  ],
+  "generated_at": "2026-07-16T18:11:25.955775+00:00",
+  "reason": "DEFERRED (time-budget prioritization, not data-blocked): Hurst exponent / trend-persistence IS computable today from data/prices/*.parquet (same source used for the H031/H050 momentum builder) -- no missing dataset. Simply not built this cycle because H031/H040/H050 were the assigned priority-1/2 items and the worker budget did not extend to a 4th from-scratch builder (R/S or DFA Hurst estimator + rolling-window tuning + harness run).",
+  "needed_to_unpark": "No new data needed -- next cycle: add build_hurst_factor(panel) to rnd/lib/builders_regime.py (rolling R/S or DFA estimator on data/prices trailing returns) and run through run_experiment() at 1Y."
+}

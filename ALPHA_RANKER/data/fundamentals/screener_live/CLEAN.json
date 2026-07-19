@@ -1,0 +1,961 @@
+{
+ "ticker": "CLEAN",
+ "url_path": "CLEAN/consolidated/",
+ "tables": {
+  "quarterly_results": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2023": "217",
+    "Jun 2023": "188",
+    "Sep 2023": "181",
+    "Dec 2023": "195",
+    "Mar 2024": "228",
+    "Jun 2024": "224",
+    "Sep 2024": "238",
+    "Dec 2024": "241",
+    "Mar 2025": "264",
+    "Jun 2025": "243",
+    "Sep 2025": "245",
+    "Dec 2025": "220",
+    "Mar 2026": "249"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2023": "112",
+    "Jun 2023": "112",
+    "Sep 2023": "106",
+    "Dec 2023": "108",
+    "Mar 2024": "133",
+    "Jun 2024": "129",
+    "Sep 2024": "148",
+    "Dec 2024": "142",
+    "Mar 2025": "159",
+    "Jun 2025": "143",
+    "Sep 2025": "158",
+    "Dec 2025": "147",
+    "Mar 2026": "153"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2023": "105",
+    "Jun 2023": "76",
+    "Sep 2023": "75",
+    "Dec 2023": "87",
+    "Mar 2024": "95",
+    "Jun 2024": "95",
+    "Sep 2024": "90",
+    "Dec 2024": "98",
+    "Mar 2025": "105",
+    "Jun 2025": "100",
+    "Sep 2025": "87",
+    "Dec 2025": "72",
+    "Mar 2026": "96"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2023": "48%",
+    "Jun 2023": "40%",
+    "Sep 2023": "41%",
+    "Dec 2023": "44%",
+    "Mar 2024": "42%",
+    "Jun 2024": "42%",
+    "Sep 2024": "38%",
+    "Dec 2024": "41%",
+    "Mar 2025": "40%",
+    "Jun 2025": "41%",
+    "Sep 2025": "36%",
+    "Dec 2025": "33%",
+    "Mar 2026": "38%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2023": "13",
+    "Jun 2023": "13",
+    "Sep 2023": "6",
+    "Dec 2023": "8",
+    "Mar 2024": "14",
+    "Jun 2024": "10",
+    "Sep 2024": "11",
+    "Dec 2024": "5",
+    "Mar 2025": "12",
+    "Jun 2025": "13",
+    "Sep 2025": "7",
+    "Dec 2025": "10",
+    "Mar 2026": "3"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2023": "0",
+    "Jun 2023": "0",
+    "Sep 2023": "0",
+    "Dec 2023": "0",
+    "Mar 2024": "1",
+    "Jun 2024": "0",
+    "Sep 2024": "0",
+    "Dec 2024": "0",
+    "Mar 2025": "0",
+    "Jun 2025": "0",
+    "Sep 2025": "0",
+    "Dec 2025": "0",
+    "Mar 2026": "0"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2023": "10",
+    "Jun 2023": "11",
+    "Sep 2023": "11",
+    "Dec 2023": "11",
+    "Mar 2024": "13",
+    "Jun 2024": "16",
+    "Sep 2024": "18",
+    "Dec 2024": "18",
+    "Mar 2025": "17",
+    "Jun 2025": "19",
+    "Sep 2025": "19",
+    "Dec 2025": "19",
+    "Mar 2026": "21"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2023": "108",
+    "Jun 2023": "79",
+    "Sep 2023": "69",
+    "Dec 2023": "83",
+    "Mar 2024": "95",
+    "Jun 2024": "89",
+    "Sep 2024": "83",
+    "Dec 2024": "85",
+    "Mar 2025": "100",
+    "Jun 2025": "95",
+    "Sep 2025": "75",
+    "Dec 2025": "63",
+    "Mar 2026": "78"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2023": "25%",
+    "Jun 2023": "25%",
+    "Sep 2023": "25%",
+    "Dec 2023": "25%",
+    "Mar 2024": "26%",
+    "Jun 2024": "26%",
+    "Sep 2024": "29%",
+    "Dec 2024": "23%",
+    "Mar 2025": "26%",
+    "Jun 2025": "26%",
+    "Sep 2025": "26%",
+    "Dec 2025": "27%",
+    "Mar 2026": "25%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2023": "81",
+    "Jun 2023": "59",
+    "Sep 2023": "52",
+    "Dec 2023": "63",
+    "Mar 2024": "70",
+    "Jun 2024": "66",
+    "Sep 2024": "59",
+    "Dec 2024": "66",
+    "Mar 2025": "74",
+    "Jun 2025": "70",
+    "Sep 2025": "55",
+    "Dec 2025": "46",
+    "Mar 2026": "58"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2023": "7.58",
+    "Jun 2023": "5.55",
+    "Sep 2023": "4.91",
+    "Dec 2023": "5.89",
+    "Mar 2024": "6.61",
+    "Jun 2024": "6.20",
+    "Sep 2024": "5.53",
+    "Dec 2024": "6.18",
+    "Mar 2025": "6.97",
+    "Jun 2025": "6.59",
+    "Sep 2025": "5.22",
+    "Dec 2025": "4.32",
+    "Mar 2026": "5.48"
+   },
+   {
+    "Unnamed: 0": "Raw PDF",
+    "Mar 2023": NaN,
+    "Jun 2023": NaN,
+    "Sep 2023": NaN,
+    "Dec 2023": NaN,
+    "Mar 2024": NaN,
+    "Jun 2024": NaN,
+    "Sep 2024": NaN,
+    "Dec 2024": NaN,
+    "Mar 2025": NaN,
+    "Jun 2025": NaN,
+    "Sep 2025": NaN,
+    "Dec 2025": NaN,
+    "Mar 2026": NaN
+   }
+  ],
+  "profit_loss": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2018": "241",
+    "Mar 2019": "393",
+    "Mar 2020": "419",
+    "Mar 2021": "512",
+    "Mar 2022": "685",
+    "Mar 2023": "936",
+    "Mar 2024": "791",
+    "Mar 2025": "967",
+    "Mar 2026": "957"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2018": "167",
+    "Mar 2019": "257",
+    "Mar 2020": "234",
+    "Mar 2021": "253",
+    "Mar 2022": "385",
+    "Mar 2023": "533",
+    "Mar 2024": "459",
+    "Mar 2025": "579",
+    "Mar 2026": "602"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2018": "74",
+    "Mar 2019": "137",
+    "Mar 2020": "186",
+    "Mar 2021": "260",
+    "Mar 2022": "300",
+    "Mar 2023": "403",
+    "Mar 2024": "332",
+    "Mar 2025": "388",
+    "Mar 2026": "355"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2018": "31%",
+    "Mar 2019": "35%",
+    "Mar 2020": "44%",
+    "Mar 2021": "51%",
+    "Mar 2022": "44%",
+    "Mar 2023": "43%",
+    "Mar 2024": "42%",
+    "Mar 2025": "40%",
+    "Mar 2026": "37%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2018": "5",
+    "Mar 2019": "11",
+    "Mar 2020": "11",
+    "Mar 2021": "25",
+    "Mar 2022": "30",
+    "Mar 2023": "30",
+    "Mar 2024": "41",
+    "Mar 2025": "39",
+    "Mar 2026": "33"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2018": "1",
+    "Mar 2019": "0",
+    "Mar 2020": "0",
+    "Mar 2021": "0",
+    "Mar 2022": "0",
+    "Mar 2023": "1",
+    "Mar 2024": "1",
+    "Mar 2025": "1",
+    "Mar 2026": "0"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2018": "8",
+    "Mar 2019": "11",
+    "Mar 2020": "14",
+    "Mar 2021": "17",
+    "Mar 2022": "25",
+    "Mar 2023": "36",
+    "Mar 2024": "46",
+    "Mar 2025": "69",
+    "Mar 2026": "78"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2018": "70",
+    "Mar 2019": "137",
+    "Mar 2020": "182",
+    "Mar 2021": "267",
+    "Mar 2022": "305",
+    "Mar 2023": "396",
+    "Mar 2024": "326",
+    "Mar 2025": "357",
+    "Mar 2026": "310"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2018": "30%",
+    "Mar 2019": "28%",
+    "Mar 2020": "23%",
+    "Mar 2021": "26%",
+    "Mar 2022": "25%",
+    "Mar 2023": "25%",
+    "Mar 2024": "25%",
+    "Mar 2025": "26%",
+    "Mar 2026": "26%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2018": "49",
+    "Mar 2019": "98",
+    "Mar 2020": "140",
+    "Mar 2021": "198",
+    "Mar 2022": "228",
+    "Mar 2023": "295",
+    "Mar 2024": "244",
+    "Mar 2025": "264",
+    "Mar 2026": "230"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2018": "345.41",
+    "Mar 2019": "689.84",
+    "Mar 2020": "1051.67",
+    "Mar 2021": "18.68",
+    "Mar 2022": "21.51",
+    "Mar 2023": "27.78",
+    "Mar 2024": "22.97",
+    "Mar 2025": "24.88",
+    "Mar 2026": "21.61"
+   },
+   {
+    "Unnamed: 0": "Dividend Payout %",
+    "Mar 2018": "12%",
+    "Mar 2019": "15%",
+    "Mar 2020": "2%",
+    "Mar 2021": "134%",
+    "Mar 2022": "15%",
+    "Mar 2023": "18%",
+    "Mar 2024": "22%",
+    "Mar 2025": "24%",
+    "Mar 2026": "19%"
+   }
+  ],
+  "balance_sheet": [
+   {
+    "Unnamed: 0": "Equity Capital",
+    "Mar 2018": 1,
+    "Mar 2019": 1,
+    "Mar 2020": 1,
+    "Mar 2021": 11,
+    "Mar 2022": 11,
+    "Mar 2023": 11,
+    "Mar 2024": 11,
+    "Mar 2025": 11,
+    "Mar 2026": 11
+   },
+   {
+    "Unnamed: 0": "Reserves",
+    "Mar 2018": 186,
+    "Mar 2019": 271,
+    "Mar 2020": 341,
+    "Mar 2021": 529,
+    "Mar 2022": 758,
+    "Mar 2023": 999,
+    "Mar 2024": 1193,
+    "Mar 2025": 1406,
+    "Mar 2026": 1573
+   },
+   {
+    "Unnamed: 0": "Borrowings",
+    "Mar 2018": 1,
+    "Mar 2019": 3,
+    "Mar 2020": 3,
+    "Mar 2021": 0,
+    "Mar 2022": 0,
+    "Mar 2023": 2,
+    "Mar 2024": 2,
+    "Mar 2025": 2,
+    "Mar 2026": 2
+   },
+   {
+    "Unnamed: 0": "Other Liabilities",
+    "Mar 2018": 48,
+    "Mar 2019": 53,
+    "Mar 2020": 85,
+    "Mar 2021": 120,
+    "Mar 2022": 156,
+    "Mar 2023": 140,
+    "Mar 2024": 191,
+    "Mar 2025": 181,
+    "Mar 2026": 197
+   },
+   {
+    "Unnamed: 0": "Total Liabilities",
+    "Mar 2018": 236,
+    "Mar 2019": 327,
+    "Mar 2020": 430,
+    "Mar 2021": 660,
+    "Mar 2022": 925,
+    "Mar 2023": 1152,
+    "Mar 2024": 1396,
+    "Mar 2025": 1600,
+    "Mar 2026": 1783
+   },
+   {
+    "Unnamed: 0": "Fixed Assets",
+    "Mar 2018": 102,
+    "Mar 2019": 127,
+    "Mar 2020": 166,
+    "Mar 2021": 186,
+    "Mar 2022": 296,
+    "Mar 2023": 460,
+    "Mar 2024": 636,
+    "Mar 2025": 715,
+    "Mar 2026": 760
+   },
+   {
+    "Unnamed: 0": "CWIP",
+    "Mar 2018": 2,
+    "Mar 2019": 4,
+    "Mar 2020": 3,
+    "Mar 2021": 55,
+    "Mar 2022": 44,
+    "Mar 2023": 20,
+    "Mar 2024": 57,
+    "Mar 2025": 30,
+    "Mar 2026": 118
+   },
+   {
+    "Unnamed: 0": "Investments",
+    "Mar 2018": 18,
+    "Mar 2019": 75,
+    "Mar 2020": 133,
+    "Mar 2021": 232,
+    "Mar 2022": 191,
+    "Mar 2023": 353,
+    "Mar 2024": 339,
+    "Mar 2025": 381,
+    "Mar 2026": 405
+   },
+   {
+    "Unnamed: 0": "Other Assets",
+    "Mar 2018": 114,
+    "Mar 2019": 121,
+    "Mar 2020": 128,
+    "Mar 2021": 187,
+    "Mar 2022": 394,
+    "Mar 2023": 318,
+    "Mar 2024": 364,
+    "Mar 2025": 474,
+    "Mar 2026": 500
+   },
+   {
+    "Unnamed: 0": "Total Assets",
+    "Mar 2018": 236,
+    "Mar 2019": 327,
+    "Mar 2020": 430,
+    "Mar 2021": 660,
+    "Mar 2022": 925,
+    "Mar 2023": 1152,
+    "Mar 2024": 1396,
+    "Mar 2025": 1600,
+    "Mar 2026": 1783
+   }
+  ],
+  "cash_flow": [
+   {
+    "Unnamed: 0": "Cash from Operating Activity",
+    "Mar 2018": "45",
+    "Mar 2019": "85",
+    "Mar 2020": "160",
+    "Mar 2021": "193",
+    "Mar 2022": "127",
+    "Mar 2023": "279",
+    "Mar 2024": "236",
+    "Mar 2025": "214",
+    "Mar 2026": "275"
+   },
+   {
+    "Unnamed: 0": "Cash from Investing Activity",
+    "Mar 2018": "-17",
+    "Mar 2019": "-94",
+    "Mar 2020": "-105",
+    "Mar 2021": "-187",
+    "Mar 2022": "-79",
+    "Mar 2023": "-270",
+    "Mar 2024": "-185",
+    "Mar 2025": "-152",
+    "Mar 2026": "-203"
+   },
+   {
+    "Unnamed: 0": "Cash from Financing Activity",
+    "Mar 2018": "-5",
+    "Mar 2019": "-11",
+    "Mar 2020": "-55",
+    "Mar 2021": "-6",
+    "Mar 2022": "-0",
+    "Mar 2023": "-55",
+    "Mar 2024": "-53",
+    "Mar 2025": "-53",
+    "Mar 2026": "-64"
+   },
+   {
+    "Unnamed: 0": "Net Cash Flow",
+    "Mar 2018": "23",
+    "Mar 2019": "-20",
+    "Mar 2020": "-0",
+    "Mar 2021": "0",
+    "Mar 2022": "49",
+    "Mar 2023": "-45",
+    "Mar 2024": "-2",
+    "Mar 2025": "10",
+    "Mar 2026": "8"
+   },
+   {
+    "Unnamed: 0": "Free Cash Flow",
+    "Mar 2018": "13",
+    "Mar 2019": "46",
+    "Mar 2020": "110",
+    "Mar 2021": "109",
+    "Mar 2022": "-12",
+    "Mar 2023": "96",
+    "Mar 2024": "10",
+    "Mar 2025": "72",
+    "Mar 2026": "74"
+   },
+   {
+    "Unnamed: 0": "CFO/OP",
+    "Mar 2018": "91%",
+    "Mar 2019": "88%",
+    "Mar 2020": "109%",
+    "Mar 2021": "100%",
+    "Mar 2022": "65%",
+    "Mar 2023": "93%",
+    "Mar 2024": "94%",
+    "Mar 2025": "80%",
+    "Mar 2026": "103%"
+   }
+  ],
+  "ratios": [
+   {
+    "Unnamed: 0": "Debtor Days",
+    "Mar 2018": 60.0,
+    "Mar 2019": "55",
+    "Mar 2020": "61",
+    "Mar 2021": "53",
+    "Mar 2022": "82",
+    "Mar 2023": "57",
+    "Mar 2024": "76",
+    "Mar 2025": "77",
+    "Mar 2026": "79"
+   },
+   {
+    "Unnamed: 0": "Inventory Days",
+    "Mar 2018": 93.0,
+    "Mar 2019": "79",
+    "Mar 2020": "98",
+    "Mar 2021": "156",
+    "Mar 2022": "143",
+    "Mar 2023": "122",
+    "Mar 2024": "163",
+    "Mar 2025": "156",
+    "Mar 2026": "157"
+   },
+   {
+    "Unnamed: 0": "Days Payable",
+    "Mar 2018": 85.0,
+    "Mar 2019": "48",
+    "Mar 2020": "101",
+    "Mar 2021": "180",
+    "Mar 2022": "166",
+    "Mar 2023": "90",
+    "Mar 2024": "139",
+    "Mar 2025": "103",
+    "Mar 2026": "118"
+   },
+   {
+    "Unnamed: 0": "Cash Conversion Cycle",
+    "Mar 2018": 69.0,
+    "Mar 2019": "87",
+    "Mar 2020": "58",
+    "Mar 2021": "29",
+    "Mar 2022": "59",
+    "Mar 2023": "89",
+    "Mar 2024": "99",
+    "Mar 2025": "129",
+    "Mar 2026": "118"
+   },
+   {
+    "Unnamed: 0": "Working Capital Days",
+    "Mar 2018": 60.0,
+    "Mar 2019": "62",
+    "Mar 2020": "33",
+    "Mar 2021": "32",
+    "Mar 2022": "90",
+    "Mar 2023": "68",
+    "Mar 2024": "86",
+    "Mar 2025": "105",
+    "Mar 2026": "242"
+   },
+   {
+    "Unnamed: 0": "ROCE %",
+    "Mar 2018": NaN,
+    "Mar 2019": "59%",
+    "Mar 2020": "59%",
+    "Mar 2021": "61%",
+    "Mar 2022": "47%",
+    "Mar 2023": "44%",
+    "Mar 2024": "29%",
+    "Mar 2025": "27%",
+    "Mar 2026": "21%"
+   }
+  ],
+  "shareholding": [
+   {
+    "Unnamed: 0": "Promoters",
+    "Jun 2023": "74.98%",
+    "Sep 2023": "74.98%",
+    "Dec 2023": "74.98%",
+    "Mar 2024": "74.98%",
+    "Jun 2024": "74.98%",
+    "Sep 2024": "74.97%",
+    "Dec 2024": "74.97%",
+    "Mar 2025": "74.96%",
+    "Jun 2025": "74.96%",
+    "Sep 2025": "50.96%",
+    "Dec 2025": "50.96%",
+    "Mar 2026": "51.29%"
+   },
+   {
+    "Unnamed: 0": "FIIs",
+    "Jun 2023": "5.84%",
+    "Sep 2023": "6.01%",
+    "Dec 2023": "5.92%",
+    "Mar 2024": "5.88%",
+    "Jun 2024": "6.05%",
+    "Sep 2024": "5.83%",
+    "Dec 2024": "5.98%",
+    "Mar 2025": "6.07%",
+    "Jun 2025": "6.21%",
+    "Sep 2025": "11.14%",
+    "Dec 2025": "10.01%",
+    "Mar 2026": "13.38%"
+   },
+   {
+    "Unnamed: 0": "DIIs",
+    "Jun 2023": "6.41%",
+    "Sep 2023": "5.23%",
+    "Dec 2023": "5.13%",
+    "Mar 2024": "5.04%",
+    "Jun 2024": "4.55%",
+    "Sep 2024": "4.77%",
+    "Dec 2024": "5.46%",
+    "Mar 2025": "5.77%",
+    "Jun 2025": "5.92%",
+    "Sep 2025": "18.97%",
+    "Dec 2025": "19.76%",
+    "Mar 2026": "17.14%"
+   },
+   {
+    "Unnamed: 0": "Government",
+    "Jun 2023": "0.00%",
+    "Sep 2023": "0.00%",
+    "Dec 2023": "0.00%",
+    "Mar 2024": "0.00%",
+    "Jun 2024": "0.00%",
+    "Sep 2024": "0.00%",
+    "Dec 2024": "0.00%",
+    "Mar 2025": "0.00%",
+    "Jun 2025": "0.00%",
+    "Sep 2025": "0.00%",
+    "Dec 2025": "0.01%",
+    "Mar 2026": "0.01%"
+   },
+   {
+    "Unnamed: 0": "Public",
+    "Jun 2023": "12.78%",
+    "Sep 2023": "13.79%",
+    "Dec 2023": "13.98%",
+    "Mar 2024": "14.11%",
+    "Jun 2024": "14.42%",
+    "Sep 2024": "14.43%",
+    "Dec 2024": "13.59%",
+    "Mar 2025": "13.21%",
+    "Jun 2025": "12.91%",
+    "Sep 2025": "18.91%",
+    "Dec 2025": "19.26%",
+    "Mar 2026": "18.17%"
+   },
+   {
+    "Unnamed: 0": "No. of Shareholders",
+    "Jun 2023": "266971",
+    "Sep 2023": "285259",
+    "Dec 2023": "278653",
+    "Mar 2024": "279395",
+    "Jun 2024": "273841",
+    "Sep 2024": "254629",
+    "Dec 2024": "246798",
+    "Mar 2025": "237016",
+    "Jun 2025": "225484",
+    "Sep 2025": "239974",
+    "Dec 2025": "243606",
+    "Mar 2026": "237113"
+   }
+  ]
+ },
+ "top_ratios": {
+  "Market Cap": "\u20b9 8,147 Cr.",
+  "Current Price": "\u20b9 768",
+  "High / Low": "\u20b9 1,484 / 652",
+  "Stock P/E": "35.5",
+  "Book Value": "\u20b9 149",
+  "Dividend Yield": "0.78 %",
+  "ROCE": "20.6 %",
+  "ROE": "15.3 %",
+  "Face Value": "\u20b9 1.00"
+ },
+ "documents": [
+  {
+   "text": "All",
+   "href": "https://www.bseindia.com/stock-share-price/clean-science-technology-ltd/CLEAN/543318/corp-announcements/"
+  },
+  {
+   "text": "Intimation Regarding Clean-Fino Chem Limited -Wholly Owned Subsidiary Regarding ",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=0114e720-afcf-4414-8f6f-52dc1a25986c.pdf"
+  },
+  {
+   "text": "Compliances-Certificate under Reg. 74 (5) of SEBI (DP) Regulations, 2018 7 Jul",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=2ddfe6ec-beb9-4324-a8ad-5ac3d75f546d.pdf"
+  },
+  {
+   "text": "Disclosures under Reg. 10(7) of SEBI (SAST) Regulations, 2011 27 Jun",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=8320FED6_0ABA_422E_BDEF_B2CF4AF0F119_172345.pdf"
+  },
+  {
+   "text": "Disclosures under Reg. 10(7) of SEBI (SAST) Regulations, 2011 27 Jun",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=CE948414_82E2_46E2_9046_44C0EB27AFE9_171742.pdf"
+  },
+  {
+   "text": "Disclosures under Reg. 10(7) of SEBI (SAST) Regulations, 2011 27 Jun",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=179E785C_7B24_4E47_A9EB_E01FAB8CCFB3_171850.pdf"
+  },
+  {
+   "text": "Financial Year 2025 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/88fba6cf-5c61-47be-a53f-b531fae5736a.pdf"
+  },
+  {
+   "text": "Financial Year 2024 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/b80d7505-4951-40b0-bc98-8f6aa0353f80.pdf"
+  },
+  {
+   "text": "Financial Year 2023 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/41343db6-32af-4659-bec8-bc413ebfadd5.pdf"
+  },
+  {
+   "text": "Financial Year 2022 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/543318/73640543318.pdf"
+  },
+  {
+   "text": "DRHP",
+   "href": "https://www.sebi.gov.in/filings/public-issues/jul-2021/clean-science-and-technology-ltd_51013.html"
+  },
+  {
+   "text": "Rating update 22 Aug 2025 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/CleanScienceandTechnologyLimited_August 22_ 2025_RR_376704.html"
+  },
+  {
+   "text": "Rating update 13 Jun 2024 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/CleanScienceandTechnologyLimited_June 13_ 2024_RR_346210.html"
+  },
+  {
+   "text": "Rating update 12 May 2023 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/CleanScienceandTechnologyLimited_May 12, 2023_RR_319637.html"
+  },
+  {
+   "text": "Rating update 20 Apr 2022 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/CleanScienceandTechnologyLimited_April 20, 2022_RR_292367.html"
+  },
+  {
+   "text": "Rating update 27 Apr 2021 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/CleanScienceandTechnologyLimited_April 27, 2021_RR_268267.html"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c7274f12-155a-4887-9020-b5b22ad09cb8.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=66cf09d0-bb08-412d-a08c-718b2f5e499e.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://cleanscience.co.in/wp-content/uploads/2025/07/Recording-of-Earnings-Conference-Call-14.05.2026.mp3"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=63f9dce9-e307-4819-8101-d11cc0ce547a.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=42dba587-ed5a-40aa-be19-87147e1d9d95.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=08c699b0-be0a-424f-8a8a-b055582474a2.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://cleanscience.co.in/wp-content/uploads/2025/07/Recording_of_Con_call_31012026.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=8a06910a-1e4d-4bfa-883e-9d8f0f321940.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=08e660f1-d942-4767-835c-5631bdd5612b.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://cleanscience.co.in/wp-content/uploads/2025/11/Recording_of_Con_call_06112025.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=ac95cc8b-9c7d-4b8a-9789-01721ff23400.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c721d568-6d44-482e-87ca-0f03d95fc3e0.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://cleanscience.co.in/wp-content/uploads/2025/07/Recording-of-con-call-Q1FY26.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=4a3f7c81-e136-4aec-8f8b-044cf6930618.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=27de6a18-4dc8-4b07-b6bf-ceaf13cf1f29.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://cleanscience.co.in/wp-content/uploads/2024/06/10031890_recordings_22052025.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=25677b6c-553a-497a-a778-cafe6d6cfada.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c9cc37bc-3237-4690-9f10-dbd3960b9227.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://cleanscience.co.in/wp-content/uploads/2024/06/Recording_of_Con_call_30012025.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=4ed0b019-f54e-41ab-914d-b4fd6cbfbbef.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=3c5e3218-f6b3-41d9-a3c7-da113f6039f3.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://cleanscience.co.in/wp-content/uploads/2024/06/ENA1620241107156048_Recording_of_earnings_call_Q2FY25.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=06ac8145-8a3f-490f-94a5-aad8fc0a3c5b.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=bd423af5-c79d-4145-bb97-e26b10782194.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=79a6136c-417e-42cf-8cdc-4b7b16edd65c.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=00fdb0d5-cff6-4bfc-95ea-97b2a21b4075.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://cleanscience.co.in/wp-content/uploads/2023/08/ENA1620240515152508_Recording_ConCall_15052024.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=2e4cd1cc-67ed-4e0c-8178-f0dac8c2e29d.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=3da218a1-ee76-47a9-bc0c-80e8b5694fa1.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://cleanscience.co.in/wp-content/uploads/2024/02/ENA1620240203150902_Recording_of_Con_call_03022024.mp3"
+  },
+  {
+   "text": "REC",
+   "href": "https://youtu.be/oM8O2BM7TFE?si=K_8kywbIzhAW1x9P"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=6d1c0406-d33a-4259-87c9-650e44eabe07.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=35af5664-88ae-49e8-b2a8-6d02bc3fdc8a.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://cleanscience.co.in/wp-content/uploads/2023/11/CSTL_Earnings-call-audio-02.11.2023.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=ae59801a-f85d-4db7-81c0-494bd16bc345.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=7d096934-03c1-46a7-bd8a-56468b4af041.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://cleanscience.co.in/wp-content/uploads/2023/08/ENA1620230803148469.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=5f61cef1-c7d8-4455-8259-f56f694146bd.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=4746782d-b53b-4458-a6df-0a01c2752805.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://cleanscience.co.in/wp-content/uploads/2023/05/Earning-conference-call-recording-18.05.2023.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d7f2051f-80e5-406e-b205-b6c6fb315027.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=99348917-4ea6-4528-aad0-fba39a243033.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://cleanscience.co.in/wp-content/uploads/2023/02/Recording-of-Conference-Call-02.02.2023.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=7dc4350d-70b0-4b6d-8dea-6c0470f00cdb.pdf"
+  }
+ ]
+}

@@ -1,0 +1,68 @@
+{
+  "rev5d": {
+    "pct_10": {
+      "n_months": 19,
+      "ic_mean": 0.06428280973246739,
+      "ic_std": 0.1537775877919638,
+      "ic_ir": 0.4180245681798029,
+      "ic_hit_rate_pos": 0.8421052631578947,
+      "ls_mean_monthly": 0.04356376529375058,
+      "ls_ann_approx": 0.6681223183953673,
+      "ls_hit_rate_pos": 0.7894736842105263
+    },
+    "pct_20": {
+      "n_months": 42,
+      "ic_mean": 0.0786758580494226,
+      "ic_std": 0.12864541905139862,
+      "ic_ir": 0.6115713923555155,
+      "ic_hit_rate_pos": 0.8333333333333334,
+      "ls_mean_monthly": 0.03721211702136623,
+      "ls_ann_approx": 0.5502829839958114,
+      "ls_hit_rate_pos": 0.7857142857142857
+    },
+    "pct_30": {
+      "n_months": 63,
+      "ic_mean": 0.07254442877918607,
+      "ic_std": 0.12679804976982145,
+      "ic_ir": 0.5721257457104202,
+      "ic_hit_rate_pos": 0.7619047619047619,
+      "ls_mean_monthly": 0.03298005805223404,
+      "ls_ann_approx": 0.47605740954236997,
+      "ls_hit_rate_pos": 0.7936507936507936
+    },
+    "shape_verdict": "PLATEAU (10/20/30th pctile IC broadly similar, all clearly > unconditional)"
+  },
+  "rsi2_factor": {
+    "pct_10": {
+      "n_months": 19,
+      "ic_mean": 0.06496579944765324,
+      "ic_std": 0.08691130594750592,
+      "ic_ir": 0.747495377493146,
+      "ic_hit_rate_pos": 0.6842105263157895,
+      "ls_mean_monthly": 0.020723180288559066,
+      "ls_ann_approx": 0.279074176078703,
+      "ls_hit_rate_pos": 0.6842105263157895
+    },
+    "pct_20": {
+      "n_months": 42,
+      "ic_mean": 0.05008902732419893,
+      "ic_std": 0.08047197952555407,
+      "ic_ir": 0.6224406013063596,
+      "ic_hit_rate_pos": 0.6666666666666666,
+      "ls_mean_monthly": 0.022837858915379868,
+      "ls_ann_approx": 0.3112380204191225,
+      "ls_hit_rate_pos": 0.6666666666666666
+    },
+    "pct_30": {
+      "n_months": 63,
+      "ic_mean": 0.04406553992024802,
+      "ic_std": 0.07469739972174144,
+      "ic_ir": 0.5899206677126445,
+      "ic_hit_rate_pos": 0.6666666666666666,
+      "ls_mean_monthly": 0.020163889510250707,
+      "ls_ann_approx": 0.27068926876405186,
+      "ls_hit_rate_pos": 0.7142857142857143
+    },
+    "shape_verdict": "PLATEAU (10/20/30th pctile IC broadly similar, all clearly > unconditional)"
+  }
+}

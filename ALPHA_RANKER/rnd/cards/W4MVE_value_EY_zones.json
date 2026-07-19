@@ -1,0 +1,76 @@
+{
+  "factor_id": "W4MVE_value_EY_zones",
+  "family": "W4MVE",
+  "purpose": "contrast leg -- does value hold/strengthen at the undervalued extreme where momentum breaks?",
+  "results": {
+    "1M": {
+      "under": {
+        "n_dates_ic": 0,
+        "n_dates_ls": 0,
+        "ic_mean": null,
+        "ic_ir": null,
+        "ls_ret_mean_period": null,
+        "ls_ret_ann": null
+      },
+      "neutral": {
+        "n_dates_ic": 168,
+        "n_dates_ls": 168,
+        "ic_mean": 0.0329,
+        "ic_ir": 0.358,
+        "ls_ret_mean_period": 0.00502,
+        "ls_ret_ann": 0.0603
+      },
+      "over": {
+        "n_dates": 0,
+        "ic_mean": NaN,
+        "ic_ir": NaN,
+        "ls_ret_mean": NaN,
+        "ls_ret_ann": NaN,
+        "n_ls_dates": 0
+      },
+      "ALL": {
+        "n_dates_ic": 168,
+        "n_dates_ls": 168,
+        "ic_mean": 0.0329,
+        "ic_ir": 0.358,
+        "ls_ret_mean_period": 0.00502,
+        "ls_ret_ann": 0.0603
+      }
+    },
+    "1Y": {
+      "under": {
+        "n_dates_ic": 0,
+        "n_dates_ls": 0,
+        "ic_mean": null,
+        "ic_ir": null,
+        "ls_ret_mean_period": null,
+        "ls_ret_ann": null
+      },
+      "neutral": {
+        "n_dates_ic": 157,
+        "n_dates_ls": 157,
+        "ic_mean": 0.0792,
+        "ic_ir": 0.783,
+        "ls_ret_mean_period": 0.13879,
+        "ls_ret_ann": 0.1388
+      },
+      "over": {
+        "n_dates": 0,
+        "ic_mean": NaN,
+        "ic_ir": NaN,
+        "ls_ret_mean": NaN,
+        "ls_ret_ann": NaN,
+        "n_ls_dates": 0
+      },
+      "ALL": {
+        "n_dates_ic": 157,
+        "n_dates_ls": 157,
+        "ic_mean": 0.0792,
+        "ic_ir": 0.783,
+        "ls_ret_mean_period": 0.13879,
+        "ls_ret_ann": 0.1388
+      }
+    }
+  },
+  "caveat": "under-zone (2008-09..2009-03) has ONLY 6 of ~200+ symbols with valid EY data per date in capstone_legs.parquet (fundamentals-data coverage gap during the crisis) -- below the harness's min_names=20 gate, so ALL under-zone dates were dropped. This tail of the value comparison is UNTESTABLE with this dataset, not a negative finding."
+}

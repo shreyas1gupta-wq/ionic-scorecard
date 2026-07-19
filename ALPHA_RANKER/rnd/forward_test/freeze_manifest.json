@@ -1,0 +1,26 @@
+{
+  "frozen_at_utc": "2026-07-17T04:53:04.747988+00:00",
+  "frozen_by": "Arjun Rao (Head of Quant), E-004",
+  "source_file": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\ALPHA_RANKER\\rnd\\lib\\composite_final.py",
+  "source_sha256": "9fbfe8d4f62395f7a67efe307cc9025646524e837eaaa3665aa1576e758661cb",
+  "note": "This is a content hash of the .py file bytes, NOT a git commit hash -- no commit was made for this freeze (per task instruction). Any future edit to composite_final.py, even whitespace, changes this hash and is detectable by re-running content_hash() and diffing against this manifest.",
+  "legs": [
+    "value_EY",
+    "mom_resid_plain",
+    "trend_ma65_slope",
+    "quality_QMJ",
+    "bs_issuance",
+    "bs_asset_growth",
+    "quality_cfo_pat"
+  ],
+  "min_legs_required": 5,
+  "construction": {
+    "weighting": "equal-weight rank-average (rank_pct per date per leg, mean across available legs) -- zero fitted parameters",
+    "min_legs_rule": "min_legs=5-of-7 required to emit a composite value for a (date,symbol) -- refuses to score a data-thin date/name as 'the 7-leg composite'",
+    "decile_construction": "harness.evaluate() built-in DECILE (10-bin) portfolio construction (official card convention, unchanged)",
+    "corporate_action_guard": "disc_event_in_window_1Y>0 rows NaN'd from the forward-return TARGET during historical evaluation -- not applicable to live scoring (no forward target exists yet for today's cross-section); recorded for completeness of the frozen construction",
+    "universe": "panel_long.parquet as-is (PIT survivorship-controlled fundamentals+price panel), cross-referenced against nifty_total_market_750.csv for the current-universe snapshot below"
+  },
+  "score_map": "score = 200*(rank_pct(composite) - 0.5) in [-100, +100], per FINAL_MODEL.md S2",
+  "canonical_card_at_freeze_time": "rnd/cards/CANONICAL_7LEG_1Y.json (IC_IR 1.345, biased universe) / rnd/cards/CANONICAL_7LEG_PIT_1Y.json (IC_IR 1.760, survivorship-free) -- both PARK/KILL per DSR/PBO, see FINAL_MODEL.md S5-RISKOFFICE"
+}

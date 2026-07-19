@@ -1,0 +1,68 @@
+[
+  {
+    "id": "W4F-01",
+    "name": "Depreciation-policy laxity (under-depreciation proxy)",
+    "construction": "Annual, PIT merge_asof-backward on available_date. dep_rate_t = depreciation_t / (0.5*(fixed_assets_t+fixed_assets_{t-1}) + 0.5*(cwip_t+cwip_{t-1})). Signal = z_cs(-(3-FY slope of dep_rate_t)), gated to fire ONLY when the base is not shrinking: (fixed_assets_t+cwip_t) >= (fixed_assets_{t-3}+cwip_{t-3}). Higher score = more aggressive under-depreciation (declining dep-rate while still invested). Winsorize dep_rate 1/99 pct per date; peer z within sub-sector x size; financials excluded.",
+    "expected_sign": "-",
+    "metrics_used": ["depreciation", "fixed assets", "cwip"],
+    "orthogonality": "[INFERENCE] Least correlated with momentum/EY - an accounting-choice axis no leg touches; only a mild link to asset-growth(-) via the fixed-asset base. Distinct from W4-02 (CWIP commissioning) which is a CWIP-dynamics axis, not depreciation policy.",
+    "money_rationale": "Stretching useful lives under-charges depreciation to inflate current earnings; the market prices headline PAT and is slow to detect the policy choice.",
+    "priority": "H",
+    "refinement": "fixed assets is NET block (no gross block on disk) so use the WITHIN-FIRM trend z-score, not the cross-firm level, as the tradeable signal."
+  },
+  {
+    "id": "W4F-02",
+    "name": "Clean-surplus / reserves-reconciliation (phantom-earnings)",
+    "construction": "Annual, PIT merge_asof-backward on available_date. Over rolling N=4 FY: gap_ratio = (Sum(net_profit, t-3..t) - (reserves_t - reserves_{t-4})) / Sum(|net_profit|, t-3..t), winsorized 1/99 pct per date. Large POSITIVE gap = reported profits that never became book equity (write-offs/restatements/off-P&L leakage). Full-universe extreme-leakage escalation: hard flag when reserves_t < reserves_{t-4} while Sum(net_profit) > 0. Signal = z_cs(gap_ratio); peer z within sub-sector x size; financials excluded.",
+    "expected_sign": "-",
+    "metrics_used": ["net profit", "reserves", "dividend payout %"],
+    "orthogonality": "[INFERENCE] Least correlated with the incumbent CFO/PAT forensic leg: CFO/PAT is the CASH channel, this is the EQUITY channel (different leakage path), and it has FULL 4,599-symbol coverage where CFO/PAT is limited to 749 firms - coverage itself is orthogonal information (W4-03 lesson).",
+    "money_rationale": "Earnings that never accrete to book equity are fictional or one-off; the market anchors on headline PAT and misses the equity-side non-reconciliation.",
+    "priority": "H",
+    "refinement": "On the 749-firm subset with dividend payout %, subtract estimated dividends from Sum(net_profit) to de-confound payout; on the full universe rely on the dividend-robust extreme-leakage (reserves-shrink-while-PAT-positive) form."
+  },
+  {
+    "id": "W4F-03",
+    "name": "Asset-buildup vs sales divergence (revenue-recognition proxy)",
+    "construction": "Annual, PIT merge_asof-backward on available_date. g_oa = 2-FY-avg growth of other_assets; g_sales = 2-FY-avg growth of sales. Signal = z_cs(g_oa - g_sales), winsorized 1/99 pct per date; peer z within sub-sector x size; financials excluded. High = balance sheet (which contains receivables+inventory) inflating faster than the sales it supposedly generates. Operationalizes catalog section-8 'receivables/inventory growth vs revenue' which is otherwise NOT buildable (no receivables line).",
+    "expected_sign": "-",
+    "metrics_used": ["other assets", "sales"],
+    "orthogonality": "[INFERENCE] Least correlated with EY/momentum (it is a ratio-of-growths, not a price or valuation). WEAKEST orthogonality claim in the lane - it shares an axis with the asset-growth(-) leg and MUST be gated vs asset-growth (kill if corr>0.6).",
+    "money_rationale": "Recording revenue too soon / channel-stuffing bloats receivables and inventory faster than reported sales - the canonical microcap fraud tell.",
+    "priority": "M",
+    "refinement": "other assets is a coarse lump (receivables+inventory+cash+loans); if a cleaner receivables line is ever sourced (D-009/D-033), replace other_assets with receivables to sharpen the proxy."
+  },
+  {
+    "id": "W4F-04",
+    "name": "Accrual sign-persistence (CF subset)",
+    "construction": "Annual, PIT merge_asof-backward on available_date, RESTRICTED to the 749-symbol CFO subset. accrual_t = net_profit_t - CFO_t. Signal = count of last 4 FY with accrual_t > 0 (integer 0..4), z_cs'd. A firm posting positive accruals every year (earnings persistently above operating cash) is the persistence-of-accruals red flag. Distinct from Sloan H022 which scores the LEVEL of the latest accrual, not multi-year sign consistency. Financials excluded.",
+    "expected_sign": "-",
+    "metrics_used": ["net profit", "cash from operating activity"],
+    "orthogonality": "[INFERENCE] Least correlated with momentum/EY. OVERLAPS the CFO/PAT survivor and Sloan H022 by construction (same NI-CFO accrual) - only the persistence/consistency dimension is new; gate HARD vs both (kill if corr>0.6).",
+    "money_rationale": "Repeated years of profits exceeding cash is a stronger fraud/aggression signal than a single high-accrual year; persistence is priced too slowly.",
+    "priority": "M",
+    "refinement": "CFO covers only 16% of the universe, so treat as a gate item on covered names only (no imputation); escalate to human if load-bearing and CFO absent."
+  },
+  {
+    "id": "W4F-05",
+    "name": "Interest-coverage deterioration trend",
+    "construction": "Annual, PIT merge_asof-backward on available_date. cover_t = operating_profit_t / max(interest_t, eps). Signal = z_cs(-(3-FY slope of cover_t)), with a hard escalation flag when cover_t crosses below 2.0x within the window. Deteriorating coverage = rising financing stress hitting PAT/solvency before the leverage-LEVEL screens catch it. Winsorize cover 1/99 pct; peer z within sub-sector x size; financials excluded (interest is their revenue).",
+    "expected_sign": "-",
+    "metrics_used": ["operating profit", "interest"],
+    "orthogonality": "[INFERENCE] Least correlated with EY/momentum; no existing leg carries a coverage/solvency-SLOPE axis (QUALITY section-3 has only net-debt/EBITDA level+trend), and net-issuance/asset-growth are financing/investing levels, not a coverage trend.",
+    "money_rationale": "A falling ability to service debt out of operating profit precedes distress and forced actions that the leverage-level screens miss until too late.",
+    "priority": "M",
+    "refinement": "GATE-ONLY (sign is a priori) - only a correctness test is needed, not an alpha tester run; add the sub-2.0x hard escalation as the single tuning knob."
+  },
+  {
+    "id": "W4F-06",
+    "name": "Effective-tax-rate volatility",
+    "construction": "Annual, PIT merge_asof-backward on available_date. tax_vol = std(tax%_t over last 5 FY) (report CV variant alongside), tax% clipped to [0,45] before the moment. Signal = z_cs(tax_vol); peer z within sub-sector x size; financials excluded. Erratic ETR unrelated to statutory changes = opportunistic tax positioning / deferred-tax games / earnings smoothed through the tax line. Verified distinct from W4-03 which uses 3-FY MEDIAN (level) + delta-tax linear TREND (HYPOTHESES_W4 L40-43) - this is the dispersion (2nd moment).",
+    "expected_sign": "-",
+    "metrics_used": ["tax %"],
+    "orthogonality": "[INFERENCE] Least correlated with CFO/PAT and QMJ - ETR dispersion is orthogonal to cash conversion and to profitability level. Distinct from W4-03 (level+trend); gate vs W4-03 (kill if corr>0.6).",
+    "money_rationale": "A tax line that jumps around unexplained by law changes signals earnings managed through tax, which reverses and disappoints.",
+    "priority": "L",
+    "refinement": "GATE-ONLY; thinnest edge - drop entirely if the corr vs W4-03 exceeds 0.6 rather than tuning the window."
+  }
+]

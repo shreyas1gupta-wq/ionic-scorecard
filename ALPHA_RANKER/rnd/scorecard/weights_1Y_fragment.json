@@ -1,0 +1,52 @@
+{
+  "horizon": "1Y",
+  "quality_gate_threshold": 0.1,
+  "quality_gate_formula": "rank_pct(0.5*rank_pct(quality_QMJ) + 0.5*rank_pct(quality_cfo_pat)), within-date",
+  "min_legs_required": 5,
+  "canonical_7_legs": [
+    "value_EY",
+    "growth_v2_confirmed",
+    "mom_resid_plain",
+    "trend_ma65_slope",
+    "bs_issuance",
+    "bs_asset_growth",
+    "quality_cfo_pat"
+  ],
+  "fixed_legs_always_ranked": [
+    "value_EY",
+    "growth_v2_confirmed",
+    "trend_ma65_slope",
+    "bs_issuance",
+    "bs_asset_growth",
+    "quality_cfo_pat"
+  ],
+  "momentum_leg": "mom_resid_plain (rebuilt fresh, NOT the cached mom_resid_peer)",
+  "momentum_band_gate": {
+    "UNDERVALUED_lt_65": 0.0,
+    "NEUTRAL_65_to_160": 1.0,
+    "OVERVALUED_gte_160": 0.0,
+    "undefined_early_history_default": "NEUTRAL (mom_weight=1.0), disclosed [INFERENCE]"
+  },
+  "richness_index_formula": "100*exp(-0.25*EY_hist_zscore_expanding)",
+  "band_cutoffs": {
+    "low": 65.0,
+    "high": 160.0
+  },
+  "corporate_action_guard": "disc_event_in_window_1Y > 0 -> composite score NaN'd (row unscored)",
+  "combine": "equal-weight rank-average of present legs on the quality-gated universe",
+  "score_map": "rel_score_1Y = 200*(rank_pct(composite) - 0.5), in [-100, +100]",
+  "growth_leg_source": "rnd/wave4/_w6fg2_scored.parquet::composite_v2_confirmed, joined on (date,symbol) directly -- verified available_date<=date for all 106,245 non-null rows, so the 'date' column is already PIT-safe / on-grid, no merge_asof needed",
+  "harness_eval_params": {
+    "min_names_per_date": 20,
+    "n_cscv_blocks": 12,
+    "n_placebo_shuffles": 5,
+    "placebo_seed": 42
+  },
+  "hard_gates": {
+    "lag_test_delta_max": 0.25,
+    "placebo_ic_max_abs": 0.02
+  },
+  "dsr_pbo_role": "ADVISORY ONLY per blueprint S2.4 -- never used to kill this signal",
+  "n_trials_global_at_build": 702,
+  "generated_by": "rnd/scorecard/build_rel_score_1y.py"
+}

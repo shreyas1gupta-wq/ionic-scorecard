@@ -1,0 +1,79 @@
+[DATA] original ledger reloaded: 208 rows, 32 unique struct_ids across both cells, from quick_trade_ledger.csv
+[DATA] options reloaded for raw-CLOSE refetch: 1027199 rows
+
+[ALGEBRA CHECK] mirror identity: reversed_gross should == -original_gross, per leg (float-precision):
+  max abs(orig_gross + rev_gross) across all 104 legs = 0.000000 (should be ~0 -- confirms same close prices, opposite sign, no other divergence)
+  original ledger net vs recomputed net, max abs diff = 0.0000 (sanity: should be ~0)
+
+[ALGEBRA CHECK cell A]
+  original: gross=-293,435  cost=12,840  net=-306,274 (vs original headline net -306,274)
+  reversed: gross=293,435 (= -orig_gross, check diff 0.00)  cost=12,695  net=280,739
+  identity: reversed_net = -(original_gross) - reversed_cost = 293,435 - 12,695 = 280,739 (matches rev_net_total to float precision: diff 0.0000)
+  gross-loss-vs-2x-costs: |original_gross|=293,435 vs 2x(orig_cost+rev_cost)=51,071 -> gross swing DOMINATES costs by 11.5x
+
+[ALGEBRA CHECK cell B]
+  original: gross=-126,091  cost=7,485  net=-133,577 (vs original headline net -133,577)
+  reversed: gross=126,091 (= -orig_gross, check diff 0.00)  cost=7,364  net=118,728
+  identity: reversed_net = -(original_gross) - reversed_cost = 126,091 - 7,364 = 118,728 (matches rev_net_total to float precision: diff 0.0000)
+  gross-loss-vs-2x-costs: |original_gross|=126,091 vs 2x(orig_cost+rev_cost)=29,698 -> gross swing DOMINATES costs by 8.5x
+
+[OUTPUT] C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\ITMPE_RATIO_BT_20260718\QUICK_2025_2026\reversed_trade_ledger.csv rows=208
+[OUTPUT] C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\ITMPE_RATIO_BT_20260718\QUICK_2025_2026\reversed_reconciliation_detail.csv rows=104
+
+[CYCLE TABLE reversed cell A]
+ cycle      start        end entry_signal       pnl_net        pnl_x2  original_pnl_net
+     1 2025-01-01 2025-01-30         bear -26160.140168 -26359.034778      25737.298032
+     2 2025-01-31 2025-02-27         bull  -3253.923582  -3946.218350       1866.103905
+     3 2025-02-28 2025-03-27         bear  -2452.531635  -3288.328797        778.408112
+     4 2025-03-28 2025-04-30         bull  -8177.124803 -10000.653132       4521.742785
+     5 2025-05-02 2025-05-29         bull -25740.805668 -25940.363499      25317.037981
+     6 2025-05-30 2025-06-26         bull -26132.835884 -26330.676841      25712.127658
+     7 2025-06-27 2025-07-31         bull  56149.332421  55336.714977     -57750.959251
+     8 2025-08-01 2025-08-28         bear  15699.424535  14239.609610     -18640.289343
+     9 2025-08-29 2025-09-30         bear  55949.886495  55113.912991     -57632.152411
+    10 2025-10-01 2025-10-28         bear -21179.898961 -21828.277602      19862.781113
+    11 2025-10-29 2025-11-25         bull  26996.891281  26723.781432     -27568.565107
+    12 2025-11-26 2025-12-30         bull  31155.025992  30881.301311     -31727.242580
+    13 2025-12-31 2026-01-27         bull  -5958.327167  -6680.515877       4508.118481
+    14 2026-01-28 2026-02-24         bear  41327.213418  40632.221043     -42729.009065
+    16 2026-04-01 2026-04-28         bear  71344.554369  70257.068895     -73501.490608
+    17 2026-04-29 2026-05-26         bull  49066.203108  48316.810187     -50562.490072
+    18 2026-05-27 2026-06-30         bull  52106.159145  50922.737596     -54465.832224
+
+[CYCLE TABLE reversed cell B]
+ cycle      start        end entry_signal       pnl_net        pnl_x2  original_pnl_net
+     1 2025-01-01 2025-01-30         bear  16539.958266  15999.056197     -17606.052279
+     2 2025-01-31 2025-02-27         bull  22561.272851  22071.674762     -23518.974531
+     3 2025-02-28 2025-03-27         bear -24569.467879 -24767.683830      24149.505235
+     4 2025-03-28 2025-04-30         bull -23803.063793 -24944.267563      21497.560076
+     5 2025-05-02 2025-05-29         bull -25740.805668 -25940.363499      25317.037981
+     6 2025-05-30 2025-06-26         bull -26132.835884 -26330.676841      25712.127658
+     7 2025-06-27 2025-07-31         bull  57423.979652  56839.798564     -58537.512826
+     8 2025-08-01 2025-08-28         bear  13956.834485  13334.105786     -15189.090652
+     9 2025-08-29 2025-09-30         bear  18202.443617  17947.384551     -18737.375637
+    10 2025-10-01 2025-10-28         bear -27408.807055 -27611.371316      26977.429280
+    11 2025-10-29 2025-11-25         bull  26996.891281  26723.781432     -27568.565107
+    12 2025-11-26 2025-12-30         bull  31155.025992  30881.301311     -31727.242580
+    13 2025-12-31 2026-01-27         bull  16278.536669  15728.968049     -17362.217869
+    14 2026-01-28 2026-02-24         bear  27129.770765  26881.540088     -27648.451446
+    16 2026-04-01 2026-04-28         bear  -6088.711273  -6288.425773       5667.646936
+    17 2026-04-29 2026-05-26         bull  21892.939179  21182.531764     -23310.704955
+    18 2026-05-27 2026-06-30         bull    333.771810   -339.637749      -1691.816918
+
+[OUTPUT] C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\ITMPE_RATIO_BT_20260718\QUICK_2025_2026\reversed_margin_detail.csv rows=52
+[MARGIN cell A] avg reversed margin=5335.1 pts (naked-2short-no-offset avg=5841.7 pts, offset_ratio avg=0.913) vs ORIGINAL hedged margin avg=2776.0 pts -- reversed/original ratio = 1.92x
+[MARGIN cell B] avg reversed margin=5384.9 pts (naked-2short-no-offset avg=5881.7 pts, offset_ratio avg=0.915) vs ORIGINAL hedged margin avg=2791.3 pts -- reversed/original ratio = 1.93x
+[ROM reversed cell A] annualized=64.8%  total_window=102.9%
+[ROM reversed cell B] annualized=19.8%  total_window=29.2%
+
+[HEADLINE reversed cell A] total_net=280,739 total_x2=268,050 win_rate=0.529
+  worst cycle: 1 (2025-01-01->2025-01-30, signal=bear) reversed_pnl=-26,160  (original_pnl was 25,737)
+  best  cycle: 16 (2026-04-01->2026-04-28) reversed_pnl=71,345  (original_pnl was -73,501)
+
+[HEADLINE reversed cell B] total_net=118,728 total_x2=111,368 win_rate=0.647
+  worst cycle: 10 (2025-10-01->2025-10-28, signal=bear) reversed_pnl=-27,409  (original_pnl was 26,977)
+  best  cycle: 7 (2025-06-27->2025-07-31) reversed_pnl=57,424  (original_pnl was -58,538)
+[CYCLE 16 crash-cycle, cell A] reversed_pnl=71,345 (original was -73,501, entry_signal=bear)
+[CYCLE 16 crash-cycle, cell B] reversed_pnl=-6,089 (original was 5,668, entry_signal=bear)
+
+[OUTPUT] C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\ITMPE_RATIO_BT_20260718\QUICK_2025_2026\reversed_equity_curve.png

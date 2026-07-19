@@ -1,0 +1,28 @@
+[DATA] exit_weights_v1.json: leg4_technical_stop_trim block already present, left as-is
+[DATA] exit_trigger_flags.parquet (legs 1-3, frozen) rows=99415
+[DATA] cube_close_long.parquet melted rows=3047104, symbols=970, date range 2005-04-01..2025-12-05
+[DATA] cube_volume.parquet melted rows=929738 (813986 non-null), symbols=751, date range 2021-07-16..2026-07-16 -- CONFIRMED FLOOR: no volume history before 2021-07-16
+[INFERENCE] daily signal table built: 3047104 rows, 970 symbols, in 6.2s
+[INFERENCE] discontinuity guard: 271 symbol-days with |1-day return|>40% excluded from firing any leg4 sub-trigger that day
+[INFERENCE] thin_adv threshold (pooled 10%ile of 20d rupee-ADV across 601809 name-days): Rs.77,441,002
+[INFERENCE] entry_price resolved (as-of backward join on daily close) for 558/558 symbols with a simulated entry_date
+[INFERENCE] as-of daily join complete, rows=99415, 0 rows had no daily close on/before the panel date (pre-listing) -> leg4 False there
+[INFERENCE] held (post-entry) rows total: 39126 / 99415
+[INFERENCE] incidence -- leg4a_hardstop fired rows (held): 5524 (14.12% of held)
+[INFERENCE] incidence -- leg4b_trim fired rows (held): 1003 (2.56% of held)
+[INFERENCE] incidence -- leg4c_stagebreak fired rows (held): 1446 (3.70% of held)
+[INFERENCE] incidence -- leg4_escalated fired rows (held): 182 (0.47% of held)
+[INFERENCE] FM-LENS -- of 5524 leg4a_hardstop fires: 1 (0.0%) on a circuit-suspect day, 232 (4.2%) on a thin-ADV (<Rs.10L 20d ADV) day
+[INFERENCE] FM-LENS -- of 1003 leg4b_trim fires: 0 (0.0%) on a circuit-suspect day, 10 (1.0%) on a thin-ADV (<Rs.10L 20d ADV) day
+[INFERENCE] FM-LENS -- of 1446 leg4c_stagebreak fires: 0 (0.0%) on a circuit-suspect day, 186 (12.9%) on a thin-ADV (<Rs.10L 20d ADV) day
+[INFERENCE] leg4_escalated fired rows (held): 182
+[INFERENCE] composite_exit_flag breakdown (held rows):
+    NONE: 27317
+    TRIM: 5839
+    ADVISORY: 5680
+    EXIT_NOW: 253
+    WATCH: 37
+
+[CHECK] run1 sha256=7010e84426c3162537c421b16efdc729bb1167c06d23005efae38b02c57570df
+[CHECK] run2 sha256=7010e84426c3162537c421b16efdc729bb1167c06d23005efae38b02c57570df
+[CHECK] DETERMINISM: PASS

@@ -1,0 +1,94 @@
+{
+  "W4TF_02_clean_surplus_health": {
+    "full_ic": 0.04940471074518571,
+    "full_net_ls": -0.4814797407408944,
+    "worst_year_drop": [
+      2017,
+      0.03778399789766269,
+      2017,
+      -0.6847707197409163
+    ],
+    "worst_sector_drop": [
+      "Power",
+      0.04846821498581373,
+      "Realty",
+      -0.6091332712460118
+    ],
+    "n_sign_flips_leaveout": 0,
+    "n_leaveout_total": 34,
+    "era_vals": {
+      "pre": NaN,
+      "post": 0.04940471074518571
+    },
+    "era_holds": "True"
+  },
+  "W4TF_01_dep_health": {
+    "full_ic": 0.012292983692071923,
+    "full_net_ls": 0.10992803416587978,
+    "worst_year_drop": [
+      2017,
+      -0.0010075335056921478,
+      2023,
+      -0.15834535294038615
+    ],
+    "worst_sector_drop": [
+      "Information Technology",
+      0.004117016933711274,
+      "Power",
+      -0.06812449641653733
+    ],
+    "n_sign_flips_leaveout": 1,
+    "n_leaveout_total": 35,
+    "era_vals": {
+      "pre": NaN,
+      "post": 0.012292983692071923
+    },
+    "era_holds": "True"
+  },
+  "H043_beta_adj_mom": {
+    "full_ic": 0.07978998561319656,
+    "full_net_ls": 2.5403999028954583,
+    "worst_year_drop": [
+      2023,
+      0.0090435010831308,
+      2023,
+      0.9338241200079517
+    ],
+    "worst_sector_drop": [
+      "Capital Goods",
+      0.05839885150643975,
+      "Capital Goods",
+      1.5258253910026434
+    ],
+    "n_sign_flips_leaveout": 0,
+    "n_leaveout_total": 26,
+    "era_vals": {
+      "first_half": 0.17022524573114786,
+      "second_half": -0.010645274504754745
+    },
+    "era_holds": false
+  },
+  "H004_mom_sharpe12m_1Y": {
+    "full_ic": 0.08706090542106856,
+    "full_net_ls": 2.3943528706784347,
+    "worst_year_drop": [
+      2023,
+      0.02096830782644328,
+      2023,
+      1.07565192905937
+    ],
+    "worst_sector_drop": [
+      "Capital Goods",
+      0.06733085256543066,
+      "Consumer Durables",
+      2.079861945475107
+    ],
+    "n_sign_flips_leaveout": 0,
+    "n_leaveout_total": 26,
+    "era_vals": {
+      "first_half": 0.17624114923095283,
+      "second_half": -0.0021193383888156708
+    },
+    "era_holds": false
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "RAW7": {
+    "EY": {
+      "ic_mean_dropping_this_leg": 0.16884142202719365,
+      "n_dates": 145
+    },
+    "mom-resid": {
+      "ic_mean_dropping_this_leg": 0.17620146350977373,
+      "n_dates": 145
+    },
+    "MA65": {
+      "ic_mean_dropping_this_leg": 0.18025591258595405,
+      "n_dates": 145
+    },
+    "QMJ": {
+      "ic_mean_dropping_this_leg": 0.1644025491992538,
+      "n_dates": 145
+    },
+    "issuance": {
+      "ic_mean_dropping_this_leg": 0.19324961228860116,
+      "n_dates": 157
+    },
+    "asset-growth": {
+      "ic_mean_dropping_this_leg": 0.18889147030761952,
+      "n_dates": 157
+    },
+    "cfo-pat": {
+      "ic_mean_dropping_this_leg": 0.18817177203450086,
+      "n_dates": 157
+    }
+  },
+  "SR_v1": {
+    "EY": {
+      "ic_mean_dropping_this_leg": 0.10620590285029635,
+      "n_dates": 141
+    },
+    "mom-resid": {
+      "ic_mean_dropping_this_leg": 0.10966343716451615,
+      "n_dates": 141
+    },
+    "MA65": {
+      "ic_mean_dropping_this_leg": 0.11622114769664398,
+      "n_dates": 141
+    },
+    "QMJ": {
+      "ic_mean_dropping_this_leg": 0.10781514254212905,
+      "n_dates": 141
+    },
+    "issuance": {
+      "ic_mean_dropping_this_leg": 0.13170993591201566,
+      "n_dates": 151
+    },
+    "asset-growth": {
+      "ic_mean_dropping_this_leg": 0.12211958769235506,
+      "n_dates": 151
+    },
+    "cfo-pat": {
+      "ic_mean_dropping_this_leg": 0.12429137579853305,
+      "n_dates": 151
+    }
+  },
+  "raw_std": 0.010829566042212638,
+  "sr_v1_std": 0.009582336883312522,
+  "raw_range": 0.02884706308934737,
+  "sr_v1_range": 0.025504033061719306,
+  "more_robust": "SR_v1"
+}

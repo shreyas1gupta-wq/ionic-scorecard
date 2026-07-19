@@ -1,0 +1,32 @@
+[07:49:00] panel_long: (148297, 31), 249 dates, 969 symbols
+[07:49:00] Building factors...
+[07:49:31]   IDG-G-01/02/12/15 built
+[07:49:34]   H014 EY diagnostic built
+[07:49:34]   DATA-TRUST freshness coverage (frac is_fresh>=0.5): {'IDGG01': 0.5529859425050497, 'IDGG15': 0.5861522833768418}
+[07:49:34]   corr(IDG-G-01, H014-EY) on 97494 overlapping obs = 0.081
+[07:49:34] Evaluating IDGG01_1Y (excluding 1215 disc-flagged rows)...
+[07:49:41]   -> IC_IR=0.4243409377569495  mono=-0.05454545454545454  bear_IC=0.05220511649010265  hivol_IC=-0.01083325227713149  verdict=KILL (PBO 1.000 > 0.5; DSR 0.000 <= 0.0)
+[07:49:41] Evaluating IDGG01_5Y (excluding 2974 disc-flagged rows)...
+[07:49:45]   -> IC_IR=0.51918245117455  mono=-0.7818181818181817  bear_IC=0.05391839272419347  hivol_IC=-0.06526637885637371  verdict=KILL (PBO 0.957 > 0.5; DSR 0.000 <= 0.0)
+[07:49:45] Evaluating IDGG15_1Y (excluding 1215 disc-flagged rows)...
+[07:49:50]   -> IC_IR=0.28758977307803973  mono=0.7454545454545454  bear_IC=0.007361756851281374  hivol_IC=-0.007911294228554517  verdict=KILL (lag_test_delta 0.255 > 0.25; PBO 0.965 > 0.5)
+[07:49:50] Evaluating IDGG15_5Y (excluding 2974 disc-flagged rows)...
+[07:49:53]   -> IC_IR=0.22771017701668148  mono=0.2606060606060606  bear_IC=-0.0026666586735100925  hivol_IC=0.02542239544113249  verdict=KILL (PBO 0.991 > 0.5)
+[07:49:53] Evaluating IDGG02_1Y (excluding 1215 disc-flagged rows)...
+[07:49:59]   -> IC_IR=0.7672808955502419  mono=0.7818181818181817  bear_IC=0.14432337297382544  hivol_IC=0.05256403677438843  verdict=KILL (PBO 1.000 > 0.5; DSR 0.000 <= 0.0)
+[07:49:59] Evaluating IDGG02_5Y (excluding 2974 disc-flagged rows)...
+[07:50:04]   -> IC_IR=1.7434178179768234  mono=0.8424242424242423  bear_IC=0.28867052757487194  hivol_IC=0.3169000630188772  verdict=KILL (PBO 0.996 > 0.5)
+[07:50:04] Evaluating IDGG12_1Y (excluding 1215 disc-flagged rows)...
+[07:50:09]   -> IC_IR=0.7301864872870805  mono=0.7696969696969697  bear_IC=0.1424829766948568  hivol_IC=0.0505583510618776  verdict=KILL (PBO 1.000 > 0.5; DSR 0.000 <= 0.0)
+[07:50:09] Evaluating IDGG12_5Y (excluding 2974 disc-flagged rows)...
+[07:50:13]   -> IC_IR=1.6607414367541629  mono=0.8424242424242423  bear_IC=0.28346921904854805  hivol_IC=0.30993595526338763  verdict=KILL (PBO 0.996 > 0.5)
+[07:50:13] Saved summary: C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\reports\W2_profq_summary.csv
+   factor horizon   ic_mean     ic_ir      mono       pbo            dsr  net_cost_ann  lag_delta  placebo_ic   bull_ic  sideways_ic   bear_ic  lowvol_ic  normalvol_ic  hivol_ic  n_dates   n_obs  n_excluded_disc                                              verdict
+0  IDGG01      1Y  0.066422  0.424341 -0.054545  1.000000   0.000000e+00     -0.319421   0.028346    0.001407  0.083598     0.041595  0.052205   0.093518      0.056155 -0.010833      223   86502             1215             KILL (PBO 1.000 > 0.5; DSR 0.000 <= 0.0)
+1  IDGG01      5Y  0.085569  0.519182 -0.781818  0.956710   0.000000e+00    -12.093747   0.028203   -0.002265  0.141408     0.020980  0.053918   0.102878      0.110993 -0.065266      174   53152             2974             KILL (PBO 0.957 > 0.5; DSR 0.000 <= 0.0)
+2  IDGG15      1Y  0.014544  0.287590  0.745455  0.965368  8.992965e-309      1.322820   0.254739    0.000100  0.020264     0.006939  0.007362   0.018093      0.018472 -0.007911      211   80207             1215  KILL (lag_test_delta 0.255 > 0.25; PBO 0.965 > 0.5)
+3  IDGG15      5Y  0.010607  0.227710  0.260606  0.991342  6.551045e-147      2.343152   0.013601   -0.002420  0.018219     0.005859 -0.002667   0.002539      0.016017  0.025422      162   46970             2974                               KILL (PBO 0.991 > 0.5)
+4  IDGG02      1Y  0.146069  0.767281  0.781818  1.000000   0.000000e+00      0.334132   0.013318    0.001872  0.153782     0.125251  0.144323   0.180354      0.151575  0.052564      231  131401             1215             KILL (PBO 1.000 > 0.5; DSR 0.000 <= 0.0)
+5  IDGG02      5Y  0.310515  1.743418  0.842424  0.995671  2.161039e-248      7.166181   0.009962    0.001351  0.340647     0.277218  0.288671   0.290890      0.331856  0.316900      182   93398             2974                               KILL (PBO 0.996 > 0.5)
+6  IDGG12      1Y  0.145114  0.730186  0.769697  1.000000   0.000000e+00      0.075012   0.008417    0.003220  0.154780     0.121325  0.142483   0.183157      0.146609  0.050558      231  131401             1215             KILL (PBO 1.000 > 0.5; DSR 0.000 <= 0.0)
+7  IDGG12      5Y  0.305853  1.660741  0.842424  0.995671  3.986718e-272      6.151609   0.009157    0.001791  0.337836     0.269722  0.283469   0.287751      0.326089  0.309936      182   93398             2974                               KILL (PBO 0.996 > 0.5)

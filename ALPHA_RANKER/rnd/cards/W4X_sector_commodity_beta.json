@@ -1,0 +1,17 @@
+{
+  "factor_id": "W4X_sector_commodity_beta",
+  "family": "cross_sectional_commodity_tilt",
+  "author": "macro-strategist-cyrus-daruwalla",
+  "date_tested": "2026-07-17",
+  "description": "Sector-conditioned commodity-beta test on panel_long.parquet (2005-2026, 21yr): does the Metals & Mining sector's monthly return spread (vs rest-of-market) track trailing 3m copper trend; does Oil Gas & Consumable Fuels track trailing 3m Brent trend; does Automobile and Auto Components (a clean commodity CONSUMER) show the inverse relationship to Brent.",
+  "data": "ALPHA_RANKER/rnd/panel/panel_long.parquet (sector col, fwd_ret_1M_resid) + this session's FRED PCOPPUSDM/DCOILBRENTEU pulls, month-end aligned.",
+  "data_landmine_disclosed": "NSE sector taxonomy in panel_long has only ONE sector col with 20 buckets -- 'Oil Gas & Consumable Fuels' conflates upstream E&P (commodity PRODUCER, benefits from high oil) with downstream OMC/refiners (commodity CONSUMER, hurt by high oil). No sub-industry column exists to split them; this is NOT fixed by fabricating a split, so the oil-sector test below is a genuinely mixed/diluted bucket by construction.",
+  "results": {
+    "Metals & Mining_vs_copper_trend3m": {"n_months": 242, "ic": 0.015, "nw_t_approx": 0.235, "lag_delta": 3.42, "lag_pass": false, "placebo_pass": true, "verdict": "KILL -- no signal, and would fail the lag-stability gate even if IC were larger"},
+    "OilGas_vs_brent_trend3m": {"n_months": 242, "ic": -0.031, "nw_t_approx": -0.475, "lag_delta": 1.30, "lag_pass": false, "verdict": "KILL -- as expected given the producer/consumer conflation caveat above; wrong-signed vs the naive producer hypothesis"},
+    "Automobile_vs_brent_trend3m": {"n_months": 242, "ic": -0.099, "nw_t_approx": -1.535, "lag_delta": 0.977, "lag_pass": false, "verdict": "KILL on strict gates (misses |t|>=1.645 by a narrow margin, and lag-unstable) BUT correctly signed -- autos underperform when oil is trending up, consistent with cost-side margin-squeeze theory"}
+  },
+  "overall_verdict": "KILL (all three), Automobile-vs-Brent is the closest-to-real relationship found",
+  "blocked_followup": "The commodity-CONSUMER side of the mandate (paints/tyres/aviation/OMC specifically, as distinct from the whole 'Oil Gas & Consumable Fuels' bucket) could NOT be isolated -- panel_long's sector column is too coarse. A sub-industry mapping (BSE/NSE industry classification, finer than the 20-sector col) would be needed to build a clean consumer-side basket and re-test. Added to BLOCKED list in MACRO_XASSET.md.",
+  "confidence": "MEDIUM on the KILL verdicts (3 independent sector tests all miss the bar; Automobile result is the one worth a second look with better data)"
+}

@@ -1,0 +1,30 @@
+{
+  "factor_id": "W4MAC_yield_curve",
+  "family": "market_regime_macro",
+  "author": "macro-strategist-cyrus-daruwalla",
+  "date_tested": "2026-07-17",
+  "description": "US term spread (10Y-2Y, from macro_state.parquet, 2016-2026) as a global rates/inversion regime gauge for India forward equity returns. Plus a NEW India-side finding: India 10Y G-sec yield IS fetchable from FRED (series INDIRLTLT01STM, 2011-12..2026-05, n=174) -- prior sessions had marked India-10Y BLOCKED under a different ID (INDIRLTLT01INM, still 404s) and via stooq (JS-challenge blocked). No India short-end (2Y/91-day T-bill) series found anywhere on disk or via the FRED IDs tried -> a true INDIA curve SLOPE remains genuinely blocked; only the India 10Y LEVEL is now buildable.",
+  "data": "ALPHA_RANKER/rnd/panel/macro_state.parquet term_spread_us (US 10Y-2Y, official home.treasury.gov). India10Y: FRED INDIRLTLT01STM this session -> Shreyas_Ionic_AMC/05_DATA_OFFICE/data/india_10y_gsec_fred.parquet. Forward targets from EW-cube proxy index (see W4MAC_cape_india card for validation).",
+  "buildable": {"us_term_spread": true, "india_10y_level": true, "india_curve_slope": false},
+  "non_null_months": {"g_term_spread": 119, "g_india10y_chg": 166},
+  "first_valid_date": {"g_term_spread": "2016-01-29", "g_india10y_chg": "2012-03-30"},
+  "results_us_term_spread": {
+    "corr_fwd_ret_1Y": -0.26, "n_1Y": 107,
+    "corr_fwd_ret_5Y": -0.459, "n_5Y": 58,
+    "corr_fwd_maxdd_1Y": -0.199, "n_maxdd": 107,
+    "era_split": "H1(2016-01..2020-05,n=53)=+0.53 | H2(2020-06..2024-11,n=54)=-0.60 -- SIGN FLIPS",
+    "dropone_bear": {"COVID_2020": -0.285, "HIKE_2022": -0.186},
+    "dropone_sign_stable": true
+  },
+  "results_india_10y_change_3m": {
+    "corr_fwd_ret_1Y": -0.073, "n_1Y": 153,
+    "corr_fwd_ret_5Y": 0.078, "n_5Y": 104,
+    "corr_fwd_maxdd_1Y": -0.05, "n_maxdd": 153,
+    "era_split": "H1(2012-03..2018-06,n=76)=-0.17 | H2(2018-07..2024-11,n=77)=+0.06 -- sign flips",
+    "dropone_bear": {"COVID_2020": -0.12, "HIKE_2022": -0.072},
+    "dropone_sign_stable": true
+  },
+  "interpretation": "[INFERENCE/OPINION] US term spread: dropone-robust (both bears keep the sign) but ERA-SPLIT FAILS outright -- pre-2020 the correlation with forward India returns was solidly POSITIVE (steep curve -> good India returns, consistent with a textbook 'steep curve = early-cycle recovery' read), post-2020 it flipped to solidly NEGATIVE. My prior read is that 2020-22's zero-rate-then-fastest-hike-cycle-in-decades regime decoupled the classic US-curve-shape/global-risk relationship from India-equity direction -- this is a genuine regime-instability finding, not a data artifact, and it means the US curve should NOT be trusted as a stable-sign India-market input on this evidence. India 10Y level-change is even weaker and also era-unstable -- treat as exploratory only. The bigger news is structural: an India-10Y LEVEL series now exists (was wrongly marked hard-blocked before); a genuine India curve SLOPE still needs a short-end series (2Y/91-day T-bill) that is not on disk or via the FRED IDs tried here.",
+  "overall_verdict": "US term spread: buildable, predicts fwd return weakly and UNSTABLY (era-split fails) -- do not ship as a standalone sign-setter. India-10Y level: buildable (NEW, flag to Data Officer to unpark macro_state.py's india10y column), but the only derived signal tested (3m change) is weak/unstable and a real slope is still blocked pending an India short-end series.",
+  "confidence": "MEDIUM-HIGH on 'do not trust US term-spread sign alone' (era-split failure is large and clean, not borderline). LOW-MEDIUM on India-10Y-change until a proper India curve can be built."
+}

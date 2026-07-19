@@ -1,0 +1,59 @@
+{
+  "factor_id": "W3_pead_eventtime",
+  "family": "W3_pead",
+  "method": "event-time market-adjusted event study (NOT monthly panel harness)",
+  "n_events_candidate": 4396,
+  "n_events_valid": 2642,
+  "date_range": [
+    "2020-01-30",
+    "2025-11-14"
+  ],
+  "window": "[+2td, +45cd]",
+  "ic_continuous_surprise": {
+    "ic": -0.0032170372111121224,
+    "p_value": 0.8687242766590759
+  },
+  "ic_surprise_sign": {
+    "ic": -0.0012310647570339204,
+    "p_value": 0.9495695906647853
+  },
+  "monotonicity": -0.1515151515151515,
+  "decile_means": {
+    "0": -0.0030856632324827,
+    "1": 0.0005658286585729543,
+    "2": -0.0009942356524057332,
+    "3": -0.009388028206042908,
+    "4": -0.0013691438406872104,
+    "5": -0.0003637728758522657,
+    "6": -0.006483361731791639,
+    "7": -0.002792731433558463,
+    "8": 0.0027351423425652564,
+    "9": -0.010523947437948175
+  },
+  "long_short": {
+    "spread_raw_window": -0.007438284205465474,
+    "spread_ann_approx": -0.058761064150644526,
+    "hit_rate": 0.5151400454201362
+  },
+  "placebo_ic": -0.00021777942938629185,
+  "lag_test": {
+    "ic_prior_quarter_surprise": -0.04159840114017154,
+    "lag_test_delta": 11.930655883147548,
+    "n_lag": 2076
+  },
+  "sub_window_drift": {
+    "[+2d,+10d]": {
+      "ic": -0.011345383562385762,
+      "n": 2642
+    },
+    "[+10d,+20d]": {
+      "ic": -0.016951460845124843,
+      "n": 2642
+    },
+    "[+20d,+45d]": {
+      "ic": -0.019403336349625253,
+      "n": 2180
+    }
+  },
+  "hard_gate_verdict": "KILL (no economically/statistically meaningful IC or non-monotone deciles)"
+}

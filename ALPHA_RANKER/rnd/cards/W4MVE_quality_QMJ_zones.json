@@ -1,0 +1,76 @@
+{
+  "factor_id": "W4MVE_quality_QMJ_zones",
+  "family": "W4MVE",
+  "purpose": "contrast leg -- does quality hold at the undervalued extreme?",
+  "results": {
+    "1M": {
+      "under": {
+        "n_dates_ic": 7,
+        "n_dates_ls": 7,
+        "ic_mean": -0.0754,
+        "ic_ir": -0.585,
+        "ls_ret_mean_period": -0.03469,
+        "ls_ret_ann": -0.4163
+      },
+      "neutral": {
+        "n_dates_ic": 217,
+        "n_dates_ls": 217,
+        "ic_mean": 0.0658,
+        "ic_ir": 0.469,
+        "ls_ret_mean_period": 0.00981,
+        "ls_ret_ann": 0.1178
+      },
+      "over": {
+        "n_dates": 0,
+        "ic_mean": NaN,
+        "ic_ir": NaN,
+        "ls_ret_mean": NaN,
+        "ls_ret_ann": NaN,
+        "n_ls_dates": 0
+      },
+      "ALL": {
+        "n_dates_ic": 224,
+        "n_dates_ls": 224,
+        "ic_mean": 0.0614,
+        "ic_ir": 0.433,
+        "ls_ret_mean_period": 0.00842,
+        "ls_ret_ann": 0.1011
+      }
+    },
+    "1Y": {
+      "under": {
+        "n_dates_ic": 7,
+        "n_dates_ls": 7,
+        "ic_mean": 0.1536,
+        "ic_ir": 2.7,
+        "ls_ret_mean_period": -0.54273,
+        "ls_ret_ann": -0.5427
+      },
+      "neutral": {
+        "n_dates_ic": 206,
+        "n_dates_ls": 206,
+        "ic_mean": 0.1449,
+        "ic_ir": 0.734,
+        "ls_ret_mean_period": 0.26942,
+        "ls_ret_ann": 0.2694
+      },
+      "over": {
+        "n_dates": 0,
+        "ic_mean": NaN,
+        "ic_ir": NaN,
+        "ls_ret_mean": NaN,
+        "ls_ret_ann": NaN,
+        "n_ls_dates": 0
+      },
+      "ALL": {
+        "n_dates_ic": 213,
+        "n_dates_ls": 213,
+        "ic_mean": 0.1452,
+        "ic_ir": 0.747,
+        "ls_ret_mean_period": 0.24272,
+        "ls_ret_ann": 0.2427
+      }
+    }
+  },
+  "caveat": "under-zone (n=7, same 2008-09 GFC episode) shows a MIXED signal: 1M IC negative (-0.075) and 1M decile L-S return sharply negative (-42% ann); 1Y IC positive (+0.15) but 1Y decile L-S return sharply negative (-54%) -- sign-inconsistent between rank-IC and top-bottom spread at n=7, a small-sample artifact, not a clean 'quality holds' story. Read as: the single most violent episode in this sample broke cross-sectional RANKING generally (momentum most severely, quality inconsistently), not a clean 'momentum bad, quality good' dichotomy."
+}

@@ -1,0 +1,11 @@
+{
+  "factor_id": "H037_event_earnings_drift",
+  "status": "PARK",
+  "verdict": "PARK (data-blocked, not run)",
+  "horizon": [
+    "1M"
+  ],
+  "generated_at": "2026-07-16T18:11:25.955775+00:00",
+  "reason": "DEFERRED (time-budget prioritization this cycle, not a hard data block like H017/H035/H049): panel is MONTHLY-only (61 month-end rebalance dates); an earnings-window drift factor needs a daily-granularity return series joined to a PIT earnings-announcement-date calendar (available_date-gated), which exists elsewhere in the firm (datasets/earnings_pit/unified_quarterly_pit.parquet per root CLAUDE.md landmine #3) but is not wired into this panel. Building a proper event-window (t-5..t+5 trading day) drift factor and then aggregating it up to the monthly panel grid is a real, separate build -- deprioritized behind H031/H040/H050 per assignment.",
+  "needed_to_unpark": "Join datasets/earnings_pit (available_date) to a daily price series, compute the event-window abnormal-return factor there, then aggregate to monthly panel dates for harness evaluation."
+}

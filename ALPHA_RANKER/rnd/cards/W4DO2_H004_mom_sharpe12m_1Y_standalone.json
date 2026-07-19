@@ -1,0 +1,354 @@
+{
+  "factor_id": "H004_mom_sharpe12m_1Y",
+  "horizon": "1Y",
+  "basis": "resid",
+  "panel_span_years": [
+    2022,
+    2025
+  ],
+  "full_sample": {
+    "ic_mean": 0.08706090542106856,
+    "ic_ir": 0.7890310849412364,
+    "ls_ann": 0.20166958163488258,
+    "mono": 0.9757575757575757,
+    "n_dates": 36,
+    "n_ic_dates": 36,
+    "n_obs": 22249,
+    "raw_period_mean_ls": 0.20166958163488258,
+    "net_ls_ann": 0.19952940588986953
+  },
+  "cost": {
+    "blended_cost_bps_roundtrip": 79.97744360902256,
+    "full_turnover": 0.2675974185265896,
+    "ann_cost_drag": 0.0021401757450130324
+  },
+  "dropone_year": {
+    "2022": {
+      "ic_mean": 0.08642683721083826,
+      "ic_ir": 0.7385548214004639,
+      "ls_ann": 0.19064970468241454,
+      "mono": 0.9757575757575757,
+      "n_dates": 30,
+      "n_ic_dates": 30,
+      "n_obs": 18794,
+      "raw_period_mean_ls": 0.19064970468241454,
+      "net_ls_ann": 0.1885095289374015
+    },
+    "2023": {
+      "ic_mean": 0.02096830782644328,
+      "ic_ir": 0.3146175630619917,
+      "ls_ann": 0.09177783649996053,
+      "mono": 0.34545454545454546,
+      "n_dates": 24,
+      "n_ic_dates": 24,
+      "n_obs": 14988,
+      "raw_period_mean_ls": 0.09177783649996053,
+      "net_ls_ann": 0.0896376607549475
+    },
+    "2024": {
+      "ic_mean": 0.1353100514679216,
+      "ic_ir": 1.3370037415850256,
+      "ls_ann": 0.2719274299940988,
+      "mono": 0.9878787878787878,
+      "n_dates": 24,
+      "n_ic_dates": 24,
+      "n_obs": 14673,
+      "raw_period_mean_ls": 0.2719274299940988,
+      "net_ls_ann": 0.2697872542490858
+    },
+    "2025": {
+      "ic_mean": 0.10196973486951671,
+      "ic_ir": 0.8954113316948618,
+      "ls_ann": 0.24439657600791528,
+      "mono": 0.9757575757575757,
+      "n_dates": 30,
+      "n_ic_dates": 30,
+      "n_obs": 18292,
+      "raw_period_mean_ls": 0.24439657600791528,
+      "net_ls_ann": 0.24225640026290224
+    }
+  },
+  "dropone_sector": {
+    "Automobile and Auto Components": {
+      "ic_mean": 0.08908553362080959,
+      "ic_ir": 0.7664456064632257,
+      "ls_ann": 0.22247487587408898,
+      "mono": 0.9393939393939393,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 20744,
+      "raw_period_mean_ls": 0.22247487587408898,
+      "net_ls_ann": 0.22033470012907594
+    },
+    "Capital Goods": {
+      "ic_mean": 0.06733085256543066,
+      "ic_ir": 0.666289123120047,
+      "ls_ann": 0.18128639205132818,
+      "mono": 0.9757575757575757,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 19097,
+      "raw_period_mean_ls": 0.18128639205132818,
+      "net_ls_ann": 0.17914621630631514
+    },
+    "Chemicals": {
+      "ic_mean": 0.07986649269823268,
+      "ic_ir": 0.7861915013179259,
+      "ls_ann": 0.18224740632721015,
+      "mono": 0.9636363636363635,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 20739,
+      "raw_period_mean_ls": 0.18224740632721015,
+      "net_ls_ann": 0.1801072305821971
+    },
+    "Construction": {
+      "ic_mean": 0.08288753766797297,
+      "ic_ir": 0.7761774198380229,
+      "ls_ann": 0.19382500995301594,
+      "mono": 0.9757575757575757,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 21457,
+      "raw_period_mean_ls": 0.19382500995301594,
+      "net_ls_ann": 0.1916848342080029
+    },
+    "Construction Materials": {
+      "ic_mean": 0.08937793109349966,
+      "ic_ir": 0.8128707689654148,
+      "ls_ann": 0.19633820612823105,
+      "mono": 0.9636363636363635,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 21710,
+      "raw_period_mean_ls": 0.19633820612823105,
+      "net_ls_ann": 0.194198030383218
+    },
+    "Consumer Durables": {
+      "ic_mean": 0.07136505919580236,
+      "ic_ir": 0.6089256120024665,
+      "ls_ann": 0.17546200453460525,
+      "mono": 0.9636363636363635,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 21078,
+      "raw_period_mean_ls": 0.17546200453460525,
+      "net_ls_ann": 0.1733218287895922
+    },
+    "Consumer Services": {
+      "ic_mean": 0.08195221113404244,
+      "ic_ir": 0.7376937479437085,
+      "ls_ann": 0.1857863718904312,
+      "mono": 0.9757575757575757,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 21235,
+      "raw_period_mean_ls": 0.1857863718904312,
+      "net_ls_ann": 0.18364619614541816
+    },
+    "Diversified": {
+      "ic_mean": 0.08783076584868854,
+      "ic_ir": 0.7968766230448064,
+      "ls_ann": 0.20264142128381715,
+      "mono": 0.9757575757575757,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 22141,
+      "raw_period_mean_ls": 0.20264142128381715,
+      "net_ls_ann": 0.2005012455388041
+    },
+    "Fast Moving Consumer Goods": {
+      "ic_mean": 0.0908243305124013,
+      "ic_ir": 0.804820758967909,
+      "ls_ann": 0.21318440812913483,
+      "mono": 0.9757575757575757,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 20829,
+      "raw_period_mean_ls": 0.21318440812913483,
+      "net_ls_ann": 0.2110442323841218
+    },
+    "Financial Services": {
+      "ic_mean": 0.10538621508251622,
+      "ic_ir": 0.9342338126714645,
+      "ls_ann": 0.21349414119043966,
+      "mono": 0.9636363636363635,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 18685,
+      "raw_period_mean_ls": 0.21349414119043966,
+      "net_ls_ann": 0.21135396544542662
+    },
+    "Forest Materials": {
+      "ic_mean": 0.08756271791897505,
+      "ic_ir": 0.7906732701409652,
+      "ls_ann": 0.20359482851190924,
+      "mono": 0.9757575757575757,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 22213,
+      "raw_period_mean_ls": 0.20359482851190924,
+      "net_ls_ann": 0.2014546527668962
+    },
+    "Healthcare": {
+      "ic_mean": 0.08869045863068438,
+      "ic_ir": 0.7487701823729949,
+      "ls_ann": 0.17948246452917826,
+      "mono": 0.9757575757575757,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 20284,
+      "raw_period_mean_ls": 0.17948246452917826,
+      "net_ls_ann": 0.17734228878416522
+    },
+    "Information Technology": {
+      "ic_mean": 0.08384900209999159,
+      "ic_ir": 0.7371076393676498,
+      "ls_ann": 0.20043173679877893,
+      "mono": 0.9878787878787878,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 21192,
+      "raw_period_mean_ls": 0.20043173679877893,
+      "net_ls_ann": 0.19829156105376589
+    },
+    "Media Entertainment & Publication": {
+      "ic_mean": 0.08292827217534442,
+      "ic_ir": 0.7569119014932465,
+      "ls_ann": 0.19408724405190111,
+      "mono": 0.9878787878787878,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 21961,
+      "raw_period_mean_ls": 0.19408724405190111,
+      "net_ls_ann": 0.19194706830688807
+    },
+    "Metals & Mining": {
+      "ic_mean": 0.09281820108925348,
+      "ic_ir": 0.8486840140853049,
+      "ls_ann": 0.2045814928079086,
+      "mono": 0.9878787878787878,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 21526,
+      "raw_period_mean_ls": 0.2045814928079086,
+      "net_ls_ann": 0.20244131706289556
+    },
+    "Oil Gas & Consumable Fuels": {
+      "ic_mean": 0.09131099692485026,
+      "ic_ir": 0.8460478961067954,
+      "ls_ann": 0.20506523960573303,
+      "mono": 0.9757575757575757,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 21673,
+      "raw_period_mean_ls": 0.20506523960573303,
+      "net_ls_ann": 0.20292506386071998
+    },
+    "Power": {
+      "ic_mean": 0.09295566733882837,
+      "ic_ir": 0.8568498647938626,
+      "ls_ann": 0.2128837191588259,
+      "mono": 0.9757575757575757,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 21573,
+      "raw_period_mean_ls": 0.2128837191588259,
+      "net_ls_ann": 0.21074354341381285
+    },
+    "Realty": {
+      "ic_mean": 0.09165582423877083,
+      "ic_ir": 0.8280249944671685,
+      "ls_ann": 0.2001925774101686,
+      "mono": 0.9999999999999999,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 21700,
+      "raw_period_mean_ls": 0.2001925774101686,
+      "net_ls_ann": 0.19805240166515556
+    },
+    "Services": {
+      "ic_mean": 0.09182275831090321,
+      "ic_ir": 0.8312679134260671,
+      "ls_ann": 0.1999862861586397,
+      "mono": 0.9757575757575757,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 21577,
+      "raw_period_mean_ls": 0.1999862861586397,
+      "net_ls_ann": 0.19784611041362665
+    },
+    "Telecommunication": {
+      "ic_mean": 0.08618516702867035,
+      "ic_ir": 0.761481412477982,
+      "ls_ann": 0.206063714879845,
+      "mono": 0.9757575757575757,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 21814,
+      "raw_period_mean_ls": 0.206063714879845,
+      "net_ls_ann": 0.20392353913483197
+    },
+    "Textiles": {
+      "ic_mean": 0.08873555793951983,
+      "ic_ir": 0.7958487335879306,
+      "ls_ann": 0.2009359115926429,
+      "mono": 0.9878787878787878,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 21853,
+      "raw_period_mean_ls": 0.2009359115926429,
+      "net_ls_ann": 0.19879573584762986
+    },
+    "Utilities": {
+      "ic_mean": 0.08732436530523045,
+      "ic_ir": 0.7993924043761864,
+      "ls_ann": 0.20496699954380532,
+      "mono": 0.9757575757575757,
+      "n_dates": 36,
+      "n_ic_dates": 36,
+      "n_obs": 22148,
+      "raw_period_mean_ls": 0.20496699954380532,
+      "net_ls_ann": 0.20282682379879227
+    }
+  },
+  "era_split": {
+    "first_half": {
+      "ic_mean": 0.17624114923095283,
+      "ic_ir": 2.243230556511335,
+      "ls_ann": 0.3665583700688921,
+      "mono": 0.9757575757575757,
+      "n_dates": 18,
+      "n_ic_dates": 18,
+      "n_obs": 10716,
+      "raw_period_mean_ls": 0.3665583700688921,
+      "net_ls_ann": 0.36441819432387906
+    },
+    "second_half": {
+      "ic_mean": -0.0021193383888156708,
+      "ic_ir": -0.04679605936321723,
+      "ls_ann": 0.0367807932008731,
+      "mono": 0.06666666666666665,
+      "n_dates": 18,
+      "n_ic_dates": 18,
+      "n_obs": 11533,
+      "raw_period_mean_ls": 0.0367807932008731,
+      "net_ls_ann": 0.03464061745586007
+    },
+    "first_years": [
+      2022,
+      2023
+    ],
+    "second_years": [
+      2024,
+      2025
+    ]
+  },
+  "era_kind": "half_split_NOOP_pre2015_flagged",
+  "bugfix_verification": {
+    "distinct_ic_values_across_dropped_years": 4,
+    "n_years_with_ic_dates": 4,
+    "loyo_varies_across_years": true,
+    "note": "years that contribute 0 IC dates in the FULL sample (burn-in, factor not yet computable) legitimately show identical numbers when dropped -- not a bug. Bug is fixed if years that DO carry IC dates show DIFFERENT numbers, which is checked here."
+  }
+}

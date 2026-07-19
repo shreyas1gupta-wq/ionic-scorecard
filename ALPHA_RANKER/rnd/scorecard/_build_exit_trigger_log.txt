@@ -1,0 +1,25 @@
+[DATA] panel_pit.parquet rows=99415 date range 2005-04-29..2025-12-05
+[DATA] stock_valuation_pit.parquet rows=148297
+[DATA] w5bv_stock_percentiles.parquet rows=148297
+[DATA] absolute_scorecard.parquet (1Y slice) rows=99415
+[DATA] sector_context.parquet rows=4720
+[DATA] _w6fg2_scored.parquet rows=143907
+[DATA] rel_score_1Y.parquet rows=32973, rel_score_5Y.parquet rows=79194
+[DATA] universe_forensic_score.parquet rows=751 (STATIC, no date column)
+[DATA] universe_forensic_flags.parquet rows=14269 (STATIC, no date column)
+[INFERENCE] forensic Stage-A static tripwire: 160/751 names flagged on CURRENT snapshot (score>=70 or severe confirmed flag)
+[INFERENCE] merged panel shape=(99415, 16) (row count preserved: 99415)
+[INFERENCE] computing own_trailing_pctile (rolling 8yr window) over 789 symbols, 89613 rows ...
+[INFERENCE] own_trailing_pctile computed in 1.1s
+[INFERENCE] entry_date simulated for 558/558 symbols that ever reached rel_score>=60.0 top-quintile (1Y or 5Y)
+[INFERENCE] post-entry rows: held=39126, thesis breakdown VALUE_GROWTH=23596, MOMENTUM=14634, UNKNOWN(no rerating at entry)=896
+[INFERENCE] final output shape=(99415, 11)
+[INFERENCE] incidence -- leg1 fired rows: 4147
+[INFERENCE] incidence -- leg2 fired rows: 753
+[INFERENCE] incidence -- leg3 fired rows (Stage-A, last-date-only): 62
+[INFERENCE] incidence -- any_leg_fired rows: 4878
+[INFERENCE] held (post-entry) rows total: 39126 / 99415
+
+[CHECK] run1 sha256=a0b203dd8fe5b38c1e342f4c731fc342344ecb4689163d3fdb17d99b7492aa64
+[CHECK] run2 sha256=a0b203dd8fe5b38c1e342f4c731fc342344ecb4689163d3fdb17d99b7492aa64
+[CHECK] DETERMINISM: PASS

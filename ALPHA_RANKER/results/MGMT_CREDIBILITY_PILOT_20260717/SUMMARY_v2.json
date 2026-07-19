@@ -1,0 +1,42 @@
+{
+  "extraction_stats": {
+    "n_calls": 2549,
+    "naive_commitment_sentences": 24374,
+    "mgmt_only_commitment_sentences": 10653,
+    "naive_sentences_from_analyst_turns": 4845,
+    "reduction_pct": 56.3
+  },
+  "verdict_distribution": {
+    "NO_MATCHING_ACTUAL_IN_WINDOW": 3695,
+    "DELIVERED": 2722,
+    "MISSED": 2399,
+    "PARTIAL": 1144,
+    "NO_FUNDAMENTAL_PROXY (order-book not in metric set)": 688,
+    "NOT_VERIFIABLE_FROM_FUNDAMENTALS": 5
+  },
+  "n_companies_scored": 112,
+  "return_test_1Y": {
+    "n": 109,
+    "n_hi_credibility": 62,
+    "n_lo_credibility": 40,
+    "mean_fwd_return_xs_hi_credibility": 0.0466,
+    "mean_fwd_return_xs_lo_credibility": -0.0479,
+    "spearman_ic_full_sample": 0.031,
+    "spearman_ic_drop_one_min": 0.006,
+    "spearman_ic_drop_one_max": 0.056,
+    "spearman_ic_drop_one_mean": 0.031,
+    "horizon_days": 252
+  },
+  "return_test_1M": {
+    "n": 109,
+    "n_hi_credibility": 62,
+    "n_lo_credibility": 40,
+    "mean_fwd_return_xs_hi_credibility": -0.0075,
+    "mean_fwd_return_xs_lo_credibility": 0.0083,
+    "spearman_ic_full_sample": -0.139,
+    "spearman_ic_drop_one_min": -0.169,
+    "spearman_ic_drop_one_max": -0.123,
+    "spearman_ic_drop_one_mean": -0.139,
+    "horizon_days": 21
+  }
+}

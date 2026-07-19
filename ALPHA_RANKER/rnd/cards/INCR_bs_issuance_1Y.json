@@ -1,0 +1,14 @@
+{
+  "leg": "net-issuance",
+  "leg_col": "bs_issuance",
+  "horizon": "1Y",
+  "base_ic_ir": 1.0943632760680173,
+  "with_leg_ic_ir": 1.1288329124290508,
+  "delta_ic_ir": 0.03446963636103351,
+  "delta_mono": 0.0,
+  "delta_net_v2": -0.013054486998746562,
+  "corr_to_base": 0.10081243197007216,
+  "corr_n_dates": 158,
+  "earns_slot": true,
+  "decision_rule": "earns_slot iff |corr_to_base|<0.6 AND (dIC_IR>=0.03 OR dMono>=0.02 OR dNet_v2>=0.01)"
+}

@@ -1,0 +1,523 @@
+{
+ "ticker": "SGIL",
+ "url_path": "SGIL/consolidated/",
+ "tables": {
+  "quarterly_results": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2025": "97.47",
+    "Dec 2025": "91.82",
+    "Mar 2026": "119.04"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2025": "82.60",
+    "Dec 2025": "83.55",
+    "Mar 2026": "108.61"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2025": "14.87",
+    "Dec 2025": "8.27",
+    "Mar 2026": "10.43"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2025": "15.26%",
+    "Dec 2025": "9.01%",
+    "Mar 2026": "8.76%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2025": "0.44",
+    "Dec 2025": "0.71",
+    "Mar 2026": "4.40"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2025": "4.49",
+    "Dec 2025": "4.75",
+    "Mar 2026": "6.69"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2025": "3.15",
+    "Dec 2025": "5.46",
+    "Mar 2026": "7.83"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2025": "7.67",
+    "Dec 2025": "-1.23",
+    "Mar 2026": "0.31"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2025": "49.93%",
+    "Dec 2025": "21.14%",
+    "Mar 2026": "-29.03%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2025": "3.84",
+    "Dec 2025": "-1.49",
+    "Mar 2026": "0.41"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2025": "2.47",
+    "Dec 2025": "-0.96",
+    "Mar 2026": "0.26"
+   },
+   {
+    "Unnamed: 0": "Raw PDF",
+    "Mar 2025": NaN,
+    "Dec 2025": NaN,
+    "Mar 2026": NaN
+   }
+  ],
+  "profit_loss": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2025": "362",
+    "Mar 2026": "366"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2025": "310",
+    "Mar 2026": "327"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2025": "52",
+    "Mar 2026": "39"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2025": "14%",
+    "Mar 2026": "11%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2025": "1",
+    "Mar 2026": "9"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2025": "16",
+    "Mar 2026": "21"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2025": "13",
+    "Mar 2026": "20"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2025": "25",
+    "Mar 2026": "8"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2025": "32%",
+    "Mar 2026": "38%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2025": "17",
+    "Mar 2026": "5"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2025": "10.87",
+    "Mar 2026": "3.00"
+   },
+   {
+    "Unnamed: 0": "Dividend Payout %",
+    "Mar 2025": "9%",
+    "Mar 2026": "33%"
+   }
+  ],
+  "balance_sheet": [
+   {
+    "Unnamed: 0": "Equity Capital",
+    "Mar 2025": 16,
+    "Mar 2026": 16
+   },
+   {
+    "Unnamed: 0": "Reserves",
+    "Mar 2025": 92,
+    "Mar 2026": 96
+   },
+   {
+    "Unnamed: 0": "Borrowings",
+    "Mar 2025": 156,
+    "Mar 2026": 250
+   },
+   {
+    "Unnamed: 0": "Other Liabilities",
+    "Mar 2025": 78,
+    "Mar 2026": 111
+   },
+   {
+    "Unnamed: 0": "Total Liabilities",
+    "Mar 2025": 342,
+    "Mar 2026": 473
+   },
+   {
+    "Unnamed: 0": "Fixed Assets",
+    "Mar 2025": 100,
+    "Mar 2026": 250
+   },
+   {
+    "Unnamed: 0": "CWIP",
+    "Mar 2025": 34,
+    "Mar 2026": 47
+   },
+   {
+    "Unnamed: 0": "Investments",
+    "Mar 2025": 0,
+    "Mar 2026": 0
+   },
+   {
+    "Unnamed: 0": "Other Assets",
+    "Mar 2025": 208,
+    "Mar 2026": 176
+   },
+   {
+    "Unnamed: 0": "Total Assets",
+    "Mar 2025": 342,
+    "Mar 2026": 473
+   }
+  ],
+  "cash_flow": [
+   {
+    "Unnamed: 0": "Cash from Operating Activity",
+    "Mar 2025": "-16",
+    "Mar 2026": "19"
+   },
+   {
+    "Unnamed: 0": "Cash from Investing Activity",
+    "Mar 2025": "-87",
+    "Mar 2026": "-94"
+   },
+   {
+    "Unnamed: 0": "Cash from Financing Activity",
+    "Mar 2025": "101",
+    "Mar 2026": "74"
+   },
+   {
+    "Unnamed: 0": "Net Cash Flow",
+    "Mar 2025": "-2",
+    "Mar 2026": "-2"
+   },
+   {
+    "Unnamed: 0": "Free Cash Flow",
+    "Mar 2025": "-104",
+    "Mar 2026": "-120"
+   },
+   {
+    "Unnamed: 0": "CFO/OP",
+    "Mar 2025": "-20%",
+    "Mar 2026": "53%"
+   }
+  ],
+  "ratios": [
+   {
+    "Unnamed: 0": "Debtor Days",
+    "Mar 2025": 57.0,
+    "Mar 2026": "65"
+   },
+   {
+    "Unnamed: 0": "Inventory Days",
+    "Mar 2025": 141.0,
+    "Mar 2026": "164"
+   },
+   {
+    "Unnamed: 0": "Days Payable",
+    "Mar 2025": 158.0,
+    "Mar 2026": "186"
+   },
+   {
+    "Unnamed: 0": "Cash Conversion Cycle",
+    "Mar 2025": 41.0,
+    "Mar 2026": "43"
+   },
+   {
+    "Unnamed: 0": "Working Capital Days",
+    "Mar 2025": -51.0,
+    "Mar 2026": "-43"
+   },
+   {
+    "Unnamed: 0": "ROCE %",
+    "Mar 2025": NaN,
+    "Mar 2026": "9%"
+   }
+  ],
+  "shareholding": [
+   {
+    "Unnamed: 0": "Promoters",
+    "Jun 2023": "74.02%",
+    "Sep 2023": "74.02%",
+    "Dec 2023": "74.02%",
+    "Mar 2024": "74.02%",
+    "Jun 2024": "74.02%",
+    "Sep 2024": "74.04%",
+    "Dec 2024": "69.76%",
+    "Mar 2025": "69.81%",
+    "Jun 2025": "69.84%",
+    "Sep 2025": "69.39%",
+    "Dec 2025": "69.45%",
+    "Mar 2026": "69.50%"
+   },
+   {
+    "Unnamed: 0": "FIIs",
+    "Jun 2023": "5.11%",
+    "Sep 2023": "4.57%",
+    "Dec 2023": "3.23%",
+    "Mar 2024": "2.60%",
+    "Jun 2024": "2.86%",
+    "Sep 2024": "0.20%",
+    "Dec 2024": "0.27%",
+    "Mar 2025": "0.21%",
+    "Jun 2025": "0.60%",
+    "Sep 2025": "0.42%",
+    "Dec 2025": "0.25%",
+    "Mar 2026": "0.22%"
+   },
+   {
+    "Unnamed: 0": "DIIs",
+    "Jun 2023": "1.80%",
+    "Sep 2023": "1.25%",
+    "Dec 2023": "0.76%",
+    "Mar 2024": "0.76%",
+    "Jun 2024": "0.76%",
+    "Sep 2024": "0.00%",
+    "Dec 2024": "0.00%",
+    "Mar 2025": "0.00%",
+    "Jun 2025": "0.00%",
+    "Sep 2025": "0.00%",
+    "Dec 2025": "0.00%",
+    "Mar 2026": "1.51%"
+   },
+   {
+    "Unnamed: 0": "Public",
+    "Jun 2023": "19.06%",
+    "Sep 2023": "20.17%",
+    "Dec 2023": "21.99%",
+    "Mar 2024": "22.61%",
+    "Jun 2024": "22.35%",
+    "Sep 2024": "25.75%",
+    "Dec 2024": "29.96%",
+    "Mar 2025": "29.96%",
+    "Jun 2025": "29.57%",
+    "Sep 2025": "30.20%",
+    "Dec 2025": "30.29%",
+    "Mar 2026": "28.72%"
+   },
+   {
+    "Unnamed: 0": "Others",
+    "Jun 2023": "0.00%",
+    "Sep 2023": "0.00%",
+    "Dec 2023": "0.00%",
+    "Mar 2024": "0.00%",
+    "Jun 2024": "0.00%",
+    "Sep 2024": "0.00%",
+    "Dec 2024": "0.00%",
+    "Mar 2025": "0.00%",
+    "Jun 2025": "0.00%",
+    "Sep 2025": "0.00%",
+    "Dec 2025": "0.00%",
+    "Mar 2026": "0.05%"
+   },
+   {
+    "Unnamed: 0": "No. of Shareholders",
+    "Jun 2023": "5122",
+    "Sep 2023": "4875",
+    "Dec 2023": "6512",
+    "Mar 2024": "8867",
+    "Jun 2024": "9335",
+    "Sep 2024": "14956",
+    "Dec 2024": "14581",
+    "Mar 2025": "13916",
+    "Jun 2025": "12929",
+    "Sep 2025": "13180",
+    "Dec 2025": "12032",
+    "Mar 2026": "10897"
+   }
+  ]
+ },
+ "top_ratios": {
+  "Market Cap": "\u20b9 933 Cr.",
+  "Current Price": "\u20b9 598",
+  "High / Low": "\u20b9 654 / 420",
+  "Stock P/E": "187",
+  "Book Value": "\u20b9 71.5",
+  "Dividend Yield": "0.17 %",
+  "ROCE": "9.24 %",
+  "ROE": "4.55 %",
+  "Face Value": "\u20b9 10.0"
+ },
+ "documents": [
+  {
+   "text": "All",
+   "href": "https://www.bseindia.com/stock-share-price/synergy-green-industries-ltd/SGIL/541929/corp-announcements/"
+  },
+  {
+   "text": "Compliances-Certificate under Reg. 74 (5) of SEBI (DP) Regulations, 2018 9h - Su",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=64ced052-9858-44a5-9d77-862366d4822a.pdf"
+  },
+  {
+   "text": "Reg. 34 (1) Annual Report. 3 Jul - Revised FY26 annual report issued with AGM no",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=9cf38c1b-d392-40e9-8c23-3fc38bb90c37.pdf"
+  },
+  {
+   "text": "Corrigendum To The Notice Of 16Th Annual General Meeting Of The Company To Be He",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=5efbc02c-7b00-400f-8253-950374009899.pdf"
+  },
+  {
+   "text": "Announcement under Regulation 30 (LODR)-Newspaper Publication 1 Jul - Submission",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=de8fbcda-be26-460e-8cea-d4c568846fa9.pdf"
+  },
+  {
+   "text": "Reg. 34 (1) Annual Report. 1 Jul - Submitted FY2025-26 annual report and AGM not",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=9cf69b3a-edef-4282-b3ce-734e53b98cce.pdf"
+  },
+  {
+   "text": "Financial Year 2026 from bse",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=9cf69b3a-edef-4282-b3ce-734e53b98cce.pdf"
+  },
+  {
+   "text": "Financial Year 2025 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/fbae2b62-fe30-48b4-86a5-bc0f6b4caac8.pdf"
+  },
+  {
+   "text": "Financial Year 2024 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/fafa1da1-9549-466c-956a-64be47c3df9b.pdf"
+  },
+  {
+   "text": "Financial Year 2023 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/e8d18474-d6ee-49ee-89f1-7d40eaa698ca.pdf"
+  },
+  {
+   "text": "Financial Year 2022 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/541929/76201541929.pdf"
+  },
+  {
+   "text": "Financial Year 2021 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/541929/70495541929.pdf"
+  },
+  {
+   "text": "Financial Year 2020 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/541929/64777541929_07_09_20.pdf"
+  },
+  {
+   "text": "Financial Year 2019 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/541929/5419290319.pdf"
+  },
+  {
+   "text": "DRHP",
+   "href": "https://www.sebi.gov.in/filings/public-issues/aug-2018/synergy-green-industries-limited_40161.html"
+  },
+  {
+   "text": "Rating update 22 Jan from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/SynergyGreenIndustriesLimited_January 22_ 2026_RR_382315.html"
+  },
+  {
+   "text": "Rating update 28 May 2025 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/SynergyGreenIndustriesLimited_May 28_ 2025_RR_368991.html"
+  },
+  {
+   "text": "Rating update 29 Nov 2024 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/SynergyGreenIndustriesLimited_November 29_ 2024_RR_358016.html"
+  },
+  {
+   "text": "Rating update 31 May 2024 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/SynergyGreenIndustriesLimited_May 31_ 2024_RR_338074.html"
+  },
+  {
+   "text": "Rating update 1 Jun 2023 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/SynergyGreenIndustriesLimited_June 01, 2023_RR_320579.html"
+  },
+  {
+   "text": "Rating update 22 Jun 2022 from crisil",
+   "href": "https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/SynergyGreenIndustriesLimited_June 22, 2022_RR_296275.html"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=4f847f8f-3510-49bb-8d37-7d193dabff4a.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=874e384a-0026-4dd7-a875-12a2c1a2009b.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=11aedcb9-e0bb-41a2-a996-313a72845630.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=930c14da-ff52-40bb-b826-1cc8885a1424.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=1f21bb0f-5cba-4cbf-83a3-1c8262c2fea8.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://youtu.be/RqWQLtqr22Q"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=d6c806c2-8af3-41d3-83b1-7c89970db440.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=30be2518-acd2-46a9-9a2e-87931606862a.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=22605813-f70c-40c5-8d76-93850a444382.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=41443c44-f8b5-4e8b-b909-f2cbed3c83de.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=729d77f0-27ae-4b8c-a07f-564dfd596175.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=4d1a0a08-454d-4557-aeb2-571bdd2f7c5d.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=8b23547e-6731-4507-bef6-4132bd1081e0.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=559ecc52-ab8f-4a77-822a-5ce9e151d0aa.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=c7477cb7-1f64-493e-96cd-956929125a1a.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=caeafa05-2be3-45d4-a6a0-2d109210347e.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=7260f709-e337-479c-96c9-2c11b4bcf908.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=0c42986a-a662-4b95-a215-801bf7b84a09.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=57a27d29-781a-4153-b04f-22948450b8f4.pdf"
+  }
+ ]
+}

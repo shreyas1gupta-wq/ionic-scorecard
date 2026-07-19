@@ -1,0 +1,77 @@
+{
+  "factor_id": "H043_beta_adj_mom",
+  "family": "H043",
+  "horizon": "1Y",
+  "n_rebal_dates_total": 42,
+  "n_rebal_dates_recent_2021_07plus": 42,
+  "turnover_oneway_book_fullsample": 0.2616924105986734,
+  "turnover_oneway_long_leg": 0.24806533422829632,
+  "turnover_oneway_short_leg": 0.27531948696905045,
+  "avg_top_decile_n": 55.0,
+  "avg_bottom_decile_n": 55.166666666666664,
+  "implied_avg_holding_months_long": 4.03119606820876,
+  "implied_avg_holding_months_short": 3.632143917631276,
+  "turnover_oneway_book_recent_regime": 0.2616924105986734,
+  "capacity_recent_regime": {
+    "long_10cr": {
+      "median_pct": 0.3764895214390967,
+      "p90_pct": 1.7976570668982756,
+      "max_pct": 255.88572828408914,
+      "frac_over_10pct": 0.01169337375487224,
+      "frac_over_5pct_micro": 0.05116279069767442,
+      "n_leg_days": 2309
+    },
+    "short_10cr": {
+      "median_pct": 0.6585269118198664,
+      "p90_pct": 3.691023019829758,
+      "max_pct": 25.72274613951229,
+      "frac_over_10pct": 0.01812688821752266,
+      "frac_over_5pct_micro": 0.1245136186770428,
+      "n_leg_days": 2317
+    },
+    "long_100cr": {
+      "median_pct": 3.764895214390967,
+      "p90_pct": 17.97657066898276,
+      "max_pct": 2558.8572828408915,
+      "frac_over_10pct": 0.22433954092680813,
+      "frac_over_5pct_micro": 0.7372093023255814,
+      "n_leg_days": 2309
+    },
+    "short_100cr": {
+      "median_pct": 6.585269118198664,
+      "p90_pct": 36.910230198297576,
+      "max_pct": 257.2274613951229,
+      "frac_over_10pct": 0.39188605955977557,
+      "frac_over_5pct_micro": 0.8638132295719845,
+      "n_leg_days": 2317
+    }
+  },
+  "short_leg_fno_eligible_share_recent": 0.22917565817867933,
+  "long_leg_fno_eligible_share_recent": 0.32438284971849285,
+  "fill_recent_regime": {
+    "n_entry_events": 1185,
+    "no_fill_rate": 0.0,
+    "avg_effective_slippage_bps_oneway": 29.345991561181435,
+    "slippage_multiplier_distribution": {
+      "1.0": 0.9383966244725739,
+      "2.0": 0.05907172995780591,
+      "3.0": 0.002531645569620253
+    },
+    "realistic_bps_roundtrip": 81.69198312236287,
+    "flat_costmodel_bps_roundtrip_recent_mix": 77.9704641350211
+  },
+  "gross_ann_return": {
+    "full_sample_horizon_aware": 0.28615180958073405,
+    "recent_regime_horizon_aware": 0.28615180958073405,
+    "card_reported_full_sample": 2.5644024258326215
+  },
+  "net_of_cost_recent_regime": {
+    "flat_costmodel": 0.2616666751227448,
+    "realistic_volcond_fill": 0.2604980031928813
+  },
+  "card_reported": {
+    "gross_ann": 2.5644024258326215,
+    "turnover": 0.2500967966095334,
+    "net_flat_full_sample": 2.5403999028954583
+  }
+}

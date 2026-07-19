@@ -1,0 +1,836 @@
+{
+ "ticker": "MINDSPACE",
+ "url_path": "MINDSPACE/consolidated/",
+ "tables": {
+  "quarterly_results": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2023": "570",
+    "Jun 2023": "593",
+    "Sep 2023": "638",
+    "Dec 2023": "608",
+    "Mar 2024": "620",
+    "Jun 2024": "628",
+    "Sep 2024": "649",
+    "Dec 2024": "649",
+    "Mar 2025": "681",
+    "Jun 2025": "740",
+    "Sep 2025": "772",
+    "Dec 2025": "814",
+    "Mar 2026": "890"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2023": "165",
+    "Jun 2023": "167",
+    "Sep 2023": "183",
+    "Dec 2023": "162",
+    "Mar 2024": "178",
+    "Jun 2024": "184",
+    "Sep 2024": "181",
+    "Dec 2024": "179",
+    "Mar 2025": "197",
+    "Jun 2025": "190",
+    "Sep 2025": "197",
+    "Dec 2025": "188",
+    "Mar 2026": "207"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2023": "405",
+    "Jun 2023": "426",
+    "Sep 2023": "455",
+    "Dec 2023": "446",
+    "Mar 2024": "442",
+    "Jun 2024": "444",
+    "Sep 2024": "468",
+    "Dec 2024": "470",
+    "Mar 2025": "484",
+    "Jun 2025": "550",
+    "Sep 2025": "575",
+    "Dec 2025": "626",
+    "Mar 2026": "683"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2023": "71%",
+    "Jun 2023": "72%",
+    "Sep 2023": "71%",
+    "Dec 2023": "73%",
+    "Mar 2024": "71%",
+    "Jun 2024": "71%",
+    "Sep 2024": "72%",
+    "Dec 2024": "72%",
+    "Mar 2025": "71%",
+    "Jun 2025": "74%",
+    "Sep 2025": "74%",
+    "Dec 2025": "77%",
+    "Mar 2026": "77%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2023": "-134",
+    "Jun 2023": "8",
+    "Sep 2023": "2",
+    "Dec 2023": "3",
+    "Mar 2024": "-33",
+    "Jun 2024": "13",
+    "Sep 2024": "3",
+    "Dec 2024": "23",
+    "Mar 2025": "26",
+    "Jun 2025": "27",
+    "Sep 2025": "-20",
+    "Dec 2025": "21",
+    "Mar 2026": "25"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2023": "98",
+    "Jun 2023": "107",
+    "Sep 2023": "115",
+    "Dec 2023": "116",
+    "Mar 2024": "119",
+    "Jun 2024": "126",
+    "Sep 2024": "130",
+    "Dec 2024": "144",
+    "Mar 2025": "156",
+    "Jun 2025": "203",
+    "Sep 2025": "204",
+    "Dec 2025": "209",
+    "Mar 2026": "220"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2023": "92",
+    "Jun 2023": "93",
+    "Sep 2023": "98",
+    "Dec 2023": "98",
+    "Mar 2024": "94",
+    "Jun 2024": "97",
+    "Sep 2024": "98",
+    "Dec 2024": "106",
+    "Mar 2025": "104",
+    "Jun 2025": "115",
+    "Sep 2025": "118",
+    "Dec 2025": "122",
+    "Mar 2026": "124"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2023": "81",
+    "Jun 2023": "234",
+    "Sep 2023": "245",
+    "Dec 2023": "235",
+    "Mar 2024": "196",
+    "Jun 2024": "234",
+    "Sep 2024": "242",
+    "Dec 2024": "242",
+    "Mar 2025": "249",
+    "Jun 2025": "259",
+    "Sep 2025": "233",
+    "Dec 2025": "316",
+    "Mar 2026": "364"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2023": "142%",
+    "Jun 2023": "42%",
+    "Sep 2023": "39%",
+    "Dec 2023": "38%",
+    "Mar 2024": "35%",
+    "Jun 2024": "41%",
+    "Sep 2024": "44%",
+    "Dec 2024": "40%",
+    "Mar 2025": "61%",
+    "Jun 2025": "36%",
+    "Sep 2025": "46%",
+    "Dec 2025": "39%",
+    "Mar 2026": "43%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2023": "-34",
+    "Jun 2023": "137",
+    "Sep 2023": "150",
+    "Dec 2023": "147",
+    "Mar 2024": "127",
+    "Jun 2024": "138",
+    "Sep 2024": "135",
+    "Dec 2024": "145",
+    "Mar 2025": "96",
+    "Jun 2025": "167",
+    "Sep 2025": "127",
+    "Dec 2025": "192",
+    "Mar 2026": "209"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2023": "-0.49",
+    "Jun 2023": "2.15",
+    "Sep 2023": "2.38",
+    "Dec 2023": "2.33",
+    "Mar 2024": "2.00",
+    "Jun 2024": "2.16",
+    "Sep 2024": "2.12",
+    "Dec 2024": "2.29",
+    "Mar 2025": "1.43",
+    "Jun 2025": "2.57",
+    "Sep 2025": "1.91",
+    "Dec 2025": "2.96",
+    "Mar 2026": "3.06"
+   },
+   {
+    "Unnamed: 0": "Raw PDF",
+    "Mar 2023": NaN,
+    "Jun 2023": NaN,
+    "Sep 2023": NaN,
+    "Dec 2023": NaN,
+    "Mar 2024": NaN,
+    "Jun 2024": NaN,
+    "Sep 2024": NaN,
+    "Dec 2024": NaN,
+    "Mar 2025": NaN,
+    "Jun 2025": NaN,
+    "Sep 2025": NaN,
+    "Dec 2025": NaN,
+    "Mar 2026": NaN
+   }
+  ],
+  "profit_loss": [
+   {
+    "Unnamed: 0": "Sales",
+    "Mar 2019": "1432",
+    "Mar 2020": "0",
+    "Mar 2021": "1138",
+    "Mar 2022": "1761",
+    "Mar 2023": "2298",
+    "Mar 2024": "2462",
+    "Mar 2025": "2596",
+    "Mar 2026": "3216"
+   },
+   {
+    "Unnamed: 0": "Expenses",
+    "Mar 2019": "419",
+    "Mar 2020": "5",
+    "Mar 2021": "300",
+    "Mar 2022": "385",
+    "Mar 2023": "751",
+    "Mar 2024": "691",
+    "Mar 2025": "741",
+    "Mar 2026": "779"
+   },
+   {
+    "Unnamed: 0": "Operating Profit",
+    "Mar 2019": "1013",
+    "Mar 2020": "-5",
+    "Mar 2021": "838",
+    "Mar 2022": "1376",
+    "Mar 2023": "1547",
+    "Mar 2024": "1772",
+    "Mar 2025": "1855",
+    "Mar 2026": "2438"
+   },
+   {
+    "Unnamed: 0": "OPM %",
+    "Mar 2019": "71%",
+    "Mar 2020": NaN,
+    "Mar 2021": "74%",
+    "Mar 2022": "78%",
+    "Mar 2023": "67%",
+    "Mar 2024": "72%",
+    "Mar 2025": "71%",
+    "Mar 2026": "76%"
+   },
+   {
+    "Unnamed: 0": "Other Income",
+    "Mar 2019": "260",
+    "Mar 2020": "0",
+    "Mar 2021": "22",
+    "Mar 2022": "-68",
+    "Mar 2023": "-110",
+    "Mar 2024": "-22",
+    "Mar 2025": "76",
+    "Mar 2026": "50"
+   },
+   {
+    "Unnamed: 0": "Interest",
+    "Mar 2019": "446",
+    "Mar 2020": "0",
+    "Mar 2021": "171",
+    "Mar 2022": "264",
+    "Mar 2023": "343",
+    "Mar 2024": "457",
+    "Mar 2025": "557",
+    "Mar 2026": "836"
+   },
+   {
+    "Unnamed: 0": "Depreciation",
+    "Mar 2019": "220",
+    "Mar 2020": "0",
+    "Mar 2021": "209",
+    "Mar 2022": "329",
+    "Mar 2023": "355",
+    "Mar 2024": "383",
+    "Mar 2025": "406",
+    "Mar 2026": "479"
+   },
+   {
+    "Unnamed: 0": "Profit before tax",
+    "Mar 2019": "607",
+    "Mar 2020": "-5",
+    "Mar 2021": "479",
+    "Mar 2022": "714",
+    "Mar 2023": "738",
+    "Mar 2024": "911",
+    "Mar 2025": "968",
+    "Mar 2026": "1172"
+   },
+   {
+    "Unnamed: 0": "Tax %",
+    "Mar 2019": "15%",
+    "Mar 2020": "0%",
+    "Mar 2021": "30%",
+    "Mar 2022": "37%",
+    "Mar 2023": "58%",
+    "Mar 2024": "38%",
+    "Mar 2025": "47%",
+    "Mar 2026": "41%"
+   },
+   {
+    "Unnamed: 0": "Net Profit",
+    "Mar 2019": "515",
+    "Mar 2020": "-5",
+    "Mar 2021": "335",
+    "Mar 2022": "447",
+    "Mar 2023": "308",
+    "Mar 2024": "561",
+    "Mar 2025": "514",
+    "Mar 2026": "694"
+   },
+   {
+    "Unnamed: 0": "EPS in Rs",
+    "Mar 2019": NaN,
+    "Mar 2020": NaN,
+    "Mar 2021": "5.18",
+    "Mar 2022": "7.15",
+    "Mar 2023": "4.78",
+    "Mar 2024": "8.85",
+    "Mar 2025": "7.82",
+    "Mar 2026": "10.05"
+   },
+   {
+    "Unnamed: 0": "Dividend Payout %",
+    "Mar 2019": "0%",
+    "Mar 2020": "0%",
+    "Mar 2021": "185%",
+    "Mar 2022": "258%",
+    "Mar 2023": "399%",
+    "Mar 2024": "216%",
+    "Mar 2025": "278%",
+    "Mar 2026": "238%"
+   }
+  ],
+  "balance_sheet": [
+   {
+    "Unnamed: 0": "Equity Capital",
+    "Mar 2019": 50,
+    "Mar 2020": 0.0,
+    "Mar 2021": 16284,
+    "Mar 2022": 16284,
+    "Mar 2023": 16284,
+    "Mar 2024": 16284,
+    "Mar 2025": 16582,
+    "Mar 2026": 17697
+   },
+   {
+    "Unnamed: 0": "Reserves",
+    "Mar 2019": 1581,
+    "Mar 2020": -5.0,
+    "Mar 2021": 19,
+    "Mar 2022": -663,
+    "Mar 2023": -1501,
+    "Mar 2024": -2115,
+    "Mar 2025": -2528,
+    "Mar 2026": -2651
+   },
+   {
+    "Unnamed: 0": "Borrowings",
+    "Mar 2019": 6162,
+    "Mar 2020": 0.0,
+    "Mar 2021": 3774,
+    "Mar 2022": 4461,
+    "Mar 2023": 5466,
+    "Mar 2024": 6986,
+    "Mar 2025": 10125,
+    "Mar 2026": 12991
+   },
+   {
+    "Unnamed: 0": "Other Liabilities",
+    "Mar 2019": 1339,
+    "Mar 2020": 5.0,
+    "Mar 2021": 2169,
+    "Mar 2022": 2205,
+    "Mar 2023": 2427,
+    "Mar 2024": 2660,
+    "Mar 2025": 2908,
+    "Mar 2026": 3535
+   },
+   {
+    "Unnamed: 0": "Total Liabilities",
+    "Mar 2019": 9132,
+    "Mar 2020": 0.0,
+    "Mar 2021": 22246,
+    "Mar 2022": 22287,
+    "Mar 2023": 22676,
+    "Mar 2024": 23815,
+    "Mar 2025": 27088,
+    "Mar 2026": 31573
+   },
+   {
+    "Unnamed: 0": "Fixed Assets",
+    "Mar 2019": 6052,
+    "Mar 2020": 0.0,
+    "Mar 2021": 21199,
+    "Mar 2022": 21223,
+    "Mar 2023": 21431,
+    "Mar 2024": 21974,
+    "Mar 2025": 24774,
+    "Mar 2026": 28790
+   },
+   {
+    "Unnamed: 0": "CWIP",
+    "Mar 2019": 2,
+    "Mar 2020": 0.0,
+    "Mar 2021": 2,
+    "Mar 2022": 0,
+    "Mar 2023": 0,
+    "Mar 2024": 0,
+    "Mar 2025": 65,
+    "Mar 2026": 128
+   },
+   {
+    "Unnamed: 0": "Investments",
+    "Mar 2019": 1,
+    "Mar 2020": 0.0,
+    "Mar 2021": 2,
+    "Mar 2022": 2,
+    "Mar 2023": 3,
+    "Mar 2024": 3,
+    "Mar 2025": 4,
+    "Mar 2026": 4
+   },
+   {
+    "Unnamed: 0": "Other Assets",
+    "Mar 2019": 3077,
+    "Mar 2020": 0.0,
+    "Mar 2021": 1043,
+    "Mar 2022": 1061,
+    "Mar 2023": 1242,
+    "Mar 2024": 1838,
+    "Mar 2025": 2245,
+    "Mar 2026": 2651
+   },
+   {
+    "Unnamed: 0": "Total Assets",
+    "Mar 2019": 9132,
+    "Mar 2020": 0.0,
+    "Mar 2021": 22246,
+    "Mar 2022": 22287,
+    "Mar 2023": 22676,
+    "Mar 2024": 23815,
+    "Mar 2025": 27088,
+    "Mar 2026": 31573
+   }
+  ],
+  "cash_flow": [
+   {
+    "Unnamed: 0": "Cash from Operating Activity",
+    "Mar 2019": "934",
+    "Mar 2020": "0",
+    "Mar 2021": "798",
+    "Mar 2022": "1162",
+    "Mar 2023": "1393",
+    "Mar 2024": "1527",
+    "Mar 2025": "2017",
+    "Mar 2026": "2414"
+   },
+   {
+    "Unnamed: 0": "Cash from Investing Activity",
+    "Mar 2019": "-586",
+    "Mar 2020": "0",
+    "Mar 2021": "853",
+    "Mar 2022": "-456",
+    "Mar 2023": "-751",
+    "Mar 2024": "-1459",
+    "Mar 2025": "-1500",
+    "Mar 2026": "-1293"
+   },
+   {
+    "Unnamed: 0": "Cash from Financing Activity",
+    "Mar 2019": "-356",
+    "Mar 2020": "0",
+    "Mar 2021": "-1504",
+    "Mar 2022": "-754",
+    "Mar 2023": "-456",
+    "Mar 2024": "-164",
+    "Mar 2025": "-473",
+    "Mar 2026": "-919"
+   },
+   {
+    "Unnamed: 0": "Net Cash Flow",
+    "Mar 2019": "-8",
+    "Mar 2020": "0",
+    "Mar 2021": "146",
+    "Mar 2022": "-48",
+    "Mar 2023": "186",
+    "Mar 2024": "-96",
+    "Mar 2025": "45",
+    "Mar 2026": "202"
+   },
+   {
+    "Unnamed: 0": "Free Cash Flow",
+    "Mar 2019": "165",
+    "Mar 2020": "0",
+    "Mar 2021": "394",
+    "Mar 2022": "588",
+    "Mar 2023": "627",
+    "Mar 2024": "443",
+    "Mar 2025": "529",
+    "Mar 2026": "1140"
+   },
+   {
+    "Unnamed: 0": "CFO/OP",
+    "Mar 2019": "107%",
+    "Mar 2020": "0%",
+    "Mar 2021": "102%",
+    "Mar 2022": "97%",
+    "Mar 2023": "101%",
+    "Mar 2024": "97%",
+    "Mar 2025": "122%",
+    "Mar 2026": "113%"
+   }
+  ],
+  "ratios": [
+   {
+    "Unnamed: 0": "Debtor Days",
+    "Mar 2019": 8.0,
+    "Mar 2020": NaN,
+    "Mar 2021": "7",
+    "Mar 2022": "4",
+    "Mar 2023": "9",
+    "Mar 2024": "16",
+    "Mar 2025": "8",
+    "Mar 2026": "6"
+   },
+   {
+    "Unnamed: 0": "Inventory Days",
+    "Mar 2019": NaN,
+    "Mar 2020": NaN,
+    "Mar 2021": NaN,
+    "Mar 2022": NaN,
+    "Mar 2023": NaN,
+    "Mar 2024": NaN,
+    "Mar 2025": NaN,
+    "Mar 2026": NaN
+   },
+   {
+    "Unnamed: 0": "Days Payable",
+    "Mar 2019": NaN,
+    "Mar 2020": NaN,
+    "Mar 2021": NaN,
+    "Mar 2022": NaN,
+    "Mar 2023": NaN,
+    "Mar 2024": NaN,
+    "Mar 2025": NaN,
+    "Mar 2026": NaN
+   },
+   {
+    "Unnamed: 0": "Cash Conversion Cycle",
+    "Mar 2019": 8.0,
+    "Mar 2020": NaN,
+    "Mar 2021": "7",
+    "Mar 2022": "4",
+    "Mar 2023": "9",
+    "Mar 2024": "16",
+    "Mar 2025": "8",
+    "Mar 2026": "6"
+   },
+   {
+    "Unnamed: 0": "Working Capital Days",
+    "Mar 2019": 310.0,
+    "Mar 2020": NaN,
+    "Mar 2021": "-381",
+    "Mar 2022": "-327",
+    "Mar 2023": "-231",
+    "Mar 2024": "-403",
+    "Mar 2025": "-309",
+    "Mar 2026": "-508"
+   },
+   {
+    "Unnamed: 0": "ROCE %",
+    "Mar 2019": NaN,
+    "Mar 2020": "-0%",
+    "Mar 2021": "6%",
+    "Mar 2022": "5%",
+    "Mar 2023": "6%",
+    "Mar 2024": "7%",
+    "Mar 2025": "7%",
+    "Mar 2026": "8%"
+   }
+  ],
+  "shareholding": null
+ },
+ "top_ratios": {
+  "Market Cap": "\u20b9 32,632 Cr.",
+  "Current Price": "\u20b9 493",
+  "High / Low": "\u20b9 512 / 409",
+  "Stock P/E": "48.2",
+  "Book Value": "\u20b9 232",
+  "Dividend Yield": "8.62 %",
+  "ROCE": "7.64 %",
+  "ROE": "4.65 %",
+  "Face Value": "\u20b9 485"
+ },
+ "documents": [
+  {
+   "text": "All",
+   "href": "https://www.bseindia.com/stock-share-price/mindspace-business-parks-reit/MINDSPACE/543217/corp-announcements/"
+  },
+  {
+   "text": "Reg 23(5)(i): Disclosure of material issue 2d - ICRA reaffirmed AAA/Stable ratin",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=357f4a3f-23dd-4939-8687-247082c99383.pdf"
+  },
+  {
+   "text": "Reg 23(5)(i): Disclosure of material issue 11 Jul - CRISIL reaffirmed Mindspace ",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=fbac997f-6755-4b74-90e8-a31868025f85.pdf"
+  },
+  {
+   "text": "Reg 23(5)(i): Disclosure of material issue 9 Jul - Mindspace REIT approved debt ",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=50412f6f-c967-4000-84be-1f343020a670.pdf"
+  },
+  {
+   "text": "Reg 23(5)(i): Disclosure of material issue 6 Jul - Executive Committee meets Jul",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=3ee6133f-23a1-42f2-8bcb-ef2f7dcc2fbc.pdf"
+  },
+  {
+   "text": "Reg 23(5)(i): Disclosure of material issue 2 Jul - Mindspace REIT submitted its ",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=1bdce383-394b-469b-864d-158993cb8061.pdf"
+  },
+  {
+   "text": "Financial Year 2024 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/8ff3b1cf-a7d8-4f9c-9748-088dbd99c22a.pdf"
+  },
+  {
+   "text": "Financial Year 2023 from bse",
+   "href": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/19be8e92-b8ad-4a15-a2d4-86ba1723cadb.pdf"
+  },
+  {
+   "text": "Financial Year 2022 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/543217/73157543217.pdf"
+  },
+  {
+   "text": "Financial Year 2021 from bse",
+   "href": "https://www.bseindia.com/bseplus/AnnualReport/543217/68516543217.pdf"
+  },
+  {
+   "text": "Rating update 13 Jul from icra",
+   "href": "https://www.icra.in/Rationale/ShowRationaleReport/?Id=144187"
+  },
+  {
+   "text": "Rating update 19 Jun from icra",
+   "href": "https://www.icra.in/Rationale/ShowRationaleReport/?Id=143701"
+  },
+  {
+   "text": "Rating update 18 Mar from icra",
+   "href": "https://www.icra.in/Rationale/ShowRationaleReport/?Id=141656"
+  },
+  {
+   "text": "Rating update 27 Oct 2025 from icra",
+   "href": "https://www.icra.in/Rationale/ShowRationaleReport/?Id=138551"
+  },
+  {
+   "text": "Rating update 30 Jul 2025 from icra",
+   "href": "https://www.icra.in/Rationale/ShowRationaleReport/?Id=136755"
+  },
+  {
+   "text": "Rating update 9 Jun 2025 from icra",
+   "href": "https://www.icra.in/Rationale/ShowRationaleReport/?Id=135624"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2026/01/Investor-Presentation_Q3-FY26-1.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2025/12/Analyst-Day-2nd-December-2025-Final.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2025/11/Investor-Presentation_Q2-FY26-1.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2025/11/Mindspace-REIT-Corporate-Presentation-Q2-FY26-1.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/11/Mindspace-REIT_Q1-FY26_Transcript.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2025/09/Singapore_Presentation.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2025/08/Mindspace-REIT-Corporate-Presentation-Q1FY26.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/08/Investor-Presentation_Q1FY26-1.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2023/08/Q-City-Investor-Presentation2.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/08/Mindspace-REIT-Non-deal-Roadshow-Presentation-Hong-Kong.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/08/Mindspace-REIT-Corporate-Presentation-Q4-FY25-1.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://youtu.be/LgGdf9t0p78"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/11/Mindspace-REIT_Q4-FY25_Transcript.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/11/Investor-Presentation_Q4-FY25.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/08/Mindspace-REIT-Corporate-Presentation.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2023/08/Mindspace-REIT-Acquisition-Transcript.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/11/Investor-Presentation_Q3FY25_3.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2023/08/Audio-Recording.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/11/Mindspace-Jan24-2025_Q3-FY25_Transcript.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/08/Mindspace-REIT-Corporate-Presentation-Q3-FY25.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/11/10028888.mp3"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/08/Mindspace-REIT-Corporate-Presentation-Q2-FY25-1.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/12/Transcript-Q2-Fy25.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/08/Mindspace-REIT-Analyst-Day-November-2024-1.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/11/SHO1120241025155609.mp3"
+  },
+  {
+   "text": "PPT",
+   "href": "https://stockdiscovery.s3.amazonaws.com/insight/india/40224/Investor%20Presentation/IP-Sep24.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/12/MindspaceBusiness-Earnings-31July-2024.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/08/Mindspace-REIT-Corporate-Presentation-Q1-FY25.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/12/Investor-Presentation_Q1-FY2025.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/08/Mindspace-REIT-Corporate-Presentation-Q4-FY24.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/11/MindspaceOffice-Earnings-30Apr-2024.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/11/Investor-Presentation_Q4-FY2024.pdf"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/11/Mindspace-REIT-Q3-FY24-Earnings-Call-Transcript-1.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=ad560ae3-b172-481b-99b4-f2a468d2b555.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/11/Mindspace-REIT-Q3-FY24-Earnings-Conference-Call.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/11/MindSpace_REIT_Oct31-2023.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://nsearchives.nseindia.com/corporate/MINDSPACE_31102023192847_InvestorPresentation.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/11/SHO1120231031149331.mp3"
+  },
+  {
+   "text": "Transcript",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/12/Mindspace-Business-Parks-REIT-Q1-FY24-Earnings.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=b8e9f943-dde5-4cd7-95ab-0d4a7dea7230.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=0f41523c-3624-43ec-94f2-ac053d824961.pdf"
+  },
+  {
+   "text": "REC",
+   "href": "https://www.mindspacereit.com/wp-content/uploads/2020/08/WhatsApp-Audio-2023-07-27-at-9.04.09-PM.mp3"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=100fc5fe-8999-4d54-8980-6a94c9b26eba.pdf"
+  },
+  {
+   "text": "PPT",
+   "href": "https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=9befddf8-2382-4a4e-8b44-f35f5c1af706.pdf"
+  }
+ ]
+}

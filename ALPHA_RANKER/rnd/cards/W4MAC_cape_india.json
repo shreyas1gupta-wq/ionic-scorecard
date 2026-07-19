@@ -1,0 +1,22 @@
+{
+  "factor_id": "W4MAC_cape_india",
+  "family": "market_regime_macro",
+  "author": "macro-strategist-cyrus-daruwalla",
+  "date_tested": "2026-07-17",
+  "description": "Cyclically-adjusted India P/E10 (CAPE-style): aggregate market cap (sum of stock_valuation_pit mktcap) / trailing 120-month mean of aggregate net profit, NOMINAL (no India CPI on disk to deflate -- flagged [INFERENCE], this is NOT a true Shiller real-CAPE). Own-history expanding z-score (min_periods=24) tested vs forward NIFTY-proxy 1Y/5Y returns and 1Y forward drawdown.",
+  "data": "ALPHA_RANKER/rnd/panel/stock_valuation_pit.parquet (mktcap, net_profit, PIT via MASTER_fundamentals_pit.parquet available_date). Forward targets from an EW-cube proxy index built off rnd/panel/cube_close_long.parquet (cross-sectional median daily return, cumulated) -- validated r=0.909 vs official NIFTY500 index over the 2016-2025 overlap (n=119 months).",
+  "buildable": true,
+  "non_null_months": 130,
+  "first_valid_date": "2015-03-31",
+  "results": {
+    "corr_fwd_ret_1Y": 0.114, "n_1Y": 94,
+    "corr_fwd_ret_5Y": 0.904, "n_5Y": 45,
+    "corr_fwd_maxdd_1Y": 0.086, "n_maxdd": 94,
+    "era_split": "H1(2017-02..2020-12,n=47)=0.48 | H2(2021-01..2024-11,n=47)=0.51 -- sign stable",
+    "dropone_bear": {"COVID_2020": -0.016, "HIKE_2022": 0.168, "note": "only 2 bears reachable at all -- 120mo history requirement structurally excludes 2008 GFC from ever entering this gauge's sample"},
+    "dropone_sign_stable": false
+  },
+  "interpretation": "[INFERENCE] Two structural problems, not just noise: (1) NOMINAL 10yr smoothing in a ~10-12%/yr nominal-earnings-growth economy mechanically inflates the P/E10 level over time (current reading ~62-65x) -- the LEVEL is not comparable to a fixed 'cheap/dear' band the way US Shiller-CAPE (~15-25x historically) is; only the gauge's own expanding z-score is usable, exactly as ABSOLUTE_SCORER_SPEC prescribes ('vs its own long history'). (2) The 120-month lookback is a hard floor -- first valid reading is 2015-03, so CAPE-India can NEVER see 2008 in this dataset's frame, no matter how much daily history exists. Its drop-one test only has 2 bears (COVID, HIKE-2022) to begin with, and dropping COVID flips the (already-weak, 0.114) 1Y correlation sign. The eye-catching 5Y correlation (0.904, n=45) is built from heavily overlapping 60-month windows -- effectively ~2-3 independent 5Y periods, not 45 -- and should NOT be read as a strong result; it is a low-effective-df artifact.",
+  "overall_verdict": "BUILDABLE but WEAK and NOT robust: 1Y signal is near-zero and sign-flips on a single bear-drop; the headline 5Y number is inflated by window overlap; and the construction structurally cannot be tested across 2008. Contrast vs plain trailing EY (already in market_state.EY_hist_zscore_expanding, full history from 2007, era-split stable at 0.27/0.25): trailing EY is both longer-history and more era-stable than this CAPE construction on this data. Do NOT let CAPE override or replace the plain-EY valuation band in M; at most a minor corroborating input.",
+  "confidence": "MEDIUM on the weak/fragile verdict (mechanism -- short effective history, overlapping-window inflation -- is well understood, not a data bug); LOW on ever promoting this to a standalone gauge without a real CPI deflator (India CPI still not on disk anywhere, per macro_state.py PARKED note)."
+}

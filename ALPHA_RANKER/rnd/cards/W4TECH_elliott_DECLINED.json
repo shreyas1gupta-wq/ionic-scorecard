@@ -1,0 +1,7 @@
+{
+  "factor_id": "W4TECH_elliott_DECLINED",
+  "status": "DECLINED_NOT_TESTED",
+  "pattern": "Elliott Wave (5-3 impulse/corrective wave counts, Fibonacci ratio targets)",
+  "reason": "Non-falsifiable as commonly practiced: wave counts are re-labelled after the fact whenever price violates the prior count (\"it must have been a wave (b), not wave 3\"), and there is no single canonical rule-set -- Elliott/Prechter/Neely/Frost all differ on alternation, extension, and truncation rules, each with enough discretionary escape hatches that any price path can be fitted post hoc. A MECHANICAL, no-relabelling wave-counter (fixed pivot-detection threshold, fixed rule precedence, no re-labelling ever) is a materially different -- and much weaker -- object than what Elliott practitioners actually mean by \"Elliott wave\", so testing a rigid version and reporting it as a test of \"Elliott wave analysis\" would misrepresent what was tested. Declined per task instruction (\"decline to test and say why\"), not silently skipped.",
+  "resurrection_condition": "A pre-registered, single, rigid pivot/wave-labelling algorithm with NO after-the-fact re-labelling allowed, proposed and frozen BEFORE seeing its backtest result."
+}

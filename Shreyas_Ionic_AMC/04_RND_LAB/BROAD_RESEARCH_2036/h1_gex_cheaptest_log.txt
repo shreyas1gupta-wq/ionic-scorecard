@@ -1,0 +1,57 @@
+[DATA] OI surface rows: 377034 distinct trade_dates: 402
+[DATA] spot join: 400/402 trade_dates matched to nifty50.parquet (expect ~400/402 per prior scan)
+[DATA] rows after dte>0 & oi>0 & close>0 filter: 252171
+[COMPUTE] back-solving IV via vectorized Newton-Raphson/bisection...
+[COMPUTE] IV solved for 206202/252171 rows (81.8%)
+[DATA] dropped 3003 rows with IV>100% sanity cap; usable rows: 203199
+[DATA] final day-level sample n=400 (dates with usable GEX + next-day range)
+
+=== Convention gex_A — quintile stats (0=most negative/extreme-short-gamma bucket after sort) ===
+        next_range_pct                         gex_A                    
+                  mean    median count          mean        median count
+gex_A_q                                                                 
+0             0.010223  0.008253    80 -2.324676e+12 -5.452183e+10    80
+1             0.011191  0.009814    80  2.055078e+12  2.069200e+12    80
+2             0.010404  0.008546    80  3.937792e+12  3.958007e+12    80
+3             0.009281  0.008421    80  6.844133e+12  6.724838e+12    80
+4             0.008841  0.008113    80  1.850643e+13  1.457573e+13    80
+q0(most-neg-GEX) mean next-day range=1.0223% n=80 | q4(most-pos-GEX) mean=0.8841% n=80 | spread(q0-q4)=0.1382% | Mann-Whitney p=0.1354 | bootstrap 95% CI on spread=[-0.00010489  0.00282027]
+
+=== Convention gex_B — quintile stats (0=most negative/extreme-short-gamma bucket after sort) ===
+        next_range_pct                         gex_B                    
+                  mean    median count          mean        median count
+gex_B_q                                                                 
+0             0.008431  0.007522    80 -1.476915e+14 -1.302517e+14    80
+1             0.008645  0.007260    80 -7.925934e+13 -7.801897e+13    80
+2             0.009815  0.008736    80 -5.456132e+13 -5.481275e+13    80
+3             0.010637  0.009729    80 -3.563291e+13 -3.530378e+13    80
+4             0.012412  0.011583    80 -2.024990e+13 -2.039795e+13    80
+q0(most-neg-GEX) mean next-day range=0.8431% n=80 | q4(most-pos-GEX) mean=1.2412% n=80 | spread(q0-q4)=-0.3981% | Mann-Whitney p=0.0000 | bootstrap 95% CI on spread=[-0.00543745 -0.00241772]
+
+[DATA] strangle trades: 5031, matched to a prior/contemporaneous GEX snapshot: 5031 (100.0%) via asof-backward (PIT-safe)
+
+=== S-04 strangle P&L (strangle_managed) by gex_A_q quintile ===
+        strangle_managed       strangle_hold      
+                    mean count          mean count
+gex_A_q                                           
+0               0.004088  1236      0.005888  1236
+1              -0.000297   681     -0.000428   681
+2               0.001764   908      0.001993   908
+3               0.002116  1000      0.002997  1000
+4               0.002243  1206      0.004455  1206
+q0 mean managed P&L=0.4088% n=1236 | q4 mean=0.2243% n=1206 | diff(q0-q4)=0.1845% | Mann-Whitney p=0.0000
+
+=== S-04 strangle P&L (strangle_managed) by gex_B_q quintile ===
+        strangle_managed       strangle_hold      
+                    mean count          mean count
+gex_B_q                                           
+0               0.002588  2001      0.004116  2001
+1               0.002720   968      0.003946   968
+2               0.001871   863      0.002040   863
+3               0.000851   830      0.001450   830
+4               0.003089   369      0.005813   369
+q0 mean managed P&L=0.2588% n=2001 | q4 mean=0.3089% n=369 | diff(q0-q4)=-0.0501% | Mann-Whitney p=0.0000
+
+=== Placebo test: shuffle GEX-quintile labels across dates (2000 draws) ===
+gex_A_q: observed spread=0.1382% | placebo null mean=-0.0037% std=0.0797% | one-sided p (shuffle as/more extreme)=0.0350
+gex_B_q: observed spread=-0.3981% | placebo null mean=-0.0024% std=0.0762% | one-sided p (shuffle as/more extreme)=0.0000

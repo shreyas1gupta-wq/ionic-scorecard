@@ -1,0 +1,37 @@
+{
+  "n_events_total_valid": 2642,
+  "BEAR_OVERSOLD": {
+    "n": 2,
+    "note": "n<15, not computed (too small for even a directional read)"
+  },
+  "BOOMING_BULL": {
+    "n": 19,
+    "ic": 0.06491228070175438,
+    "ic_p": 0.7917682134335994,
+    "placebo_ic_mean": 0.10350877192982458,
+    "date_range": [
+      "2021-01-18",
+      "2024-07-29"
+    ]
+  },
+  "NORMAL_CHOPPY": {
+    "n": 655,
+    "ic": -0.003127464533064535,
+    "ic_p": 0.9363260079104234,
+    "placebo_ic_mean": 0.009615671813922737,
+    "date_range": [
+      "2020-01-30",
+      "2025-10-30"
+    ]
+  },
+  "OTHER": {
+    "n": 1966,
+    "ic": -0.006353262314661807,
+    "ic_p": 0.7783079237609601,
+    "placebo_ic_mean": 0.012632086560286877,
+    "date_range": [
+      "2020-10-19",
+      "2025-11-14"
+    ]
+  }
+}

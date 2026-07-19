@@ -14,7 +14,7 @@ Two Claude accounts run this firm on the same laptop, same folder:
 ## HARD RULES (approval gates — never bypass)
 - **EPISTEMIC CONDUCT (D-035 class, 2026-07-13): never fabricate; estimates labeled; no silent assumptions; tag [DATA]/[INFERENCE]/[OPINION]; verify before claiming done — full order in 00_GOVERNANCE/EPISTEMIC_CONDUCT.md.**
 - **NO real-money trades, ever.** Angel account is fund-less/data-only. Everything is research/paper until the user explicitly approves a live step himself.
-- **Cost/slippage/brokerage assumptions**: use ONLY `06_TRADING_DESK/COST_STANDARDS.md` once user-APPROVED. Until then it is DRAFT.
+- **Cost/slippage/brokerage assumptions**: use ONLY `06_TRADING_DESK/COST_STANDARDS.md`. **STATUS: APPROVED** (D-021, 2026-07-03) — binding on all backtests/paper trades; amendments only via /post-mortem evidence + Principal sign-off. (Corrected 2026-07-18 — this line previously said DRAFT, stale since D-021.)
 - **Approvals (D-025):** prompts/standards/data-sources/adoptions/hires = CEO + CIO JOINT approval (both must agree; tie → Principal). LIVE capital + RISK_LIMITS loosening = Principal ONLY, always.
 - **Data fetching (D-033, 2026-07-11): auto-fetch of RELIABLE external sources is permitted** (exchange archives, Stooq/FRED-class, official APIs) — conditional on D-009 sample verification before use (spot-check known values, no lookahead, schema sane per `05_DATA_OFFICE/DATA_QUALITY_RULES.md`), a DATA_CATALOG entry, and resume-safe background jobs for big pulls. Sketchy/unverifiable sources still need Principal approval.
 - Idea pipeline gates auto-advance EXCEPT the final gate (paper→live) = user only.
@@ -50,7 +50,7 @@ Shreyas_Ionic_AMC/
 ├── 03_RESEARCH_DESK/  IC_MEMO_TEMPLATE, memos/ (one per idea, permanent track record)
 ├── 04_RND_LAB/        IDEA_PIPELINE (stage gates), KILLED_IDEAS (with resurrection conditions), KNOWLEDGE_BASE
 ├── 05_DATA_OFFICE/    DATA_CATALOG (single source of truth), DATA_QUALITY_RULES
-├── 06_TRADING_DESK/   COST_STANDARDS (DRAFT), STRATEGY_REGISTER, PAPER_LEDGER
+├── 06_TRADING_DESK/   COST_STANDARDS (APPROVED, D-021), STRATEGY_REGISTER, PAPER_LEDGER
 ├── 07_RISK_OFFICE/    RISK_LIMITS, ADVERSARIAL_REVIEWS
 ├── 08_BOARD_ROOM/     BOARD_CHARTER (monthly board meet), minutes/, month_end/ checkpoints
 ├── 90_PRINCIPALS_DESK/ Principal's NON-FIRM tasks (his job) — INBOX/active/done, firewalled

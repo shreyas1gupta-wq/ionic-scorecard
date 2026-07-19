@@ -1,0 +1,14 @@
+[
+  {
+    "asof_date": "2025-12-05",
+    "banked_at_utc": "2026-07-17T04:53:10.243459+00:00",
+    "n_names_total_in_output": 976,
+    "n_names_scored_true7": 802,
+    "scores_file": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\ALPHA_RANKER\\rnd\\forward_test\\scores_asof_20251205.parquet",
+    "universe_snapshot_file": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\ALPHA_RANKER\\rnd\\forward_test\\universe_snapshot_asof_20251205.csv",
+    "freeze_manifest_file": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\ALPHA_RANKER\\rnd\\forward_test\\freeze_manifest.json",
+    "freeze_manifest_sha256": "9fbfe8d4f62395f7a67efe307cc9025646524e837eaaa3665aa1576e758661cb",
+    "disclosure": "asof_date is the LATEST date at which the underlying fundamentals+price panel (panel_long.parquet) actually has data -- this is a PIT constraint of the fundamentals source, not a calendar 'today'. If asof_date is materially before the freeze date, that lag itself must be disclosed in the IC memo / any forward-test grading write-up (it shortens the true elapsed forward window).",
+    "grading_rule": "THIS FILE / SCRIPT NEVER SELF-GRADES. See rnd/forward_test/FROZEN_SPEC.md for the pre-registered, evaluate-ONCE protocol."
+  }
+]

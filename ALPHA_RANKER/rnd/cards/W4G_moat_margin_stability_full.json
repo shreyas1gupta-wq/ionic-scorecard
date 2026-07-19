@@ -1,0 +1,108 @@
+{
+  "factor_id": "W4G_moat_margin_stability",
+  "horizon": "5Y",
+  "return_basis": "resid",
+  "family": "W4G_moat_margin_stability",
+  "standalone": {
+    "factor_id": "W4G_moat_margin_stability",
+    "family": "W4G_moat_margin_stability",
+    "horizon": "5Y",
+    "return_basis": "resid",
+    "status": "OK",
+    "panel_source": "real_panel_long",
+    "n_trials": 595,
+    "n_dates": 150,
+    "n_obs": 40645,
+    "generated_at": "2026-07-17T08:34:46.051821+00:00",
+    "ic": {
+      "ic_mean": 0.014588222907332587,
+      "ic_std": 0.07654012601887115,
+      "ic_ir": 0.19059575239967366,
+      "newey_west_t": 0.5967619796323352,
+      "nw_lag": 59,
+      "n_ic_dates": 80
+    },
+    "deciles": {
+      "monotonicity": -0.8787878787878788,
+      "n_decile_dates": 80
+    },
+    "long_short": {
+      "ann_return_LS": -18.07442748432009,
+      "ann_return_LS_horizon_aware": -0.3012404580720015,
+      "hit_rate": 0.2875,
+      "n_periods": 80
+    },
+    "turnover": {
+      "avg_top_decile_turnover": 0.04928096701080603
+    },
+    "costs": {
+      "blended_cost_bps_roundtrip": 79.93086003372682,
+      "cost_source": "C:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\06_TRADING_DESK\\COST_STANDARDS.md",
+      "cost_approved": true,
+      "ann_cost_drag": 0.004726884091760935,
+      "net_of_cost_ann_return": -18.07915436841185,
+      "net_of_cost_ann_return_horizon_aware": -0.3059673421637624
+    },
+    "dsr": {
+      "dsr": 0.0,
+      "sr_hat": -0.7687758903223809,
+      "sr0_expected_max": 3.1044425433900766,
+      "skew": -1.1698978305779575,
+      "kurtosis": 3.502617705956237,
+      "n_obs": 80,
+      "n_trials": 595
+    },
+    "pbo": {
+      "pbo": 0.8917748917748918,
+      "n_combos": 924,
+      "n_blocks": 12,
+      "n_obs": 80,
+      "median_is_sharpe": -0.7903686004165572,
+      "median_oos_sharpe": -0.7903686004165572
+    },
+    "regime_breakdown": {
+      "regime_trend": {
+        "bear": -0.009550677713787018,
+        "bull": 0.03869898714923923,
+        "sideways": -0.013218903658307562
+      },
+      "regime_vol": {
+        "high": -0.05918980328675518,
+        "low": 0.025939805533501066,
+        "normal": 0.02698791986421738
+      }
+    },
+    "lag_test": {
+      "ic_lag_mean": 0.013843855394108932,
+      "lag_test_delta": 0.05102523576394686
+    },
+    "placebo": {
+      "placebo_ic": 0.005323801848856221,
+      "n_shuffles": 5,
+      "seed": 42
+    },
+    "verdict": "KILL (IC_IR 0.191 < 0.2; PBO 0.892 > 0.5; DSR 0.000 <= 0.0)"
+  },
+  "corr_vs_canonical_7leg_composite": {
+    "mean_corr": 0.1923564673756761,
+    "n_dates": 142
+  },
+  "corr_vs_mom_resid_peer": {
+    "mean_corr": 0.04362730653253309,
+    "n_dates": 142
+  },
+  "incremental_8leg": {
+    "baseline_7leg_ic_ir": 1.8992826899247137,
+    "8leg_ic_ir": 1.705264725458808,
+    "delta_ic_ir": -0.1940179644659057,
+    "verdict": "hurts (dilutive)",
+    "min_legs_baseline": "5-of-7",
+    "min_legs_8leg": "6-of-8"
+  },
+  "n_disc_events_excluded": 2974,
+  "panel_source": "real_panel_long",
+  "corr_vs_QMJ_leg": {
+    "mean_corr": 0.3801921057126106,
+    "n_dates": 142
+  }
+}

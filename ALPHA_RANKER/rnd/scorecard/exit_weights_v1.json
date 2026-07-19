@@ -1,0 +1,70 @@
+{
+  "_meta": {
+    "owner": "quant-head-arjun-rao (E-004), implementing fm-fundamental-sanjay-kulkarni's EXIT_TRIGGER_SPEC.md",
+    "date": "2026-07-18",
+    "scope": "Legs 1-3 ONLY. Leg 4 (technical stop/trim) is present in EXIT_TRIGGER_SPEC.md \u00c2\u00a73.5 but explicitly NOT implemented this pass per task instructions -- its thresholds belong here once leg 4 is built.",
+    "determinism_contract": "Same as SCORECARD_BLUEPRINT.md \u00c2\u00a74 -- every number a build script reads lives here, no per-run refit, version bump (_v1->_v2) is the only way any number changes."
+  },
+  "entry_screen_judgment_call": {
+    "description": "[MY CALL] EXIT_TRIGGER_SPEC.md governs HOLDING-exit logic and explicitly does not spec how a historical backtest should simulate entries (that is a live paper-ledger/STRATEGY_REGISTER process in production). For this historical overlay evaluation only, entry_date(symbol) = first date the name's rel_score_1Y OR rel_score_5Y reaches the top quintile.",
+    "rel_score_top_quintile_threshold": 60.0,
+    "note": "rel_score_h = 200*(rank_pct-0.5) in [-100,100]; top quintile = rank_pct>=0.80 => rel_score>=60. If a name crosses on BOTH horizons, the earlier of the two dates is used as entry_date (first appearance)."
+  },
+  "leg1_valuation_ceiling": {
+    "entry_thesis_gate": "VALUE_GROWTH only",
+    "round_trip_ratio_min": 2.0,
+    "own_trailing_pctile_min": 0.9,
+    "own_trailing_window_years": 8,
+    "cross_sectional_pctile_min": 0.9,
+    "richness_vs_fair_min": 1.3
+  },
+  "entry_thesis_type": {
+    "rerating_at_entry_threshold": 1.0,
+    "rule": "VALUE_GROWTH if rerating_at_entry > 1.0; MOMENTUM if rerating_at_entry <= 1.0; UNKNOWN if rerating not computed at entry_date"
+  },
+  "leg2_fundamental_deterioration": {
+    "quality_drop_deciles_min": 1,
+    "idiosyncratic_gate": "sec_earn_yoy(t, sector) >= 0 required (else presumptively macro, leg2 does not fire)"
+  },
+  "leg3_forensic_override": {
+    "stage_a_score_threshold": 70,
+    "stage_a_deterioration_since_entry_threshold": 20,
+    "stage_a_deterioration_computable": false,
+    "stage_a_deterioration_not_computable_reason": "universe_forensic_score.parquet / universe_forensic_flags.parquet are LIVE CURRENT-STATE snapshots with NO date column and NO history -- there is no PIT forensic time series on disk to diff against an entry-date score. Implemented as a CURRENT-SNAPSHOT-ONLY flag (see build script), not a time-varying PIT column, to avoid lookahead (T1-T10 taxonomy).",
+    "severe_flag_badness_min": 0.9,
+    "severe_flag_categories_data_status_required": "ok",
+    "severe_flag_names": [
+      "beneish_M_score_composite",
+      "cfo_pat_divergence_multiyear",
+      "sloan_accruals_asset_scaled_proxy",
+      "promoter_pledge_pct_and_trend"
+    ],
+    "stage_b_human_confirmation_required": true,
+    "note": "leg3_forensic_override (post Stage-B human confirmation) is NEVER auto-set TRUE by this build -- there is no analyst-read data on disk. Only leg3_pending_confirmation (Stage A tripwire) is computed. Downstream process must route Stage-A flags to equity-head-ananya-iyer / fm-fundamental-sanjay-kulkarni for filing confirmation before leg3_forensic_override can ever be TRUE."
+  },
+  "leg4_technical_stop_trim": {
+    "hard_stop_pct": 0.075,
+    "climax_run_return_min": 0.25,
+    "climax_run_window_days": 15,
+    "blowoff_return_proxy_min": 0.05,
+    "blowoff_volume_ratio_min": 1.5,
+    "avg_volume_window_days": 20,
+    "ma_short_window": 50,
+    "ma_long_window": 150,
+    "distribution_day_count_min": 4,
+    "distribution_day_window": 20,
+    "recent_cross_window_days": 10,
+    "discontinuity_guard_1day_return_abs": 0.4,
+    "thin_adv_pooled_percentile": 0.1,
+    "circuit_suspect_volume_ratio_of_avg20": 0.1,
+    "volume_data_floor_date": "2021-07-16",
+    "liquidity_diagnostic_note": "cube_volume.parquet's 751 names are already NSE F&O-eligible (a liquidity-screened subset) -- an absolute rupee-ADV floor calibrated for the broader small/microcap universe (spec's own Rs.5-10L example) essentially never fires here (checked: 1st percentile of 20d rupee-ADV in this file is ~Rs.1.9Cr, two orders of magnitude above that example). thin_adv is therefore defined RELATIVE to this file's own cross-section (bottom decile of pooled 20d-rupee-ADV) and circuit_suspect RELATIVE to each name's own recent volume (today's volume < 10% of its own 20d average) rather than an absolute floor -- both frozen, disclosed re-calibrations, not the literal spec numbers, because the literal numbers are calibrated for a broader universe than this F&O-eligible file.",
+    "gap_open_proxy_note": "No intraday open-price data on disk for the files this leg is scoped to reuse (cube_close_long.parquet has CLOSE only). gap_open(t) in spec Section 3.5.1's leg4b 'blow-off' branch is PROXIED by the close-to-close 1-day return; this is a disclosed fidelity gap versus the literal spec condition, not a silent substitution.",
+    "_meta": {
+      "owner": "technical-head-dhruv-kapoor (E-005), implementing EXIT_TRIGGER_SPEC.md Section 3.5",
+      "date": "2026-07-18",
+      "scope": "LEG 4 ONLY -- Minervini/Weinstein technical stop/trim. Legs 1-3 sections of this file are untouched (owned by quant-head-arjun-rao).",
+      "determinism_contract": "Same as legs 1-3 and SCORECARD_BLUEPRINT.md Section 4 -- every number a build script reads lives here, no per-run refit, version bump (_v1->_v2) is the only way any number changes."
+    }
+  }
+}

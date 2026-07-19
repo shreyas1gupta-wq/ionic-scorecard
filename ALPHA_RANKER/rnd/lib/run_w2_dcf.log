@@ -1,0 +1,33 @@
+panel_long rows=148297 dates=249 symbols=969 range=(2005-04-29 00:00:00,2025-12-05 00:00:00)
+W2_dcf_dcfval_w11_g3_5Y (3.0s) IC_IR=0.4731901131234998 gate=PASS harness=KILL (PBO 0.965 > 0.5)
+W2_dcf_dcfval_w11_g5_5Y (1.8s) IC_IR=0.4673633020273183 gate=PASS harness=KILL (PBO 0.974 > 0.5)
+W2_dcf_dcfval_w13_g3_5Y (1.5s) IC_IR=0.4773162754640296 gate=PASS harness=KILL (PBO 0.974 > 0.5)
+W2_dcf_dcfval_w13_g5_5Y (1.3s) IC_IR=0.47433331711182153 gate=PASS harness=KILL (PBO 0.965 > 0.5)
+W2_dcf_dcfval_w15_g3_5Y (1.9s) IC_IR=0.48124676388128457 gate=PASS harness=KILL (PBO 0.983 > 0.5)
+W2_dcf_dcfval_w15_g5_5Y (1.9s) IC_IR=0.4779831739173162 gate=PASS harness=KILL (PBO 0.970 > 0.5)
+W2_dcf_revgap_w11_g3_5Y (3.2s) IC_IR=0.460492052288267 gate=PASS harness=KILL (PBO 0.983 > 0.5)
+W2_dcf_revgap_w11_g5_5Y (3.6s) IC_IR=0.4461458468479308 gate=PASS harness=KILL (PBO 0.978 > 0.5)
+W2_dcf_revgap_w13_g3_5Y (3.5s) IC_IR=0.46981273707193993 gate=PASS harness=KILL (PBO 0.965 > 0.5)
+W2_dcf_revgap_w13_g5_5Y (2.6s) IC_IR=0.4640592247379349 gate=PASS harness=KILL (PBO 0.987 > 0.5)
+W2_dcf_revgap_w15_g3_5Y (2.8s) IC_IR=0.47700807548665985 gate=PASS harness=KILL (PBO 0.961 > 0.5)
+W2_dcf_revgap_w15_g5_5Y (3.3s) IC_IR=0.47178357604350185 gate=PASS harness=KILL (PBO 0.965 > 0.5)
+W2_dcf_dcfval_w11_g3_1Y (3.7s) IC_IR=0.17500369933817841 gate=PASS harness=KILL (IC_IR 0.175 < 0.2; PBO 0.957 > 0.5)
+W2_dcf_dcfval_w11_g5_1Y (3.8s) IC_IR=0.1757191859988788 gate=PASS harness=KILL (IC_IR 0.176 < 0.2; PBO 0.961 > 0.5)
+W2_dcf_dcfval_w13_g3_1Y (4.3s) IC_IR=0.17500052932299576 gate=PASS harness=KILL (IC_IR 0.175 < 0.2; PBO 0.965 > 0.5)
+W2_dcf_dcfval_w13_g5_1Y (4.4s) IC_IR=0.1751093852091995 gate=PASS harness=KILL (IC_IR 0.175 < 0.2; PBO 0.957 > 0.5)
+W2_dcf_dcfval_w15_g3_1Y (4.4s) IC_IR=0.17493080434163072 gate=PASS harness=KILL (IC_IR 0.175 < 0.2; PBO 0.965 > 0.5)
+W2_dcf_dcfval_w15_g5_1Y (4.3s) IC_IR=0.17487120044226961 gate=PASS harness=KILL (IC_IR 0.175 < 0.2; PBO 0.970 > 0.5)
+W2_dcf_revgap_w11_g3_1Y (6.3s) IC_IR=0.17369271036518216 gate=PASS harness=KILL (IC_IR 0.174 < 0.2; PBO 0.970 > 0.5)
+W2_dcf_revgap_w11_g5_1Y (5.4s) IC_IR=0.17367852447046492 gate=PASS harness=KILL (IC_IR 0.174 < 0.2; PBO 0.961 > 0.5)
+W2_dcf_revgap_w13_g3_1Y (5.9s) IC_IR=0.17138867086112222 gate=PASS harness=KILL (IC_IR 0.171 < 0.2; PBO 0.961 > 0.5)
+W2_dcf_revgap_w13_g5_1Y (6.7s) IC_IR=0.1737811196919142 gate=PASS harness=KILL (IC_IR 0.174 < 0.2; PBO 0.970 > 0.5)
+W2_dcf_revgap_w15_g3_1Y (5.1s) IC_IR=0.17100612332599366 gate=PASS harness=KILL (IC_IR 0.171 < 0.2; PBO 0.961 > 0.5)
+W2_dcf_revgap_w15_g5_1Y (5.0s) IC_IR=0.1714084796427724 gate=PASS harness=KILL (IC_IR 0.171 < 0.2; PBO 0.961 > 0.5)
+
+wrote C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\ALPHA_RANKER\rnd\cards\W2_dcf_sensitivity_summary.csv
+
+=== ROBUSTNESS (sign stability across WACC x g_terminal grid) ===
+dcfval 5Y: n=6 IC_IR range=[0.467,0.481] sign_stable=True all_gates_pass=True
+dcfval 1Y: n=6 IC_IR range=[0.175,0.176] sign_stable=True all_gates_pass=True
+revgap 5Y: n=6 IC_IR range=[0.446,0.477] sign_stable=True all_gates_pass=True
+revgap 1Y: n=6 IC_IR range=[0.171,0.174] sign_stable=True all_gates_pass=True
