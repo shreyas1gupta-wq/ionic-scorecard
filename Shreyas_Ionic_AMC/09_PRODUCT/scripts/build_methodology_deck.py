@@ -597,6 +597,41 @@ bullets(s, 7.0, y + 1.25, 5.5, 3.0, [
     ("Empty technical columns hide themselves until that pass runs.", "", 0),
 ], size=12.5, gap=9)
 
+# ================================================================= TOP / BOTTOM 5
+s, y = new("Highest and lowest Ionic Scores in the live 59-stock client book, with the analyst's read",
+           "The scores in practice")
+cw = [3.0, 0.85, 0.85, 7.55]
+al = [PP_ALIGN.LEFT, PP_ALIGN.CENTER, PP_ALIGN.CENTER, PP_ALIGN.LEFT]
+hdr = ["Holding", "Score", "Call", "What the analyst is seeing"]
+TOP = [
+    ["Suzlon (SUZLON)", "89.1", "Hold", "Debt-free turnaround; 6.4 GW order book from near-zero, record FY26 deliveries."],
+    ["Tata Motors CV (TMCV)", "70.2", "Hold", "Demerged CV maker executing: 11% revenue growth, margins up, share gains."],
+    ["LIC (LICI)", "69.4", "Hold", "Real margin-quality gains; market share still slipping, but more slowly."],
+    ["Motherson Wiring (MSUMI)", "68.8", "Hold", "Dominant wiring-harness supplier riding EV and SUV content growth."],
+    ["Bandhan Bank (BANDHANBNK)", "68.0", "Hold", "Microfinance stress turning; a real pivot toward secured lending."],
+]
+BOT = [
+    ["Tata Power (TATAPOWER)", "25.5", "Sell", "Full price against modest returns; the FY26 revenue dip was a one-off."],
+    ["Deepak Nitrite (DEEPAKNTR)", "28.1", "Sell", "Commodity chemicals downcycle; peak margins and returns roughly halved."],
+    ["Reliance (RELIANCE)", "30.3", "Hold", "Held on a low score; strong operating profit, reported profit hit by depreciation."],
+    ["Cochin Shipyard (COCHINSHIP)", "32.0", "Sell", "Growth stepped down sharply off a high base; margins normalizing."],
+    ["Asian Paints (ASIANPAINT)", "32.5", "Sell", "Recovery is largely an easy base effect; new-entrant competition caps upside."],
+]
+dot = s.shapes.add_shape(MSO_SHAPE.OVAL, Inches(0.6), Inches(y + 0.05), Inches(0.16), Inches(0.16))
+dot.fill.solid(); dot.fill.fore_color.rgb = HOLD; dot.line.fill.background(); dot.shadow.inherit = False
+text(s, 0.85, y - 0.06, 8, 0.3, [{"t": "Top 5 by Ionic Score", "s": 13, "c": HOLD, "f": HEAD, "b": True}])
+table(s, 0.6, y + 0.32, 12.13, cw, [hdr] + TOP, size=10.5, row_h=0.36,
+      fonts={(i, 2): HOLD for i in range(1, 6)}, aligns=al)
+yb = y + 0.32 + 0.36 * 6 + 0.22
+dot2 = s.shapes.add_shape(MSO_SHAPE.OVAL, Inches(0.6), Inches(yb + 0.05), Inches(0.16), Inches(0.16))
+dot2.fill.solid(); dot2.fill.fore_color.rgb = SELL; dot2.line.fill.background(); dot2.shadow.inherit = False
+text(s, 0.85, yb - 0.06, 8, 0.3, [{"t": "Bottom 5 by Ionic Score", "s": 13, "c": SELL, "f": HEAD, "b": True}])
+table(s, 0.6, yb + 0.32, 12.13, cw, [hdr] + BOT, size=10.5, row_h=0.36,
+      fonts={(1, 2): SELL, (2, 2): SELL, (3, 2): HOLD, (4, 2): SELL, (5, 2): SELL}, aligns=al)
+text(s, 0.6, yb + 2.62, 12.1, 0.35, [
+    {"t": "Reliance shows the analyst override at work: a low model score we deliberately Hold on forward optionality. The score informs the call, it does not dictate it.",
+     "s": 10.5, "c": MUTED, "f": BODY, "i": True}])
+
 # ================================================================= QUALITY CONTROLS
 s, y = new("How we keep it honest", "The controls matter as much as the formulas")
 rows = [
