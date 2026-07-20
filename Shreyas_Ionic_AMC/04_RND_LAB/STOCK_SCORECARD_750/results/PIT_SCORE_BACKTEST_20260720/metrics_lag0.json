@@ -1,0 +1,54 @@
+{
+ "top_ret": {
+  "total_ret": 78.5,
+  "cagr_pct": 39.3,
+  "vol_pct": 25.0,
+  "sharpe": 1.22,
+  "maxdd_pct": -7.1,
+  "periods": 7
+ },
+ "bot_ret": {
+  "total_ret": 73.0,
+  "cagr_pct": 36.8,
+  "vol_pct": 29.2,
+  "sharpe": 1.02,
+  "maxdd_pct": -13.9,
+  "periods": 7
+ },
+ "bench_ret": {
+  "total_ret": 55.3,
+  "cagr_pct": 28.6,
+  "vol_pct": 13.2,
+  "sharpe": 1.53,
+  "maxdd_pct": -5.4,
+  "periods": 7
+ },
+ "ew_ret": {
+  "total_ret": 94.6,
+  "cagr_pct": 46.3,
+  "vol_pct": 17.8,
+  "sharpe": 1.95,
+  "maxdd_pct": -5.9,
+  "periods": 7
+ },
+ "ls_ret": {
+  "total_ret": -0.1,
+  "cagr_pct": -0.1,
+  "vol_pct": 14.1,
+  "sharpe": -0.4,
+  "maxdd_pct": -4.6,
+  "periods": 7
+ },
+ "top_vs_ew": {
+  "total_ret": -8.4,
+  "cagr_pct": -4.9,
+  "vol_pct": 13.8,
+  "sharpe": -0.78,
+  "maxdd_pct": -9.6,
+  "periods": 7
+ },
+ "top_beats_bench_rate": 0.57,
+ "bot_below_bench_rate": 0.29,
+ "ls_positive_rate": 0.57,
+ "mean_universe": 201
+}

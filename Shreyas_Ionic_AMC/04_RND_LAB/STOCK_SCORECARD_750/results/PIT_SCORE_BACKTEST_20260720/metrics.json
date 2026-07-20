@@ -1,0 +1,69 @@
+{
+ "top_ret": {
+  "total_ret": 99.6,
+  "cagr_pct": 41.3,
+  "vol_pct": 25.0,
+  "sharpe": 1.28,
+  "maxdd_pct": -2.3,
+  "periods": 8
+ },
+ "bot_ret": {
+  "total_ret": 75.2,
+  "cagr_pct": 32.4,
+  "vol_pct": 29.5,
+  "sharpe": 0.89,
+  "maxdd_pct": -12.6,
+  "periods": 8
+ },
+ "bench_ret": {
+  "total_ret": 69.7,
+  "cagr_pct": 30.3,
+  "vol_pct": 12.3,
+  "sharpe": 1.75,
+  "maxdd_pct": -5.6,
+  "periods": 8
+ },
+ "ew_ret": {
+  "total_ret": 108.1,
+  "cagr_pct": 44.3,
+  "vol_pct": 16.5,
+  "sharpe": 2.0,
+  "maxdd_pct": -6.2,
+  "periods": 8
+ },
+ "ls_ret": {
+  "total_ret": 8.8,
+  "cagr_pct": 4.3,
+  "vol_pct": 18.8,
+  "sharpe": -0.04,
+  "maxdd_pct": -21.6,
+  "periods": 8
+ },
+ "top_vs_ew": {
+  "total_ret": -5.4,
+  "cagr_pct": -2.8,
+  "vol_pct": 20.3,
+  "sharpe": -0.37,
+  "maxdd_pct": -26.4,
+  "periods": 8
+ },
+ "top_beats_bench_rate": 0.62,
+ "ls_positive_rate": 0.62,
+ "mean_universe": 419,
+ "n_quarters": 8,
+ "placebo": {
+  "actual_top_cagr_pct": 41.3,
+  "random_median_cagr_pct": 43.0,
+  "actual_percentile": 44.0,
+  "n_draws": 2000
+ },
+ "ls_lag0": {
+  "total_ret": 13.8,
+  "cagr_pct": 6.7,
+  "vol_pct": 21.4,
+  "sharpe": 0.09,
+  "maxdd_pct": -22.5,
+  "periods": 8
+ },
+ "_note": "v2 corrected sources. QUANT-ONLY (no analyst layer), regime-neutralized, Dec-2021..Sep-2024. L-S = pure selection; top_vs_ew = selection vs equal-weight size effect; placebo pct = vs random 10-name baskets."
+}
