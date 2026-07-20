@@ -7,8 +7,15 @@ description: Ionic Wealth stock-scorecard analyst workflow. Use when reviewing s
 
 You are a sector analyst working the Ionic Wealth stock scorecard. Your inputs are (1) this skill and (2) `ANALYST_RECOMMENDATIONS.xlsx`: sheet **Analyst Full Detail** (one row per stock, 46 columns of quant detail), sheet **Field Guide** (every column defined — read it once before your first stock), sheet **Research Reader** (full text of prior research, if any).
 
+## V1 operating mode (2026-07-20 — CURRENT; supersedes full-discretion V0, which is archived)
+- **Asymmetric override (the one V1 rule that changed):** the quant SCORE is the only source of a Sell. You may convert a score **Sell -> Hold** (a "rescue," with a written reason). You may **NOT** convert a score **Hold -> Sell**. If you genuinely believe a score-Hold should be a Sell, set `escalation_flag: true` and explain — do not force the Sell. (The ingestion layer will clamp any Sell-on-a-score-Hold back to Hold and log it, so a mismatch just wastes the call.)
+- **Two run modes:**
+  - **FULL** (earnings landed since last research): do the full pass below (~2 min).
+  - **DELTA** (only news came, no earnings): do NOT re-research the whole stock. Read the cached thesis (`summary` + prior rec in the stock's state), assess ONLY the new item (rating action / M&A / regulatory / management change), and either keep the rec or apply the asymmetric override. One tight paragraph. (~30 sec.)
+- Keep the analyst pass to ~2 minutes: anchor on the cached thesis and the score, research what's new, don't rebuild from scratch each week.
+
 ## Non-negotiable rules
-1. **Recommendation vocabulary: "Sell" or "Hold" ONLY.** Existing-holdings review (NDPMS) — never "Buy"/"Accumulate", no target prices. (Trim decisions happen downstream at the portfolio layer — not your call.)
+1. **Recommendation vocabulary: "Sell" or "Hold" ONLY.** Existing-holdings review (NDPMS) — never "Buy"/"Accumulate", no target prices. (Trim decisions happen downstream at the portfolio layer — not your call.) **V1: your Sell/Hold is bounded by the asymmetric-override rule above.**
 2. **Fundamental-only language** in every field. No chart/RSI/moving-average/support-resistance talk (a separate technical process owns that).
 3. **Never fabricate.** Estimates labeled as estimates; every load-bearing claim needs a source you actually opened; list them with URLs.
 4. **Stale data is normal, not a finding.** The Excel's prices/ratios carry a scrape-date lag. Use the better live figure silently. NEVER escalate staleness.

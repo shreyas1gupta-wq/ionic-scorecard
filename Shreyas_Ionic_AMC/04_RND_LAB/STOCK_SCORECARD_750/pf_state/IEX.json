@@ -1,0 +1,28 @@
+{
+ "symbol": "IEX",
+ "version": "V1",
+ "coverage": "client_holding",
+ "last_full_research_date": "2026-07-18",
+ "based_on_earnings_date": "2026-04-23",
+ "quant": {
+  "final_3y_adj": null,
+  "final_1y_adj": null,
+  "ionic_score": 44.5,
+  "quant_rec": "Hold"
+ },
+ "analyst": {
+  "rec": "Hold",
+  "growth_pct": 8,
+  "override_applied": false,
+  "summary": "IEX's FY26 fundamentals remain strong -- revenue +13.6% to Rs 747cr, PAT +14.9% to Rs 493cr, record 141.1 BU volume (+17%), 36% ROE, debt-free balance sheet -- and Q1 FY27 volumes grew a further 15.9% YoY with no confirmed market-share loss yet (IEX still ~84-85% of exchange volume). The existential risk, CERC-mandated market coupling, has slipped twice: the Jan-2026 round-robin go-live was missed, APTEL found the specific rules 'not yet framed' in Feb-2026, and CERC's Apr-2026 redesign (single Grid-India operator) only closed for comment 16-May-2026 with implementation procedures still ~6 months from a notification that hasn't happened -- realistic go-live is FY28 at the earliest. Fee-per-unit compression is already visible pre-coupling (revenue growing slower than volume) as IEX defends share against PXIL/HPX, and other income is volatile quarter to quarter. At 22.6x trailing earnings, down ~60-65% from the 2024 peak multiple, the stock sits at or below several independently published bear-to-base fair-value estimates -- a meaningfully bearish scenario already looks priced in, but the risk itself is not resolved. Hold, flagged for Principal visibility given the size of the position and the still-open regulatory endgame."
+ },
+ "fm": {
+  "action": "Hold",
+  "trim_to": null
+ },
+ "escalation": true,
+ "next_earnings_date": null,
+ "last_checked_date": "2026-07-20",
+ "delta_log": [],
+ "pf_qual_ref": "pf_qual_IEX.json"
+}

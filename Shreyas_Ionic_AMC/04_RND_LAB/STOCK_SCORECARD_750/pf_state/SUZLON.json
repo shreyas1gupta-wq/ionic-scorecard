@@ -1,0 +1,28 @@
+{
+ "symbol": "SUZLON",
+ "version": "V1",
+ "coverage": "client_holding",
+ "last_full_research_date": "2026-07-18",
+ "based_on_earnings_date": "2026-05-25",
+ "quant": {
+  "final_3y_adj": null,
+  "final_1y_adj": null,
+  "ionic_score": 89.1,
+  "quant_rec": "Hold"
+ },
+ "analyst": {
+  "rec": "Hold",
+  "growth_pct": 22,
+  "override_applied": false,
+  "summary": "Suzlon's operational turnaround is real: nil consolidated debt, a 6.4 GW order book built from essentially zero three years ago (66% PSU+C&I), record FY26 deliveries of 2,456 MW, 54% revenue growth and margin expansion to 18.1% EBITDA, all riding a genuine sector tailwind (national wind installations guided to 8 GW FY27 / 10 GW FY28, ALMM localization favoring Suzlon's in-house manufacturing). But the quant snapshot's 22.3x trailing PE is a headline artifact: our own reconstruction from the internal PIT quarterly file (26 rows, FY26 quarters summing exactly to the reported Rs 2,421cr PBT / Rs 3,162cr PAT) confirms a recurring, multi-quarter deferred-tax-asset credit (Rs 742cr in FY26 after Rs 638cr in FY25) that inflates headline PAT by roughly 40% above a standard-tax-rate normalized figure -- the true multiple is closer to 39x, not 22x, and that gap likely also overstates SUZLON's 77.8th-percentile Value score in the quant model. Against that truer multiple, sustaining the current price needs several more years of 20%+ growth, which the order book and sector tailwind can plausibly support but which EPC-mix margin dilution (target 50% EPC by FY28 versus 27% now, lower-margin than pure WTG supply), patchy RPO/RCO enforcement, a phasing-in ISTS transmission-charge headwind for wind-project developers, and a decade-long credibility overhang (promoter stake diluted to 11.71%, though pledge is a clean 0%) all argue for some caution rather than complacency. Call: Hold."
+ },
+ "fm": {
+  "action": null,
+  "trim_to": null
+ },
+ "escalation": true,
+ "next_earnings_date": null,
+ "last_checked_date": "2026-07-20",
+ "delta_log": [],
+ "pf_qual_ref": "pf_qual_SUZLON.json"
+}

@@ -1,0 +1,28 @@
+{
+ "symbol": "TCS",
+ "version": "V1",
+ "coverage": "client_holding",
+ "last_full_research_date": "2026-07-18",
+ "based_on_earnings_date": "2026-07-09",
+ "quant": {
+  "final_3y_adj": null,
+  "final_1y_adj": null,
+  "ionic_score": 41.3,
+  "quant_rec": "Sell"
+ },
+ "analyst": {
+  "rec": "Hold",
+  "growth_pct": 7,
+  "override_applied": true,
+  "summary": "TCS's Q1 FY27 headline of +13.9% YoY revenue growth is mostly a currency mirage -- constant-currency growth was just 3.2% YoY and margin compressed to 24% (-130bps QoQ) on wage hikes, with net profit up only 4.6% YoY. Deal TCV moderated to $9.5bn from $12bn last quarter, North America was down 0.4% QoQ, and the demand recovery management is flagging (manufacturing/life sciences in Q2, consumer once geopolitics settles) is guided, not yet delivered -- though AI-related revenue is scaling fast ($2.6bn annualized run-rate, +13.6% QoQ) and hiring resumed at its fastest pace in ~4 years, both constructive signals. A live, real cost event is the US $100,000 H-1B fee (~$650mn TCS exposure), survivable but non-trivial. At ~16.5x trailing earnings (38% below the 10-year median ~27x) after a ~29-32% drawdown, the multiple now prices roughly the mid-single-digit growth TCS is actually running at -- a fair, no-longer-punitive rating rather than a bargain, on a balance sheet (D/E 0.1x, ROE 46%, zero red flags) that was never the problem. Hold."
+ },
+ "fm": {
+  "action": "Trim",
+  "trim_to": 2.0
+ },
+ "escalation": false,
+ "next_earnings_date": null,
+ "last_checked_date": "2026-07-20",
+ "delta_log": [],
+ "pf_qual_ref": "pf_qual_TCS.json"
+}

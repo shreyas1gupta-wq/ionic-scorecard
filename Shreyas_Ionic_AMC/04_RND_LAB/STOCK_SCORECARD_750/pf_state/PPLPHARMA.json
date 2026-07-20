@@ -1,0 +1,28 @@
+{
+ "symbol": "PPLPHARMA",
+ "version": "V1",
+ "coverage": "client_holding",
+ "last_full_research_date": "2026-07-18",
+ "based_on_earnings_date": "2026-04-28",
+ "quant": {
+  "final_3y_adj": null,
+  "final_1y_adj": null,
+  "ionic_score": 42.1,
+  "quant_rec": "Sell"
+ },
+ "analyst": {
+  "rec": "Hold",
+  "growth_pct": 10,
+  "override_applied": true,
+  "summary": "Piramal Pharma posted a genuine FY26 consolidated net loss (Rs 325.94cr on Rs 8,869cr revenue, ~10.4% full-year EBITDA margin) that the quant model correctly flags via negative ROE/PE, but our own PIT reconciliation shows three consecutive quarters of sequential EBITDA-margin recovery (5.5% -> 7.8% -> 9.2% -> 16.7%) into Q4FY26, tracking a real external tailwind -- US biopharma/biotech funding up 75% YoY in H2FY26 -- feeding the CDMO segment's (~60% of sales) RFP pipeline after a de-stocking-driven trough. Complex Hospital Generics (inhalation-anesthesia, 47% US share) and India Consumer Healthcare (Power Brands +24%, e-commerce +48%) are steadier, moat-backed contributors. Net debt has not increased despite US$94mn of FY26 capex and a bolt-on acquisition, and the promoter group has pledged zero shares through the loss year. USFDA risk is real but not yet acute -- three sites drew Form-483s in ~14 months, but none has reached OAI/warning-letter status. Against a thin 2.7x interest cover and an aggressive FY30 aspiration ($2bn revenue / 25% EBITDA margin, implying ~17-18% revenue CAGR plus ~1,400bps of margin expansion that the company has already partly missed once), this is a genuine, evidence-based recovery story rather than a broken one -- but not yet proven enough to call a confident Hold. Call: Hold, escalated."
+ },
+ "fm": {
+  "action": null,
+  "trim_to": null
+ },
+ "escalation": true,
+ "next_earnings_date": null,
+ "last_checked_date": "2026-07-20",
+ "delta_log": [],
+ "pf_qual_ref": "pf_qual_PPLPHARMA.json"
+}

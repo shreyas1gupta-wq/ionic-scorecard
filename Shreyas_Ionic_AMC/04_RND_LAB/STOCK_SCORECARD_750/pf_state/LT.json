@@ -1,0 +1,28 @@
+{
+ "symbol": "LT",
+ "version": "V1",
+ "coverage": "client_holding",
+ "last_full_research_date": "2026-07-18",
+ "based_on_earnings_date": "2026-05-05",
+ "quant": {
+  "final_3y_adj": null,
+  "final_1y_adj": null,
+  "ionic_score": 45.5,
+  "quant_rec": "Sell"
+ },
+ "analyst": {
+  "rec": "Hold",
+  "growth_pct": 12,
+  "override_applied": true,
+  "summary": "L&T enters FY27 with a record ~Rs 7.40 lakh crore order book (~2.6x FY26 revenue) and a genuinely improving core balance sheet (deleveraging, working capital at a multi-year low), but FY26 revenue growth (12%) missed its own 15% guidance, FY27 guidance was cut to 10-12% with flat margins, and sell-side EPS estimates have been trimmed 8-10% post-Q4 on Middle East-linked execution disruption expected to persist through H1 FY27. The price weakness looks mostly like a sector-wide capital-goods de-rating (L&T actually outperformed its sector over the past year) layered with a real, near-term, company-guided-transient execution/margin wobble -- not a fundamental breakdown. At ~32x trailing earnings the valuation prices in more growth than current guidance supports, leaving limited margin of safety into the July 28 Q1 FY27 print, but with no balance-sheet or governance red flags and a record backlog underpinning multi-year revenue visibility, the call is Hold, not Sell."
+ },
+ "fm": {
+  "action": "Trim",
+  "trim_to": 8.0
+ },
+ "escalation": false,
+ "next_earnings_date": null,
+ "last_checked_date": "2026-07-20",
+ "delta_log": [],
+ "pf_qual_ref": "pf_qual_LT.json"
+}

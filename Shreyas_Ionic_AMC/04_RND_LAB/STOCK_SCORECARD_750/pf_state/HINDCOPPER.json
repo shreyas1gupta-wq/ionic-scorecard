@@ -1,0 +1,28 @@
+{
+ "symbol": "HINDCOPPER",
+ "version": "V1",
+ "coverage": "client_holding",
+ "last_full_research_date": "2026-07-18",
+ "based_on_earnings_date": "2026-05-15",
+ "quant": {
+  "final_3y_adj": null,
+  "final_1y_adj": null,
+  "ionic_score": 41.6,
+  "quant_rec": "Sell"
+ },
+ "analyst": {
+  "rec": "Sell",
+  "growth_pct": 12,
+  "override_applied": false,
+  "summary": "Hindustan Copper's FY26 numbers look extraordinary on the surface -- revenue +48.6% YoY, net profit nearly doubled to Rs 920.67 crore, Q4 operating margin of 54.29% -- but the company's own operational disclosures show ore production up only 6% and MIC sales up 12% YoY, meaning the overwhelming majority of that growth is copper-price pass-through, not volume or execution. The long-run capacity story (tripling ore output toward 12.2 MTPA by 2030-31) is real and strategically credible (India's only vertically integrated copper miner, National Critical Mineral Mission, KABIL), but the anchor project -- Malanjkhand's ramp to 5 MTPA -- has a specific, verifiable execution delay: the shafts are sunk but the specialised European winders/ropes needed to equip them are stuck in a failed procurement now being retendered, pushing the real capacity timeline well behind the headline. At ~51x trailing earnings and ~14x book (correcting the quant snapshot's stale 6.4% ROE input to the true current ~32-33%), the market is capitalizing a peak-of-cycle, price-driven earnings base at a peak-cycle multiple, while also betting the capacity-execution and PSU-OFS-overhang risks (government holds ~66%, an active national asset-monetisation program is underway) don't bite. Fundamentals corroborate, rather than override, the quant model's Sell."
+ },
+ "fm": {
+  "action": "Sell",
+  "trim_to": null
+ },
+ "escalation": false,
+ "next_earnings_date": null,
+ "last_checked_date": "2026-07-20",
+ "delta_log": [],
+ "pf_qual_ref": "pf_qual_HINDCOPPER.json"
+}
