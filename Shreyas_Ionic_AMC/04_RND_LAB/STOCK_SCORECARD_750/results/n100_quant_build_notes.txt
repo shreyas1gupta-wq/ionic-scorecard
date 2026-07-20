@@ -1,0 +1,125 @@
+ADANIENSOL: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+ADANIPORTS: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+DMART: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+AXISBANK: ROCE lookback wanted 4y, only 0y valid — used all valid years in window.
+AXISBANK: revenue_growth_1y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+AXISBANK: revenue_cagr_3y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+AXISBANK: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+BAJAJ-AUTO: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+BAJAJFINSV: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+BANKBARODA: ROCE lookback wanted 4y, only 0y valid — used all valid years in window.
+BANKBARODA: revenue_growth_1y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+BANKBARODA: revenue_cagr_3y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+BANKBARODA: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+BRITANNIA: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+CANBK: ROCE lookback wanted 4y, only 0y valid — used all valid years in window.
+CANBK: revenue_growth_1y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+CANBK: revenue_cagr_3y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+CANBK: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+CHOLAFIN: ROCE lookback wanted 4y, only 0y valid — used all valid years in window.
+CHOLAFIN: revenue_growth_1y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+CHOLAFIN: revenue_cagr_3y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+CHOLAFIN: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+COALINDIA: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+CUMMINSIND: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+DLF: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+DRREDDY: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+EICHERMOT: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+GODREJCP: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+GRASIM: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+HDFCLIFE: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+HAL: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+HYUNDAI: ROE lookback wanted 8y, only 6y valid (recent listing, short history, or a distress/negative-equity year excluded) — used all valid years in window.
+HYUNDAI: ROCE lookback wanted 8y, only 6y valid — used all valid years in window.
+HYUNDAI: ret_24m NaN — fewer than 504 trading days of price history (recent listing).
+HYUNDAI: no shareholding_changes data at all — ownership_flow_long/short left NaN (recent listing / data gap, not imputed).
+IRFC: ROE lookback wanted 4y, only 0y valid (recent listing, short history, or a distress/negative-equity year excluded) — used all valid years in window.
+IRFC: ROCE lookback wanted 4y, only 0y valid — used all valid years in window.
+IRFC: revenue_growth_1y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+IRFC: revenue_cagr_3y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+IRFC: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+INDIGO: ROE lookback wanted 4y, only 3y valid (recent listing, short history, or a distress/negative-equity year excluded) — used all valid years in window.
+INDIGO: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+JSWSTEEL: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+KOTAKBANK: ROCE lookback wanted 4y, only 0y valid — used all valid years in window.
+KOTAKBANK: revenue_growth_1y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+KOTAKBANK: revenue_cagr_3y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+KOTAKBANK: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+LODHA: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+MAXHEALTH: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+MAZDOCK: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+MUTHOOTFIN: ROCE lookback wanted 4y, only 0y valid — used all valid years in window.
+MUTHOOTFIN: revenue_growth_1y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+MUTHOOTFIN: revenue_cagr_3y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+MUTHOOTFIN: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+NTPC: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+PNB: ROCE lookback wanted 4y, only 0y valid — used all valid years in window.
+PNB: revenue_growth_1y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+PNB: revenue_cagr_3y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+PNB: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+RECLTD: ROCE lookback wanted 4y, only 0y valid — used all valid years in window.
+RECLTD: revenue_growth_1y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+RECLTD: revenue_cagr_3y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+RECLTD: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+SBILIFE: ROE lookback wanted 4y, only 0y valid (recent listing, short history, or a distress/negative-equity year excluded) — used all valid years in window.
+SBILIFE: ROCE lookback wanted 4y, only 0y valid — used all valid years in window.
+SBILIFE: revenue_growth_1y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+SBILIFE: revenue_cagr_3y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+SBILIFE: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+SHREECEM: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+SHRIRAMFIN: ROCE lookback wanted 4y, only 0y valid — used all valid years in window.
+SHRIRAMFIN: revenue_growth_1y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+SHRIRAMFIN: revenue_cagr_3y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+SHRIRAMFIN: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+SOLARINDS: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+TVSMOTOR: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+TATACAP: ROCE lookback wanted 4y, only 0y valid — used all valid years in window.
+TATACAP: revenue_growth_1y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+TATACAP: revenue_cagr_3y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+TATACAP: ret_24m NaN — fewer than 504 trading days of price history (recent listing).
+TATACAP: ret_12m NaN — fewer than 252 trading days of price history.
+TATACAP: no shareholding_changes data at all — ownership_flow_long/short left NaN (recent listing / data gap, not imputed).
+TATACONSUM: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+TORNTPHARM: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+UNIONBANK: ROCE lookback wanted 4y, only 0y valid — used all valid years in window.
+UNIONBANK: revenue_growth_1y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+UNIONBANK: revenue_cagr_3y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+UNIONBANK: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+UNITDSPR: no shareholding_changes data at all — ownership_flow_long/short left NaN (recent listing / data gap, not imputed).
+VEDL: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+ZYDUSLIFE: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+ADANIENT: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+ADANIGREEN: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+ADANIPOWER: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+AMBUJACEM: ROE lookback wanted 8y, only 3y valid (recent listing, short history, or a distress/negative-equity year excluded) — used all valid years in window.
+AMBUJACEM: ROCE lookback wanted 8y, only 3y valid — used all valid years in window.
+AMBUJACEM: revenue_cagr_3y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+AMBUJACEM: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+APOLLOHOSP: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+BAJAJHLDNG: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+BPCL: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+CGPOWER: ROE lookback wanted 8y, only 6y valid (recent listing, short history, or a distress/negative-equity year excluded) — used all valid years in window.
+CGPOWER: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+DIVISLAB: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+HCLTECH: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+HDFCAMC: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+HINDZINC: ROE lookback wanted 8y, only 6y valid (recent listing, short history, or a distress/negative-equity year excluded) — used all valid years in window.
+HINDZINC: ROCE lookback wanted 8y, only 6y valid — used all valid years in window.
+HINDZINC: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+INDHOTEL: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+IOC: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+JINDALSTEL: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+LTM: no shareholding_changes data at all — ownership_flow_long/short left NaN (recent listing / data gap, not imputed).
+NESTLEIND: ROE lookback wanted 4y, only 2y valid (recent listing, short history, or a distress/negative-equity year excluded) — used all valid years in window.
+NESTLEIND: ROCE lookback wanted 4y, only 2y valid — used all valid years in window.
+NESTLEIND: revenue_cagr_3y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+NESTLEIND: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+ONGC: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+PFC: ROCE lookback wanted 4y, only 0y valid — used all valid years in window.
+PFC: revenue_growth_1y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+PFC: revenue_cagr_3y NaN — no 'Sales+' data (bank/NBFC 'Revenue+' schema, or recent listing) — matches reference_300_full.csv's bank-row gap, not patched.
+PFC: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+POWERGRID: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+TECHM: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+TRENT: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.
+WIPRO: shareholding data stale (latest quarter 2023-09-01) — inherited data limitation, same source used for the 300-name reference universe.

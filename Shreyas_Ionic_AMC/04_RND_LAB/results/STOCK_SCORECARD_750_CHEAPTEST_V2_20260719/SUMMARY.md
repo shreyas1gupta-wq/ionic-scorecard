@@ -90,3 +90,34 @@ legs cascade constantly). Gross of costs. Universe-sensitive: Q+V sign differs v
 result → a robust edge should not flip between the 750 and a 332 subset. Gate-4 needs PIT membership + full
 750 + cost/turnover-matched benchmark (D-029). As a Sell/Hold RISK screen (its actual purpose), a downside-
 capture / drawdown test is the fair lens — this return-IC test is the return-prediction lens, where it fails.
+
+---
+
+# ADDENDUM (Principal follow-up) — DROP Quality entirely, renormalize remaining pillars
+Same 36-month window, same 332 universe, SAME validation battery (decile / IC+NW-t / hit / placebo 200 shuffles
+seed 20260719 / monotonicity / regime), directly comparable to the base above. Quality is DROPPED from the
+weighted blend and the remaining pillars are renormalized to sum 1.0. **Note:** Ownership Flow has no PIT data
+locally, so the "remaining 6" is the **5 computed pillars** (Growth, Value, Stage, Sector&Macro, Accumulation).
+Overlays (penalty/boost/gates) held IDENTICAL to base → this isolates the pure weight-blend change. Recompute
+(not just re-aggregation) was required because sector_macro_1y and accumulation_1y were not cached from the base run.
+Renormalized weights — 3Y: Growth .282 / Value .254 / Stage .197 / Sector&Macro .155 / Accum .113 ·
+1Y: Growth .211 / Value .211 / Stage .342 / Sector&Macro .171 / Accum .066.
+
+| Composite | IC (NW-t) | spread D10−D1 | mono ρ | placebo pctile (p) | melt-up IC | recent IC | read |
+|---|---|---|---|---|---|---|---|
+| Base 3Y (w/ Quality) | −0.062 (−2.53) | −13.3pp | −0.58 | **0.0** (1.000) | −0.114 | −0.025 | sig. NEGATIVE (inverted) |
+| **No-Quality 3Y** | **+0.005 (+0.22)** | +0.4pp | −0.07 | **52.0** (0.480) | +0.008 | +0.002 | **NULL — inversion fixed, no edge** |
+| Base 1Y (w/ Quality) | +0.015 (+1.38) | −3.2pp | −0.07 | 12.0 (0.880) | +0.101 | +0.011 | null |
+| **No-Quality 1Y** | **+0.066 (+2.18)** | +2.8pp | +0.52 | **83.0** (0.170) | +0.160 | −0.067 | **weak & fragile — fails placebo, melt-up-only, inverts recently** |
+| *(reference) Value pillar alone* | *+0.095 (+2.46)* | — | — | *89% mo pos* | *+0.183* | *+0.032* | *only signal that clears significance* |
+
+No-Quality decile ladders (D1…D10 mean fwd-12M): 3Y +42 +39 +48 +37 +31 +32 +32 +39 +41 +42 (flat/noise);
+1Y +36 +28 +40 +40 +39 +33 +37 +42 +48 +39 (rises to D9, D10 dips).
+
+**One-line verdict:** Dropping Quality **moderates the negative into noise but does NOT create a real,
+placebo-clearing positive signal** — 3Y goes significantly-negative → null (placebo 52nd percentile), 1Y goes
+null → weak-but-fragile (IC +0.066 looks tempting but sits at only the 83rd placebo percentile, is melt-up-only,
+and inverts in the recent regime). Quality was the active DRAG (removing it un-inverts the 3Y), but the surviving
+blend still dilutes the one genuinely good pillar — **isolated Value (IC +0.095, t +2.46, positive in 89% of
+months) beats every blended composite here.** Implication: the fix is not "drop Quality," it is "stop blending
+a real Value edge into a basket of null/negative pillars" — a value-led (or Value+Momentum), not equal-weight, construction.

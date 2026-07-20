@@ -42,3 +42,21 @@ Shreyas_Ionic_AMC/04_RND_LAB/results/STOCK_SCORECARD_750_CHEAPTEST_V2_20260719/
 - CONFIRMED not a bug: panel spot-check 2023-03 D1 fwd +143% vs D10 +94% (junk melt-up); score orientation correct (Hold 53 vs Sell 41)
 - KEY DRIVER: fundamental tilt (Q+V+G=58% of 3Y) fought the 2023-24 small/mid junk melt-up and lost over the ONLY testable window
 - run-2 (enhanced, decomposition ic_qv/ic_qual/ic_val/ic_mom3 + pillar-save) IN PROGRESS to separate window vs composition
+
+## COMPLETE (2026-07-20) — run-2 (with decomposition) DONE
+- FACTOR DECOMPOSITION (headline): Value IC +0.095 (NW-t +2.46, 89% mo pos) ROBUST POSITIVE;
+  Quality IC -0.106 (NW-t -1.93, worst in melt-up -0.235) NEGATIVE; Momentum +0.060; Q+V equal -0.016 (null);
+  full 3Y composite -0.034. => composite equal-weights a good Value signal vs a regime-negative Quality signal.
+- Deliverables in run dir: config.json, metrics.json (incl. DECOMP), v2_scorecard_pit.py, SUMMARY.md,
+  face_validity.json, panels/ (36 parquets), run.log/run2.log.
+- VERDICT: WEAKER than original as a composite (inverts/nulls, fails placebo+monotonicity on the only
+  testable window 2022-07..2025-06), RICHER in diagnosis. Weakest assumption: the original's positive
+  early window (2021-08..2022-05) is NOT PIT-testable here; everything testable is quality-hostile.
+- TASK DONE. Findings returned to coordinator.
+
+## ADDENDUM (Principal follow-up 2026-07-20) — DROP Quality entirely
+- Recompute (needed: sector_macro_1y/accum_1y weren't cached). Quality dropped, 5 pillars renorm, overlays identical.
+- noQ_3y: IC +0.005 (nwT +0.22), placebo pctile 52 (p=0.48) -> significantly-NEGATIVE base becomes NULL (inversion fixed, no edge).
+- noQ_1y: IC +0.066 (nwT +2.18), mono +0.52, placebo pctile 83 (p=0.17) -> weak & FRAGILE (fails >95 kill-bar, melt-up-only +0.160, recent INVERTS -0.067).
+- VERDICT: moderates negative into noise; does NOT create a placebo-clearing positive. Isolated Value (+0.095, t+2.46) beats every blend.
+- metrics.json key "no_quality_composite" added (base keys byte-identical). SUMMARY.md ADDENDUM appended. Script updated. DONE.

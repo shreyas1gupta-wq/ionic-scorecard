@@ -46,6 +46,10 @@ W1_RAW = dict(quality=.16, growth=.16, value=.16, stage=.26, sector_macro=.13, a
 def _renorm(w):
     s = sum(w.values()); return {k: v / s for k, v in w.items()}
 W3, W1 = _renorm(W3_RAW), _renorm(W1_RAW)
+# NO-QUALITY variant (Principal follow-up): DROP Quality, renormalize remaining pillars to sum 1.0.
+# (Ownership Flow already absent locally -> the "remaining 6" is the 5 computed pillars.) Overlays unchanged.
+W3_NOQ = _renorm({k: v for k, v in W3_RAW.items() if k != "quality"})
+W1_NOQ = _renorm({k: v for k, v in W1_RAW.items() if k != "quality"})
 
 FIN_SECTORS = {"financial services"}    # D/E gate + D/E red-flag exempt (leverage = business model)
 NEEDED = ["net profit","equity capital","reserves","borrowings","borrowing","operating profit",
@@ -220,13 +224,15 @@ def build_panel(form_date, fwd_months_list=(12,36)):
     P["sector_macro_3y"] = pctile_universe(smr12); P["sector_macro_1y"] = pctile_universe(smr3)
     P["accumulation_3y"] = pctile_universe(P["obv_long"]); P["accumulation_1y"] = pctile_universe(P["obv_short"])
     def comp(w, hz):
-        return (w["quality"]*P["quality"].fillna(P["quality"].median())
-              + w["growth"]*P[f"growth_{hz}"].fillna(P[f"growth_{hz}"].median())
-              + w["value"]*P["value"].fillna(P["value"].median())
-              + w["stage"]*P[f"stage_{hz}"].fillna(P[f"stage_{hz}"].median())
-              + w["sector_macro"]*P[f"sector_macro_{hz}"]
-              + w["accumulation"]*P[f"accumulation_{hz}"])
+        gw = lambda k: w.get(k, 0.0)   # generalized: missing pillar (e.g. dropped Quality) -> weight 0
+        return (gw("quality")*P["quality"].fillna(P["quality"].median())
+              + gw("growth")*P[f"growth_{hz}"].fillna(P[f"growth_{hz}"].median())
+              + gw("value")*P["value"].fillna(P["value"].median())
+              + gw("stage")*P[f"stage_{hz}"].fillna(P[f"stage_{hz}"].median())
+              + gw("sector_macro")*P[f"sector_macro_{hz}"]
+              + gw("accumulation")*P[f"accumulation_{hz}"])
     P["composite_3y"] = comp(W3, "3y"); P["composite_1y"] = comp(W1, "1y")
+    P["composite_noQ_3y"] = comp(W3_NOQ, "3y"); P["composite_noQ_1y"] = comp(W1_NOQ, "1y")
     is_fin = P["sector_norm"].isin(FIN_SECTORS)
     de_red = (P["de"] > 2.5) & (~is_fin); de_amber = (P["de"] > 1.5) & (~is_fin)
     bs_red = de_red | (P["intcov"] < 1.5); bs_amber = de_amber | (P["intcov"] < 3)
@@ -239,8 +245,9 @@ def build_panel(form_date, fwd_months_list=(12,36)):
          + ((P["cagr3"] - P["g1"]) > 0.15).fillna(False).astype(int) )
     P["redflag_count"] = rf; P["penalty"] = -np.minimum(10, 2.0**rf - 1)
     P["boost"] = np.where((rf == 0) & (P["quality"] > 60) & (P["value"] > 60), 3.0, 0.0)
-    for hz in ["3y","1y"]:
-        base = P[f"composite_{hz}"] + P["penalty"] + P["boost"]
+    for hz, src in [("3y","composite_3y"),("1y","composite_1y"),
+                     ("noQ_3y","composite_noQ_3y"),("noQ_1y","composite_noQ_1y")]:
+        base = P[src] + P["penalty"] + P["boost"]   # overlays IDENTICAL to base (isolates the weight-blend change)
         red = (P["bs_flag"] == "RED") | liq_red
         adj = np.where(red, np.minimum(base, 40), np.where(P["bs_flag"] == "AMBER", base*0.85, base))
         P[f"final_{hz}_adj"] = np.clip(adj, 0, 100)
@@ -286,18 +293,20 @@ def decile_ladder(scores, rets, nq=NQ):
     lad = [float(means.get(i, np.nan)) for i in range(nq)]
     return lad, lad[-1]-lad[0]
 
-panels = {}; recs = {"3y": [], "1y": [], "combined": []}; ic_rows = []
+panels = {}; recs = {"3y": [], "1y": [], "combined": [], "3y_noQ": [], "1y_noQ": []}; ic_rows = []
 for fm in form_months:
     P = build_panel(fm, fwd_months_list=(12,36))
     if P.empty: continue
     sub = P.dropna(subset=["fwd_12m","composite_3y","composite_1y"]).copy()
     if len(sub) < NQ*3: continue
-    panels[fm] = sub[["final_3y_adj","final_1y_adj","composite_3y","composite_1y","combined",
+    panels[fm] = sub[["final_3y_adj","final_1y_adj","final_noQ_3y_adj","final_noQ_1y_adj",
+                       "composite_3y","composite_1y","combined",
                        "quality","value","growth_3y","growth_1y","stage_3y","stage_1y",
                        "sector_macro_3y","accumulation_3y","fwd_12m","fwd_36m",
                        "sector_norm","bs_flag","mcap_tercile","symbol"]].reset_index(drop=True)
     med = sub["fwd_12m"].median()
-    for key, col in [("3y","final_3y_adj"),("1y","final_1y_adj"),("combined","combined")]:
+    for key, col in [("3y","final_3y_adj"),("1y","final_1y_adj"),("combined","combined"),
+                      ("3y_noQ","final_noQ_3y_adj"),("1y_noQ","final_noQ_1y_adj")]:
         lad, spr = decile_ladder(sub[col].values, sub["fwd_12m"].values)
         topq = pd.qcut(sub[col].rank(method="first"), NQ, labels=False) == NQ-1
         hit = float((sub.loc[topq,"fwd_12m"] > med).mean()*100)
@@ -331,7 +340,8 @@ def agg(key):
 AGG = {k: agg(k) for k in recs}
 
 def placebo(colkey):
-    col = {"3y":"final_3y_adj","1y":"final_1y_adj","combined":"combined"}[colkey]
+    col = {"3y":"final_3y_adj","1y":"final_1y_adj","combined":"combined",
+           "3y_noQ":"final_noQ_3y_adj","1y_noQ":"final_noQ_1y_adj"}[colkey]
     real = AGG[colkey]["mean_spread_D10_D1"]; null = np.empty(N_PLACEBO)
     for i in range(N_PLACEBO):
         sp = []
@@ -405,6 +415,16 @@ metrics = dict(primary_horizon_months=12, n_formation_months=len(panels), n_deci
     final_3y_adj=AGG["3y"], final_1y_adj=AGG["1y"], combined_60_40=AGG["combined"],
     placebo=PLAC, regime_split=REG, distinctness_3y_vs_1y=DIST, secondary_36m_context=SEC,
     sector_exemption_check=SECT_EXEMPT, decomposition_window_vs_composition=DECOMP, ic_distinctness_rows=ic_rows,
+    no_quality_composite=dict(
+        note="Principal follow-up: Quality DROPPED from the weighted pillar blend, remaining pillars renormalized "
+             "to sum 1.0. Ownership Flow already absent locally, so the remaining set = Growth/Value/Stage/"
+             "Sector&Macro/Accumulation (5 pillars). Overlays (penalty/boost/gates) IDENTICAL to base -> isolates "
+             "the pure weight-blend change. Battery identical to base for direct comparability.",
+        weights_3y=W3_NOQ, weights_1y=W1_NOQ,
+        final_noQ_3y_adj=AGG["3y_noQ"], final_noQ_1y_adj=AGG["1y_noQ"],
+        placebo=dict(_3y_noQ=PLAC["3y_noQ"], _1y_noQ=PLAC["1y_noQ"]),
+        regime_split=dict(_3y_noQ=REG["3y_noQ"], _1y_noQ=REG["1y_noQ"]),
+        per_month_final_noQ_3y=recs["3y_noQ"], per_month_final_noQ_1y=recs["1y_noQ"]),
     per_month_final_3y=recs["3y"], per_month_final_1y=recs["1y"])
 with open(os.path.join(OUT, "metrics.json"), "w") as fh: json.dump(metrics, fh, indent=2)
 
@@ -440,4 +460,11 @@ print(f"sector-exemption: fin share univ={SECT_EXEMPT['mean_fin_share_universe']
 print("DECOMP (window vs composition) IC means [full | meltup-tail | recent]:")
 for k in ["ic_qv","ic_qual","ic_val","ic_mom3","ic_comp3","ic_comp1"]:
     dd=DECOMP[k]; print(f"  {k:9s} full={dd['ic_mean']:+.3f}(nwT={dd['ic_nw_t']:+.2f}) meltup={dd['ic_meltup_tail']:+.3f} recent={dd['ic_recent']:+.3f} pos%={dd['pct_pos']:.0f}")
+print("NO-QUALITY variant (Quality dropped, 5 pillars renormalized):")
+for lbl,k in [("noQ_3y","3y_noQ"),("noQ_1y","1y_noQ")]:
+    a=AGG[k]; pl=PLAC[k]; rg=REG[k]
+    print(f"  {lbl}: spread={a['mean_spread_pp']:+.2f}pp mono={a['monotonicity_spearman']:+.2f} IC={a['ic_mean']:+.3f}(nwT={a['ic_nw_t']:+.2f}) hit={a['hit_top_decile_mean']:.0f}% "
+          f"placebo_pctile={pl['placebo_pctile']:.1f}(p={pl['placebo_one_sided_p']:.3f}) meltup={rg['B_2022-06..2023-09_meltup']['mean_spread']:+.3f} recent={rg['C_2023-10..2025-06_recent']['mean_spread']:+.3f}")
+    print(f"    decile D1..D10: "+" ".join(f"{x*100:+.0f}" for x in a['mean_decile_ladder']))
+print(f"  compare: BASE final_3y IC={AGG['3y']['ic_mean']:+.3f} placebo_pctile={PLAC['3y']['placebo_pctile']:.1f} -> noQ_3y IC={AGG['3y_noQ']['ic_mean']:+.3f} placebo_pctile={PLAC['3y_noQ']['placebo_pctile']:.1f}")
 print("Saved metrics.json + config.json + panels/. DONE.")
