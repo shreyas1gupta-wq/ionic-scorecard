@@ -39,9 +39,11 @@ def render(deck, ctx, tier):
     simple = reg == "simple"
     funds = ctx["funds"]
 
-    # violators from ctx
+    # violators from ctx — Rule 2 fires on active large-caps that trail their index
+    # (closet-indexing ALSO fires it, but no held scheme trips that test in this book)
     multi = [f for f in funds if "MANDATE_RIGIDITY" in f["flags"] or "Multi Cap" in f["name"]]
-    closet = [f for f in funds if "CLOSET_INDEX" in f["flags"] and f["plan"] == "Regular"]
+    weak_lc = [f for f in funds if "Large Cap" in f["name"] and f["category"] == "equity"
+               and ("NEG_ALPHA" in f["flags"] or "CLOSET_INDEX" in f["flags"])]
 
     if simple:
         eyebrow, title = "How we pick the fund type", "Two simple rules about the kind of fund, before returns"
@@ -52,22 +54,22 @@ def render(deck, ctx, tier):
     if simple:
         why1 = ("A multi-cap fund is forced by rule to hold at least 25% each in large, mid and small "
                 "companies. A flexi-cap manager can move freely. Same fee, less freedom · so we prefer flexi.")
-        why2 = ("Some 'active' large-cap funds quietly hug the index (they move almost exactly like it) "
-                "yet charge active fees. A low-cost index or factor fund gives the same thing for less.")
+        why2 = ("Most large-company funds struggle to beat the index once fees are taken out; yours has "
+                "trailed it for years. A low-cost index or factor fund does the same job for much less.")
     else:
         why1 = ("Multi-Cap carries a SEBI 25/25/25 floor, a hard minimum in large, mid and small caps, "
                 "so it can't shift with the cycle. A Flexi-Cap runs the same brief with full cap freedom at "
                 "a similar fee. We'd rather size mid/small ourselves than pay for a locked mandate.")
-        why2 = ("An active Large-Cap that closet-indexes (r² > 0.95, near-zero net-of-fee alpha) delivers "
-                "index beta at active cost. A low-cost passive or factor Large-Cap captures the same beta and "
-                "frees the fee budget for where active management can actually pay.")
+        why2 = ("Net-of-fee alpha in active Large-Cap is thin and inconsistent, and the held scheme has "
+                "trailed its index over both 3 and 5 years. A low-cost passive or factor Large-Cap secures "
+                "the same beta and frees the fee budget for categories where active management can pay.")
 
     gap = 0.30
     cw = (UW - gap) / 2
     _rule_card(deck, s, ML, 1.95, cw, 3.5, 1, "Flexi-Cap  >  Multi-Cap", why1, multi,
                "Switch to Flexi", "Switch", simple)
     _rule_card(deck, s, ML + cw + gap, 1.95, cw, 3.5, 2, "Factor / Passive  >  Active Large-Cap", why2,
-               closet, "Switch to Passive/Factor", "Switch", simple)
+               weak_lc, "Switch to Passive/Factor", "Switch", simple)
 
     # AMC concentration strip
     ct = Counter(f["amc"] for f in funds)
@@ -83,6 +85,6 @@ def render(deck, ctx, tier):
                     f"(~{wt[top]:.1f}% of the money). Spreading across fund houses lowers the risk.")
     deck.callout(s, ML, 5.72, UW, 0.85, "AMC concentration", amc_body, kind="warn")
 
-    deck.source(s, "SEBI category framework (25/25/25 multi-cap floor) · r² vs total-return benchmark for "
-                   "closet-index test. Rules applied to the held schemes. Illustrative synthetic funds.")
+    deck.source(s, "SEBI category framework (25/25/25 multi-cap floor) · net-of-fee alpha and r² measured "
+                   "vs total-return benchmark. Rules applied to the held schemes. Illustrative synthetic funds.")
     return 1

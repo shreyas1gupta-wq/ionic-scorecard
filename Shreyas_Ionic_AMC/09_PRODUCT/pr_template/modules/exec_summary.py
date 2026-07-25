@@ -62,12 +62,12 @@ def render(deck, ctx, tier):
              ("c", "Sell all of them, in a planned order.", NAVY), "02 · Equity"],
             [("b", "Too little abroad"),
              f"About {foreign_gap:.0f} points below the {ips['foreign_target_pct']:.0f}% overseas target.",
-             ("c", "Add a global-equity fund from the proceeds.", NAVY), "04 · Plan"],
+             ("c", "Plan an overseas step for when we reinvest.", NAVY), "04 · Plan"],
             [("b", "Paying extra fees"),
              f"About {_k(reg_drag)}/yr of avoidable Regular-plan cost.",
              ("c", "Move to the cheaper Direct plan.", NAVY), "04 · Plan"],
             [("b", "Fund line-up"),
-             "3 funds are closet-index, weak, or too rigid.",
+             "3 funds trail the index, lack consistency, or are too rigid.",
              ("c", "Switch to an index/factor fund and a Flexi-Cap.", NAVY), "03 · Funds"],
         ]
     else:
@@ -80,12 +80,12 @@ def render(deck, ctx, tier):
              ("c", "Exit all {n}, sliced by liquidity.".format(n=t["n_sell"]), NAVY), "02 · Equity"],
             [("b", "Foreign under-allocation"),
              f"~{foreign_gap:.0f} pts below the {ips['foreign_target_pct']:.0f}% foreign-equity target.",
-             ("c", "Fund a foreign / global sleeve from proceeds.", NAVY), "04 · Plan"],
+             ("c", "Plan a foreign sleeve at deployment (annexure framework).", NAVY), "04 · Plan"],
             [("b", "Regular-plan cost"),
              f"~{_k(reg_drag)}/yr avoidable trail on Regular-plan funds.",
              ("c", "Redeem-to-Direct where the same scheme exists Direct.", NAVY), "04 · Plan"],
             [("b", "Fund structure"),
-             "3 schemes: closet-index / weak consistency / rigid mandate.",
+             "3 schemes: index-trailing / weak consistency / rigid mandate.",
              ("c", "Switch to passive-LC / factor + a Flexi-Cap.", NAVY), "03 · Funds"],
         ]
 

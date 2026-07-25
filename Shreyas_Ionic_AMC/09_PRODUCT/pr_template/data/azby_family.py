@@ -151,15 +151,26 @@ def _funds(grand_inr):
     rb = _bench_rets(D, seed=99); bench = list(100 * np.cumprod(1 + rb))
     specs = [
         # name, amc, cat, plan, wt%, seed, up_beta, down_beta, alpha_ann, idio, hit3y, flags, verdict, action, exemplar, structural
-        ("LIC MF Large Cap Fund", "LIC MF", "equity", "Regular", 6.0, 11, 0.99, 1.00, -1.8, 0.020, 34,
-         ["CLOSET_INDEX", "NEG_ALPHA"], "Switch", "SWITCH",
-         "a low-cost Large-Cap Index / Factor fund", "Closet-indexed (r2 ~0.97) and negative net-of-fee alpha — paying active fees for index beta."),
-        ("LIC MF Flexi Cap Fund", "LIC MF", "equity", "Regular", 4.5, 12, 0.96, 1.18, -1.0, 0.060, 31,
-         ["DOWN_CAP_HI", "WEAK_CONSIST"], "Switch", "SWITCH",
-         "a top-quartile Flexi-Cap from the approved list", "Loses more than the market in down-months (down-capture >115%) and beats it <40% of rolling 3-yr windows."),
+        # verified vs MF Dashboard 'large' sheet (as of 2025-01-31): 3y -5.0pp / 5y -4.3pp vs
+        # NIFTY 100, 6M dcap 1.04 vs ucap 0.97 — but r2(3y)=0.77, NOT a closet indexer.
+        # CLOSET_INDEX claim removed (recheck-all-funds pass, 2026-07-25).
+        ("LIC MF Large Cap Fund", "LIC MF", "equity", "Regular", 6.0, 11, 0.97, 1.04, -4.5, 0.100, 34,
+         ["NEG_ALPHA", "DOWN_CAP_HI"], "Switch", "SWITCH",
+         "a low-cost Large-Cap Index / Factor fund",
+         "Trails the large-cap index by 4-5pp a year over 3 and 5 years; active fees for below-index outcomes."),
+        # verified vs 'flexi' sheet: 5y -4.2pp / 3y -1.1pp vs NIFTY 500; recent up-capture is
+        # actually fine (1.08) — the old 'down-capture >115%' wording was unsupported, removed.
+        ("LIC MF Flexi Cap Fund", "LIC MF", "equity", "Regular", 4.5, 12, 1.03, 1.06, -3.0, 0.060, 38,
+         ["NEG_ALPHA", "WEAK_CONSIST"], "Switch", "SWITCH",
+         "a top-quartile Flexi-Cap from the approved list",
+         "Trails the broad market by ~4pp a year over five years; the record misses our consistency bar."),
+        # verified vs 'multi' sheet: launched Nov-2022, 1y +9.8pp vs benchmark — performance is
+        # FINE; the Switch is purely structural (SEBI 25/25/25 floor), which is what the card says.
         ("LIC MF Multi Cap Fund", "LIC MF", "equity", "Regular", 3.5, 13, 1.02, 1.00, 0.6, 0.055, 52,
          ["MANDATE_RIGIDITY"], "Switch", "SWITCH",
          "a Flexi-Cap (manager-flexible cap mix)", "Multi-cap's SEBI 25/25/25 floor forces small/mid we prefer to size ourselves — structural, not performance."),
+        # not in the dashboard workbook; no performance claim is made — Redeem-to-Direct is a
+        # plan fact (same scheme, lower TER). The real fund's record is strong; cast positively.
         ("ICICI Pru Multi-Asset (Regular)", "ICICI Pru", "hybrid", "Regular", 4.0, 14, 0.88, 0.72, 0.9, 0.045, 61,
          ["REG_PLAN_DRAG"], "Redeem-to-Direct", "REDEEM",
          "the same fund's Direct plan", "The identical fund is available Direct; the Regular-plan trail is pure avoidable cost."),
@@ -170,9 +181,14 @@ def _funds(grand_inr):
         ("PGIM India Small Cap Fund", "PGIM India", "equity", "Direct", 0.45, 15, 1.16, 1.34, -0.6, 0.120, 44,
          ["DEEP_DD", "NEG_ALPHA", "OVER_ALLOC"], "Exit", "EXIT",
          "the primary small-cap sleeve already held", "Sub-scale ~3L beside a larger small-cap fund; persistent underperformance and duplication — structural exit."),
-        ("LIC MF Balanced Advantage", "LIC MF", "hybrid", "Regular", 3.0, 16, 0.86, 0.98, -0.8, 0.050, 38,
-         ["DOWN_CAP_HI", "DEEP_DD"], "Trim", "TRIM",
-         "a hybrid that actually cushions (down-capture <70%)", "Down-capture near equity levels — not doing its cushioning job; poor worst-year."),
+        # web-checked 2026-07-25 (mstock / INDmoney / PaytmMoney): since-launch (Nov-2021)
+        # ~9.4-9.8% CAGR and AHEAD of its hybrid benchmark over 1y/3y — the old DOWN_CAP_HI +
+        # DEEP_DD framing was NOT supported and is removed. Verifiable weaknesses used instead:
+        # AUM ~Rs 761 cr (May-2025, sub-scale) and a track record under 4 years.
+        ("LIC MF Balanced Advantage", "LIC MF", "hybrid", "Regular", 3.0, 16, 0.82, 0.78, 0.0, 0.050, 48,
+         ["SUB_SCALE", "SHORT_RECORD", "REG_PLAN_DRAG"], "Trim", "TRIM",
+         "the hybrid core already held (HDFC BAF, Direct)",
+         "Under four years of record, sub-scale, Regular plan; we fold the sleeve into the proven hybrid held."),
         # --- genuine Holds so the book isn't all-Sell ---
         ("Parag Parikh Flexi Cap (Direct)", "PPFAS", "equity", "Direct", 7.5, 21, 1.03, 0.74, 2.6, 0.050, 74,
          [], "Hold", "HOLD", "-", ""),

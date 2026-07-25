@@ -18,7 +18,8 @@ _FLAG_READ = {"DOWN_CAP_HI": "high down-capture", "DEEP_DD": "deep drawdown",
               "REG_PLAN_DRAG": "Regular-plan cost drag", "CLOSET_INDEX": "closet indexing",
               "NEG_ALPHA": "negative net alpha", "WEAK_CONSIST": "weak 3-yr consistency",
               "MANDATE_RIGIDITY": "mandate rigidity", "CAPACITY": "capacity strain",
-              "OVER_ALLOC": "over-allocation"}
+              "OVER_ALLOC": "over-allocation", "SUB_SCALE": "sub-scale AUM",
+              "SHORT_RECORD": "record under 4 years"}
 
 
 def _short(name, n=24):
@@ -41,11 +42,17 @@ def _bias_body(f, simple):
     v = f["verdict"]
     sr = _scrub(f.get("structural_reason"))
     flags = [_FLAG_READ.get(x, x.lower().replace("_", " ")) for x in (f.get("flags") or [])]
+    # scale/record Trims are consolidation calls — never dressed as a cushioning failure
+    structural_trim = bool({"SHORT_RECORD", "SUB_SCALE"} & set(f.get("flags") or []))
     if simple:
         if v == "Hold":
             return (f"Keep. In its worst year it still made {w1:+.0f}%, and it falls only {dc:.0f}% as "
                     f"much as the market. This is what a hybrid is for.")
         if v == "Trim":
+            if structural_trim:
+                return ("Reduce, gently. Nothing is wrong with how it has done so far; it is simply "
+                        "a young fund with a small asset base, so we lean on the bigger, proven "
+                        "fund until this one has a longer record.")
             return (f"Reduce. It lost {abs(w1):.0f}% in its worst year and falls about as much as the "
                     f"market itself, so it is not protecting you.")
         if v == "Redeem-to-Direct":
@@ -58,6 +65,10 @@ def _bias_body(f, simple):
                 f"means it gives up some upside and buys back the bad year, which is exactly the trade "
                 f"a hybrid is hired for. The book's benchmark for the category.")
     if v == "Trim":
+        if structural_trim:
+            return (f"Our bias is Trim, on scale and record, not results. Under four years old, "
+                    f"sub-scale, {dc:.0f}% down-capture so far is fine; it cannot yet carry a full "
+                    f"allocation next to the proven core.")
         s = (f"Our bias is Trim. Down-capture of {dc:.0f}% with a {w1:+.1f}% worst year means it falls "
              f"like pure equity while charging for protection; Sortino at {so:.2f} says holders were "
              f"not paid for that downside.")

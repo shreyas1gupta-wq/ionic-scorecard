@@ -63,8 +63,8 @@ def render(deck, ctx, tier):
     else:
         read = (f"The desk read: QFRA scores the scheme; the Portfolio Review team sets the verdict. "
                 f"{n_act} of {len(funds)} schemes carry an action, mostly on cost and structure "
-                f"(plan, mandate rigidity, closet-indexing) rather than performance alone; "
-                f"{n_hold} are genuine Holds.")
+                f"(plan, mandate rigidity, scale, consistency) rather than performance alone; "
+                f"{n_hold} are Holds on merit.")
     deck.txt(s, ML, 6.02, UW, 0.5, [(read, SERIF, 9.5, INK, False, True)], ls=1.05)
     deck.source(s, "QFRA 2.0 (frozen engine) · Direct-plan NAV vs total-return benchmark · "
                    "SENTINEL flag ledger. Illustrative synthetic funds.")
