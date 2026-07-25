@@ -56,6 +56,7 @@ def render(deck, ctx, tier):
                      [("Measured against ", SERIF, 8.5, SLATE, False, True),
                       (f["exemplar"], SERIF, 8.5, NAVY, False, True)])
 
-    deck.source(s, "Category exemplar = the QFRA final-2 benchmark the held fund is measured against, not a "
-                   "recommendation to buy it. Whether a replacement is named is a compliance decision. Synthetic demo funds.")
+    deck.source(s, "Category exemplar = the fund our quality framework ranks best in the category, used as the "
+                   "measuring stick, not a recommendation to buy it. Whether a replacement is named is a "
+                   "compliance decision. Synthetic demo funds.")
     return 1

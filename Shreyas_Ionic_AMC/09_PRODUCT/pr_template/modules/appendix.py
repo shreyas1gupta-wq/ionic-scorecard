@@ -7,9 +7,9 @@ from slidekit import (INK, SLATE, NAVY, GOLD, SERIF, SANS, ML, UW, RX)
 _GLOSSARY = [
     ("Ionic Score", "A 0-100 quality/valuation/trend score per stock; a quantitative input, not the final call."),
     ("Sell / Trim / Hold", "The calls used for existing holdings under an NDPMS mandate."),
-    ("QFRA 2.0", "The firm's frozen fund-ranking engine, scores funds on alpha, consistency and downside."),
-    ("MERIT grade", "A-D letter grade summarising a fund's QFRA standing (A = strongest)."),
-    ("SENTINEL flags", "Red-flag chips a fund can trip: closet-index, negative alpha, deep drawdown, capacity, plan-cost."),
+    ("Fund score", "A 0-100 quality score per fund: net-of-fee alpha, consistency and downside cushioning."),
+    ("Grade", "A-D letter grade summarising a fund's standing (A = strongest)."),
+    ("Watch-outs", "Red-flag chips a fund can trip: index-hugging, negative alpha, deep drawdown, scale, plan-cost."),
     ("Up / down capture", "How much of the market's rise / fall a fund captures; ideal is high up, low down."),
     ("Closet index", "An 'active' fund that hugs its benchmark (r² > 0.95) while charging active fees."),
     ("Sortino / Calmar", "Return per unit of downside risk (Sortino) and per unit of max drawdown (Calmar)."),
@@ -40,18 +40,18 @@ def _methodology(deck, ctx, tier):
                    "Growth, Value, Trend & Flow). Forensic / balance-sheet gates cap the score at 40. Below "
                    "40 on either horizon = Sell; 40-50 is a watch zone (Trim only with a "
                    "concentration or risk flag); 50+ = Hold.")
-        fu_body = ("Funds use the frozen QFRA 2.0 engine on Direct-plan NAV against total-return benchmarks, "
-                   "point-in-time. It rewards net-of-fee alpha, rolling-window consistency and downside "
-                   "cushioning, and penalises SENTINEL flags. Verdicts: Hold / Trim / Switch / "
-                   "Redeem-to-Direct / Exit.")
+        fu_body = ("Funds are scored 0-100 by the firm's fund-quality framework on Direct-plan NAV against "
+                   "total-return benchmarks, point-in-time. It rewards net-of-fee alpha, rolling-window "
+                   "consistency and downside cushioning, and penalises structural watch-outs. Verdicts: "
+                   "Hold / Trim / Switch / Redeem-to-Direct / Exit.")
     # panels hug their text (shared height keeps the pair aligned); data sources become a
     # third, full-width boxed panel so the lower half of the page doesn't sit empty
     h = max(deck.callout_h(colw, eq_body, min_h=1.6), deck.callout_h(colw, fu_body, min_h=1.6))
     deck.callout(s, ML, 1.95, colw, h, "Scoring equities", eq_body, "note")
     deck.callout(s, x2, 1.95, colw, h, "Evaluating funds", fu_body, "note")
 
-    src = ("Scored universe: portfolio_quant.csv + per-stock analyst files (PIT).  ·  Fund NAVs: Direct-plan, "
-           "total-return-benchmark relative (QFRA 2.0).  ·  SEBI market-cap cut-offs and category rules.  ·  "
+    src = ("Scored universe: the firm's stock-scoring engine + per-stock analyst files (point-in-time).  ·  Fund NAVs: "
+           "Direct-plan, total-return-benchmark relative.  ·  SEBI market-cap cut-offs and category rules.  ·  "
            "House-view sector / allocation bands.  ·  Statutory tax rates (Compliance-signed, Budget-versioned).  ·  "
            "Client IPS and holdings as supplied by the advisory desk.")
     sy = 1.95 + h + 0.25
@@ -68,6 +68,7 @@ def _glossary(deck, ctx, tier):
 
 
 def render(deck, ctx, tier):
+    # glossary page cut from client decks (Principal 2026-07-25); _glossary stays in
+    # the library for internal builds
     _methodology(deck, ctx, tier)
-    _glossary(deck, ctx, tier)
-    return 2
+    return 1

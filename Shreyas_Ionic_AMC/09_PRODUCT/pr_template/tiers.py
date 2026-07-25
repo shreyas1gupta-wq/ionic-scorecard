@@ -13,13 +13,14 @@ TIERS = {
             "opportunity_set", "quality_vs_price", "factor_profile", "growth_projection",
             "spotlight_holdings", "holdings_detail", "sell_cards", "scheme_overlap_full",
             "scheme_scorecards", "appendix",
-            # extended visual annexure (18 illustrations)
+            # extended visual annexure (Principal cut 2026-07-25: seasonality,
+            # drawdown-history, sip-vs-lumpsum, fee-compounding, tax-lot-aging and the
+            # glossary page are out of the client deck; modules stay in the library)
             "annex_score_vs_call", "annex_valuation_bands", "annex_returns_quilt",
             "annex_correlation", "annex_risk_contribution", "annex_stress_scenarios",
             "annex_beta_ladder", "annex_concentration_curve", "annex_liquidity_ladder",
             "annex_currency_geo", "annex_mcap_migration", "annex_income_ladder",
-            "annex_seasonality", "annex_drawdown_history", "annex_sip_vs_lumpsum",
-            "annex_goal_mapping", "annex_fee_compounding", "annex_tax_lot_aging",
+            "annex_goal_mapping",
         },
         "spotlight_count": 3,
     },

@@ -306,10 +306,19 @@ class Deck:
         return s
 
     def section_divider(self, num, title, subtitle="", pages=None):
-        """v8 editorial divider: NAVYD ground, Georgia ghost numeral, gold kicker, serif title."""
+        """v8 editorial divider: NAVYD ground, Georgia ghost numeral, gold kicker, serif
+        title — plus a low-alpha flow-art field on the right so the page reads designed,
+        not empty (Principal 2026-07-25)."""
         self.folio += 1
         GHOST = RGBColor(0x24, 0x2F, 0x8E)
         s = self.slide(NAVYD)
+        try:
+            import art as _art
+            self.pic(s, _art.flow_art(f"div_art_{num}", w=6.4, h=7.5, seed=31 + num,
+                                      gold=False, alpha=0.5, transparent=True),
+                     CW - 6.4, 0, 6.4, 7.5, valign="top", halign="right")
+        except Exception:
+            pass
         self.classified(s, dark=True)
         self.txt(s, 7.4, 0.95, RX - 7.4, 2.6, [(f"{num:02d}", SERIF, 170, GHOST, True)], align=PP_ALIGN.RIGHT)
         self.txt(s, ML, 2.58, 6.5, 0.3, [(f"SECTION {num:02d}", SANS, 10, GOLD, True, False, 250)])

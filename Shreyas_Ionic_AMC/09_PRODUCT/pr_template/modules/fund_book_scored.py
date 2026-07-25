@@ -14,7 +14,7 @@ FLAB = {"CLOSET_INDEX": "CLOSET", "NEG_ALPHA": "NEG ALPHA", "DOWN_CAP_HI": "DOWN
 
 LABELS = {
     "hni":    ("The fund book, scored",
-               "QFRA 2.0 quality read on every scheme · the score is the input, the desk sets the verdict"),
+               "A 0-100 quality score on every scheme · the score is the input, the desk sets the verdict"),
     "std":    ("The fund book, scored",
                "Every scheme graded on quality, cost and structure · not just past returns"),
     "simple": ("Your funds, graded",
@@ -47,8 +47,8 @@ def render(deck, ctx, tier):
         deck.table(s, ML, 2.0, UW, cols, rows, rowh=0.40, fs=11, hfs=9)   # 2.0+0.33+9x0.40=5.93, clears the 6.02 read line
     else:
         cols = [("Scheme", 0.24, "l"), ("Category", 0.10, "l"), ("Plan", 0.07, "c"),
-                ("Wt %", 0.06, "r"), ("QFRA /100", 0.13, "l"), ("Merit", 0.07, "c"),
-                ("SENTINEL flags", 0.23, "l"), ("Verdict", 0.13, "c")]
+                ("Wt %", 0.06, "r"), ("Fund score /100", 0.13, "l"), ("Grade", 0.07, "c"),
+                ("Watch-outs", 0.23, "l"), ("Verdict", 0.13, "c")]
         rows = []
         for f in funds:
             v = f["verdict"]
@@ -65,12 +65,12 @@ def render(deck, ctx, tier):
         read = (f"What this means: {n_act} of {len(funds)} funds could be improved, usually because of "
                 f"high fees or the wrong structure, not just weak returns. {n_hold} are worth keeping.")
     else:
-        read = (f"The desk read: QFRA scores the scheme; the Portfolio Review team sets the verdict. "
+        read = (f"The desk read: the fund score ranks the scheme; the Portfolio Review team sets the verdict. "
                 f"{n_act} of {len(funds)} schemes carry an action, mostly on cost and structure "
                 f"(plan, mandate rigidity, scale, consistency) rather than performance alone; "
                 f"{n_hold} are Holds on merit.")
     deck.txt(s, ML, 6.02, UW, 0.5, [(read, SERIF, 9.5, INK, False, True)], ls=1.05)
-    deck.source(s, "QFRA 2.0 (frozen engine) · Direct-plan NAV vs total-return benchmark · "
-                   "SENTINEL flag ledger. Illustrative synthetic funds.")
+    deck.source(s, "Ionic fund-quality framework · Direct-plan NAV vs total-return benchmark · "
+                   "structural watch-outs flagged per scheme. Illustrative synthetic funds.")
     deck.score_band(s)
     return 1

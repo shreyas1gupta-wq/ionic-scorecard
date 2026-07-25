@@ -31,7 +31,7 @@ def render(deck, ctx, tier):
     avg = sum(f["weight_pct"] for f in funds) / n            # equal-weight reference
     eyebrow, title = LABELS.get(reg, LABELS["std"])
     s = deck.content(3, "Funds", eyebrow, title)
-    deck.scope_tag(s, f"MF sleeve only · quality = QFRA score · allocation gap vs equal-weight reference · as of {ctx['client']['as_of']}")
+    deck.scope_tag(s, f"MF sleeve only · quality = fund score · allocation gap vs equal-weight reference · as of {ctx['client']['as_of']}")
 
     gap = [round(f["weight_pct"] - avg, 1) for f in funds]    # + = over-allocated
     quality = [f["qfra"] for f in funds]
@@ -63,5 +63,5 @@ def render(deck, ctx, tier):
         y += 0.98
 
     deck.source(s, "Allocation gap = fund weight minus the equal-weight reference (illustrative; a live "
-                   "review uses the house-view category bands). Quality = QFRA. Synthetic demo funds.")
+                   "review uses the house-view category bands). Quality = fund score. Synthetic demo funds.")
     return 1

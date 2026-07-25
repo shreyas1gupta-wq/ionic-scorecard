@@ -62,7 +62,7 @@ def _our_read(f, simple):
     lead = {"Exit": (f"Our read is Exit. The case for staying is gone: net alpha runs {a:+.1f}% p.a., "
                      f"down-capture is {dc:.0f}% against {uc:.0f}% up-capture, and the worst year "
                      f"printed {w1:+.1f}%."),
-            "Switch": (f"Our read is Switch. QFRA {f['qfra']}/100 ({f['merit']}) sits below the "
+            "Switch": (f"Our read is Switch. A fund score of {f['qfra']}/100 (grade {f['merit']}) sits below the "
                        f"category exemplar: {uc:.0f}% up-capture does not pay for {dc:.0f}% "
                        f"down-capture, and net alpha runs {a:+.1f}% p.a."),
             "Redeem-to-Direct": (f"Our read is Redeem-to-Direct. The scheme itself passes "
@@ -78,7 +78,7 @@ def _our_read(f, simple):
     t = lead.get(v, (f"Our read is {v}. Net alpha {a:+.1f}% p.a., down-capture {dc:.0f}%, "
                      f"worst year {w1:+.1f}%."))
     if flags:
-        t += " SENTINEL flags firing: " + ", ".join(flags) + "."
+        t += " Watch-outs: " + ", ".join(flags) + "."
     t += f" Max drawdown on record: {dd:.1f}%."
     return t
 
@@ -89,8 +89,8 @@ def _card(deck, f, tier, idx):
     deck.pill(s, RX - 1.7, 1.72, f["verdict"], w=1.7, kind=f["verdict"])
 
     deck.kpi_strip(s, [
-        (f"{f['qfra']}", "QFRA / 100"),
-        (f["merit"], "MERIT grade"),
+        (f"{f['qfra']}", "Fund score / 100"),
+        (f["merit"], "Grade"),
         (f"{f['up_capture']:.0f}%", "Up-capture"),
         (f"{f['down_capture']:.0f}%", "Down-capture"),
         (f"{f['hit3y']:.0f}%", "3Y hit-rate"),
@@ -116,7 +116,7 @@ def _card(deck, f, tier, idx):
     deck.callout(s, ML, 3.9, 5.35, h, "Why we act", narr or "Rationale on file.", kind)
     deck.callout(s, ML + 5.55, 3.9, UW - 5.55, h, "Our read", read, "note")
 
-    deck.source(s, "Direct-plan NAV vs total-return benchmark, point-in-time. QFRA 2.0 / SENTINEL.")
+    deck.source(s, "Direct-plan NAV vs total-return benchmark, point-in-time · Ionic fund-quality framework.")
 
 
 def render(deck, ctx, tier):

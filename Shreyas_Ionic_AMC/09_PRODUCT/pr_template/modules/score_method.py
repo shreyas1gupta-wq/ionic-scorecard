@@ -117,9 +117,12 @@ def render(deck, ctx, tier):
     # 3) safety-gate one-liner ---------------------------------------------
     gyl = gy + ch + 0.16
     if simple:
-        gate = "If a company carries too much debt or trades too thinly, its score is capped at 40, a built-in safety brake."
+        gate = ("If a company carries too much debt for its kind of business, or trades too thinly, "
+                "its score is capped at 40, a built-in safety brake.")
     else:
-        gate = "A weak balance sheet (high debt or thin interest cover) or thin liquidity caps the score at 40, no exceptions."
+        gate = ("A weak balance sheet or thin liquidity caps the score at 40. The debt bar is judged "
+                "in context: by industry norms (utilities and lenders run levered), sovereign or "
+                "group backing, and access to capital, not one fixed ratio.")
     deck.txt(s, ML, gyl, UW, 0.30,
              [("SAFETY GATES   ", SANS, 9, SELL, True, False, 40), (gate, SERIF, 10, INK, False)],
              anchor=MSO_ANCHOR.MIDDLE)

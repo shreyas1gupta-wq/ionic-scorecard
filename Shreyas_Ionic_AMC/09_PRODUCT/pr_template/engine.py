@@ -21,6 +21,8 @@ MODULES = [
     ("snapshot",           1, "Portfolio X-ray", True),
     ("allocation_house_view", 1, "Portfolio X-ray", True),
     ("concentration_risk", 1, "Portfolio X-ray", True),
+    # renders ONLY when a promoter group >20% of the equity sleeve (always checked)
+    ("group_concentration", 1, "Portfolio X-ray", True),
     ("sector_exposure",    1, "Portfolio X-ray", True),
     ("mcap_positioning",   1, "Portfolio X-ray", True),
     ("_div2",              2, "The Equity Book", True),

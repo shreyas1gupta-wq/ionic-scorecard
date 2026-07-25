@@ -78,11 +78,16 @@ def check(path):
                 if small > 0 and ov / small > 0.18:
                     findings.append({"slide": i, "kind": "text-collision", "pct": round(ov / small * 100),
                                      "a": ta[:42], "b": tb[:42]})
-        # 5: picture over text (>25% of the text box)
+        # 5: picture over text (>25% of the text box) — z-order aware: a picture that
+        # sits BEHIND the text in paint order (e.g. divider flow-art) is background,
+        # not a collision; only flag pictures painted ON TOP of the text
+        order = {id(sh): k for k, sh in enumerate(shapes)}
         for psh, pb in pics:
             if not pb: continue
             for sh, tb_, t in texts:
                 if not tb_ or len(t) < 13: continue
+                if order[id(psh)] < order[id(sh)]:
+                    continue
                 ov = inter(pb, tb_)
                 if area(tb_) > 0 and ov / area(tb_) > 0.25:
                     findings.append({"slide": i, "kind": "pic-over-text", "text": t[:42],

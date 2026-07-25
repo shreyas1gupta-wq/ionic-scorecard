@@ -32,8 +32,18 @@ def _clip(txt, n=350):
     return clip_sentences(txt, n)
 
 
+_COMMODITY_SECTORS = ("Metals & Mining", "Oil Gas & Consumable Fuels", "Power")
+
+
 def _reversal(e):
-    return _REVERSAL.get(e.get("reason_category"), _REVERSAL["Weaker forward risk-reward"])
+    base = _REVERSAL.get(e.get("reason_category"), _REVERSAL["Weaker forward risk-reward"])
+    # commodity names live on a 10-15 year cycle (Principal 2026-07-25): the exit door
+    # must name the cycle signal, not just the stock-level fix
+    if (e.get("sector") or "") in _COMMODITY_SECTORS:
+        base += (" For a commodity name, additionally: a confirmed upcycle — structural demand "
+                 "(electrification / AI build-out) showing up in realised earnings and supply "
+                 "deficits, not just in the metal price.")
+    return base
 
 
 def _card(deck, e, tier):
