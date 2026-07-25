@@ -31,6 +31,7 @@ def _one(deck, e, tier):
     reg = tier.get("register", "std")
     s = deck.content(5, "Annexure", "Spotlight",
                      f"{e['name']}  ·  {e['sector']}  ·  {e['weight_pct']:.1f}% of the book")
+    deck.anchor(f"stock:{e['symbol']}", s, prio=1)
 
     # --- left: score panel ---
     px, py, pw, ph = ML, 1.95, 3.5, 3.7
@@ -65,6 +66,7 @@ def _one(deck, e, tier):
         call_body += f"Driver: {e['reason_category']}."
     deck.callout(s, rx, py + 2.6, rw, 1.1, f"The call, {call}", call_body, "human")
 
+    deck.pageref(s, RX - 2.4, 6.42, "tbl:book", w=2.4, label="BACK TO THE BOOK")
     deck.score_band(s)
     deck.source(s, f"Ionic Score is a quantitative input; the Portfolio Review team confirms every call. "
                    f"Point-in-time as of {e['pit_date']}.")

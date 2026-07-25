@@ -37,5 +37,11 @@ def render(deck, ctx, tier):
                 ("pill", e["rec"]),
             ])
         deck.table(s, ML, 1.95, UW, cols, rows, rowh=0.24, fs=8.5, hfs=7.5)
+        # fallback jump target for every name; rows with a richer card elsewhere click through
+        ry = 1.95 + 0.33
+        for e in chunk:
+            deck.anchor(f"stock:{e['symbol']}", s, prio=0)
+            deck.hotspot(s, ML, ry - 0.02, UW, 0.24, f"stock:{e['symbol']}")
+            ry += 0.24
         deck.score_band(s)
     return pages

@@ -13,9 +13,10 @@ os.makedirs(OUT, exist_ok=True)
 
 def main(tiers_):
     ctx = build_ctx()
+    sfx = os.environ.get("PR_SUFFIX", "")
     for tier in tiers_:
         deck, manifest = engine.build(ctx, tier)
-        path = os.path.join(OUT, f"ABXY_Family_{tier}.pptx")
+        path = os.path.join(OUT, f"ABXY_Family_{tier}{sfx}.pptx")
         deck.save(path)
         n = sum(c for _, c in manifest)
         print(f"\n=== {tier}: {n} slides -> {path}")

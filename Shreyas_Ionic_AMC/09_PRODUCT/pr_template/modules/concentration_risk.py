@@ -27,6 +27,7 @@ def render(deck, ctx, tier):
     top2 = sum(e["weight_pct"] for e in top[:2])
 
     s = deck.content(1, "Portfolio X-ray", L["eyebrow"], L["title"])
+    deck.anchor("mod:concentration", s, prio=5)
     deck.scope_tag(s, f"Direct equity only · as of {as_of}")
 
     # ---- treemap (left) ----

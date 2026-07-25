@@ -43,11 +43,14 @@ MODULES = [
     ("house_view_fit",     4, "Recommendations", True),
     ("cost",               4, "Recommendations", True),
     ("tax_impact",         4, "Recommendations", True),
-    ("deployment",         4, "Recommendations", True),
-    ("before_after",       4, "Recommendations", True),
     ("priority_actions",   4, "Recommendations", True),
     # ---- F18 cut line: optional annexure ----
     ("_div5",              5, "Annexure",       False),
+    # transition-plan slides live in the ANNEXURE (Principal 2026-07-25: no buy
+    # recommendations for now; the deployment/before-after sequence is a framework
+    # shown on request, not a recommendation in the main deck)
+    ("deployment",         5, "Annexure",       False),
+    ("before_after",       5, "Annexure",       False),
     ("opportunity_set",    5, "Annexure",       False),
     ("quality_vs_price",   5, "Annexure",       False),
     ("factor_profile",     5, "Annexure",       False),
@@ -81,6 +84,41 @@ MODULES = [
 ]
 
 
+# divider mini-TOC labels (v7 device: each section divider carries a muted local
+# contents list, bottom-left). Filtered to what the tier actually renders, max 5.
+DIVIDER_TOC = {
+    1: [("snapshot", "Portfolio snapshot"), ("allocation_house_view", "Allocation vs house view"),
+        ("concentration_risk", "Concentration risk"), ("sector_exposure", "Sector exposure"),
+        ("mcap_positioning", "Market-cap positioning")],
+    2: [("score_method", "How we score every stock"), ("book_scored", "The book, scored"),
+        ("equity_book", "The book at a glance"), ("sell_list", "What we would sell"),
+        ("hold_rationale", "What stays, and why")],
+    3: [("fund_book_scored", "The fund book, scored"), ("funds_equity", "Equity funds vs benchmark"),
+        ("funds_hybrid", "Hybrid funds"), ("fund_overlap", "Where exposure duplicates"),
+        ("fund_actions", "Fund actions")],
+    4: [("house_view_fit", "House-view fit"), ("cost", "What you're paying today"),
+        ("tax_impact", "Tax impact"), ("priority_actions", "Your priority actions")],
+    5: [("deployment", "Transition framework"), ("before_after", "Before and after"),
+        ("spotlight_holdings", "Holding spotlights"), ("holdings_detail", "All holdings, scored"),
+        ("sell_cards", "Sell rationale cards")],
+}
+
+
+def _toc_for(sec_no, tier):
+    out = []
+    for mod_id, label in DIVIDER_TOC.get(sec_no, []):
+        core = next((c for m, s, _n, c in MODULES if m == mod_id), None)
+        if core is None:
+            continue
+        if core:
+            ok = mod_id not in tier.get("skip_core", set())
+        else:
+            ok = mod_id in tier["optional_on"]
+        if ok:
+            out.append(label)
+    return out[:5]
+
+
 def _load(mod_id):
     try:
         return importlib.import_module(f"modules.{mod_id}")
@@ -107,10 +145,10 @@ def build(ctx, tier_name, verbose=True):
             titles = {1: ("Portfolio X-ray", "Where the book stands today"),
                       2: ("The Equity Book", "Every direct holding, scored and read"),
                       3: ("The Fund Book", "Upside, downside and consistency — not just returns"),
-                      4: ("What We Would Do", "The plan, the cost, the tax and the sequence"),
-                      5: ("Annexure", "Detail, on request")}
+                      4: ("What We Would Do", "The calls, the cost and the tax"),
+                      5: ("Annexure", "Detail and frameworks, on request")}
             t, sub = titles.get(sec_no, (sec_name, ""))
-            deck.section_divider(sec_no, t, sub)
+            deck.section_divider(sec_no, t, sub, pages=_toc_for(sec_no, tier))
             manifest.append((mod_id, 1)); continue
         m = _load(mod_id)
         if m is None or not hasattr(m, "render"):

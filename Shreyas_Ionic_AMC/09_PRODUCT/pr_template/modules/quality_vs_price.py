@@ -28,7 +28,11 @@ def render(deck, ctx, tier):
     sizes = [e["value_inr"] for e in rows]
     colors = [_col(e["rec"]) for e in rows]
     labels = [e["symbol"] for e in rows]
-    png = CH.value_map(pe, roe, sizes, colors, labels, "annex_valuemap")
+    # label only what a reader can use: the biggest positions and every Sell — 47 labels is mush
+    top_cut = sorted(sizes, reverse=True)[7] if len(sizes) > 8 else 0
+    mask = [(sz >= top_cut and top_cut > 0) or e["rec"] != "Hold"
+            for sz, e in zip(sizes, rows)]
+    png = CH.value_map(pe, roe, sizes, colors, labels, "annex_valuemap", label_mask=mask)
     deck.pic(s, png, ML, 1.95, 7.6, 4.35, valign="top", halign="left")
 
     rx = ML + 7.85
@@ -43,12 +47,15 @@ def render(deck, ctx, tier):
 
     ly = 4.25
     deck.txt(s, rx, ly - 0.28, rw, 0.22, [("THE CALL", SANS, 8, SLATE, True, False, 120)])
-    for i, (lab, c) in enumerate([("Hold", HOLD), ("Trim", GOLD), ("Sell", SELL)]):
+    present = [(lab, c) for lab, c in (("Hold", HOLD), ("Trim", GOLD), ("Sell", SELL))
+               if any(e["rec"] == lab for e in rows)]
+    for i, (lab, c) in enumerate(present):
         yy = ly + i * 0.34
         deck.oval(s, rx, yy, 0.17, c)
         deck.txt(s, rx + 0.28, yy - 0.03, rw - 0.3, 0.24,
                  [(lab, SANS, 10.5, INK, False)], anchor=MSO_ANCHOR.MIDDLE)
 
     deck.source(s, f"{len(rows)} of {len(eq)} holdings shown (names with a reported P/E and ROE). "
-                   f"Bubble colour = current call; dashed lines = book medians.")
+                   f"Bubble colour = current call; the largest positions and every Sell are named; "
+                   f"dashed lines = book medians.")
     return 1

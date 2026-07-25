@@ -6,7 +6,7 @@ import charts as CH
 from slidekit import NAVY, GOLD, INK, SLATE, SERIF, SANS, ML, UW, RX
 from pptx.enum.text import PP_ALIGN
 
-SECTION_NO, SECTION = 4, "Recommendations"
+SECTION_NO, SECTION = 5, "Annexure"   # transition plan lives in the annexure (Principal 2026-07-25)
 _NAVY, _NT2, _GOLD, _SELL = "#1B27A3", "#8C95DE", "#F2A93C", "#E0402F"
 
 
@@ -59,8 +59,8 @@ def render(deck, ctx, tier):
         deck.txt(s, bx, 1.76, 3.5, 0.24, [(cap.upper(), SANS, 8.5, SLATE, True, False, 80)], align=PP_ALIGN.CENTER)
         deck.pic(s, png, bx, 2.02, 3.5, 2.85, valign="middle")
 
-    body = (f"{_money(proceeds)} is freed to cash after execution and is deployed only on a staged, "
-            f"liquidity-led basis, never auto-invested. See 'Where the money moves'.")
+    body = (f"{_money(proceeds)} is freed to cash after execution and stays in cash until deployment "
+            f"is agreed separately, never auto-invested; the staging framework sits on the previous page.")
     if reg == "simple":
         body = (f"After we sell, {_money(proceeds)} sits safely in cash. We reinvest it slowly, "
                 f"step by step, it is never put to work automatically.")

@@ -67,7 +67,7 @@ _EQUITY_WEIGHTS = [
     ("IRCTC", 0.18), ("ITCHOTELS", 0.12), ("CMSINFO", 0.10),
     # CEO case-study expansion (2026-07-25): +9 scored names for a fuller, real-feeling book
     ("TCS", 2.1), ("INFY", 1.6), ("HINDUNILVR", 1.4), ("BEL", 1.0), ("SCHAEFFLER", 0.7),
-    ("SUZLON", 0.6), ("TATATECH", 0.35), ("ETERNAL", 0.28), ("ANANDRATHI", 0.15),
+    ("SUZLON", 0.6), ("DIXON", 0.35), ("ETERNAL", 0.28), ("ANANDRATHI", 0.15),
 ]
 
 def _load_quant():

@@ -17,7 +17,8 @@ def main():
     module_slides = sum(c for _, c in manifest)
     g = add_chart_gallery(deck)                                     # every graph
     y = add_style_reference(deck)                                   # palette / pills / tables
-    path = os.path.join(OUT, "NDPMS_TEMPLATE_MASTER.pptx")
+    sfx = os.environ.get("PR_SUFFIX", "")
+    path = os.path.join(OUT, f"NDPMS_TEMPLATE_MASTER{sfx}.pptx")
     deck.save(path)
     total = len(deck.prs.slides)
     print(f"MASTER LIBRARY: {total} slides -> {path}")

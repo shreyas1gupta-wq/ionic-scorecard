@@ -7,7 +7,7 @@ import charts as CH
 from slidekit import NAVY, GOLD, INK, SLATE, NT2, SERIF, SANS, ML, UW, RX, PANEL, HAIR
 from pptx.enum.text import PP_ALIGN
 
-SECTION_NO, SECTION = 4, "Recommendations"
+SECTION_NO, SECTION = 5, "Annexure"   # transition plan lives in the annexure (Principal 2026-07-25)
 
 
 def _money(v):
@@ -24,12 +24,12 @@ def _short(name):
 
 
 LABELS = {
-    "hni": {"eyebrow": "Where the money moves · and why", "title": "Net proceeds redeployed by sleeve, sequenced by liquidity",
-            "seq": "Sequencing", "foot": "Sequencing reflects liquidity and settlement logic, not a market-timing call. Redeployment destinations are illustrative (advisory / CIO-owned) and execute only on client authorisation. Amounts are net of estimated tax."},
-    "std": {"eyebrow": "Where the money moves · and why", "title": "Net proceeds redeployed by sleeve, sequenced by liquidity",
-            "seq": "Sequencing", "foot": "Sequencing reflects liquidity and settlement logic, not a market-timing call. Redeployment destinations are illustrative (advisory / CIO-owned) and execute only on client authorisation. Amounts are net of estimated tax."},
-    "simple": {"eyebrow": "Where the money goes next", "title": "How we'd put the freed cash back to work, step by step",
-               "seq": "The order we'd do it in", "foot": "This is a liquidity plan, not a market call. The destinations are illustrative and nothing moves until you say yes. All figures are after estimated tax."},
+    "hni": {"eyebrow": "Transition framework · on request", "title": "How net proceeds could be staged, sequenced by liquidity",
+            "seq": "Sequencing", "foot": "Annexure framework, not a recommendation: no scheme or security is being recommended here. Sequencing reflects liquidity and settlement logic, not a market-timing call; sleeves are illustrative (advisory / CIO-owned) and nothing executes without client authorisation. Amounts are net of estimated tax."},
+    "std": {"eyebrow": "Transition framework · on request", "title": "How net proceeds could be staged, sequenced by liquidity",
+            "seq": "Sequencing", "foot": "Annexure framework, not a recommendation: no scheme or security is being recommended here. Sequencing reflects liquidity and settlement logic, not a market-timing call; sleeves are illustrative (advisory / CIO-owned) and nothing executes without client authorisation. Amounts are net of estimated tax."},
+    "simple": {"eyebrow": "If and when we reinvest", "title": "How the freed cash could go back to work, step by step",
+               "seq": "The order we'd do it in", "foot": "This page is a framework we can discuss, not a recommendation. The destinations are examples and nothing moves until you say yes. All figures are after estimated tax."},
 }
 
 
@@ -39,6 +39,7 @@ def render(deck, ctx, tier):
     dep = ctx["deployment"]
     sleeves = dep["sleeves"]
     s = deck.content(SECTION_NO, SECTION, L["eyebrow"], L["title"])
+    deck.anchor("mod:deployment", s, prio=5)
 
     # --- left: waterfall (gross -> less tax -> sleeves -> cash) ---
     steps = [("Gross\nproceeds", dep["proceeds_inr"], "open"),

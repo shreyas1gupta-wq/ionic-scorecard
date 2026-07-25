@@ -24,6 +24,7 @@ def render(deck, ctx, tier):
     acts = [f for f in ctx["funds"] if f["action"] not in ("HOLD", "Hold")]
     eyebrow, title = LABELS.get(reg, LABELS["std"])
     s = deck.content(3, "Funds", eyebrow, title)
+    deck.anchor("mod:fund_actions", s, prio=5)
     deck.txt(s, ML, 1.62, UW, 0.40,
              [("No fund here is sold on performance. Each action is structural: mandate, cost, capacity or "
                "closet-indexing, measured against the fund that does the job better.", SERIF, 10, SLATE, False, True)])

@@ -14,4 +14,4 @@ from chart_lib import (donut, hbar, paired_bar, waterfall, dumbbell, radar, heat
                        histogram, bubble, lollipop, stacked100, small_multiples_bars,
                        efficient_frontier, value_map, projection_cone, bar3d)
 from chart_lib_ext import (capture_scatter, drawdown_curve, rolling_return_band, fee_stack,  # noqa
-                           tax_bridge, quality_alloc_quadrant, over_under_bar)
+                           ter_bars, tax_bridge, quality_alloc_quadrant, over_under_bar)

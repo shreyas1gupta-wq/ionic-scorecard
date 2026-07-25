@@ -39,6 +39,7 @@ def _card(deck, e, tier):
     reg = tier.get("register", "std")
     reason = e.get("reason_category") or "Weaker forward risk-reward"
     s = deck.content(5, "Annexure", "Sell rationale", f"{e['name']}  ·  {reason}")
+    deck.anchor(f"stock:{e['symbol']}", s, prio=2)
 
     # --- score strip ---
     deck.txt(s, ML, 1.74, 2.0, 0.2, [("IONIC SCORE", SANS, 8.5, SLATE, True, False, 140)])
@@ -58,6 +59,7 @@ def _card(deck, e, tier):
     deck.callout(s, ML, y2, colw, h, "Reverse-DCF: margin of safety", _clip(e.get("reverse_dcf")), "note")
     deck.callout(s, x2, y2, colw, h, "What would change our mind", _clip(_reversal(e)), "human")
 
+    deck.pageref(s, RX - 2.7, 6.42, "tbl:sell_list", w=2.7, label="BACK TO THE SELL LIST")
     deck.score_band(s)
     deck.source(s, f"Analyst-confirmed Sell. Point-in-time as of {e['pit_date']}. "
                    f"The Ionic Score flags candidates; the team confirms every call.")

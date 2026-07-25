@@ -9,6 +9,7 @@ TIERS = {
         "chart_density": "rich",
         "show_horizon_legs": True,
         "optional_on": {            # every annexure module on
+            "deployment", "before_after",
             "opportunity_set", "quality_vs_price", "factor_profile", "growth_projection",
             "spotlight_holdings", "holdings_detail", "sell_cards", "scheme_overlap_full",
             "scheme_scorecards", "appendix",
@@ -27,7 +28,8 @@ TIERS = {
         "register": "std",          # professional, accessible
         "chart_density": "standard",
         "show_horizon_legs": False,
-        "optional_on": {"opportunity_set", "growth_projection", "spotlight_holdings", "appendix"},
+        "optional_on": {"deployment", "before_after", "opportunity_set", "growth_projection",
+                        "spotlight_holdings", "appendix"},
         "spotlight_count": 2,
     },
     "RM_SIMPLE": {

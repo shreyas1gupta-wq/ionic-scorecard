@@ -86,10 +86,20 @@ def render(deck, ctx, tier):
         ])
     ty = deck.table(s, ML, 3.10, UW, cols, rows, rowh=0.26, fs=9, hfs=8, maxrows=MAXROWS)
 
+    # each row clicks through to the name's rationale page in the annexure (resolved at save)
+    deck.anchor("tbl:book", s, prio=5)
+    linked = ("sell_cards" in tier.get("optional_on", set())
+              or "holdings_detail" in tier.get("optional_on", set()))
+    ry = 3.10 + 0.33
+    for e in rows_src[:MAXROWS]:
+        deck.hotspot(s, ML, ry - 0.02, UW, 0.26, f"stock:{e['symbol']}")
+        ry += 0.26
+
     more = len(eq) - min(MAXROWS, len(eq))
     if more > 0:
+        extra = "  Each row links to the name's page there." if linked else ""
         deck.txt(s, ML, ty + 0.04, UW, 0.22,
-                 [(f"and {more} more holdings, fully scored in the annexure.",
+                 [(f"and {more} more holdings, fully scored in the annexure.{extra}",
                    SERIF, 9, SLATE, False, True)])
 
     deck.source(s, "Ionic Score: proprietary two-horizon composite with safety gates, reviewed by the desk · "

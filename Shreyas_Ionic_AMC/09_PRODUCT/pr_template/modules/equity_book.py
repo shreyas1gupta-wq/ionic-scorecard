@@ -43,9 +43,10 @@ def render(deck, ctx, tier):
                     figsize=(11.0, 4.7), xlabel="Weight in book (%)", ylabel="Ionic Score (0–100)")
     deck.pic(s, png, ML, 2.45, UW, 3.55, valign="top")
 
-    # legend
+    # legend — only the calls actually present in the book
     ly = 6.14
-    items = [("Sell", SELL), ("Trim", AMBER), ("Hold", HOLD)]
+    items = [(n, c) for n, c in (("Sell", SELL), ("Trim", AMBER), ("Hold", HOLD))
+             if any(e["rec"] == n for e in eq)]
     lx = ML
     for name, col in items:
         deck.oval(s, lx, ly + 0.03, 0.13, col)

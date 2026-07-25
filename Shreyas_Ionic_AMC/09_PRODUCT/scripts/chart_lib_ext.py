@@ -7,7 +7,8 @@ import numpy as np
 import matplotlib as _mpl
 _mpl.rcParams["axes.unicode_minus"] = False  # use ASCII hyphen (Bahnschrift lacks U+2212)
 import chart_lib as C
-from chart_lib import _fig, _save, INK, SLATE, HAIR, NAVY, NAVYD, NT1, NT2, NT3, GOLD, SELL, SELLBG, HOLD, HOLDBG, PANEL
+from chart_lib import (_fig, _save, halo, caption_above, chip_legend,
+                       INK, SLATE, HAIR, NAVY, NAVYD, NT1, NT2, NT3, GOLD, SELL, SELLBG, HOLD, HOLDBG, PANEL)
 
 
 # ---------------------------------------------------------------- up/down capture scatter (equity funds)
@@ -82,18 +83,43 @@ def fee_stack(rows, name, figsize=(9.4, 4.4)):
     y = np.arange(len(rows))[::-1]
     for yi, (lab, ter, drag, pms) in zip(y, rows):
         left = 0
-        for val, col in ((ter, NT2), (drag, SELL), (pms, GOLD)):
+        # base segment in NAVY: the primary series is always brand indigo, never periwinkle
+        for val, col in ((ter, NAVY), (drag, SELL), (pms, GOLD)):
             if val > 0:
-                ax.barh(yi, val, left=left, height=0.6, color=col, edgecolor="white", linewidth=1.2, zorder=3)
+                ax.barh(yi, val, left=left, height=0.6, color=col, alpha=0.92,
+                        edgecolor="white", linewidth=1.2, zorder=3)
                 left += val
         ax.text(left + 3, yi, f"{left:.0f} bps", va="center", fontsize=9.5, color=INK, fontweight="bold")
     ax.set_yticks(y); ax.set_yticklabels([r[0] for r in rows], fontsize=9.5, color=INK)
     ax.set_xticks([])
-    # legend
-    for col, lab in ((NT2, "Fund TER (direct)"), (SELL, "Regular-plan drag (avoidable)"), (GOLD, "PMS / advisory fee")):
-        ax.bar(0, 0, color=col, label=lab)
-    ax.legend(loc="lower right", frameon=False, fontsize=8.5, ncol=1)
+    # series key as a caption ABOVE the axes — never a boxed legend inside the data area
+    caption_above(ax, "navy = fund TER (direct)   ·   red = Regular-plan drag (avoidable)   ·   gold = PMS / advisory fee")
     ax.set_xlim(0, max(sum(r[1:]) for r in rows) * 1.18)
+    return _save(fig, name)
+
+
+# ---------------------------------------------------------------- plain scheme TER bars (no extras)
+def ter_bars(rows, name, avg_bps=None, figsize=(9.4, 4.2)):
+    """rows: (label, ter_bps). One clean series: what each scheme charges, house indigo,
+    direct value labels, optional blended-average marker. No legend, no fee extras
+    (Principal 2026-07-25: the NDPMS deck does not show drag / advisory-fee overlays)."""
+    fig, ax = _fig(figsize)
+    n = len(rows)
+    y = np.arange(n)[::-1]
+    vals = [float(r[1]) for r in rows]
+    ax.barh(y, vals, height=0.62, color=NAVY, alpha=0.92, zorder=3,
+            edgecolor="white", linewidth=1.0)
+    for yi, v in zip(y, vals):
+        ax.text(v + max(vals) * 0.015, yi, f"{v:.0f} bps", va="center", ha="left",
+                fontsize=9.5, color=INK, fontweight="bold")
+    ax.set_yticks(y); ax.set_yticklabels([r[0] for r in rows], fontsize=9.5, color=INK)
+    ax.set_xticks([])
+    ax.set_ylim(-0.95, n - 0.45)
+    if avg_bps:
+        ax.axvline(avg_bps, color=GOLD, lw=1.6, ls=(0, (5, 3)), zorder=4)
+        ax.text(avg_bps, -0.68, f"  blended {avg_bps:.0f} bps", fontsize=9,
+                color="#8A6E1B", fontweight="bold", ha="left", va="center")
+    ax.set_xlim(0, max(vals) * 1.18)
     return _save(fig, name)
 
 

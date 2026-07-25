@@ -82,6 +82,8 @@ def render(deck, ctx, tier):
     n_act = len(sells) - n_rev
 
     s = deck.content(2, "Equity", "What we would sell", L["title"])
+    # v7 device (p.16): the Sell count rides ON the header rule as a badge
+    deck.pill(s, 11.05, 1.42, f"Sell ×{len(sells)}", w=1.36, kind="Sell")
     deck.scope_tag(s, f"Direct equity only · as of {as_of}")
     deck.txt(s, ML, 1.80, UW, 0.42, [(_lead(reg, len(sells), n_act, n_rev), SERIF, 10.5, SLATE, False, True)],
              ls=1.03)
@@ -109,6 +111,13 @@ def render(deck, ctx, tier):
     n = len(rows)
     rowh = 0.44 if n <= 6 else (0.34 if n <= 8 else 0.30)
     ty = deck.table(s, ML, 2.32, UW, cols, rows, rowh=rowh, fs=9, hfs=8)
+
+    # each row clicks through to the name's Sell-rationale card in the annexure
+    deck.anchor("tbl:sell_list", s, prio=5)
+    ry = 2.32 + 0.33
+    for e in sells:
+        deck.hotspot(s, ML, ry - 0.02, UW, rowh, f"stock:{e['symbol']}")
+        ry += rowh
 
     # under-review footnote (frozen methodology) ------------------------------
     fy = ty + 0.06

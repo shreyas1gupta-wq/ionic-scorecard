@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-"""cost (Section 04, Recommendations, NEW split from v8 #26, F5).
-3 KPI tiles (total fee load bps & Rs | Regular-plan drag avoidable | PMS fee) + CH.fee_stack
-(fund TER direct + Regular-plan drag + PMS) + a single soft CoPilot line + basis footnote.
-PMS/advisory fee shown SEPARATELY from fund TER."""
+"""cost (Section 04, Recommendations, F5).
+Scheme-level cost of ownership ONLY: what each fund charges (current-plan TER, bps), a blended
+book average, and the fee in rupees a year. Principal 2026-07-25: the NDPMS deck does NOT show
+'extra you pay' overlays (Regular-plan drag bars, PMS/advisory fee) — plan hygiene is handled as
+a fund ACTION (Redeem-to-Direct), not as a cost exhibit. CoPilot hook retained."""
 import charts as CH
-from slidekit import NAVY, GOLD, INK, SLATE, SELL, NT2, SERIF, SANS, ML, UW, RX, AMBERBG, AMBER, PANEL, HAIR
-from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
+from slidekit import NAVY, GOLD, INK, SLATE, NT2, SERIF, SANS, ML, UW, RX, AMBER
+from pptx.enum.text import MSO_ANCHOR
 
 SECTION_NO, SECTION = 4, "Recommendations"
 
@@ -15,17 +16,17 @@ def _money(v):
 
 
 LABELS = {
-    "hni": {"eyebrow": "What you're paying today", "title": "The full fee stack · fund TER, avoidable Regular-plan drag, and PMS fee, separated",
-            "t1": "Total fee load", "t2": "Regular-plan drag", "t3": "PMS / advisory fee",
-            "s2": "avoidable, Direct plan removes it", "s3": "on the whole book, separate from fund TER",
+    "hni": {"eyebrow": "What you're paying today", "title": "Fund-level cost of ownership · what each scheme charges",
+            "t1": "Fund fees, a year", "t2": "Blended fund TER", "t3": "Cost spread",
+            "s2": "value-weighted, current plan", "s3": "cheapest to priciest holding",
             "copilot": "Want a full fee-optimisation run across alternatives? Ask CoPilot."},
-    "std": {"eyebrow": "What you're paying today", "title": "The full fee stack · fund TER, avoidable Regular-plan drag, and PMS fee, separated",
-            "t1": "Total fee load", "t2": "Regular-plan drag", "t3": "PMS / advisory fee",
-            "s2": "avoidable, Direct plan removes it", "s3": "on the whole book, separate from fund TER",
+    "std": {"eyebrow": "What you're paying today", "title": "Fund-level cost of ownership · what each scheme charges",
+            "t1": "Fund fees, a year", "t2": "Blended fund TER", "t3": "Cost spread",
+            "s2": "value-weighted, current plan", "s3": "cheapest to priciest holding",
             "copilot": "Want a full fee-optimisation run across alternatives? Ask CoPilot."},
-    "simple": {"eyebrow": "What your fees cost you", "title": "Your yearly fees · and the part you can simply avoid",
-               "t1": "Total fees a year", "t2": "Avoidable extra", "t3": "PMS fee",
-               "s2": "the Direct plan removes this", "s3": "charged on the whole portfolio",
+    "simple": {"eyebrow": "What your funds cost", "title": "What each fund charges you, every year",
+               "t1": "Fund fees a year", "t2": "Average charge", "t3": "Lowest and highest",
+               "s2": "across all your funds", "s3": "your cheapest and priciest fund",
                "copilot": "Want us to run the numbers across cheaper options? Ask CoPilot."},
 }
 
@@ -33,23 +34,31 @@ LABELS = {
 def render(deck, ctx, tier):
     reg = tier.get("register", "std")
     L = LABELS.get(reg, LABELS["std"])
-    cost = ctx["cost"]
-    grand = ctx["totals"]["grand_inr"]
     s = deck.content(SECTION_NO, SECTION, L["eyebrow"], L["title"])
 
-    reg_drag_bps = round(cost["reg_drag_inr"] / grand * 10000)
-    stats = [
-        (f"{cost['total_bps']} bps", L["t1"], _money(cost["total_inr"]) + " / yr", INK),
-        (_money(cost["reg_drag_inr"]), L["t2"], f"~{reg_drag_bps} bps · {L['s2']}", SELL),
-        (f"{cost['pms_bps']} bps", L["t3"], L["s3"], NT2),
-    ]
-    deck.kpi_strip(s, stats, y=1.82)
+    def _short(name, n=26):
+        base = name.split("(")[0].strip()          # plan markers don't matter here
+        if len(base) <= n:
+            return base
+        cut = base[:n]
+        sp = cut.rfind(" ")
+        return (cut[:sp] if sp > n * 0.6 else cut).rstrip() + "…"
 
-    # fee stack: fund TER (direct) + Regular-plan drag (avoidable) + PMS row (whole book), worst-to-best
-    frows = sorted(cost["rows"], key=lambda r: (r[2] + r[3]), reverse=True)
-    fee_rows = [(name[:26], ter, drag, 0) for (name, plan, ter, drag) in frows]
-    fee_rows.append(("PMS / advisory (whole book)", 0, 0, cost["pms_bps"]))
-    png = CH.fee_stack(fee_rows, "azby_fee_stack")
+    # current-plan TER per scheme (direct TER + plan drag = what the holder pays today)
+    cur = [(_short(name), ter + drag) for (name, plan, ter, drag) in ctx["cost"]["rows"]]
+    vals = {_short(f["name"]): f["value_inr"] for f in ctx["funds"]}
+    tot_val = sum(vals.get(n, 0) for n, _ in cur) or 1
+    blended = sum(b * vals.get(n, 0) for n, b in cur) / tot_val
+    fee_inr = sum(b / 1e4 * vals.get(n, 0) for n, b in cur)
+    lo = min(cur, key=lambda r: r[1]); hi = max(cur, key=lambda r: r[1])
+
+    deck.kpi_strip(s, [
+        (_money(fee_inr), L["t1"], f"{blended:.0f} bps blended", INK),
+        (f"{blended:.0f} bps", L["t2"], L["s2"], NAVY),
+        (f"{lo[1]:.0f}–{hi[1]:.0f} bps", L["t3"], L["s3"], NT2),
+    ], y=1.82)
+
+    png = CH.ter_bars(sorted(cur, key=lambda r: -r[1]), "azby_ter_bars", avg_bps=blended)
     deck.pic(s, png, ML, 2.92, UW, 3.18, valign="top")
 
     # single soft CoPilot hook line (compliance-gated), rendered subtly
@@ -59,6 +68,6 @@ def render(deck, ctx, tier):
              [("COPILOT   ", SANS, 8, AMBER, True, False, 60), (L["copilot"], SERIF, 10, SLATE, False, True)],
              anchor=MSO_ANCHOR.MIDDLE)
 
-    deck.source(s, "Basis: fund TER from scheme documents (Direct vs Regular); Regular-plan drag = Regular minus Direct expense; "
-                   "PMS / advisory fee per the signed IMA, charged separately. Illustrative for the AZBY demo.")
+    deck.source(s, "Basis: scheme Total Expense Ratio (current plan) from scheme documents, "
+                   "weighted by holding value. Illustrative for the AZBY demo.")
     return 1

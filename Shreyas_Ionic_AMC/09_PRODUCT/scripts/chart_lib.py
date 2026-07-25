@@ -42,13 +42,14 @@ def _rc():
         "font.family": "sans-serif", "font.sans-serif": [SANS, "DejaVu Sans"],
         "text.color": INK, "axes.edgecolor": HAIR, "axes.labelcolor": SLATE,
         "xtick.color": SLATE, "ytick.color": SLATE, "font.size": 12,
-        "svg.fonttype": "none", "figure.dpi": 200,
+        "axes.unicode_minus": False,   # ASCII hyphen (Bahnschrift lacks U+2212)
+        "svg.fonttype": "none", "figure.dpi": 240,
     })
 
 
 def _fig(figsize):
     _rc()
-    fig, ax = plt.subplots(figsize=figsize, dpi=200)
+    fig, ax = plt.subplots(figsize=figsize, dpi=240)
     fig.patch.set_alpha(0)
     ax.set_facecolor("none")
     for s in ax.spines.values():
@@ -62,6 +63,30 @@ def _save(fig, name):
     fig.savefig(p, transparent=True, bbox_inches="tight", pad_inches=0.04)
     plt.close(fig)
     return p
+
+
+# ---- house chart-chrome helpers (v7 audit, 2026-07-25) ----------------------------
+import matplotlib.patheffects as _pe
+
+def halo(artist, lw=2.4, fg="white"):
+    """White stroke behind text so labels survive landing on a filled bar (bar3d's
+    defensive pattern, promoted library-wide)."""
+    artist.set_path_effects([_pe.withStroke(linewidth=lw, foreground=fg)])
+    return artist
+
+def caption_above(ax, text, y=1.05):
+    """Series key as a caption line ABOVE the axes. House rule: never ax.legend() —
+    a boxed legend inside the data area collides with bar labels (v7 has zero of them)."""
+    return ax.text(0, y, text, transform=ax.transAxes, fontsize=8.5, color=SLATE, ha="left")
+
+def chip_legend(ax, items, y=-0.30, x0=0.0, dx=0.24):
+    """Manual color-chip + label row below the axes (v7 p.19 'BY CATEGORY' grid),
+    for charts with too many categories for inline labels."""
+    for i, (col, lab) in enumerate(items):
+        ax.add_patch(plt.Rectangle((x0 + i * dx, y), 0.018, 0.10, transform=ax.transAxes,
+                                   facecolor=col, edgecolor="white", linewidth=1, clip_on=False))
+        ax.text(x0 + i * dx + 0.026, y + 0.05, lab, transform=ax.transAxes,
+                fontsize=8.5, color=INK, va="center", clip_on=False)
 
 
 # ---------------------------------------------------------------- donut
@@ -89,7 +114,10 @@ def donut(pairs, name, colors=None, center_top="", center_bot="", figsize=(4.4, 
 
 
 # ---------------------------------------------------------------- horizontal bars
-def hbar(labels, values, name, highlight=0, fmt="{:.1f}%", figsize=(7.0, 4.2), color=NT3, hcolor=NAVY):
+def hbar(labels, values, name, highlight=0, fmt="{:.1f}%", figsize=(7.0, 4.2), color=NT3, hcolor=NAVY,
+         threshold=None, threshold_label=None):
+    """Ranked bars, one hero. threshold: optional guideline value drawn as a gold line with its
+    label ON the line (v7 p.21 '25% guideline' grammar) — never a legend."""
     fig, ax = _fig(figsize)
     y = np.arange(len(labels))[::-1]
     cols = [hcolor if i == highlight else color for i in range(len(labels))]
@@ -99,6 +127,12 @@ def hbar(labels, values, name, highlight=0, fmt="{:.1f}%", figsize=(7.0, 4.2), c
                 fontsize=11, color=INK)
     ax.set_yticks(y); ax.set_yticklabels(labels, fontsize=11, color=INK)
     ax.set_xticks([]); ax.set_xlim(0, max(values)*1.16)
+    if threshold is not None:
+        ax.axvline(threshold, color=GOLD, lw=1.8, zorder=4)
+        ax.set_ylim(-0.6, len(labels) - 0.15)
+        halo(ax.text(threshold + max(values)*0.012, len(labels) - 0.42,
+                     threshold_label or f"{threshold:g}", fontsize=9, color="#8A6E1B",
+                     fontweight="bold", ha="left", zorder=5))
     return _save(fig, name)
 
 
@@ -132,10 +166,12 @@ def waterfall(steps, name, figsize=(11.0, 4.0), gold_idx=None):
             bottom, height = cum - v, v; cum = cum - v
         col = NAVY if kind in ("open", "close") else NT2
         ax.bar(i, height, w, bottom=bottom, color=col, zorder=3)
+        cap_h = 0
         if gold_idx is not None and i == gold_idx:
-            ax.bar(i, height*0.045, w, bottom=bottom+height, color=GOLD, zorder=4)
-        ax.text(i, bottom + height + max(1, cum)*0.02, f"{v/1e5:.1f}", ha="center",
-                fontsize=10.5, color=INK, fontweight="bold")
+            cap_h = height * 0.045
+            ax.bar(i, cap_h, w, bottom=bottom + height, color=GOLD, zorder=4)
+        halo(ax.text(i, bottom + height + cap_h + max(1, cum)*0.02, f"{v/1e5:.1f}", ha="center",
+                     fontsize=10.5, color=INK, fontweight="bold"))
         if i < len(steps)-1:
             ax.plot([i+w/2, i+1-w/2], [cum, cum], color=HAIR, lw=1, zorder=1)
     ax.set_xticks(x); ax.set_xticklabels([s[0] for s in steps], fontsize=9, color=SLATE)
@@ -156,8 +192,7 @@ def dumbbell(labels, a_vals, b_vals, name, a_label="Today", b_label="Target",
         ax.text(b, yi-0.34, fmt.format(b), ha="center", fontsize=9.5, color=NAVY, fontweight="bold")
     ax.set_yticks(y); ax.set_yticklabels(labels, fontsize=11, color=INK)
     ax.set_xticks([]); ax.set_xlim(-0.5, max(max(a_vals), max(b_vals))*1.15)
-    ax.scatter([], [], s=120, color=NT3, label=a_label); ax.scatter([], [], s=120, color=NAVY, label=b_label)
-    ax.legend(loc="lower right", frameon=False, fontsize=9, ncol=2)
+    caption_above(ax, f"pale = {a_label}   ·   navy = {b_label}")
     return _save(fig, name)
 
 
@@ -167,10 +202,10 @@ def radar(cats, values, name, values2=None, label1="", label2="", figsize=(4.8, 
     n = len(cats); ang = np.linspace(0, 2*np.pi, n, endpoint=False).tolist(); ang += ang[:1]
     fig, ax = plt.subplots(figsize=figsize, dpi=200, subplot_kw=dict(polar=True))
     fig.patch.set_alpha(0); ax.set_facecolor("none")
-    def plot(vals, col, fillа=0.18, lw=2):
+    def plot(vals, col, fill_alpha=0.18, lw=2):
         v = list(vals) + [vals[0]]
         ax.plot(ang, v, color=col, lw=lw, zorder=3)
-        ax.fill(ang, v, color=col, alpha=fillа, zorder=2)
+        ax.fill(ang, v, color=col, alpha=fill_alpha, zorder=2)
     if values2 is not None:
         plot(values2, NT2, 0.10, 1.5)
     plot(values, color, 0.20, 2.2)
@@ -212,8 +247,9 @@ def treemap(labels, sizes, name, colors=None, figsize=(11.0, 4.4), value_labels=
                                    edgecolor="white", linewidth=2))
         if r["dx"] > 7 and r["dy"] > 7:
             tc = "white" if col in (NAVY, NT1, NAVYD, SELL, HOLD) else INK
+            fs = max(6.5, min(11, r["dx"] / 2.2))   # floor: tiny type is worse than no label
             ax.text(r["x"]+r["dx"]/2, r["y"]+r["dy"]/2+ (2 if value_labels else 0), lab,
-                    ha="center", va="center", fontsize=min(11, r["dx"]/2.2), color=tc, fontweight="bold")
+                    ha="center", va="center", fontsize=fs, color=tc, fontweight="bold")
             if value_labels:
                 ax.text(r["x"]+r["dx"]/2, r["y"]+r["dy"]/2-3, value_labels[i], ha="center",
                         va="center", fontsize=8.5, color=tc)
@@ -236,7 +272,8 @@ def histogram(values, name, threshold=40, figsize=(10.6, 4.2), bins=None):
     for c, n in zip(centers, counts):
         if n: ax.text(c, n+0.2, str(int(n)), ha="center", fontsize=10, color=INK, fontweight="bold")
     ax.axvline(threshold, color=GOLD, lw=2, zorder=4)
-    ax.text(threshold+1, max(counts)*0.96, f"Sell below {threshold}", fontsize=9.5, color=INK, fontweight="bold")
+    halo(ax.text(threshold+1, max(counts)*0.96, f"Sell below {threshold}",
+                 fontsize=9.5, color=INK, fontweight="bold", zorder=5))
     ax.set_xticks(bins); ax.set_xticklabels([str(b) for b in bins], fontsize=9, color=SLATE)
     ax.set_yticks([])
     return _save(fig, name)
@@ -274,6 +311,9 @@ def lollipop(labels, values, name, threshold=None, figsize=(7.4, 4.6), highlight
         ax.text(v+max(values)*0.02, yi, f"{v:.1f}", va="center", fontsize=10, color=INK)
     if threshold is not None:
         ax.axvline(threshold, color=GOLD, lw=1.4, ls=(0,(4,3)))
+        ax.set_ylim(-0.6, len(labels) - 0.10)
+        halo(ax.text(threshold + max(values)*0.012, len(labels) - 0.38, f"{threshold:g}",
+                     fontsize=8.5, color="#8A6E1B", fontweight="bold", ha="left", zorder=5))
     ax.set_yticks(y); ax.set_yticklabels(labels, fontsize=10.5, color=INK)
     ax.set_xticks([]); ax.set_xlim(0, max(values)*1.15)
     return _save(fig, name)
@@ -281,7 +321,8 @@ def lollipop(labels, values, name, threshold=None, figsize=(7.4, 4.6), highlight
 
 # ---------------------------------------------------------------- 100% stacked bar
 def stacked100(segs, name, figsize=(11.0, 1.5)):
-    """segs: list of (label, pct, color)."""
+    """segs: list of (label, pct, color). Segments >5% are labeled in-bar; if anything is
+    smaller, a chip row below names EVERY segment (v7 never lets a slice go unlabeled)."""
     fig, ax = _fig(figsize)
     left = 0
     for lab, pc, col in segs:
@@ -291,6 +332,9 @@ def stacked100(segs, name, figsize=(11.0, 1.5)):
                     fontsize=9.5, color=("white" if col in (NAVY, NT1) else INK), fontweight="bold")
         left += pc
     ax.set_xlim(0, 100); ax.set_ylim(-0.5, 0.5); ax.set_xticks([]); ax.set_yticks([])
+    if any(pc <= 5 for _, pc, _ in segs):
+        chip_legend(ax, [(col, f"{lab}  {pc:.1f}%") for lab, pc, col in segs],
+                    y=-0.55, dx=0.20)
     return _save(fig, name)
 
 
@@ -350,24 +394,68 @@ def efficient_frontier(assets, mu, sigma, corr, marks, name, rf=6.0, figsize=(8.
 
 
 # ---------------------------------------------------------------- value map (quality vs valuation)
-def value_map(pe, roe, sizes, colors, labels, name, figsize=(8.4, 5.4)):
+def value_map(pe, roe, sizes, colors, labels, name, figsize=(8.4, 5.4), label_mask=None):
+    """Quality (ROE) vs valuation (P/E) bubble map. label_mask: bool per point — label ONLY
+    those (a 47-name book labels every bubble into mush; callers pass top-weights + Sells).
+    Quadrant tints + slate medians so the read is instant, v7-style."""
     fig, ax = _fig(figsize)
     pe = np.array(pe, float); roe = np.array(roe, float)
     mpe, mroe = float(np.nanmedian(pe)), float(np.nanmedian(roe))
-    ax.axvline(mpe, color=HAIR, ls=(0, (4, 3)), lw=1.2, zorder=1)
-    ax.axhline(mroe, color=HAIR, ls=(0, (4, 3)), lw=1.2, zorder=1)
+    # cap the x-axis so one silly-P/E outlier can't squash the whole book into a corner
+    cap = float(np.nanpercentile(pe, 92)) * 1.5
+    n_clip = int(np.nansum(pe > cap))
+    if n_clip == 0:
+        cap = float(np.nanmax(pe))
+    pe_p = np.minimum(pe, cap)
+    xr = float(np.nanmax(pe_p) - np.nanmin(pe_p)) or 1.0
+    yr = float(np.nanmax(roe) - np.nanmin(roe)) or 1.0
+    x0, x1 = np.nanmin(pe_p) - 0.06 * xr, np.nanmax(pe_p) + 0.08 * xr
+    y0, y1 = np.nanmin(roe) - 0.10 * yr, np.nanmax(roe) + 0.14 * yr
+    # quadrant tints: the sweet spot (cheap + quality) faint green, the trap faint rust
+    ax.add_patch(plt.Rectangle((x0, mroe), mpe - x0, y1 - mroe, color=HOLDBG, alpha=0.45, zorder=0))
+    ax.add_patch(plt.Rectangle((mpe, y0), x1 - mpe, mroe - y0, color=SELLBG, alpha=0.32, zorder=0))
+    ax.axvline(mpe, color=SLATE, ls=(0, (4, 3)), lw=1.0, alpha=0.7, zorder=1)
+    ax.axhline(mroe, color=SLATE, ls=(0, (4, 3)), lw=1.0, alpha=0.7, zorder=1)
+    ax.text(mpe, y0 + 0.005 * yr, f" book median {mpe:.0f}x", fontsize=7.5, color=SLATE,
+            ha="left", va="bottom")
+    ax.text(x1, mroe, f"median ROE {mroe:.0f}%  ", fontsize=7.5, color=SLATE, ha="right", va="bottom")
+    if n_clip:
+        ax.text(x1 - 0.01 * xr, y1 - 0.05 * yr, f"axis capped at {cap:.0f}x · {n_clip} outlier at the edge",
+                fontsize=7, color=SLATE, ha="right", va="top", style="italic")
     s = [max(70, v / 1e5 * 3.2) for v in sizes]
-    ax.scatter(pe, roe, s=s, c=colors, alpha=0.82, edgecolors="white", linewidths=1.1, zorder=3)
-    rng = (np.nanmax(roe) - np.nanmin(roe)) or 1
-    for x, y, lab, sz in zip(pe, roe, labels, sizes):
-        if sz / 1e5 > 16:
-            ax.text(x, y + rng * 0.035, lab, ha="center", fontsize=8.5, color=INK, fontweight="bold")
-    q = [("quality, sensibly priced", mpe*0.5, np.nanmax(roe)*0.97),
-         ("quality at a price", mpe*1.5, np.nanmax(roe)*0.97),
-         ("cheap for a reason", mpe*0.5, np.nanmin(roe)*1.05 if np.nanmin(roe) > 0 else 2),
-         ("expensive and mediocre", mpe*1.5, np.nanmin(roe)*1.05 if np.nanmin(roe) > 0 else 2)]
-    for t, x, y in q:
-        ax.text(x, y, t, fontsize=8, color=SLATE, style="italic", ha="center", alpha=0.8)
+    ax.scatter(pe_p, roe, s=s, c=colors, alpha=0.82, edgecolors="white", linewidths=1.1, zorder=3)
+    if label_mask is None:
+        label_mask = [sz / 1e5 > 16 for sz in sizes]
+    # place Sells first (they must be named), then the rest by size; a label that cannot
+    # find a clear spot is dropped — an unreadable pile-up is worse than one missing name
+    idx = [i for i, m in enumerate(label_mask) if m]
+    idx.sort(key=lambda i: (0 if str(colors[i]).upper() == "#E0402F" else 1, -sizes[i]))
+    boxes = []
+    def _fits(cx, cy, w, h):
+        return not any(abs(cx - bx) < (w + bw) / 2 and abs(cy - by) < (h + bh) / 2
+                       for bx, by, bw, bh in boxes)
+    for i in idx:
+        lab = labels[i]; x, y = float(pe_p[i]), float(roe[i])
+        w = max(len(lab), 3) * 0.0115 * xr; h = 0.055 * yr
+        for dx, dy in ((0, .050), (0, -.070), (.07, 0), (-.07, 0),
+                       (0, .105), (0, -.125), (.09, .05), (-.09, .05)):
+            cx, cy = x + dx * xr, y + dy * yr
+            if (x0 + w / 2 <= cx <= x1 - w / 2 and y0 + h <= cy <= y1 - h
+                    and _fits(cx, cy, w, h)):
+                ax.text(cx, cy, lab, ha="center", va="center", fontsize=7.8,
+                        color=INK, fontweight="bold", zorder=4)
+                boxes.append((cx, cy, w, h))
+                break
+    q = [("quality, sensibly priced", x0 + 0.02 * xr, y1 - 0.015 * yr, "left"),
+         ("quality at a price", x1 - 0.02 * xr, y1 - 0.015 * yr, "right"),
+         ("cheap for a reason", x0 + 0.02 * xr, y0 + 0.02 * yr, "left"),
+         ("expensive and mediocre", x1 - 0.02 * xr, y0 + 0.02 * yr, "right")]
+    for t, x, y, ha in q:
+        # upright by design (v7's quadrant captions are upright; Bahnschrift has no
+        # italic sub-face anyway, so style="italic" would silently no-op)
+        ax.text(x, y, t, fontsize=8, color=SLATE, ha=ha,
+                va="top" if y > mroe else "bottom", alpha=0.85, zorder=2)
+    ax.set_xlim(x0, x1); ax.set_ylim(y0, y1)
     ax.set_xlabel("Valuation  (P/E, x)", fontsize=10.5, color=SLATE)
     ax.set_ylabel("Quality  (ROE, %)", fontsize=10.5, color=SLATE)
     ax.tick_params(labelsize=9.5)

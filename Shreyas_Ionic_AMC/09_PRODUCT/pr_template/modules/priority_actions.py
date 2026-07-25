@@ -18,28 +18,28 @@ def _rows(reg, n_sell, k):
             ("Sell the weak names", f"Sell the {n_sell} weakest-scoring stocks, a little at a time.", "First"),
             ("Trim the big two", "Gently reduce your two largest single stocks.", "Soon"),
             ("Fix the funds", f"Tidy the fund list, move {k} to cheaper or Direct versions, drop the tiny one.", "A few days"),
-            ("Reinvest gradually", "Put the freed money to work slowly across three areas.", "Over time"),
+            ("Keep the cash ready", "The freed money sits safely in a liquid fund; where it goes next is a separate conversation.", "Together"),
         ]
     return [
         ("Sell programme", f"{n_sell} names scored below the gate, staged in slices at <=10% ADV.", "Wave 1"),
         ("Trim concentration", "Two >11% positions eased toward the 8% single-name guideline, into strength.", "This cycle"),
         ("Fund actions", f"{k} switches / redeem-to-Direct / exit, Regular to Direct or passive; exit the sub-scale sleeve.", "T+2–T+3"),
-        ("Redeploy net proceeds", "Into a low-vol / value core, a foreign sleeve and gold-silver, cash until deployed.", "Staged"),
+        ("Park net proceeds", "Held in liquid / overnight funds; deployment is agreed separately (transition framework in the annexure).", "On authorisation"),
     ]
 
 
 LABELS = {
     "hni": {"eyebrow": "Your priority actions", "title": "What we'd do next · in order, with amounts",
             "k1": "Gross freed", "k1s": "sells + trim", "k2": "Fund actions", "k2s": "switch / redeem / exit",
-            "k3": "Net to redeploy", "k3s": "after est. tax",
+            "k3": "Net proceeds", "k3s": "to cash, after est. tax",
             "auth": "Nothing executes until you authorise it, this is a Non-Discretionary (NDPMS) mandate."},
     "std": {"eyebrow": "Your priority actions", "title": "What we'd do next · in order, with amounts",
             "k1": "Gross freed", "k1s": "sells + trim", "k2": "Fund actions", "k2s": "switch / redeem / exit",
-            "k3": "Net to redeploy", "k3s": "after est. tax",
+            "k3": "Net proceeds", "k3s": "to cash, after est. tax",
             "auth": "Nothing executes until you authorise it, this is a Non-Discretionary (NDPMS) mandate."},
     "simple": {"eyebrow": "What happens next", "title": "Your action plan, step by step",
                "k1": "Cash freed", "k1s": "from sells + trim", "k2": "Fund changes", "k2s": "switch / move / drop",
-               "k3": "To reinvest", "k3s": "after estimated tax",
+               "k3": "Cash in hand", "k3s": "after estimated tax",
                "auth": "Nothing happens until you say yes, you approve every step."},
 }
 
@@ -67,6 +67,8 @@ def render(deck, ctx, tier):
 
     amounts = [sell_sum, trim_cash, fund_sum, net]
     rows = _rows(reg, n_sell, k)
+    # v7 device (p.29): every action row carries a REF back to the page that justifies it
+    refs = ["tbl:sell_list", "mod:concentration", "mod:fund_actions", "mod:deployment"]
     ry0, rowh = 2.98, 0.78
     for i, ((title, sub, when), amt) in enumerate(zip(rows, amounts)):
         ry = ry0 + i * rowh
@@ -79,12 +81,19 @@ def render(deck, ctx, tier):
                  align=PP_ALIGN.RIGHT)
         deck.txt(s, RX - 2.55, ry + 0.42, 2.55, 0.22, [(when.upper(), SANS, 7.5, SLATE, True, False, 60)],
                  align=PP_ALIGN.RIGHT)
+        if reg != "simple":
+            deck.pageref(s, ML - 0.04, ry + 0.50, refs[i], w=0.62, align=PP_ALIGN.CENTER)
         deck.rule(s, ML, ry + rowh - 0.06, UW, HAIR, 0.006)
 
-    deck.rect(s, ML, 6.1, UW, 0.46, fill=AMBERBG, round_=0.06)
+    # authorisation band, with the signature blank beside it (v7 p.29: the deck gets signed)
+    bw = UW - 3.95
+    deck.rect(s, ML, 6.1, bw, 0.46, fill=AMBERBG, round_=0.06)
     deck.rect(s, ML, 6.1, 0.06, 0.46, fill=GOLD)
-    deck.txt(s, ML + 0.22, 6.1, UW - 0.4, 0.46,
-             [("AUTHORISATION   ", SANS, 8.5, AMBER, True, False, 60), (L["auth"], SERIF, 10, INK, False)],
-             anchor=MSO_ANCHOR.MIDDLE)
+    deck.txt(s, ML + 0.22, 6.1, bw - 0.4, 0.46,
+             [("AUTHORISATION   ", SANS, 8.5, AMBER, True, False, 60), (L["auth"], SERIF, 9.5, INK, False)],
+             anchor=MSO_ANCHOR.MIDDLE, ls=1.0)
+    deck.txt(s, RX - 3.75, 6.1, 3.75, 0.46,
+             [("Reviewed with client on  ____________________", SANS, 8, SLATE, False)],
+             align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
     deck.source(s, f"Amounts illustrative for the AZBY demo · net figures after estimated tax · as of {ctx['client']['as_of']}.")
     return 1

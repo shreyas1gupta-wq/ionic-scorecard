@@ -8,7 +8,7 @@ Text 'paras' format: a paragraph is a list of runs; a run is a tuple
     (text, font_name, size_pt, color, bold[, italic[, letter_spacing]]).
 Pass a single paragraph as a list of runs; pass multiple as a list of paragraphs.
 """
-import os
+import os, re
 from pptx import Presentation
 from pptx.util import Inches, Pt
 from pptx.dml.color import RGBColor
@@ -34,6 +34,10 @@ CW, CH = 13.333, 7.5
 ML, MR = 0.92, 0.92
 RX = CW - MR; UW = RX - ML
 
+# hollow intensifiers never reach a client slide, wherever they sit in the sentence
+# (mid-word matches like 'ingenuine' are protected by the leading whitespace requirement)
+_TELL_RE = re.compile(r"\s+(?:genuinely|genuine|truly)(?=[\s,.;:…)]|$)")
+
 REC_STYLE = {"Sell": (SELLBG, SELL), "Exit": (SELLBG, SELL), "Redeem-to-Direct": (AMBERBG, AMBER),
              "Redeem": (AMBERBG, AMBER), "Switch": (AMBERBG, AMBER), "Trim": (AMBERBG, AMBER),
              "Hold": (HOLDBG, HOLD), "Aligned": (HOLDBG, HOLD), "Watch": (PANEL, SLATE),
@@ -47,9 +51,71 @@ class Deck:
         self.BLANK = self.prs.slide_layouts[6]
         self.logo_path = logo_path if (logo_path and os.path.exists(logo_path)) else None
         self.folio = 0
+        self._anchors = {}    # key -> (prio, slide, folio)
+        self._links = []      # (shape, key)
+        self._pagerefs = []   # (run, key)
 
     def save(self, path):
+        self.resolve_links()
         self.prs.save(path); return path
+
+    # ---------- internal links (annexure cross-references, real-deck 'see p.NN') ----------
+    def anchor(self, key, s, prio=0):
+        """Register slide s as the jump target for key. Higher prio wins (a Sell card
+        outranks the all-holdings page the same name also appears on)."""
+        cur = self._anchors.get(key)
+        if cur is None or prio >= cur[0]:
+            self._anchors[key] = (prio, s, self.folio)
+
+    def link(self, shape, key, own=None):
+        """Make an existing shape jump to anchor(key) once resolve_links() runs.
+        own: the shape's slide — a link resolving to its own slide is dropped."""
+        self._links.append((shape, key, own))
+
+    def hotspot(self, s, x, y, w, h, key):
+        """Invisible click area (0%-alpha fill so the whole area takes the click)."""
+        shp = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x), Inches(y),
+                                 Inches(max(w, 0.001)), Inches(max(h, 0.001)))
+        shp.fill.solid(); shp.fill.fore_color.rgb = WHITE
+        try:
+            from pptx.oxml.ns import qn
+            clr = shp.fill._xPr.find(qn('a:solidFill')).find(qn('a:srgbClr'))
+            clr.append(clr.makeelement(qn('a:alpha'), {'val': '0'}))
+        except Exception:
+            pass
+        shp.line.fill.background(); self._nosh(shp)
+        self._links.append((shp, key, s))
+        return shp
+
+    def pageref(self, s, x, y, key, w=0.55, color=None, align=PP_ALIGN.RIGHT, label=None):
+        """Small 'p.NN' cross-reference (optionally 'LABEL · p.NN'); the number is
+        patched at resolve time and the whole box clicks through to the anchor."""
+        runs = [(label + "  ·  ", SANS, 7.5, SLATE, True, False, 60)] if label else []
+        runs.append(("p.00", SANS, 8, color or NT2, True))
+        tb = self.txt(s, x, y, w, 0.2, [runs], align=align, wrap=False)
+        self._pagerefs.append((tb, key))
+        self._links.append((tb, key, None))
+        return tb
+
+    def resolve_links(self):
+        """Bind every registered link/pageref to its anchor slide. Called by save()."""
+        for tb, key in self._pagerefs:
+            tgt = self._anchors.get(key)
+            runs = tb.text_frame.paragraphs[0].runs
+            if tgt:
+                runs[-1].text = f"p.{tgt[2]:02d}"
+            else:                       # dead ref: blank the whole 'LABEL · p.NN' box
+                for r in runs:
+                    r.text = ""
+        n = 0
+        for shape, key, own in self._links:
+            tgt = self._anchors.get(key)
+            if tgt is not None and tgt[1] is not own:
+                try:
+                    shape.click_action.target_slide = tgt[1]; n += 1
+                except Exception:
+                    pass
+        return n
 
     # ---------- primitives ----------
     @staticmethod
@@ -102,8 +168,7 @@ class Deck:
                 # reach a client slide, even when they arrive inside analyst-data strings
                 if isinstance(t, str):
                     t = t.replace(" — ", ", ").replace("—", ", ").replace(" -- ", ", ")
-                    for w in (" genuinely", " genuine", " truly"):
-                        t = t.replace(w + " ", " ").replace(w + ",", ",").replace(w + ".", ".")
+                    t = _TELL_RE.sub("", t)
                 r.text = t
                 r.font.name = fn; r.font.size = Pt(sz); r.font.bold = bold
                 r.font.italic = ital; r.font.color.rgb = col
