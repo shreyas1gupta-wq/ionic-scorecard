@@ -65,8 +65,8 @@ def _recipe(deck, s, y):
             deck.txt(s, x + bw - 0.95, y + 0.10, 0.80, 0.5,
                      [(pct, SANS, 20, ec, True)], align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
 
-    leg(x1, "3-YEAR VIEW", "Fundamentals-tilted", "60%")
-    leg(x2, "1-YEAR VIEW", "Technical-tilted", "40%")
+    leg(x1, "3-YEAR VIEW", "Fundamentals-led", "")
+    leg(x2, "1-YEAR VIEW", "Market-behaviour-led", "")
     leg(x3, "IONIC SCORE", "One number, 0 to 100", "", dark=True)
     for ox, sym in ((x1 + bw, "+"), (x2 + bw, "=")):
         deck.txt(s, ox, y, opw, h, [(sym, SANS, 20, SLATE, True)],
@@ -78,13 +78,9 @@ def _bucket_card(deck, s, x, y, w, h, spec, simple):
     deck.rect(s, x, y, w, h, fill=PANEL, line=HAIR, round_=0.05)
     deck.rect(s, x, y, w, 0.09, fill=accent, round_=0.0)
     deck.txt(s, x + 0.18, y + 0.20, w - 0.32, 0.28, [(name.upper(), SANS, 11, INK, True, False, 20)])
-    if not simple:
-        deck.txt(s, x + 0.18, y + 0.47, w - 0.32, 0.2,
-                 [("3Y ", SANS, 8, SLATE, True), (w3, SANS, 8, accent, True),
-                  ("   1Y ", SANS, 8, SLATE, True), (w1, SANS, 8, accent, True)])
-    deck.txt(s, x + 0.18, y + (0.68 if not simple else 0.48), w - 0.32, 0.36,
+    deck.txt(s, x + 0.18, y + 0.48, w - 0.32, 0.36,
              [(sub, SERIF, 9, SLATE, False, True)], ls=1.02)
-    py = y + (1.02 if not simple else 0.86)
+    py = y + 0.86
     for pn, pd in pillars:
         runs = [("•  ", SANS, 9, accent, True), (pn, SANS, 9, INK, True)]
         if not simple:
@@ -138,16 +134,15 @@ def render(deck, ctx, tier):
     tw = (UW - 2 * gap2) / 3.0
     if simple:
         cells = [("Score under 40", "Sell", "Sell"),
-                 ("40 to 50 on a big holding", "Trim", "Trim"),
+                 ("40 to 50 + a risk flag", "Trim", "Trim"),
                  ("50 and above", "Hold", "Hold")]
     else:
         cells = [("Below 40, either horizon", "Sell", "Sell"),
-                 ("40–50 on a >2.5% position", "Trim", "Trim"),
+                 ("40–50, only with a concentration / risk flag", "Trim", "Trim"),
                  ("50 and above", "Hold", "Hold")]
     for i, (band, arrow, rec) in enumerate(cells):
         _threshold_cell(deck, s, ML + i * (tw + gap2), ty, tw, band, arrow, rec, rec)
-
-    deck.source(s, "Ionic scoring methodology (frozen) · 3Y fundamentals-tilted + 1Y technical-tilted, "
-                   "blended 60/40, then a bounded forward-growth tilt · illustrative.")
+    deck.source(s, "Ionic scoring methodology (proprietary, held by the desk) · a 40-50 score alone is a "
+                   "watch signal; Trim needs a concentration or risk flag · every call reviewed by the desk.")
     deck.score_band(s)
     return 1

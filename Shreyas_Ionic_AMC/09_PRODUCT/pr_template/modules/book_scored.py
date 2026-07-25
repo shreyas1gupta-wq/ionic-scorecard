@@ -92,7 +92,7 @@ def render(deck, ctx, tier):
                  [(f"and {more} more holdings, fully scored in the annexure.",
                    SERIF, 9, SLATE, False, True)])
 
-    deck.source(s, "Ionic Score = 0.60×3Y + 0.40×1Y (post gate/penalty/boost), forward-growth adjusted · "
+    deck.source(s, "Ionic Score: proprietary two-horizon composite with safety gates, reviewed by the desk · "
                    "reads are the analyst summary · illustrative synthetic book.")
     deck.score_band(s)
     return 1

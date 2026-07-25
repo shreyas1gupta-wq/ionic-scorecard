@@ -34,7 +34,9 @@ MODULES = [
     ("funds_equity",       3, "The Fund Book",  True),
     ("funds_hybrid",       3, "The Fund Book",  True),
     ("fund_category_rules", 3, "The Fund Book", True),
-    ("fund_quality_alloc", 3, "The Fund Book",  True),
+    # fund_quality_alloc: PARKED per Principal 2026-07-25 (quadrant graph cut; MF calls come from
+    # the desk's own framework, not this deck) — module kept in the library, rendered nowhere.
+    ("fund_quality_alloc", 5, "Annexure",       False),
     ("fund_overlap",       3, "The Fund Book",  True),
     ("fund_actions",       3, "The Fund Book",  True),
     ("_div4",              4, "Recommendations", True),

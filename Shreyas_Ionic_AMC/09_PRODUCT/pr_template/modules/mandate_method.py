@@ -77,7 +77,7 @@ def render(deck, ctx, tier):
     # ---- BOTTOM: pointer to the scoring method ----
     deck.rule(s, ML, 5.92, UW, HAIR, 0.008)
     deck.txt(s, ML, 6.02, UW, 0.24, [("HOW EVERY HOLDING IS SCORED", SANS, 8.5, SLATE, True, False, 120)])
-    ptr = ("The Ionic Score blends a 3-year, fundamentals-tilted view (60%) with a 1-year, "
+    ptr = ("The Ionic Score combines a 3-year, fundamentals-led view with a 1-year, "
            "technical-tilted view (40%) across 7 pillars, with safety gates that cap weak names · "
            "it flags candidates; the team confirms. Full method in Section 02, The Equity Book.")
     deck.txt(s, ML, 6.28, UW, 0.5, [(ptr, SERIF, 10, INK, False, True)], ls=1.05)

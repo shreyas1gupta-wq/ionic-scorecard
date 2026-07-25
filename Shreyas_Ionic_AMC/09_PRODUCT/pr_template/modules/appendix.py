@@ -6,7 +6,7 @@ from slidekit import (INK, SLATE, NAVY, GOLD, SERIF, SANS, ML, UW, RX)
 
 _GLOSSARY = [
     ("Ionic Score", "A 0-100 quality/valuation/trend score per stock; a quantitative input, not the final call."),
-    ("Sell / Trim / Hold", "The only calls on an existing holding under an NDPMS mandate, never 'Buy'."),
+    ("Sell / Trim / Hold", "The calls used for existing holdings under an NDPMS mandate."),
     ("QFRA 2.0", "The firm's frozen fund-ranking engine, scores funds on alpha, consistency and downside."),
     ("MERIT grade", "A-D letter grade summarising a fund's QFRA standing (A = strongest)."),
     ("SENTINEL flags", "Red-flag chips a fund can trip: closet-index, negative alpha, deep drawdown, capacity, plan-cost."),
@@ -29,20 +29,21 @@ def _methodology(deck, ctx, tier):
     x2 = ML + colw + 0.4
     if reg == "simple":
         eq_body = ("Every stock gets a 0-100 Ionic Score from two views, a long-term (3-year) view and a "
-                   "shorter (1-year) view · blended 60/40. A low score flags a sell; a healthy score "
+                   "shorter (1-year) view, combined into one number. A low score flags a sell; a healthy score "
                    "supports holding. The score is an input; the team confirms every call.")
         fu_body = ("Funds are scored on how much they beat their benchmark after fees, how consistent they "
                    "are, and how well they protect on the way down. Weak or high-cost funds are switched, "
-                   "redeemed to Direct, or exited · never 'bought' here.")
+                   "redeemed to Direct, or exited.")
     else:
         eq_body = ("Each stock earns a 0-100 Ionic Score from two horizons, a 3-year, fundamentals-tilted "
-                   "view and a 1-year, trend-tilted view · blended 60/40 across seven pillars (Quality & "
+                   "view and a 1-year, trend-tilted view, combined across pillars (Quality & "
                    "Growth, Value, Trend & Flow). Forensic / balance-sheet gates cap the score at 40. Below "
-                   "40 on either horizon = Sell; 40-50 on a >2.5% position = Trim; 50+ = Hold.")
+                   "40 on either horizon = Sell; 40-50 is a watch zone (Trim only with a "
+                   "concentration or risk flag); 50+ = Hold.")
         fu_body = ("Funds use the frozen QFRA 2.0 engine on Direct-plan NAV against total-return benchmarks, "
                    "point-in-time. It rewards net-of-fee alpha, rolling-window consistency and downside "
                    "cushioning, and penalises SENTINEL flags. Verdicts: Hold / Trim / Switch / "
-                   "Redeem-to-Direct / Exit · never Buy.")
+                   "Redeem-to-Direct / Exit.")
     deck.callout(s, ML, 1.95, colw, 2.5, "Scoring equities", eq_body, "note")
     deck.callout(s, x2, 1.95, colw, 2.5, "Evaluating funds", fu_body, "note")
 

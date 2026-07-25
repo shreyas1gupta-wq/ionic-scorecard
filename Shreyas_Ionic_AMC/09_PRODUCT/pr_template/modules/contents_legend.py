@@ -74,9 +74,9 @@ def render(deck, ctx, tier):
     deck.txt(s, rx, 2.58, 0.9, 0.24, [("FUNDS", SANS, 8, NT2, True, False, 60)], anchor=MSO_ANCHOR.MIDDLE)
     pills_row(rx + 0.95, 2.57, [("Hold", 0.62, "Hold"), ("Trim", 0.62, "Trim"), ("Switch", 0.72, "Switch"),
                                 ("Redeem-to-Direct", 1.5, "Redeem-to-Direct"), ("Exit", 0.6, "Exit")])
-    vocab = ("We never say ‘Buy’. This reviews holdings you already own, it is not a solicitation."
+    vocab = ("A review of the holdings you already own; every call here applies to existing positions."
              if not simple else
-             "We never say ‘Buy’. This looks at what you already own · it is not us selling you anything.")
+             "A review of what you already own, and what we would do with each holding.")
     deck.txt(s, rx, 2.98, rw, 0.4, [(vocab, SERIF, 10, INK, False, True)], ls=1.05)
 
     # ---- RIGHT-MID: Ionic-Score positioning legend ----
@@ -88,9 +88,9 @@ def render(deck, ctx, tier):
         deck.txt(s, rx + 0.46, cy - 0.04, rw - 0.5, 0.28, [(lab, SERIF, 10.5, INK, False)],
                  anchor=MSO_ANCHOR.MIDDLE)
 
-    chip(3.98, SELL,  "Below 40 ,  Sell candidate")
-    chip(4.31, AMBER, "40 to 50 ,  Trim candidate")
-    chip(4.64, HOLD,  "50 and above ,  Hold")
+    chip(3.98, SELL,  "Below 40  ·  Sell candidate")
+    chip(4.31, AMBER, "40 to 50  ·  watch zone; Trim only with a concentration or risk flag")
+    chip(4.64, HOLD,  "50 and above  ·  Hold")
     deck.txt(s, rx, 5.02, rw, 0.4,
              [("The Ionic Score flags candidates; the Portfolio Review team confirms every call.",
                SERIF, 9.5, SLATE, False, True)], ls=1.05)

@@ -174,10 +174,12 @@ def _funds(grand_inr):
         ("HDFC Balanced Advantage (Direct)", "HDFC", "hybrid", "Direct", 3.5, 23, 0.80, 0.56, 1.3, 0.040, 66,
          [], "Hold", "HOLD", "-", ""),
     ]
+    bench_cagr = round((np.asarray(bench)[-1] / bench[0]) ** (252 / len(bench)) - 1, 4) * 100
     out = []
     for (name, amc, cat, plan, wt, seed, ub, db, alpha, idio, hit3y, flags, verdict, action, exemplar, structural) in specs:
         nav = _make_fund_nav(rb, ub, db, alpha, idio, seed=seed)
         m = _metrics_from_nav(nav, bench)
+        m["bench_cagr3y"] = round(bench_cagr, 1)
         # QFRA-style composite: reward alpha/consistency/cushion, penalize flags
         base = 55 + m["alpha_ann"] * 1.1 + (hit3y - 50) * 0.4 - max(0, m["down_capture"] - 100) * 0.5
         qfra = int(max(8, min(96, base - 10 * len([f for f in flags if f in ("CLOSET_INDEX", "NEG_ALPHA", "DEEP_DD")]))))
