@@ -85,15 +85,12 @@ def render(deck, ctx, tier):
     _column(deck, s, ML + colw + gap, gy, colw, L["watch"], SLATE, watch_show, read_len)
 
     extra = (len(core) - len(core_show)) + (len(watch) - len(watch_show))
-    if extra > 0:
-        deck.txt(s, ML, gy + 0.36 + n_each * 0.55 + 0.02, UW, 0.22,
-                 [(f"and {extra} further Holds, each scored and read in the annexure.",
-                   SERIF, 9, SLATE, False, True)])
+    more_note = f"{extra} further Holds scored and read in the annexure · " if extra > 0 else ""
 
     # thesis-break footnote
-    deck.callout(s, ML, 6.02, UW, 0.62, "What would flip a Hold", L["break"], kind="note")
+    deck.callout(s, ML, 5.82, UW, 0.78, "What would flip a Hold", L["break"], kind="note")
 
-    deck.source(s, "Conviction tier from Ionic Score × position size · reads are the analyst summary · "
+    deck.source(s, more_note + "Conviction tier from Ionic Score × position size · reads are the analyst summary · "
                    "illustrative synthetic book.")
     deck.score_band(s)
     return 1

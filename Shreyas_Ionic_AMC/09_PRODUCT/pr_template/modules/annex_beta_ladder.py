@@ -76,7 +76,7 @@ def render(deck, ctx, tier):
                 f"capital goods) is where a market drawdown bites hardest: these names tend to fall "
                 f"further than the index and recover on their own cycle, not the market's. Position "
                 f"sizes there should earn their volatility.")
-    deck.callout(s, tx, 4.35, tw, 1.95, "How to read the ladder", body, kind="note")
+    deck.callout(s, tx, 4.25, tw, 2.25, "How to read the ladder", body, kind="note")
 
     deck.source(s, "Betas are sector-keyed illustrative estimates with a fixed per-name offset "
                    "[ILLUSTRATIVE], not regression output; ladder shows the largest positions plus "

@@ -59,10 +59,9 @@ def render(deck, ctx, tier):
     deck.txt(s, tx, 1.86, tw, 0.22, [("THE OVERRIDE REGISTER", "Bahnschrift", 9, AMBER, True, False, 80)])
     deck.table(s, tx, 2.14, tw, cols, rows, rowh=0.30, fs=8.5, hfs=7)
 
-    body = (f"The quant score is a screen, a verdict needs a person. On {len(ups)} names the analyst holds a "
-            f"low-scoring stock for reasons the model cannot see: franchise durability, cycle position, pending "
-            f"catalysts. On {len(dns)} name the call is Sell despite a passing score. Every override above carries "
-            f"a written rationale in the holding notes, so the disagreement is on the record, not hidden.")
+    body = (f"The quant score is a screen; a verdict needs a person. On {len(ups)} names the analyst "
+            f"holds a low scorer for reasons the model cannot see; on {len(dns)} the call is Sell despite "
+            f"a passing score. Every override carries a written rationale, on the record.")
     deck.callout(s, tx, 4.48, tw, 1.85, "Six calls moved, each documented" if len(rows) == 6
                  else f"{len(rows)} calls moved, each documented", body, kind="human")
 

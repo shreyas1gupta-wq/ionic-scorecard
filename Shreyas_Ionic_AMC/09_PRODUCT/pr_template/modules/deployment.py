@@ -75,9 +75,9 @@ def render(deck, ctx, tier):
                    SANS, 8.5, GOLD, True, False, 80)])
         ly = py2 + 0.26
         for head, line in pers[:3]:
-            deck.txt(s, px + 0.02, ly, pw, 0.34,
-                     [(head + "  ·  ", SANS, 8, NAVY, True), (line, SERIF, 8.5, INK, False, True)], ls=1.0)
-            ly += 0.34
+            deck.txt(s, px + 0.02, ly, pw, 0.28,
+                     [(head + "  ·  ", SANS, 8, NAVY, True), (line[:46], SERIF, 8.5, INK, False, True)], ls=1.0)
+            ly += 0.30
 
     deck.source(s, L["foot"])
     return 1

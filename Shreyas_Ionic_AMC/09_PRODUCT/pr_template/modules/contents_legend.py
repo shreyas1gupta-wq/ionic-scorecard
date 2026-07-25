@@ -105,6 +105,6 @@ def render(deck, ctx, tier):
         tk = SLATE
     deck.rule(s, ML, 5.90, UW, HAIR, 0.008)
     deck.rect(s, ML, 6.08, 0.14, 0.14, fill=NT2, round_=0.3)
-    deck.txt(s, ML + 0.22, 6.04, UW - 0.3, 0.24,
+    deck.txt(s, ML + 0.22, 6.04, UW - 0.3, 0.55,
              [("THIS BUILD   ", SANS, 8, SLATE, True, False, 80), (tag, SERIF, 9.5, tk, False, True)])
     return 1

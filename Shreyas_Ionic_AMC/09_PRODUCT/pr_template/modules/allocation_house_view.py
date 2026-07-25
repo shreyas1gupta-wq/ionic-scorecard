@@ -44,9 +44,8 @@ def render(deck, ctx, tier):
         read = ("Right now there is too much in big Indian companies and too little in foreign "
                 "shares and gold. The plan later fixes this using the money from the sales.")
     elif reg == "hni":
-        read = (f"Pronounced large-cap domestic tilt (+{lg:.1f} vs target); the foreign sleeve is "
-                f"~{abs(fg):.0f}pts under-owned and gold ~{abs(gd):.0f}pts light. The transition sequence "
-                "redeploys Sell proceeds to close these gaps rather than chase return.")
+        read = (f"Pronounced large-cap domestic tilt (+{lg:.1f} vs target); foreign ~{abs(fg):.0f}pts and "
+                f"gold ~{abs(gd):.0f}pts light. Sell proceeds close these gaps.")
     else:
         read = (f"The book leans heavily into large-cap domestic equity (+{lg:.1f} vs target), while "
                 f"foreign equity is ~{abs(fg):.0f} points light and gold ~{abs(gd):.0f} points light. "

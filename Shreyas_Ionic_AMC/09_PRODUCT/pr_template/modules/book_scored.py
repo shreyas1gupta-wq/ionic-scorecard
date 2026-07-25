@@ -8,7 +8,7 @@ from slidekit import (NAVY, INK, SLATE, HAIR, PANEL, WHITE, SELL, HOLD, AMBER,
                       SELLBG, HOLDBG, AMBERBG, NT2, SERIF, SANS, ML, RX, UW)
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 
-MAXROWS = 12   # 3.10 + header 0.33 + 12x0.235 = 6.25 — stays clear of the 6.66 source zone
+MAXROWS = 11   # 3.10 + header 0.33 + 11x0.26 = 6.29, clear of the 6.66 source zone
 
 LABELS = {
     "hni":    {"title": "The whole book, scored, with the analyst read",
@@ -82,9 +82,9 @@ def render(deck, ctx, tier):
             ("c", f"{e['weight_pct']:.2f}", INK),
             ("bar", e.get("ionic_score")),
             ("pill", e["rec"], e["rec"]),
-            _clip(e.get("analyst_read", ""), 66),
+            _clip(e.get("analyst_read", ""), 44),
         ])
-    ty = deck.table(s, ML, 3.10, UW, cols, rows, rowh=0.235, fs=9, hfs=8, maxrows=MAXROWS)
+    ty = deck.table(s, ML, 3.10, UW, cols, rows, rowh=0.26, fs=9, hfs=8, maxrows=MAXROWS)
 
     more = len(eq) - min(MAXROWS, len(eq))
     if more > 0:

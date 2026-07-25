@@ -251,9 +251,9 @@ def build_ctx():
                 "de_gap_note": "Direct-equity Sell tax needs the demat trade file (acquisition date + cost per lot); not in the statement provided."},
         "deployment": {"proceeds_inr": proceeds, "tax_leak_inr": ltcg + stcg, "net_inr": net,
                        "personalization": [
-                           ("Education 2031", "The foreign-equity sleeve doubles as the USD hedge for the overseas-education goal."),
-                           ("Liquidity", "Rs 25L callable within 12 months per the IPS; the staged-cash sleeve covers it without forced selling."),
-                           ("Tax posture", "Fund units older than 5 years switch only on structural grounds; the annual LTCG exemption is harvested each FY."),
+                           ("Education 2031", "foreign sleeve doubles as the USD hedge"),
+                           ("Liquidity", "Rs 25L 12-month call met by staged cash"),
+                           ("Tax posture", "5y+ fund units: structural switches only"),
                        ],
                        "sleeves": [("Low-vol / value core add", round(net * 0.45), "Closest-substitute risk profile to what's being sold; absorbs the largest share."),
                                    ("Foreign / global equity", round(net * 0.28), "Closes the ~12pt gap to the 15% foreign target — a real diversifier, not a return chase."),

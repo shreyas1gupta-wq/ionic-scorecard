@@ -47,9 +47,12 @@ def _one(deck, e, tier):
     # --- right: read + the call ---
     rx = ML + 3.75
     rw = RX - rx
-    deck.txt(s, rx, py, rw, 0.24, [(_human_read(e, reg), SERIF, 11, NAVY, False, True)], ls=1.05)
+    deck.txt(s, rx, py, rw, 0.58, [(_human_read(e, reg), SERIF, 11, NAVY, False, True)], ls=1.05)
     read = _sent2(e.get("summary"), e.get("detailed") or e.get("analyst_read"))
-    deck.callout(s, rx, py + 0.42, rw, 2.0, "Our read", read or "Analyst read on file.", "note")
+    if read and len(read) > 400:                       # callout budget ≈ 6 lines at 10.5pt
+        cut = read[:400]
+        read = cut[:cut.rfind(" ")].rstrip(" ,.;:") + "…"
+    deck.callout(s, rx, py + 0.72, rw, 1.72, "Our read", read or "Analyst read on file.", "note")
 
     call = f"{e['rec']}"
     if e["rec"] == "Hold":

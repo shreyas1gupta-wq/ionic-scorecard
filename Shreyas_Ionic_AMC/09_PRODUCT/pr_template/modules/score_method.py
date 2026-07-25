@@ -13,15 +13,15 @@ from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 # 7 pillars, grouped into the 3 client-facing buckets. accent, bucket 3Y/1Y weight share.
 BUCKETS = [
     ("Quality & Growth", NAVY, "What the business earns, and how fast it grows.", "40%", "32%",
-     [("Quality", "ROE & ROCE, vs sector peers"),
-      ("Growth", "revenue CAGR & latest-year growth")]),
+     [("Quality", "ROE & ROCE vs peers"),
+      ("Growth", "revenue growth, 3y & 1y")]),
     ("Value", GOLD, "What you pay for those earnings.", "18%", "16%",
      [("Value", "P/E, P/B & FCF yield vs sector")]),
     ("Trend & Flow", NT1, "What the price and the big investors are actually doing.", "42%", "52%",
-     [("Stage / Technical", "multi-year chart pattern & trend"),
-      ("Sector & Macro", "sector strength & market regime fit"),
-      ("Ownership Flow", "FII / DII buying trend"),
-      ("Accumulation", "on-balance-volume (smart-money) trend")]),
+     [("Stage / Technical", "price trend"),
+      ("Sector & Macro", "regime fit"),
+      ("Ownership Flow", "FII / DII flows"),
+      ("Accumulation", "smart-money volume trend")]),
 ]
 
 LABELS = {
@@ -84,7 +84,7 @@ def _bucket_card(deck, s, x, y, w, h, spec, simple):
     for pn, pd in pillars:
         runs = [("•  ", SANS, 9, accent, True), (pn, SANS, 9, INK, True)]
         if not simple:
-            runs.append((" ,  " + pd, SERIF, 8.5, SLATE, False, True))
+            runs.append((" · " + pd, SERIF, 8, SLATE, False, True))
         deck.txt(s, x + 0.18, py, w - 0.30, 0.22, runs)
         py += 0.215
 

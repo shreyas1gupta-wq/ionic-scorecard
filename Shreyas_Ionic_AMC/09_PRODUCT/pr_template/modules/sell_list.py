@@ -63,13 +63,11 @@ def _lead(reg, n, n_act, n_rev):
         return LABELS.get(reg, LABELS["std"])["lead"]
     a = str(n_act) if n_act else "none"
     if reg == "hni":
-        return (f"Of the {n} names in the Sell zone, {a} are cleared to execute today; {n_rev} are "
-                f"escalated and sit with the investment committee as Under review. Forensic and "
-                f"balance-sheet-gate reasons list first; each row carries the exact binding trigger.")
+        return (f"Of the {n} names in the Sell zone, {a} are cleared to execute today; {n_rev} sit "
+                f"with the investment committee as Under review. Forensic and gate reasons list first.")
     if reg == "simple":
         return (f"We can act on {a} of these {n} shares today. The other {n_rev} are being "
-                f"double-checked by our investment committee first, so no action on those yet. The "
-                f"most serious reasons (accounting, debt) come first.")
+                f"double-checked by our committee first, so no action on those yet.")
     return (f"Of {n} Sell-zone names, {a} are cleared to execute and {n_rev} are Under review with the "
             f"investment committee. Ordered by reason: forensic and balance-sheet issues first, then "
             f"valuation and trend.")
@@ -85,7 +83,7 @@ def render(deck, ctx, tier):
 
     s = deck.content(2, "Equity", "What we would sell", L["title"])
     deck.scope_tag(s, f"Direct equity only · as of {as_of}")
-    deck.txt(s, ML, 1.80, UW, 0.30, [(_lead(reg, len(sells), n_act, n_rev), SERIF, 10.5, SLATE, False, True)],
+    deck.txt(s, ML, 1.80, UW, 0.42, [(_lead(reg, len(sells), n_act, n_rev), SERIF, 10.5, SLATE, False, True)],
              ls=1.03)
 
     def rank(e):
@@ -106,11 +104,11 @@ def render(deck, ctx, tier):
             ("bar", e.get("ionic_score")),
             ("pill", "Under review", "Watch") if under else ("pill", "Sell", "Sell"),
             ("c", short, AMBER if under else SELL, True),
-            _clip(e.get("binding_trigger", ""), 100),
+            _clip(e.get("binding_trigger", ""), 38),
         ])
     n = len(rows)
     rowh = 0.44 if n <= 6 else (0.34 if n <= 8 else 0.30)
-    ty = deck.table(s, ML, 2.22, UW, cols, rows, rowh=rowh, fs=9, hfs=8)
+    ty = deck.table(s, ML, 2.32, UW, cols, rows, rowh=rowh, fs=9, hfs=8)
 
     # under-review footnote (frozen methodology) ------------------------------
     fy = ty + 0.06
@@ -119,19 +117,11 @@ def render(deck, ctx, tier):
         fy += 0.24
 
     # reason-taxonomy legend --------------------------------------------------
-    lgy = fy + 0.06
+    lgy = min(fy + 0.06, 6.30)
     deck.txt(s, ML, lgy, UW, 0.22,
              [("REASON TAXONOMY   ", SANS, 8.5, NAVY, True, False, 60),
-              ("fixed categories · forensic and gate reasons always rank first", SERIF, 9, SLATE, False, True)])
-    lgy += 0.28
-    colw = UW / 2.0
-    for i, (cat, meaning) in enumerate(LEGEND):
-        cx = ML + (i % 2) * colw
-        cy = lgy + (i // 2) * 0.26
-        deck.rect(s, cx, cy + 0.03, 0.11, 0.11, fill=SELL, round_=0.3)
-        deck.txt(s, cx + 0.20, cy - 0.02, colw - 0.3, 0.24,
-                 [(cat, SANS, 8.5, INK, True), ("  ·  " + meaning, SERIF, 8.5, SLATE, False, True)],
-                 anchor=MSO_ANCHOR.MIDDLE)
+              ("fixed categories, forensic and gate reasons rank first · full definitions and "
+               "per-name rationale cards in the annexure", SERIF, 9, SLATE, False, True)])
 
     deck.source(s, "Reason category is a fixed client-facing taxonomy · binding trigger is the specific "
                    "analyst finding behind each call · full rationale cards in the annexure.")

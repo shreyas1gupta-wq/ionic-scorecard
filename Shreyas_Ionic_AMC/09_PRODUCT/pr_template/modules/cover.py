@@ -20,6 +20,6 @@ def render(deck, ctx, tier):
                                      SERIF, 13, NT3, False, True)])
     deck.txt(s, ML, 6.55, RX - 3.4 - ML, 0.3, [("Co-founder in your journey of wealth creation", SERIF, 12, NT2, False, True)])
     deck.txt(s, RX - 3.0, 6.55, 3.0, 0.3, [(f"As of {c['as_of']}", SANS, 9, NT2, False)], align=PP_ALIGN.RIGHT)
-    deck.txt(s, ML, 7.02, UW, 0.2, [("[ILLUSTRATIVE, synthetic demo client; not a real portfolio]",
+    deck.txt(s, ML, 6.86, UW, 0.2, [("[ILLUSTRATIVE, synthetic demo client; not a real portfolio]",
                                      SANS, 7.5, NT2, False, True)])
     return 1

@@ -54,12 +54,11 @@ def render(deck, ctx, tier):
     # --- bottom: two callouts — direct-equity tax gap + the tax-inertia rule (Principal 2026-07-25) ---
     half = (UW - 0.3) / 2
     deck.callout(s, ML, 5.5, half, 0.98, L["ct"], tax["de_gap_note"], kind="warn")
-    inertia = ("Units held >5y (especially >10y) carry gains big enough to offset switching alpha, so "
-               "their sell bar rises: structural reasons only. Stocks get no such pass; single-name risk "
-               "outweighs the tax."
+    inertia = ("Units held >5y (>10y more so) carry gains that offset switching alpha; their bar "
+               "rises to structural-only. Stocks get no such pass."
                if tier.get("register") != "simple" else
-               "For funds held over 5 years the tax bill can eat the gain from switching, so we switch "
-               "those only for structural reasons. Shares get no such pass.")
+               "For funds held over 5 years the tax bill can eat the gain from switching, so we "
+               "switch those only for structural reasons.")
     deck.callout(s, ML + half + 0.3, 5.5, half, 0.98, "Long-held units: a higher bar to sell", inertia, kind="note")
 
     deck.source(s, L["foot"])

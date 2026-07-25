@@ -154,15 +154,24 @@ class Deck:
             col = NAVY if (k + 1) == section_no else HAIR
             self.rect(s, 9.35 + 0.20 * k, 0.56, 0.15, 0.022, fill=col)
 
+    @staticmethod
+    def _fit(text, base_pt, box_in, char_w_per_pt=0.0079, floor=14):
+        """Shrink a header font so the line NEVER wraps into content below it."""
+        need = len(text) * base_pt * char_w_per_pt
+        if need <= box_in:
+            return base_pt
+        return max(floor, int(base_pt * box_in / need))
+
     def content(self, section_no, section_name, eyebrow, title, standfirst=None):
         """Standard content-slide header. Returns the slide. Increments folio.
-        standfirst: one Georgia-italic thesis line under the rule (v8 pattern)."""
+        standfirst: one Georgia-italic thesis line under the rule (v8 pattern).
+        Eyebrow/title fonts auto-shrink to one line — headers can never wrap into the body."""
         self.folio += 1
         s = self.slide(WHITE)
         self.logo(s); self.classified(s)
         if section_name: self.marker(s, section_no, section_name)
-        self.txt(s, ML, 0.46, 7.5, 0.55, [(eyebrow, SANS, 26, NAVY, True)])
-        self.txt(s, ML, 1.04, 10.6, 0.45, [(title, SANS, 17.5, ORANGE, True)])
+        self.txt(s, ML, 0.46, 7.5, 0.55, [(eyebrow, SANS, self._fit(eyebrow, 26, 7.4), NAVY, True)])
+        self.txt(s, ML, 1.04, 10.6, 0.45, [(title, SANS, self._fit(title, 17.5, 10.5), ORANGE, True)])
         self.rule(s, ML, 1.54, UW, NAVY, 0.024)
         if standfirst:
             self.txt(s, ML, 1.60, UW, 0.24, [(standfirst, SERIF, 11, SLATE, False, True)])
@@ -278,8 +287,12 @@ class Deck:
         return ry
 
     def scope_tag(self, s, text, x=None, y=1.62):
-        """CMP-DATASCOPE tag, always states data scope + as-of date."""
+        """CMP-DATASCOPE tag, always states data scope + as-of date. One truncated-to-fit line —
+        a scope note may abbreviate but must never spill off the slide edge."""
         x = ML if x is None else x
+        budget = int((RX - x - 0.55) / (0.0102 * 8.5)) - 8
+        if len(text) > budget:
+            text = text[:budget - 1].rstrip(" ·,;") + "…"
         self.rect(s, x, y, 0.14, 0.14, fill=NT2, round_=0.3)
         self.txt(s, x + 0.20, y - 0.03, RX - x - 0.35, 0.22,
                  [("SCOPE  ", SANS, 7.5, SLATE, True, False, 80), (text, SERIF, 8.5, INK, False, True)], wrap=False)

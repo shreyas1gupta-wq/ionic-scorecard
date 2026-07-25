@@ -41,11 +41,10 @@ def render(deck, ctx, tier):
     else:
         body = (f"Drawdowns are the admission price of equity returns: the same market that compounds "
                 f"wealth over a {horizon.lower()} horizon has fallen {abs(worst):.0f}% peak-to-trough "
-                f"within it. Every fall above looked permanent in the middle of it, and each recovery "
-                f"ran on its own clock, from months to a couple of years. The mandate's cash buffer and "
+                f"within it. The mandate's cash buffer and "
                 f"staged deployment exist precisely so this portfolio is never a forced seller in the "
                 f"trough, which is the only way a temporary fall becomes a permanent loss.")
-    deck.callout(s, ML, 5.5, UW, 1.05, "The admission price", body, kind="human")
+    deck.callout(s, ML, 5.42, UW, 1.14, "The admission price", body, kind="human")
 
     deck.source(s, "Peak-to-trough depths and trough-to-recovery months are approximate, rounded "
                    "episode markers [ILLUSTRATIVE]; verify against exchange index data before any "
