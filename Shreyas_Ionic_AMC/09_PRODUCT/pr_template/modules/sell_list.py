@@ -5,8 +5,9 @@
 - each name gets a TWO-LINE case (client_case overlay if present, else the binding trigger,
   clause-clipped) + a visible 'p.NN' link to its full rationale card in the annexure.
 - paginated 5 rows a page (2 pages for a 9-name book) so nothing is cramped.
-- exceptional-call rule: a Sell scoring ABOVE 40 is allowed only as a 90%+-conviction
-  exceptional case; those score numerals render amber and the page carries one footnote.
+- exceptional-call rule: a Sell scoring ABOVE 40 is allowed only as a 60%+-conviction
+  exceptional case (Principal bar, eased from 90 on 2026-07-25); those rows carry an
+  amber EXCEPTIONAL tag and the page carries one footnote.
 Returns the page count. score_band + scope_tag attach.
 """
 from slidekit import NAVY, INK, SLATE, SELL, AMBER, SERIF, SANS, ML, UW, RX, clip_clause
