@@ -10,7 +10,7 @@ reason, their action pill renders 'Under review' (Watch), a footnote states the 
 and the lead-in counts N actionable + M under review. This module carries no proceeds phrasing;
 proceeds numbers come from ctx['deployment'] in other modules.
 """
-from slidekit import NAVY, INK, SLATE, SELL, AMBER, SERIF, SANS, ML, UW
+from slidekit import NAVY, INK, SLATE, SELL, AMBER, SERIF, SANS, ML, UW, clip_clause
 from pptx.enum.text import MSO_ANCHOR
 
 # ctx reason_category -> (rank, short client-facing label). Lower rank = ranks higher (shown first).
@@ -106,7 +106,7 @@ def render(deck, ctx, tier):
             ("bar", e.get("ionic_score")),
             ("pill", "Under review", "Watch") if under else ("pill", "Sell", "Sell"),
             ("c", short, AMBER if under else SELL, True),
-            _clip(e.get("binding_trigger", ""), 38),
+            clip_clause(e.get("binding_trigger", ""), 44),
         ])
     n = len(rows)
     rowh = 0.44 if n <= 6 else (0.34 if n <= 8 else 0.30)

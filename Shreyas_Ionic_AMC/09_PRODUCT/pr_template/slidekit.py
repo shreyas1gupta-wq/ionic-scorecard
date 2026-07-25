@@ -38,6 +38,61 @@ RX = CW - MR; UW = RX - ML
 # (mid-word matches like 'ingenuine' are protected by the leading whitespace requirement)
 _TELL_RE = re.compile(r"\s+(?:genuinely|genuine|truly)(?=[\s,.;:…)]|$)")
 
+
+def short_name(name, n=28):
+    """Shorten a scheme/holding name without ever cutting mid-word: strip common
+    suffixes, then drop trailing words until it fits — a clean shorter name beats
+    'LIC MF Balanced Advanta…' (declutter pass, 2026-07-25)."""
+    name = (name or "").replace(" Fund", "").replace(" (Regular)", " (Reg)").replace(" (Direct)", " (Dir)")
+    if len(name) <= n:
+        return name
+    words = name.split(" ")
+    while len(words) > 2 and len(" ".join(words)) > n:
+        words.pop()
+    out = " ".join(words)
+    return out if len(out) <= n else out[:n - 1].rsplit(" ", 1)[0]
+
+
+def clip_clause(txt, n):
+    """Clip long data text for a table cell WITHOUT the broken look. Rules learned the
+    hard way (visual QA 2026-07-25): only a real sentence/semicolon boundary may end
+    with a period (a comma-cut fakes completeness: 'India's best-capitalised.');
+    never leave an unbalanced '('; otherwise word boundary + ellipsis."""
+    txt = (txt or "").strip()
+    if len(txt) <= n:
+        return txt
+    cut = txt[:n]
+    best = max(cut.rfind(". "), cut.rfind("; "))
+    if best >= n * 0.45:
+        return cut[:best].rstrip(" ,;") + "."
+    if cut.count("(") > cut.count(")"):        # cut landed inside a parenthetical
+        cut = cut[:cut.rfind("(")]
+    sp = cut.rfind(" ")
+    if sp > n * 0.5:
+        cut = cut[:sp]
+    return cut.rstrip(" ,.;:-") + "…"
+
+
+def clip_sentences(txt, n):
+    """Trim analyst prose to whole SENTENCES within the budget — the text always ends
+    with its own full stop, never a mid-clause '…' or doubled punctuation. Falls back
+    to clip_clause only when even the first sentence exceeds the budget."""
+    txt = (txt or "").strip()
+    if len(txt) <= n:
+        return txt
+    # split at whitespace AFTER sentence punctuation — decimals ('1.5x') never split,
+    # and nothing is silently skipped (the [^.]*\. approach dropped text before the
+    # first decimal point: a card once rendered starting mid-sentence at '5x across…')
+    out = ""
+    for part in re.split(r"(?<=[.!?])\s+", txt):
+        cand = (out + " " + part).strip()
+        if len(cand) > n:
+            break
+        out = cand
+    if out and len(out) >= n * 0.45 and out.endswith((".", "!", "?")):
+        return out
+    return clip_clause(txt, n)
+
 REC_STYLE = {"Sell": (SELLBG, SELL), "Exit": (SELLBG, SELL), "Redeem-to-Direct": (AMBERBG, AMBER),
              "Redeem": (AMBERBG, AMBER), "Switch": (AMBERBG, AMBER), "Trim": (AMBERBG, AMBER),
              "Hold": (HOLDBG, HOLD), "Aligned": (HOLDBG, HOLD), "Watch": (PANEL, SLATE),
@@ -168,7 +223,14 @@ class Deck:
                 # reach a client slide, even when they arrive inside analyst-data strings
                 if isinstance(t, str):
                     t = t.replace(" — ", ", ").replace("—", ", ").replace(" -- ", ", ")
+                    # 'genuine(ly)' swaps to a plain word (bare strip dangles articles:
+                    # 'a genuine, company-acknowledged' -> 'a,'); 'truly' just goes
+                    t = t.replace(" genuinely", " clearly").replace(" genuine", " clear")
                     t = _TELL_RE.sub("", t)
+                    # glyphs Bahnschrift lacks (render as tofu in charts/PDF): never ship
+                    t = (t.replace(" → ", " to ").replace("→", "to")
+                          .replace("≤ ", "max ").replace("≤", "max ")
+                          .replace("≥ ", "min ").replace("≥", "min "))
                 r.text = t
                 r.font.name = fn; r.font.size = Pt(sz); r.font.bold = bold
                 r.font.italic = ital; r.font.color.rgb = col
@@ -297,6 +359,14 @@ class Deck:
         self.txt(s, x + 0.22, y + 0.14, w - 0.4, 0.3, [(title.upper(), SANS, 9.5, tc, True, False, 60)])
         self.txt(s, x + 0.22, y + 0.44, w - 0.4, h - 0.5, [(body, SERIF, 10.5, INK, False)], ls=1.06)
 
+    def callout_h(self, w, body, min_h=1.0, max_h=2.6):
+        """Height that hugs the text for a callout of width w — a box sized to its
+        worst case renders 40-60% empty tint on short copy (declutter, 2026-07-25)."""
+        import math as _m
+        cpl = max(10, int((w - 0.44) / (0.0102 * 10.5)))
+        lines = max(1, _m.ceil(len(body or "") / cpl))
+        return min(max_h, max(min_h, 0.62 + lines * 0.185))
+
     def table(self, s, x, y, w, cols, rows, rowh=0.34, fs=10, hfs=8, header=True, zebra=False,
               maxrows=None, totals=None):
         """cols = [(label, width_frac, align 'l'/'c'/'r')]. Each cell:
@@ -319,9 +389,11 @@ class Deck:
                     self.score_bar(s, cx, ry + rowh / 2 - 0.02, cell[1], w=min(cwid - 0.5, 0.7))
                 elif k == "flags":
                     fx = cx
-                    for fl in cell[1][:4]:
-                        self.pill(s, fx, ry + rowh / 2 - 0.13, fl[:9], w=0.75, kind="Sell" if fl in ("NEG_ALPHA", "CLOSET_INDEX", "DEEP_DD", "CAPACITY") else "Trim")
-                        fx += 0.82
+                    for fl in cell[1][:3]:
+                        self.pill(s, fx, ry + rowh / 2 - 0.13, fl[:9], w=0.82,
+                                  kind="Sell" if fl in ("NEG_ALPHA", "CLOSET_INDEX", "DEEP_DD", "CAPACITY",
+                                                        "NEG ALPHA", "CLOSET", "DEEP DD") else "Trim")
+                        fx += 0.88
                 elif k in ("b", "c"):
                     col = cell[2] if (k == "c" and len(cell) > 2) else INK
                     bold = (k == "b") or (len(cell) > 3 and cell[3]) or force_bold
@@ -352,10 +424,16 @@ class Deck:
         return ry
 
     def scope_tag(self, s, text, x=None, y=1.62):
-        """CMP-DATASCOPE tag, always states data scope + as-of date. One truncated-to-fit line —
-        a scope note may abbreviate but must never spill off the slide edge."""
+        """CMP-DATASCOPE tag, always states data scope + as-of date. One line that must
+        never spill: over-long scopes drop whole ' · ' segments (keeping the as-of tail)
+        rather than truncating mid-word."""
         x = ML if x is None else x
         budget = int((RX - x - 0.55) / (0.0102 * 8.5)) - 8
+        if len(text) > budget and " · " in text:
+            parts = text.split(" · ")
+            while len(parts) > 2 and len(" · ".join(parts)) > budget:
+                parts.pop(-2)          # drop detail segments, keep the first + the as-of tail
+            text = " · ".join(parts)
         if len(text) > budget:
             text = text[:budget - 1].rstrip(" ·,;") + "…"
         self.rect(s, x, y, 0.14, 0.14, fill=NT2, round_=0.3)

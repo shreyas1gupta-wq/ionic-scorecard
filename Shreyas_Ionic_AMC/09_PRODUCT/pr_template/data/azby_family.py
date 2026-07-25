@@ -185,7 +185,7 @@ def _funds(grand_inr):
         # ~9.4-9.8% CAGR and AHEAD of its hybrid benchmark over 1y/3y — the old DOWN_CAP_HI +
         # DEEP_DD framing was NOT supported and is removed. Verifiable weaknesses used instead:
         # AUM ~Rs 761 cr (May-2025, sub-scale) and a track record under 4 years.
-        ("LIC MF Balanced Advantage", "LIC MF", "hybrid", "Regular", 3.0, 16, 0.82, 0.78, 0.0, 0.050, 48,
+        ("LIC MF Balanced Advantage", "LIC MF", "hybrid", "Regular", 3.0, 16, 0.82, 0.78, 0.8, 0.040, 48,
          ["SUB_SCALE", "SHORT_RECORD", "REG_PLAN_DRAG"], "Trim", "TRIM",
          "the hybrid core already held (HDFC BAF, Direct)",
          "Under four years of record, sub-scale, Regular plan; we fold the sleeve into the proven hybrid held."),

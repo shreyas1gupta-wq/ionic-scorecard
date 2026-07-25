@@ -37,12 +37,8 @@ def render(deck, ctx, tier):
     s = deck.content(SECTION_NO, SECTION, L["eyebrow"], L["title"])
 
     def _short(name, n=26):
-        base = name.split("(")[0].strip()          # plan markers don't matter here
-        if len(base) <= n:
-            return base
-        cut = base[:n]
-        sp = cut.rfind(" ")
-        return (cut[:sp] if sp > n * 0.6 else cut).rstrip() + "…"
+        from slidekit import short_name
+        return short_name(name.split("(")[0].strip(), n)   # plan markers don't matter here
 
     # current-plan TER per scheme (direct TER + plan drag = what the holder pays today)
     cur = [(_short(name), ter + drag) for (name, plan, ter, drag) in ctx["cost"]["rows"]]

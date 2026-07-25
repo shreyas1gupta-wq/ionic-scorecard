@@ -7,6 +7,26 @@ from slidekit import ML, UW
 
 PER = 18
 
+# AMFI sector names run long; abbreviate to words, never chop mid-word ('Information Technolo')
+_SECTOR = {"Information Technology": "IT", "Fast Moving Consumer Goods": "FMCG",
+           "Oil Gas & Consumable Fuels": "Oil & Gas", "Automobile And Auto Components": "Auto & Comp.",
+           "Construction Materials": "Cement", "Telecommunication": "Telecom",
+           "Metals & Mining": "Metals & Mining", "Financial Services": "Financials",
+           "Consumer Durables": "Cons. Durables", "Healthcare": "Healthcare",
+           "Capital Goods": "Capital Goods", "Consumer Services": "Cons. Services"}
+
+
+def _sector(sec):
+    sec = (sec or "").strip()
+    if sec in _SECTOR:
+        return _SECTOR[sec]
+    if len(sec) <= 20:
+        return sec
+    words = sec.split(" ")
+    while len(words) > 1 and len(" ".join(words)) > 20:
+        words.pop()
+    return " ".join(words)
+
 
 def render(deck, ctx, tier):
     reg = tier.get("register", "std")
@@ -29,7 +49,7 @@ def render(deck, ctx, tier):
         for e in chunk:
             rows.append([
                 ("b", e["symbol"]),
-                (e.get("sector") or "")[:20],
+                _sector(e.get("sector")),
                 f"{e['weight_pct']:.2f}",
                 ("bar", e["ionic_score"]),
                 f"{e['score_3y']:.0f}",

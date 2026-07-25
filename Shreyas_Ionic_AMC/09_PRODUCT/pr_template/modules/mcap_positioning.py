@@ -27,8 +27,12 @@ def render(deck, ctx, tier):
         b = e.get("mcap_band") or "Large"
         agg[b] = agg.get(b, 0.0) + e["weight_pct"]
     eq_total = sum(agg.values()) or 1.0
-    labels = [b for b in _BUCKETS if b in agg]
-    values = [100.0 * agg[b] / eq_total for b in labels]
+    # a 0.0% bucket is dead ink as a chart row — drop it, note it in the source line
+    pairs = [(b, 100.0 * agg[b] / eq_total) for b in _BUCKETS if b in agg]
+    dropped = [b for b, v in pairs if v < 0.05]
+    pairs = [(b, v) for b, v in pairs if v >= 0.05]
+    labels = [b for b, _ in pairs]
+    values = [v for _, v in pairs]
 
     s = deck.content(1, "Portfolio X-ray", L["eyebrow"], L["title"])
     deck.scope_tag(s, f"Direct equity only · as of {as_of}")
@@ -60,6 +64,7 @@ def render(deck, ctx, tier):
     deck.callout(s, cx, 4.15, cw, 2.0,
                  "MID / SMALL VIEW" if reg != "simple" else "OUR VIEW", view, kind="human")
 
+    drop_note = f" No {'/'.join(dropped).lower()}-cap exposure." if dropped else ""
     deck.source(s, f"Source: client holdings as of {as_of}. Weights as % of the direct-equity sleeve; "
-                   "bands per SEBI/AMFI classification.")
+                   f"bands per SEBI/AMFI classification.{drop_note}")
     return 1

@@ -6,14 +6,16 @@ from slidekit import ML, UW, RX
 
 
 def _short(f):
+    """Deliberate short nicknames for heatmap axes — never a mid-word chop
+    ('ICICI M-Asse'); every label must be a whole word/abbreviation."""
     amc = f["amc"].split()[0]
     key = ""
     for k in ("Large", "Flexi", "Multi-Asset", "Multi", "Small", "Balanced", "Nifty"):
         if k in f["name"]:
             key = k
             break
-    key = {"Multi-Asset": "M-Asset", "Balanced": "BAF", "Nifty": "N50"}.get(key, key)
-    return (f"{amc[:6]} {key}").strip()[:12]
+    key = {"Multi-Asset": "MA", "Balanced": "BAF", "Nifty": "N50"}.get(key, key)
+    return f"{amc[:6]} {key}".strip()
 
 
 def _ov(a, b, i, j):

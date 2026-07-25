@@ -4,7 +4,7 @@ CH.waterfall of the deployment sleeves on a net-of-tax base, with an explicit
 'less: est. tax leakage' step; a numbered sequencing-rationale panel (ctx sequence);
 one-line rationale per sleeve; non-solicitation framing (liquidity logic, not a market call)."""
 import charts as CH
-from slidekit import NAVY, GOLD, INK, SLATE, NT2, SERIF, SANS, ML, UW, RX, PANEL, HAIR
+from slidekit import NAVY, GOLD, INK, SLATE, NT2, SERIF, SANS, ML, UW, RX, PANEL, HAIR, clip_clause
 from pptx.enum.text import PP_ALIGN
 
 SECTION_NO, SECTION = 5, "Annexure"   # transition plan lives in the annexure (Principal 2026-07-25)
@@ -65,7 +65,7 @@ def render(deck, ctx, tier):
     for i, (name, amt, rat) in enumerate(sleeves):
         deck.txt(s, ML, ry + i * 0.44, 7.0, 0.42,
                  [(f"{name}  ", SANS, 9, NAVY, True), (_money(amt) + "   ", SANS, 9, INK, True),
-                  (rat[:70], SERIF, 8.5, SLATE, False, True)], ls=1.0)
+                  (clip_clause(rat, 66), SERIF, 8.5, SLATE, False, True)], ls=1.0)
 
     # --- right below sequencing: personalised-transition block (Principal 2026-07-25) ---
     pers = dep.get("personalization") or []

@@ -5,7 +5,7 @@ its Ionic Score and a one-line read. A thesis-break rule footnote states what wo
 score_band + scope_tag attach.
 """
 from slidekit import (NAVY, INK, SLATE, HAIR, PANEL, WHITE, SELL, HOLD, AMBER, GOLD,
-                      HOLDBG, NT2, SERIF, SANS, ML, RX, UW)
+                      HOLDBG, NT2, SERIF, SANS, ML, RX, UW, clip_clause)
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 
 LABELS = {
@@ -25,14 +25,7 @@ LABELS = {
 
 
 def _clip(txt, n):
-    txt = (txt or "").strip()
-    if len(txt) <= n:
-        return txt
-    cut = txt[:n]
-    sp = cut.rfind(" ")
-    if sp > n * 0.6:
-        cut = cut[:sp]
-    return cut.rstrip(" ,.;:") + "…"
+    return clip_clause(txt, n)
 
 
 def _entry(deck, s, x, y, w, e, read_len):

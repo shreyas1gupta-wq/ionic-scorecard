@@ -22,9 +22,17 @@ _FLAG_READ = {"DOWN_CAP_HI": "high down-capture", "DEEP_DD": "deep drawdown",
               "SHORT_RECORD": "record under 4 years"}
 
 
-def _short(name, n=24):
+def _short(name, n=28):
+    """Fund-name shortener that never cuts mid-word: strip suffixes first, then
+    drop trailing words until it fits (a clean shorter name beats a broken one)."""
     name = name.replace(" Fund", "").replace(" (Regular)", " (Reg)").replace(" (Direct)", " (Dir)")
-    return name if len(name) <= n else name[:n - 1] + "…"
+    if len(name) <= n:
+        return name
+    words = name.split(" ")
+    while len(words) > 2 and len(" ".join(words)) > n:
+        words.pop()
+    out = " ".join(words)
+    return out if len(out) <= n else out[:n - 1].rsplit(" ", 1)[0]
 
 
 def _scrub(t):
@@ -93,7 +101,7 @@ def _bias_cards(deck, s, funds, y, h, simple):
     gap = 0.15
     cw = (UW - gap * (len(funds) - 1)) / max(len(funds), 1)
     for i, f in enumerate(funds):
-        title = f"{_short(f['name'], 18)} · {VDISP.get(f['verdict'], f['verdict'])}"
+        title = f"{_short(f['name'], 26)} · {VDISP.get(f['verdict'], f['verdict'])}"
         deck.callout(s, ML + i * (cw + gap), y, cw, h, title,
                      _bias_body(f, simple), kind=_KIND.get(f["verdict"], "note"))
 
@@ -156,16 +164,9 @@ def render(deck, ctx, tier):
              [("OUR BIAS, FUND BY FUND   ", SANS, 8.5, NAVY, True, False, 60),
               ("why each verdict stands, in the desk's words", SERIF, 9, SLATE, False, True)])
     cy = hy + 0.30
-    chh = min(2.30, 6.30 - cy)
+    # cards sized to their text, not to the void — a half-empty tinted box reads as filler
+    chh = min(1.95, 6.30 - cy)
     _bias_cards(deck, s, cards, cy, chh, False)
-
-    tail_y = cy + chh + 0.10
-    if tail_y <= 6.42:
-        deck.txt(s, ML, tail_y, UW, 0.2,
-                 [("The test that matters: ", SERIF, 10, SLATE, True, True),
-                  (f"{_short(best['name'], 22)} held its worst year to {best['worst_1y']:+.1f}%; "
-                   f"{_short(worst['name'], 22)} fell to {worst['worst_1y']:+.1f}% at "
-                   f"~{worst['down_capture']:.0f}% down-capture.", SERIF, 10, INK, False, True)])
 
     deck.source(s, "Sortino / Calmar, max drawdown, worst 1-yr rolling return & down-capture vs "
                    "total-return benchmark; Direct-plan NAV. Illustrative synthetic funds.")

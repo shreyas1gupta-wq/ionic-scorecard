@@ -40,7 +40,8 @@ def render(deck, ctx, tier):
     rows = []
     for (action, scheme, amt, holding, character, note) in tax["fund_rows"]:
         disp, kind = ACT_MAP.get(action, (action.title(), action.title()))
-        rows.append([("pill", disp, kind), scheme[:30], _money(amt), character])
+        from slidekit import short_name
+        rows.append([("pill", disp, kind), short_name(scheme, 30), _money(amt), character])
     cols = [("Action", 0.16, "l"), ("Scheme", 0.44, "l"), ("Amount", 0.18, "r"), ("Tax character", 0.22, "l")]
     deck.table(s, ML, 1.98, 6.95, cols, rows, rowh=0.5, fs=9.5, hfs=8)
 

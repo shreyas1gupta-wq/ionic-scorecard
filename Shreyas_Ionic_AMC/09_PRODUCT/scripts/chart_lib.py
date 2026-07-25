@@ -221,7 +221,9 @@ def heatmap(row_labels, col_labels, matrix, name, figsize=(7.6, 4.6), fmt="{:.0f
     fig, ax = _fig(figsize)
     M = np.array(matrix, dtype=float)
     ax.imshow(M, cmap=NAVY_CMAP, aspect="auto", vmin=0, vmax=vmax)
-    ax.set_xticks(range(len(col_labels))); ax.set_xticklabels(col_labels, fontsize=9, color=INK, rotation=0)
+    # angle the x labels so adjacent names never run together (heatmap axes get crowded)
+    ax.set_xticks(range(len(col_labels)))
+    ax.set_xticklabels(col_labels, fontsize=9, color=INK, rotation=30, ha="right")
     ax.set_yticks(range(len(row_labels))); ax.set_yticklabels(row_labels, fontsize=9.5, color=INK)
     for i in range(M.shape[0]):
         for j in range(M.shape[1]):

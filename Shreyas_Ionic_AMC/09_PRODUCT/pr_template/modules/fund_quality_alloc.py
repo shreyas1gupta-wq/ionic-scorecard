@@ -16,7 +16,8 @@ LABELS = {
 
 def _short(name, n=16):
     name = name.replace(" Fund", "").replace(" (Regular)", "").replace(" (Direct)", "")
-    return name if len(name) <= n else name[:n - 1] + "…"
+    from slidekit import short_name
+    return short_name(name, n)
 
 
 def _ccol(f):

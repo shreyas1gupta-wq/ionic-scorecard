@@ -44,15 +44,18 @@ def _methodology(deck, ctx, tier):
                    "point-in-time. It rewards net-of-fee alpha, rolling-window consistency and downside "
                    "cushioning, and penalises SENTINEL flags. Verdicts: Hold / Trim / Switch / "
                    "Redeem-to-Direct / Exit.")
-    deck.callout(s, ML, 1.95, colw, 2.5, "Scoring equities", eq_body, "note")
-    deck.callout(s, x2, 1.95, colw, 2.5, "Evaluating funds", fu_body, "note")
+    # panels hug their text (shared height keeps the pair aligned); data sources become a
+    # third, full-width boxed panel so the lower half of the page doesn't sit empty
+    h = max(deck.callout_h(colw, eq_body, min_h=1.6), deck.callout_h(colw, fu_body, min_h=1.6))
+    deck.callout(s, ML, 1.95, colw, h, "Scoring equities", eq_body, "note")
+    deck.callout(s, x2, 1.95, colw, h, "Evaluating funds", fu_body, "note")
 
-    deck.txt(s, ML, 4.75, UW, 0.24, [("DATA SOURCES", SANS, 9, SLATE, True, False, 140)])
     src = ("Scored universe: portfolio_quant.csv + per-stock analyst files (PIT).  ·  Fund NAVs: Direct-plan, "
            "total-return-benchmark relative (QFRA 2.0).  ·  SEBI market-cap cut-offs and category rules.  ·  "
            "House-view sector / allocation bands.  ·  Statutory tax rates (Compliance-signed, Budget-versioned).  ·  "
            "Client IPS and holdings as supplied by the advisory desk.")
-    deck.txt(s, ML, 5.0, UW, 1.3, [(src, SERIF, 10.5, INK, False)], ls=1.15)
+    sy = 1.95 + h + 0.25
+    deck.callout(s, ML, sy, UW, deck.callout_h(UW, src, min_h=1.0), "Data sources", src, "human")
     deck.source(s, "Illustrative synthetic demo (AZBY Family); equity scores real, holdings & funds synthetic.")
 
 

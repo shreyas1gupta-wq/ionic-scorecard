@@ -60,23 +60,28 @@ def render(deck, ctx, tier):
     tx = ML + 7.1
     tw = RX - tx
     cols = [("High-beta name", 0.42, "l"), ("Beta", 0.18, "r"), ("Weight", 0.20, "r"), ("Call", 0.20, "c")]
+    # the register must reconcile with the headline number: list EVERY name over the
+    # flag line (checkable arithmetic — a quant-literate reader will add it up)
+    shown = hi_tail[:8]
     rows = [[e["symbol"], ("c", f"{betas[e['symbol']]:.2f}", SELL, True),
-             f"{e['weight_pct']:.1f}%", ("pill", e["rec"], e["rec"])] for e in hi_tail[:6]]
-    deck.txt(s, tx, 1.86, tw, 0.22, [(f"THE HIGH-BETA TAIL · {tail_wt:.1f}% OF BOOK",
-                                      "Bahnschrift", 9, SELL, True, False, 60)])
-    deck.table(s, tx, 2.14, tw, cols, rows, rowh=0.30, fs=8.5, hfs=7)
+             f"{e['weight_pct']:.1f}%", ("pill", e["rec"], e["rec"])] for e in shown]
+    kick = f"THE HIGH-BETA TAIL · {tail_wt:.1f}% OF BOOK"
+    if len(hi_tail) > len(shown):
+        kick += f" · TOP {len(shown)} OF {len(hi_tail)}"
+    deck.txt(s, tx, 1.86, tw, 0.22, [(kick, "Bahnschrift", 9, SELL, True, False, 60)])
+    deck.table(s, tx, 2.14, tw, cols, rows, rowh=0.26, fs=8.5, hfs=7)
 
     if reg == "simple":
         body = (f"Beta says how much a stock moves when the market moves. The book overall sits near "
                 f"{book_beta:.1f}, close to the market. A small tail of names moves harder in both "
                 f"directions; in a fall they will drop more than the index.")
     else:
-        body = (f"Book-weighted beta is {book_beta:.2f}, close to the market, so the base is sensible. "
-                f"The tail above {FLAG:.1f} ({tail_wt:.1f}% of the book, concentrated in metals and "
-                f"capital goods) is where a market drawdown bites hardest: these names tend to fall "
-                f"further than the index and recover on their own cycle, not the market's. Position "
-                f"sizes there should earn their volatility.")
-    deck.callout(s, tx, 4.25, tw, 2.25, "How to read the ladder", body, kind="note")
+        body = (f"Book-weighted beta is {book_beta:.2f}, close to the market. The tail above "
+                f"{FLAG:.1f} ({tail_wt:.1f}% of the book) is where a drawdown bites hardest: these "
+                f"names fall further than the index and recover on their own cycle. Position sizes "
+                f"there should earn their volatility.")
+    cy = 2.14 + 0.33 + 0.26 * len(rows) + 0.14
+    deck.callout(s, tx, cy, tw, min(2.25, 6.5 - cy), "How to read the ladder", body, kind="note")
 
     deck.source(s, "Betas are sector-keyed illustrative estimates with a fixed per-name offset "
                    "[ILLUSTRATIVE], not regression output; ladder shows the largest positions plus "

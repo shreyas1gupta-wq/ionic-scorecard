@@ -3,28 +3,8 @@
 business line + Ionic Score + analyst read + the call. Returns the number of slides added
 (v8 #14/#15, de-hardcoded)."""
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
-from slidekit import (INK, SLATE, NAVY, GOLD, HOLD, SELL, PANEL, HAIR, SERIF, SANS, ML, UW, RX)
-
-
-def _sent2(txt, fallback=""):
-    txt = (txt or "").strip() or (fallback or "").strip()
-    parts = [p.strip() for p in txt.replace("\n", " ").split(". ") if p.strip()]
-    out = ". ".join(parts[:2]).strip()
-    if out and not out.endswith("."):
-        out += "."
-    return out
-
-
-def _human_read(e, reg):
-    sc = e["ionic_score"]
-    rec = e["rec"]
-    if rec == "Sell":
-        return f"Score {sc:.0f} sits below our line, a sell candidate the team has confirmed."
-    if rec == "Trim":
-        return f"Score {sc:.0f} is middling, we would trim rather than exit."
-    if reg == "simple":
-        return f"Score {sc:.0f} clears our bar, we are happy to keep it."
-    return f"Score {sc:.0f} clears our bar, the read supports holding."
+from slidekit import (INK, SLATE, NAVY, GOLD, HOLD, SELL, PANEL, HAIR, SERIF, SANS, ML, UW, RX,
+                      clip_sentences)
 
 
 def _one(deck, e, tier):
@@ -45,19 +25,16 @@ def _one(deck, e, tier):
     deck.txt(s, px + 0.25, py + 2.6, pw - 0.5, 0.7,
              [(f"{e['mcap_band']}-cap   ·   {e['conviction']}", SANS, 9.5, SLATE, False)])
 
-    # --- right: read + the call ---
+    # --- right: read + the call (the verdict lives in the pill + one call box; a third
+    # and fourth restatement of HOLD read as templated filler — cut, declutter 2026-07-25) ---
     rx = ML + 3.75
     rw = RX - rx
-    deck.txt(s, rx, py, rw, 0.58, [(_human_read(e, reg), SERIF, 11, NAVY, False, True)], ls=1.05)
-    read = _sent2(e.get("summary"), e.get("detailed") or e.get("analyst_read"))
-    if read and len(read) > 400:                       # callout budget ≈ 6 lines at 10.5pt
-        cut = read[:400]
-        read = cut[:cut.rfind(" ")].rstrip(" ,.;:") + "…"
-    deck.callout(s, rx, py + 0.72, rw, 1.72, "Our read", read or "Analyst read on file.", "note")
+    read = clip_sentences((e.get("summary") or e.get("detailed") or e.get("analyst_read") or "").strip(), 480)
+    deck.callout(s, rx, py, rw, 2.44, "Our read", read or "Analyst read on file.", "note")
 
     call = f"{e['rec']}"
     if e["rec"] == "Hold":
-        call_body = f"Keep the position ({e['conviction']}). "
+        call_body = f"Keep the position ({e['conviction']} conviction). "
     elif e["rec"] == "Trim":
         call_body = "Reduce toward target; the thesis is intact but the risk/reward is only fair. "
     else:

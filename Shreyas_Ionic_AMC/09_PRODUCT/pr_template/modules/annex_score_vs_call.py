@@ -57,13 +57,15 @@ def render(deck, ctx, tier):
                      ("pill", e["rec"], e["rec"]),
                      ("c", "Sell zone" if e["ionic_score"] < 40 else "Pass", SELL if e["ionic_score"] < 40 else HOLD, False)])
     deck.txt(s, tx, 1.86, tw, 0.22, [("THE OVERRIDE REGISTER", "Bahnschrift", 9, AMBER, True, False, 80)])
-    deck.table(s, tx, 2.14, tw, cols, rows, rowh=0.30, fs=8.5, hfs=7)
+    # every ringed point on the chart gets its register row — the table and the claim
+    # must reconcile 1:1 (critique 2026-07-25); callout position follows the table end
+    ty = deck.table(s, tx, 2.14, tw, cols, rows, rowh=0.26, fs=8.5, hfs=7)
 
     body = (f"The quant score is a screen; a verdict needs a person. On {len(ups)} names the analyst "
             f"holds a low scorer for reasons the model cannot see; on {len(dns)} the call is Sell despite "
             f"a passing score. Every override carries a written rationale, on the record.")
-    deck.callout(s, tx, 4.48, tw, 1.85, "Six calls moved, each documented" if len(rows) == 6
-                 else f"{len(rows)} calls moved, each documented", body, kind="human")
+    deck.callout(s, tx, min(ty + 0.14, 4.75), tw, 1.75,
+                 f"{len(rows)} calls moved, each documented", body, kind="human")
 
     deck.source(s, "Ionic quant score (0-100, PIT 2026-07-21) vs final Portfolio Review call per holding; "
                    "escalated Holds shown as Under review; overrides ringed in gold.")

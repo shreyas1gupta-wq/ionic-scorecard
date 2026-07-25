@@ -11,7 +11,8 @@ from pptx.enum.text import PP_ALIGN
 
 
 def _short(name, n=30):
-    return name if len(name) <= n else name[:n - 1] + "…"
+    from slidekit import short_name
+    return short_name(name, n)
 
 
 def _rule_card(deck, s, x, y, w, h, num, rule, why, violators, action_text, action_kind, simple):

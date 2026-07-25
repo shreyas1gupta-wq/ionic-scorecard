@@ -108,9 +108,13 @@ def _card(deck, f, tier, idx):
     if f.get("exemplar") and f["exemplar"] != "-":
         narr = (narr + " ").strip() + f"  Measured against exemplar: {f['exemplar']}."
     kind = "warn" if f["verdict"] in ("Exit", "Switch") else "human"
-    deck.callout(s, ML, 3.9, 5.35, 2.4, "Why we act", narr or "Rationale on file.", kind)
-    deck.callout(s, ML + 5.55, 3.9, UW - 5.55, 2.4, "Our read",
-                 _our_read(f, reg == "simple"), "note")
+    read = _our_read(f, reg == "simple")
+    # panel heights hug the longer text (shared so the pair stays aligned) — fixed
+    # worst-case boxes rendered 40-60% empty tint on short copy
+    h = max(deck.callout_h(5.35, narr or "Rationale on file.", min_h=1.3),
+            deck.callout_h(UW - 5.55, read, min_h=1.3))
+    deck.callout(s, ML, 3.9, 5.35, h, "Why we act", narr or "Rationale on file.", kind)
+    deck.callout(s, ML + 5.55, 3.9, UW - 5.55, h, "Our read", read, "note")
 
     deck.source(s, "Direct-plan NAV vs total-return benchmark, point-in-time. QFRA 2.0 / SENTINEL.")
 

@@ -2,7 +2,7 @@
 """Annexure, Sell rationale cards (F3): one slide per rec=='Sell' name. Score + why-out
 (negative_para) + the bull we rejected (positive_para) + reverse-DCF + what-would-change-our-mind
 (reversal) + PIT stamp. Returns the count of cards added."""
-from slidekit import (INK, SLATE, NAVY, SELL, SANS, SERIF, ML, UW, RX)
+from slidekit import (INK, SLATE, NAVY, SELL, SANS, SERIF, ML, UW, RX, clip_sentences)
 
 
 _REVERSAL = {
@@ -24,11 +24,12 @@ _REVERSAL = {
 }
 
 
-def _clip(txt, n=340):
+def _clip(txt, n=350):
+    """Whole sentences only — a client rationale card must never end mid-clause."""
     txt = (txt or "").strip()
     if not txt:
         return "On file with the analyst desk."
-    return txt if len(txt) <= n else txt[:n - 1].rsplit(" ", 1)[0] + "…"
+    return clip_sentences(txt, n)
 
 
 def _reversal(e):

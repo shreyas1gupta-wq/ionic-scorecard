@@ -2,10 +2,15 @@
 """fund_book_scored (F4/F12), the whole MF sleeve, QFRA 2.0-scored, with SENTINEL flag chips
 and a SEBI-safe verdict (Hold/Trim/Switch/Redeem-to-Direct/Exit, never Buy).
 Scope banner: MF sleeve only. Pairs the QFRA number with a desk human-read (rule d)."""
-from slidekit import NAVY, INK, SLATE, HOLD, SELL, AMBER, SERIF, ML, UW
+from slidekit import NAVY, INK, SLATE, HOLD, SELL, AMBER, SERIF, ML, UW, short_name
 
 MERIT_COL = {"A": HOLD, "B": NAVY, "C": AMBER, "D": SELL}
 VDISP = {"Redeem-to-Direct": "To-Direct"}
+# flag chips must read as words, never as clipped codes ('DOWN_CAP_'); all <=9 chars
+FLAB = {"CLOSET_INDEX": "CLOSET", "NEG_ALPHA": "NEG ALPHA", "DOWN_CAP_HI": "DOWN-CAP",
+        "WEAK_CONSIST": "WEAK 3Y", "MANDATE_RIGIDITY": "MANDATE", "REG_PLAN_DRAG": "REG DRAG",
+        "DEEP_DD": "DEEP DD", "CAPACITY": "CAPACITY", "OVER_ALLOC": "OVERALLOC",
+        "SUB_SCALE": "SUB-SCALE", "SHORT_RECORD": "SHORT REC"}
 
 LABELS = {
     "hni":    ("The fund book, scored",
@@ -18,8 +23,7 @@ LABELS = {
 
 
 def _short(name, n=27):
-    name = name.replace(" Fund", "").replace(" (Regular)", " (Reg)").replace(" (Direct)", " (Dir)")
-    return name if len(name) <= n else name[:n - 1] + "…"
+    return short_name(name, n)
 
 
 def render(deck, ctx, tier):
@@ -48,7 +52,7 @@ def render(deck, ctx, tier):
         rows = []
         for f in funds:
             v = f["verdict"]
-            fcell = ("flags", f["flags"]) if f["flags"] else ("c", ", ", SLATE)
+            fcell = ("flags", [FLAB.get(x, x[:9]) for x in f["flags"]]) if f["flags"] else ("c", "-", SLATE)
             rows.append([_short(f["name"]), f["category"].title(), f["plan"][:3],
                          f"{f['weight_pct']:.1f}", ("bar", f["qfra"]),
                          ("c", f["merit"], MERIT_COL.get(f["merit"], INK), True),

@@ -14,7 +14,9 @@ LABELS = {
 def render(deck, ctx, tier):
     reg = tier.get("register", "std")
     ov = ctx["overlap"]
-    fd = ov["fund_direct"]                       # (stock, direct_pct, via_funds_pct, n_funds)
+    # the table's premise is 'held BOTH directly and via funds' — a 0.0%-direct row
+    # (fund-only exposure) contradicts it and gets dropped
+    fd = [r for r in ov["fund_direct"] if r[1] > 0.05]   # (stock, direct_pct, via_funds_pct, n_funds)
     eyebrow, title = LABELS.get(reg, LABELS["std"])
     s = deck.content(3, "Funds", eyebrow, title)
 
