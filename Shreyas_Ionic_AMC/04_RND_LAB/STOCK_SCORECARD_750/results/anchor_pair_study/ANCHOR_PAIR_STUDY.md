@@ -28,10 +28,11 @@ digested; Dec-end after the Sep-quarter/H1 results. Both anchors read capture wi
 fully-informed prices. Jan/Jul anchors sit mid-digestion (Dec-quarter results land mid-Jan–Feb;
 Jun-quarter mid-Jul–Aug) — the 6M capture window ends right as new information is landing.
 
-**RECOMMENDATION: keep the current Dec-end / Jun-end cadence.** It is statistically tied with
-the best pair, operationally aligned with the results calendar and the firm's half-yearly
-review rhythm, and clearly better than Jan/Jul. Revisit only if two more years of data
-separate Apr/Oct from Jun/Dec beyond noise.
+**DESK RECOMMENDATION was keep Dec/Jun (statistical tie). PRINCIPAL RULING (2026-07-26):
+"lets keep april and oct" — cadence moves to APR-END / OCT-END, the top pair on every point
+estimate (BUY median +2.59% vs +2.22%, hit 66%).** Next model run: Oct-end 2026 (the Dec-2026
+run is superseded). Skills (qfra1-rerun, qfra2-rerun, mf-nav-refresh) and OPERATING_CALENDAR
+updated same day. Monthly NAV accrual (1st) is unaffected and feeds either cadence.
 
 Script: `anchor_pair_study.py` (this folder). Data: MF Dashboard.xlsx (NAVs to 2025-01-31);
 monthly NAV accrual now automated (1st of month, OPERATING_CALENDAR §automatable) so future

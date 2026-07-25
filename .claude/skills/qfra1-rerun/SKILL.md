@@ -1,4 +1,4 @@
----
+﻿---
 name: qfra1-rerun
 description: Re-run the firm's SHORT-TERM / higher-churn mutual-fund recommendation method (the "capture-ratio overlay") — 6-month downside-capture filter vs category benchmark, then rank survivors by total capture ratio, top-3 BUY; SELL on negative trailing-12M excess in the losing quadrant. Use when the user asks to refresh/verify the MF Dashboard recommendations, run the short-term MF screen, or reconcile a category's Buy/Sell/Hold calls. Complements /qfra2-rerun (the long-term SIP engine).
 ---
@@ -35,5 +35,5 @@ Supports all 6 categories; `--verify` diffs the recomputation against the sheet'
 
 ## Cadence & data automation (Principal 2026-07-26)
 - **NAVs auto-refresh MONTHLY (1st, 08:10)** via `Shreyas_Ionic_AMC/05_DATA_OFFICE/scripts/mf_nav_refresh.py --digest` (AMFI NAVAll; month-end history accrues forever). Wired in OPERATING_CALENDAR §automatable; DESK-100 re-arms the cron each session. Verified current 2026-07-26 (13,958 schemes).
-- **Model runs stay Dec-end + Jun-end.** Anchor-pair backtest (906 formations, 2012-2024, all 6 categories, median + 10% trimmed mean): Jun/Dec statistically tied with the best pair (Apr/Oct), clearly beats Jan/Jul — study: `04_RND_LAB/STOCK_SCORECARD_750/results/anchor_pair_study/ANCHOR_PAIR_STUDY.md`. Verified independently 2026-07-25: smallcap 29/29, flexi 36/37 (known workbook blank-gate bug).
+- **Model runs at APR-END + OCT-END (Principal 2026-07-26, per the anchor-pair study; changed from Dec/Jun; next run = Oct-end 2026).** Anchor-pair backtest (906 formations, 2012-2024, all 6 categories, median + 10% trimmed mean): Jun/Dec statistically tied with the best pair (Apr/Oct), clearly beats Jan/Jul — study: `04_RND_LAB/STOCK_SCORECARD_750/results/anchor_pair_study/ANCHOR_PAIR_STUDY.md`. Verified independently 2026-07-25: smallcap 29/29, flexi 36/37 (known workbook blank-gate bug).
 - **Dual-framework rule:** a client fund Sell needs BOTH frameworks (this + qfra2-rerun) non-Hold; disagreement defaults Hold; focused/value have no sheet here -> qfra2-only Sells need FM sign-off.

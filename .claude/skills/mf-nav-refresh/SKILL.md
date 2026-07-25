@@ -1,4 +1,4 @@
----
+﻿---
 name: mf-nav-refresh
 description: Pull the latest official AMFI NAVs for all Indian mutual funds (13,900+ schemes) into datasets/mf_nav/ — nav_latest.parquet cross-section + permanent month-end history — with auto-pruning so storage never grows. Use for /mf-nav-refresh, "refresh NAVs", before any qfra1/qfra2 run, or on the monthly data cadence.
 ---
@@ -14,4 +14,4 @@ python Shreyas_Ionic_AMC/05_DATA_OFFICE/scripts/mf_nav_refresh.py [--digest]
 - Downstream: `/qfra1-rerun` (capture-ratio engine), `/qfra2-rerun` (long-term SIP), `/mf-lookthrough`.
 
 ## Automation (Principal 2026-07-26)
-Runs automatically on the 1st of every month, 08:10 (OPERATING_CALENDAR §automatable; DESK-100 re-arms the session cron at start). Month-end history must accrue monthly even though the fund models run only Dec-end/Jun-end.
+Runs automatically on the 1st of every month, 08:10 (OPERATING_CALENDAR §automatable; DESK-100 re-arms the session cron at start). Month-end history must accrue monthly even though the fund models run at Apr-end/Oct-end (Principal 2026-07-26).
