@@ -163,9 +163,13 @@ def _funds(grand_inr):
         ("ICICI Pru Multi-Asset (Regular)", "ICICI Pru", "hybrid", "Regular", 4.0, 14, 0.88, 0.72, 0.9, 0.045, 61,
          ["REG_PLAN_DRAG"], "Redeem-to-Direct", "REDEEM",
          "the same fund's Direct plan", "The identical fund is available Direct; the Regular-plan trail is pure avoidable cost."),
-        ("Bandhan Small Cap Fund", "Bandhan", "equity", "Direct", 0.45, 15, 1.16, 1.34, -0.6, 0.120, 44,
-         ["DEEP_DD", "CAPACITY", "OVER_ALLOC"], "Exit", "EXIT",
-         "the primary small-cap sleeve already held", "Sub-scale ~3L beside a larger small-cap fund; deep drawdown and over-allocated — duplication and cost."),
+        # underperformer example verified against real data (MF Dashboard 'small' sheet,
+        # as of 2025-01-31): PGIM 3y CAGR 9.1% vs index 17.3% (worst in category).
+        # NEVER use a strong real fund (e.g. Bandhan Small Cap: 3y rank 1/23, 5y 2/21,
+        # +7-9pp over index) as a demo Sell — Principal flagged this twice.
+        ("PGIM India Small Cap Fund", "PGIM India", "equity", "Direct", 0.45, 15, 1.16, 1.34, -0.6, 0.120, 44,
+         ["DEEP_DD", "NEG_ALPHA", "OVER_ALLOC"], "Exit", "EXIT",
+         "the primary small-cap sleeve already held", "Sub-scale ~3L beside a larger small-cap fund; persistent underperformance and duplication — structural exit."),
         ("LIC MF Balanced Advantage", "LIC MF", "hybrid", "Regular", 3.0, 16, 0.86, 0.98, -0.8, 0.050, 38,
          ["DOWN_CAP_HI", "DEEP_DD"], "Trim", "TRIM",
          "a hybrid that actually cushions (down-capture <70%)", "Down-capture near equity levels — not doing its cushioning job; poor worst-year."),
@@ -181,7 +185,7 @@ def _funds(grand_inr):
     # illustrative holding age (years) — drives the tax-inertia rule (Principal 2026-07-25):
     # units >5y (stronger >10y) switch only on structural grounds; stocks exempt (risk dominates tax)
     _HOLD_YRS = {"LIC MF Large Cap Fund": 9.2, "LIC MF Flexi Cap Fund": 3.1, "LIC MF Multi Cap Fund": 2.4,
-                 "ICICI Pru Multi-Asset (Regular)": 6.5, "Bandhan Small Cap Fund": 1.8,
+                 "ICICI Pru Multi-Asset (Regular)": 6.5, "PGIM India Small Cap Fund": 1.8,
                  "LIC MF Balanced Advantage": 2.2, "Parag Parikh Flexi Cap (Direct)": 4.6,
                  "Nippon India Nifty 50 Index (Direct)": 5.8, "HDFC Balanced Advantage (Direct)": 3.9}
     out = []

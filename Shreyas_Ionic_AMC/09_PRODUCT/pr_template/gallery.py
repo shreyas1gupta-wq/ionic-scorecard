@@ -65,7 +65,7 @@ def _chart_specs():
          lambda: CH.bar3d(["FY24", "FY25", "FY26", "FY27e"], [11.2, 13.4, 9.8, 14.0], "g_3d")),
         ("Up / down capture scatter", "Equity funds (F14)",
          lambda: CH.capture_scatter([99, 96, 107, 119], [100, 118, 71, 135], [30e5, 27e5, 45e5, 3e5],
-                                    [HSELL, HSELL, HHOLD, HSELL], ["LIC LargeCap", "LIC Flexi", "PPFAS", "Bandhan SC"], "g_cap")),
+                                    [HSELL, HSELL, HHOLD, HSELL], ["LIC LargeCap", "LIC Flexi", "PPFAS", "PGIM SC"], "g_cap")),
         ("Drawdown / underwater curve", "Hybrid funds · scorecards (F15)",
          lambda: CH.drawdown_curve(_nav, "g_dd")),
         ("Rolling 1-year return band", "Hybrid funds · worst year (F15)",
@@ -81,7 +81,7 @@ def _chart_specs():
          lambda: CH.tax_bridge(60.2e5, 6.6e5, 1.0e5, "g_tax")),
         ("Quality × allocation quadrant", "Fund overlay (F16)",
          lambda: CH.quality_alloc_quadrant([1.8, 3.2, -3.4, -1.0], [26, 96, 12, 59], [30e5, 45e5, 3e5, 20e5],
-                                           [HSELL, HHOLD, HSELL, HGOLD], ["LIC LargeCap", "PPFAS", "Bandhan", "LIC Multi"], "g_quad")),
+                                           [HSELL, HHOLD, HSELL, HGOLD], ["LIC LargeCap", "PPFAS", "PGIM SC", "LIC Multi"], "g_quad")),
         ("Over / under allocation", "Exec grid · allocation gaps (F16)",
          lambda: CH.over_under_bar(["Large", "Mid", "Small", "Foreign", "Gold", "Debt"], [8.5, 3.0, -1.5, -12.0, -4.0, 6.0], "g_ou")),
     ]

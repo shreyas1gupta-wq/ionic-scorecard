@@ -130,7 +130,7 @@ A **tier** is a build-config preset: `{modules_on, register, chart_density, show
   - *LIC MF Flexi Cap* → weak up-capture, poor 3Y hit-rate → **Switch**
   - *LIC MF Multi Cap* → mandate-rigidity → **Switch to Flexi** (structural, not performance)
   - *ICICI Pru Multi-Asset (Regular)* → plan/cost → **Redeem to Direct**
-  - *Bandhan/other Small Cap (sub-scale ₹3L)* → DEEP_DD + capacity + over-alloc quadrant → **Exit**
+  - *PGIM India Small Cap (sub-scale ₹3L)* → DEEP_DD + neg-alpha + over-alloc → **Exit** (RULE, Principal 2026-07-25 ×2: a demo Sell may only wear a real fund's name if the real record supports it — PGIM verified worst-in-category 3y vs index; Bandhan Small Cap is a top performer, 3y rank 1/23, and must never be cast as the underperformer)
   - *LIC MF Balanced Advantage (hybrid)* → down_capture near equity, poor Sortino/worst-year → **Trim/Switch**
   - + 2-3 genuine **Holds** (a quality flexi, an index fund, a decent hybrid) so the deck isn't all-Sell.
 - **IPS:** illustrative AZBY IPS (risk tier Aggressive, equity 65-85% band, foreign-equity target, gold sleeve, single-name ≤8-10% guideline) → drives the exec gap-grid.
