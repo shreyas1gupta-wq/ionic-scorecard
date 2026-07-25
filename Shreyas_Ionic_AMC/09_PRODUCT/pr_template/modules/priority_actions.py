@@ -12,18 +12,38 @@ def _money(v):
     return f"Rs {v/1e7:.2f} Cr" if abs(v) >= 1e7 else f"Rs {v/1e5:.1f} L"
 
 
-def _rows(reg, n_sell, k):
+# canonical action order + per-register nouns (mix text is built from the ACTUAL actions —
+# a hardcoded 'switches / redeem-to-Direct / exit' went stale the day the book changed)
+_ACT_ORDER = ["SWITCH", "REDEEM", "EXIT", "TRIM"]
+_ACT_NOUN = {"SWITCH": ("switch", "switches"), "REDEEM": ("redeem-to-Direct", "redeems-to-Direct"),
+             "EXIT": ("exit", "exits"), "TRIM": ("trim", "trims")}
+
+
+def _mix(act_counts):
+    parts = []
+    for a in _ACT_ORDER:
+        n = act_counts.get(a, 0)
+        if n:
+            parts.append(f"{n} {_ACT_NOUN[a][0 if n == 1 else 1]}")
+    return ", ".join(parts)
+
+
+def _rows(reg, n_sell, k, act_counts):
+    n_exit = act_counts.get("EXIT", 0)
+    n_move = k - n_exit
     if reg == "simple":
+        fund_sub = f"Tidy the fund list, move {n_move} to cheaper or Direct versions"
+        fund_sub += ", drop the tiny one." if n_exit else "."
         return [
             ("Sell the weak names", f"Sell the {n_sell} weakest-scoring stocks, a little at a time.", "First"),
             ("Right-size the biggest names", "Gently reduce any single stock that is too large a share of your money.", "Soon"),
-            ("Fix the funds", f"Tidy the fund list, move {k} to cheaper or Direct versions, drop the tiny one.", "A few days"),
+            ("Fix the funds", fund_sub, "A few days"),
             ("Keep the cash ready", "The freed money sits safely in a liquid fund; where it goes next is decided with you, separately.", "Together"),
         ]
     return [
         ("Sell programme", f"{n_sell} names scored below the gate, staged in slices at <=10% ADV.", "Wave 1"),
         ("Trim concentration", "Positions above the 8% single-name guideline eased or exited, into strength.", "This cycle"),
-        ("Fund actions", f"{k} switches / redeem-to-Direct / exit, Regular to Direct or passive; exit the sub-scale sleeve.", "T+2–T+3"),
+        ("Fund actions", f"{_mix(act_counts)}; every destination is a Direct-plan or passive vehicle.", "T+2–T+3"),
         ("Park net proceeds", "Held in liquid / overnight funds; deployment is agreed separately (transition framework in the annexure).", "On authorisation"),
     ]
 
@@ -54,7 +74,19 @@ def render(deck, ctx, tier):
     trim_cash = max(proceeds - sell_sum, 0)
     fund_acts = [f for f in funds if f["action"] not in ("HOLD", "Hold")]
     k = len(fund_acts)
-    fund_sum = sum(f["value_inr"] for f in fund_acts)
+    act_counts = {}
+    for f in fund_acts:
+        a = f["action"].upper()
+        act_counts[a] = act_counts.get(a, 0) + 1
+    # KPI sub-label mirrors the actions actually present, register-appropriate nouns
+    _sub_noun = ({"SWITCH": "switch", "REDEEM": "move", "EXIT": "drop", "TRIM": "trim"}
+                 if reg == "simple" else
+                 {"SWITCH": "switch", "REDEEM": "redeem", "EXIT": "exit", "TRIM": "trim"})
+    L = dict(L)
+    L["k2s"] = " / ".join(_sub_noun[a] for a in _ACT_ORDER if act_counts.get(a))
+    # displayed as the sum of the ROUNDED per-fund amounts so it matches the tax-slide
+    # total digit-for-digit (independent rounding printed 82.1 here vs 82.2 there)
+    fund_sum = round(sum(round(f["value_inr"] / 1e5, 1) for f in fund_acts), 1) * 1e5
     n_sell = t["n_sell"]
 
     s = deck.content(SECTION_NO, SECTION, L["eyebrow"], L["title"])
@@ -66,7 +98,7 @@ def render(deck, ctx, tier):
     ], y=1.8)
 
     amounts = [sell_sum, trim_cash, fund_sum, net]
-    rows = _rows(reg, n_sell, k)
+    rows = _rows(reg, n_sell, k, act_counts)
     # v7 device (p.29): every action row carries a REF back to the page that justifies it
     refs = ["tbl:sell_list", "mod:concentration", "mod:fund_actions", "mod:deployment"]
     ry0, rowh = 2.98, 0.78

@@ -42,8 +42,11 @@ def render(deck, ctx, tier):
     deck.anchor("mod:deployment", s, prio=5)
 
     # --- left: waterfall (gross -> less tax -> sleeves -> cash) ---
+    # tax step displayed as the SUM OF THE ROUNDED LTCG+STCG components so it matches
+    # the tax slide digit-for-digit (18.05 rounded whole showed 18.0 vs 15.9+2.2=18.1)
+    tax_disp = round(round(ctx["tax"]["ltcg"] / 1e5, 1) + round(ctx["tax"]["stcg"] / 1e5, 1), 1) * 1e5
     steps = [("Gross\nproceeds", dep["proceeds_inr"], "open"),
-             ("less\nest. tax", dep["tax_leak_inr"], "flow")]
+             ("less\nest. tax", tax_disp, "flow")]
     for (name, amt, _rat) in sleeves[:-1]:
         steps.append((_short(name), amt, "flow"))
     steps.append((_short(sleeves[-1][0]), sleeves[-1][1], "close"))

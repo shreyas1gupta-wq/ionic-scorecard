@@ -30,7 +30,9 @@ def _sector(sec):
 
 def render(deck, ctx, tier):
     reg = tier.get("register", "std")
-    eq = list(ctx["equity"])
+    # one sort across ALL holdings — late-added names were appended after the original
+    # list and broke the descending order across pages (CEO sweep 2026-07-26)
+    eq = sorted(ctx["equity"], key=lambda e: -e["weight_pct"])
     asof = ctx["client"]["as_of"]
     pages = max(1, math.ceil(len(eq) / PER))
 

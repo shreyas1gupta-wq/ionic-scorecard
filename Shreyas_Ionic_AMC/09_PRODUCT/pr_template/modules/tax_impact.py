@@ -44,13 +44,15 @@ def render(deck, ctx, tier):
     # --- left: fund-action tax table (own scope caption; NOT the chart's numbers) ---
     deck.txt(s, ML, 1.72, 6.95, 0.24, [(L["tcap"].upper(), SANS, 8, SLATE, True, False, 80)])
     rows = []
-    fund_total = 0
+    total_l = 0.0
     for (action, scheme, amt, holding, character, note) in tax["fund_rows"]:
         disp, kind = ACT_MAP.get(action, (action.title(), action.title()))
         from slidekit import short_name
         rows.append([("pill", disp, kind), short_name(scheme, 30), _money(amt), character])
-        fund_total += amt
-    rows.append(["", ("b", "Total fund actions"), ("b", _money(fund_total)), ""])
+        total_l += round(amt / 1e5, 1)   # total = sum of the DISPLAYED row values,
+    total_l = round(total_l, 1)          # so the printed column visibly adds up
+    total_disp = f"Rs {total_l/100:.2f} Cr" if total_l >= 100 else f"Rs {total_l:.1f} L"
+    rows.append(["", ("b", "Total fund actions"), ("b", total_disp), ""])
     cols = [("Action", 0.16, "l"), ("Scheme", 0.44, "l"), ("Amount", 0.18, "r"), ("Tax character", 0.22, "l")]
     # 7 rows (6 actions + total) x 0.42 + header keeps the block above the y=5.5 callouts
     deck.table(s, ML, 2.02, 6.95, cols, rows, rowh=0.42, fs=9.5, hfs=8)

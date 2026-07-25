@@ -116,6 +116,15 @@ def resolve_path(path):
         return tmp
 
 
+def _num_or_nan(v):
+    if v is None:
+        return np.nan
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return np.nan
+
+
 def load_raw_sheet(wb_v, sheet_name, n_fund_cols_guess=60):
     """Return (dates: np.datetime64[], fund_names: list[str], nav: np.ndarray[T,F])."""
     ws = wb_v[sheet_name]
@@ -138,7 +147,9 @@ def load_raw_sheet(wb_v, sheet_name, n_fund_cols_guess=60):
         if not isinstance(d, (pd.Timestamp,)) and not hasattr(d, "year"):
             continue  # skips footer rows like "Inception Date"
         dates.append(pd.Timestamp(d))
-        nav_rows.append([np.nan if v is None else float(v) for v in row[1:]])
+        # tolerant parse: hand-maintained sheets carry occasional typos ('13O' with a
+        # letter O, 2026-07-26) — a dirty cell becomes NaN, never a crash
+        nav_rows.append([_num_or_nan(v) for v in row[1:]])
     dates = pd.DatetimeIndex(dates)
     nav = np.array(nav_rows, dtype=float)
     return dates, fund_names, nav

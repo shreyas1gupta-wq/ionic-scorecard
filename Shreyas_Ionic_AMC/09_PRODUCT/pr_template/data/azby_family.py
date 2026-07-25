@@ -193,22 +193,22 @@ def _funds(grand_inr):
          ["NEG_ALPHA", "DOWN_CAP_HI"], "Switch", "SWITCH",
          "a low-cost Large-Cap Index / Factor fund",
          "Trails the large-cap index by 4-5pp a year over 3 and 5 years; active fees for below-index outcomes."),
-        # verified vs 'flexi' sheet: 5y -4.2pp / 3y -1.1pp vs NIFTY 500; recent up-capture is
-        # actually fine (1.08) — the old 'down-capture >115%' wording was unsupported, removed.
-        ("LIC MF Flexi Cap Fund", "LIC MF", "equity", "Regular", 4.5, 12, 1.03, 1.06, -3.0, 0.060, 38,
-         ["NEG_ALPHA", "WEAK_CONSIST"], "Switch", "SWITCH",
-         "a top-quartile Flexi-Cap from the approved list",
-         "Trails the broad market by ~4pp a year over five years; the record misses our consistency bar."),
+        # Principal 2026-07-26: LIC Flexi (Regular, Switch) REPLACED by HDFC Flexi Cap held
+        # DIRECT and rated Hold — the real fund's record supports the Hold (top-quartile
+        # flexi over 3y/5y, ahead of NIFTY 500); betas tuned so the synthetic lands near
+        # +4-5pp vs index, not a fake bar.
+        ("HDFC Flexi Cap (Direct)", "HDFC", "equity", "Direct", 4.5, 24, 1.00, 0.90, 1.5, 0.045, 71,
+         [], "Hold", "HOLD", "-", ""),
         # verified vs 'multi' sheet: launched Nov-2022, 1y +9.8pp vs benchmark — performance is
         # FINE; the Switch is purely structural (SEBI 25/25/25 floor), which is what the card says.
         ("LIC MF Multi Cap Fund", "LIC MF", "equity", "Regular", 3.5, 13, 1.02, 1.00, 0.6, 0.055, 52,
          ["MANDATE_RIGIDITY"], "Switch", "SWITCH",
          "a Flexi-Cap (manager-flexible cap mix)", "Multi-cap's SEBI 25/25/25 floor forces small/mid we prefer to size ourselves — structural, not performance."),
-        # not in the dashboard workbook; no performance claim is made — Redeem-to-Direct is a
-        # plan fact (same scheme, lower TER). The real fund's record is strong; cast positively.
-        ("ICICI Pru Multi-Asset (Regular)", "ICICI Pru", "hybrid", "Regular", 4.0, 14, 0.88, 0.72, 0.9, 0.045, 61,
-         ["REG_PLAN_DRAG"], "Redeem-to-Direct", "REDEEM",
-         "the same fund's Direct plan", "The identical fund is available Direct; the Regular-plan trail is pure avoidable cost."),
+        # Principal 2026-07-26: now held in the DIRECT plan and rated Hold — the real fund's
+        # record is strong (category leader among multi-asset), and in Direct there is no
+        # structural issue left; no performance claim beyond what the record supports.
+        ("ICICI Pru Multi-Asset (Direct)", "ICICI Pru", "hybrid", "Direct", 4.0, 14, 0.88, 0.72, 1.6, 0.045, 64,
+         [], "Hold", "HOLD", "-", ""),
         # underperformer example verified against real data (MF Dashboard 'small' sheet,
         # as of 2025-01-31): PGIM 3y CAGR 9.1% vs index 17.3% (worst in category).
         # NEVER use a strong real fund (e.g. Bandhan Small Cap: 3y rank 1/23, 5y 2/21,
@@ -237,8 +237,8 @@ def _funds(grand_inr):
     bench_cagr = round((np.asarray(bench)[-1] / bench[0]) ** (252 / len(bench)) - 1, 4) * 100
     # illustrative holding age (years) — drives the tax-inertia rule (Principal 2026-07-25):
     # units >5y (stronger >10y) switch only on structural grounds; stocks exempt (risk dominates tax)
-    _HOLD_YRS = {"LIC MF Large Cap Fund": 9.2, "LIC MF Flexi Cap Fund": 3.1, "LIC MF Multi Cap Fund": 2.4,
-                 "ICICI Pru Multi-Asset (Regular)": 6.5, "PGIM India Small Cap Fund": 1.8,
+    _HOLD_YRS = {"LIC MF Large Cap Fund": 9.2, "HDFC Flexi Cap (Direct)": 4.2, "LIC MF Multi Cap Fund": 2.4,
+                 "ICICI Pru Multi-Asset (Direct)": 6.5, "PGIM India Small Cap Fund": 1.8,
                  "LIC MF Balanced Advantage": 2.2, "Parag Parikh Flexi Cap (Direct)": 4.6,
                  "Nippon India Nifty 50 Index (Direct)": 5.8, "HDFC Balanced Advantage (Direct)": 3.9}
     out = []

@@ -19,7 +19,9 @@ def _band(e):
 
 
 def _override(e):
-    if e["rec"] == "Sell" and e["ionic_score"] >= 50:
+    # firm bars (2026-07-26): a Sell on a >40 scorer IS the exceptional case (90% bar) —
+    # the old >=50 cut hid HINDCOPPER (Sell at 48) and left the register empty
+    if e["rec"] == "Sell" and e["ionic_score"] > 40:
         return "down"
     if e["rec"] == "Hold" and e["ionic_score"] < 40:
         return "up"
@@ -29,6 +31,8 @@ def _override(e):
 def render(deck, ctx, tier):
     reg = tier.get("register", "std")
     eq = ctx["equity"]
+    if not any(_override(e) for e in eq):
+        return 0        # no overrides this review — an empty register is not a slide
     as_of = ctx["client"]["as_of"]
     eyebrow, title = LABELS.get(reg, LABELS["std"])
     s = deck.content(5, "Annexure", eyebrow, title)

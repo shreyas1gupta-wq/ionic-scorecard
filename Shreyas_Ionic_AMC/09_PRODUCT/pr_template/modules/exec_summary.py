@@ -28,6 +28,8 @@ def render(deck, ctx, tier):
     ips = ctx["ips"]
     hv = ctx["house_view"]["alloc_gap"]
     n_fund_act = sum(1 for f in ctx["funds"] if f["action"] not in ("HOLD", "Hold"))
+    n_switch = sum(1 for f in ctx["funds"] if f["action"].upper() == "SWITCH")
+    has_redeem = any(f["action"].upper() == "REDEEM" for f in ctx["funds"])
     reg_drag = ctx["cost"]["reg_drag_inr"]
     foreign_gap = abs(hv.get("Foreign", -12.0))
     cap = ips["single_name_cap_pct"]
@@ -65,9 +67,10 @@ def render(deck, ctx, tier):
              ("c", "Plan an overseas step for when we reinvest.", NAVY), "04 · Plan"],
             [("b", "Paying extra fees"),
              f"About {_k(reg_drag)}/yr of avoidable Regular-plan cost.",
-             ("c", "Move to the cheaper Direct plan.", NAVY), "04 · Plan"],
+             ("c", "Move to the cheaper Direct plan." if has_redeem
+              else "Every fund change we suggest lands in a cheaper Direct plan.", NAVY), "04 · Plan"],
             [("b", "Fund line-up"),
-             "3 funds trail the index, lack consistency, or are too rigid.",
+             f"{n_switch} funds trail the index or are built too rigidly.",
              ("c", "Switch to an index/factor fund and a Flexi-Cap.", NAVY), "03 · Funds"],
         ]
     else:
@@ -83,9 +86,10 @@ def render(deck, ctx, tier):
              ("c", "Plan a foreign sleeve at deployment (annexure framework).", NAVY), "04 · Plan"],
             [("b", "Regular-plan cost"),
              f"~{_k(reg_drag)}/yr avoidable trail on Regular-plan funds.",
-             ("c", "Redeem-to-Direct where the same scheme exists Direct.", NAVY), "04 · Plan"],
+             ("c", "Redeem-to-Direct where the same scheme exists Direct." if has_redeem
+              else "Every recommended fund move lands in a Direct plan.", NAVY), "04 · Plan"],
             [("b", "Fund structure"),
-             "3 schemes: index-trailing / weak consistency / rigid mandate.",
+             f"{n_switch} schemes: index-trailing or rigid mandate.",
              ("c", "Switch to passive-LC / factor + a Flexi-Cap.", NAVY), "03 · Funds"],
         ]
 

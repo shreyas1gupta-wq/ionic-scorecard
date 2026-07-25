@@ -54,7 +54,9 @@ def _bias_body(f, simple):
     structural_trim = bool({"SHORT_RECORD", "SUB_SCALE"} & set(f.get("flags") or []))
     if simple:
         if v == "Hold":
-            return (f"Keep. In its worst year it still made {w1:+.0f}%, and it falls only {dc:.0f}% as "
+            worst_read = (f"In its worst year it still made {w1:+.0f}%" if w1 >= 0
+                          else f"In its worst year it lost only {abs(w1):.0f}%")
+            return (f"Keep. {worst_read}, and it falls only {dc:.0f}% as "
                     f"much as the market. This is what a hybrid is for.")
         if v == "Trim":
             if structural_trim:
@@ -69,9 +71,10 @@ def _bias_body(f, simple):
         return (f"Our suggestion is {v}. Worst year {w1:+.0f}%, and it falls {dc:.0f}% as much as "
                 f"the market.")
     if v == "Hold":
+        # no per-card "book's benchmark" claim — with two hybrid Holds it printed twice
         return (f"Stays a Hold. A {w1:+.1f}% worst year at {dc:.0f}% down-capture (Sortino {so:.2f}) "
                 f"means it gives up some upside and buys back the bad year, which is exactly the trade "
-                f"a hybrid is hired for. The book's benchmark for the category.")
+                f"a hybrid is hired for.")
     if v == "Trim":
         if structural_trim:
             return (f"Our bias is Trim, on scale and record, not results. Under four years old, "
