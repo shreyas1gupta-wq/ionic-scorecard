@@ -32,3 +32,8 @@ Supports all 6 categories; `--verify` diffs the recomputation against the sheet'
 - **Long-term SIP recommendations** = `/qfra2-rerun` (frozen QFRA 2.0 engine) — different engine, do not mix.
 - Factor/benchmark index closes = `/factor-indices` (niftyindices.com scraper; HOME NETWORK only).
 - Pending from Principal: monthly NAV dump + formal scoring-method doc — when supplied, wire them here and into the NDPMS deck template's fund slides (`09_PRODUCT/pr_template/modules/funds_*.py`), which by design consume desk recommendations rather than re-scoring funds.
+
+## Cadence & data automation (Principal 2026-07-26)
+- **NAVs auto-refresh MONTHLY (1st, 08:10)** via `Shreyas_Ionic_AMC/05_DATA_OFFICE/scripts/mf_nav_refresh.py --digest` (AMFI NAVAll; month-end history accrues forever). Wired in OPERATING_CALENDAR §automatable; DESK-100 re-arms the cron each session. Verified current 2026-07-26 (13,958 schemes).
+- **Model runs stay Dec-end + Jun-end.** Anchor-pair backtest (906 formations, 2012-2024, all 6 categories, median + 10% trimmed mean): Jun/Dec statistically tied with the best pair (Apr/Oct), clearly beats Jan/Jul — study: `04_RND_LAB/STOCK_SCORECARD_750/results/anchor_pair_study/ANCHOR_PAIR_STUDY.md`. Verified independently 2026-07-25: smallcap 29/29, flexi 36/37 (known workbook blank-gate bug).
+- **Dual-framework rule:** a client fund Sell needs BOTH frameworks (this + qfra2-rerun) non-Hold; disagreement defaults Hold; focused/value have no sheet here -> qfra2-only Sells need FM sign-off.

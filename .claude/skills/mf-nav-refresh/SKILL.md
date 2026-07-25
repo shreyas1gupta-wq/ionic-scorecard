@@ -12,3 +12,6 @@ python Shreyas_Ionic_AMC/05_DATA_OFFICE/scripts/mf_nav_refresh.py [--digest]
 - D-009 checks built in: row-count floor, NAV-range sanity, <2% of schemes moving >15% between refreshes (else the run aborts loudly).
 - Token discipline: never read the parquet into chat — scripts consume it; `--digest` writes a 6-line `NAV_DIGEST.md` if the model needs a summary. Any agentic processing of these files = Haiku.
 - Downstream: `/qfra1-rerun` (capture-ratio engine), `/qfra2-rerun` (long-term SIP), `/mf-lookthrough`.
+
+## Automation (Principal 2026-07-26)
+Runs automatically on the 1st of every month, 08:10 (OPERATING_CALENDAR §automatable; DESK-100 re-arms the session cron at start). Month-end history must accrue monthly even though the fund models run only Dec-end/Jun-end.
