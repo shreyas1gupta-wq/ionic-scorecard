@@ -2,17 +2,17 @@
  "actions": [
   {
    "symbol": "LT",
-   "action": "Trim",
-   "trim_target_pct": 8.0,
-   "client_reason": "This is your single largest holding at almost 13% of the portfolio; we're trimming it down to spread concentration risk, not because we've lost confidence in the business.",
-   "fm_note": "Largest single position in the book (~13%) - 'a little bad' by our own concentration rule of thumb even for a quality large-cap. Ionic score 45.5 is only just in Hold territory: quant base was 39.5 (Sell-band) before an analyst-rescue/forward-growth adjustment lifted it. Not escalated, no balance-sheet or governance red flag - record ~Rs 7.4L cr order book, deleveraging balance sheet - but FY26 revenue missed its own guidance, FY27 guidance was cut to 10-12%, and Middle-East execution disruption is flagged into H1 FY27 with limited margin of safety at ~32x trailing into the 28-Jul Q1 print. This is a sizing decision, not a thesis break. Trim to ~8% now; revisit after the 28-Jul print."
+   "action": "Sell",
+   "trim_target_pct": null,
+   "client_reason": "FY27 guidance has been cut and H1 execution guided soft; at ~32x trailing earnings there is little cushion, so we sell into strength.",
+   "fm_note": "Recheck 2026-07-26 (asymmetric override bars, Principal-ratified)"
   },
   {
    "symbol": "HINDUNILVR",
-   "action": "Trim",
-   "trim_target_pct": 6.0,
-   "client_reason": "Growth here has slowed structurally even though the latest quarter looked better, so we're taking a modest reduction while keeping a meaningful position in the business.",
-   "fm_note": "3yr revenue CAGR ~2% is a genuine structural deceleration (D2C share pressure in premium personal care), even though the Q4 volume inflection (6% UVG, best in 3 years) is real. Score 42.0 sits close to the Sell line; sits in the 5-10% band where modest growth argues some reduction per Principal's rule of thumb. No red flags, quality/balance sheet intact - not a thesis break. Trim to ~6%; the analyst flagged the 28-Jul Q1 print as the next real test of the recovery thesis, revisit after."
+   "action": "Sell",
+   "trim_target_pct": null,
+   "client_reason": "Headline profit is demerger-inflated (organic growth ~4%); three-year revenue growth of 2% does not support the price.",
+   "fm_note": "Recheck 2026-07-26 (asymmetric override bars, Principal-ratified)"
   },
   {
    "symbol": "SBIN",
@@ -51,17 +51,17 @@
   },
   {
    "symbol": "RELIANCE",
-   "action": "Hold",
+   "action": "Sell",
    "trim_target_pct": null,
-   "client_reason": null,
-   "fm_note": "Escalated to Principal - genuine 3-way tension: quant model scores RIL bottom-quartile on quality/value and calls Sell on weak momentum; sell-side is near-unanimous Buy (31/32); our own bottom-up read finds no balance-sheet/governance red flags and record core-segment EBITDA, but also mediocre ROE/ROCE and still-negative free cash flow through a second capex cycle. Our own sum-of-the-parts estimate comes out roughly in line with (not below) the current market cap - i.e. no real margin of safety either way, with the entire swing factor riding on how the H2-2026 Jio Platforms IPO actually prices. Hold is defensible for the client sheet at this small size (1.71%) given no red flags - do NOT flip this, it is the Principal's call to adjudicate. If the Jio IPO disappoints on pricing, this moves toward a real Sell case."
+   "client_reason": "Bottom-quartile on quality and value with negative momentum; our own sum-of-the-parts sits at today's price, no bargain.",
+   "fm_note": "Recheck 2026-07-26 (asymmetric override bars, Principal-ratified)"
   },
   {
    "symbol": "GAIL",
-   "action": "Hold",
+   "action": "Sell",
    "trim_target_pct": null,
-   "client_reason": null,
-   "fm_note": "Escalated - the split shows up even inside our own methodology (1y leg Hold, 3y leg Sell). Regulated transmission/CGD core is genuinely healthy with a locked tariff catalyst through 2028, but Gas Marketing and Petrochemicals are in a real 5-quarter consolidated profit decline and FY26 dividend payout now exceeds free cash flow. Hold is defensible for the client sheet given the trivial size (0.31%) and no governance/solvency red flag - this is a dividend-coverage watch item, not an exit trigger, at this position size. Do not flip - Principal's call."
+   "client_reason": "Marketing margins are in a structural reset: five straight quarters of profit decline, and the dividend now exceeds free cash flow.",
+   "fm_note": "Recheck 2026-07-26 (asymmetric override bars, Principal-ratified)"
   },
   {
    "symbol": "TATAPOWER",
@@ -72,10 +72,10 @@
   },
   {
    "symbol": "POWERINDIA",
-   "action": "Sell",
+   "action": "Hold",
    "trim_target_pct": null,
-   "client_reason": "A genuinely strong company, but the share price already assumes years of continued rapid order growth that the underlying numbers don't fully support, so we're selling on price, not on the business.",
-   "fm_note": "Confirmed Sell (escalated - genuine Hold-vs-Sell tension flagged by the analyst against the quant model's own Hold). Franchise quality is not in question (zero debt, AAA, real HVDC moat, genuine multi-year India transmission-capex supercycle) - this is a pure valuation call: ~145-150x trailing, richest in its own 3-way HVDC peer group, and the FY26 order-book surge traces overwhelmingly to one Q1 mega-order rather than broad-based demand (full-year order inflow only +1.6%). Action stands as Sell."
+   "client_reason": "Moat and balance sheet are excellent; valuation is rich but not a forced exit, we hold.",
+   "fm_note": "Recheck 2026-07-26 (asymmetric override bars, Principal-ratified)"
   },
   {
    "symbol": "JIOFIN",
@@ -107,17 +107,17 @@
   },
   {
    "symbol": "BHEL",
-   "action": "Sell",
+   "action": "Hold",
    "trim_target_pct": null,
-   "client_reason": "The stock has already more than doubled on a real order-book story, but profitability is still thin and unproven, so we're taking the gain rather than betting on a margin recovery that hasn't happened yet.",
-   "fm_note": "Confirmed Sell (escalated, clutter-size position). Order-book thesis (Rs 2.4-2.6L cr, +27% YoY, coal-capacity revival) is real, but profitability remains thin/volatile - Q1 FY27 margin already backslid to ~7% from Q4's 14.2%, and quality-percentile is bottom-of-universe (3.1). Stock is +105% off its Aug-2025 low to an all-time high on a corrected ~60x trailing PE for a 6% best-ever ROE. Take the re-rating gain; action stands as Sell."
+   "client_reason": "Order book is real; at these prices the risk-reward is fair, we hold.",
+   "fm_note": "Recheck 2026-07-26 (asymmetric override bars, Principal-ratified)"
   },
   {
    "symbol": "COCHINSHIP",
-   "action": "Sell",
+   "action": "Hold",
    "trim_target_pct": null,
-   "client_reason": "Core shipbuilding profit is weak this year and the stock is priced richer than its peer shipyards despite the lowest returns, so we're exiting, though a large pending defence order could change this picture quickly.",
-   "fm_note": "Confirmed Sell (escalated, clutter-size position). FY26 revenue growth just 4.2% (guidance was 14-15%), Sep-25 quarter earnings quality weak (subsidy/treasury income ~85% of that quarter's PBT), weakest ROE (13.6%) of the 3 listed defence shipyards at the richest multiple (~51-52x). Genuine live catalyst risk: IAC-2 (2nd aircraft carrier, sole-source to this yard) could reprice the order book on short notice - flag as a resurrection condition, not a reason to hold today. Action stands as Sell."
+   "client_reason": "Earnings quality is soft, but live defence-order optionality keeps this a hold.",
+   "fm_note": "Recheck 2026-07-26 (asymmetric override bars, Principal-ratified)"
   },
   {
    "symbol": "HINDCOPPER",
@@ -128,17 +128,17 @@
   },
   {
    "symbol": "TATATECH",
-   "action": "Sell",
+   "action": "Hold",
    "trim_target_pct": null,
-   "client_reason": "A clean, well-run business, but priced well above comparable peers growing just as fast, so we're selling on valuation alone.",
-   "fm_note": "Confirmed Sell (escalated, clutter-size position). Pure valuation call: ~56x trailing vs ER&D peers at 17-52x (LTTS delivering comparable-or-better growth at ~half the multiple), despite a clean balance sheet (ROE 18.7%, D/E 0.24, zero red flags). Open question the analyst couldn't resolve: how much of the 33.8% YoY Q1 revenue growth is organic vs the ES-Tec acquisition - worth re-checking next quarter, but action stands as Sell today."
+   "client_reason": "Rich versus peers, but the balance sheet is clean with zero red flags, we hold.",
+   "fm_note": "Recheck 2026-07-26 (asymmetric override bars, Principal-ratified)"
   },
   {
    "symbol": "ANANDRATHI",
-   "action": "Sell",
+   "action": "Hold",
    "trim_target_pct": null,
-   "client_reason": "An excellent, well-run wealth manager with no quality concerns, but priced for more than a decade of continued flawless growth, so we're selling on valuation alone.",
-   "fm_note": "Confirmed Sell (escalated, clutter-size position). No asset-quality or governance flag on the listed entity itself (recent SEBI penalties belong to a separate group broking arm, not ANANDRATHI). Pure valuation call: ~85-90x trailing, PEG >5x against the company's own decelerating FY27 guidance, with the first visible margin crack this quarter (EBITDA margin -1,289bps YoY). Action stands as Sell."
+   "client_reason": "A high-quality compounding franchise; valuation alone does not justify an exit, we hold.",
+   "fm_note": "Recheck 2026-07-26 (asymmetric override bars, Principal-ratified)"
   },
   {
    "symbol": "LICI",
@@ -191,10 +191,17 @@
   },
   {
    "symbol": "ITCHOTELS",
-   "action": "Hold",
+   "action": "Sell",
    "trim_target_pct": null,
-   "client_reason": null,
-   "fm_note": "Clutter position (<0.25%), demerger-era name (possible pre/post-demerger ratio blend per known methodology gap), not escalated. See shared consolidation note."
+   "client_reason": "44-46x trailing earnings on a 7% ROE with a promoter-stake overhang; one strong quarter does not yet earn the multiple.",
+   "fm_note": "Recheck 2026-07-26 (asymmetric override bars, Principal-ratified)"
+  },
+  {
+   "symbol": "ULTRACEMCO",
+   "action": "Sell",
+   "trim_target_pct": null,
+   "client_reason": "Priced at 42-46x earnings for a 10.7% ROE while cement pricing stays soft; no dated catalyst offsets it.",
+   "fm_note": "Recheck 2026-07-26 (asymmetric override bars, Principal-ratified)"
   }
  ],
  "consolidation_note": "Eight positions (LICI, TMPV, IRCTC, IEX, CMSINFO, HDBFS, ETERNAL, ITCHOTELS) are each under 0.25% of the book - individually immaterial to returns or risk, and none carry a red flag or an escalation urgent enough to force action today. Recommendation is Hold on all eight for now. Over time, as a natural trigger arises (a tax-efficient exit window, a name-specific thesis break, or simply periodic housekeeping), these are reasonable candidates to consolidate out and simplify the sheet rather than actively managing eight sub-0.25% positions individually. No client action required this cycle.",
