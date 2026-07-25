@@ -34,7 +34,7 @@ def render(deck, ctx, tier):
         b1 = ("Each dot is a possible mix of the four assets. Higher up means more return; further "
               "right means more ups and downs. The gold dot is the best-balanced mix.")
         b2 = ("Your mix today (rust) leans almost entirely on Indian shares. The navy dot is one "
-              "example of a more balanced mix, shown so we can talk about it, not something we are "
+              "example of a more balanced mix, shown for comparison, not something we are "
               "asking you to buy.")
     else:
         b1 = ("Each dot is a feasible mix of the four assets; up is more expected return, right is more "

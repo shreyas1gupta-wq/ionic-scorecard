@@ -54,8 +54,9 @@ def render(deck, ctx, tier):
                  anchor=MSO_ANCHOR.MIDDLE)
         lx += 1.05
     deck.txt(s, lx + 0.15, ly - 0.02, UW - (lx - ML) - 0.2, 0.24,
-             [("dot size = rupee value held · gold line = Sell threshold (40)",
-               SERIF, 9, SLATE, False, True)], anchor=MSO_ANCHOR.MIDDLE)
+             [("dot size = rupee value held · gold line = Sell threshold (40) · a red dot above the "
+               "line is an exceptional, documented call", SERIF, 9, SLATE, False, True)],
+             anchor=MSO_ANCHOR.MIDDLE)
 
     deck.source(s, "Weight = share of direct-equity book · Ionic Score post gate/penalty/boost, "
                    "forward-growth adjusted · illustrative synthetic book.")

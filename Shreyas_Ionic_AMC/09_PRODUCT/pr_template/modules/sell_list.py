@@ -1,138 +1,98 @@
 # -*- coding: utf-8 -*-
-"""sell_list (F3), the names we would sell.
-Table of the rec=='Sell' holdings: Name | Wt | Score-bar | Action | Reason category | binding
-trigger, ordered so actionable Sells lead and forensic / balance-sheet-gate reasons rank above
-valuation / trend ones. A fixed reason-taxonomy legend sits beneath. score_band + scope_tag attach.
-
-FROZEN-METHODOLOGY rule (2026-07-25): escalated names (equity 'escalation'==True) may NOT carry an
-actionable Sell in a client deck until the Principal rules. They stay in the table with score and
-reason, their action pill renders 'Under review' (Watch), a footnote states the committee status,
-and the lead-in counts N actionable + M under review. This module carries no proceeds phrasing;
-proceeds numbers come from ctx['deployment'] in other modules.
+"""sell_list (F3), the names we would sell — CLIENT PAGE, Principal-reworked 2026-07-25:
+- action column shows ONLY Sell (the old 'Under review' pill was ambiguous client-side;
+  committee status stays internal). Reason-category column removed.
+- each name gets a TWO-LINE case (client_case overlay if present, else the binding trigger,
+  clause-clipped) + a visible 'p.NN' link to its full rationale card in the annexure.
+- paginated 5 rows a page (2 pages for a 9-name book) so nothing is cramped.
+- exceptional-call rule: a Sell scoring ABOVE 40 is allowed only as a 90%+-conviction
+  exceptional case; those score numerals render amber and the page carries one footnote.
+Returns the page count. score_band + scope_tag attach.
 """
-from slidekit import NAVY, INK, SLATE, SELL, AMBER, SERIF, SANS, ML, UW, clip_clause
-from pptx.enum.text import MSO_ANCHOR
+from slidekit import NAVY, INK, SLATE, SELL, AMBER, SERIF, SANS, ML, UW, RX, clip_clause
+from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 
-# ctx reason_category -> (rank, short client-facing label). Lower rank = ranks higher (shown first).
-TAXONOMY = {
-    "Forensic / governance flag":            (1, "Forensic / governance"),
-    "Balance-sheet strain":                  (2, "Balance-sheet gate"),
-    "Quality below peers":                   (3, "Quality below peers"),
-    "Slowing growth":                        (4, "Weak long-term growth"),
-    "Rich valuation, thin margin of safety": (5, "Rich valuation"),
-    "Weaker forward risk-reward":            (6, "Weak forward risk-reward"),
-}
-# the fixed legend, in rank order (gate/forensic first)
-LEGEND = [
-    ("Forensic / governance", "Accounting, disclosure or governance red flag; ranks first."),
-    ("Balance-sheet gate", "Debt or interest-cover breach caps the score at 40."),
-    ("Quality below peers", "Returns on capital lag the sector."),
-    ("Weak long-term growth", "Forward 3-5yr growth too thin to justify holding."),
-    ("Rich valuation", "Price already prices in more than we can underwrite."),
-    ("Weak forward risk-reward", "Trend and flow no longer pay for the risk."),
-]
+PER = 5
 
 LABELS = {
-    "hni":    {"title": "The names we would sell · reason, then trigger",
-               "lead": "Forensic and balance-sheet-gate reasons are listed first; valuation and trend "
-                       "reasons follow. Each row carries the exact binding trigger behind the call."},
-    "std":    {"title": "The names we would sell",
-               "lead": "Ordered by reason: forensic and balance-sheet issues first, then valuation and "
-                       "trend. Each has the specific trigger behind the call."},
-    "simple": {"title": "The shares we would sell",
-               "lead": "The most serious reasons (accounting, debt) come first. Each name shows the one "
-                       "thing that tips it into a Sell."},
+    "hni":    {"title": "The names we would sell, and the case for each",
+               "lead": "Confirmed Sells only. Two lines carry the case; the linked page carries the full reasoning."},
+    "std":    {"title": "The names we would sell, and why",
+               "lead": "Confirmed Sells only. Two lines carry the case; the linked page has the full detail."},
+    "simple": {"title": "The shares we would sell, and why",
+               "lead": "Each name shows the reason in two lines; the page link has the full story."},
 }
 
-FOOTNOTE = "Names marked Under review are with the investment committee; no action until resolved."
-
-
-def _clip(txt, n):
-    txt = (txt or "").strip()
-    if len(txt) <= n:
-        return txt
-    cut = txt[:n]
-    sp = cut.rfind(" ")
-    if sp > n * 0.6:
-        cut = cut[:sp]
-    return cut.rstrip(" ,.;:") + "…"
-
-
-def _lead(reg, n, n_act, n_rev):
-    if not n_rev:
-        return LABELS.get(reg, LABELS["std"])["lead"]
-    a = str(n_act) if n_act else "none"
-    if reg == "hni":
-        return (f"Of the {n} names in the Sell zone, {a} are cleared to execute today; {n_rev} sit "
-                f"with the investment committee as Under review. Forensic and gate reasons list first.")
-    if reg == "simple":
-        return (f"We can act on {a} of these {n} shares today. The other {n_rev} are being "
-                f"double-checked by our committee first, so no action on those yet.")
-    return (f"Of {n} Sell-zone names, {a} are cleared to execute and {n_rev} are Under review with the "
-            f"investment committee. Ordered by reason: forensic and balance-sheet issues first, then "
-            f"valuation and trend.")
+EXC_NOTE = ("Names selling above the 40 score line are exceptional, high-conviction calls; "
+            "the linked page documents each case in full.")
 
 
 def render(deck, ctx, tier):
     reg = tier["register"]
     L = LABELS.get(reg, LABELS["std"])
     as_of = ctx["client"].get("as_of", "")
-    sells = [e for e in ctx["equity"] if e["rec"] == "Sell"]
-    n_rev = sum(1 for e in sells if e.get("escalation"))
-    n_act = len(sells) - n_rev
+    sells = sorted([e for e in ctx["equity"] if e["rec"] == "Sell"],
+                   key=lambda e: -(e.get("weight_pct") or 0))
+    pages = max(1, (len(sells) + PER - 1) // PER)
 
-    s = deck.content(2, "Equity", "What we would sell", L["title"])
-    # v7 device (p.16): the Sell count rides ON the header rule as a badge
-    deck.pill(s, 11.05, 1.42, f"Sell ×{len(sells)}", w=1.36, kind="Sell")
-    deck.scope_tag(s, f"Direct equity only · as of {as_of}")
-    deck.txt(s, ML, 1.80, UW, 0.42, [(_lead(reg, len(sells), n_act, n_rev), SERIF, 10.5, SLATE, False, True)],
-             ls=1.03)
+    cols = [("Holding", 0.20, "l"), ("Wt %", 0.06, "r"), ("Ionic Score", 0.13, "l"),
+            ("Call", 0.09, "c"), ("The case", 0.46, "l"), ("Detail", 0.06, "r")]
 
-    def rank(e):
-        r = TAXONOMY.get(e.get("reason_category"), (7, e.get("reason_category") or "Weak forward risk-reward"))[0]
-        # actionable Sells lead the table; under-review names group after, same reason ordering
-        return (1 if e.get("escalation") else 0, r, -(e.get("weight_pct") or 0))
-    sells = sorted(sells, key=rank)
+    for p in range(pages):
+        chunk = sells[p * PER:(p + 1) * PER]
+        title = L["title"] + (f"  ({p + 1} of {pages})" if pages > 1 else "")
+        s = deck.content(2, "Equity", "What we would sell", title)
+        if p == 0:
+            deck.anchor("tbl:sell_list", s, prio=5)
+            deck.pill(s, 11.05, 1.42, f"Sell ×{len(sells)}", w=1.36, kind="Sell")
+        deck.scope_tag(s, f"Direct equity only · as of {as_of}")
+        deck.txt(s, ML, 1.84, UW, 0.24, [(L["lead"], SERIF, 10.5, SLATE, False, True)])
 
-    cols = [("Holding", 0.17, "l"), ("Wt %", 0.06, "r"), ("Ionic Score", 0.13, "l"),
-            ("Action", 0.13, "c"), ("Reason category", 0.19, "l"), ("Binding trigger", 0.32, "l")]
-    rows = []
-    for e in sells:
-        short = TAXONOMY.get(e.get("reason_category"), (7, e.get("reason_category") or "Weak forward risk-reward"))[1]
-        under = bool(e.get("escalation"))
-        rows.append([
-            ("b", e["name"]),
-            ("c", f"{e['weight_pct']:.2f}", INK),
-            ("bar", e.get("ionic_score")),
-            ("pill", "Under review", "Watch") if under else ("pill", "Sell", "Sell"),
-            ("c", short, AMBER if under else SELL, True),
-            clip_clause(e.get("binding_trigger", ""), 44),
-        ])
-    n = len(rows)
-    rowh = 0.44 if n <= 6 else (0.34 if n <= 8 else 0.30)
-    ty = deck.table(s, ML, 2.32, UW, cols, rows, rowh=rowh, fs=9, hfs=8)
+        ROWH = 0.62
+        rows = []
+        for e in chunk:
+            exceptional = (e.get("ionic_score") or 0) >= 40
+            # case must lean WITH the call: overlay (analyst-authored) first, else the
+            # negative para (opens with the concern), never the trigger (can read bullish)
+            case = e.get("client_case") or clip_clause(e.get("negative") or e.get("binding_trigger", ""), 118)
+            rows.append([
+                ("b", e["name"]),
+                ("c", f"{e['weight_pct']:.1f}", INK),
+                ("bar", e.get("ionic_score")),
+                ("pill", "Sell", "Sell"),
+                (case, ),                       # marker tuple replaced below (serif 2-liner)
+                "",                             # detail link drawn as a pageref overlay
+            ])
+        # draw the table shell (case cell blank; we draw the 2-liner + pageref manually
+        # so the case wraps to two clean serif lines and the link is clickable)
+        shell = [[r[0], r[1], r[2], r[3], "", ""] for r in rows]
+        deck.table(s, ML, 2.22, UW, cols, shell, rowh=ROWH, fs=9.5, hfs=8)
 
-    # each row clicks through to the name's Sell-rationale card in the annexure
-    deck.anchor("tbl:sell_list", s, prio=5)
-    ry = 2.32 + 0.33
-    for e in sells:
-        deck.hotspot(s, ML, ry - 0.02, UW, rowh, f"stock:{e['symbol']}")
-        ry += rowh
+        tot = sum(c[1] for c in cols)
+        score_x = ML + UW * sum(c[1] for c in cols[:2]) / tot + 0.08
+        case_x = ML + UW * sum(c[1] for c in cols[:4]) / tot + 0.08
+        case_w = UW * cols[4][1] / tot - 0.16
+        ref_x = ML + UW * sum(c[1] for c in cols[:5]) / tot
+        ry = 2.22 + 0.33
+        exc_any = False
+        for e, r in zip(chunk, rows):
+            case = r[4][0]
+            deck.txt(s, case_x, ry + 0.06, case_w, ROWH - 0.12,
+                     [(case, SERIF, 9, INK, False)], ls=1.05, anchor=MSO_ANCHOR.MIDDLE)
+            deck.pageref(s, ref_x, ry + ROWH / 2 - 0.09, f"stock:{e['symbol']}",
+                         w=UW * cols[5][1] / tot - 0.06)
+            deck.hotspot(s, ML, ry - 0.02, UW, ROWH, f"stock:{e['symbol']}")
+            if (e.get("ionic_score") or 0) >= 40:
+                exc_any = True
+                deck.txt(s, score_x, ry + ROWH - 0.22, UW * cols[2][1] / tot - 0.1, 0.16,
+                         [("EXCEPTIONAL", SANS, 6.5, AMBER, True, False, 80)])
+            ry += ROWH
 
-    # under-review footnote (frozen methodology) ------------------------------
-    fy = ty + 0.06
-    if n_rev:
-        deck.txt(s, ML, fy, UW, 0.18, [(FOOTNOTE, SERIF, 8.5, SLATE, False, True)])
-        fy += 0.24
+        fy = ry + 0.08
+        if exc_any:
+            deck.txt(s, ML, fy, UW, 0.2, [(EXC_NOTE, SERIF, 8.5, SLATE, False, True)])
 
-    # reason-taxonomy legend --------------------------------------------------
-    lgy = min(fy + 0.06, 6.30)
-    deck.txt(s, ML, lgy, UW, 0.22,
-             [("REASON TAXONOMY   ", SANS, 8.5, NAVY, True, False, 60),
-              ("fixed categories, forensic and gate reasons rank first · full definitions and "
-               "per-name rationale cards in the annexure", SERIF, 9, SLATE, False, True)])
-
-    deck.source(s, "Reason category is a fixed client-facing taxonomy · binding trigger is the specific "
-                   "analyst finding behind each call · full rationale cards in the annexure.")
-    deck.score_band(s)
-    return 1
+        deck.source(s, "Each row links to the name's full rationale page (score panel, the case, the bull "
+                       "we rejected, valuation check). Illustrative synthetic book.")
+        deck.score_band(s)
+    return pages

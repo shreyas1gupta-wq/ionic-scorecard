@@ -55,7 +55,7 @@ def render(deck, ctx, tier):
              f"sleeve, dividends here are a byproduct of stock selection, never its purpose.")
     deck.callout(s, tx, 3.2, tw, 1.6, "Where the income sits", body1, kind="note")
 
-    body2 = ("Bring this page out when regular cash flow enters the conversation. If income "
+    body2 = ("When regular cash flow becomes a goal, this is the base it starts from. If income "
              "becomes a goal, it is funded through planned withdrawals or a dedicated income "
              "sleeve agreed in the IPS, rather than by tilting this growth book toward "
              "high-dividend names.")

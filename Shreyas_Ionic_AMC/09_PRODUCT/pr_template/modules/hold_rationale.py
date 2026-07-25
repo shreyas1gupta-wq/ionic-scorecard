@@ -8,19 +8,15 @@ from slidekit import (NAVY, INK, SLATE, HAIR, PANEL, WHITE, SELL, HOLD, AMBER, G
                       HOLDBG, NT2, SERIF, SANS, ML, RX, UW, clip_clause)
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 
+# 'What would flip a Hold' callout removed (Principal 2026-07-25: client deck, not a
+# conversation deck) — the freed space carries one more name per column
 LABELS = {
     "hni":    {"title": "What stays, and why, core conviction versus watch",
-               "core": "CORE, high conviction", "watch": "WATCH, held, monitoring",
-               "break": "Thesis-break rule: any Hold is reviewed the moment its score falls below 40, "
-                        "a balance-sheet gate trips, or the growth thesis we underwrote breaks."},
+               "core": "CORE, high conviction", "watch": "WATCH, held, monitoring"},
     "std":    {"title": "What stays, and why",
-               "core": "CORE, high conviction", "watch": "WATCH, held, monitoring",
-               "break": "What would change our mind: any Hold is reviewed if its score drops below 40, "
-                        "a debt gate trips, or the growth we expected fails to show up."},
+               "core": "CORE, high conviction", "watch": "WATCH, held, monitoring"},
     "simple": {"title": "What we would keep, and why",
-               "core": "STRONG KEEPS", "watch": "KEEP & WATCH",
-               "break": "We would look again at any keep if its score falls below 40 or the reason we "
-                        "held it stops being true."},
+               "core": "STRONG KEEPS", "watch": "KEEP & WATCH"},
 }
 
 
@@ -58,7 +54,7 @@ def render(deck, ctx, tier):
     core = sorted([e for e in holds if e.get("conviction") == "Core"], key=lambda e: -(e["weight_pct"] or 0))
     watch = sorted([e for e in holds if e.get("conviction") != "Core"], key=lambda e: -(e["weight_pct"] or 0))
 
-    n_each = 4 if reg == "simple" else 6
+    n_each = 5 if reg == "simple" else 7
     read_len = 60 if reg == "simple" else 68
     core_show, watch_show = core[:n_each], watch[:n_each]
 
@@ -73,15 +69,12 @@ def render(deck, ctx, tier):
     gy = 2.24
     gap = 0.5
     colw = (UW - gap) / 2.0
-    deck.vrule(s, ML + colw + gap / 2.0, gy, 3.6, HAIR, 0.008)
+    deck.vrule(s, ML + colw + gap / 2.0, gy, 4.15, HAIR, 0.008)
     _column(deck, s, ML, gy, colw, L["core"], HOLD, core_show, read_len)
     _column(deck, s, ML + colw + gap, gy, colw, L["watch"], SLATE, watch_show, read_len)
 
     extra = (len(core) - len(core_show)) + (len(watch) - len(watch_show))
     more_note = f"{extra} further Holds scored and read in the annexure · " if extra > 0 else ""
-
-    # thesis-break footnote
-    deck.callout(s, ML, 5.82, UW, 0.78, "What would flip a Hold", L["break"], kind="note")
 
     deck.source(s, more_note + "Conviction tier from Ionic Score × position size · reads are the analyst summary · "
                    "illustrative synthetic book.")

@@ -81,8 +81,19 @@ def _fnum(v, dflt=None):
     try: return float(v)
     except Exception: return dflt
 
+def _load_client_cases():
+    """Optional analyst-authored two-line sell cases (client_cases.json beside this file):
+    {SYMBOL: two_liner}. Written by the 90%-recheck pass; overrides the auto-clip."""
+    p = os.path.join(os.path.dirname(__file__), "client_cases.json")
+    try:
+        return json.load(open(p, encoding="utf-8"))
+    except Exception:
+        return {}
+
+
 def _equity(grand_inr):
     quant = _load_quant()
+    cases = _load_client_cases()
     out = []
     for sym, wt in _EQUITY_WEIGHTS:
         qp = os.path.join(RESULTS, f"pf_qual_{sym}.json")
@@ -104,6 +115,7 @@ def _equity(grand_inr):
             "growth_pct": q.get("expected_next_3y_growth_pct"),
             "summary": q.get("summary", ""), "positive": q.get("positive_para", ""),
             "negative": q.get("negative_para", ""), "reverse_dcf": q.get("reverse_dcf_judgment", ""),
+            "client_case": cases.get(sym),
             "detailed": q.get("detailed_rationale", ""), "escalation": bool(q.get("escalation_flag")),
             "pit_date": "2026-07-21",
             "conviction": "Core" if (ionic >= 58 and wt >= 2) else ("Watch" if rec == "Hold" else "Exit"),
@@ -190,7 +202,9 @@ def _funds(grand_inr):
          "the hybrid core already held (HDFC BAF, Direct)",
          "Under four years of record, sub-scale, Regular plan; we fold the sleeve into the proven hybrid held."),
         # --- genuine Holds so the book isn't all-Sell ---
-        ("Parag Parikh Flexi Cap (Direct)", "PPFAS", "equity", "Direct", 7.5, 21, 1.03, 0.74, 2.6, 0.050, 74,
+        # betas tuned so the synthetic 3y CAGR lands near the real fund's +4-5pp vs index
+        # (a 56% CAGR bar reads as fake and poisons the page's credibility)
+        ("Parag Parikh Flexi Cap (Direct)", "PPFAS", "equity", "Direct", 7.5, 21, 0.98, 0.94, 1.2, 0.040, 74,
          [], "Hold", "HOLD", "-", ""),
         ("Nippon India Nifty 50 Index (Direct)", "Nippon", "passive", "Direct", 4.0, 22, 1.00, 1.00, -0.2, 0.004, 55,
          [], "Hold", "HOLD", "-", ""),

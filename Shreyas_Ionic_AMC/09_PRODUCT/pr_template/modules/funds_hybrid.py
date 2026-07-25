@@ -162,7 +162,7 @@ def render(deck, ctx, tier):
     hy = ty + 0.12
     deck.txt(s, ML, hy, UW, 0.2,
              [("OUR BIAS, FUND BY FUND   ", SANS, 8.5, NAVY, True, False, 60),
-              ("why each verdict stands, in the desk's words", SERIF, 9, SLATE, False, True)])
+              ("why each verdict stands", SERIF, 9, SLATE, False, True)])
     cy = hy + 0.30
     # cards sized to their text, not to the void — a half-empty tinted box reads as filler
     chh = min(1.95, 6.30 - cy)

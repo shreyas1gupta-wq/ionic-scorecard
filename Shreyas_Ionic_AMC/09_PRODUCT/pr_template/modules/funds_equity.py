@@ -31,13 +31,30 @@ def render(deck, ctx, tier):
     s = deck.content(3, "Funds", eyebrow, title)
     deck.scope_tag(s, f"MF sleeve · equity & index schemes · Direct-plan NAV vs total-return benchmark · as of {as_of}")
 
+    # two charts, one per framework (Principal 2026-07-25): the long-term record and the
+    # short-horizon framework's own decision variable — nothing invented, nothing contradictory
     labs = [_short(f["name"], 13) for f in efunds]
     fv = [f["cagr3y"] for f in efunds]
     bv = [f.get("bench_cagr3y", 13.0) for f in efunds]
-    png = CH.paired_bar(labs, fv, bv, "fe_vs_bm", a_label="Fund (3y CAGR)", b_label="Benchmark")
-    deck.pic(s, png, ML, 2.0, 6.5, 3.5, valign="top")
-    deck.txt(s, ML, 5.66, 6.5, 0.2,
-             [("Navy = fund, light = benchmark · 3-year CAGR, % p.a. (demo period)", SERIF, 8, SLATE, False, True)])
+    png = CH.paired_bar(labs, fv, bv, "fe_vs_bm", a_label="Fund (3y CAGR)", b_label="Benchmark",
+                        figsize=(7.6, 3.0))
+    deck.txt(s, ML, 1.98, 6.5, 0.2, [("THE LONG-TERM TEST · 3-YEAR RECORD VS INDEX", SANS, 8, NAVY, True, False, 80)])
+    deck.pic(s, png, ML, 2.2, 6.5, 1.95, valign="top")
+
+    # short-horizon framework: how much of the index's falls each active fund takes,
+    # against the framework's own category cutoff (its literal pass/fail line)
+    CUT = {"Large": 90.0, "Multi": 90.0, "Mid": 80.0}
+    act = [f for f in efunds if f["category"] != "passive"]
+    labs2 = [_short(f["name"], 13) for f in act]
+    dcap = [f["down_capture"] for f in act]
+    cuts = [next((v for k, v in CUT.items() if k in f["name"]), 100.0) for f in act]
+    png2 = CH.paired_bar(labs2, dcap, cuts, "fe_dcap", a_label="Share of index falls taken (6m, %)",
+                         b_label="Framework cutoff", figsize=(7.6, 3.0))
+    deck.txt(s, ML, 4.38, 6.5, 0.2, [("THE SHORT-HORIZON TEST · PARTICIPATION IN FALLS VS THE CUTOFF",
+                                      SANS, 8, NAVY, True, False, 80)])
+    deck.pic(s, png2, ML, 4.6, 6.5, 1.85, valign="top")
+    deck.txt(s, ML, 6.42, 6.5, 0.18,
+             [("Navy = fund, light = the framework's line · below the line passes", SERIF, 8, SLATE, False, True)])
 
     tx = 7.65; tw = RX - tx
     cols = [("Scheme", 0.40, "l"), ("3y CAGR", 0.18, "r"), ("vs BM", 0.16, "r"), ("Desk call", 0.26, "c")]

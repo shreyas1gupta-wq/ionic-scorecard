@@ -18,7 +18,7 @@ def _rows(reg, n_sell, k):
             ("Sell the weak names", f"Sell the {n_sell} weakest-scoring stocks, a little at a time.", "First"),
             ("Trim the big two", "Gently reduce your two largest single stocks.", "Soon"),
             ("Fix the funds", f"Tidy the fund list, move {k} to cheaper or Direct versions, drop the tiny one.", "A few days"),
-            ("Keep the cash ready", "The freed money sits safely in a liquid fund; where it goes next is a separate conversation.", "Together"),
+            ("Keep the cash ready", "The freed money sits safely in a liquid fund; where it goes next is decided with you, separately.", "Together"),
         ]
     return [
         ("Sell programme", f"{n_sell} names scored below the gate, staged in slices at <=10% ADV.", "Wave 1"),
@@ -40,7 +40,7 @@ LABELS = {
     "simple": {"eyebrow": "What happens next", "title": "Your action plan, step by step",
                "k1": "Cash freed", "k1s": "from sells + trim", "k2": "Fund changes", "k2s": "switch / move / drop",
                "k3": "Cash in hand", "k3s": "after estimated tax",
-               "auth": "Nothing happens until you say yes, you approve every step."},
+               "auth": "Nothing happens without your approval; every step is yours to confirm."},
 }
 
 

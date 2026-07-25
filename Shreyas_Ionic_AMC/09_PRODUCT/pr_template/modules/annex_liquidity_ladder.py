@@ -61,7 +61,7 @@ def render(deck, ctx, tier):
 
     body2 = ("Exit math assumes taking at most a fifth of a day's traded volume, slow enough "
              "not to move the price against the book. Use this page before any large redemption "
-             "conversation: it sets a timetable the market can actually fill.")
+             "plan: it sets a timetable the market can actually fill.")
     deck.callout(s, ML + 5.77, 4.95, UW - 5.77, 1.55, "Why 20% of daily volume", body2,
                  kind="human")
 
