@@ -3,6 +3,9 @@ Format per entry: date, account (DESK-20/DESK-100), summary, files touched, hand
 Newest entries at TOP.
 
 ---
+## 2026-07-26 (DESK-100) — OVERRIDE BARS FINALIZED ASYMMETRIC (1d6c5d7), supersedes the 90→60 blanket ease
+Principal's final form: **Hold→Sell direction (a Sell on a >40 scorer) = 90% bar** (adding a Sell against the quant stays hard); **Sell→Hold direction (holding a sub-40 scorer) = 60% bar** (rescuing a quant Sell is easier). All 12 recheck verdicts re-tested under the split: **zero calls change** — the >40 flips-to-Hold all sat 35-55 (<90), the sub-40 flips-to-Sell all sat 15-55 (<60), HINDCOPPER 90 clears its 90 bar. Book stays 10 Sell / 37 Hold. Threshold sensitivity: RELIANCE Hold-conviction 55 is 5 points below the 60 bar (a 50 bar would flip it back to Hold); POWERINDIA/TATATECH Sell-conviction 55 vs the 90 bar (comfortably Hold now). Skill + FROZEN amendment §6 + module docstring updated; decks unchanged. RELIANCE Sell sign-off still open with the Principal.
+
 ## 2026-07-26 (DESK-100) — OVERRIDE KEEP-THRESHOLD EASED 90→60 (73a46c2), Principal order "60% keep threshold"
 An analyst override (either direction) now survives at 60%+ documented conviction, not 90. All 12 rechecked names re-tested at 60: **zero calls change** — every failed override sat below 60 (BHEL 35, GAIL 45, ANANDRATHI/COCHINSHIP 50, RELIANCE/POWERINDIA/TATATECH 55, ULTRACEMCO/LT 20, HINDUNILVR 15, ITCHOTELS 25); HINDCOPPER (90) still clears. Book stays **10 Sell / 37 Hold**. THRESHOLD-SENSITIVE names on file: RELIANCE (Hold-conviction 55 — 5 points from flipping back to Hold), POWERINDIA + TATATECH (Sell-conviction 55 — 5 points from returning to Sell); if the Principal ever moves the bar to 50, those three flip. Skill + FROZEN amendment + module docstring updated; decks unchanged (no rebuild needed). RELIANCE Sell sign-off still pending with the Principal before any client artifact ships.
 
