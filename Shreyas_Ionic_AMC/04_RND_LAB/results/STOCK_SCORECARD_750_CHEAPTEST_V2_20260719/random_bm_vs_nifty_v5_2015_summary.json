@@ -1,0 +1,43 @@
+{
+  "window": [
+    "2014-12-31",
+    "2026-06-30"
+  ],
+  "n_months": 138,
+  "data_source": "datasets/derived/pit_union_panel_v1/close_panel_return_v11.parquet (CANONICAL, survivorship-complete: HF+BHAVCOPY+DELISTED+RAW500 unified, 2000-2026, per DATA_CATALOG.md), replacing ALPHA_RANKER's narrower 2021-07-16-floor scrape.",
+  "eligible_pool_per_month": {
+    "min": 8,
+    "max": 481,
+    "mean": 346
+  },
+  "historical_member_excluded_for_no_current_mcap_pct": {
+    "2015": 44.0,
+    "2020": 25.7,
+    "2025": 6.5
+  },
+  "avg_monthly_turnover_pct": 69.6,
+  "mcap_weight_100_mean": {
+    "total_return_pct": 463.2,
+    "cagr_pct": 16.2,
+    "ann_vol_pct": 18.7,
+    "max_drawdown_pct": -30.6
+  },
+  "mcap_weight_100_p05": {
+    "total_return_pct": 338.2,
+    "cagr_pct": 13.7,
+    "ann_vol_pct": 18.7,
+    "max_drawdown_pct": -32.8
+  },
+  "mcap_weight_100_p95": {
+    "total_return_pct": 648.5,
+    "cagr_pct": 19.1,
+    "ann_vol_pct": 18.5,
+    "max_drawdown_pct": -28.8
+  },
+  "nifty50_buy_hold": {
+    "total_return_pct": NaN,
+    "cagr_pct": NaN,
+    "ann_vol_pct": NaN,
+    "max_drawdown_pct": NaN
+  }
+}

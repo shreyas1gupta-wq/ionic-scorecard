@@ -1,0 +1,174 @@
+{
+ "strategy": "MIDCPNIFTY ~5% OTM monthly PUT, 1 lot, held to expiry",
+ "data": "NSE F&O index bhavcopy 2022-2026 (real); CONTRACTS>0 gated; settle via landmine-9",
+ "lot_size_assumed": 120,
+ "lot_size_note": "MIDCPNIFTY lot changed over time; points/lot is the unambiguous unit",
+ "n_months": 27,
+ "skipped": 29,
+ "skip_reasons": [
+  [
+   "2022-02-28",
+   "no traded PE at entry"
+  ],
+  [
+   "2022-03-29",
+   "no traded PE at entry"
+  ],
+  [
+   "2022-04-26",
+   "no traded PE at entry"
+  ],
+  [
+   "2022-05-31",
+   "no traded PE at entry"
+  ],
+  [
+   "2022-06-28",
+   "no traded PE at entry"
+  ],
+  [
+   "2022-07-26",
+   "no traded PE at entry"
+  ],
+  [
+   "2022-08-30",
+   "no traded PE at entry"
+  ],
+  [
+   "2022-09-27",
+   "no traded PE at entry"
+  ],
+  [
+   "2022-10-25",
+   "no traded PE at entry"
+  ],
+  [
+   "2022-11-29",
+   "no traded PE at entry"
+  ],
+  [
+   "2022-12-27",
+   "no traded PE at entry"
+  ],
+  [
+   "2023-01-31",
+   "no traded PE at entry"
+  ],
+  [
+   "2023-02-28",
+   "no traded PE at entry"
+  ],
+  [
+   "2023-03-28",
+   "no traded PE at entry"
+  ],
+  [
+   "2023-04-25",
+   "no traded PE at entry"
+  ],
+  [
+   "2023-05-31",
+   "no traded PE at entry"
+  ],
+  [
+   "2023-06-27",
+   "no traded PE at entry"
+  ],
+  [
+   "2023-07-26",
+   "no traded PE at entry"
+  ],
+  [
+   "2023-08-30",
+   "no traded PE at entry"
+  ],
+  [
+   "2023-09-29",
+   "no traded PE at entry"
+  ],
+  [
+   "2023-11-24",
+   "no traded PE at entry"
+  ],
+  [
+   "2023-12-22",
+   "no traded PE at entry"
+  ],
+  [
+   "2024-02-26",
+   "no traded PE at entry"
+  ],
+  [
+   "2024-03-22",
+   "no traded PE at entry"
+  ],
+  [
+   "2025-01-30",
+   "no traded PE at entry"
+  ],
+  [
+   "2025-03-31",
+   "no traded PE at entry"
+  ],
+  [
+   "2026-07-28",
+   "no expiry settle"
+  ],
+  [
+   "2026-08-25",
+   "no entry day"
+  ],
+  [
+   "2026-09-29",
+   "no entry day"
+  ]
+ ],
+ "window": "2023-10-03 -> 2026-06-30",
+ "pct_expired_worthless": 81.5,
+ "pct_net_profitable": 18.5,
+ "total_net_pts": -951.7,
+ "avg_net_pts": -35.25,
+ "median_net_pts": -72.98,
+ "best_net_pts": 711.2,
+ "worst_net_pts": -298.6,
+ "total_gross_pts": -882.0,
+ "total_premium_paid_pts": 3009.6,
+ "total_net_rupees": -114198.0,
+ "avg_premium_pts": 111.46,
+ "avg_otm_pct": 4.18,
+ "months_paid": 5,
+ "biggest_paydays": [
+  {
+   "cycle_expiry": "2026-03-30",
+   "otm_pct": 4.96,
+   "premium": 77.2,
+   "S_expiry": 12158.8,
+   "strike": 12950.0,
+   "net_pts": 711.15
+  },
+  {
+   "cycle_expiry": "2024-10-28",
+   "otm_pct": 2.8,
+   "premium": 146.65,
+   "S_expiry": 12400.2,
+   "strike": 13000.0,
+   "net_pts": 449.06
+  },
+  {
+   "cycle_expiry": "2025-02-27",
+   "otm_pct": 5.14,
+   "premium": 134.8,
+   "S_expiry": 10957.3,
+   "strike": 11350.0,
+   "net_pts": 254.31
+  },
+  {
+   "cycle_expiry": "2023-10-30",
+   "otm_pct": 0.81,
+   "premium": 135.0,
+   "S_expiry": 8718.2,
+   "strike": 9000.0,
+   "net_pts": 143.3
+  }
+ ]
+}

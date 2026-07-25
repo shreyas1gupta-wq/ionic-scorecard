@@ -1,0 +1,69 @@
+---
+symbol: "BPCL"
+company: "Bharat Petroleum Corporation Ltd."
+sector: "Oil Gas & Consumable Fuels"
+universe: "nifty100"
+rec: "Sell"
+quant_rec: "Hold"
+growth_3y_pct: -3
+escalation: false
+holding_value_inr: null
+updated: 2026-07-19
+tags:
+  - stock-note
+---
+# BPCL — Bharat Petroleum Corporation Ltd.
+
+> [!summary]
+> Bharat Petroleum just posted its best-ever year - profit nearly doubled - but that was fueled by a crude-price shock (the Iran/Strait of Hormuz crisis pushed refining margins to multi-year highs) and one-off inventory gains, not by the underlying fuel-marketing and refining business getting structurally better. The stock's headline valuation looks cheap only because last year's profit was unusually high; once you look through the cycle, it is closer to fairly valued. Meanwhile, the government's LPG subsidy shortfall has widened sharply in recent months and a large, debt-funded new petrochemical project is being built into a global market that is oversupplied for years to come. We recommend Sell.
+
+## Recommendation — Sell
+
+Sell rather than Hold because the near-term catalyst is concrete and quantified, not a vague cyclicality worry - management's own disclosed LPG under-recovery escalation (Rs 80 to Rs 670/cylinder in two months) lands directly in the Q1 FY27 print due within days of this research. The 5.2x trailing P/E is a peak-earnings mirage rather than genuine cheapness once GRM and marketing margins are cycle-adjusted; revenue growth is flat-to-negative with no organic compounding engine; and the largest capital commitment in company history (Bina) is being made into a global petrochemical segment in structural oversupply with a recovery horizon (early 2030s) well beyond the project's own commissioning timeline. Hold would require believing the current marketing-margin recovery and GRM strength are durable - the evidence (brokerage estimate cuts, management's own under-recovery disclosures, and the historical pattern of government clawing back windfalls via price freezes) argues they are not.
+
+## Bull case
+
+BPCL's through-cycle profitability metrics are genuinely strong - ROE near 28-29%, ROCE near 26% - leverage is moderate, and the dividend yield of roughly 5.5% is real cash coming back to shareholders. The stock is already about 19% below its 52-week high, so some of the cyclical top has been priced out, and the government has shown willingness in 2026 to let retail pump prices move (four hikes since mid-May, cumulative ~Rs 7.50/litre) rather than freeze indefinitely. The Bina refinery-petrochemical expansion is a long-dated strategic diversification that, if the global oversupply clears roughly on the timeline industry forecasters expect, could add a genuine new growth leg to an otherwise flat-revenue marketing and refining business, and some brokerages (Nomura, Jefferies per post-Q4 coverage) stayed constructive.
+
+## Bear case
+
+The strongest bear point: FY26's record profit and 5.2x P/E are a cyclical mirage. They were built on a war-driven crude spike, inventory gains, and a temporary marketing-margin catch-up - not a sustainable run-rate - and revenue itself has been flat-to-down for three years (CAGR -1.28%), so there is no organic growth to grow into the multiple even after it re-rates. The most concrete near-term threat is the LPG under-recovery, which management has flagged spiking from roughly Rs 80/cylinder to ~Rs 670/cylinder within two months (Apr-May 2026) against a government compensation package sized for a much smaller gap - this hits directly in the Q1 FY27 results due 22-Jul-2026. Layer on a capex super-cycle (~Rs 250-270bn planned for FY27, anchored by the Rs 48,926 crore Bina project) funded substantially by debt, aimed at a global petrochemical market in structural oversupply that trackers do not expect to normalize before the early 2030s, and BPCL is asking shareholders to fund a multi-year capital-intensive bet at exactly the point its earnings power is normalizing down from a peak.
+
+## Valuation (reverse-DCF judgment)
+
+At a 5.2x trailing P/E, the market is pricing BPCL close to as if FY26's crude-shock-driven earnings were the sustainable run-rate. Normalizing GRM and marketing margins back toward historical, through-cycle levels roughly halves our estimate of underlying earnings power, implying a 'true' multiple closer to 10-13x - not egregiously expensive for a ~20%+ ROE state refiner-marketer, but not the statistical bargain the headline multiple implies either. The next 1-2 reporting cycles (LPG under-recovery shock landing in Q1 FY27, a capex ramp that pressures free cash flow for years) point to a further earnings air-pocket, not confirmation that the peak holds. Cycle-adjusted, the business cannot clear the bar of 'priced for permanence' that the current headline multiple implicitly sets.
+
+## Detailed rationale
+
+FY26 was BPCL's best year on record - consolidated PAT of Rs 25,843 crore, up 93.8% YoY, EPS Rs 60.49 [DATA] - but it was a cyclical windfall, not a run-rate. Q4 FY26 (Jan-Mar 2026) GRM spiked to $18/bbl from $13.2/bbl in Q3 [DATA] as the Iran conflict and Strait of Hormuz disruption pushed Brent past $110-117/bbl [DATA], generating large inventory gains, while blended gross marketing margin of Rs 5.6/litre beat estimates even as brokerages (Motilal Oswal) flagged underlying petrol/diesel marketing losses of Rs 10-20/litre during the price-freeze months [DATA]. At CMP Rs 315.55 (17-Jul-2026) [DATA] that prices out to a trailing P/E of 5.2x [DATA, matches quant context pe_current 5.24] - but that 'E' sits on the single most favorable confluence of crude-shock GRM, inventory gains and marketing-margin catch-up BPCL has had in years.
+
+Cycle-adjusting the earnings changes the picture. This is a cyclicality-tagged PSU with a 3y revenue CAGR of -1.28% [DATA, quant context] - a pass-through business with no genuine volume/pricing compounding engine, only crude-cycle swings. Normalizing FY26 for a through-cycle GRM (nowhere near the $18/bbl print, or even FY26's own $11.74/bbl average [DATA]) and a normalized auto-fuel gross marketing margin (Rs 3.50/litre historical average, versus roughly Rs 10.60/litre now, post the mid-2026 price hikes [DATA]) roughly halves our estimate of underlying earnings power in our judgment [INFERENCE] - pushing the 'true' multiple nearer 10-13x, not 5.2x. That is not an obviously rich multiple for a ~20%+ ROE state refiner-marketer, but it is not the statistical bargain the headline P/E implies either, and the very next print works against the bull case: Q1 FY27 results (board meeting scheduled 22-Jul-2026, PENDING as of this research) [DATA] land directly into an LPG under-recovery air-pocket that widened from roughly Rs 80/cylinder in Q4 FY26 to ~Rs 170/cylinder in April 2026 to ~Rs 670/cylinder in May 2026 [DATA, Motilal Oswal via brokerage note], well ahead of the government's FY26 LPG compensation package (Rs 30,000 crore sanctioned [DATA] against reported industry-wide under-recoveries near Rs 53,700 crore [DATA]) - the same government-pricing-interference dynamic that produced the ~4-year petrol/diesel price freeze (Apr-2022 to May-2026) and an estimated Rs 1,000 crore/day of combined OMC losses at its worst [DATA].
+
+Layered on top is a capex super-cycle: FY27 capex guidance of roughly Rs 250-270bn, up from FY26's ~Rs 204bn [DATA/estimate], anchored by the Rs 48,926 crore Bina refinery-cum-petrochemical project - financial closure secured via a Rs 31,802 crore loan facility, expanding the refinery from 7.8 to 11 MMTPA and adding a 1.2 MTPA ethylene cracker [DATA]. That is a multi-year, materially debt-funded bet on a global petrochemical market industry trackers describe as in structural oversupply - China's PP capacity alone running near 122% of domestic demand and rising toward 134% by 2028 [DATA, ICIS/S&P Global], with 'satisfactory' industry profitability not expected to return before the early 2030s [DATA, Wood Mackenzie]. None of this makes BPCL a broken business - ROE 28.8%, ROCE 25.7% [DATA, screener.in], leverage still moderate (borrowings Rs 54,424cr against Rs 2,48,616cr of assets [DATA]), dividend yield ~5.55% [DATA] - but on a through-cycle view the price is asking to be paid a normal multiple for what looks, headline-only, like a crisis-cheap one, at exactly the point in the cycle (post-peak, subsidy air-pocket forming, capex ramping) where the multiple should be de-rating rather than re-rating further.
+
+## Sources
+
+- Quant context: n100_ctx/BPCL.json - PE 5.24, ROE 21%, ROCE 19%, revenue_cagr_3y -1.28%, quality_score 81.25, value_score 75.0, recommendation_3y/1y: Reduce
+- BPCL Q4 FY26 Results: Profit Jumps 28% YoY to Rs 5,624 Crore - https://lemonn.co.in/blog/bytes/bpcl-q4-fy26-results-profit-jumps/
+- BPCL Q4 Results FY26: GRM $18/bbl vs $13.2/bbl, marketing margin masked underlying weakness - https://www.multibagg.ai/market-pulse/articles/bpcl-q4-fy26-results-fall-cmpc2aixbpka5nv0jh80b77v4
+- BPCL FY26 Net Profit Surges 75.5%; Nomura, Jefferies Maintain Buy - https://scanx.trade/stock-market-news/companies/bpcl-q4-results-ebitda-drops-to-100b-rupees-net-profit-declines-sharply-on-sequential-basis/40758561
+- BPCL Q4 FY26 Results: Consolidated PAT Surges 93.8% to Rs 25,843 Cr, Revenue Crosses Rs 5.22 Lakh Cr - https://indianmasterminds.com/news/bpcl-q4-fy26-results-pat-revenue-growth-205152/
+- BPCL Reports 62% Jump in Q3FY26 Net Profit to Rs 7,545 Crore, Declares Rs 10 Interim Dividend - https://scanx.trade/stock-market-news/earnings/bpcl-reports-62-jump-in-q3fy26-net-profit-to-7-545-27-crore-declares-10-interim-dividend/30719946
+- Govt Approves Rs 30,000 Crore LPG Subsidy To Oil PSUs For FY 2025-26 - https://www.freepressjournal.in/business/government-approves-30000-crore-lpg-subsidy-to-oil-psus-for-fy-2025-26-amid-west-asia-supply-concerns
+- India fuel price freeze 2026: How IOC, BPCL, HPCL are losing Rs 30,000 crore a month - https://www.businessupturn.com/nation/the-%E2%82%B930000-crore-monthly-bleeding-how-indias-fuel-price-freeze-is-quietly-destroying-ioc-bpcl-and-hpcl
+- India Raises Fuel Prices After a Four-Year Freeze in 2026 - https://discoveryalert.com.au/india-fuel-price-hike-oil-shock-subsidy-policy-2026/
+- OMCs' fuel marketing margins back above pre-conflict levels: Report (GMM Rs 10.60 vs Rs 3.50 historical; BPCL EBITDA sensitivity Rs1/litre = 14.5%) - https://www.business-standard.com/economy/news/omcs-fuel-marketing-margins-back-above-pre-conflict-levels-report-126062200611_1.html
+- Elevated refining margins may help OMCs recover Rs 35,000 cr fuel marketing losses within a quarter - https://www.businesstoday.in/markets/story/elevated-refining-margins-may-help-omcs-recover-rs35000-cr-fuel-marketing-losses-within-a-quarter-report-543016-2026-07-15
+- BPCL Q4 FY26 Result Update incl. LPG under-recovery escalation (Rs 80 -> Rs 170 -> Rs 670/cylinder, Motilal Oswal) - https://investmentguruindia.com/editorial/uploads/news-pdf/cd6cdb75_BPCL%20Q4FY26%20Result%20Update_Others.pdf
+- BPCL to Review Q1 FY27 Results on July 22 - https://www.sahi.com/news/bpcl-to-review-q1-results-on-july-22-following-1-1-bonus-issue-impact-922-PE1_CORP
+- BPCL ties Rs 31,802 cr funds for Bina refinery expansion, petchem project - https://www.business-standard.com/companies/news/bpcl-ties-rs-31-802-cr-funds-for-bina-refinery-expansion-petchem-project-125011700466_1.html
+- Bharat Petroleum rolls out Rs 49,000 crore Bina refinery petrochemical integration plan - https://energiesmedia.com/bharat-petroleum-rolls-out-petrochemical-plans/
+- Crude Oil Futures Surge to Record Highs Amid West Asia Tensions (Strait of Hormuz) - https://discoveryalert.com.au/crude-oil-futures-west-asia-hormuz-price-spike-2026/
+- Why China PP Spreads May Not Fully Recover Until at Least 2028 - https://www.icis.com/asian-chemical-connections/2025/11/why-china-pp-spreads-may-not-fully-recover-until-at-least-2028/
+- Petrochemicals in peril: oversupply crisis threatens industry survival (profitability not expected before early 2030s) - https://www.woodmac.com/news/opinion/petrochemicals-in-peril-oversupply-crisis-and-energy-transition-threaten-industry-survival/
+- Propylene chemical trends H1 2026 - China PP capacity ~122% of demand, +7% in 2026 - https://www.spglobal.com/energy/en/news-research/special-reports/chemicals/chemical-trends-h1-2026/rationalisation/propylene
+- Screener.in BPCL consolidated financials (ROE 28.8%, ROCE 25.7%, borrowings Rs 54,424cr, dividend yield 5.55%, Q4 FY26 EPS Rs 12.96, FCF Rs 31,733cr) - https://www.screener.in/company/BPCL/consolidated/
+- BPCL share price/market cap 17-Jul-2026 (Rs 315.55, mkt cap Rs 1,36,902cr, PE 5.20, EPS 60.49) - https://dhan.co/stocks/bharat-petroleum-ltd-share-price/
+
+---
+*Generated from `results/pf_qual_BPCL.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

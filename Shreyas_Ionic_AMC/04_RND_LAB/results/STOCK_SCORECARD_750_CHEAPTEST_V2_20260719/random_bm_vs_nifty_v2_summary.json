@@ -1,0 +1,44 @@
+{
+  "params": {
+    "universe": "top-500-by-market-cap (full 751-stock set)",
+    "n_pick": 100,
+    "n_draws": 200,
+    "avg_monthly_turnover_pct": 76.8,
+    "costs_applied": "COST_STANDARDS.md tier slippage + STT + exch + stamp, on realized turnover only"
+  },
+  "window": [
+    "2022-06-30",
+    "2025-06-30"
+  ],
+  "n_usable_stocks": 418,
+  "usable_tercile_mix": {
+    "Large": 220,
+    "Mid": 192,
+    "Small": 6
+  },
+  "random_portfolio_mean_net_of_cost": {
+    "total_return_pct": 161.9,
+    "cagr_pct": 37.8,
+    "ann_vol_pct": 17.5,
+    "max_drawdown_pct": -21.7
+  },
+  "random_portfolio_p05_path": {
+    "total_return_pct": 139.8,
+    "cagr_pct": 33.9,
+    "ann_vol_pct": 17.2,
+    "max_drawdown_pct": -21.6
+  },
+  "random_portfolio_p95_path": {
+    "total_return_pct": 184.0,
+    "cagr_pct": 41.6,
+    "ann_vol_pct": 17.6,
+    "max_drawdown_pct": -21.1
+  },
+  "nifty50_buy_hold_net_of_cost": {
+    "total_return_pct": 61.3,
+    "cagr_pct": 17.3,
+    "ann_vol_pct": 12.5,
+    "max_drawdown_pct": -14.3
+  },
+  "note": "Universe ranked by CURRENT-snapshot market_cap_approx (not PIT historical top-500 membership) -- still a survivorship simplification, now on a materially wider/more realistic base than V1's 332-stock, 1/3-small-cap sample."
+}

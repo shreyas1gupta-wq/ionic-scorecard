@@ -4,6 +4,8 @@
 - Raw AP shown alongside (career total). Chairs/verdict roles score via the decisions they enable (an IC chair earns when the firm later confirms the ruling was right — deferred scoring).
 - Anti-gaming: AP only attaches to artifacts filed in the repo (WORK_LOG policy); Red-Team catches must be CONFIRMED (a refuted "catch" scores −10); token figures come from harness usage, not self-report.
 
+> **⚠ STALE (flagged 2026-07-21):** these standings only cover session 1 (2026-07-03). The AP Ledger in `TEAM_ROSTER.md` itself stopped being appended to after 2026-07-05, despite ~16 days of continued firm activity generating many AP-worthy events per `CURRENT_STATE.md`/`SESSION_JOURNAL.md`. Recomputing efficacy also needs per-agent token figures ("harness usage, not self-report") that aren't available from repo files alone. This needs a proper `/review-team` catch-up pass, not an improvised backfill — flagging rather than guessing at points.
+
 ## Standings after 2026-07-03 (session 1 of the firm)
 | Rank | Employee | Session AP (earned) | Tokens | **Efficacy (AP/10k)** | Note |
 |---|---|---|---|---|---|

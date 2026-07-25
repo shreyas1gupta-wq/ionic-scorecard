@@ -1,0 +1,62 @@
+---
+symbol: "NSDL"
+company: "NSDL"
+sector: "Unknown"
+universe: "universe750"
+rec: "Hold"
+quant_rec: "n/a"
+growth_3y_pct: 13
+escalation: true
+holding_value_inr: null
+updated: 2026-07-21
+tags:
+  - stock-note
+---
+# NSDL
+
+> [!summary]
+> NSDL is India's dominant securities depository by custody value (~87% share) and one of only two SEBI-licensed players, a structurally moated, asset-light business that just completed a government/institutional stake sale (Aug-2025 IPO) to meet ownership-cap rules. FY26 profit grew a healthy but decelerating 10.8% (Rs380cr) after 24.7% growth in FY25, and the March-2026 quarter saw a cost spike that compressed operating margins to 22% from the high-20s/low-30s range even as profit held broadly flat. At roughly 43x trailing earnings and 7x book value, the stock is priced for continued strong execution rather than for the growth deceleration or margin softness already showing up — a Hold, not a name to chase at this valuation, and not yet in Ionic's quant-scored universe given its recent listing.
+
+## Recommendation — Hold
+
+No quant row exists for NSDL in full750_scored.csv (confirmed via grep, 0 matches, 752-row file) — it is off-universe, almost certainly because it listed in Aug-2025 and lacks the 3-year financial/price history the scoring engine needs. Per the V1 asymmetric-override protocol, absence of a quant score defaults to Hold rather than manufacturing a Sell. Fundamentally the business is sound (duopoly moat, rising custody value, dividend growing) but the valuation (43x trailing PE, 7x P/B) against decelerating PAT growth and a Q4FY26 margin air-pocket is not a table-pounding Hold either — hence escalation rather than silent pass-through.
+
+## Bull case
+
+Genuine regulatory-moated duopoly with ~87% share of India's demat custody value, a business model that scales with the structural financialization of Indian household savings and rising FPI/DII AUM rather than needing fresh capital (asset-light, ROE 17.4%, ROCE 23.2%). The forced-seller overhang from the SEBI 15%-ownership-cap rule (IDBI Bank, NSE both down from ~24-26% to ~14.9%) is now largely resolved post-IPO, removing a known supply risk. Dividend per share doubled YoY (Rs4 vs Rs2), a healthy capital-return signal, and the company keeps adding depository participants (21 new DPs in FY26) and demat accounts, evidencing continued franchise reach even though CDSL leads on retail account count.
+
+## Bear case
+
+Growth is decelerating, not accelerating: PAT growth fell from +24.7% (FY25) to +10.8% (FY26), and the Mar-2026 quarter showed a ~40% QoQ jump in operating expenses that compressed OPM to 22% from the high-20s/low-30s trend, with no confirmed disclosed one-off to explain it away — that could be a durable cost-base step-up (compliance/governance costs typical of a newly-listed entity) rather than a blip. NSDL's cost structure is structurally heavier than CDSL's (65k+ DP service points vs ~19k), which caps operating leverage and explains its ~22-28% OPM versus CDSL's ~58% — a gap that is unlikely to close quickly. Revenue has a genuine equity-market-cyclicality component (transaction/custody-linked fees fell ~7.5% YoY in the Jun-2025 quarter on lower market activity), so a sustained market drawdown would hit both legs of the story at once. At ~43x trailing PE / ~7x P/B, the stock already prices in a continuation of the strong recent growth trend that the FY26 numbers show is fading, leaving little margin of safety if either growth or margins disappoint further; it is also a sub-1-year listing with no multi-year quant track record for Ionic's scoring engine to validate the thesis against.
+
+## Valuation (reverse-DCF judgment)
+
+Sustainable-growth-rate math (ROE 17.4% x ~79% retention, given the ~21% FY26 payout) implies an organic compounding capacity of roughly 13-14%/yr without margin expansion or fresh capital — that is broadly what a 43x trailing PE / 7x P/B multiple needs to be fed on a moated, asset-light, high-ROE duopoly, so the multiple is not obviously indefensible on quality grounds alone. But it assumes no further deceleration and no repeat of the Q4FY26 margin compression; FY26's actual PAT growth (10.8%) already undershot that implied rate, and the multiple leaves very little room for the market-cyclicality risk in NSDL's fee base. Net judgment: rich-to-fair, priced for continued flawless execution rather than for the deceleration and margin wobble already visible in the trailing four quarters — not a bargain, but not so stretched that a Sell is defensible off a business with this moat and no quant score to lean on.
+
+## Escalation
+
+> [!warning] Escalated for Principal review
+> Off-universe: NSDL has no row in full750_scored.csv (Aug-2025 IPO, sub-1-year listing, no 3yr quant history) so this is a default-Hold by protocol, not a scored call. Genuine analytical tension for the PM: PAT growth nearly halved YoY (24.7%->10.8%) and Q4FY26 opex spiked ~40% QoQ (OPM 22% vs 29-32% trend) with no confirmed one-off explanation, while the stock still trades at ~43x trailing PE / ~7x P/B pricing in un-decelerated growth. This is also a methodology gap likely to recur: any other 2025-26 IPO names in the client book will similarly lack a 3yr quant score and default to Hold regardless of valuation richness — worth a PM decision on whether recent-listing names need a separate valuation-only screen rather than falling through to Hold by default.
+
+## Detailed rationale
+
+NSDL is one of only two SEBI-licensed depositories (MII) in India, and by far the dominant one by custody value — it holds ~86-87% of India's demat custody value (~Rs520 lakh crore as of Mar-2026) versus CDSL's ~13% (~Rs77 lakh crore), while CDSL dominates by account count (18.01cr accounts, ~79.5% share, retail/discount-broker driven) against NSDL's 4.51cr accounts serviced through 315 DPs and ~57,000-65,000 service centres. This is a structural duopoly with high regulatory moat (SEBI's 2018 MII ownership-cap rules forced the IPO in the first place) but a genuinely different, more institutional/HNI-and-issuer-weighted revenue mix than CDSL's retail-volume model. The Aug-2025 listing (100% OFS, Rs760-800 band, Rs800 final price, ~Rs4,000cr raised) was purely a secondary sale by IDBI Bank, NSE, SBI, HDFC Bank and Union Bank to comply with the 15% single-entity ownership cap for MIIs — IDBI and NSE, previously at ~26% and ~24%, are now both down to ~14.9%; NSDL itself received zero primary proceeds. [INFERENCE: with the cap now met, the acute forced-selling overhang from the ownership-compliance mandate looks resolved, though these institutional holders retain large blocks and could trim further opportunistically over time.]
+
+Financials (consolidated, per Screener.in, scrape-date lagged but structurally consistent across quarters): FY24 revenue Rs1,268cr / PAT Rs275cr; FY25 revenue Rs1,420cr (+12.0%) / PAT Rs343cr (+24.7%); FY26 revenue Rs1,530cr (+7.7%) / PAT Rs380cr (+10.8%), EPS Rs18.99, OPM 28%. The quarterly cadence shows clear deceleration and Q4 lumpiness: Jun-25 revenue Rs312cr (down ~7.5% YoY, a widely-noted post-listing wobble) / PAT Rs90cr; Sep-25 Rs400cr/Rs110cr (the strongest quarter); Dec-25 Rs360cr/Rs90cr; Mar-26 Rs458cr/Rs90cr — the Mar-26 (Q4FY26) quarter saw revenue jump +27% QoQ but operating expenses spike ~40% QoQ, compressing OPM from the 29-32% range down to 22% even as PAT held flat around Rs90cr. This is a genuine margin-cost-base question rather than a confirmed one-off — I could not source a specific one-time item (e.g., a listed-company compliance/governance cost step-up is plausible given the fresh listing, but this is an [INFERENCE], not confirmed from a disclosed break-up). The board raised the FY26 final dividend to Rs4/share (face value Rs2) from Rs2 last year, a reasonable capital-return signal for an asset-light compounder. Standalone parent-only NSDL Payments Bank is a pre-existing (2018) small digital-banking subsidiary, not a new FY26 catalyst — one search result's framing of it as a 'growth driver' does not hold up against the standalone financials.
+
+Valuation: at CMP ~Rs822 (screener scrape), market cap ~Rs16,447cr, trailing P/E ~43.3x, P/B ~7.0x (book value Rs118), ROE 17.4%, ROCE 23.2%. A rough reverse-DCF/sustainable-growth sanity check (ROE 17.4% x retention ~79%, given the ~21% payout) implies an organic compounding capacity of roughly 13-14%/yr without fresh capital or margin expansion — broadly consistent with, not wildly below, what a 43x multiple should demand for a moated, asset-light, high-ROE duopoly, but it leaves little room for the growth deceleration already visible in FY26 (PAT growth nearly halved YoY) or for NSDL's structurally heavier cost base (65k+ DP service points vs CDSL's ~19k) which caps operating leverage versus CDSL's ~58% OPM. My read: priced for continued execution, not for a margin miss or a market-turnover downturn (custody/transaction-linked revenue has genuine equity-market cyclicality) — call it rich-to-fair, not cheap.
+
+## Sources
+
+- full750_scored.csv (grep, 0 matches for NSDL, 752 rows total - confirms off-universe)
+- Screener.in - National Securities Depository Ltd consolidated financials (quarterly + yearly results table, market cap/PE/ROE/ROCE/book value) - https://www.screener.in/company/544467/consolidated/
+- Tradebrains - NSDL Posts Strong FY26 Performance; Board Recommends Rs4 Dividend - https://tradebrains.in/nsdl-posts-strong-fy26-performance-board-recommends-%E2%82%B94-dividend-amid-steady-growth/
+- Whalesbook - NSDL Sees Profit Jump 12% in FY26 to Rs360 Crore, Income Up 14% - https://www.whalesbook.com/corporate-news/English/bankingfinance/NSDL-Sees-Profit-Jump-12percent-in-FY26-to-indian-rupee360-Crore-Income-Up-14percent/69f3a9e008235f0c2a2db3e2
+- Angel One - NSDL Vs CDSL: Who is the Demat Titan of India (custody value / account-count market share) - https://www.angelone.in/news/market-updates/nsdl-vs-cdsl-who-is-the-demat-titan-of-india
+- Business Standard - NSDL gets Sebi nod for IPO / NSE seeks extension to pare NSDL stake / 15% MII ownership-cap background - https://www.business-standard.com/markets/ipo/nsdl-s-much-awaited-ipo-likely-before-april-to-meet-sebi-ownership-cap-125022001131_1.html
+- Paytm Money / Chittorgarh - NSDL IPO price band Rs760-800, 100% OFS, listing Aug-6-2025 - https://www.paytmmoney.com/blog/nsdl-ipo-explained-dates-price-band-and-why-it-matters/ , https://www.chittorgarh.com/ipo/national-securities-depository-limited-nsdl-ipo/2448/
+- Web search synthesis (IDBI Bank/NSE stake reduced to ~14.9% post-IPO from ~26%/24%) - cross-checked against Business Standard SEBI ownership-cap reporting
+- [NOTE - discarded source]: initial search results citing a 'Q1FY27 profit Rs89.63cr, up 15% YoY, stock down 18% post-results' were internally inconsistent with Screener's dated quarterly table (latest reported quarter = Mar-2026/Q4FY26; Q1FY27 earnings call is calendared for 31-Jul-2026, not yet reported as of PIT date 2026-07-21) and were NOT used - treated as unreliable AI-search synthesis, flagged rather than reported as fact
+
+---
+*Generated from `results/pf_qual_NSDL.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

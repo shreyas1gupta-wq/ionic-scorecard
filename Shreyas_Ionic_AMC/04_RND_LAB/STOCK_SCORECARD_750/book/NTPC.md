@@ -1,0 +1,67 @@
+---
+symbol: "NTPC"
+company: "NTPC Ltd."
+sector: "Power"
+universe: "nifty100"
+rec: "Hold"
+quant_rec: "Sell"
+growth_3y_pct: 10
+escalation: false
+holding_value_inr: null
+updated: 2026-07-19
+tags:
+  - stock-note
+---
+# NTPC — NTPC Ltd.
+
+> [!summary]
+> NTPC is India's largest power generator, and its earnings are best understood as a slow, government-regulated compounder rather than a bet on power prices: profits grow roughly in line with how much new regulated capital it puts into the ground each year, which has been running at about 10-11% annually. FY26 was a record year for capacity addition and the company crossed 89,000 MW of installed capacity, but this year's headline profit-growth numbers were flattered by a one-time tax credit, so the real underlying growth is more modest than the press headlines suggest. The stock trades at a reasonable, not cheap, valuation for that quality of business, with a decent ~2.4% dividend yield. The renewable arm (NTPC Green) and a long-dated nuclear ambition offer extra upside optionality over the next two decades, but neither is proven enough yet to pay up for today - NTPC Green's own stock, in fact, trades below its IPO price. We rate this a Hold: a fair-value, steady utility holding, not a name to sell down, but also not one where the growth outlook justifies chasing it higher.
+
+## Recommendation — Hold
+
+At ~12-13x trailing consolidated P/E and ~1.6x P/B against a ~14% ROE and ~10-11% regulated-equity-driven growth, NTPC is priced as a fair, unspectacular regulated compounder - not cheap enough on multiple-compression grounds to argue for a Sell, but nowhere near the stretched 30-40x territory the desk worries about in defence PSUs, so there is no valuation-normalization Sell case either. The dividend (Rs.9/share FY26, ~2.4% yield, ~38% payout) is sustainable given the CERC-assured RoE. The real risks flagged here - thermal PLF moderation, NTPC Green's current earnings drag, standing (not worsening) discom receivable risk, and a headline PAT print inflated by a one-off tax credit that could mislead an investor into overpaying for growth that isn't really there - are balance-sheet-manageable, not thesis-breaking. Hold reflects fair value with visible but unspectacular compounding, plus free (uncounted-in-price) long-dated optionality in NTPC Green and nuclear.
+
+## Bull case
+
+NTPC just delivered its highest-ever annual capacity addition (9,618 MW in FY26) and is executing a credible, funded pipeline toward 149 GW by 2032, with regulated equity - the real driver of earnings - compounding at a steady ~10-11% (Rs.1,08,791 cr to Rs.1,20,319 cr YoY, consolidated). Because the bulk of its capacity-charge income is locked in by CERC's cost-plus framework at a guaranteed ~15.5% post-tax RoE regardless of merchant power prices, earnings visibility is unusually high for an industrial name. Coal fleet availability (PAF 90.12%) and PLF (72.04%, still ~9 points above the all-India average of 63.2%) confirm best-in-class thermal execution even as the mix shifts toward renewables. NTPC Green adds a second, faster-growing leg (operational capacity nearly doubled YoY to 10,076 MW) that is majority-owned (89%) and separately listed, giving the market an explicit read-through it can choose to re-rate; on top of that, the ASHVINI nuclear JV and NTPC's own nuclear feasibility filings open a genuine multi-decade regulated-equity runway beyond the current thermal/renewable base. All of this comes with a sustained, growing dividend (Rs.9/share FY26, ~2.4% yield) funded from statutorily assured cash flows, at a valuation (~12-13x P/E, ~1.6x P/B) that isn't demanding.
+
+## Bear case
+
+The single biggest problem with the bull case is that this year's headline profit growth is not what it looks like. Aggregators reported NTPC's Q4 FY26 PAT up anywhere from 34% to 91% depending on which cut you read, but triangulating across filings and transcripts shows the dominant driver was an extraordinary tax credit/refund of roughly Rs.8,700-9,062 cr tied to regulatory deferral account and tariff true-up adjustments - an accounting one-off, not repeatable operating performance. An investor extrapolating the reported 15-18% full-year PAT growth into a valuation is paying for growth that did not actually happen at the operating level; the honest run-rate is closer to the ~10-11% regulated-equity pace. Layered on top: coal PLF has fallen for a second straight year (77.44% to 72.04%); NTPC Green - nearly 90%-owned and therefore fully burdening NTPC's consolidated numbers - is running record quarterly interest costs (Rs.257 cr in Q4 alone) against only Rs.521 cr of full-year profit, meaning the renewable pivot is earnings-dilutive for now, not accretive; and its own listed stock trades below its Nov-2024 IPO price, undercutting the 'unlock value via listing' narrative investors were sold. NTPC also remains structurally exposed to state discom payment discipline (Late Payment Surcharge rules have helped, but weak discom balance sheets are a standing, not resolved, risk), and the genuinely transformative nuclear ambition (30 GW, ~Rs.7.5 lakh cr capex) is still at the feasibility-study stage with the Department of Atomic Energy as of May 2026 - a 2040s outcome that cannot be underwritten today. None of this breaks the thesis, but it argues strongly against paying any premium for 'momentum' in the current earnings print.
+
+## Valuation (reverse-DCF judgment)
+
+NTPC trades at roughly 12-13x trailing consolidated earnings and ~1.6x book against a reported ROE near 14%. Using a simple regulated-utility sustainable-growth framework (fair P/B = (ROE-g)/(COE-g)) with a ~12-13% cost of equity typical for Indian regulated utilities and g of ~9-10% (retention-adjusted, consistent with the observed regulated-equity growth rate), fair P/B works out to roughly 1.2-1.3x. The market is paying a modest premium (~1.6x) to that vanilla math, which is reasonably explained by uncounted optionality (NTPC Green re-rating, an eventual nuclear regulated-equity runway) rather than by the market mispricing growth expectations in the core thermal/hydro business. Critically, the multiple does not appear to be extrapolating this year's flattered ~15-18% reported PAT growth - if it were, NTPC would look expensive once the one-off tax credit is stripped out. Net judgment: fair value, neither a bargain nor stretched - consistent with Hold, not a re-rating or de-rating candidate on current information.
+
+## Detailed rationale
+
+NTPC Group closed FY26 with its highest-ever annual capacity addition of 9,618 MW (including 4,738 MW renewable), taking installed capacity to 89,108 MW as of 31-Mar-2026 (the group crossed the 90 GW mark by May 2026), en route to a stated 149 GW-by-2032 target (60 GW of which renewable). Because NTPC's core thermal/hydro/transmission business runs under a CERC cost-plus regulated-equity model - a fixed capacity charge recovering depreciation, interest, O&M and an assured ~15.5% post-tax RoE on the equity component regardless of actual dispatch, plus a near-100% fuel-cost pass-through - the correct growth lens is NOT power prices or PLF but the pace at which new regulated equity gets capitalized onto the books. On that measure, consolidated regulated equity grew from Rs.1,08,791 cr (FY25) to Rs.1,20,319 cr (FY26), +10.6% YoY - the cleanest proxy for underlying, non-cyclical earnings growth, and it lines up closely with the company's actual 5-year sales/profit CAGR of ~11-12%.
+
+Headline FY26 numbers need care, though. Standalone PAT rose 18% YoY to Rs.23,162 cr and consolidated group PAT rose 15% YoY to Rs.27,546 cr, but a large chunk of the Q4 FY26 print specifically was an accounting, not operating, event: news aggregators reported the quarter's PAT growth anywhere from 34% to 91% depending on standalone/consolidated and YoY/QoQ cuts (genuinely inconsistent reporting across five sources I checked), and triangulating them shows the dominant driver was an extraordinary tax credit/refund of roughly Rs.8,700-9,062 cr tied to regulatory deferral account movements and CERC tariff true-ups, which pushed the quarter's effective tax rate negative. Strip that one-off and the organic run-rate is much closer to the ~10-11% regulated-equity pace, not the 50-90% headline jumps some sites ran with. Coal PLF also eased for a second year running - 72.04% in FY26 vs 77.44% in FY25 - even as plant availability (PAF) improved to 90.12%; under the regulated model this doesn't hit the fixed capacity charge, but it's worth watching given NTPC still earns some variable/incentive income at the margin.
+
+The two optionality legs - NTPC Green and nuclear - are real but shouldn't be double-counted into today's price. NTPC Green (89%-owned, separately listed) closed FY26 with 10,076 MW operational (up from 5,902 MW) against a 26,544 MW portfolio including pipeline, but consolidated FY26 profit of only Rs.521 cr against a record Rs.257 cr of Q4 interest expense alone shows it is still in aggressive debt-funded build-out mode - earnings-dilutive to NTPC's consolidated numbers for now, not accretive. Its own stock trades around Rs.94-95, still below its Nov-2024 IPO price of ~Rs.108, so the 'unlock listed-subsidiary value' bull case has not actually paid off for minority holders yet - though NTPC's 89% stake is still worth roughly Rs.70,000-71,000 cr at current market pricing, about a fifth of NTPC's own ~Rs.3.3 lakh cr market cap, a latent (not realized) SOTP support. Nuclear is the second leg: the ASHVINI JV with NPCIL targets 30 GW by 2047 (first project, the 2,800 MW Banswara/Rajasthan plant, is under construction), and NTPC only submitted its first standalone-nuclear feasibility study to the Department of Atomic Energy in May 2026, with an estimated Rs.7.5 lakh cr of capex needed over roughly two decades - a 2040s earnings story that should not be underwritten in a 3-5 year growth number. Q1 FY27 results are scheduled at NTPC's 24-July-2026 board meeting (alongside a proposed Rs.12,000 cr NCD/bond raise to keep funding the capex pipeline) - not yet out as of this note.
+
+## Sources
+
+- quant context: null in n100_ctx/NTPC.json - no quant row yet
+- NTPC Q4 Results 2026: Date, Revenue, PAT & Analyst Outlook - Univest - https://univest.in/blogs/ntpc-q4-results-date-preview
+- NTPC Green Energy Share Price Target 2026 - Univest - https://univest.in/blogs/ntpc-green-energy-share-price-target-2026
+- Future Capacity Additions - NTPC Limited (official) - https://ntpc.co.in/future-capacity-additions
+- NTPC Group Crosses 90 GW Installed Capacity - NTPC Limited press release - https://ntpc.co.in/media/press-releases/ntpc-group-crosses-90-gw-installed-capacity
+- NTPC to lay foundation of 2,800 MW nuclear power project - Business Standard - https://www.business-standard.com/companies/news/ntpc-to-lay-foundation-of-2-800-mw-nuclear-power-project-next-month-125082400402_1.html
+- NTPC Regulated Equity Growth Strategy 2026 - Stock Market News Rnd - https://stockmarketnewsrnd.com/2026/06/ntpc-regulated-equity-growth-strategy-2026.html
+- NTPC to Announce Q1 FY27 Results & Rs.12,000 Crore Bond Issue on July 24 - PSU Connect - https://www.psuconnect.in/financial/ntpc-to-announce-q1-fy27-results-12000-crore-bond-issue-on-july-24
+- NTPC Dividend 2026 - Record Date, History - Choice India - https://choiceindia.com/stocks/ntpc-ltd-dividend
+- NTPC Green Energy FY26 Profit Rises 10%, Q4 Numbers Raise Questions About Growth - Saur Energy - https://www.saurenergy.com/solar-energy-news/ntpc-green-energy-fy26-profit-rises-10-q4-numbers-raise-questions-about-growth-11870774
+- NTPC Green Energy's Q4 Revenue Rises 47% YoY But Profit Slips - Mercom India - https://www.mercomindia.com/ntpc-green-energys-q4-revenue-rises-47-yoy-but-profit-slips
+- NTPC Ltd (BOM:532555) Q4 2026 Earnings Call Highlights: Profit Surge Amid Revenue Dip - Yahoo Finance - https://finance.yahoo.com/sectors/energy/articles/ntpc-ltd-bom-532555-q4-010033146.html
+- NTPC Ltd consolidated financials - Screener.in - https://www.screener.in/company/NTPC/consolidated/
+- NTPC Nuclear Feasibility Study and India's 100 GW Energy Plan - iMarc Engineering - https://www.imarcengineering.com/news/india-nuclear-energy-expansion
+- NTPC prepares first feasibility study for nuclear project, to seek DAE nod - Business Standard - https://www.business-standard.com/companies/news/ntpc-prepares-first-feasibility-study-for-nuclear-project-to-seek-dae-nod-126051000284_1.html
+- NTPC Q4 FY26: Exceptional Tax Credit Drives 91% Profit Surge Despite Flat Revenue Growth - MarketsMojo - https://www.marketsmojo.com/news/result-analysis/ntpc-q4-fy26-exceptional-tax-credit-drives-91-profit-surge-despite-flat-revenue-growth-4009141
+- NTPC Limited Q4 FY26 Results: Consolidated PAT Rises 34% to Rs.10,615 Crore - Kotak Neo - https://www.kotakneo.com/news/stocks/ntpc-q4-fy26-results-consolidated-pat-10615-crore-25-may/
+- NTPC Q4 PAT Jumps 75% on strong operational performance - Sarkaritel - https://www.sarkaritel.com/ntpc-q4-pat-jumps-75-on-strong-operational-performance/
+- NTPC share price / market cap - Groww / Kotak Neo (checked ~Rs.342, mcap ~Rs.3.31-3.32 lakh cr, mid-July 2026)
+
+---
+*Generated from `results/pf_qual_NTPC.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

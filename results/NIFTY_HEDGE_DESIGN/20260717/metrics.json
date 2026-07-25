@@ -1,0 +1,65 @@
+{
+ "spec": "LONG 1-lot NIFTY + monthly ~30DTE overlay, held to expiry; real bhavcopy 2020-2026",
+ "window": "2020-01-31 -> 2026-06-30",
+ "n_cycles": 74,
+ "corpus_rs": 897158.0,
+ "results": {
+  "BuyHold_NIFTY": {
+   "CAGR": 11.4,
+   "vol": 18.1,
+   "Sharpe": 0.34,
+   "Sortino": 0.4,
+   "MaxDD": -37.6
+  },
+  "CoveredCall_3CE": {
+   "CAGR": 9.4,
+   "vol": 20.3,
+   "Sharpe": 0.23,
+   "Sortino": 0.28,
+   "MaxDD": -36.9,
+   "cycles_with_fill": 74
+  },
+  "Collar_5PE_5CE": {
+   "CAGR": 8.3,
+   "vol": 22.3,
+   "Sharpe": 0.18,
+   "Sortino": 0.24,
+   "MaxDD": -37.6,
+   "cycles_with_fill": 74
+  },
+  "ZCcollar_5PE_3CE": {
+   "CAGR": 6.9,
+   "vol": 23.7,
+   "Sharpe": 0.13,
+   "Sortino": 0.17,
+   "MaxDD": -37.2,
+   "cycles_with_fill": 74
+  },
+  "ProtPut_5PE": {
+   "CAGR": 9.1,
+   "vol": 21.2,
+   "Sharpe": 0.22,
+   "Sortino": 0.3,
+   "MaxDD": -37.9,
+   "cycles_with_fill": 74
+  },
+  "TailPut_10PE": {
+   "CAGR": 11.0,
+   "vol": 19.6,
+   "Sharpe": 0.31,
+   "Sortino": 0.4,
+   "MaxDD": -37.7,
+   "cycles_with_fill": 74
+  },
+  "TimedPut_5PE_below200": {
+   "CAGR": 11.1,
+   "vol": 20.3,
+   "Sharpe": 0.31,
+   "Sortino": 0.42,
+   "MaxDD": -37.6,
+   "cycles_with_fill": 74
+  }
+ },
+ "BEST_SHARPE": "BuyHold_NIFTY",
+ "LEAST_MDD": "CoveredCall_3CE"
+}

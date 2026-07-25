@@ -1,0 +1,56 @@
+---
+symbol: "NAUKRI"
+company: "NAUKRI"
+sector: "Consumer Services"
+universe: "universe750"
+rec: "Hold"
+quant_rec: "Sell"
+growth_3y_pct: 14
+escalation: false
+holding_value_inr: null
+updated: 2026-07-21
+tags:
+  - stock-note
+---
+# NAUKRI
+
+> [!summary]
+> Info Edge's core recruitment/classifieds business is re-accelerating (Q1 FY27 recruitment billings +17.5% YoY vs FY26 full-year +10%) on senior-hiring strength and AI-driven pricing, even as IT-services hiring stays soft. FY26 consolidated PAT (Rs 14,498cr vs Rs 9,621cr) is overwhelmingly a one-off, non-cash mark-to-market effect - a roughly Rs 52,001cr PB Fintech stake-reclassification gain plus volatile Eternal (Zomato) stake swings - not underlying earnings; real core operating profit was Rs 1,138cr (37% margin). SOTP-based brokerage targets range Rs 1,050-1,350. No quant score exists in this pass, so Hold by default, and Hold on independent judgment too: quality core business, full valuation, PAT headline not to be taken at face value.
+
+## Recommendation — Hold
+
+No dedicated V1 quant score exists yet for this Nifty-250-universe pass, so the default-Hold rule applies. Independently, the core business is healthy and re-accelerating (Q1 FY27 recruitment billings +17.5% YoY) with clean, debt-free 37-40% operating margins - nothing here supports a Sell. But valuation is full on a sum-of-the-parts basis (even the bullish JM Financial case leans on a rich 25x recruitment-segment multiple, and roughly half the market cap sits in investment-book marks that swing by thousands of crores a quarter and are not repeatable earnings), and the FY26 consolidated PAT print is not usable at face value given the one-off ~Rs 52,001cr PB Fintech mark-to-market reclassification gain. Net: Hold - own the core-business quality and the genuine billings re-acceleration, but do not treat the consolidated PAT/EPS jump as real earnings growth and do not chase the stock purely on the FY26 headline PAT number.
+
+## Bull case
+
+Recruitment billings re-accelerated sharply in Q1 FY27 (+17.5% YoY to Rs 552.7cr) after a soft Q3 FY26, driven by senior/specialised-talent hiring and AI-product ARPU gains - a genuine inflection, not just an easy-base effect - alongside continued margin expansion (Q4 FY26 operating margin 40%, full-year FY26 37%, both up YoY). 99acres is compounding faster than the core (+14.5% YoY billings in Q3 FY26). The balance sheet is debt-free and asset-light, and the listed-investment book (Eternal 12.43%, PB Fintech 12.52%) remains a call option on two large consumer-internet franchises, even though it should be valued rather than counted as earnings. Multiple brokerages (JM Financial post-Q1 upgrade, ICICI Direct) carry Buy ratings with SOTP targets Rs 1,270-1,350, and Goldman Sachs models FY27 revenue +13% / operating profit +30%.
+
+## Bear case
+
+FY26's consolidated PAT jump (Rs 9,621cr to Rs 14,498cr) is a one-off, non-cash accounting event - a roughly Rs 52,001cr unrealised mark-to-market gain from the PB Fintech stake reclassification via the Makesense Technologies-PB Fintech merger - and should not be read as a real jump in Info Edge's earnings power; the actual operating business grew profit 17% (Rs 1,138cr). The Eternal (Zomato) stake is highly volatile: a single quarter (Q4 FY26) saw a valuation hit reported north of Rs 8,000cr even as the full-year number was a small net gain, meaning reported ROE/ROCE and even headline PAT can swing sharply for reasons that have nothing to do with recruitment or classifieds execution. Billings growth was soft as recently as Q3 FY26 (total company +11.8%, missing estimates) on an IT-services hiring slump (India IT hiring down roughly 24% YoY early-2026) - the same demand-side stress tracked across IT services names - so the Q1 FY27 re-acceleration needs at least one more quarter of confirmation before being treated as the new trend. On SOTP, even JM Financial's 'Buy' case leans on a rich 25x recruitment-segment multiple, and roughly half the market cap sits in volatile third-party stock marks rather than the core business.
+
+## Valuation (reverse-DCF judgment)
+
+At current SOTP-implied multiples (roughly 25x on the recruitment segment per JM Financial's own framework, against Rs 1,050-1,350 target prices), the market is pricing sustained mid-to-high-teens recruitment-billings growth for several years - i.e. it needs the Q1 FY27 print (+17.5% YoY) to be the new run-rate rather than a one-quarter bounce off a soft Q3 FY26 base. If growth reverts to the FY26 full-year trend (billings +10%), the core business is priced for more than it is currently delivering, though investment-book optionality (Eternal + PB Fintech stakes) provides a partial, itself highly volatile, valuation cushion. [INFERENCE - qualitative reverse-DCF read, no formal multi-stage DCF model run in this ~2min pass]
+
+## Detailed rationale
+
+Info Edge FY26 (ended Mar-2026) standalone: billings Rs 3,178cr (+10% YoY), revenue Rs 3,052cr (+15% YoY), operating profit Rs 1,138cr (+17% YoY, 37% margin) [DATA]. Q3 FY26 (Oct-Dec25) was the soft patch: total billings Rs 747.2cr (+11.8% YoY, missed Street), recruitment billings Rs 548cr (+11% YoY, 59.3% segment margin), as India IT-services hiring fell roughly 24% YoY at the start of 2026 - Naukri's largest historical vertical is IT/tech hiring, the same demand-side guidance-cycle stress tracked across TCS/Infosys/Wipro flowing through to the classifieds layer [DATA]. Q4 FY26 (Jan-Mar26) showed the trough passing: recruitment billings +10% YoY to Rs 811cr, revenue +14% to Rs 581cr, Naukri B2C billings +33% YoY on pricing/AI-product monetisation, Naukri Gulf +9%; consolidated Q4 net profit Rs 565.7cr (+22% YoY) [DATA]. Q1 FY27 (Apr-Jun26) preliminary billings released ~8-Jul-26 (within this pass's news window): standalone billings Rs 737cr (+14.4% YoY), recruitment billings +17.5% YoY to Rs 552.7cr - the best recruitment print in several quarters, credited to improving senior/specialised-talent hiring and AI-tool ARPU gains even with IT-services hiring still soft [DATA]. Full Q1 FY27 board-approved P&L (PAT etc.) is NOT yet out as of this 21-Jul-26 cutoff - last year's Q1 FY26 board meeting/results landed 11-Aug-25, so a similar early/mid-August-26 date is the working expectation; exact date unconfirmed [INFERENCE]. ONE-OFF CHECK: consolidated PAT swung to Rs 14,498cr in FY26 from Rs 9,621cr in FY25 - almost entirely a function of the listed-investment book, not the recruitment/classifieds operating business (FY26 operating profit only Rs 1,138cr). The PB Fintech stake was reclassified after Info Edge's JV Makesense Technologies merged into PB Fintech, booking an unrealised mark-to-market gain of roughly Rs 52,001cr against a deferred-tax charge of roughly Rs 7,436cr - a one-off accounting-reclassification gain, non-cash, not repeatable [DATA]. The Eternal (Zomato) stake (12.43% holding) saw extreme fair-value swings through OCI across the year, netting to a full-year unrealised gain of only about Rs 3,296cr despite a single-quarter (Q4 FY26) valuation hit reported north of Rs 8,000cr [DATA]. Reported consolidated PAT/EPS is therefore not a clean read on earnings power; the core business's real economics are the Rs 1,138cr FY26 operating profit (37% margin, debt-free, asset-light), and reported ROE/ROCE look mechanically depressed because the OCI-inflated equity base (carrying the stakes at market value) swamps the standalone operating return. SOTP/reverse-DCF: brokerages split on weighting the two pieces. JM Financial (SOTP, 25x recruitment-segment multiple) was 'Reduce' at Rs 1,050 TP in Apr-26 citing the correction in Eternal/PB Fintech prices, then upgraded to 'Buy' at Rs 1,350 TP in Jul-26 after raising recruitment-billings estimates 5-12% for FY27-29 off the Q1 print [DATA]. ICICI Direct (SOTP, conviction Buy) carries a Rs 1,270 TP [DATA]. Goldman Sachs models FY27 revenue +13%, operating profit +30%, alongside AI spend stepping up to roughly Rs 150cr FY27E from roughly Rs 70cr FY26 [DATA].
+
+## Sources
+
+- no quant row yet (full_300_scored.csv carries a legacy Reduce/Reduce quant-like row for NAUKRI from an older/different scoring run - not this V1 Nifty-250 pass's authoritative feed; flagged for data-officer reconciliation, not used here)
+- Info Edge India jumps 6% after strong Q4 earnings, margin expansion - Business Standard https://www.business-standard.com/markets/news/info-edge-india-jumps-6-after-strong-q4-earnings-margin-expansion-126052200796_1.html
+- Info Edge Q4 FY26: Naukri, 99acres parent firm's ad expenses surge - Storyboard18 https://www.storyboard18.com/amp/brand-marketing/info-edge-q4-profit-rises-on-naukri-and-99acres-growth-ws-l-98935.htm
+- Info Edge (India) Ltd Q4 2026 Earnings Call Highlights - Yahoo Finance https://finance.yahoo.com/markets/stocks/articles/edge-india-ltd-bom-532777-190030499.html
+- Info Edge Q3 FY26: Recruitment Business Powers Strong Quarter Despite Valuation Concerns - Marketsmojo https://www.marketsmojo.com/news/result-analysis/info-edge-q3-fy26-recruitment-business-powers-strong-quarter-despite-valuation-concerns-3838640
+- Info Edge Faces IT Hiring Slump, Q3 Billings Below Par - Whalesbook https://www.whalesbook.com/news/English/tech/Info-Edge-Faces-IT-Hiring-Slump-Q3-Billings-Below-Par/697771de657adf9c86c44a5b
+- Info Edge's investments power profit surge as core recruitment business holds firm - YourStory https://yourstory.com/2026/05/info-edges-investment-bets-power-profit-surge-core-recruitment-business-holds-firm
+- Info Edge reports over Rs 8,000 Cr Q4 valuation hit on Eternal, PB Fintech holdings - Entrackr https://entrackr.com/news/info-edge-reports-over-rs-8000-cr-q4-valuation-hit-on-eternal-pb-fintech-holdings-11863234
+- Info Edge shares fall 4%; JM Financial retains 'Reduce', trims target - Business Standard https://www.business-standard.com/markets/news/info-edge-shares-fall-4-jm-financial-retains-reduce-trims-target-by-over-4-126040900329_1.html
+- Naukri Q1 strength fuels Info Edge rally, but sustaining momentum is key - Business Standard https://www.business-standard.com/markets/news/naukri-q1-strength-fuels-info-edge-rally-but-sustaining-momentum-is-key-126070801258_1.html
+- Info Edge posts Rs 737 Q1 FY27 billings; Naukri contributes 75% - Entrackr https://entrackr.com/fintrackr/info-edge-posts-rs-737-q1-fy27-billings-naukri-contributes-75-12141672
+- Info Edge India - Conviction Idea - ICICI Direct https://www.icicidirect.com/mailcontent/idirect_infoedge_convictionidea_oct25.pdf
+
+---
+*Generated from `results/pf_qual_NAUKRI.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

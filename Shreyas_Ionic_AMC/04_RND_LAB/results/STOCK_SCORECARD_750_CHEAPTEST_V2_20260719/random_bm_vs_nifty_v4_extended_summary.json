@@ -1,0 +1,40 @@
+{
+  "window": [
+    "2021-07-31",
+    "2026-06-30"
+  ],
+  "n_months": 59,
+  "price_data_floor_note": "567/752 price files start EXACTLY 2021-07-16 (bulk-scrape floor, not listing dates); this is the true limit, not 2022 -- 2022 in the earlier chart was inherited from the fundamentals-PIT test's own constraint, which doesn't apply to this price-only diagnostic.",
+  "universe": "REAL historical Nifty-500 constituent snapshots (NIFTY500_TICKER_2005_2025_Final.xlsx, semi-annual Mar/Sep, 2005-2025), as-of each rebalance date -- not current membership projected backward.",
+  "eligible_pool_per_month": {
+    "min": 376,
+    "max": 402,
+    "mean": 393
+  },
+  "residual_bias_note": "cap-weighting + the priced-throughout filter still require a CURRENT market cap and full price row from today's 751-stock scored set -- a historical member since delisted/merged/dropped from coverage still can't be drawn at ANY date here. Smaller, data-coverage-driven bias, not eliminated.",
+  "avg_monthly_turnover_pct": 75.1,
+  "mcap_weight_100_mean": {
+    "total_return_pct": 117.1,
+    "cagr_pct": 17.1,
+    "ann_vol_pct": 15.7,
+    "max_drawdown_pct": -19.3
+  },
+  "mcap_weight_100_p05": {
+    "total_return_pct": 86.6,
+    "cagr_pct": 13.5,
+    "ann_vol_pct": 15.7,
+    "max_drawdown_pct": -20.6
+  },
+  "mcap_weight_100_p95": {
+    "total_return_pct": 145.9,
+    "cagr_pct": 20.1,
+    "ann_vol_pct": 16.1,
+    "max_drawdown_pct": -20.1
+  },
+  "nifty50_buy_hold": {
+    "total_return_pct": 51.1,
+    "cagr_pct": 8.8,
+    "ann_vol_pct": 13.5,
+    "max_drawdown_pct": -14.8
+  }
+}

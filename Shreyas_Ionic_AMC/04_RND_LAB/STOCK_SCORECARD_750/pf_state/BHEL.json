@@ -11,10 +11,11 @@
   "quant_rec": "Hold"
  },
  "analyst": {
-  "rec": "Sell",
+  "rec": "Hold",
   "growth_pct": 20,
   "override_applied": false,
-  "summary": "BHEL's order book (Rs 2.4-2.6 lakh crore, +27% YoY) is a legitimate, well-documented beneficiary of India's 80 GW+ coal-capacity revival and a genuinely diversifying (nuclear/rail/transmission/defence, ~40% of book) franchise, with tangible evidence of improved bidding economics on newer contracts. But profitability, while genuinely inflecting (FY26 net profit tripled to Rs 1,600 cr, ROE to 6%/ROCE to 9%, both five-year highs), remains thin and volatile -- Q1 FY27's EBITDA margin fell straight back to ~7% from Q4 FY26's 14.2%, management guides to merely hold ~10.7% margin through FY28, and the quality-score percentile of 3.1 reflects a still-structural pattern of poor capital efficiency that two good quarters have not overturned. The quant snapshot's 94.7x PE/0.2% ROE is meaningfully stale (a trailing window still carrying Q1 FY26's loss); corrected current figures are ~60.4x trailing PE and 5.6-5.8x book against screener.in -- still extreme for a 6% ROE business. The stock has already re-rated +105% off its August-2025 low to an all-time high, and sell-side is genuinely split (Macquarie/CLSA targets 30%+ below CMP vs ICICI Sec/IIFL/360 ONE 15-20% above). Net call: Sell -- take the re-rating gain rather than underwrite further multiple expansion on a fragile, not-yet-proven margin recovery, while flagging this as a real judgment call given the underlying order-flow thesis is genuinely intact."
+  "summary": "BHEL's order book (Rs 2.4-2.6 lakh crore, +27% YoY) is a legitimate, well-documented beneficiary of India's 80 GW+ coal-capacity revival and a genuinely diversifying (nuclear/rail/transmission/defence, ~40% of book) franchise, with tangible evidence of improved bidding economics on newer contracts. But profitability, while genuinely inflecting (FY26 net profit tripled to Rs 1,600 cr, ROE to 6%/ROCE to 9%, both five-year highs), remains thin and volatile -- Q1 FY27's EBITDA margin fell straight back to ~7% from Q4 FY26's 14.2%, management guides to merely hold ~10.7% margin through FY28, and the quality-score percentile of 3.1 reflects a still-structural pattern of poor capital efficiency that two good quarters have not overturned. The quant snapshot's 94.7x PE/0.2% ROE is meaningfully stale (a trailing window still carrying Q1 FY26's loss); corrected current figures are ~60.4x trailing PE and 5.6-5.8x book against screener.in -- still extreme for a 6% ROE business. The stock has already re-rated +105% off its August-2025 low to an all-time high, and sell-side is genuinely split (Macquarie/CLSA targets 30%+ below CMP vs ICICI Sec/IIFL/360 ONE 15-20% above). Net call: Sell -- take the re-rating gain rather than underwrite further multiple expansion on a fragile, not-yet-proven margin recovery, while flagging this as a real judgment call given the underlying order-flow thesis is genuinely intact.",
+  "v1_reverted_from_sell": true
  },
  "fm": {
   "action": "Sell",
@@ -23,6 +24,13 @@
  "escalation": true,
  "next_earnings_date": null,
  "last_checked_date": "2026-07-20",
- "delta_log": [],
+ "delta_log": [
+  {
+   "date": "2026-07-20",
+   "mode": "V1_RECONCILE",
+   "note": "V0 analyst Sell on a quant-Hold reverted to Hold per V1 asymmetric rule; escalated for Principal ruling.",
+   "changed": true
+  }
+ ],
  "pf_qual_ref": "pf_qual_BHEL.json"
 }

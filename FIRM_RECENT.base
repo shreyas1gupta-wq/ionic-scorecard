@@ -1,0 +1,14 @@
+filters:
+  and:
+    - file.ext == "md"
+    - file.inFolder("Shreyas_Ionic_AMC")
+views:
+  - type: table
+    name: Recently touched firm files
+    order:
+      - file.name
+      - file.mtime
+    sort:
+      - property: file.mtime
+        direction: DESC
+    limit: 15

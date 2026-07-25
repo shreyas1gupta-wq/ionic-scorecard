@@ -1,0 +1,61 @@
+---
+symbol: "PRESTIGE"
+company: "PRESTIGE"
+sector: "Realty"
+universe: "universe750"
+rec: "Hold"
+quant_rec: "Hold"
+growth_3y_pct: 16
+escalation: true
+holding_value_inr: null
+updated: 2026-07-21
+tags:
+  - stock-note
+---
+# PRESTIGE
+
+> [!summary]
+> Prestige Estates delivered a record FY26 (revenue +71%, profit +113%), but the jump was driven by several large projects reaching completion in the same year -- not a sustainable new growth rate -- and the first quarter of FY27 already shows new bookings down nearly 46% year-on-year off that high base. The company still guides mid-teens-to-20% growth in new sales for FY27, supported by a very large pipeline of already-sold-but-not-yet-recognized revenue (roughly five times last year's revenue), but at about 59x trailing earnings against a modest 13% return on equity and real (though manageable) balance-sheet leverage, the stock's valuation already prices in more growth than management itself is guiding to. We rate it Hold, in line with the quantitative score, while flagging that the reported 1-year growth spike overstates the underlying run-rate.
+
+## Recommendation — Hold
+
+Quant composite is Hold on both windows (3y: 40.9/Hold; 1y: 58.0/Hold; recommendation_overall: Hold), already discounting a rich value_score (34.3, i.e. expensive) against a decent quality_score (82.4) and a 1y growth score inflated by completion-timing. Under the V1 asymmetric-override rule I cannot convert a quant Hold to a Sell. My own read leans closer to a bear tilt than the quant Hold -- rich 59x multiple on a 13.4% ROE, decelerating Q1 bookings, thin 2.33x interest coverage, AMBER balance-sheet flag -- so I am flagging for escalation rather than forcing the call.
+
+## Bull case
+
+The biggest embedded revenue backlog in the listed developer space (unbilled revenue of roughly 5x FY26 revenue, already pre-sold) gives multi-year revenue visibility regardless of near-term booking softness. Genuine pan-India diversification -- Hyderabad is now the single largest market, with Bengaluru, Mumbai and NCR filling out the rest -- reduces the single-city concentration risk that hurt the stock historically. The annuity book (office + retail rentals) is scaling: exit rentals guided from ~Rs.828.6 cr (office) + ~Rs.275.4 cr (retail) in FY26 toward ~Rs.4,000 cr + ~Rs.1,092 cr by FY30, which would structurally re-rate the stock toward an NAV/REIT-like multiple if delivered on schedule. Management is still guiding double-digit (15-20%) bookings growth for FY27 despite the high base, and a 69-project / 98 mn sq ft pipeline (planned FY27 launches with GDV of ~Rs.58,000 cr) underpins that guidance.
+
+## Bear case
+
+The FY26 growth print (revenue +70.6%, PAT +112.8%) is largely a completion-timing artifact -- Q4 alone contributed revenue +160.7% YoY and PAT +596% YoY -- not a repeatable run-rate, and the quant model's own growth_divergence_flag confirms the 1y score is a spike versus the 3y trend (96.6 vs 58.0). Q1 FY27 already shows the reversion: pre-sales down 45.7% YoY, volumes down 36.8% YoY. At ~59x trailing (~38x FY27 consensus) against a 13.4% ROE and 11.5% ROCE, the multiple is pricing growth the company's own guidance (15-20% bookings growth) does not deliver at that rate for long. Interest coverage of 2.33x and an AMBER balance-sheet flag reflect real leverage in a business funding land and construction ahead of cash collection, and Q3 FY26 standalone PAT swung -65% YoY purely on a prior-year one-off -- a name where every quarter needs one-off adjustment before the headline can be trusted.
+
+## Valuation (reverse-DCF judgment)
+
+At ~59x trailing PE (~38x on FY27 consensus EPS) against ROE 13.4% / ROCE 11.5%, the multiple is pricing sustained 20%+ compounding for several years. Management's own FY27 bookings guidance (15-20%) and consensus FY27 profit growth (53.3%, itself a normalization off a lumpy FY26 base) suggest the business can clear the near-term bar but not comfortably at a structurally higher rate for 3-5 years without margin expansion or a step-change in the still-small annuity book. Judgment: RICH -- priced for more than the guided trajectory. The ~5x-revenue unbilled backlog supports the durability of the growth story but does not, by itself, justify the current multiple at today's ROE. (Growth estimate below 25%, so the ROE/dilution qualifier does not apply.)
+
+## Escalation
+
+> [!warning] Escalated for Principal review
+> Quant composite is Hold (3y 40.9 / 1y 58.0), but growth_divergence_flag=True is real and likely sector-relevant: the 1y growth score (96.6) is inflated by Ind AS 115 completion-timing (Q4 FY26 alone: revenue +160.7%, PAT +596% YoY) rather than a durable trend-shift versus the 3y score (58.0), and Q1 FY27 has already reverted (pre-sales -45.7% YoY). At 59x trailing PE against 13.4% ROE, a thin 2.33x interest coverage and an AMBER balance-sheet flag, my own read leans closer to Sell than the quant Hold on valuation/quality grounds. Flagging for PM judgment on both the stock-specific call and whether the growth-divergence mechanism (completion-linked revenue recognition inflating 1y growth scores) needs a sector-wide adjustment for real-estate developers generally, not just Prestige.
+
+## Detailed rationale
+
+Prestige Estates Projects is one of India's largest diversified developers, historically Bangalore-anchored and now pan-India (Hyderabad, Mumbai, NCR, Chennai, Kochi), with residential as the core revenue driver alongside a growing office/retail annuity book and a hospitality arm. [DATA] FY26 (year ended Mar-2026) was a record year: consolidated revenue Rs.13,196 cr (+70.6% YoY), EBITDA Rs.4,219 cr (+43.3% YoY), PAT Rs.1,312 cr (+112.8% YoY), on record annual sales bookings of Rs.30,024 cr (+76% YoY) and collections of Rs.18,515 cr (+53% YoY). But the print is heavily back-ended and lumpy: Q4 FY26 alone delivered revenue +160.7% YoY and PAT +596% YoY, consistent with real-estate's completion-linked revenue recognition (Ind AS 115) rather than a step-change in the underlying run-rate -- several large projects crossed the possession/OC threshold in the same quarter. [INFERENCE] The quant model's own growth_divergence_flag (True) captures exactly this: the 1y growth score (96.6) is far above the 3y score (58.0) -- a spike, not a trend.
+
+[DATA] Q1 FY27 (Jun-2026) confirms the normalization: pre-sales fell 45.7% YoY to Rs.6,579 cr (against an unusually strong Q1 FY26 base of Rs.12,126 cr), volume down 36.8% YoY (6.04 mn sq ft) and units sold down 29.3% YoY (3,337 units), though collections held up reasonably at Rs.4,802 cr. Hyderabad (49%), Bengaluru (27%) and Mumbai (12%) drove the quarter. Management guides FY27 sales bookings of Rs.35,000-36,000 cr (+16-20% YoY off the FY26 base) -- a sharp deceleration from FY26's 76% growth -- and sell-side consensus (Trendlyne, 22 analysts) pencils in FY27 revenue growth of 22.9% and profit growth of 53.3%, itself still elevated versus a normalized run-rate as backlog converts. [INFERENCE] The one genuine structural support is the unrecognized (unbilled) revenue of roughly Rs.65,935 cr on the books versus FY26 revenue of Rs.13,196 cr -- about 5x annual revenue already pre-sold and awaiting completion-linked recognition -- which gives real multi-year revenue visibility even as the current-year growth rate cools.
+
+[DATA] Balance sheet: net debt Rs.10,908 cr as of Mar-2026 at 9.33% average cost of debt; company-reported net-debt-basis D/E of 0.65 versus Ionic's quant-model D/E of 1.09 (likely a gross-debt/different-denominator measure -- both consistent with a leveraged, land-and-construction-funded developer). [DATA] Interest coverage of 2.33x (quant) is on the thin side for the sector, consistent with the AMBER balance-sheet flag. ROE 13.4% / ROCE 11.5% are middling for a business trading at ~59x trailing PE (~38x on FY27 consensus EPS) -- a multiple pricing continued hypergrowth that the company's own guidance does not support. [DATA] Stock returns have been flat-to-negative over 12m (-3.0%) and 24m (-7.5%) despite the record FY26 print. [DATA] Q3 FY26 standalone PAT also fell 65% YoY purely on a prior-year exceptional item (~Rs.110.4 cr) -- a reminder that quarter-to-quarter PAT here needs one-off adjustment before trusting the headline.
+
+## Sources
+
+- quant row: Shreyas_Ionic_AMC/04_RND_LAB/STOCK_SCORECARD_750/results/full750_scored.csv (PRESTIGE) -- final_score_3y 40.93/Hold, final_score_1y 57.96/Hold, recommendation_overall Hold
+- Prestige Estates Posts Record Revenue And Profit In FY26 - https://www.constructionworld.in/policy-updates-and-economic-news/prestige-estates-posts-record-revenue-and-profit-in-fy26/92160
+- Prestige Estates Projects Q4 FY26 Net Profit Jumps 579% YoY - https://tradebrains.in/prestige-estates-projects-q4-fy26-net-profit-jumps-579-yoy-company-announces-20-final-dividend/
+- Prestige Estates Projects announces robust Q1 FY27 operational performance - https://businessupturn.com/business/prestige-estates-projects-announces-robust-q1-fy27-operational-performance/
+- Prestige Estates edges lower after pre-sales decline by nearly 46% in Q1 FY27 - https://www.business-standard.com/amp/markets/capital-market-news/prestige-estates-edges-lower-after-pre-sales-decline-by-nearly-46-in-q1-fy27-126071600704_1.html
+- Trendlyne consensus estimates (22 analysts) - https://trendlyne.com/equity/consensus-estimates/1071/PRESTIGE/prestige-estates-projects-ltd/
+- Prestige Estates Q3 FY26: Strong Revenue Surge Masks Margin Compression Concerns - https://www.marketsmojo.com/news/result-analysis/prestige-estates-q3-fy26-strong-revenue-surge-masks-margin-compression-concerns-3810957
+- Prestige Group Launches 3 Housing Projects in Q1 With Rs.12,000-Cr Revenue Potential - https://www.outlookbusiness.com/corporate/prestige-group-launches-3-housing-projects-in-q1-with-12000-cr-revenue-potential
+
+---
+*Generated from `results/pf_qual_PRESTIGE.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

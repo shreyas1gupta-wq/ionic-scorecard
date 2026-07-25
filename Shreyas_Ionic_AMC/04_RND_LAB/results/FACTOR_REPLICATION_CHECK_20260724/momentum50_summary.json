@@ -1,0 +1,184 @@
+{
+  "series": "NIFTY 500 Momentum 50",
+  "generated": "2026-07-24",
+  "owner": "Arjun Rao",
+  "panel_cap": "2026-01-22",
+  "official_range": [
+    "2005-04-01",
+    "2026-01-05"
+  ],
+  "methodology": "approx: mean(z(r6/vol6),z(r12/vol12)); top50; w~norm_mom*backproj_mcap cap5%; semiannual Jun/Dec",
+  "metrics": {
+    "full_1x": {
+      "label": "full_1x",
+      "start": "2005-06-30",
+      "end": "2026-01-05",
+      "n_months": 247,
+      "monthly_corr": 0.9277,
+      "ann_tracking_error": 0.0941,
+      "cagr_rep": 0.1815,
+      "cagr_off": 0.2103,
+      "cagr_delta": -0.0288,
+      "total_ret_rep": 29.6051,
+      "total_ret_off": 49.1965,
+      "total_ret_delta": -19.5914
+    },
+    "full_2x": {
+      "label": "full_2x",
+      "start": "2005-06-30",
+      "end": "2026-01-05",
+      "n_months": 247,
+      "monthly_corr": 0.9274,
+      "ann_tracking_error": 0.0943,
+      "cagr_rep": 0.1737,
+      "cagr_off": 0.2103,
+      "cagr_delta": -0.0366,
+      "total_ret_rep": 25.7342,
+      "total_ret_off": 49.1965,
+      "total_ret_delta": -23.4623
+    },
+    "recent_2015_1x": {
+      "label": "recent_2015_1x",
+      "start": "2015-01-01",
+      "end": "2026-01-05",
+      "n_months": 132,
+      "monthly_corr": 0.9074,
+      "ann_tracking_error": 0.0852,
+      "cagr_rep": 0.1744,
+      "cagr_off": 0.1733,
+      "cagr_delta": 0.0011,
+      "total_ret_rep": 4.8729,
+      "total_ret_off": 4.8123,
+      "total_ret_delta": 0.0605
+    }
+  },
+  "exclusion_by_year": [
+    {
+      "year": 2005,
+      "n_members": 501.0,
+      "n_eligible": 180.5,
+      "excl_rate": 0.64
+    },
+    {
+      "year": 2006,
+      "n_members": 501.0,
+      "n_eligible": 196.0,
+      "excl_rate": 0.609
+    },
+    {
+      "year": 2007,
+      "n_members": 501.0,
+      "n_eligible": 206.5,
+      "excl_rate": 0.588
+    },
+    {
+      "year": 2008,
+      "n_members": 501.0,
+      "n_eligible": 226.0,
+      "excl_rate": 0.549
+    },
+    {
+      "year": 2009,
+      "n_members": 501.0,
+      "n_eligible": 239.5,
+      "excl_rate": 0.522
+    },
+    {
+      "year": 2010,
+      "n_members": 501.0,
+      "n_eligible": 243.5,
+      "excl_rate": 0.514
+    },
+    {
+      "year": 2011,
+      "n_members": 501.0,
+      "n_eligible": 255.5,
+      "excl_rate": 0.49
+    },
+    {
+      "year": 2012,
+      "n_members": 501.0,
+      "n_eligible": 262.0,
+      "excl_rate": 0.477
+    },
+    {
+      "year": 2013,
+      "n_members": 501.0,
+      "n_eligible": 264.0,
+      "excl_rate": 0.473
+    },
+    {
+      "year": 2014,
+      "n_members": 501.0,
+      "n_eligible": 265.0,
+      "excl_rate": 0.471
+    },
+    {
+      "year": 2015,
+      "n_members": 500.0,
+      "n_eligible": 266.5,
+      "excl_rate": 0.467
+    },
+    {
+      "year": 2016,
+      "n_members": 500.5,
+      "n_eligible": 278.0,
+      "excl_rate": 0.445
+    },
+    {
+      "year": 2017,
+      "n_members": 501.0,
+      "n_eligible": 297.0,
+      "excl_rate": 0.407
+    },
+    {
+      "year": 2018,
+      "n_members": 501.0,
+      "n_eligible": 312.0,
+      "excl_rate": 0.377
+    },
+    {
+      "year": 2019,
+      "n_members": 501.0,
+      "n_eligible": 340.0,
+      "excl_rate": 0.321
+    },
+    {
+      "year": 2020,
+      "n_members": 502.0,
+      "n_eligible": 356.5,
+      "excl_rate": 0.29
+    },
+    {
+      "year": 2021,
+      "n_members": 504.0,
+      "n_eligible": 376.0,
+      "excl_rate": 0.254
+    },
+    {
+      "year": 2022,
+      "n_members": 504.5,
+      "n_eligible": 394.5,
+      "excl_rate": 0.218
+    },
+    {
+      "year": 2023,
+      "n_members": 497.5,
+      "n_eligible": 416.0,
+      "excl_rate": 0.164
+    },
+    {
+      "year": 2024,
+      "n_members": 496.5,
+      "n_eligible": 437.5,
+      "excl_rate": 0.119
+    },
+    {
+      "year": 2025,
+      "n_members": 502.0,
+      "n_eligible": 457.5,
+      "excl_rate": 0.089
+    }
+  ],
+  "n_rebalances": 42
+}

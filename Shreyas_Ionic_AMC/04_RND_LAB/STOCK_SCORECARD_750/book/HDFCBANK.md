@@ -1,0 +1,77 @@
+---
+symbol: "HDFCBANK"
+company: "HDFC Bank Ltd."
+sector: "Financial Services"
+universe: "holdings"
+rec: "Hold"
+quant_rec: "Hold"
+growth_3y_pct: 13
+escalation: true
+holding_value_inr: 902889
+updated: 2026-07-18
+tags:
+  - stock-note
+---
+# HDFCBANK — HDFC Bank Ltd.
+
+> [!summary]
+> HDFC Bank's post-merger repair is real but slower than originally targeted: deposits (+14.4% YoY) are now outgrowing loans (+12% YoY), pushing CASA to 34.8%, yet the loan-deposit ratio is still ~95% versus an 85-90% pre-merger goal that consensus now sees only reaching ~91-93% by FY28. NIM (3.38% in Q4 FY26, guided to 3.47% by FY28) and ROE (13.5% trailing, consensus 14-16% by FY27-28) are recovering gradually, not snapping back to the 17-18% pre-merger ROE. Asset quality is genuinely clean and improving (GNPA 1.15%, NNPA 0.38%, both down sequentially) and capital is a non-issue (CAR 19.7%, CET1 17.3%). FY26's profit growth was flattered by a one-off ~Rs 9,373 crore HDB Financial IPO stake-sale gain booked in Q2 FY26, plus an outsized trading/MTM gain the same quarter -- both non-recurring. Layered on top: today (18 July 2026) is the exact convergence date of the Q1 FY27 results, the board's expected CEO-reappointment recommendation for Sashidhar Jagdishan, and the tail end of a governance probe that two law firms have now cleared, following RBI's approval of new chairman Rajiv Kumar on 15 July. The fundamentals argue no credit problem exists; the valuation (2.2x book, 16.4x earnings) argues the market is already paying up somewhat ahead of the ROE-recovery timeline. Hold the existing position.
+
+## Recommendation — Hold
+
+Nothing here is a credit-quality or solvency problem -- GNPA/NNPA are at improving multi-year-low levels, capital adequacy is nearly double the regulatory floor, and I found no restructured-book, SMA, or AT1 stress signal in the current disclosures. The bear case is entirely a valuation-pace and governance-timing argument, not a fundamental-impairment argument: the stock at 2.2x book / 16.4x earnings is pricing a smoother, faster ROE recovery than even the bullish sell-side consensus (14-16% ROE by FY27-28) currently underwrites, and there is a live but largely-de-risked governance/regulatory event converging on today's date. For an existing holding, that combination argues for staying invested through a name whose engine (deposits, asset quality, capital) is sound, while being honest that the multiple leaves less margin of safety than the quant screen's PE/PB alone would suggest. Hold.
+
+## Bull case
+
+Asset quality is unambiguously improving, not just stable -- GNPA down to 1.15% (0.91% ex-agri) and NNPA to 0.38%, both better sequentially quarter-on-quarter -- with no restructured-book or SMA stress visible in the disclosures reviewed. Capital adequacy (CAR 19.7%, CET1 17.3%, nearly double the 11.9% regulatory floor) removes any dilution or capital-raise risk entirely. The core post-merger repair is on track directionally: deposits (+14.4% YoY) are outgrowing advances (+12% YoY) for the first time in a while, CASA is rebuilding (34.8%, +10.3% QoQ), and NIM/ROE both have credible, guided recovery paths (NIM to 3.47%, ROE to 14-16% by FY27-28) rather than an open-ended deterioration. The governance overhang, while not fully closed, has moved decisively toward resolution: independent legal review cleared the CEO of the ex-chairman's allegations, and the RBI has already approved the new part-time chairman -- the explicit precondition it had set before considering CEO reappointment.
+
+## Bear case
+
+The loan-deposit ratio, at ~95%, remains well above the bank's own 85-90% pre-merger target, and consensus now expects only a partial normalization (to ~91-93%) by FY28 -- slower deleveraging of the funding mix than the original post-merger thesis assumed. NIM compression is still the core-earnings story underneath a headline profit beat: Q4 FY26 NII grew just 3.2% against 12% loan growth, with the 9% YoY profit growth driven by lower provisions rather than margin recovery. FY26's growth comparison is also inflated by non-recurring items -- an approximately Rs 9,373 crore one-off gain from the HDB Financial Services IPO stake sale plus an outsized trading/MTM gain, both booked in Q2 FY26 -- that FY27 will have to grow past without repeating. ROE at 13.5% remains well below the pre-merger 17-18% level, and even the bullish consensus path (14-16% by FY27-28) implies a multi-year grind, which sits uncomfortably next to a 2.2x book, 16.4x earnings multiple. And today's board meeting stacks three live event-risks on one date -- Q1 FY27 results, the CEO-reappointment recommendation, and the tail of a governance probe -- with the RBI's final sign-off on the CEO's own reappointment (as opposed to the chairman's, already granted) still outstanding.
+
+## Valuation (reverse-DCF judgment)
+
+[INFERENCE/OPINION] A cash-flow reverse-DCF doesn't fit a deposit-funded bank any better here than elsewhere -- the cleaner lens is the ROE-implied justified price-to-book. At 2.2x book against a 13.5% trailing standalone ROE, the simple (ROE - g)/(COE - g) framework only clears at 2.2x if either the cost of equity assumed is unusually low (below what a bank still working through a large post-merger integration should command) or the market is underwriting meaningful ROE recovery baked into the price today. Running the algebra with a defensible COE of ~12-13% for a franchise of this quality implies the current multiple is consistent with sustained forward ROE somewhere in the 16-17%+ zone -- above the 14-16% by FY27-28 that even the bullish sell-side consensus currently forecasts. That's not an absurd ask given HDFC Bank's long history of executing exactly this kind of margin/ROE recovery, and every operating lever (deposits outgrowing loans, NIM guided up, credit costs low and asset quality improving, zero capital constraint) points the right direction. But it does mean the stock is priced for a fairly smooth execution of that recovery, not for a discount to it -- there's limited margin of safety if the LDR/NIM normalization timeline slips further (as it already has once, from an 85-90% LDR target to a consensus ~91-93% by FY28) or if the FY26 one-off-inflated base makes FY27 comps look softer than the underlying business really is. Net: fairly-to-slightly-fully priced for a credible recovery story, not a bargain and not a credit-risk-discounted value trap.
+
+## Escalation
+
+> [!warning] Escalated for Principal review
+> Today (18 July 2026) is the exact convergence date our own Lessons Learned entry flagged for this name: the Q1 FY27 results board meeting coincides with the board's expected recommendation to reappoint CEO Sashidhar Jagdishan (current term ends October 2026), immediately following RBI's approval of new part-time chairman Rajiv Kumar (effective 15 July) and the conclusion of an external legal review into the ex-chairman's governance allegations. The legal and chairman-approval hurdles have cleared favorably, and the market currently expects a smooth CEO reappointment, but the RBI's own sign-off on the CEO term specifically is still outstanding as of today. This is a genuine, dated, single-name event-stack on an existing large holding (Rs 9.03 lakh position value) -- not a stale-data issue -- and the Principal/Trading Desk should be aware the next 24-72 hours carry real (if currently favorably-skewed) two-way headline risk independent of the underlying fundamentals discussed above.
+
+## Detailed rationale
+
+The post-merger integration story is progressing in the right direction but slower than the bank's own original ambition, and that gap matters for how much credit the current multiple deserves. Deposits grew 14.4% YoY / 8.6% QoQ to Rs 31.05 lakh crore in Q4 FY26 (CASA ratio 34.8%, CASA +10.3% QoQ), now outpacing gross advances growth of 12% YoY (Rs 29.6 lakh crore) -- exactly the sequencing needed to wean the merged book off costlier borrowings. But the loan-deposit ratio is still running near 95%, and management's own pre-merger target of 85-90% now looks like a FY28-or-later outcome: sell-side models (Axis Securities, Motilal Oswal) currently pencil the C/D ratio moderating only to ~91-93% by FY28, not back to the old normal. NIM was 3.38% in Q4 FY26 (guided toward 3.47% by FY28) -- a genuine but gradual recovery, not a snap-back, and it shows up starkly in the Q4 print: NII grew just 3.2% against 12% loan growth, meaning the reported 9% YoY profit growth to Rs 19,221 crore was a lower-provisions story, not a core-margin story. Asset quality, by contrast, is unambiguously clean and improving: GNPA at 1.15% (ex-agri 0.91%) and NNPA at 0.38%, both down sequentially from 1.24%/0.42% in Q3, with no restructured-book or SMA red flags surfacing in the results commentary I could find. Capital is a total non-issue -- CAR 19.7% (CET1 17.3%) against an 11.9% regulatory requirement -- so there is no dilution or capital-raise risk overhanging the stock. Standalone ROE of 13.5% (per our quant snapshot) sits well below the 17-18% HDFC Bank delivered pre-merger, and consensus only sees it grinding back to 14-16% by FY27-28 (RoA 1.8-1.9%) -- a multi-year normalization, not a quick fix, because the erstwhile HDFC Ltd back-book (lower-yield mortgages, wholesale-funded) is still being digested.
+
+Earnings quality needs an honest add-back before trusting the FY26 growth print. HDFC Bank's own June-2025 disclosure flagged an approximately Rs 9,373 crore gain (net of tax) from partially divesting its stake in HDB Financial Services via that subsidiary's IPO (offer-for-sale of ~13.5 crore shares); the listing completed 2 July 2025, so this one-off landed in the Q2 FY26 (Jul-Sep 2025) non-interest-income line -- the same quarter that also carried an unusually large trading/MTM gain (~Rs 2,390 crore vs Rs 290 crore a year earlier). Both are real cash gains, not accounting fictions, but neither recurs, and together they flatter FY26's YoY profit-growth comparison in a way FY27 will have to lap without help. Strip those out and the organic story for FY26 was: double-digit loan growth, NIM still compressing, and profit growth actually driven more by a falling credit-cost line (provisions) than by top-line momentum -- a lower-quality growth mix than the headline number suggests, though not a distress signal, since the provision relief tracks genuinely improving GNPA/NNPA rather than reserve-release games.
+
+Layered on top of the fundamentals is a live, dated governance event that the firm has already flagged once before for this exact name (Lessons Learned, Jul-2026: HDFCBANK carries simultaneous CEO-reappointment / RBI-approval / governance-probe / earnings binaries). Former chairman Atanu Chakraborty's abrupt March-2026 resignation (over an internal vigilance report alleging a Rs 45-crore MSRDC deposit arrangement disguised as marketing expense, naming CEO Sashidhar Jagdishan and other senior officials) wiped roughly 14% / $16 billion of market cap in the following weeks. Two external law firms (Wilson Sonsini, Wadia Ghandy) have since found no substance to the allegations, the RBI approved former finance secretary Rajiv Kumar as part-time chairman effective 15 July 2026 (a pre-condition the RBI itself had set), and the bank's board is expected to take up Jagdishan's reappointment (current term ends October 2026) at today's (18 July 2026) board meeting -- the same meeting approving Q1 FY27 results. The legal clearance and chairman approval materially de-risk this, and the market's own read (stock recovering, 'Strong Buy' consensus, price targets Rs 1,040-1,400) suggests a smooth outcome is expected -- but RBI sign-off on the CEO's own reappointment (distinct from the chairman approval already granted) is still outstanding as of today, so the binary isn't fully closed yet.
+
+## Sources
+
+- internal quant row: Shreyas_Ionic_AMC/04_RND_LAB/STOCK_SCORECARD_750 portfolio scorecard (HDFCBANK row, roe=13.5%, PE=16.4, PB=2.2, D/E=3.05, redflags=1, quant_rec_final=Hold)
+- internal PIT data: datasets/earnings_pit/unified_quarterly_pit.parquet (symbol=HDFCBANK, quarterly net_profit/eps trajectory FY24-FY26, available_date-gated)
+- https://www.business-standard.com/companies/quarterly-results/hdfc-bank-q4fy26-results-profit-up-9-pc-to-rs-19-221-cr-on-lower-provisions-126041800535_1.html
+- https://www.multibagg.ai/market-pulse/articles/hdfc-bank-q4-fy26-highlights-cmo554p7wblqaph0j7ic61eo8
+- https://journeytowardssaving.com/hdfc-bank-results-q4-fy26-key-highlights
+- https://www.business-standard.com/markets/news/hdfc-bank-q1-preview-pat-may-rise-9-on-strong-loan-growth-nims-seen-flat-126071600186_1.html
+- https://scanx.trade/stock-market-news/earnings/hdfc-bank-s-margin-recovery-depends-on-deposit-growth-pre-merger-ldr-levels-unlikely-says-axis-securities/30352165
+- https://www.ainvest.com/news/hdfc-bank-strategic-rebalancing-growth-resumption-fy-2026-deposit-led-recovery-sectoral-catalysts-2507/
+- https://univest.in/blogs/hdfc-bank-q1-results-fy27
+- https://investmentguruindia.com/newsdetail/buy-hdfc-bank-ltd-for-the-target-rs-1-100-by-motilal-oswal-financial-services-ltd848303
+- https://www.business-standard.com/markets/news/hdfc-bank-may-pocket-in-rs-9-373-cr-profit-from-hdb-financial-services-ipo-125062000535_1.html
+- https://www.business-standard.com/companies/quarterly-results/hdfc-bank-q2-fy26-results-net-profit-jumps-11-to-rs-18-641-crore-125101800786_1.html
+- https://pathfinderstraining.com/2025/10/20/hdfc-banks-q2-fy26-results-profit-beats-expectations-margins-under-pressure/
+- https://www.outlookbusiness.com/corporate/hdfc-bank-likely-to-reappoint-sashidhar-jagdishan-after-legal-review-clears-ex-chairmans-concerns
+- https://www.businesstoday.in/latest/corporate/story/hdfc-bank-board-may-now-focus-on-the-reappointment-of-sashidhar-jagdishan-as-md-and-ceo-539852-2026-06-29
+- https://thefederal.com/category/business/hdfc-bank-ceo-reappointment-internal-probe-rbi-248575
+- https://www.freepressjournal.in/amp/business/hdfc-bank-legal-review-finds-no-evidence-supporting-ex-chairmans-ethical-concerns
+- https://www.bloomberg.com/news/articles/2026-06-29/hdfc-bank-appoints-ex-bureaucrat-rajiv-kumar-as-part-time-chair
+- https://www.business-standard.com/industry/banking/rbi-approves-appointment-of-rajiv-kumar-as-part-time-chairman-of-hdfc-bank-126071501024_1.html
+- https://www.tipranks.com/news/company-announcements/hdfc-bank-sets-july-18-board-meeting-to-review-q1-fy27-results-imposes-trading-window-closure
+- https://www.stocktitan.net/sec-filings/HDB/6-k-hdfc-bank-ltd-current-report-foreign-issuer-ede53917d090.html (FY26 profit ~Rs 746.7bn)
+- https://www.sec.gov/Archives/edgar/data/0001144967/000119312526162748/d133399dex99.htm (Q4 FY26 6-K: CAR 19.7%, CET1 17.3%, Tier1 17.7%)
+- https://www.tipranks.com/stocks/in:hdfcbank/forecast
+- https://www.chartmill.com/stock/quote/HDB/analyst-ratings
+
+---
+*Generated from `results/pf_qual_HDFCBANK.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

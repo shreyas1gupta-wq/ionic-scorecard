@@ -15,3 +15,6 @@
 
 ## Index-close daily append (added 2026-07-04, D-M4 aftermath)
 Run `05_DATA_OFFICE/scripts/nse_indices_close_pull.py` after market close (resume-safe: pulls only missing dates, ~1 request/day steady-state). Keeps `datasets/index_daily/nse_official_all_indices.parquet` (174 NSE indices, official OHLC+PE/PB, verified 0.000% vs Principal's NAV file over 1,365 days) current. Scheduled task: ShreyasIonicAMC_IndexClose (daily 19:30).
+
+## Obsidian daily digest (added 2026-07-22)
+Run `05_DATA_OFFICE/scripts/obsidian_daily_digest.py` as the LAST step of every EOD (after journal/CURRENT_STATE updates so it captures them). Appends a timestamped digest (journal entries today, escalation-board column counts, CURRENT_STATE top sections, recently touched firm files) to the Obsidian daily note at `01_COMMAND_CENTER/daily/YYYY-MM-DD.md` — the Principal's flip-through calendar of firm history. Safe to run multiple times a day (appends a new section). Companion generators, rerun whenever their sources change: `build_obsidian_book.py` (after any pf_qual re-score → 04_RND_LAB/STOCK_SCORECARD_750/book/) and `build_decision_notes.py` (after any DECISIONS_LOG append → 01_COMMAND_CENTER/decisions/). All three are generated-artifact trees — never hand-edit.

@@ -1,0 +1,60 @@
+---
+symbol: "MARICO"
+company: "MARICO"
+sector: "Fast Moving Consumer Goods"
+universe: "universe750"
+rec: "Hold"
+quant_rec: "Hold"
+growth_3y_pct: 11
+escalation: false
+holding_value_inr: null
+updated: 2026-07-21
+tags:
+  - stock-note
+---
+# MARICO
+
+> [!summary]
+> Marico delivered strong-looking FY26 revenue growth (+25.7%) but most of that was price increases passed through to cover a spike in copra (coconut) costs, not extra volume sold -- profit grew only about 9% for the year as margins were squeezed. The June-2026 quarter showed a genuine improvement, with volumes hitting a multi-quarter high and copra costs starting to ease, though other input costs (vegetable oils) rose in the same period. The stock is a high-quality, financially strong business (very high returns on capital, almost no debt) but trades at a rich ~56-63x earnings multiple that already assumes the recovery goes smoothly. We rate it a Hold: good business, but not a bargain at this price, and the reported growth needs to be read carefully rather than taken at face value.
+
+## Recommendation — Hold
+
+Quant recommendation_overall is Hold (final_score_3y=56.11, final_score_1y=57.38) -- under the V1 asymmetric-override rule I can only rescue a Sell to Hold, not push a Hold to Sell. Independently, I agree with Hold on the merits: best-in-class FMCG quality metrics (ROE ~42-43%, ROCE ~47%, near-zero leverage) are real and durable, but the current ~56-63x trailing multiple is already rich for a business whose FY26 'growth' was mostly price-led (cost pass-through) rather than volume-led, and whose PAT grew only 9.35% against 25.7% revenue growth. Q1FY27's double-digit volume print and copra-cost relief are genuine positives that argue against a Sell, but they do not yet justify paying up further at this multiple. Hold, no override in either direction.
+
+## Bull case
+
+Marico owns durable, high-share brands (Parachute in coconut oil, Saffola in edible oil/oats, Livon/Set Wet in VAHO) with a genuinely high-ROE (~42-43%), high-ROCE (~47%) and near-debt-free balance sheet -- a structurally strong franchise. Q1FY27 showed the best volume print in several quarters (India double-digit underlying volume growth, Parachute's strongest quarter in a while) alongside mid-teens constant-currency international growth (Vietnam, MENA), and copra costs -- the single biggest FY26 margin drag -- are down ~45% from peak, supporting management's guidance of ~150bps EBITDA margin recovery in FY27. The digital-first brand portfolio (Beardo, Plix, Just Herbs) and premium personal care add a higher-growth kicker on top of the mature core categories, and the company is guiding to cross Rs 15,000 Cr consolidated revenue in FY27 on sustained double-digit growth.
+
+## Bear case
+
+The FY26 topline number is misleading if read at face value: +25.7% revenue growth was substantially a copra-cost pass-through in pricing, not organic volume -- underlying India volume growth was high single digit (9% in Q4), and full-year PAT grew only 9.35% (Rs 1,813 Cr vs Rs 1,658 Cr) versus the 25.7% revenue growth, with EBITDA margin compressing ~265bps to 17.1%. That is exactly the price-led-growth pattern that should discount, not inflate, a growth score. At ~56-63x trailing earnings, the stock is priced for a smooth, sustained double-digit-plus earnings recovery; but Q1FY27 commentary already flags a fresh input-cost headwind (crude-linked derivatives and vegetable oils rose sharply in the quarter) even as copra eases, meaning the margin-recovery story is not a clean one-way tailwind. Mature core categories (coconut oil, edible oil) have structurally low volume growth ceilings, so multi-year earnings growth well above low-teens would require the smaller digital-first/premium brands to scale much faster than their current base allows -- a real but not yet proven assumption embedded in the current multiple.
+
+## Valuation (reverse-DCF judgment)
+
+At a trailing consolidated P/E of ~56-63x (Tickertape ~55.8x as of 16-Jul-2026; Screener TTM ~62.8x) against FY26 PAT growth of just 9.35% and India volume growth of high single digits, the market is pricing Marico for a sustained mid-teens-or-better earnings CAGR for many years -- a level the mature core portfolio (Parachute, Saffola) has not organically delivered; FY26's 25.7% revenue growth was overwhelmingly a copra-cost pass-through, not volume. The multiple is being carried almost entirely by ROE/ROCE quality (~42-43% / ~47%, near-zero net debt) and brand-moat durability rather than by growth momentum. Verdict: RICH, not egregiously -- the balance-sheet and brand quality justify a premium to the FMCG pack -- but there is limited room for further multiple expansion, and a re-acceleration in commodity costs (copra or the crude-linked/vegetable-oil inputs already flagged as rising in Q1FY27) would compress margins and the multiple simultaneously. Growth estimate of 11% does not reach the 25%+ 'exceptional' tier, so no dilution/ROE qualifier is required.
+
+## Detailed rationale
+
+Marico's FY26 (ended Mar-2026) headline numbers look strong on the surface: consolidated revenue of Rs 13,611 Cr (+25.7% YoY from Rs 10,831 Cr) and Q4FY26 revenue of Rs 3,333 Cr (+22% YoY). But the composition matters more than the headline. India volume growth in Q4FY26 was +9% (a multi-year high per management commentary) and the full-year underlying volume growth was materially lower than the 25.7% value growth -- the gap is copra-price-led pass-through pricing in Parachute (core coconut-oil franchise) and vegetable-oil-linked pricing in Saffola, not incremental volume. This is the classic price-led-growth pattern that should be discounted, not celebrated: FY26 EBITDA margin compressed ~265bps to 17.1% from 19.7% as cost of materials consumed jumped to Rs 6,197 Cr from Rs 4,572 Cr on copra inflation, and full-year PAT grew only 9.35% (Rs 1,813 Cr vs Rs 1,658 Cr) -- a fraction of the 25.7% revenue growth. Q4FY26 PAT was up 18.3% YoY to Rs 408 Cr, helped by a sequential margin recovery as copra costs started easing late in the year.
+
+Q1FY27 (Jun-2026, reported) is more constructive on the volume side: India business delivered double-digit underlying volume growth, a multi-quarter high, and consolidated revenue is guided to grow in the 'early twenties' percent range, with Parachute posting its strongest volume quarter in several quarters and international business up mid-teens constant currency (Vietnam, MENA leading). Management flags copra prices down ~45% from peak (still above historical average) and guides to ~150bps of EBITDA margin recovery in FY27, targeting consolidated revenue to cross Rs 15,000 Cr. The offsetting risk flagged by the company itself: prices of crude-linked derivatives and vegetable oils rose sharply during Q1FY27, a new input-cost headwind on the Saffola/edible-oil side even as copra eases -- so the margin-recovery story is not yet a clean, one-way tailwind.
+
+Valuation is rich by any conventional lens: current price ~Rs 839 (17-Jul-2026), trailing consolidated P/E of ~56-63x (Tickertape ~55.8x, Screener TTM ~62.8x) against ROE of ~42-43% and ROCE of ~47%, near-zero net debt. The quant scorecard has final_score_3y=56.1 and final_score_1y=57.4 (recommendation_overall=Hold), with a high growth_1y_score (80.2) driven mechanically off the 25.7% headline revenue growth number -- a number this analyst reads as substantially price/cost-pass-through rather than organic volume, and a number the bottom line (9.35% PAT growth) did not confirm. Value_score is low (30.5), correctly flagging the rich multiple. I read the balance of evidence as: excellent business quality (brand moats in coconut oil/hair oil, high-ROE low-capital-intensity model, digital-first brands -- Beardo/Plix/Just Herbs -- scaling as a secondary growth engine) but a valuation that already prices in several years of flawless execution, leaving thin margin of safety if commodity costs re-inflate or margin recovery disappoints.
+
+## Sources
+
+- Quant row: STOCK_SCORECARD_750/results/full750_scored.csv - MARICO (final_score_3y=56.11, final_score_1y=57.38, recommendation_overall=Hold, pe_current=61.8, value_score=30.5)
+- Business Standard - Marico Q4FY26 result: Net profit rises 18% to Rs 408 crore - https://www.business-standard.com/companies/quarterly-results/marico-q4fy26-result-profit-rises-14-to-391-crore-on-strong-growth-126050500702_1.html
+- BusinessWorld - Marico Q4 Profit Rises 18% To Rs 408 Crore On 9% India Volume Growth; FY26 Revenue Up 25% - https://www.businessworld.in/article/marico-q4-profit-rises-18-to-rs-408-crore-on-9-india-volume-growth-fy26-revenue-up-25-605516
+- Storyboard18 - Marico raises ASP spend...sees revenue growth in early 20s in Q1 FY27 - https://www.storyboard18.com/amp/brand-marketing/marico-q1-fy27-revenue-up-strong-volume-growth-ws-l-103007.htm
+- Adgully - Marico Q1 FY27: Brand spend boosts volume growth and digital revenue - https://www.adgully.com/post/17708/marico-q1-fy27-brand-spend-boosts-volume-growth-and-digital-revenue
+- Univest - Marico Share Price: Q1 Volume Growth, Copra Prices Ease - https://univest.in/blogs/marico-share-price-q1-volume-growth-copra-prices
+- Business Standard - Marico wins Street backing despite copra-led margin squeeze in Q2FY26 - https://www.business-standard.com/markets/news/marico-wins-street-backing-despite-copra-led-margin-squeeze-in-q2fy26-bse-sensex-copra-price-fmcg-stock-sensex-today-125111700075_1.html
+- Whalesbook - Marico's Volume Soars 8% to 7-Year High, But Margin Squeeze Hits Profit - https://www.whalesbook.com/news/English/consumer-products/Maricos-Volume-Soars-8percent-to-7-Year-High-But-Margin-Squeeze-Hits-Profit/69fa0dbbd87e3288beab40fe
+- Ainvest - Marico's Path to Rs 200 Billion: Riding Cost Tailwinds and Premium Growth - https://www.ainvest.com/news/marico-path-200-billion-riding-cost-tailwinds-premium-growth-2507/
+- D2C Insider Pulse - Marico Reports Strong FY26 Growth as Profit Crosses Rs 1,800 Cr - https://pulse.d2cinsider.com/marico-reports-strong-fy26-growth-as-profit-crosses-%E2%82%B91800-cr-amid-expanding-fmcg-and-d2c-momentum/
+- Tickertape - MARICO Share Price Live (price ~Rs 839, PE ~55.8x, 16-17 Jul 2026) - https://www.tickertape.in/stocks/marico-MRCO
+- Screener.in - Marico Ltd consolidated (quarterly results, TTM PE 62.8, ROE 42.8%, ROCE 47.0%) - https://www.screener.in/company/MARICO/consolidated/
+
+---
+*Generated from `results/pf_qual_MARICO.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

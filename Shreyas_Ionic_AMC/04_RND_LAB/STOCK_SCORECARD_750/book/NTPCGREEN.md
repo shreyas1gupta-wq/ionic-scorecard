@@ -1,0 +1,55 @@
+---
+symbol: "NTPCGREEN"
+company: "NTPCGREEN"
+sector: "Power"
+universe: "universe750"
+rec: "Sell"
+quant_rec: "Sell"
+growth_3y_pct: 15
+escalation: false
+holding_value_inr: null
+updated: 2026-07-21
+tags:
+  - stock-note
+---
+# NTPCGREEN
+
+> [!summary]
+> NTPC Green Energy is executing a large, credible renewable-capacity buildout (10GW+ installed, targeting 60GW by 2032) backed by parent NTPC, but the stock trades at roughly 150x trailing earnings against an ROE of under 4%, and FY26's profit growth (+9.9%) badly lagged its revenue growth (+29.4%) because rising interest costs on debt-funded expansion ate into margins -- Q4 FY26 profit actually fell 15% year-on-year even as revenue jumped 47%. Until earnings growth catches up with the capacity growth story, this is a Sell/avoid at current levels, not a name to add to on the growth narrative alone.
+
+## Recommendation — Sell
+
+The quant Sell is corroborated, not contradicted, by the fundamentals: revenue_cagr_3y of 156% in the quant row is a base-effect artifact of a company two years off its 2024 IPO with a tiny starting revenue base, not a repeatable growth rate -- crediting it would be exactly the failure mode the analyst skill warns against. Strip that out and the real story is a richly-valued (150x+ PE), highly levered (D/E >3x consolidated, interest coverage ~2.8x), low-ROE (~4%) capital-intensive buildout whose PAT growth (9.9% FY26) is lagging revenue growth (29.4%) because rising finance costs are outrunning EBITDA growth -- visible directly in the Q4 FY26 print (revenue +46.7% YoY, PAT -15.4% YoY). That is a genuine balance-sheet-quality concern (matching the model's own AMBER flag), not a rescue-worthy case. There is a real bull case (locked-in long-term PPA offtake via SECI/NTPC-group aggregation, reasonable 78-day receivables, sovereign-linked execution capability, visible multi-year capacity pipeline) but it does not clear the bar of overturning a quant Sell on a stock this expensive with earnings quality actively deteriorating in the most recent quarter.
+
+## Bull case
+
+NGEL has a rare combination of parent-backed execution capability (NTPC's land bank, grid access, and balance sheet), a large and credible multi-year capacity pipeline (~11.8GW under construction, 8GW/year targeted through FY29, 60GW by 2032), and offtake concentrated in long-term PPAs via SECI/NTPC-group aggregation rather than direct exposure to the weakest state discoms -- receivable days of 78 are reasonable for the sector. Capacity additions in FY26 (4.2-4.7GW) beat the company's own prior-year run-rate, and the stock's 12-month return of roughly -17% has already erased a meaningful chunk of the post-listing valuation froth.
+
+## Bear case
+
+The valuation (~150x trailing PE) prices in years of flawless execution and margin inflection that the numbers are not yet delivering: FY26 PAT growth of 9.9% ran well behind 29.4% revenue growth, finance costs rose faster than EBITDA, and Q4 FY26 PAT fell 15.4% YoY despite a 46.7% revenue jump -- exactly the pattern of a debt-funded buildout where leverage is currently a drag, not a lever. Consolidated D/E above 3x (Screener) and interest coverage of just ~2.8x leave thin room for a rate shock or execution slip, ROE/ROCE sit near 4-5%, there is no dividend, and 89% promoter holding leaves a thin, illiquid free float prone to sharp swings on any capex or tariff-cycle disappointment.
+
+## Valuation (reverse-DCF judgment)
+
+At ~150-152x trailing consolidated EPS and ROE of ~3.6-4%, the market is pricing NGEL for a multi-year run in which capacity roughly 5-6x's from ~10GW to the 2032 60GW target while margins expand and leverage normalizes. The FY26 print runs the other way: PAT growth (9.9%) trailed revenue growth (29.4%) and Q4 PAT fell YoY as finance costs outpaced EBITDA growth -- there is no visible margin inflection yet to underwrite the multiple. This is RICH: the price requires flawless multi-year execution plus a de-leveraging/margin turn that hasn't shown up in the last four quarters. [INFERENCE]
+
+## Detailed rationale
+
+NTPC Green Energy Ltd (NGEL) is the renewables IPP arm of NTPC Ltd (89.01% promoter holding), building solar and wind capacity across India. Installed capacity crossed 10,076 MW as of Mar-2026 (from ~5.3GW a year earlier, +4,175-4,738 MW added in FY26 depending on source), with ~11,771 MW under construction and a stated target of adding ~8GW/year through FY27-FY29 en route to 60GW renewable capacity by 2032 as part of NTPC group's 149GW plan. This is a genuine, policy-backed growth runway with parent-company access to land, transmission tie-ups, and financing that a standalone IPP would not have. [DATA/INFERENCE]
+
+But the FY26 print shows the growth is not yet translating into earnings quality. Consolidated FY26 revenue was up 29.4% YoY to Rs 2,858cr, and consolidated PAT grew only 9.9% YoY to Rs 521cr (standalone PAT Rs 406cr) -- a wide and widening revenue-to-profit gap driven by finance costs (FY26 ~Rs 887cr, still climbing) tied to debt-funded capacity buildout. Quarterly PAT within FY26 was highly volatile: Q1 Rs220cr, Q2 Rs86cr, Q3 Rs17cr, Q4 Rs197cr (down 15.4% YoY despite Q4 revenue +46.7% YoY, as finance costs jumped to Rs257cr from Rs177cr). A near-zero Q3 PAT and a YoY profit decline in the strongest revenue quarter of the year is an earnings-quality flag, not noise -- it shows operating leverage cutting the wrong way for now. Balance sheet: total consolidated debt ~Rs31,716cr vs equity ~Rs8,426cr (D/E ~3.76x per Screener; the quant dataset shows debt_equity=1.67x on a different consolidation basis -- both point the same direction, and the quant model's own bs_flag=AMBER agrees). Interest coverage is thin at ~2.79x. ROE ~3.6-4%, ROCE ~4-5%. [DATA]
+
+Q1 FY27 (Jun-2026) results are NOT yet reported as of this review (2026-07-21) -- NGEL's board meeting to approve Q1 FY27 results is scheduled 2026-07-22, one day after this review. Sell-side estimates ahead of the print pencil in ~15-20% YoY revenue growth and PAT of Rs230-260cr, but that is a forecast, not a result, and is excluded from the score basis here. [DATA/labeled estimate]. At 152.5x trailing P/E (quant row) against a sub-4% ROE and a recent history of finance-cost-driven earnings volatility, the stock is priced for a decade of flawless capacity execution plus margin inflection that has not shown up in the numbers yet. The quant model's Sell call (final_score_3y=35.6, final_score_1y=19.4, bs_flag=AMBER) is well-supported by this evidence and I am not overriding it.
+
+## Sources
+
+- STOCK_SCORECARD_750 full750_scored.csv row: NTPCGREEN, final_score_3y=35.59, final_score_1y=19.43, recommendation_overall=Sell, bs_flag=AMBER, pe_current=152.5, roe_pct=9.5(model)/roe=3.58%(raw), debt_equity=1.67, interest_coverage=2.79, revenue_cagr_3y=156.2%(base-effect), revenue_growth_1y=29.4%
+- Screener.in - NTPC Green Energy Ltd consolidated financials - https://www.screener.in/company/NTPCGREEN/consolidated/
+- Business Standard - NTPC Green Energy Q4 PAT slides 15% YoY to Rs 197 cr - https://www.business-standard.com/amp/markets/capital-market-news/ntpc-green-energy-q4-pat-slides-15-yoy-to-rs-197-cr-126052300698_1.html
+- Saurenergy - NTPC Green Energy FY26 Profit Rises 10%, Q4 Numbers Raise Questions About Growth - https://www.saurenergy.com/solar-energy-news/ntpc-green-energy-fy26-profit-rises-10-q4-numbers-raise-questions-about-growth-11870774
+- MarketsMojo - NTPC Green Energy Q4 FY26: Stellar Quarter Masks Valuation Concerns - https://www.marketsmojo.com/news/result-analysis/ntpc-green-energy-q4-fy26-stellar-quarter-masks-valuation-concerns-4008516
+- PSUConnect - NTPC Green Energy Trading Window Closes July 1: Q1 FY27 Results Loading - https://www.psuconnect.in/financial/ntpc-green-energy-trading-window-closes-july-1-q1-fy27-results-loading
+- Renewable Watch / SolarQuarter - NTPC Green Energy Limited surpasses 10 GW installed capacity - https://renewablewatch.in/2026/04/01/ntpc-green-energy-limited-surpasses-10-gw-installed-capacity/
+
+---
+*Generated from `results/pf_qual_NTPCGREEN.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

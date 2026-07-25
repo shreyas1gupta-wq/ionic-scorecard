@@ -1,0 +1,56 @@
+---
+symbol: "MAHABANK"
+company: "MAHABANK"
+sector: "Financial Services"
+universe: "universe750"
+rec: "Hold"
+quant_rec: "Hold"
+growth_3y_pct: 13
+escalation: false
+holding_value_inr: null
+updated: 2026-07-21
+tags:
+  - stock-note
+---
+# MAHABANK
+
+> [!summary]
+> [DATA] Bank of Maharashtra Q1 FY27 (Jun-2026 quarter, reported 10-Jul-2026): PAT Rs2,020cr (+26.8% YoY), GNPA/NNPA 1.45%/0.13% (flat qoq, best-in-PSU-class), PCR 98.55%, CRAR 18.64%. [INFERENCE] Headline growth is partly inflated by a cyclical credit-cost trough (0.99%), a 37% YoY jump in written-off-account recoveries, and one-off treasury/investment gains (management flagged a one-time special-resolution item); NIM is compressing (3.95%->3.85%, guided 3.75%) and CASA slipped to 49% as advances (+26.9%) race ahead of deposits (+12.9%), pushing the credit-deposit ratio to 88.82% from 79.04% YoY. [DATA] Government stake fell to 73.60% (MPS-compliant) via a Dec-2025 OFS; a fresh Rs7,500cr equity-capital-raise mandate (AGM 30-Jun-2026) is the live dilution overhang. At P/B ~2.0x (price ~Rs84), reverse-DCF implies the market is already pricing durable high-teens ROE - full valuation, not a bargain - but the quant score is Hold and asset quality is genuinely clean, so Hold stands.
+
+## Recommendation — Hold
+
+[DATA] STOCK_SCORECARD_750 quant engine already carries a MAHABANK row (reference_300_full.csv, n100_union343_freshgate/full_engine_output.csv) with final verdict Hold - not Sell. Per the V1 asymmetric-override rule, a qualitative Sell cannot be manufactured on top of a quant Hold. [INFERENCE] Fundamentally the asset-quality print is genuinely the strongest in the PSU pack (GNPA/NNPA best-in-class, PCR near-saturated), but profit growth is partly recovery-write-back/treasury-inflated rather than a clean beat-and-raise, NIM/CASA are drifting the wrong way, and a real ~20-24% dilution overhang (Rs7,500cr raise) sits ahead. None of these rise to an acute near-term threat. Net: Hold.
+
+## Bull case
+
+[DATA] Best-in-class PSU asset quality: GNPA 1.45%, NNPA 0.13%, PCR ~98.6%, stable-to-improving across the last four reported quarters with negligible unprovided legacy stress. Comfortable pre-raise capital cushion (CRAR 18.64%, CET1 15.56%). The government's Dec-2025 OFS resolved the SEBI minimum-public-float overhang outright (stake now 73.60%, below the 75% trigger) rather than leaving it hanging. Advances growing 26.9% YoY show genuine franchise momentum, and cost-to-income at 36.51% is efficient for a PSU bank.
+
+## Bear case
+
+[INFERENCE] Profit growth (27-35% YoY across recent quarters) is meaningfully flattered by a cyclical credit-cost trough (0.99%, already against a near-saturated ~98.6% PCR ceiling, so little further write-back room remains), a 37% YoY jump in recoveries from written-off accounts (a shrinking, non-repeatable pool), and one-off treasury/investment gains (+38-66%, including a management-flagged one-time special-resolution contribution in Q1FY27) - none of which are clean recurring-earnings drivers. [DATA] NIM is compressing (3.95%->3.85%, guided to 3.75%) and CASA has slipped to 49% even as the credit-deposit ratio jumped to 88.82% from 79.04% YoY, an aggressive balance-sheet gearing-up that raises ALM/liquidity risk if deposit growth (12.9%) keeps lagging advance growth (26.9%). The AGM-approved Rs7,500cr equity-capital raise is a live ~20-24% dilution overhang on BVPS/EPS if executed via QIP/FPO, on top of any further government OFS tranches.
+
+## Valuation (reverse-DCF judgment)
+
+[INFERENCE] Gordon-growth/excess-return P/B check: P/B=(ROE-g)/(Ke-g). At P/B~2.0x (price ~Rs84 vs book value ~Rs42/share implied), Ke~13.5% (PSU-bank risk premium over ~7.2% risk-free), and a normalised ROE of ~17% (down from the trailing Q1FY27 print of 24.65%, since credit-cost/recovery/treasury tailwinds fade and the pending ~20-24% equity dilution lands), implied terminal growth is ~9-10% - i.e. the market is already pricing durable high-teens ROE, not a continuation of the current cycle-high ~25% print. That is a full valuation with limited margin for a harder-than-guided NIM/credit-cost normalisation or dilutive capital-raise pricing, but not an outright bubble - consistent with Hold rather than a valuation-driven Sell.
+
+## Detailed rationale
+
+[DATA] Bank of Maharashtra prints the best headline asset quality in the PSU pack: GNPA 1.45% / NNPA 0.13% in Q1 FY27 (Jun-2026, reported 10-Jul-2026), flat sequentially vs Q4 FY26 (Mar-2026: GNPA 1.45%, NNPA 0.13%) and down from 1.74%/0.18% a year ago; PCR is 98.55-98.59%, among the highest coverage in the sector, leaving negligible unprovided legacy stress. [INFERENCE] But the >25% YoY profit prints of the last several quarters (Q4FY26 PAT +34.9% YoY to Rs2,014cr; FY26 full-year Rs7,019cr +27%; Q1FY27 Rs2,020cr +26.8%) are meaningfully flattered by items unlikely to repeat at the same cadence: credit cost fell to a cyclical trough of 0.99% (from 1.19% YoY) even as PCR is already near-saturated near 98.6%, so future provisioning has far more room to normalize UP than write back further; recovery in written-off accounts rose 37% YoY (a shrinking, non-repeatable pool); and profit-on-investments/treasury jumped 38-66%, including what management flagged on the Q1FY27 call as a one-time special-resolution contribution. [DATA] NIM is compressing (3.95% Q4FY26 -> 3.85% Q1FY27, management guiding 3.75%) and CASA slipped from a Q4FY26 high of 52.51% to 49% in Q1FY27 as the bank leans on wholesale/term funding to support 26.9% YoY advance growth against only 12.9% deposit growth - the credit-deposit ratio has jumped to 88.82% from 79.04% a year ago, an aggressive balance-sheet gearing-up that raises ALM/liquidity risk if deposit mobilisation keeps lagging. [DATA] Capital is comfortable pre-raise: CRAR 18.64%, Tier-1 16.35%, CET1 15.56%. The 30-Jun-2026 AGM approved a fresh equity-capital-raise mandate of up to Rs7,500cr (QIP/FPO/preferential-to-GOI/rights/ESPS/AT1-Tier2 mix) explicitly to fund 20%+ credit growth guidance for FY27-28; against a current book value of roughly Rs30,700cr (P/B ~2.0x on a ~Rs61,409cr market cap at ~Rs84/share, mid-Jul-2026), an all-equity execution would dilute BVPS/EPS by an estimated 20-24% - a real per-share drag even if aggregate PAT keeps compounding. [DATA] On promoter status: government stake fell from 79.60% (Sep-2025) to 73.60% (Mar-2026) via a Dec-2025 OFS (up to 6%, ~Rs2,600cr) - this RESOLVED the SEBI 25%-minimum-public-float overhang rather than creating one; the live overhang now is the pending Rs7,500cr capital-raise execution (route/timeline not yet finalised) plus the possibility of further government OFS tranches given the broader PSU-divestment posture. MD&CEO Nidhu Saxena's 3-year term (from 27-Mar-2024) runs to approximately 27-Mar-2027 - a reappointment/DFS-RBI-approval event to flag for next year's coverage cycle, not an immediate-quarter risk. [INFERENCE] Reverse-DCF via a Gordon-growth/excess-return P/B framework (P/B=(ROE-g)/(Ke-g)): at P/B~2.0x, Ke~13.5% (PSU-bank risk premium), and a NORMALISED (not trailing-cycle-high) ROE of ~17% (down from the trailing Q1FY27 print of 24.65% once credit-cost/recovery/treasury tailwinds fade and ~20% dilution lands), the market is implicitly pricing terminal growth near 9-10% - i.e. current valuation already assumes durable high-teens ROE and leaves little room for a harder-than-expected NIM/credit-cost normalisation or a value-destructive capital-raise pricing. That reads as full-but-not-extreme, consistent with a Hold rather than an actionable overvaluation call.
+
+## Sources
+
+- quant score row found: STOCK_SCORECARD_750/results/reference_300_full.csv and n100_union343_freshgate_engine_output.csv / n100_union343_full_engine_output.csv - MAHABANK final verdict Hold
+- Bank of Maharashtra FY26 Results: Net Profit Jumps 27% to Rs7,019 Crore, GNPA Improves to 1.45% - https://www.angelone.in/news/stocks/bank-of-maharashtra-fy26-results-net-profit-jumps-27-percent-to-rs-7019-crore-gnpa-improves
+- Bank of Maharashtra Q4 FY26: NIM 3.95%, GNPA 1.45%, Business Rs6 Lakh Cr - https://scanx.trade/stock-market-news/companies/bank-of-maharashtra-reports-34-jump-in-q4-standalone-net-profit-to-20-billion/38223652
+- Bank of Maharashtra Q4 FY26: Stellar Profit Growth Masks Asset Quality Concerns - https://www.marketsmojo.com/news/result-analysis/bank-of-maharashtra-q4-fy26-stellar-profit-growth-masks-asset-quality-concerns-3956215
+- Bank of Maharashtra Q1 FY27 slides: 27% profit surge, NPA at 1.45% - https://www.investing.com/news/company-news/bank-of-maharashtra-q1-fy27-slides-27-profit-surge-npa-at-145-93CH-4786162
+- Bank of Maharashtra Net Profit Jumps 34.5% to Rs2,023 Crore in Q1 FY27 - EquityBulls - https://www.equitybulls.com/category.php?id=372802
+- Bank of Maharashtra promoter holds 73.60% stake, no encumbrance in FY26 - https://scanx.trade/stock-market-news/companies/bank-of-maharashtra-promoter-holds-73-60-stake-no-encumbrance-in-fy26/40873558
+- Bank Of Maharashtra Stake Sale Begins Via 6% OFS - Samco - https://www.samco.in/knowledge-center/articles/bank-of-maharashtra-ofs-government-begins-stake-sale-as-share-price-holds-steady/
+- Bank of Maharashtra sets June 30, 2026 AGM to clear FY26 accounts, dividend and Rs7,500 crore capital plan - TipRanks - https://www.tipranks.com/news/company-announcements/bank-of-maharashtra-sets-june-30-2026-agm-to-clear-fy26-accounts-dividend-and-rs-7500-crore-capital-plan
+- Bank of Maharashtra AGM to consider Rs7,500 crore fund raise - ScanX - https://scanx.trade/stock-market-news/companies/bank-of-maharashtra-to-consider-raising-7-500-crore-equity-at-agm/42302317
+- Bank of Maharashtra share price/market cap/PB - 5paisa/screener aggregated search, ~Rs84/share, mkt cap ~Rs61,409cr, PB ~2.0x as of mid-Jul-2026
+- Nidhu Saxena Named MD & CEO of Bank of Maharashtra (3-yr term from 27-Mar-2024) - Business Standard - https://www.business-standard.com/markets/capital-market-news/bank-of-maharashtra-climbs-on-appointing-nidhu-saxena-as-md-ceo-124032800573_1.html
+
+---
+*Generated from `results/pf_qual_MAHABANK.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

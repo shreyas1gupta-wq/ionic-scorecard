@@ -1,0 +1,63 @@
+---
+symbol: "TATACAP"
+company: "Tata Capital Ltd."
+sector: "Financial Services"
+universe: "nifty100"
+rec: "Hold"
+quant_rec: "Hold"
+growth_3y_pct: 18
+escalation: false
+holding_value_inr: null
+updated: 2026-07-20
+tags:
+  - stock-note
+---
+# TATACAP — Tata Capital Ltd.
+
+> [!summary]
+> Tata Capital is a fast-growing, Tata Sons-backed (78.8% holding) diversified lender that listed in October 2025, with FY26 loan-book growth of 20-28% (depending on how the recently merged Tata Motors Finance vehicle-financing book is counted) and a strong capital cushion. Its core lending business's asset quality is improving, but the vehicle-financing unit it absorbed from Tata Motors Finance in 2025 is still working through elevated bad loans and is holding back group profitability — return on equity of 12.9% in FY26, versus roughly 17-18% at established peers Bajaj Finance and Cholamandalam. The stock's current valuation already reflects a good deal of the company's own promise to close that profitability gap by FY28, which leaves limited cushion if the vehicle-financing turnaround takes longer than planned. We rate it Hold: a sound, well-capitalised franchise, but not a value opportunity at current levels.
+
+## Recommendation — Hold
+
+Hold, not Sell: the balance sheet is genuinely strong (CRAR ~19%, Tata Sons 78.8% backing, investment-grade international rating) and the core ex-Motor Finance book's asset quality is demonstrably improving quarter over quarter with real, broad-based AUM growth — none of that supports a Sell call. But it is also not a name where the current price offers a margin of safety: the modest P/B discount to Bajaj Finance/Cholamandalam does not compensate for a meaningfully lower current ROE (12.9% vs ~17-18% at peers), and the re-rating case rests entirely on a still-unproven Tata Motors Finance turnaround (Gross Stage-3 still 8.0%) landing exactly as guided. Risk/reward for adding at current levels is unattractive without being a fundamental balance-sheet concern — that combination is a textbook Hold.
+
+## Bull case
+
+Tata Sons owns 78.8% of the company and Tata Capital carries an S&P BBB/Stable/A-2 issuer rating, giving it genuine funding-cost access that smaller NBFCs lack — it raised a second $2bn international bond tranche on the back of it. The core, ex-Motor-Finance lending book is clean and getting cleaner: GNPA/NNPA of 1.5%/0.5% at Mar-26 versus 2.2%/1.0% three months earlier, with 65.1% provision coverage and a credit cost of just 0.8%. Capital adequacy is comfortable at ~19% CRAR with Tier-1 at 15.9%, leaving room to keep growing without an equity raise. AUM growth is real and broad-based (+27.9% YoY ex-Motor Finance, +7.6% QoQ), retail and SME together are 86% of the book, and cost-to-income has improved from 41.6% (FY25) to 36-38%. If management's FY28 guidance of 17-18% ROE and sub-1% credit cost is delivered, the current price will look reasonable in hindsight.
+
+## Bear case
+
+The strongest bear point is that the Tata Motors Finance merger is not a closed chapter — it is an active drag. That book's Gross Stage-3 is still 8.0% even after reaching operating breakeven, group provision coverage including it is a thinner 56.2% (vs 65.1% ex-Motor), and independent analysis around the merger documented ROE falling from a standalone 14.2% to a combined 12.6% with credit costs nearly doubling — a drag FY26's reported 12.9% consolidated ROE shows has not yet closed. Despite that ROE gap, Tata Capital trades at only a 15-27% P/B discount to Bajaj Finance (5.67x, ~17.9% ROE) and Cholamandalam (5.06x, ~17.2% ROE) — the market is charging close to peer multiples for materially below-peer current profitability, betting the FY28 turnaround lands on schedule. Retail unsecured exposure (10.3% of AUM) is a further watch item amid system-wide unsecured-credit stress themes in 2024-26. As a stock listed only since October 2025, it also carries limited through-cycle trading history and further IPO lock-in tranches are still due to unlock over 2026, a technical supply overhang on top of the fundamental one.
+
+## Valuation (reverse-DCF judgment)
+
+At P/B 4.46x against a trailing FY26 (two-point-average) ROE of 12.9%, the standard lender valuation identity (P/B ≈ (ROE − g)/(Ke − g)) is stretched: with a reasonable cost of equity for an Indian NBFC-UL of ~13-14%, an ROE of 12.9% alone would justify a P/B near or below 1x absent a strong growth premium. The actual 4.46x multiple is only justified if the market's full FY28 management guidance (ROE 17-18%, PAT CAGR >30%, AUM CAGR 23-25%) lands on schedule and proves durable — not a mechanical artifact of Tata Motors Finance moving off a loss/near-zero base (which inflates the guided PAT CAGR without reflecting steady-state earnings power). Bajaj Finance and Cholamandalam are already delivering ~17-18% ROE TODAY at P/B multiples only 15-27% higher than Tata Capital's — meaning Tata Capital is asking investors to pay a near-peer relative multiple for profitability it has not yet demonstrated. On a look-through basis this reads as a rich, not cheap, multiple; verdict: fair-to-rich, not cheap, contingent entirely on flawless execution of an unproven integration.
+
+## Detailed rationale
+
+Tata Capital Ltd is India's newest listed diversified NBFC-Upper Layer (RBI classification), listed on NSE/BSE on 13-Oct-2025 at a ₹326 IPO price, with Tata Sons holding 78.8% as of 31-Mar-2026. FY26 (year to Mar-26) consolidated net AUM including Motor Finance reached ₹2,77,275 crore (+20% YoY); excluding Motor Finance, net AUM was ₹2,51,885 crore (+27.9% YoY, +7.6% QoQ) — real, broad-based growth with retail+SME at ~86% of AUM, corporate at 14.3%, retail unsecured at 10.3%. FY26 consolidated PAT was ₹4,890.91 crore (+33.8% YoY) on total income above ₹31,582 crore. Capital position is genuinely strong: standalone CRAR 19.0-19.2% with Tier-1 at 15.9%, borrowings/equity leverage of 5.3x, and S&P Global affirmed a BBB/Stable/A-2 issuer rating (used to price a second $2bn international bond tranche) — the Tata-brand funding-cost advantage is real and shows up in cost-to-income improving to 36.1% ex-Motor Finance / 38.3% including it, down from 41.6% in FY25.
+
+The asset-quality forensic splits cleanly into two stories. The core (ex-Motor Finance) book is clean and improving: GNPA/NNPA of 1.5%/0.5% at Mar-26 (vs 2.2%/1.0% at Dec-25), provision coverage 65.1%, credit cost 0.8%. But the Tata Motors Finance (TMF) integration — legally merged into Tata Capital effective 8-May-2025 — is the unresolved swing factor. Combined GNPA/NNPA sits at 2.0%/0.9% with materially thinner provision coverage of 56.2%, and TMF's own Gross Stage-3 remains elevated at 8.0% even after the unit achieved operating breakeven in Q3 FY26 and posted a modest ₹43 crore PAT in Q4. Independent reporting (The Ken) quantified the drag around the time of the merger: standalone Tata Capital ROE of 14.2% fell to 12.6% once TMF was folded in, and group credit costs nearly doubled (~₹1,500cr to ~₹2,800cr) on TMF's captive, high-risk-borrower book. FY26's reported consolidated ROE of 12.9% (two-point average) is consistent with that drag persisting rather than closing. Management is visibly de-risking — TMF AUM was deliberately run down from ₹33,513cr (Mar-25) to ₹25,390cr (Mar-26) — but FY28 guidance (AUM CAGR 23-25%, ROA 2.5-2.7%, ROE 17-18%, PAT CAGR >30%, credit cost <1.0%) still leans on a full TMF turnaround landing on schedule, plus continued benign performance in the 10.3%-of-AUM retail unsecured book at a time when unsecured-retail stress has been a recurring system-wide 2024-26 theme.
+
+On valuation: at ~₹363.65/share (market cap ~₹1,53,340cr, late-Jun-2026 mark), Tata Capital trades at P/B 4.46x / P/E 31.64x. Bajaj Finance trades at P/B 5.67x on a TTM ROE of ~17.9%; Cholamandalam trades at P/B 5.06x on an ROE of ~17.2%. Tata Capital's P/B discount to these peers is only 15-27%, while its delivered ROE (12.9%) is roughly 25-30% below both peers' CURRENT ROE. On a rough quality-adjusted (P/B-to-ROE) basis, Tata Capital is not obviously cheaper — the market is already paying up for Tata-brand funding access and the FY28 re-rating story, not for today's profitability.
+
+## Sources
+
+- n100_ctx/TATACAP.json quant context — null (no quant row yet)
+- Tata Capital Q4 FY26 press release (audited results, 23-Apr-2026), summarized via multibagg.ai - https://www.multibagg.ai/market-pulse/articles/tata-capital-q4fy26-92993
+- Tata Capital FY26 full-year results (PAT +33.8% YoY, ROE 12.9%, CRAR 19.2%) - https://scanx.trade/stock-market-news/companies/tata-capital-fy26-net-profit-rises-32-to-512-million/44652792
+- Tata Capital FY26 Results (PAT ₹4,891cr) - https://www.sahi.com/blogs/tata-capital-fy26-results
+- Tata Capital Q4 FY26 audited standalone/consolidated results press release (PDF, official) - https://www.tatacapital.com/content/dam/tata-capital/pdf/investors-and-financial-reports/stock-exchange/Press-Release-Audited-Standalone-and-Consolidated-Financial-Results-March-31-2026.pdf
+- The Ken — 'It's official: Tata Motors Finance is a drag on Tata Capital' (TMF merger impact on ROE/credit cost/NPA) - https://the-ken.com/long_and_short/its-official-tata-motors-finance-is-a-drag-on-tata-capital/
+- Tata Capital IPO details (listing 13-Oct-2025, price band ₹310-326, NBFC-UL classification) - https://www.chittorgarh.com/ipo/tata-capital-ipo/2317/ and https://www.mstock.com/articles/tata-capital-ipo
+- Tata Capital valuation snapshot (P/B 4.46x, P/E 31.64x, mkt cap ~₹1,53,340cr) - https://www.tickertape.in/stocks/tata-capital-TATAC and https://trendlyne.com/equity/3279131/TATACAP/tata-capital-ltd/
+- Bajaj Finance valuation (P/B 5.67x, P/E 33.40x) - https://www.screener.in/company/BAJFINANCE/consolidated/
+- Cholamandalam Investment & Finance valuation (P/B 5.06x, P/E 29.51x) - https://www.screener.in/company/CHOLAFIN/consolidated/
+- Bajaj Finance / Cholamandalam ROE (TTM ~17.9% / ~17.2%) - https://www.smart-investing.in/financial-ratios.php?Company=BAJAJ+FINANCE+LTD&p=ROE and https://mlq.ai/stocks/BAJFINANCE.BO/return-on-equity/
+- Tata Capital promoter holding (Tata Sons 78.8% as of Mar-26) and lock-in tranche history - https://www.indiaipo.in/news/detail/from-tata-capital-to-lg-electronics-india-massive-ipo-lock-in-expiry-68-billion-value-unlock-what-investors-must-know
+- S&P BBB rating on $2bn note programme - https://www.whalesbook.com/corporate-news/English/bankingfinance/Tata-Capital-gets-BBB-rating-from-SandP-for-USdollar2-billion-notes-programme/6a577d4d0037f07172606c2d
+- Tata Capital MD & CEO Rajiv Sabharwal / board — no governance/approval overhang found - https://www.tatacapital.com/about-us/key-people/rajiv-sabharwal.html
+- Note: a Q1 FY27 board-meeting-related NSE filing dated 15-Jul-2026 exists but could not be opened (fetch timeout) — Q1 FY27 result date/status treated as PENDING/unconfirmed, not fabricated; 35th AGM confirmed for 19-Aug-2026.
+
+---
+*Generated from `results/pf_qual_TATACAP.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

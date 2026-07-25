@@ -231,11 +231,18 @@ class Deck:
                     t = _TELL_RE.sub("", t)
                     t = _TAG_RE.sub("", t)
                     # demo-name consistency + jargon softening + data-engine narration
-                    # never reaches a client slide (leak audit 2026-07-26)
+                    # never reaches a client slide (leak audit 2026-07-26; widened after the
+                    # CEO sweep caught snake_case fields + data-QA vocabulary in rationale text)
                     t = (t.replace("AZBY", "ABXY")
                           .replace("Forensic / governance flag", "Governance concern")
                           .replace("our own PIT data", "our data").replace("PIT data", "our data")
-                          .replace("the quant feed", "our data feed"))
+                          .replace("quant data cutoff", "close of our scoring window")
+                          .replace("quant data cut", "close of our scoring window")
+                          .replace("the quant feed", "our screening data")
+                          .replace("our data feed", "our screening data")
+                          .replace("quant snapshot", "screening snapshot")
+                          .replace("data snapshot", "screening snapshot")
+                          .replace("fcf_yield", "FCF yield"))
                     t = re.sub(r"\s*\(\d+\s*rows?\b[^)]{0,60}\)", "", t)
                     # glyphs Bahnschrift lacks (render as tofu in charts/PDF): never ship
                     t = (t.replace(" → ", " to ").replace("→", "to")

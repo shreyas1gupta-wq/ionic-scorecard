@@ -120,6 +120,15 @@ Claude Code caches your context automatically; cached tokens cost ~10%. Protect 
 - Having Claude echo whole files, logs, or datasets back into chat.
 - Letting a failing loop retry blindly — diagnose the root cause after the second failure.
 
+## 10. Shared code libraries — reuse, don't re-derive (and don't over-abstract)
+
+Re-deriving the same non-trivial function across scripts costs tokens twice — once to write it, again when a fix lands in one copy and not the others. **Real incident:** the STOCK_SCORECARD_750 build independently re-typed `winsorize`/percentile-rank/ratio-derivation 3+ times across scripts; a financial-sector D/E exemption fix landed in one copy and was missed in another until caught by chance. Consolidated afterward into `STOCK_SCORECARD_750/lib/scorecard_common.py` — that file is the reference pattern.
+
+- **Before writing a non-trivial function, grep the workstream's `lib/` folder first** — reuse beats a rewrite even if the rewrite feels faster.
+- **Promote to shared lib only when it's genuinely reused (2+ real call sites) or non-trivial** (a formula that's been wrong before, a sector/schema exemption, anything with a subtle invariant). A 2-3 line one-off calc used once stays inline — extracting it adds an import + a file to navigate for zero amortization. Match the firm's own no-premature-abstraction rule (root CLAUDE.md): three similar lines beat a helper nobody else calls.
+- **One import, not a re-type:** `from lib.scorecard_common import winsorize, percentile_rank, ...` — never copy-paste the body "just this once."
+- Applies across desks/workstreams, not just this project — if MSQ_BASE, Xorlog, or a new backtest needs the same kind of derivation, check whether an existing `lib/` already has it before writing a fresh version.
+
 ## Installing & sharing this skill
 
 Three ways, pick per team:

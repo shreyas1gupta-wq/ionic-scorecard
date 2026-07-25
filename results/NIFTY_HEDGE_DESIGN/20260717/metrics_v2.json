@@ -1,0 +1,51 @@
+{
+ "spec": "LONG 1-lot NIFTY + monthly ~30DTE overlay, DAILY MTM from bhavcopy; 2020-2026",
+ "window": "2020-01-27->2026-07-24",
+ "n_months": 91,
+ "results": {
+  "BuyHold_NIFTY": {
+   "CAGR": 10.9,
+   "vol": 18.0,
+   "Sharpe": 0.32,
+   "Sortino": 0.37,
+   "MaxDD": -37.6
+  },
+  "CoveredCall_3CE": {
+   "CAGR": 9.0,
+   "vol": 16.3,
+   "Sharpe": 0.22,
+   "Sortino": 0.23,
+   "MaxDD": -36.2
+  },
+  "Collar_5PE_5CE": {
+   "CAGR": 7.9,
+   "vol": 13.4,
+   "Sharpe": 0.16,
+   "Sortino": 0.2,
+   "MaxDD": -17.7
+  },
+  "ProtPut_5PE": {
+   "CAGR": 8.7,
+   "vol": 14.4,
+   "Sharpe": 0.21,
+   "Sortino": 0.3,
+   "MaxDD": -19.8
+  },
+  "TailPut_10PE": {
+   "CAGR": 10.6,
+   "vol": 14.8,
+   "Sharpe": 0.33,
+   "Sortino": 0.44,
+   "MaxDD": -21.9
+  },
+  "PutSpread_5_2_collar_8CE": {
+   "CAGR": 12.4,
+   "vol": 19.8,
+   "Sharpe": 0.37,
+   "Sortino": 0.42,
+   "MaxDD": -40.0
+  }
+ },
+ "BEST_SHARPE": "PutSpread_5_2_collar_8CE",
+ "LEAST_MDD": "Collar_5PE_5CE"
+}

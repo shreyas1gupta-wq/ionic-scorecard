@@ -62,8 +62,10 @@ def render(deck, ctx, tier):
     deck.kpi_strip(s, kpis, y=1.9)
 
     g, share, members = hits[0]
-    cols = [("Holding", 0.34, "l"), ("Wt % of book", 0.22, "r"), ("Ionic Score", 0.22, "l"), ("Call", 0.22, "c")]
-    rows = [[("b", e["name"]), f"{e['weight_pct']:.1f}", ("bar", e.get("ionic_score")),
+    # same basis as the headline KPI: % of the direct-equity sleeve (CEO sweep 2026-07-26:
+    # rows on total-AUM basis under a sleeve-basis headline read as a numbers error)
+    cols = [("Holding", 0.34, "l"), ("Wt % of equity sleeve", 0.22, "r"), ("Ionic Score", 0.22, "l"), ("Call", 0.22, "c")]
+    rows = [[("b", e["name"]), f"{100.0 * e['weight_pct'] / eq_total:.1f}", ("bar", e.get("ionic_score")),
              ("pill", e["rec"], e["rec"])] for e in members]
     ty = deck.table(s, ML, 3.05, 7.1, cols, rows, rowh=0.32, fs=9.5, hfs=8)
 

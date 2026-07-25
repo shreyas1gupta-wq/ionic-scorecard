@@ -1,0 +1,62 @@
+{
+ "spec": "10% bond + long 7.5%OTM 6M PUT (always) + short 10%OTM 6M CALL (filtered); net-short; hold-to-expiry",
+ "caveats": [
+  "n=11 semi-annual rolls (small sample)",
+  "6M 7.5%OTM puts THIN (~1 traded strike near target); 1-lot fill realism weak",
+  "10%/yr bond is Principal's assumption (real AAA/G-sec ~7-8%)",
+  "NIFTY lot=75 assumed (changed over time); points are unambiguous",
+  "hold-to-expiry ignores intra-period MTM/margin on the short call"
+ ],
+ "window": "2020-01-01 -> 2026-06-30",
+ "corpus_rs": 913688.0,
+ "n_rolls": 11,
+ "bond_only_CAGR_pct": 10.0,
+ "variants": {
+  "WITHOUT_always_sell": {
+   "total_ret_pct": 33.4,
+   "CAGR_pct": 5.4,
+   "MaxDD_pct": -14.8,
+   "end_rs": 1218930.0,
+   "calls_sold": 11,
+   "contrib_bond_rs": 499808.0,
+   "contrib_put_rs": -81592.0,
+   "contrib_call_rs": -112972.0
+  },
+  "SMA200_sell_if_below": {
+   "total_ret_pct": 27.3,
+   "CAGR_pct": 4.5,
+   "MaxDD_pct": -15.0,
+   "end_rs": 1162853.0,
+   "calls_sold": 3,
+   "contrib_bond_rs": 499808.0,
+   "contrib_put_rs": -81592.0,
+   "contrib_call_rs": -169050.0
+  },
+  "RSI_sell_if_gt70": {
+   "total_ret_pct": 44.0,
+   "CAGR_pct": 6.9,
+   "MaxDD_pct": -1.0,
+   "end_rs": 1315950.0,
+   "calls_sold": 3,
+   "contrib_bond_rs": 499808.0,
+   "contrib_put_rs": -81592.0,
+   "contrib_call_rs": -15952.0
+  },
+  "ATR_sell_if_hi": {
+   "total_ret_pct": 33.4,
+   "CAGR_pct": 5.4,
+   "MaxDD_pct": -15.0,
+   "end_rs": 1219185.0,
+   "calls_sold": 6,
+   "contrib_bond_rs": 499808.0,
+   "contrib_put_rs": -81592.0,
+   "contrib_call_rs": -112718.0
+  },
+  "NO_CALL_put_only": {
+   "total_ret_pct": 45.8,
+   "CAGR_pct": 0,
+   "MaxDD_pct": 0,
+   "end_rs": 1331903.0
+  }
+ }
+}

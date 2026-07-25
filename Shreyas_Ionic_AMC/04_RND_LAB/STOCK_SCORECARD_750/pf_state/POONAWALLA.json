@@ -11,10 +11,11 @@
   "quant_rec": "Hold"
  },
  "analyst": {
-  "rec": "Sell",
+  "rec": "Hold",
   "growth_pct": 30,
   "override_applied": false,
-  "summary": "Poonawalla Fincorp's turnaround under CEO Arvind Kapil (ex-HDFC Bank mortgages, in the seat since Jun-2024) is real, not promotional: the FY25 STPL-book blowup and Rs 471cr Q2FY25 loss look like a genuine one-time kitchen sink, and Q1FY27 shows AUM +62.5% YoY to Rs 67,054cr, ROA up to 1.98% from 0.68%, GNPA down 47bp YoY to 1.37%, and PAT up ~391% YoY to Rs 308cr, funded by a clean Rs 2,500cr institutional QIP with zero promoter pledge. The problem is valuation, not fundamentals: at ~3.7x book, the market is pricing a steady-state ROE of roughly 21-26% on a reverse residual-income back-solve -- well above the ~16-17% ROE that BOTH management's own official Jun-2028 target (3.5% ROA) and the most bullish outside brokerage (Jefferies, 16% ROE by FY29) are modeling as the realistic best case, and the business today still earns below its own cost of equity. Six new lending lines (gold loan, Prime PL, consumer durables, EDI, shopkeeper) are being scaled concurrently by a ~2-year-old management team, and management gave no specific timeline for credit-cost normalization on the Q1FY27 call. Net call: sell the existing position on valuation-discipline grounds -- a good, real business, priced for an outcome even its own management isn't officially promising."
+  "summary": "Poonawalla Fincorp's turnaround under CEO Arvind Kapil (ex-HDFC Bank mortgages, in the seat since Jun-2024) is real, not promotional: the FY25 STPL-book blowup and Rs 471cr Q2FY25 loss look like a genuine one-time kitchen sink, and Q1FY27 shows AUM +62.5% YoY to Rs 67,054cr, ROA up to 1.98% from 0.68%, GNPA down 47bp YoY to 1.37%, and PAT up ~391% YoY to Rs 308cr, funded by a clean Rs 2,500cr institutional QIP with zero promoter pledge. The problem is valuation, not fundamentals: at ~3.7x book, the market is pricing a steady-state ROE of roughly 21-26% on a reverse residual-income back-solve -- well above the ~16-17% ROE that BOTH management's own official Jun-2028 target (3.5% ROA) and the most bullish outside brokerage (Jefferies, 16% ROE by FY29) are modeling as the realistic best case, and the business today still earns below its own cost of equity. Six new lending lines (gold loan, Prime PL, consumer durables, EDI, shopkeeper) are being scaled concurrently by a ~2-year-old management team, and management gave no specific timeline for credit-cost normalization on the Q1FY27 call. Net call: sell the existing position on valuation-discipline grounds -- a good, real business, priced for an outcome even its own management isn't officially promising.",
+  "v1_reverted_from_sell": true
  },
  "fm": {
   "action": "Sell",
@@ -23,6 +24,13 @@
  "escalation": true,
  "next_earnings_date": null,
  "last_checked_date": "2026-07-20",
- "delta_log": [],
+ "delta_log": [
+  {
+   "date": "2026-07-20",
+   "mode": "V1_RECONCILE",
+   "note": "V0 analyst Sell on a quant-Hold reverted to Hold per V1 asymmetric rule; escalated for Principal ruling.",
+   "changed": true
+  }
+ ],
  "pf_qual_ref": "pf_qual_POONAWALLA.json"
 }

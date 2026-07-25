@@ -1,0 +1,54 @@
+---
+symbol: "ICICIGI"
+company: "ICICIGI"
+sector: "Financial Services"
+universe: "universe750"
+rec: "Hold"
+quant_rec: "Sell"
+growth_3y_pct: 12
+escalation: false
+holding_value_inr: null
+updated: 2026-07-21
+tags:
+  - stock-note
+---
+# ICICIGI
+
+> [!summary]
+> Market-leading, well-capitalised general insurer (10.5% motor share, health share rising 3.5%->4.5%) took a Q1 FY27 underwriting hit from Fire cat losses plus a Motor-TP Supreme Court reserving judgment (combined +3.8pt on combined ratio), pushing headline CoR to 107.2% and PAT down 46% YoY; adjusted CoR (103.4%) and solvency (2.71x, still rising) show the core franchise intact. Stock re-rated down 10-15% into the print; no quant score yet so default Hold.
+
+## Recommendation — Hold
+
+No quant score row exists yet for ICICIGI in STOCK_SCORECARD_750 (checked full_300_scored.csv, n100_quant_scored.csv, sample_25_scored*.csv, PORTFOLIO_QUAL_SUMMARY.csv, FINAL_25_merged.csv -- zero matches; only universe-planning JSONs reference the ticker as part of the coverage list). Per V1 asymmetric-override rules, absence of a quant Sell signal defaults to Hold. Nothing in the Q1 FY27 miss independently rises to a forensic Sell case: the drag is characterized (Fire cat loss + Motor-TP Supreme Court reserving judgment) rather than opaque, adjusted combined ratio held at 103.4%, solvency IMPROVED sequentially to 2.71x, and no promoter/regulatory-approval or governance overhang was found. Hold, no escalation.
+
+## Bull case
+
+[DATA] Adjusted combined ratio ex one-offs held at 103.4%, and solvency improved sequentially to 2.71x (Jun-2026) from 2.67x (Mar-2026), both far above the 1.5x regulatory floor -- this reads as a reserving/weather-driven miss, not a capital or franchise problem. [DATA] Health, the segment with the most runway, grew 24.9% YoY in Q1 FY27 (retail health +69.5% vs industry +31.6%), lifting market share to 4.5% from 3.5%; Motor retained #1 share at 10.5% with CV/2W GDPI growth of 34%/21.4%. [DATA/INFERENCE] Consensus stays constructively positioned (12 buy vs 4 sell, average target ~Rs 1,975, ~19-22% implied upside) even after the miss, consistent with the growth algorithm being viewed as intact rather than broken.
+
+## Bear case
+
+[DATA] Headline combined ratio deteriorated sharply to 107.2% (1/n basis) from 102.9% YoY and PAT fell 46% to Rs 403cr -- a large one-quarter miss that triggered a 10-15% stock drop and at least one rating cut (MOFSL to Neutral, TP Rs 1,960). [DATA/INFERENCE] The Motor-TP reserving impact stems from a Supreme Court judgment (Rs 165cr / 2.8pt CoR hit) -- a legal/regulatory precedent that is industry-wide for Motor TP books, not company-specific; if courts keep applying it, it stops being a genuine 'one-off' and becomes a recurring CoR drag. [DATA] Commercial-lines GDPI de-grew 13.8% in Q1 FY27 on intense price competition -- a segment where ICICI Lombard is ceding growth to protect underwriting discipline, a trade-off that could pressure top-line mix if it persists.
+
+## Valuation (reverse-DCF judgment)
+
+[INFERENCE] At CMP ~Rs 1,612 (trailing P/E 32.8x, forward FY27E P/E ~28.5x), the market is pricing sustained low-to-mid-teens EPS growth plus a franchise-quality premium (market leadership, digital distribution, disciplined underwriting) -- broadly consistent with pre-miss brokerage FY25-28E EPS CAGR estimates near 15% (YES Securities). The multiple does not look like it is pricing in the Motor-TP legal precedent becoming a recurring (vs one-off) CoR drag; if it recurs for 2+ more quarters, both consensus estimates and the multiple have room to compress. General insurers are conventionally P/E- or P/B-anchored (no embedded-value metric, unlike life insurers), so P/E is the more decision-useful lens here than a classic multi-stage FCFE DCF.
+
+## Detailed rationale
+
+[DATA] Q1 FY27 (Apr-Jun 2026, reported 15-Jul-2026): net profit fell 46% YoY to Rs 403cr as combined ratio (1/n basis) worsened to 107.2% from 102.9% in Q1 FY26, driven by Rs 63cr net Fire-segment losses (+1.0pt on CoR) and a Rs 165cr Motor-TP claims-reserve hit tied to a Supreme Court judgment (+2.8pt on CoR). Ex these items adjusted CoR was a stable 103.4%. GDPI still grew 7.5% YoY to Rs 77.35bn -- Motor +14% (commercial vehicles +34%, two-wheelers +21.4%, retaining #1 motor market share at 10.5%) and Health +24.9% (retail health +69.5% vs industry +31.6%, segment share up to 4.5% from 3.5%), while Commercial de-grew 13.8% on intense price competition (fire/engineering/marine/liability shares 13-21%). [DATA] This follows a strong Q4/FY26 (Jan-Mar 2026): FY26 GDPI +7% for the full year, Q4 alone +18.2% vs industry +10.9%, FY26 Health +20% (retail health +51.1%), solvency 2.67x at Mar-2026 -- and solvency improved further to 2.71x at Jun-2026 (both comfortably above the 1.5x regulatory floor), so the Q1 FY27 profit miss reads as an underwriting/legal one-off, not a capital-adequacy problem. [INFERENCE/OPINION] Stock sold off 10-15% post-print (CMP ~Rs 1,612, trailing P/E 32.8x, forward FY27E P/E ~28.5x); MOFSL cut to Neutral (TP Rs 1,960 on 28x FY28E EPS) while consensus stays Buy-leaning (12 buy/4 sell, avg TP ~Rs 1,975, ~19-22% implied upside) -- a split read consistent with 'good franchise, legal-precedent read-through risk' rather than a broken thesis. No IRDAI/promoter-approval or governance red flag surfaced in this pass (only stale 2024-2025-dated promoter/stake items found, not current).
+
+## Sources
+
+- no quant row yet
+- CompoundingAI - ICICI Lombard Q1 FY27 Results Analysis, PAT Down 46%, Combined Ratio 107.2% - https://compoundingai.in/market-news/icicigi-q1-fy27-results-analysis
+- Business Standard - ICICI Lombard slumps after Q1 profit drops 46% YoY to Rs 403 crore - https://www.business-standard.com/markets/capital-market-news/icici-lombard-slumps-after-q1-profit-drops-46-yoy-to-rs-403-crore-126071600550_1.html
+- Business Standard - Weak earnings drag ICICI Lombard shares by 10% - https://www.business-standard.com/markets/news/weak-earnings-drag-icici-lombard-shares-by-10-to-second-steepest-fall-126071601105_1.html
+- Sahi.com - ICICI Lombard Q1 net profit drops 46% to Rs 403 crore as combined ratio spikes to 107.2% - https://www.sahi.com/news/icici-lombard-q1-net-profit-drops-46-to-403-crore-as-combined-ratio-spikes-to-107-2-3322-PE1_COR
+- Sahi.com - ICICI Lombard Q4 FY26: Profit Up 7%, GDPI Grows 18% - https://www.sahi.com/blogs/icici-lombard-q4-results-fy26
+- BusinessToday - ICICI Lombard share price: why stock fell 10%; target prices - https://www.businesstoday.in/markets/stocks/story/icici-lombard-share-price-why-this-stock-fell-10-today-target-prices-543263-2026-07-16
+- India Infoline - ICICI Lombard shares crash 13% after Q1 FY27 results, brokerages turn cautious - https://www.indiainfoline.com/news/companies/icici-lombard-shares-crash-13-after-q1-fy27-results-profit-slumps-46-brokerages-turn-cautious
+- Investing.com - ICICI Lombard consensus estimates - https://in.investing.com/equities/icici-lombard-consensus-estimates
+- StockAnalysis.com - ICICI Lombard (ICICIGI) statistics & valuation metrics - https://stockanalysis.com/quote/nse/ICICIGI/statistics/
+
+---
+*Generated from `results/pf_qual_ICICIGI.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

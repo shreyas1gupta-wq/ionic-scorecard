@@ -16,6 +16,8 @@ MODULES = [
     ("contents_legend",    0, "",              True),
     ("ips_summary",        0, "Understanding", True),
     ("exec_summary",       0, "Understanding", True),
+    # renders ONLY when the client profile has meeting_history (always checked)
+    ("since_last_review",  0, "Understanding", True),
     ("mandate_method",     0, "Understanding", True),
     ("_div1",              1, "Portfolio X-ray", True),
     ("snapshot",           1, "Portfolio X-ray", True),

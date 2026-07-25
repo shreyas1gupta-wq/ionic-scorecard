@@ -1,0 +1,22 @@
+{
+ "strategy": "Managed WEEKLY NIFTY short strangle ~1.5% OTM, 2.5x stop, held to weekly expiry (real bhavcopy 2021-2026)",
+ "n_weeks": 286,
+ "window": "2021-01-14->2026-07-07",
+ "avg_pts_per_wk": 17.5,
+ "win_pct": 75.9,
+ "worst_wk_pts": -576.1,
+ "stop_wks": 32,
+ "ONE_X": {
+  "capital_rs": 200000.0,
+  "CAGR_pct": 21.3,
+  "MaxDD_pct": -40.8,
+  "Sharpe": 0.78,
+  "CALMAR": 0.52
+ },
+ "FRONTIER_from_Calmar": {
+  "target_10pct_MDD_gives_CAGR_pct": 5.2,
+  "target_30pct_CAGR_needs_MDD_pct": 57.4,
+  "leverage_for_30pct_CAGR": 1.41
+ },
+ "firm_lens": "Calmar is leverage-invariant. Honest VRP Calmar ~1-1.5. Forward = 50% of gross => halve CAGR at same MDD."
+}

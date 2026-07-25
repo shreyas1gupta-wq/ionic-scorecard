@@ -1,0 +1,34 @@
+{
+ "spec": "40/35/30 midcap/bond/gold (normalized to 100 from 105) monthly-rebal + NIFTY 10%OTM 6M put rolled 3M @25% notional, IV<30 gate",
+ "window": "2020-02-03->2026-07-03",
+ "bond_rate": 0.075,
+ "weights_normalized": {
+  "mid": 0.38095238095238093,
+  "bond": 0.3333333333333333,
+  "gold": 0.2857142857142857
+ },
+ "NoPut": {
+  "CAGR": 17.4,
+  "vol": 9.2,
+  "Sharpe": 1.13,
+  "Sortino": 1.29,
+  "MaxDD": -16.9
+ },
+ "Put_always": {
+  "CAGR": 17.2,
+  "vol": 8.6,
+  "Sharpe": 1.18,
+  "Sortino": 1.41,
+  "MaxDD": -11.2
+ },
+ "Put_IVsub30": {
+  "CAGR": 17.3,
+  "vol": 8.6,
+  "Sharpe": 1.18,
+  "Sortino": 1.42,
+  "MaxDD": -11.1
+ },
+ "rolls_total": 21,
+ "rolls_bought_IVgate": 20,
+ "rolls_skipped_highVIX": 1
+}

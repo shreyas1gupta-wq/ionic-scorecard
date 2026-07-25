@@ -42,7 +42,7 @@ def render(deck, ctx, tier):
         rows = []
         for f in funds:
             v = f["verdict"]
-            rows.append([_short(f["name"], 24), f["category"].title(), f"{f['weight_pct']:.1f}",
+            rows.append([_short(f["name"], 30), f["category"].title(), f"{f['weight_pct']:.1f}",
                          ("bar", f["qfra"]), ("pill", VDISP.get(v, v), v)])
         deck.table(s, ML, 2.0, UW, cols, rows, rowh=0.40, fs=11, hfs=9)   # 2.0+0.33+9x0.40=5.93, clears the 6.02 read line
     else:

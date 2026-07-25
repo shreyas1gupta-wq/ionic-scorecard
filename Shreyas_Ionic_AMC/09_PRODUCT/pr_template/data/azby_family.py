@@ -22,27 +22,50 @@ build_ctx() -> dict  is THE data contract every module renderer reads. Schema (t
   deployment : {proceeds_inr,tax_leak_inr,net_inr,sleeves[(name,amt_inr,rationale)],sequence[list]}
   overlap  : {fund_direct[(stock,direct_pct,via_funds_pct,n_funds)], headline_pct, headline_bps}
 """
-import os, csv, json, glob
+import os, re, csv, json, glob
 import numpy as np
+
+
+def _tax_character(f):
+    """Tax character from actual holding age (case bug fixed 2026-07-26: uppercase action
+    codes never matched ('Switch','Exit'), so every row printed 'STCG likely')."""
+    if f["action"].upper() == "REDEEM":
+        return "Mixed, lot-by-lot"
+    return "LTCG" if f.get("holding_years", 0) >= 1 else "STCG likely"
 
 RESULTS = os.path.join(os.path.dirname(__file__), "..", "..", "..", "04_RND_LAB", "STOCK_SCORECARD_750", "results")
 RESULTS = os.path.abspath(RESULTS)
 
 # ---- reason taxonomy mapping from analyst text (fixed client-facing categories) ----
+# negated mentions ('no governance red flags') must not trip a bucket — RELIANCE was
+# tagged forensic off its own PRO-Hold sentence (CEO sweep 2026-07-26)
+_NEG_RE = re.compile(r"\bno [^.;]{0,70}?(?:red flags?|concerns?|breaks?|flags?)")
+
+# buckets scored by keyword-hit COUNT, not first match — first-match let one incidental
+# 'net debt' line outrank five quality mentions (RELIANCE/HINDUNILVR misfiled 2026-07-26).
+# 'growth' alone is excluded: it counts stat mentions ('PAT growth +156%'), not the thesis.
+_BUCKETS = [
+    ("Balance-sheet strain", ("leverage", "debt", "interest cover", "balance sheet", "distress")),
+    ("Rich valuation, thin margin of safety",
+     ("valuation", "expensive", "priced", "multiple", "rich", "x trailing", "pe ")),
+    ("Quality below peers", ("quality", "roce", "roe below", "margin")),
+    ("Slowing growth", ("decelerat", "slowing", "slowdown", "guidance cut", "fell short")),
+]
+
 def _reason_category(q):
-    esc = q.get("escalation_flag")
-    txt = (q.get("negative_para", "") + " " + q.get("recommendation_rationale", "")).lower()
-    if any(w in txt for w in ("forensic", "governance", "fraud", "pledge", "related-party")):
-        return "Forensic / governance flag"
-    if any(w in txt for w in ("leverage", "debt", "interest cover", "balance sheet", "distress")):
-        return "Balance-sheet strain"
-    if any(w in txt for w in ("valuation", "expensive", "priced", "multiple", "rich", "x trailing", "pe ")):
-        return "Rich valuation, thin margin of safety"
-    if any(w in txt for w in ("quality", "roce", "roe below", "margin")):
-        return "Quality below peers"
-    if any(w in txt for w in ("growth", "decelerat", "slowing", "soft")):
-        return "Slowing growth"
-    return "Weaker forward risk-reward"
+    def scan(txt):
+        txt = _NEG_RE.sub(" ", (txt or "").lower())
+        if not txt.strip():
+            return None
+        # a real (non-negated) forensic mention always wins, whatever else the text says
+        if any(w in txt for w in ("forensic", "governance", "fraud", "pledge", "related-party")):
+            return "Forensic / governance flag"
+        counts = [(sum(txt.count(w) for w in ws), i, label) for i, (label, ws) in enumerate(_BUCKETS)]
+        best = max(counts, key=lambda c: (c[0], -c[1]))   # most hits; severity order breaks ties
+        return best[2] if best[0] > 0 else None
+    # the sell case (negative_para) decides first; the mixed pro/con rationale is fallback only
+    return (scan(q.get("negative_para", "")) or scan(q.get("recommendation_rationale", ""))
+            or "Weaker forward risk-reward")
 
 def _mcap_band(mc):
     try:
@@ -281,11 +304,12 @@ def build_ctx():
                           for f in funds],
                  "pms_bps": 120, "total_bps": 168, "total_inr": round(grand * 0.0168),
                  "reg_drag_inr": round(sum(f["value_inr"] for f in funds if f["plan"] == "Regular") * 0.004)},
-        "tax": {"fund_rows": [(f["action"], f["name"], f["value_inr"], ">1y" if f["action"] != "Redeem-to-Direct" else "mixed",
-                              "LTCG" if f["action"] in ("Switch", "Exit") else "STCG likely", f["structural_reason"][:60])
+        "tax": {"fund_rows": [(f["action"], f["name"], f["value_inr"],
+                              "mixed" if f["action"].upper() == "REDEEM" else f">{min(f.get('holding_years', 1), 9):.0f}y",
+                              _tax_character(f), f["structural_reason"][:60])
                              for f in funds if f["action"] not in ("HOLD", "Hold")],
                 "gross": proceeds, "ltcg": ltcg, "stcg": stcg, "net": net,
-                "de_gap_note": "Direct-equity Sell tax needs the demat trade file (acquisition date + cost per lot); not in the statement provided."},
+                "de_gap_note": "The equity tax opposite is an estimate; the exact bill needs the demat trade file (buy dates + cost per lot), not in the statement provided."},
         "deployment": {"proceeds_inr": proceeds, "tax_leak_inr": ltcg + stcg, "net_inr": net,
                        "personalization": [
                            ("Education 2031", "foreign sleeve doubles as the USD hedge"),

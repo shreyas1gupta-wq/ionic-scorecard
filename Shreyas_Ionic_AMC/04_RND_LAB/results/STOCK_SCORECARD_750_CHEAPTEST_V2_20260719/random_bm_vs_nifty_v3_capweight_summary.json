@@ -1,0 +1,38 @@
+{
+  "n_usable_stocks": 418,
+  "avg_monthly_turnover_pct": {
+    "equal_weight": 76.8,
+    "mcap_weight": 76.8
+  },
+  "equal_weight_100_mean": {
+    "total_return_pct": 161.9,
+    "cagr_pct": 37.8,
+    "ann_vol_pct": 17.5,
+    "max_drawdown_pct": -21.7
+  },
+  "mcap_weight_100_mean": {
+    "total_return_pct": 120.0,
+    "cagr_pct": 30.1,
+    "ann_vol_pct": 15.3,
+    "max_drawdown_pct": -19.1
+  },
+  "mcap_weight_100_p05": {
+    "total_return_pct": 95.8,
+    "cagr_pct": 25.1,
+    "ann_vol_pct": 15.2,
+    "max_drawdown_pct": -19.8
+  },
+  "mcap_weight_100_p95": {
+    "total_return_pct": 146.9,
+    "cagr_pct": 35.2,
+    "ann_vol_pct": 15.9,
+    "max_drawdown_pct": -18.6
+  },
+  "nifty50_buy_hold": {
+    "total_return_pct": 61.3,
+    "cagr_pct": 17.3,
+    "ann_vol_pct": 12.5,
+    "max_drawdown_pct": -14.3
+  },
+  "note": "Same 200x36 random baskets in both weight schemes (identical rng sequence) -- only the within-basket weighting changed, isolating the cap-weight effect. Market caps are current-snapshot (not historical time series), so weights are fixed proportions applied each month, not a fully dynamic cap-weighted index."
+}

@@ -11,10 +11,11 @@
   "quant_rec": "Hold"
  },
  "analyst": {
-  "rec": "Sell",
+  "rec": "Hold",
   "growth_pct": 11,
   "override_applied": false,
-  "summary": "Tata Technologies' Q1 FY27 revenue jumped 33.8% YoY to Rs 1,664.53cr, but that is measured off a two-year organic growth stall (internal PIT data shows revenue essentially flat at Rs 1,244-1,366cr/quarter from Q1 FY25 through Q3 FY26) and is partly inflated by the Rs 775cr ES-Tec Group acquisition (closed Nov-2025); profit grew only 6.2% YoY in the same quarter, an earnings-quality gap worth watching. The anchor-client concentration risk this desk flags structurally (JLR + Tata Motors + VinFast = 57.4% of revenue) crystallized in hard numbers this year: Q3 FY26 net profit collapsed 96% (to Rs 7cr) when JLR suffered a cyberattack, before fully recovering by Q4 FY26/Q1 FY27. At ~56x trailing earnings the stock is priced above every ER&D peer (Tata Elxsi 48-52x, LTTS 26-32x, KPIT 31-39x, Cyient 17-23x) despite LTTS delivering comparable-or-better growth with expanding margins at roughly half the multiple, and sell-side consensus itself already prices 13-17% downside. Balance sheet quality is clean (ROE 18.7%, D/E 0.24, zero redflags) -- this is a valuation call, not a business-quality call -- and the honest verdict is Sell, flagged for Principal review given the genuine Hold-side case (real new deal wins, BMW JV, JLR relationship intact)."
+  "summary": "Tata Technologies' Q1 FY27 revenue jumped 33.8% YoY to Rs 1,664.53cr, but that is measured off a two-year organic growth stall (internal PIT data shows revenue essentially flat at Rs 1,244-1,366cr/quarter from Q1 FY25 through Q3 FY26) and is partly inflated by the Rs 775cr ES-Tec Group acquisition (closed Nov-2025); profit grew only 6.2% YoY in the same quarter, an earnings-quality gap worth watching. The anchor-client concentration risk this desk flags structurally (JLR + Tata Motors + VinFast = 57.4% of revenue) crystallized in hard numbers this year: Q3 FY26 net profit collapsed 96% (to Rs 7cr) when JLR suffered a cyberattack, before fully recovering by Q4 FY26/Q1 FY27. At ~56x trailing earnings the stock is priced above every ER&D peer (Tata Elxsi 48-52x, LTTS 26-32x, KPIT 31-39x, Cyient 17-23x) despite LTTS delivering comparable-or-better growth with expanding margins at roughly half the multiple, and sell-side consensus itself already prices 13-17% downside. Balance sheet quality is clean (ROE 18.7%, D/E 0.24, zero redflags) -- this is a valuation call, not a business-quality call -- and the honest verdict is Sell, flagged for Principal review given the genuine Hold-side case (real new deal wins, BMW JV, JLR relationship intact).",
+  "v1_reverted_from_sell": true
  },
  "fm": {
   "action": "Sell",
@@ -23,6 +24,13 @@
  "escalation": true,
  "next_earnings_date": null,
  "last_checked_date": "2026-07-20",
- "delta_log": [],
+ "delta_log": [
+  {
+   "date": "2026-07-20",
+   "mode": "V1_RECONCILE",
+   "note": "V0 analyst Sell on a quant-Hold reverted to Hold per V1 asymmetric rule; escalated for Principal ruling.",
+   "changed": true
+  }
+ ],
  "pf_qual_ref": "pf_qual_TATATECH.json"
 }

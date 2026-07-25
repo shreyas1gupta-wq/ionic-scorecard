@@ -1,0 +1,55 @@
+{
+ "underlying": "Nifty Midcap Momentum 50 index NAV + 0.40%/yr ETF-expense drag (real ETF proxy)",
+ "window": "2024-02-01 -> 2026-02-24",
+ "corpus_rs": 1236000.0,
+ "etf_units": 25.5,
+ "n_puts": 23,
+ "put_premium_collected_rs": 212472.0,
+ "put_net_pnl_rs": 56230.0,
+ "put_worthless_pct": 82.6,
+ "ETF_ONLY": {
+  "scope": "ETF only",
+  "start": "2024-02-01",
+  "end": "2026-02-24",
+  "total_ret_pct": 17.5,
+  "CAGR_pct": 8.1,
+  "MaxDD_pct": -25.8,
+  "vol_pct": 20.3
+ },
+ "ETF_PLUS_PUTSELL": {
+  "scope": "ETF + put-sell overlay",
+  "start": "2024-02-01",
+  "end": "2026-02-24",
+  "total_ret_pct": 22.0,
+  "CAGR_pct": 10.1,
+  "MaxDD_pct": -30.3,
+  "vol_pct": 20.8
+ },
+ "overlay_minus_etf_totalret_pp": 4.5,
+ "worst_put_months": [
+  {
+   "expiry": "2025-01-30",
+   "otm": "4.96",
+   "prem": "74.95",
+   "S_exp": "11795.1",
+   "K": "12500.0",
+   "net_rs": "-75821.0"
+  },
+  {
+   "expiry": "2025-02-27",
+   "otm": "5.14",
+   "prem": "134.8",
+   "S_exp": "10957.3",
+   "K": "11350.0",
+   "net_rs": "-31336.0"
+  },
+  {
+   "expiry": "2026-01-27",
+   "otm": "4.63",
+   "prem": "38.45",
+   "S_exp": "13137.9",
+   "K": "13200.0",
+   "net_rs": "-2977.0"
+  }
+ ]
+}

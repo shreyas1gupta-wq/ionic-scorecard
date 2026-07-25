@@ -19,8 +19,37 @@ Principal's PowerPoint — bump PR_SUFFIX, never fight the lock.
 2. `check_geometry.py` AND `check_geometry2.py` (box + rendered-extent, z-order-aware) = 0 findings.
 3. Tell-scan: 0 em-dashes/double-hyphens/hollow intensifiers, 0 "Buy" as a recommendation,
    0 internal jargon (SENTINEL/QFRA/MERIT — client words: "watch-outs", "fund score /100", "grade",
-   "the firm's fund-quality framework").
-4. Principal sign-off before any client artifact ships.
+   "the firm's fund-quality framework"), and 0 **data-QA vocabulary** (CEO sweep 2026-07-26):
+   "stale", "does not reconcile", "data feed", "data cut", "data/quant snapshot", snake_case field
+   names (fcf_yield/bs_flag/redflags), source names (screener.in), org names (Data Office), product
+   CTAs (CoPilot). slidekit.txt() carries a render-time scrub net for these, but the DATA files
+   (pf_qual narration) must be clean too — the scrub can't rescue whole sentences of QA talk.
+4. **Cross-panel consistency scan** (CEO sweep class of bugs): any two numbers on the same slide
+   that a reader will assume are the same set MUST reconcile or be explicitly scoped
+   (tax table=fund actions vs waterfall=equity plan; group-concentration KPI vs table rows =
+   same basis: % of equity sleeve). Same-entity names identical across slides (short_name width
+   ≥30 for scheme tables). A driver/tag must match the narrative beside it and the same call's
+   rationale elsewhere in the deck.
+5. Principal sign-off before any client artifact ships.
+
+## FULL PIPELINE (real client, Apr/Oct cadence; auto-build wired in OPERATING_CALENDAR)
+1. **Intake** `09_PRODUCT/scripts/client_intake.py --holdings <CAS-extract.csv|xlsx> --profile
+   <profile.json> --out <client_dir>` → client_ctx.json + exceptions.csv (unmatched rows go to
+   the RM, never dropped/fabricated). Profile JSON (template via --emit-template) carries the 4
+   personalization blocks: goals/timelines, holding ages & costs, family structure, meeting
+   history. NSDL CAS PDF parser slots in when a sample statement arrives.
+2. **Fund calls** `09_PRODUCT/scripts/fund_ctx_adapter.py` — QFRA-2 (QFRA2_current.csv, 40
+   curated funds only: held funds outside it = honest gap "needs a QFRA-2 scoring run") +
+   QFRA-1 (mf_capture_recomm.compute_category on MF Dashboard.xlsx; returns (df, anchor);
+   FN=6M down-capture, HC=6M total capture); merged by the dual-framework rule (Sell needs
+   BOTH non-Hold; disagreement → Hold, flagged).
+3. **Build** `PR_SUFFIX=_vN python build_azby.py [TIER]`; `since_last_review` module renders
+   only when profile has meeting_history.
+4. **Gates** (QA LAW above). 5. **PDF** `09_PRODUCT/scripts/pptx_to_pdf.py <deck.pptx>` —
+   LibreOffice 26.2.5 user-local at %LOCALAPPDATA%\Apps\LibreOffice (msiexec /a extract, no
+   admin; version-discovery downloader in 99_OPS if it ever needs a reinstall).
+6. **Publish** to `09_PRODUCT/reports/` with client-facing names (current CEO set:
+   NDPMS_Portfolio_Review_ABXY_HNI.pptx/.pdf + ..._RM_Lite.pptx/.pdf), DRAFT until sign-off.
 
 ## PRINCIPAL RULINGS BAKED INTO THE TEMPLATE (do not regress)
 - **Vocabulary:** Sell/Trim/Hold only, never Buy; no buy recommendations anywhere (opportunity-set
@@ -54,6 +83,17 @@ Principal's PowerPoint — bump PR_SUFFIX, never fight the lock.
   logo lockup on navy (never the white-box PNG on dark slides), divider mini-TOC + ghost numeral.
 - Tax-inertia (fund units >5y = raised switch bar, structural-only; stocks exempt); commodity
   names carry the 10-15yr cycle read; "what would flip a Hold" type meta-text is banned.
+
+## CEO-SWEEP FIXES BAKED IN (2026-07-26 — do not regress)
+- `_reason_category` (azby_family): buckets scored by keyword-hit COUNT on negative_para first
+  (rationale fallback), with a negation scrub (`no ... red flags` never trips forensic) and bare
+  "growth" excluded (stat mentions like "PAT growth +156%" aren't a slowing-growth thesis).
+- Commodity-cycle reversal suffix (sell_cards) applies to sector "Metals & Mining" ONLY —
+  conglomerates/utilities in Oil&Gas/Power baskets must not get "metal price" language.
+- tax rows: character from holding_years (>=1y → LTCG; REDEEM → "Mixed, lot-by-lot") — the old
+  `action in ("Switch","Exit")` check never matched UPPERCASE codes, printing all-STCG.
+- CoPilot CTA is OUT (spec F5 conservative default): cost slide carries a neutral "NEXT STEP"
+  line, no product names client-side.
 
 ## SLIDEKIT PRIMITIVES THAT PREVENT REGRESSIONS
 `clip_sentences` (whole sentences, decimal-safe), `clip_clause` (sentence/semicolon-only periods,

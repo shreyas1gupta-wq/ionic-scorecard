@@ -32,7 +32,9 @@ def _clip(txt, n=350):
     return clip_sentences(txt, n)
 
 
-_COMMODITY_SECTORS = ("Metals & Mining", "Oil Gas & Consumable Fuels", "Power")
+# miners only — conglomerates and utilities that merely sit in Oil&Gas/Power baskets
+# were picking up 'metal price' language (RELIANCE, CEO sweep 2026-07-26)
+_COMMODITY_SECTORS = ("Metals & Mining",)
 
 
 def _reversal(e):
@@ -72,8 +74,9 @@ def _card(deck, e, tier):
 
     deck.pageref(s, RX - 2.7, 6.42, "tbl:sell_list", w=2.7, label="BACK TO THE SELL LIST")
     deck.score_band(s)
-    deck.source(s, f"Analyst-confirmed Sell. Point-in-time as of {e['pit_date']}. "
-                   f"The Ionic Score flags candidates; the team confirms every call.")
+    # the flags-candidates sentence lives in the score_band italic — repeating it here
+    # read as a copy-paste slip in the CEO sweep
+    deck.source(s, f"Analyst-confirmed Sell. Point-in-time as of {e['pit_date']}.")
 
 
 def render(deck, ctx, tier):

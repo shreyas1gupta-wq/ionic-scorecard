@@ -1,0 +1,59 @@
+filters:
+  and:
+    - file.inFolder("Shreyas_Ionic_AMC/04_RND_LAB/STOCK_SCORECARD_750/book")
+views:
+  - type: table
+    name: Holdings (by value)
+    filters:
+      and:
+        - universe == "holdings"
+    order:
+      - file.name
+      - rec
+      - growth_3y_pct
+      - escalation
+      - sector
+      - holding_value_inr
+    sort:
+      - property: holding_value_inr
+        direction: DESC
+  - type: table
+    name: All Sells
+    filters:
+      and:
+        - rec == "Sell"
+    order:
+      - file.name
+      - universe
+      - sector
+      - growth_3y_pct
+      - quant_rec
+    sort:
+      - property: file.name
+        direction: ASC
+  - type: table
+    name: Escalations
+    filters:
+      and:
+        - escalation == true
+    order:
+      - file.name
+      - universe
+      - rec
+      - quant_rec
+      - sector
+    sort:
+      - property: universe
+        direction: ASC
+  - type: table
+    name: Full universe (230)
+    order:
+      - file.name
+      - universe
+      - rec
+      - growth_3y_pct
+      - escalation
+      - sector
+    sort:
+      - property: file.name
+        direction: ASC

@@ -1,0 +1,65 @@
+---
+symbol: "ASHOKLEY"
+company: "ASHOKLEY"
+sector: "Capital Goods"
+universe: "universe750"
+rec: "Hold"
+quant_rec: "Sell"
+growth_3y_pct: 10
+escalation: false
+holding_value_inr: null
+updated: 2026-07-21
+tags:
+  - stock-note
+---
+# ASHOKLEY
+
+> [!summary]
+> Ashok Leyland just posted its best-ever year (FY26 revenue +13.6%, EBITDA margin 13%, record cash pile of Rs.5,899cr net) with real progress diversifying away from pure cyclical trucking - the EV subsidiary Switch Mobility turned profitable for the first time and the defence order book has crossed Rs.1,500cr with an Rs.11,000cr tender pipeline being chased. The near-term concern is valuation and cycle timing: at ~25-27x trailing earnings on what is by the company's own account a record, high-base year, and with sell-side already flagging a slowdown to low-single-digit domestic truck-industry growth in FY27, the stock is priced for continued strong execution rather than for a normal cyclical breather. We rate this a Hold: a well-run, financially strong commercial-vehicle franchise, but not table-pounding cheap at current levels given where we are in the cycle.
+
+## Recommendation — Hold
+
+No quant score exists yet for this name, so per V1 rules the default is Hold absent a reason to escalate to Sell - and the fundamentals here don't support one. FY26 was genuinely the best year in the company's history on volumes, margins, cash generation, and diversification progress (EV arm turned profitable, defence order book growing, export record). The one flagged one-off (Labour Code charges) is a disclosed, non-recurring provisioning item that makes reported PAT look slightly worse than underlying, not a red flag on earnings manipulation. The call to Hold rather than anything more constructive is purely a valuation/cycle-timing call: at ~25-27x trailing earnings on what management and sell-side (Kotak) both flag as a peak-cycle, high-base FY26, with FY27 domestic MHCV growth already guided to moderate to low-single-digits, the stock is pricing a structural re-rating (EV+defence+export diversification reducing cyclicality) rather than a mean-reverting CV cycle. That's a real but not yet fully proven thesis - Switch Mobility's first profitable year and a defence book still under Rs.2,000cr are early, not established, de-risking events. Net: solid business, full-to-rich multiple against a cyclical peak - Hold, not Sell.
+
+## Bull case
+
+Record FY26 across every headline metric (revenue, EBITDA, PAT, cash), with market-share gains in both MHCV (30.9% YTD, +60bps) and an 18th straight quarter of bus-segment growth. Diversification finally showing in the numbers: Switch Mobility EV arm swung to a Rs.104cr profit from a Rs.62cr loss with revenue more than doubling, exports hit a record 18,082 units across four new markets, and the defence business has an order book above Rs.1,500cr plus a large multi-year tender pipeline (~Rs.11,000cr) it is chasing. Balance sheet is pristine (net cash Rs.5,899cr, up Rs.1,650cr YoY) and FY27 capex needs are modest (Rs.750-1,000cr), meaning free cash generation should stay strong even if volume growth cools.
+
+## Bear case
+
+FY26 was explicitly a peak/record year built on a favourable convergence of GST rate cuts, an aged fleet replacement wave, and strong infra-linked tipper/multi-axle demand - tailwinds that sell-side (Kotak) already expects to normalize into low-single-digit domestic MHCV growth in FY27 on a high base. The stock trades at 25-27x trailing earnings against that decelerating backdrop, a materially higher multiple than Ashok Leyland's historical through-cycle range (roughly 10-18x), which prices in a structural, non-cyclical re-rating that isn't yet proven at scale - Switch Mobility's Rs.104cr profit and the sub-Rs.2,000cr defence book are still small relative to the core truck business. Reported PAT growth (+10-11% YoY in Q4) is flattered/depressed depending on framing by one-off Labour Code charges (~Rs.384cr Q4, ~Rs.308cr Q3) - underlying run-rate PAT (ex-exceptional) grew faster (+22% at PBT level), so headline YoY comparisons need adjusting either way. Commodity input-cost inflation (steel, tyres, base metals) is a margin risk into FY27.
+
+## Valuation (reverse-DCF judgment)
+
+At ~Rs.155/share and ~25-27x trailing FY26 EPS (peak-cycle earnings per management's and sell-side's own characterization), the multiple is pricing sustained double-digit earnings growth for several years - well above Ashok Leyland's historical through-cycle multiple band of ~10-18x and above the low-single-digit FY27 domestic MHCV growth sell-side is now guiding to on a high base. The gap is bridged only if EV (Switch Mobility), defence, and exports scale from their current small bases into a much larger share of profit within a few years - plausible given the trend lines (EV turned profitable, defence pipeline real, export records), but not yet proven at the scale needed to fully justify the multiple. Verdict: fair-to-rich, leaning rich - priced for structural re-rating, not for a normal cyclical gap-year.
+
+## Detailed rationale
+
+Ashok Leyland delivered its best-ever year in FY26 (year ended Mar-2026): consolidated revenue Rs.44,007cr (+13.6% YoY), EBITDA Rs.5,732cr (margin 13.0%, +30bps YoY), PBT before exceptional items Rs.5,163cr (+22% YoY), and PAT excluding exceptional items Rs.3,914cr. Reported PAT (after a one-off Rs.384cr Q4 charge + Rs.308cr Q3 charge, both tied to new Labour Code implementation) came in lower at ~Rs.3,566cr per the FY26 annual filing - this is the one earnings-quality flag: headline PAT understates underlying earnings by the one-off provisioning, so the clean run-rate is meaningfully better than the reported number, not worse. Domestic MHCV market share held/gained to 30.9% YTD (+60bps), bus segment logged its 18th straight quarter of growth, LCV domestic volumes grew 30% YoY (vs 23% industry), and exports hit a record 18,082 units (+18.5% YoY, four new markets entered). The EV subsidiary Switch Mobility - previously a drag - turned profitable (PAT Rs.104cr vs a loss of Rs.62cr in FY25) on revenue that more than doubled to Rs.1,807cr, and electric bus deliveries rose 238% YoY. Defence: order book stands above Rs.1,500cr with a further ~Rs.700cr of fresh Stallion 4x4/6x6 and CIWS-programme mobility orders won this year; management is targeting a share of an ~Rs.11,000cr defence mobility tender pipeline over the next 3-4 years and is exploring autonomous Stallion / logistics-drone adjacencies (early-stage, unquantified - [INFERENCE] treat as optionality, not backlog). Balance sheet is a genuine strength: net cash of Rs.5,899cr, up ~Rs.1,650cr YoY, funding a modest FY27 capex plan of only Rs.750-1,000cr (mostly subsidiaries - Hinduja Leyland Finance, OHM Mobility). [DATA] Q1 FY27 results are NOT yet out as of this pass; scheduled ~13-Aug-2026. On promoter status: the widely-reported Hinduja family succession/inheritance dispute (Srichand Hinduja/Vinoo vs. the other brothers, UK High Court) was resolved via a 2023-24 family settlement per multiple sources reviewed; the ~52% promoter stake (split across Hinduja Bank Switzerland, Hinduja Automotive, Hinduja Foundries Holding, Citibank NA) appears intact with no fresh listed-entity governance action identified in this pass - flagged as PIT-resolved, not an active overhang, but this is a freshness-limited web check, not a company-filing confirmation.
+
+## Sources
+
+- no quant row yet
+- Ashok Leyland Q4 FY26 Results: Revenue Jumps 17%, PAT Jump 10% - https://www.sahi.com/blogs/ashok-leyland-q4-fy26-results
+- Ashok Leyland posts record Q4 profit of Rs.1,405 crore on strong demand - Business Standard - https://www.business-standard.com/companies/quarterly-results/ashok-leyland-posts-record-q4-profit-of-1-405-crore-on-strong-demand-126052801113_1.html
+- Ashok Leyland Posts All-time High Volumes and Profits for Q4 and FY26 (company press release) - https://www.ashokleyland.com/in/pressrelease/ashok-leyland-posts-all-time-high-volumes-and-profits-for-q4-and-fy26
+- Ashok Leyland Files FY26 Annual Report: Record Revenue, Volumes and EV Milestones - ScanX - https://scanx.trade/stock-market-news/companies/ashok-leyland-delivers-record-fy26-performance-revenue-rises-14-pat-at-3-566-crores/46097788
+- Ashok Leyland Delivers Record FY26 Performance - EMobility+ - https://emobilityplus.com/2026/06/02/ashok-leyland-delivers-record-fy26-performance-with-highest-ever-revenue-profit-and-commercial-vehicle-sales/amp/
+- Ashok Leyland Presents Its Q4 FY26 Financial Results (exceptional items / Labour Code charge) - https://trucks.cardekho.com/en/news/detail/ashok-leyland-calls-the-financial-year-2026-a-year-of-new-records-with-14-yoy-revenue-amp;-22-yoy-pbt-growth-3687.html
+- Ashok Leyland Q4FY26 PAT Surges 13%; FY26 Revenue Up 14% - Autocar Professional - https://www.autocarpro.in/news/ashok-leyland-q4fy26-pat-surges-13-percent-fy26-revenue-up-14-percent-132819
+- Ashok Leyland Delivers Record Q3 FY26 Performance with Strong Volume Growth and Market Share Gains - ScanX - https://scanx.trade/stock-market-news/earnings/ashok-leyland-delivers-record-q3-fy26-performance-with-strong-volume-growth-and-market-share-gains/32888353
+- SIAM Zone-Wise MHCV Goods Carrier Sales In Q4 FY26 - https://trucks.cardekho.com/en/news/detail/siam-zone-wise-mhcv-goods-carrier-sales-in-q4-fy26-tata-motors-dominates-amp;-ashok-leyland-secures-second-spot-3678.html
+- CV Demand Resilient Despite West Asia Shock: Ashok Leyland CEO - Autocar Professional - https://www.autocarpro.in/news/cv-demand-resilient-despite-west-asia-shock-ashok-leyland-ceo-132824
+- Ashok Leyland Q4FY26 Result Update (Kotak/Axis Direct commentary on FY27 MHCV growth moderation, capex guidance) - https://simplehai.axisdirect.in/app/index.php/insights/reports/downloadReport/file/Ashok+Leyland+Ltd+-+Q4FY26+Result+Update+-+29052026_29-05-2026_09.pdf/type/fundamental
+- Ashok Leyland Q1 Results FY27: date and estimates - Univest - https://univest.in/blogs/ashok-leyland-q1-results-fy27
+- P/E Ratio For Ashok Leyland Ltd. (ASHOKLEY) - Finbox - https://finbox.com/NSEI:ASHOKLEY/explorer/pe_ltm/
+- NSE:ASHOKLEY PE Ratio - GuruFocus - https://www.gurufocus.com/term/pe-ratio/NSE:ASHOKLEY
+- Ashok Leyland Analyst Review 2026: Key Levels and Outlook - Univest - https://univest.in/blogs/ashok-leyland-analyst-review-2026
+- Ashok Leyland Defence Business Secures Multiple Orders Worth Rs.700 Crore - Motorindia - https://www.motorindiaonline.in/ashok-leyland-defence-business-secures-multiple-orders-worth-%E2%82%B9700-crore/
+- Ashok Leyland to enter defence mobility biz, explores logistics drone foray - Business Standard - https://www.business-standard.com/companies/news/ashok-leyland-bets-on-autonomous-stallion-and-11-000-crore-defence-market-126061201106_1.html
+- Hindujas fight over fortune: Over $11 billion family assets at stake - Deccan Chronicle - https://www.deccanchronicle.com/business/in-other-news/260620/hindujas-fight-over-fortune-over-11-billion-family-assets-at-stake.html
+- Hinduja brothers battle over $11-billion family fortune in UK High Court - Business Standard - https://www.business-standard.com/article/companies/hinduja-brothers-battle-over-11-billion-family-fortune-in-uk-high-court-120062500043_1.html
+- Who Owns Ashok Leyland Company? - PortersFiveForce (promoter stake structure) - https://portersfiveforce.com/blogs/owners/ashokleyland
+
+---
+*Generated from `results/pf_qual_ASHOKLEY.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

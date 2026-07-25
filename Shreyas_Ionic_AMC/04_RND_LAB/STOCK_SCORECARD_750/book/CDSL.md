@@ -1,0 +1,62 @@
+---
+symbol: "CDSL"
+company: "CDSL"
+sector: "Financial Services"
+universe: "universe750"
+rec: "Hold"
+quant_rec: "Hold"
+growth_3y_pct: 12
+escalation: true
+holding_value_inr: null
+updated: 2026-07-21
+tags:
+  - stock-note
+---
+# CDSL
+
+> [!summary]
+> CDSL is India's dominant retail depository -- a debt-free, high-ROE (~25%) duopoly business -- but its earnings are a function of market cycles, not an annuity: FY26 profit fell 13.5% even as revenue grew, because a record FY25 IPO/bull-market year is normalizing (industry demat additions -22% YoY) and costs grew faster than revenue. The stock trades at a rich ~63-65x trailing earnings and ~14.6x book, pricing in a return to best-case growth. A SEBI order on 20-Jul-2026 fined CDSL Rs 1 crore over real cybersecurity/disaster-recovery lapses linked to the November-2022 malware attack -- financially trivial but a governance flag on critical market infrastructure. We are holding, not adding, and want the desk aware of both the earnings deceleration and the fresh regulatory finding before any options activity around the name.
+
+## Recommendation — Hold
+
+Quant score (final_score_3y 57.6, final_score_1y 44.4, recommendation_3y/1y both Hold, recommendation_overall Hold) is a Hold, and under the V1 asymmetric-override rule a Hold cannot be flipped to Sell -- only rescued off a Sell (not applicable here) or escalated. My own read is genuinely torn: strong balance sheet/ROE/duopoly-moat facts support Hold, but a rich ~63-65x trailing P/E sitting on top of a 13.5% FY26 PAT decline, a decelerating 1y growth score, and a same-week confirmed SEBI cybersecurity-governance finding together make a reasonable case that the market has not yet priced the cyclical/regulatory downside. That tension is exactly what escalation exists for -- I am not overriding the quant Hold, but flagging it.
+
+## Bull case
+
+Genuine duopoly moat in a structurally under-penetrated market: 18.01cr demat accounts and counting, debt-free with ROE ~24-26% and ROCE ~31-32%, a diversified fee base (AMC, transaction charges, KYC/CVL, e-voting, corporate actions) that doesn't hinge on any single revenue line, and a shareholder-friendly capital return policy (dividend payout ~54%, Rs 12.75/share FY26 final dividend recommended) funded entirely from a business that needs no equity capital to grow.
+
+## Bear case
+
+The FY26 print is the bear case in numbers: PAT down 13.5% for the year and down 20% YoY in Q4 alone, even as revenue grew -- meaning margins compressed (EBITDA margin ~44% vs ~49% a year ago) as opex/compliance costs outran topline. This is exactly the kind of business where operating leverage cuts both ways: a genuine bear-market year (thin IPO calendar, low churn/transaction volumes, muted account additions) could compress earnings sharply from here, and at ~63-65x trailing earnings / ~14.6x book there is very little room for that outcome to be tolerated by the multiple. Layer on a same-week SEBI order confirming real critical-asset-classification and intrusion-detection failures tied to the 2022 malware breach, plus a low and declining promoter (BSE) stake (~15%, down ~5pts over three years) -- none of these alone is a Sell trigger, but together they are a live overhang the quant score's backward-looking quality/3y-growth weighting may be underweighting.
+
+## Valuation (reverse-DCF judgment)
+
+At ~63-65x trailing PAT and ~14.6x book, the market is pricing a return to sustained high-teens-to-20%+ earnings compounding. The business can deliver that in bull-market years (3-5yr revenue CAGR has run ~27%, profit CAGR ~18%) but FY26 just demonstrated the downside skew of the same operating model (revenue +6%, PAT -13.5%). My forward 3-5y calibrated view is ~12% (steady-compounder band, through-cycle average), well below what the multiple implies, which reads as rich/priced-for-best-case rather than cheap or fair. ROE is ~24-26% and growth needs no dilution (share count flat, fee-based model) -- noted for completeness though the growth estimate is below the 25% threshold that would otherwise qualify this for the exceptional tier.
+
+## Escalation
+
+> [!warning] Escalated for Principal review
+> Quant model scores this a clean Hold on strong 3y quality/growth percentiles, but its own growth_divergence_flag=True (growth_3y_score 82.2 vs growth_1y_score 26.3) shows the most recent year inflecting the opposite way -- FY26 PAT -13.5%, Q4FY26 PAT -20% YoY, against a ~63-65x trailing multiple. Compounding that, SEBI issued a substantive cybersecurity/DR-failure finding against CDSL on 20-Jul-2026 (one day before this review), tied to the Nov-2022 malware breach at India's largest depository. Individually neither is a Sell-grade fact under the current data, but the combination of a rich multiple sitting on decelerating trailing earnings plus a fresh, real (not procedural) regulatory governance finding on critical market infrastructure is the kind of genuine Hold-vs-Sell tension the PM should personally weigh -- not something I should resolve by silently keeping Hold. Also flagging for the desk per event-ownership charter: this is a live SEBI-derivative/depository-infrastructure headline, not yet reflected in the multiple as of this review date.
+
+## Detailed rationale
+
+CDSL is one of India's two SEBI-registered depositories, running a duopoly (with NSDL) on demat account custody, settlement, corporate-action processing and ancillary KYC/e-voting services (via subsidiary CDSL Ventures/CVL). It is effectively debt-free (D/E ~0.001 in the scorecard, exempt anyway under the financial-sector rule since it is not a lender) with ROE 26.1% and ROCE 31.2% on the scorecard row, versus ROE 24.5% (last year) / 29.2% (3yr avg) and ROCE 32.0% per screener.in [DATA] -- both sources agree the business is a high-return, capital-light fee compounder. Account base crossed 18.01 crore as of 31-Mar-2026 (first depository past that mark), up from 15.30 crore a year earlier, though FY26 industry-wide net demat additions fell ~22% YoY (32mn vs a record 41mn in FY25) as the FY25 bull-market/IPO surge normalized [DATA, Business Standard/indiaipo.in].
+
+FY26 results show the cyclicality plainly: consolidated PAT fell 13.5% YoY to Rs 455.1cr (FY25: Rs 526.3cr) even as revenue from operations grew ~6% to Rs 1,145cr and total income grew 3.3% to Rs 1,238cr -- margin compression, not a revenue problem (EBITDA margin ~44% vs ~48-49% a year earlier). Q4FY26 alone: PAT Rs 80cr, down 20% YoY, despite revenue from operations UP 17% YoY -- opex/cost growth is outrunning topline. FY26 was a record fundraising year for the IPO market (112 IPOs, Rs 1.8 lakh cr raised) but listing-day gains and retail-application intensity both moderated sharply (avg listing gain 8% vs 30%; avg applications 1.3mn vs 2.13mn) [DATA, Business Standard/marketsmojo.com]. The scorecard's own growth_divergence_flag=True captures this exactly: growth_3y_score is a strong 82.2 (percentile) while growth_1y_score is a weak 26.3 -- the trailing multi-year compounding story is real, but the most recent year is decelerating/reversing off a high base, and the quant model is already seeing that tension even while landing on Hold.
+
+Fresh event risk: SEBI issued an order on 20-Jul-2026 (one day before this review) imposing a Rs 1 crore penalty on CDSL over cybersecurity lapses tied to the November-2022 malware attack that disrupted settlement, corporate actions, margin pledges and inter-depository transfers. SEBI's findings were substantive, not procedural: CDSL failed to classify an internet-facing server as a critical asset, failed real-time intrusion detection, and failed to properly execute backup-site settlement resumption; attacker access reportedly dated back to Nov-2021. SEBI dropped individual proceedings against the then-CISO and then-CTO. The Rs 1cr fine itself is financially immaterial against Rs 455cr FY26 PAT, but the finding is a live governance/operational-risk data point on India's largest piece of retail-market settlement infrastructure -- exactly the RBI/SEBI event-risk class this desk is chartered to flag ahead of any short-vol trade around the name. [DATA, Business Standard/933thedrive.com, 20-Jul-2026]
+
+## Sources
+
+- Quant scorecard row: full750_scored.csv (CDSL row) -- final_score_3y 57.6, final_score_1y 44.4, recommendation_overall Hold, latest_qtr Mar 2026, stale_flag False
+- CDSL Q4 FY26 results (PAT Rs 80cr, -20% YoY; revenue ops +17% YoY) - https://www.business-standard.com/companies/news/cdsl-posts-rs-455-cr-profit-for-fy26-consolidated-income-at-rs-1-239-cr-126050200763_1.html
+- CDSL Q4 FY26 margin compression detail - https://www.marketsmojo.com/news/result-analysis/cdsl-q4-fy26-profit-plunges-20-as-revenue-volatility-raises-concerns-3974450
+- CDSL FY26 official results PDF - https://www.cdslindia.com/Downloads/About/Media/Financial%20Media%20Release_CDSL%20declares%20financial%20results%20for%20Q4%20and%20FY26.pdf
+- Demat account additions fall 22% in FY26 - https://www.business-standard.com/markets/news/demat-account-additions-fall-22-in-fy26-amid-rising-market-volatility-126040800228_1.html
+- CDSL crosses 18cr demat accounts - https://www.tribuneindia.com/news/business/yes-securities-demat-account-app-is-part-of-indias-21-6-crore-demat-boom-as-cdsl-adds-76-lakh-new-accounts-in-q3-fy26-alone-2-2/amp
+- SEBI Rs 1cr penalty on CDSL, 2022 malware attack findings (20-Jul-2026) - https://www.business-standard.com/markets/news/sebi-imposes-1-crore-penalty-on-cdsl-for-alleged-cybersecurity-lapses-126072001204_1.html
+- SEBI order detail (critical-asset classification, intrusion detection, backup-site failures) - https://www.933thedrive.com/2026/07/20/india-markets-regulator-penalises-depository-over-2022-malware-attack/
+- Screener.in valuation/quarterly snapshot (P/E ~62.5, ROE 24.5%/29.2% 3yr avg, ROCE 32%, promoter holding 15%) - https://www.screener.in/company/CDSL/consolidated/
+
+---
+*Generated from `results/pf_qual_CDSL.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

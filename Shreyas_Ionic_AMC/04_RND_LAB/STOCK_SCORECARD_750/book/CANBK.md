@@ -1,0 +1,67 @@
+---
+symbol: "CANBK"
+company: "Canara Bank"
+sector: "Financial Services"
+universe: "nifty100"
+rec: "Hold"
+quant_rec: "Hold"
+growth_3y_pct: 8
+escalation: false
+holding_value_inr: null
+updated: 2026-07-19
+tags:
+  - stock-note
+---
+# CANBK — Canara Bank
+
+> [!summary]
+> Canara Bank had a strong FY26 on paper -- record profit, best-ever asset quality, and comfortable capital -- and it also successfully monetized stakes in its asset-management and life-insurance units through 2025 IPOs, both completed with regulatory approval. But look past the headline: part of that FY26 profit came from a one-time accounting gain tied to those IPOs, and the bank's own management has just told investors to expect slower loan growth and thinner margins in FY27 than it delivered in FY26. Deposits -- especially the cheap, low-cost kind -- are also growing more slowly than loans, which squeezes profitability further. The stock trades roughly in line with its book value, a fair price for a bank whose best days of this particular improvement cycle look to be behind it rather than ahead. We rate it a Hold: the balance sheet is genuinely healthier than a few years ago, but the growth and margin story is decelerating, not accelerating, from here.
+
+## Recommendation — Hold
+
+Hold, not Sell: capital (17.04% CRAR), asset quality (GNPA/NNPA at multi-year lows on a genuine slippage improvement, not just recoveries) and a completed, capital-accretive subsidiary-monetization program are too solid a franchise to justify a Sell, and at ~1x book the stock isn't overvalued. Hold, not a more constructive call, because management's own FY27 guidance cuts (NIM to 2.5-2.6% from 2.75-2.85%, credit growth to 11-12% from an actual 16.29%) plus two straight years of CASA erosion (31.17% to 29.84%) tell you the FY26 earnings beat was partly cyclical/one-off (~Rs 1,800 cr subsidiary-reclassification gain in Q3FY26) and that earnings momentum is normalizing down into FY27, not up.
+
+## Bull case
+
+Asset quality is at its best level in years and it's a real improvement, not an illusion: GNPA fell to 1.84% and NNPA to 0.43% at March 2026 (from 2.94%/0.70% a year prior), and the underlying annualized slippage ratio itself dropped to 0.69% -- meaning fewer loans are turning bad in the first place, not just that old bad loans are being written off or recovered. Capital is comfortable at 17.04% CRAR with a 12.44% CET1 cushion, so there's no dilution overhang. The bank also successfully monetized two non-core, capital-light assets -- Canara Robeco AMC and Canara HSBC Life Insurance both completed IPOs in October 2025 with RBI approval, unlocking value while the bank retains meaningful residual stakes (38.00% and 36.50%). The core loan book is diversifying sensibly too: retail/agri/MSME advances grew 21.27% YoY and now make up roughly two-thirds of the domestic book, reducing dependence on lumpy corporate lending. All this at a price-to-book of roughly 1x, a discount to PSU-bank peers.
+
+## Bear case
+
+The strongest bear point is that management itself just told the market the good times are moderating: FY27 NIM guidance was cut to 2.5-2.6% from 2.75-2.85%, and credit-growth guidance was cut to 11-12% from an actual FY26 delivery of 16.29% -- both of the levers that produced FY26's earnings beat are guided to weaken in FY27, not strengthen. Compounding this, CASA (the cheap-deposit ratio) has fallen for two straight years, from 31.17% to 29.84%, missing the bank's own 32% target -- it is funding continued loan growth with costlier deposits at precisely the moment margins are compressing, a genuine double squeeze on profitability. And the headline FY26 ROE of 20.4% is not a clean run-rate number: roughly Rs 1,800 cr of it came from a one-off gain when Canara Robeco AMC and Canara HSBC Life were reclassified from subsidiaries to associates after their IPOs, and credit costs (85bp in 9MFY26) are sitting near cyclical lows after two years of 16%+ loan growth, with normalization risk as that book seasons. Strip out the one-off and normalize credit costs, and sustainable through-cycle ROE is likely several hundred basis points below the reported number -- closer to what a PSU bank structurally earns.
+
+## Valuation (reverse-DCF judgment)
+
+At ~0.96-1.0x book (market cap ~Rs 113,429 cr vs book ~Rs 117,705 cr, mid-July 2026), the market is pricing a durable ROE only modestly above a PSU-bank cost of equity (roughly 13-14%). FY26's reported 20.4% ROE is inflated by a ~Rs 1,800 cr one-off subsidiary-reclassification gain and by credit costs sitting near cyclical lows; a cleaner through-cycle ROE is more plausibly 14-16% once credit costs normalize and NIM settles at the newly guided 2.5-2.6%. That still clears the cost-of-equity bar (so the stock isn't rich), but it leaves little room for upside re-rating given management's own guidance points to deceleration, not acceleration, in FY27 -- fair-to-modestly-cheap, not a bargain.
+
+## Detailed rationale
+
+Canara Bank's FY26 (Apr25-Mar26) headline is genuinely strong: record standalone net profit of Rs 19,186.67 cr (+12.69% YoY), ROE of 20.40% (beating its own >18.5% guidance), ROA of 1.10%, and asset quality at multi-year bests -- GNPA down to 1.84% and NNPA to 0.43% at March 2026, from 2.94%/0.70% a year earlier. Importantly this isn't purely a write-off/recovery story: the annualized slippage ratio itself fell to 0.69% (down 21bps YoY) and 9MFY26 credit cost improved to 85bp from 95bp -- underlying credit discipline has genuinely improved, not just balance-sheet cosmetics. Capital is comfortable (CRAR 17.04%, CET1 12.44%, Tier-I 14.59%), so no near-term dilution risk. The bank also closed out its subsidiary-monetization program this cycle: Canara Robeco AMC (Oct-2025, priced Rs 266/sh, listed +5.36%) and Canara HSBC Life Insurance (Oct-2025, priced Rs 106/sh) both IPO'd with RBI's blessing, and Canara Bank retains 38.00% / 36.50% stakes respectively post-OFS -- capital-light, non-core-asset monetization done, not merely proposed.
+
+The catch is in what drove the FY26 beat and what management now says about FY27. First, a real one-off: the OFS-driven reclassification of Canara Robeco AMC and Canara HSBC Life from subsidiaries to associates booked a pre-tax gain of roughly Rs 1,800 cr in Q3FY26 (Dec-25 quarter), which is why Q3 profit (Rs 5,155 cr) looks so strong and why Q4FY26 (Rs 4,505.57 cr, -9.9% YoY, -12.6% QoQ) looks like a bigger fall than core trends warrant -- consistent with "other income" collapsing ~40% QoQ (Rs 7,899 cr to Rs 4,824 cr) as that gain rolled off. Second, and more consequential for the next 3 years: management cut FY27 guidance on exactly the two levers that produced the FY26 beat. NIM guidance was cut to 2.5-2.6% from 2.75-2.85% (Q4 print 2.54%, still down 19bps YoY despite a 9bps QoQ uptick), and credit-growth guidance was cut to 11-12% from an actual FY26 print of 16.29%. CASA has also slipped for two straight years -- 31.17% (Mar25) to 29.52% (Q3FY26) to 29.84% (Mar26) -- missing its own 32% target, meaning deposit-franchise competitive pressure is structural, not a one-quarter blip, and it compounds the NIM squeeze (funding growth with costlier deposits right as margins compress). Q1FY27 provisional business figures (filed July 1, 2026, unaudited) show advances still running hot -- global advances +17.96% YoY, global deposits +11.69% YoY, global business +14.4% YoY to Rs 29,05,820 cr -- encouraging on volume, but the full P&L (NIM, provisions, credit cost) is not yet out. Q1FY27 results are PENDING: board meeting scheduled July 27, 2026, not yet reported as of today.
+
+On valuation: P/B is ~0.96-1.0x (market cap ~Rs 113,429 cr vs book value ~Rs 117,705 cr as of mid-July 2026), a meaningful discount to the PSU-bank peer median (~1.43x). A reverse-DCF read: sustaining even 1x book for a PSU bank needs a durable ROE comfortably above cost of equity (~13-14% for this cohort). FY26's 20.4% print is flattered by the one-off stake-reclassification gain and by credit costs sitting near cyclical lows after two years of 16%+ loan growth -- a cleaner, through-cycle ROE is more likely in the 14-16% band once credit costs normalize and NIM settles at the guided 2.5-2.6%. That still clears the cost-of-equity bar, so the stock isn't rich at ~1x book, but it isn't a mispriced bargain either -- the market is already giving reasonable credit for continued double-digit-plus ROE, and management's own guidance cuts say the FY26 beat-and-raise cycle is over, not accelerating.
+
+## Sources
+
+- n100_ctx/CANBK.json quant field is null - no quant row yet, proceeded on fundamental research only
+- Canara Bank Q4 FY26: Asset Quality Shines Despite Profit Dip - https://www.marketsmojo.com/news/result-analysis/canara-bank-q4-fy26-asset-quality-shines-despite-profit-dip-3986116
+- Canara Bank Q4 FY26 Results: Net Profit Rs 4,505.57 Cr, Dividend Rs 4.20/Share, Asset Quality Improves - https://scanx.trade/stock-market-news/companies/canara-bank-q4-results-asset-quality-improves-as-gnpa-falls-to-1-84-net-profit-at-45b-rupees/40031019
+- Canara Bank Q4 Results 2026: Profit Falls 10% to Rs 4,505 Crore as Margins Tighten Despite NPA Drop - https://www.analyticsinsight.net/news/canara-bank-q4-results-2026-profit-falls-10-to-rs-4505-crore-as-margins-tighten-despite-npa-drop
+- Canara Bank's Q4FY26 results: PAT declines 9.9% due to bond losses - Business Standard - https://www.business-standard.com/companies/quarterly-results/canara-bank-s-q4fy26-results-pat-declines-9-9-due-to-bond-losses-126051101179_1.html
+- Canara Bank Q4 net profit declines 10% YoY - Upstox - https://upstox.com/news/market-news/earnings/canara-bank-q4-net-profit-declines-10-yo-y-to-4-506-crore-asset-quality-improves-4-2-share-dividend-recommended/article-193466/
+- Canara Bank Q4 Results: Net Profit Falls 10% YoY to Rs 4,574 Crore - Kotak Neo - https://www.kotakneo.com/news/market-news/canara-bank-q4-results-profit-falls-10-percent-dividend-declared-fy26/
+- Canara Bank share price up 2%; Analysts cut target on lower FY27 guidance - Business Standard - https://www.business-standard.com/markets/news/canara-bank-share-price-q4-results-target-price-fy27-126051200385_1.html
+- Canara Bank Share Price Target at Rs 160: Prabhudas Lilladher Research - https://topnews.in/canara-bank-share-price-target-rs-160-prabhudas-lilladher-research-2418938
+- Canara Bank Investor Calendar & Financial Results (Q1FY27 board meeting date) - https://www.canarabank.bank.in/investor-calendar
+- Canara Bank global business rises 14.4% YoY to Rs 29,05,820 crore (Q1FY27 provisional, filed July 1 2026) - https://scanx.trade/stock-market-news/companies/canara-bank-global-business-rises-14-4-yoy-to-29-05-820-crore/44471374
+- Canara Bank's Provisional Domestic Deposits As Of June End Up 10.06% Y/Y - TradingView/Reuters - https://www.tradingview.com/news/reuters.com,2026:newsml_FWN433132:0-canara-bank-s-provisional-domestic-deposits-as-of-june-end-up-10-06-y-y/
+- Canara Robeco IPO Details 2026 - Chittorgarh - https://www.chittorgarh.com/ipo/canara-robeco-ipo/2428/
+- Canara Robeco IPO: Canara Bank eyes 13,100% return on stake sale (Q3FY26 reclassification gain detail) - https://meyka.com/blog/canara-robeco-ipo-canara-bank-eyes-13100-return-on-stake-sale/
+- India's PNB sells 10% stake in Canara HSBC Life Insurance - Yahoo Finance - https://finance.yahoo.com/news/india-pnb-sells-10-stake-094846876.html
+- Canara Bank Q3 FY26 Results: Higher Profit, Lower NPAs Boost Outlook - NewsX - https://www.newsx.com/business/canara-bank-q3-fy26-results-higher-profit-lower-npas-boost-outlook-heres-everything-investors-need-to-know-155660/
+- Canara Bank Q1 Net Profit Rises 22% to Rs 4,752 Crore (Q1FY26/Apr-Jun 2025, used to PIT-disambiguate from unreleased Q1FY27) - India Infoline - https://www.indiainfoline.com/news/business/canara-bank-q1-net-profit-rises-22-to-4752-crore
+- Price/Book(PB) Ratio of Canara Bank - 19 Jul 2026 - https://www.smart-investing.in/pb-ratio.php?Company=CANARA+BANK
+- Canara Bank Valuation Shifts Signal Changing Market Sentiment - Marketsmojo - https://www.marketsmojo.com/news/stocks-in-action/canara-bank-valuation-shifts-signal-changing-market-sentiment-4083750
+
+---
+*Generated from `results/pf_qual_CANBK.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

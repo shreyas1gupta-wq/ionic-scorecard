@@ -1,0 +1,71 @@
+---
+symbol: "ICICIBANK"
+company: "ICICI Bank Ltd."
+sector: "Financial Services"
+universe: "holdings"
+rec: "Hold"
+quant_rec: "Hold"
+growth_3y_pct: 12
+escalation: false
+holding_value_inr: 559905
+updated: 2026-07-18
+tags:
+  - stock-note
+---
+# ICICIBANK — ICICI Bank Ltd.
+
+> [!summary]
+> ICICI Bank's asset quality keeps setting new lows (GNPA 1.40%, NNPA 0.33% at March 2026) and its liability franchise held NIM flat at 4.32% through FY26 even as PSU peers saw real margin compression -- both genuine positives. But FY26's headline profit growth (standalone PAT +6.2% for the year, Q4 +8.48%) leaned heavily on a provisions collapse (Rs 96 crore vs Rs 891 crore YoY in Q4) rather than core operating strength (PPOP grew only ~3-5% YoY), and that tailwind is now at a floor -- consensus already expects Q1 FY27 (reported today, 18 July 2026) profit to be flat-to-down QoQ as credit costs normalize. Two governance overhangs (CEO reappointment, ICICI Securities delisting dispute) have both resolved in the bank's favour in the last few months, and ICICI Prudential Life had a strong quarter, though ICICI Lombard's Q1 FY27 profit fell 46% on a one-off Supreme Court-driven Motor TP reserve charge plus fire losses. At ~18-19x earnings and ~3x book, the stock is priced as a quality compounder; that premium is defensible on franchise quality but requires loan growth (retail/unsecured currently suppressed) to reaccelerate to keep earning it. Hold.
+
+## Recommendation — Hold
+
+[INFERENCE] Nothing here argues for exiting an existing core private-bank holding. Asset quality is the cleanest in the sector and still improving (GNPA 1.40%, NNPA 0.33%), capital/franchise quality is intact, and the two governance binaries that could have justified real caution -- CEO reappointment and the ICICI Securities delisting dispute -- have both been resolved favourably and are no longer live risks. The one legitimate point of analytical tension is earnings quality: FY26's profit growth leaned heavily on a credit-cost collapse that has essentially no further room to help, core PPOP growth is running mid-single-digit, and the stock still commands a premium multiple (~18-19x earnings, ~3x book) versus PSU/some private peers. That is a real reason to expect multiple compression or a period of subdued re-rating if loan growth (especially retail/unsecured, currently deliberately throttled) doesn't reaccelerate -- but it is a valuation-normalization risk, not a credit-quality or franchise-impairment risk, and does not clear the bar for a Sell on an existing holding.
+
+## Bull case
+
+[DATA] The bull case: asset quality is best-in-class and still improving -- GNPA 1.40%, NNPA 0.33% at March 2026, both multi-quarter lows -- with broad-based loan growth (+15.8% YoY) across business banking and rural in particular. NIM held flat at 4.32% through FY26, a materially better outcome through the rate-cut cycle than PSU peers, evidencing real liability-franchise quality (CASA plus granular retail deposits). Two governance binaries that could have weighed on the name are now resolved: RBI cleared Sandeep Bakhshi's CEO reappointment to October 2028, and the NCLT upheld the ICICI Securities delisting/merger over minority-shareholder objections, simplifying the group structure. ICICI Prudential Life posted strong Q1 FY27 profit growth (+27.8% YoY), and RBI has cleared the bank to lift its stake above 50% to preserve control as the JV partner trims its own holding -- subsidiary-value clarity rather than dilution risk.
+
+## Bear case
+
+[DATA/INFERENCE] The bear case: the FY26 profit beat was substantially a credit-cost story, not a core-growth story -- Q4 provisions collapsed 89% YoY while core PPOP grew only mid-single-digits, and full-year standalone PAT growth of 6.2% is a real deceleration from ICICI's historical mid-teens cadence. That tailwind is now at a floor with limited further room to flatter earnings, and sell-side consensus already expects Q1 FY27 profit to be flat-to-down QoQ as provisions normalize. Retail loan growth, and unsecured lending specifically (down to ~1.5% YoY from ~14%), has slowed sharply on regulatory risk-weight caution -- a credit-quality positive but a growth-multiple risk if it persists. ICICI Lombard's Q1 FY27 profit fell 46% on a one-off Supreme Court-driven reserve charge and fire losses, denting near-term SOTP contribution from the insurance sleeve. All of this sits under a valuation (~18-19x trailing earnings, ~3x book) that is priced at a real premium to PSU peers and requires the growth/ROE combination to hold up, not merely to stay clean.
+
+## Valuation (reverse-DCF judgment)
+
+[INFERENCE/OPINION] Using the ROE-implied justified-P/B lens rather than a literal cash-flow DCF (the right framing for a deposit-funded lender): at ~3.0x book against a standalone ROE of roughly 17%, solving (ROE-g)/(COE-g) for g with a ~13% cost of equity backs out an implied perpetual growth/ROE-persistence assumption of roughly 10-11% baked into the current price. That is a demanding but not absurd bar -- it requires (a) ROE to hold near current levels (plausible given asset-quality trajectory, though credit costs are at a floor and can only normalize upward from here, a headwind to ROE, not a tailwind), and (b) loan-book growth to run at low-double-digit-to-mid-teens, which in turn requires retail/unsecured growth (currently suppressed to protect asset quality) to reaccelerate, since business-banking and rural cannot indefinitely carry the growth mix alone at their current scale. My own forward view: a plausible base case is loan growth settling around 13-15%, NIM roughly flat to modestly down as further rate cuts work through, and credit costs normalizing up modestly from an artificially low base -- netting to underlying PAT growth in the low-to-mid teens, close to but not comfortably above what the current multiple already assumes. That reads as a stock priced correctly for its quality rather than cheap for it -- a Hold on franchise quality and clean asset quality, not a re-rating candidate, and not a Sell given there is no credit-quality or governance flaw underneath the multiple.
+
+## Detailed rationale
+
+[DATA] ICICI Bank's asset quality remains the cleanest in Indian banking, and the trend is still improving, not just holding a good level. GNPA fell to 1.40% at March 2026 from 1.53% (Dec 2025) and 1.67% (Mar 2025); NNPA fell to 0.33% from 0.37% and 0.39% over the same windows -- a genuinely best-in-class print, corroborated across independent broker/media sources (ainvest, Business Standard, Business Upturn). Loan growth stayed broad-based: total advances +15.8% YoY to Rs 15,53,893 crore at March 2026, with business banking (+24.4% YoY) and rural (+25.6% YoY) the standout drivers, domestic corporate +9.3% YoY, and retail (50.4% of the book) decelerating to +9.5% YoY. The retail deceleration is partly deliberate: unsecured lending (personal loans + credit cards) growth was throttled to roughly 1.5% YoY versus ~14% a year earlier -- underwriting discipline in response to RBI risk-weight tightening on unsecured retail, a credit-quality positive but a near-term growth headwind. NIM held flat at 4.32% for FY26 (versus 4.32% FY25, Q4 4.32% vs Q3 4.30%) -- meaningfully better NIM resilience through the rate-cut cycle than PSU peers (SBI's domestic NIM, for comparison, compressed 18bp YoY in the same FY26), which is a genuine liability-franchise (CASA + granular retail TD) quality signal, not noise.
+
+[DATA/INFERENCE] The earnings-quality picture needs a more careful read than the headline PAT growth suggests. Q4 FY26 standalone PAT grew 8.48% YoY to Rs 13,701.7 crore, but provisions collapsed to just Rs 96.16 crore from Rs 890.70 crore a year earlier (-89.2% YoY) -- a mechanical driver of a large chunk of that headline beat. Core PPOP (pre-provision operating profit) grew only about 3-5% YoY in the same quarter (Rs 18,199-18,305 crore vs Rs 17,425-17,664 crore), and treasury was actually a modest net LOSS (~Rs 1.06 billion on swap/forward MTM) rather than a flattering one-off gain -- so the profit beat was funded by an unsustainably low credit-cost quarter riding on top of tepid core growth, not by treasury gains or other one-off income (that part of the earnings-quality question is clean). Full-year FY26 standalone PAT grew just 6.2% YoY to roughly Rs 50,147 crore, a real deceleration from ICICI's historical mid-teens PAT growth cadence in FY23-FY25. Sell-side previews ahead of today's (18 July 2026) Q1 FY27 print flagged exactly this: consensus expects profit roughly flat to down 4-5% QoQ as provisions normalize off that unsustainably low Q4 base, with NIM expected to hold broadly stable near 4.3-4.4%. As of this research, the actual Q1 FY27 standalone figures were not yet reflected in indexed sources (results/call were same-day, 5pm IST) -- this is a same-day pending data point, not a red flag, and the Trading Desk should treat 18-19 July as an active earnings-reaction window for the name.
+
+[DATA] On governance and subsidiaries, two binary overhangs that would have mattered to this holding have both resolved favourably in the last two months. RBI approved Sandeep Bakhshi's reappointment as MD & CEO for a further two years (4 Oct 2026 - 3 Oct 2028) via a letter dated 22 May 2026, following board approval on 17 Jan 2026 -- shareholder approval remains procedurally pending but this removes what was a live key-man/succession binary. Separately, RBI cleared ICICI Bank to increase its stake in ICICI Prudential Life above 50% (~June 2026) to preserve majority control as JV partner Prudential plc signalled intent to trim its ~22% holding -- a subsidiary-control clarification, not a distress signal. ICICI Securities' delisting/merger into the bank as a wholly-owned subsidiary was finally upheld by the NCLT (Mumbai) in January 2026, dismissing objections from Quantum Mutual Fund and a retail petitioner over process fairness -- a governance controversy that is now legally closed in the bank's favour, and it simplifies the group's sum-of-the-parts structure (no more listed minority stub to value separately). Within the insurance subsidiaries, results are diverging: ICICI Prudential Life's Q1 FY27 PAT grew a strong 27.8% YoY to Rs 386 crore, while ICICI Lombard's Q1 FY27 PAT fell 46% YoY to Rs 403 crore as its combined ratio deteriorated to 107.2% (from 101.2%), driven by a Rs 165 crore one-off Motor Third-Party reserve top-up following a Supreme Court ruling that raised compensation benchmarks, plus two large fire-insurance losses and softer investment/capital gains income (Rs 183 crore vs Rs 380 crore YoY). That is a real, quantifiable subsidiary-level earnings hit for the quarter, but it reads as a claims/reserving event plus a judicial one-off rather than a franchise-quality problem, and it dents only one (non-controlling-adjacent, ~48% owned) piece of a multi-subsidiary group whose combined listed insurance/AMC stakes are estimated by market commentary to be worth roughly Rs 450-500 per ICICI Bank share.
+
+## Sources
+
+- local: Shreyas_Ionic_AMC/04_RND_LAB/STOCK_SCORECARD_750/results/portfolio_quant.csv (ICICIBANK row: mcap_cr=1085257, ROE=17.0%, D/E=0.61, PE=18.7, PB=3.0, quant_rec_final=Hold)
+- local: datasets/earnings_pit/unified_quarterly_pit.parquet (ICICIBANK rows FY2024Q1-FY2026Q4, available_date PIT-filtered, 26 rows total)
+- https://www.icici.bank.in/about-us/news-room/2026/performance-review-quarter-ended-march-31-2026
+- https://www.business-standard.com/companies/quarterly-results/icici-bank-net-profit-up-8-5-pc-in-q4-fy26-to-rs-13-701-7-crore-126041800606_1.html
+- https://www.ainvest.com/news/icici-bank-q4-asset-quality-breakout-justifies-overweight-rating-2604/
+- https://m.dailyhunt.in/news/india/english/business+upturn-epaper-bsnutme/icici+bank+q4+fy26+nii+up+843+to+rs+22979+crore+pat+jumps+849+to+rs+13702+crore+gnpa+at+record+low+140+as+provisions+collapse+89-newsid-n708931173
+- https://www.plindia.com/pl-research/icici-bank-icicibc-in-q4fy26-result-update-earnings-quality-continues-to-remain-best-in-class-buy/
+- https://in.investing.com/news/transcripts/earnings-call-transcript-icici-bank-q4-2026-sees-stock-rise-postearnings-93CH-5345146
+- https://www.business-standard.com/amp/markets/news/icici-bank-q1-results-preview-profit-likely-to-be-flat-nims-may-remain-stable-126071600767_1.html
+- https://upstox.com/news/market-news/earnings/icici-bank-q1-fy-27-results-check-date-time-past-performance-and-share-price-trend/article-195981/
+- https://www.businesstoday.in/markets/stocks/story/hdfc-icici-kmb-axis-bank-q1-results-today-key-expectations-543602-2026-07-18
+- https://www.businesstoday.in/latest/corporate/story/rbi-clears-sandeep-bakhshis-reappointment-as-icici-bank-ceo-till-2028-532974-2026-05-23
+- https://www.stocktitan.net/sec-filings/IBN/6-k-icici-bank-ltd-current-report-foreign-issuer-70e40baf8faa.html
+- https://www.stocktitan.net/sec-filings/IBN/6-k-icici-bank-ltd-current-report-foreign-issuer-cfb6dd0f74b2.html
+- https://www.businessupturn.com/business/icici-bank-receives-rbi-approval-to-increase-stake-in-icici-prudential-life/
+- https://www.outlookbusiness.com/news/nclt-approves-delisting-of-icici-securities-dismisses-etition-by-minority-shareholders
+- https://www.indiainfoline.com/news/companies/icici-securities-shareholders-approve-delisting-proposal-amid-controversy
+- https://scanx.trade/stock-market-news/companies/icici-prudential-life-insurance-reports-q1-fy2027-premium-growth/45041415
+- https://www.business-standard.com/markets/capital-market-news/icici-lombard-slumps-after-q1-profit-drops-46-yoy-to-rs-403-crore-126071600550_1.html
+- https://compoundingai.in/market-news/icicigi-q1-fy27-results-analysis
+- https://www.whalesbook.com/news/English/bankingfinance/icici-bank-q2-fy26-loan-growth-moderates-but-profitability-still-very-strong/68f5bd5941347be54e119e18
+- https://www.screener.in/company/ICICIBANK/consolidated/
+- https://trendlyne.com/equity/584/ICICIBANK/icici-bank-ltd/
+
+---
+*Generated from `results/pf_qual_ICICIBANK.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

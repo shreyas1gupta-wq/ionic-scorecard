@@ -1,0 +1,56 @@
+---
+symbol: "POLYCAB"
+company: "POLYCAB"
+sector: "Capital Goods"
+universe: "universe750"
+rec: "Hold"
+quant_rec: "Hold"
+growth_3y_pct: 16
+escalation: false
+holding_value_inr: null
+updated: 2026-07-21
+tags:
+  - stock-note
+---
+# POLYCAB
+
+> [!summary]
+> Polycab is India's leading wires-and-cables maker with a genuinely strong balance sheet (23%+ ROE, almost no debt, zero promoter pledge) and a fast-growing solar/FMEG business layered on top. The last two quarters show revenue growing faster than profit - partly because copper/aluminum/PVC price hikes are flowing through to the topline before margins catch up - so some of the headline growth is price-driven rather than pure volume. The stock's valuation already assumes several more years of strong growth, in line with the company's own 15-18% guidance, leaving limited room for disappointment. We rate it Hold: a high-quality compounder, but not cheap enough here to add, and not weak enough to sell.
+
+## Recommendation — Hold
+
+Quant score (final_score_3y 70.8, final_score_1y 61.5) already lands at Hold on both horizons and recommendation_overall=Hold; under V1's asymmetric-override rule a Hold cannot be converted to Sell by the analyst. Independently, my own read supports Hold rather than escalation: capital efficiency and balance-sheet quality are excellent and support holding an existing position, but the stock trades on a valuation that already prices in several more years of 20%+ compounding while management's own guidance is 15-18% (W&C) / 20-25% (FMEG, small base) - a valuation-growth gap, not a business-quality problem. That is a 'priced for perfection, don't chase' picture, consistent with Hold, not the kind of analytical coin-flip that would warrant escalation.
+
+## Bull case
+
+Category-leading scale in W&C with pricing power, a genuinely under-levered balance sheet (D/E near zero, zero pledge) that removes financial risk from the thesis entirely, and a credible second growth engine in FMEG/solar where segment EBIT margins have tripled-plus over three quarters (2.1%->8.0%) on record volumes. Management's own FY27 guidance (W&C 15-18%, FMEG 20-25%, both ahead of the 10-12% industry rate) is specific and has so far been delivered against (Q1 FY27 revenue +39%, a beat on guidance). Export ambitions (targeting >10% of sales by FY30 from ~3.3% now) and continued capex discipline (~Rs 1,200-1,600cr/yr, 90% into W&C) extend the growth runway without needing balance-sheet risk.
+
+## Bear case
+
+The two most recent quarters both show the same pattern: revenue growth meaningfully outrunning profit growth (Q1 FY27: W&C revenue +37.7% vs segment profit +24.9%; Q4 FY26: revenue +26.9% YoY vs PAT +6.3% YoY, margin down 158bps YoY) - i.e., operating leverage is currently working against the P&L, not for it, as commodity-linked price hikes lag into cost of goods before they are fully recovered in reported margin. Copper and aluminum are 40-60% of raw material cost, so a chunk of the 39% Q1 headline growth is commodity pass-through rather than volume/mix improvement, and at least one source flags underlying volume growth decelerating to low-single-digits exiting Q4 versus ~18% for FY26 overall - a genuine deceleration if it holds, though I was not able to fully verify the volume-vs-price split independently. Layered on that earnings-quality nuance, the stock trades on a rich multiple (reported trailing PE estimates ranged 38x-54x across sources) that already prices in continued high-growth compounding; if copper/PVC costs stay elevated and margin recovery lags further, or volume deceleration proves real, a re-rating risk exists purely from the multiple compressing toward the guided growth rate, independent of any operational deterioration.
+
+## Valuation (reverse-DCF judgment)
+
+At a reported trailing PE in the high-30s to mid-50s (sources disagree meaningfully - I flag this range honestly rather than picking one), the market is pricing sustained 20%+ compounding for several more years. Management's own guidance is 15-18% revenue growth (W&C) and 20-25% (FMEG, off a much smaller base) - i.e., the stock is priced ahead of, not in line with, the company's own stated growth path. ROE of ~23% comfortably exceeds the growth rate needed, so growth can be self-funded without dilution (share count is stable; this is not a >=25%-growth case requiring the ROE/dilution disclosure). Judgment: fair-to-rich - a quality compounder that is not obviously cheap here; the margin-lag pattern in the last two quarters is the more immediate risk to watch than the headline growth rate.
+
+## Detailed rationale
+
+Polycab is India's largest wires & cables (W&C) manufacturer (~87% of revenue) with a fast-growing FMEG (consumer electricals, incl. solar) arm and a small, volatile EPC tail. [DATA] Q1 FY27 (Jun-2026): revenue Rs 8,209.7cr (+39% YoY), PAT Rs 796.7cr (+33% YoY), EBITDA Rs 1,136.2cr (+32% YoY). W&C revenue +37.7% YoY to Rs 7,201.8cr but segment profit grew only +24.9% YoY - core-segment margin compressed even as the topline surged, a real quality tell, not a bull point. FMEG grew +71% YoY on record solar sales (solar segment EBIT margin ramped 2.1%->4.1%->8.0% over the last three quarters - genuine operating-leverage improvement in the smaller, faster-growing segment). Q4 FY26 (Mar-2026): record revenue Rs 8,864.5cr (+26.9% YoY, +16.1% QoQ) but PAT grew only +6.3% YoY (operating margin -158bps YoY to 13.10%) - the same pattern: revenue outrunning profit. EPC declined -15% YoY in Q4 (project-timing, not a structural worry given it's a small, deliberately low-priority segment). FY26 full year: revenue Rs 28,883.8cr (+29% YoY), PAT Rs 2,708.4cr (+32% YoY), PAT margin 9.4%. [DATA] Balance sheet is exceptionally clean: ROE ~23.2%, ROCE ~40.9%, D/E near-zero (~0.02-0.04x), zero promoter pledge, interest coverage ~25x - self-funding capacity is not a constraint on growth. [INFERENCE] The revenue-outrunning-profit pattern across the last two quarters is at least partly a copper/aluminum pass-through effect: these two inputs are ~40-60% of raw material cost and Polycab pushed through 8-10% price hikes in Q1 FY27 after 18-19% hikes in Q4 FY26, on top of a reported 60-80% PVC price spike in March-2026 - meaning a chunk of the eye-catching 39% headline growth is commodity-price pass-through with a margin lag, not pure volume/mix improvement. One data point flagged volume growth decelerating to low-single-digits exiting Q4 versus ~18% for FY26 as a whole, which - if accurate - is a genuine deceleration signal beneath the headline print, though I could not independently triangulate the volume-vs-price split with full confidence from public sources in the time available. [OPINION] Business quality is genuinely excellent (scale leadership, capital efficiency, zero leverage, credible FMEG/solar second engine); the open question is entirely about the price paid, not the franchise.
+
+## Sources
+
+- Quant row: full750_scored.csv - POLYCAB, sector=Capital Goods, final_score_3y=70.76, final_score_1y=61.51, recommendation_overall=Hold
+- Q1 FY27: Polycab Posts Rs. 797 Cr Profit as Revenue Climbs 39% YoY - https://www.saurenergy.com/solar-energy-news/q1-fy27-polycab-posts-rs-797-cr-profit-as-revenue-climbs-39-yoy-12170227
+- Polycab India Q1 result: Profit rises 33%, revenue grows 39% to Rs 8,210 cr - Business Standard - https://www.business-standard.com/companies/quarterly-results/polycab-india-q1fy27-profit-revenue-results-126071600658_1.html
+- Polycab India Delivers Record Q1 FY27 Results: Solar Drives FMEG Surge - EquityBulls - https://www.equitybulls.com/category.php?id=373014
+- Polycab India Q4 FY26: Record Quarter Propels Stock to New Heights Despite Premium Valuation - MarketsMojo - https://www.marketsmojo.com/news/result-analysis/polycab-india-q4-fy26-record-quarter-propels-stock-to-new-heights-despite-premium-valuation-3978455
+- Polycab India Reports Record FY26 Performance with Revenue Crossing Rs 285 Billion - Electrical Mirror - https://electricalmirror.net/polycab-india-reports-record-fy26-performance-with-revenue-crossing-%E2%82%B9285-billion-and-highest-ever-profitability/
+- Polycab Q4FY26 Results: PAT Up 7%, Shares Gain 6% - Bajaj Broking - https://www.bajajbroking.in/share-market-news/polycab-q4fy26-results-pat-up-7-percent-shares-gain-6-percent
+- Polycab India Sets W&C Margin Target Of 11% To 13% Under Project Spring - https://www.sahi.com/news/polycab-india-sets-w-c-margin-target-of-11-to-13-under-project-spring-3551-PE1_COR
+- Polycab's Profit Engine Is Running at Full Speed, Valuation Less So - MarketScreener - https://www.marketscreener.com/news/polycab-s-profit-engine-is-running-at-full-speed-valuation-less-so-ce7f5eded18df425
+- The Wire Behind Everything: A Deep Dive Into India's Cable Sector - Spica Capital Research (Substack) - https://spicapitalresearch.substack.com/p/the-wire-behind-everything-a-deep
+- Polycab India Limited Balance Sheet health (ROE/ROCE/D-E/pledge) - Simply Wall St - https://simplywall.st/stocks/in/capital-goods/nse-polycab/polycab-india-shares/news/does-polycab-india-nsepolycab-have-a-healthy-balance-sheet-1
+- After Solar Boom at Home, Polycab Eyes Global Growth Markets - Saur Energy - https://www.saurenergy.com/solar-energy-news/after-solar-boom-at-home-polycab-eyes-global-growth-markets-12044873
+
+---
+*Generated from `results/pf_qual_POLYCAB.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

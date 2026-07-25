@@ -1,0 +1,68 @@
+{
+ "strategy": "NIFTY monthly short strangle ~4% OTM, 1 lot, held to expiry (real bhavcopy 2020-2026, daily MTM)",
+ "firm_lens": "short-vol=VRP (KB); pre-register FORWARD at 50% of gross; net Sharpe>1.5 = suspect under-costing",
+ "NoStop": {
+  "scope": "no stop",
+  "n": 74,
+  "total_pts": 1690.6,
+  "avg_pts": 22.8,
+  "win_pct": 78.4,
+  "p5": -596.7,
+  "worst": -1902.3,
+  "ann_pts": 274.2,
+  "Sharpe_ann": 0.25,
+  "MaxDD_pts": -2807.9
+ },
+ "Stop2_5x": {
+  "scope": "2.5x premium stop",
+  "n": 74,
+  "total_pts": 1549.3,
+  "avg_pts": 20.9,
+  "win_pct": 68.9,
+  "p5": -464.8,
+  "worst": -1021.2,
+  "ann_pts": 251.2,
+  "Sharpe_ann": 0.3,
+  "MaxDD_pts": -1989.3
+ },
+ "Stop_VIXge12": {
+  "scope": "2.5x stop + skip VIX<12",
+  "n": 64,
+  "total_pts": 1754.6,
+  "avg_pts": 27.4,
+  "win_pct": 71.9,
+  "p5": -465.0,
+  "worst": -1021.2,
+  "ann_pts": 329.0,
+  "Sharpe_ann": 0.37,
+  "MaxDD_pts": -1989.3
+ },
+ "stop_hit_rate": 27.0,
+ "months_skipped_lowVIX": 10,
+ "worst_months": [
+  {
+   "expiry": "2020-03-26",
+   "vix": 23.2,
+   "ret_pct": -22.86,
+   "comb0": 208.1,
+   "net_stop": -1021.2,
+   "stop_hit": true
+  },
+  {
+   "expiry": "2025-04-30",
+   "vix": 12.7,
+   "ret_pct": 3.46,
+   "comb0": 126.4,
+   "net_stop": -564.9,
+   "stop_hit": true
+  },
+  {
+   "expiry": "2021-02-25",
+   "vix": 25.3,
+   "ret_pct": 10.73,
+   "comb0": 316.4,
+   "net_stop": -498.5,
+   "stop_hit": true
+  }
+ ]
+}

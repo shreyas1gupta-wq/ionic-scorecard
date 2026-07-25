@@ -1,0 +1,63 @@
+---
+symbol: "BALKRISIND"
+company: "BALKRISIND"
+sector: "Automobile and Auto Components"
+universe: "universe750"
+rec: "Hold"
+quant_rec: "Sell"
+growth_3y_pct: 16
+escalation: true
+holding_value_inr: null
+updated: 2026-07-21
+tags:
+  - stock-note
+---
+# BALKRISIND
+
+> [!summary]
+> Balkrishna Industries (BKT), the world's #3 off-highway tyre maker, closed FY26 with revenue up a modest 3.6% YoY to Rs 10,823cr but net profit down 24.9% YoY to Rs 1,243cr, as natural-rubber and crude-linked input costs compressed EBITDA margin from ~23.5% to ~21.3% even as the company shipped record annual OHT volumes (317,356 MT, +1% YoY). The stock trades at a rich 34-38x trailing earnings and ~20x EV/EBITDA, pricing in a return to the company's own ambitious 'BKT 2.0' targets (Rs 23,000cr revenue by FY30, ~17% CAGR) funded by a Rs 6,800cr capex programme; FY27 consensus profit growth of +26% is largely a bounce off FY26's depressed base rather than fresh acceleration. Balance sheet and governance remain clean (58.3% promoter holding, zero pledge), but valuation is ahead of what FY26's volume-and-margin trajectory actually delivered. Rated Hold, with an escalation flag for a possible Sell given the valuation-fundamentals gap.
+
+## Recommendation — Hold
+
+No quant score exists yet for this name, so V1 defaults to Hold. My own read leans toward Sell on valuation: 34-38x trailing P/E and ~20x EV/EBITDA against a FY26 print of -24.9% PAT, +1% volume growth and ~225bp margin compression is not supported by delivered fundamentals, and the FY27 'recovery' priced in is largely a base-effect bounce rather than fresh demand acceleration. I am not unilaterally overriding to Sell (clean balance sheet, zero pledge, a genuine #3-in-OHT global franchise with real capacity being built) - flagging escalation for CIO/desk review instead.
+
+## Bull case
+
+BKT holds the #3 global position in off-highway (agri/industrial/construction/mining) tyres, a category structurally less commoditized than passenger/truck tyres, with 18-24% EBITDA margins well above typical Indian tyre-maker economics. FY26 volumes were the highest ever (317,356 MT annual; 85,820 MT in Q4 alone, +5% YoY exit run-rate), and the company is executing a credible, funded expansion (Rs 6,800cr capex through FY29 across OHT, on-highway tyres, rubber tracks, carbon black and a captive power plant) toward a management-set Rs 23,000cr FY30 revenue target. Carbon Black backward integration is now at full utilization, a structural margin lever going forward. The balance sheet is clean - 58.3% promoter holding with confirmed NIL pledge/encumbrance for FY26 - and the company continues to pay steady dividends.
+
+## Bear case
+
+FY26 net profit fell 24.9% YoY on margin compression (OPM ~21.3% vs ~23.5% in FY25) driven by natural-rubber and crude-linked raw-material costs BKT does not fully control; full-year volume growth was just 1%, meaning FY26's modest revenue growth (+3.6%) was realization/mix-led rather than demand-led - a caution flag for a name whose multiple assumes double-digit compounding. At 34-38x trailing earnings and ~20x EV/EBITDA, the stock is priced for a fast, clean recovery that FY26 did not deliver; two covering brokers (Nirmal Bang, Kotak) already carry Sell/Reduce ratings, and consensus upside to target (~12-13%) is thin. European agri-equipment demand, a key end-market, remains soft, and BKT's deliberate push to grow US volume mix toward 10% arrives just as a 10% US tariff bites, adding a fresh exogenous margin risk into FY27.
+
+## Valuation (reverse-DCF judgment)
+
+Rich. At ~34-38x trailing P/E / ~20x EV/EBITDA, the market is pricing sustained high-teens-to-20%+ EPS compounding; but FY26 delivered -24.9% PAT growth on +1% volume growth, and even consensus FY27 EPS (~Rs 81 est.) only just reclaims the FY25 peak (Rs 85.61) after a two-year round-trip. The premium multiple prices in management's own BKT-2.0 ambition (~17-20% revenue CAGR to FY30) executing cleanly and margins normalizing back toward 23-24%+ - a scenario current numbers do not yet evidence.
+
+## Escalation
+
+> [!warning] Escalated for Principal review
+> No quant score exists yet, so V1 defaults to Hold. My own read leans Sell: valuation (34-38x trailing P/E, ~20x EV/EBITDA) is not supported by FY26 delivered fundamentals (PAT -24.9%, volume +1%, margin -225bp), and the FY27 'recovery' priced into consensus is largely a base-effect bounce off a depressed FY26 print rather than fresh structural acceleration. Flagging for CIO/desk review rather than unilaterally overriding to Sell, given the clean balance sheet, zero pledge, and genuine #3-in-OHT franchise with real capacity investment underway.
+
+## Detailed rationale
+
+Balkrishna Industries (BKT) is the world's #3 off-highway tyre (OHT) maker - agri, industrial, construction, mining and specialty tyres, ~85%+ revenue from exports (Europe, North America). FY26 (Apr25-Mar26) consolidated revenue was Rs 10,823cr, up just 3.6% YoY (FY25: Rs 10,447cr), while net profit fell 24.9% YoY to Rs 1,243cr (FY25: Rs 1,655cr) [DATA - screener.in consolidated]. Quarterly cadence shows the margin story: OPM collapsed to 18% in Q1 FY26 (from 24% in Q1 FY25) on a natural-rubber and crude-linked raw-material spike, recovering to 21-24% by Q3-Q4 FY26 but still ~150-300bp below the FY25 run-rate; full-year OPM fell to ~21.3% from ~23.5% [DATA]. Q4 FY26 (Jan-Mar26) volumes grew 5% YoY to 85,820 MT and full-year FY26 OHT volume hit a record 317,356 MT, but that is only +1% YoY - this is a margin/cost story, not a volume-growth story: revenue growth (+3.6%) outpaced volume growth (+1%), i.e. realizations/mix did the work while unit economics (EBITDA/MT) compressed [DATA+INFERENCE, volume-vs-price decomposition]. Q1 FY27 (Apr-Jun26) results are NOT YET OUT as of this pass (through 2026-07-21); based on BKT's historical cadence (e.g. Q1 FY25 reported 12-Aug-2024), Q1 FY27 is due by the SEBI 45-day deadline of roughly mid-August 2026 - exact board-meeting date not confirmed in sources checked [INFERENCE]. No major one-off/non-recurring item surfaced beyond a Rs 47cr realized forex loss embedded in one Q4 print (source figures vary slightly standalone-vs-consolidated) [DATA, flagged]; the FY26 profit decline reads as genuinely operating (raw-material cost pass-through lag), not accounting-driven. Management has committed to a large capex programme: Rs 1,300cr (OHT, Aug-2024) + Rs 3,500cr (on-highway tyres/rubber tracks/carbon black/power plant, May-2025) + a fresh Rs 2,000cr tranche approved alongside Q4 FY26 results = Rs 6,800cr cumulative through FY29, alongside a 'BKT 2.0' target of ~Rs 23,000cr revenue by FY30 (~17% revenue CAGR off the FY26 base) [DATA]. Carbon Black backward-integration capacity is now fully utilized, a genuine forward margin lever. Balance sheet stays clean: promoters hold 58.3%, NIL pledge/encumbrance confirmed for FY26 [DATA]. On valuation: at CMP ~Rs 2,050-2,055, FY26 EPS of Rs 64.30 puts the stock at ~34-38x trailing P/E (sources vary on exact basis) and ~20x EV/EBITDA [DATA] - rich for a year that delivered -25% PAT growth and +1% volume growth. Sell-side consensus target (~Rs 2,296-2,314) is only ~12-13% above CMP, and two covering brokers (Nirmal Bang, Kotak) already carry Sell/Reduce ratings [DATA]. FY27 consensus (+17.7% revenue, +26% profit) reads largely as a low-base bounce off the depressed FY26 print - even at consensus, FY27 EPS (~Rs 81 est.) would only just clear the FY25 peak (Rs 85.61), a two-year round-trip back to the prior earnings peak, not fresh acceleration.
+
+## Sources
+
+- no quant row yet
+- AlphaStreet Q1 FY26 results (-41% PAT) - https://alphastreet.com/india/balkrishna-industries-ltd-q1fy26-41-fall-in-profits/
+- DSIJ Q4 FY26 results, Rs 6,800cr capex, Rs 23,000cr FY30 target - https://insights.dsij.in/dsijarticledetail/balkrishna-industries-q4-fy26-results-announces-rs-6800-crore-capex-plan-and-targets-rs-23000-crore-revenue-by-fy30-amid-oht-expansion-and-56985
+- ScanX FY26 audited results, flat revenue, capex - https://scanx.trade/stock-market-news/companies/balkrishna-industries-reports-audited-financial-results-for-quarter-and-year-ended-31st-march-2026/39819170
+- Autocar Professional - Rs 1,300cr OHT capex - https://www.autocarpro.in/news/balkrishna-industries-lines-up-rs-1300-crore-fresh-capex-for-oht-capacity-expansion-122534
+- Tyre Trends - BKT 2.0 Rs 6,800cr expansion - https://tyre-trends.com/news/bkt-charts-inr-68-billion-expansion-drive-to-double-revenue-by-fy30/
+- European Rubber Journal - weaker FY earnings, fresh capex - https://www.european-rubber-journal.com/article/2099179/bkt-reports-weaker-full-year-earnings-steps-up-tire-expansion-with-fresh-capex
+- Univest Q4 FY26 results - https://univest.in/blogs/balkrishna-industries-q4-fy26-results-revenue-rs-2737-crore
+- Whalesbook - margin squeeze despite expansion - https://www.whalesbook.com/news/English/auto/Balkrishna-Industries-Faces-Margin-Squeeze-Despite-Expansion/6a211c45b64aca61a9217392
+- GuruFocus Q4 FY26 earnings call highlights - record volumes, rising costs - https://www.gurufocus.com/news/8850397/balkrishna-industries-ltd-bom502355-q4-2026-earnings-call-highlights-record-volumes-amidst-rising-costs
+- Screener.in consolidated financials (quarterly+annual table, PE, mcap) - https://www.screener.in/company/BALKRISIND/consolidated/
+- ScanX - NIL pledge/encumbrance confirmation FY26 - https://scanx.trade/stock-market-news/companies/balkrishna-industries-promoters-confirm-zero-share-encumbrance-for-fy26/38363133
+- Trendlyne shareholding pattern (promoter 58.3%) - https://trendlyne.com/equity/share-holding/153/BALKRISIND/balkrishna-industries-ltd/
+- Univest - share price target 2026, analyst consensus - https://univest.in/blogs/balkrishna-industries-share-price-target-2026
+
+---
+*Generated from `results/pf_qual_BALKRISIND.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

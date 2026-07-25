@@ -1,0 +1,64 @@
+{
+ "window": "2020-02-03->2026-07-03",
+ "bond_rate": 0.075,
+ "note": "momentum rotation among mid/bond/gold, quarterly, 60/40/0 by 3M return, RSI-overbought filter on risky assets only; same IV<30 10%OTM 6M put rolled 3M @25% notional",
+ "reference_fixed_monthly_from_prior_run": {
+  "core_plus_put": {
+   "CAGR": 17.3,
+   "vol": 8.6,
+   "Sharpe": 1.18,
+   "Sortino": 1.42,
+   "MaxDD": -11.1
+  }
+ },
+ "results": {
+  "FIXED_40_35_30_annual": {
+   "core_only": {
+    "CAGR": 17.4,
+    "vol": 9.3,
+    "Sharpe": 1.11,
+    "Sortino": 1.27,
+    "MaxDD": -16.5
+   },
+   "core_plus_put": {
+    "CAGR": 17.2,
+    "vol": 8.8,
+    "Sharpe": 1.15,
+    "Sortino": 1.38,
+    "MaxDD": -11.5
+   }
+  },
+  "MOM_60_40_0_RSI70": {
+   "core_only": {
+    "CAGR": 21.0,
+    "vol": 11.3,
+    "Sharpe": 1.2,
+    "Sortino": 1.3,
+    "MaxDD": -14.8
+   },
+   "core_plus_put": {
+    "CAGR": 20.8,
+    "vol": 11.4,
+    "Sharpe": 1.18,
+    "Sortino": 1.31,
+    "MaxDD": -14.9
+   }
+  },
+  "MOM_60_40_0_RSI80": {
+   "core_only": {
+    "CAGR": 23.4,
+    "vol": 11.6,
+    "Sharpe": 1.35,
+    "Sortino": 1.45,
+    "MaxDD": -14.8
+   },
+   "core_plus_put": {
+    "CAGR": 23.2,
+    "vol": 11.6,
+    "Sharpe": 1.34,
+    "Sortino": 1.46,
+    "MaxDD": -14.9
+   }
+  }
+ }
+}

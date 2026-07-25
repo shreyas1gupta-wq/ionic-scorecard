@@ -1,0 +1,57 @@
+---
+symbol: "SYNGENE"
+company: "SYNGENE"
+sector: "Healthcare"
+universe: "universe750"
+rec: "Hold"
+quant_rec: "Sell"
+growth_3y_pct: 9
+escalation: false
+holding_value_inr: null
+updated: 2026-07-21
+tags:
+  - stock-note
+---
+# SYNGENE
+
+> [!summary]
+> Syngene had a rough FY26 -- revenue grew just 3% and profit (before one-offs) fell 20%, mainly because its single largest biologics client cut orders sharply and the company took on new-capacity costs and a forex hit ahead of revenue. The balance sheet, however, remains in excellent shape (very low debt, strong interest cover), and the company just extended a marquee long-term contract with Bristol Myers Squibb out to 2035, suggesting the core client franchise is intact. Management is guiding FY27 as a turnaround year, though its own guidance is only for flattish revenue with margins holding steady, not a sharp rebound, and the stock is not cheap on current earnings. Recommendation: Hold the existing position through this cyclical trough; this is not a call to add, and we would revisit if the client-driven weakness persists past FY27H1 guidance.
+
+## Recommendation — Hold
+
+Quant model flags Sell (recommendation_overall, driven by a weak 1-year growth/momentum score of 38.6 against a 3-year Hold score of 46.7). I am exercising the asymmetric-override rescue to Hold: the FY26 miss is traceable to a single large client's inventory destocking, a one-off-sized forex swing, and cost investment ahead of new capacity -- not to balance-sheet stress or franchise loss (D/E 0.09, interest coverage 18.8x, ROCE ~20%, and a just-extended 2035 BMS contract). That is a cyclical air-pocket, not structural decay, and matches exactly the kind of 1-year-momentum-driven Sell this override exists to catch. I am NOT treating this as a buy-more signal: FY27 guidance itself is only 'broadly flat' revenue with margin merely holding in the mid-20s (not recovering to FY25's 29%), and the live PE (~58.7x) is rich against that guide -- so this is a hold-through-the-trough call for an existing position, not an endorsement to add. If Q1/Q2 FY27 show the Zoetis drag persisting beyond guidance or the Bengaluru Form-483 escalates, this reverts to Sell quickly.
+
+## Bull case
+
+Balance sheet is clean and conservatively financed (D/E ~0.09, interest coverage ~18.8x), giving Syngene ample room to absorb a soft year without financial stress. The FY26 weakness is concentrated and explainable -- one large biologics customer's inventory destocking, plus a forex swing and cost-ramp ahead of new capacity -- rather than broad-based client attrition; the extension of the Bristol Myers Squibb relationship to 2035 during the same year is a genuine positive signal on franchise durability. ROCE near 20% shows the underlying CRDMO business still earns well above its cost of capital even in a down year. Bayview (US) capacity commercializing in H2 FY27 is a real, if modest (~20% utilization), incremental growth lever for FY28 onward.
+
+## Bear case
+
+The bear case is not noise: FY27 guidance itself is only 'broadly flat' revenue with margin merely holding in the mid-20s (versus 29% in FY25), so management is not promising a sharp recovery, only stabilization -- the 'inflection point' framing is more aspirational than quantified in the guide. Client concentration risk is real and just proved costly: a single customer's destocking was large enough to swing full-year growth from a healthy number to 3% and drag operating margin down ~400bps; that risk does not disappear with one good client conversation. The Bengaluru site's Feb-2025 Form-483 (5 observations) has no publicly confirmed resolution as of Jul-2026, an open regulatory tail on a commercial-manufacturing/biologics site that the charter treats as a standing flag until closed. Valuation has not de-rated in proportion to the earnings miss -- live PE near 58.7x for a business guiding flat growth is a rich multiple that assumes the FY28+ recovery narrative plays out; if Bayview ramp or biologics demand disappoints again, the stock has real multiple-compression risk on top of the earnings risk.
+
+## Valuation (reverse-DCF judgment)
+
+At a live PE of ~58.7x (and even at ~40-45x on a FY26-PAT-before-exceptional basis), the market is pricing in a return to solid double-digit growth and margin recovery well beyond the mid-20s FY27 guide -- essentially a bet that the Zoetis-driven air-pocket is temporary AND that Bayview/biologics capacity monetizes on schedule from FY28. That is a plausible but unproven bet: FY27 guidance itself only promises 'broadly flat' revenue, so today's multiple is running ahead of management's own near-term numbers. This reads as fairly-priced-to-rich, not cheap -- consistent with a Hold-not-Buy stance even after the override rescue.
+
+## Detailed rationale
+
+Syngene enters FY27 coming off a genuinely weak FY26: revenue grew only 3% to Rs.3,739cr, EBITDA margin compressed ~400bps to 25% (from 29% in FY25), and PAT before exceptional items fell 20% to Rs.380cr. [DATA] Management attributed the miss to three things: (1) an inventory-destocking hit from its single largest biologics customer (Zoetis, on the Librela product line) which dented both Q4 and full-year numbers, (2) higher staff costs and operating expenses tied to new capacity coming online ahead of revenue, and (3) a sharp forex swing -- FX loss widened to Rs.60.9cr in FY26 from just Rs.1.9cr in FY25, a ~Rs.59cr non-operating drag that is not a repeatable run-rate item. [DATA/INFERENCE: forex loss size is disclosed; its future non-recurrence is my inference] Q4 FY26 specifically: revenue Rs.1,037cr (+2% YoY, +13% QoQ), PAT Rs.147.9cr (-19% YoY but a sharp sequential rebound off a depressed Q3). [DATA]
+
+The quant model's 1-year score (38.6, Sell-flagging) is being driven by exactly this trailing growth/momentum air-pocket -- the 3-year score (46.7) is a Hold, i.e. the model itself sees the multi-year trend as intact even as the last four quarters were soft. [DATA] That divergence matches what the fundamentals show: balance sheet quality has not deteriorated (D/E 0.09, interest coverage ~18.8x, ROCE ~19.9%) [DATA], and the client-relationship franchise, if anything, strengthened -- Syngene extended its Bristol Myers Squibb collaboration out to 2035 during the year, a long-duration signal from a marquee partner even as Zoetis destocked. [DATA] Management (Kiran Mazumdar-Shaw) has explicitly framed FY27 as the sector-cycle inflection point: guidance is for broadly flat FY27 revenue with EBITDA margin holding in the mid-20s, back-half weighted, with the Bayview (US) biologics facility expected to commercialize in H2 FY27 at roughly 20% utilization, adding to growth from FY28. [DATA/company guidance -- treat as management's stated expectation, not a verified outcome]
+
+On regulatory: Syngene's Bengaluru commercial-manufacturing site received a USFDA Form-483 with 5 observations following a Feb 10-20, 2025 pre-approval/cGMP inspection. [DATA] No warning letter or import alert has been reported since, but I also find no public confirmation of EIR/closure as of Jul-2026 -- roughly 17 months with the observation status undisclosed. [DATA -- absence of news is not evidence of resolution; flagged, not escalated] Valuation is not cheap: live PE is ~58.7x (Jun-2026) against a scorecard-scrape PE of ~40x (stale) [DATA, both cited], while sell-side consensus (8 analysts, avg target ~Rs.578 vs price ~Rs.419) skews Buy/Hold [DATA] -- our mandate is independent of that consensus.
+
+## Sources
+
+- Quant scorecard row: Shreyas_Ionic_AMC/04_RND_LAB/STOCK_SCORECARD_750/results/full750_scored.csv (SYNGENE row: final_score_3y=46.69/Hold, final_score_1y=38.64/Sell, recommendation_overall=Sell)
+- Syngene Press Release Q4FY26 and full-year FY26 - https://www.syngeneintl.com/wp-content/uploads/2026/04/Syngene_Press-Release-Q4FY26-Final.pdf
+- IndiaMedToday - Syngene International Reports Modest 3% FY26 Revenue Growth Amid Biologics Headwinds - https://indiamedtoday.com/syngene-international-reports-modest-3-fy26-revenue-growth-amid-biologics-headwinds/
+- ScanX/Bajaj Broking - Syngene Q4 FY26 revenue/PAT and share price reaction - https://scanx.trade/stock-market-news/companies/syngene-international-reports-fy26-financial-results-and-announces-final-dividend-of-rs-1-25-per-share/39048434 ; https://www.bajajbroking.in/share-market-news/syngene-share-price-jumps-8-percent-after-q4fy26-results
+- Sahi.com - Syngene International Vows FY27 Turnaround as Promoter Signals End of CDMO Sector Headwinds - https://www.sahi.com/news/syngene-international-vows-fy27-turnaround-as-promoter-signals-end-of-cdmo-sector-headwinds-3497-PE1_COR
+- Whalesbook - Syngene BMS deal extension to 2035 and Zoetis/Librela client impact - https://www.whalesbook.com/news/English/healthcarebiotech/Syngene-Expands-BMS-Deal-Bets-on-New-Tech-Amid-Client-Struggles/69f81c579d1c90664820ac3a
+- MarketsMojo - Syngene International Q4 FY26: Profit Surge Masks Underlying Margin Pressures - https://www.marketsmojo.com/news/result-analysis/syngene-international-q4-fy26-profit-surge-masks-underlying-margin-pressures-3970176
+- Business Standard - Syngene Intl slides after Bengaluru facility gets five USFDA observations (Feb-2025 inspection) - https://www.business-standard.com/markets/capital-market-news/syngene-intl-slides-after-bengaluru-facility-gets-five-usfda-observations-125022400312_1.html
+- Investing.com consensus estimates - Syngene PE (~58.67x, 24-Jun-2026), price (Rs.419.45, 14-Jul-2026), avg target Rs.578.13 - https://in.investing.com/equities/syngene-international-ltd-consensus-estimates
+
+---
+*Generated from `results/pf_qual_SYNGENE.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

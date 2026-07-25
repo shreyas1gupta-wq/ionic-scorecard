@@ -1,0 +1,58 @@
+---
+symbol: "ATUL"
+company: "ATUL"
+sector: "Chemicals"
+universe: "universe750"
+rec: "Hold"
+quant_rec: "Hold"
+growth_3y_pct: 13
+escalation: false
+holding_value_inr: null
+updated: 2026-07-21
+tags:
+  - stock-note
+---
+# ATUL
+
+> [!summary]
+> Atul is a debt-free, well-run specialty chemicals maker (2,4-D and Indoxacarb global niche leader) that is coming out of a multi-year down-cycle: FY26 revenue grew 13.8% and full-year profit recovered strongly, with Q4 alone up 62-66% year-on-year. But roughly a third of that Q4 profit came from other income rather than the core business, and profit growth over the last five years has averaged only about 1% a year despite steady sales growth, so this looks like the first clean recovery quarter rather than an established new trend. At around 26-27x trailing earnings the stock is already priced for the recovery to continue. We rate it a Hold: a quality balance sheet and genuine sector tailwinds, but not yet enough proof to pay up further, and the current price already reflects analyst optimism for FY27.
+
+## Recommendation — Hold
+
+Quant score is Hold (final_score_3y 42.0, final_score_1y 52.5, recommendation_overall Hold) and under the V1 asymmetric-override rule a quant Hold cannot be converted to Sell -- only rescued-from-Sell or escalated. My own read independently lands on Hold as well: the balance sheet is genuinely clean (debt-free, stable promoter base, dividend-paying) and the FY26 revenue/margin recovery plus structural specialty-chem tailwinds argue against a Sell, but the mediocre ROE (11.5%), a 5-year profit CAGR of just 1%, a real Q4 other-income dependency (31.9% of operating profit), and a P/E (~26.5x) that already prices in continued recovery mean there is no fresh valuation or fundamental case to add conviction beyond Hold either. This is a straightforward Hold, not a genuine coin-flip against Sell, so no escalation is warranted.
+
+## Bull case
+
+Debt-free with a net-cash balance sheet through an entire down-cycle -- rare resilience in cyclical chemicals. FY26 shows a genuine broad-based recovery (revenue +13.8%, Q4 net sales an all-time quarterly high, OPM expanding from ~15.4% to ~16.8% YoY, PAT margin 8.96%->12.64%). Structural sector tailwind: Indian specialty chemicals growing 12-18% p.a., and Atul holds real global leadership niches (13% share in 2,4-D, 14% in Indoxacarb) plus Budget FY27 agro-PLI/specialty-chem capacity incentive tailwinds. Stable 45.22% promoter (Lalbhai Group) holding and a proposed Rs30/share FY26 dividend signal management confidence and shareholder-friendly capital return.
+
+## Bear case
+
+The Q4 FY26 profit beat leans materially on other income (Rs89.57 Cr, 31.89% of total operating profit) rather than core operations -- strip that out and the 'operating recovery' is considerably more modest than the +62-66% YoY PAT headline. Five-year profit CAGR of just 1% (against 11% sales CAGR) and a -2% five-year EBIT CAGR show the margin damage from the down-cycle was severe and multi-year; FY26 is one recovery year, not yet an established new trajectory. ROE (11.5%) and ROCE (14.9%) remain middling for a business now trading at ~26-27x trailing earnings -- the market is already underwriting a continued recovery (consensus targets ~Rs7,032-8,052 imply further re-rating), leaving limited room for disappointment. US tariff-policy headwinds on chemical exports and ordinary agro-input-cost/FX cyclicality remain live risks, and FII holders (~14.8%) have been net sellers, adding a technical overhang independent of fundamentals.
+
+## Valuation (reverse-DCF judgment)
+
+At ~26.4-26.8x trailing consolidated EPS (CMP ~Rs6,180 vs EPS ~Rs71.38 for Mar-2026 quarter annualized context) the market is pricing Atul as a specialty-chemicals compounder resuming its structural 11-13% sales-growth trend with margins normalizing back toward pre-downcycle levels. That is a plausible outcome given the sector's 12-18% p.a. structural growth and Atul's genuine 2,4-D/Indoxacarb niche leadership, but it is not yet proven across more than one clean quarter, and roughly a third of the most recent quarter's operating-profit-equivalent profit came from other income rather than the core chemicals business. ROE of 11.5% is modest for the multiple being paid; this is a fair-to-slightly-rich valuation that requires the FY26 H2 margin trajectory (ex-other-income) to hold through FY27 to be justified, not an obviously cheap or obviously expensive setup. Growth estimate below (13%) is a steady-compounder-band call, not the 18-22% FY27 PAT-growth some sell-side notes are underwriting off the low FY25 base -- ROE/dilution note not applicable as growth estimate is below the 25% exceptional-tier threshold.
+
+## Detailed rationale
+
+Atul Ltd is a Lalbhai Group specialty/agrochemicals and bulk-chemicals maker (45.22% promoter holding, stable) that came through the FY22-24 chemicals down-cycle with a debt-free, net-cash balance sheet (D/E approx -0.18) intact -- that resilience is the core of the quality case. FY26 (year ended Mar-2026) consolidated total income was Rs 6,476.44 Cr, +13.8% YoY, with consolidated PAT of approx Rs 678-689 Cr (sources vary slightly on minority-interest treatment). The quarterly trend through FY26 shows a genuine recovery: Q1 Rs1,478 Cr sales/Rs132 Cr PAT (16% OPM) -> Q2 Rs1,552 Cr/Rs182 Cr (17% OPM) -> Q3 Rs1,613.5 Cr/Rs160.7 Cr, +47.8% YoY (16% OPM) -> Q4 Rs1,670 Cr net sales (total income Rs1,759.6 Cr)/Rs210-211 Cr PAT, +62-66% YoY, PAT margin 12.64% vs 8.96% a year ago (17% OPM). Q1 FY27 (Jun-2026 quarter) had NOT been reported as of this review (2026-07-21); AGM for FY26 dividend approval is scheduled 2026-07-31, so the Q1 FY27 print likely lands in the following weeks -- flag as pending, not yet in the score.
+
+Earnings-quality check (one-off hunt): Q4 FY26's PAT beat is partially other-income-driven -- other income of Rs89.57 Cr was 31.89% of total operating profit in the quarter, per result-analysis coverage. That is a real dilution of the 'operating recovery' narrative and should not be extrapolated at face value; strip it and Q4 operating profit growth is meaningfully more modest than the 62-66% headline PAT growth suggests. This sits alongside a longer-run quality tell: 5-year profit CAGR is just 1% and 5-year EBIT CAGR is -2% even though 5-year sales CAGR is 11% -- margins were structurally compressed through the down-cycle and FY26 is the first clean recovery year, not yet a multi-year trend. ROE (11.5% last year) and ROCE (14.9%) are middling for a specialty-chem name trading at ~26.4-26.8x trailing P/E (CMP ~Rs6,180, mkt cap ~Rs18,000-18,300 Cr, matching the quant sheet's Rs18,295.5 Cr). Consensus price targets cluster Rs7,032-8,052 (avg ~Rs7,400), implying analysts are underwriting a continuation of the FY26 recovery into FY27 (guided/expected 18-22% PAT growth via operating leverage) -- informational only, not a call we are making.
+
+Sector backdrop: India specialty chemicals is a structural 12-18% p.a. grower (rising incomes, China+1, policy support incl. Budget FY27 agro-PLI and specialty-chem capacity incentives); Atul holds a genuine global niche (13% share in 2,4-D, 14% in Indoxacarb) across 36 products/46 formulations. Key risk overhang: US tariff/Section-232-adjacent trade-policy headwinds on chemical exports (scope-creep risk, same family as the pharma tariff watch), plus FII selling pressure (~14.8% holding) and ordinary agro-commodity/input-cost cyclicality. Net: a debt-free, well-run cyclical chemicals compounder mid-recovery, priced for that recovery to hold, with one real earnings-quality flag (Q4 other-income share) and a still-thin multi-year profit-growth track record behind the current quarter's optics.
+
+## Sources
+
+- Quant row: full750_scored.csv - ATUL, Chemicals/Cyclical, final_score_3y=42.02, final_score_1y=52.49, recommendation_overall=Hold, mkt_cap~Rs18,295.5 Cr
+- Atul Q4 FY26 consolidated PAT rises to Rs 210.15 Cr - Indian Chemical News - https://www.indianchemicalnews.com/chemical/atul-q4-fy26-consolidated-pat-rises-to-rs-21015-cr-30193
+- Atul Ltd. Q4 FY26: Strong Finish Masks Margin Volatility Concerns - MarketsMojo - https://www.marketsmojo.com/news/result-analysis/atul-ltd-q4-fy26-strong-finish-masks-margin-volatility-concerns-3961857
+- Atul Share Price in Focus on Q4 FY26 Earnings Results - Angel One - https://www.angelone.in/news/stocks/atul-share-price-in-focus-on-q4-fy26-earnings-results-total-income-up-17-3-and-net-profit-up-62-2-yoy
+- Atul Ltd Reports Strong FY26 Results with Rs689.39 cr Net Profit & Rs30 Dividend - ScanX - https://scanx.trade/stock-market-news/companies/atul-reports-strong-q4-performance-with-consolidated-net-profit-rising-to-2-1-billion-rupees/38565333
+- Atul Ltd share price | Key Insights - Screener.in (consolidated) - https://www.screener.in/company/ATUL/consolidated/
+- Atul Limited Share Price Target 2026 - Analyst Forecast, Catalysts and Key Risks - Univest - https://univest.in/blogs/atul-limited-share-price-target-2026
+- Atul Q1 PAT rises 14% YoY to Rs 128 cr (Q1 FY26, Jun-2025 quarter) - Business Standard - https://www.business-standard.com/amp/markets/capital-market-news/atul-q1-pat-rises-14-yoy-to-rs-128-cr-125071800711_1.html
+- Web search: Atul Ltd share price today NSE ATUL (CMP ~Rs6,179.50, P/E ~26.37, EPS Rs71.38, as of 2026-07-21/15)
+- Web search: Atul Ltd Q3 FY26 December 2025 results net profit revenue (Q3: revenue Rs1,613.54 Cr +12.37% YoY, PAT Rs160.74 Cr +47.82% YoY)
+
+---
+*Generated from `results/pf_qual_ATUL.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

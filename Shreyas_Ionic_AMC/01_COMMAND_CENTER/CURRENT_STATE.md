@@ -1,6 +1,9 @@
 # CURRENT STATE — read me first (updated every session end)
 
-## 2026-07-25 (DESK-100, latest) — NDPMS v9 template: MF RECHECK-ALL done, ship set = _v4
+## 2026-07-26 (DESK-100, latest) — NDPMS: CEO SWEEP CLEARED, FINAL DECKS PUBLISHED (PPTX+PDF), pipeline complete
+CEO-facing pair lives at `09_PRODUCT/reports/NDPMS_Portfolio_Review_ABXY_HNI.pptx/.pdf` (75) and `NDPMS_Portfolio_Review_ABXY_RM_Lite.pptx/.pdf` (18) — 3-agent zero-defect sweep's 11 findings all fixed (tax-slide scoping + STCG case bug, group-conc basis, RELIANCE driver/summary coherence, 5 data-QA language leaks, CoPilot CTA out, LIC BAF naming), all 4 decks re-gated 0/0/0. PDF pipeline live: user-local LibreOffice 26.2.5 + `09_PRODUCT/scripts/pptx_to_pdf.py`. New pipeline pieces: `client_intake.py` (CAS-extract → client_ctx.json + exceptions.csv; profile JSON with goals/holding-ages/family/meeting-history), `fund_ctx_adapter.py` (QFRA-1 live-wired; QFRA-2 covers only its 40 curated funds — held funds outside = flagged gap, no fabrication), `modules/since_last_review.py` (renders only with meeting history), Apr/Oct auto-build in OPERATING_CALENDAR (sign-off gated). ndpms-deck skill = full playbook. OPEN: Principal sign-off on the pair; NSDL CAS PDF parser needs a sample statement; QFRA-2 run for held funds.
+
+## 2026-07-25 (DESK-100) — NDPMS v9 template: MF RECHECK-ALL done, ship set = _v4
 Every demo fund claim now verified against real data (dashboard to 2025-01-31 + web for hybrids). Bandhan Small Cap (top fund: 3y rank 1/23, +7pp) removed as demo Sell → PGIM India Small Cap (real worst-in-category). LIC Large Cap: closet-index claim removed (r²=0.77), NEG_ALPHA kept (real −5pp/3y). LIC BAF: cushioning smear removed (fund is ahead of benchmark since launch) → Trim on scale/record (₹761cr AUM, <4y). Standing rule in TEMPLATE_V9_SPEC: demo Sell/Trim wears a real fund name only if the real record supports it. Ship: `out/ABXY_Family_{HNI_DEEP 79, STANDARD 39, RM_SIMPLE 29}_v4.pptx` + `NDPMS_TEMPLATE_MASTER_v4.pptx` (108); all gates green. v3 and older superseded.
 
 ## 2026-07-25 (DESK-100) — NDPMS v9 template: v7-RESTORATION PASS DONE, ship set = _v3

@@ -1,0 +1,35 @@
+{
+  "ticker": "NIFTYSMLCAP250.NS",
+  "index_name": "NIFTY SMLCAP 250",
+  "window_start": "2017-01-02",
+  "window_end": "2026-07-21",
+  "years": 9.55,
+  "n_cycles": 114,
+  "n_realized": 114,
+  "n_open": 0,
+  "win_rate_pct": 67.5,
+  "avg_cycle_ret_pct": 1.05,
+  "median_cycle_ret_pct": 1.49,
+  "best_cycle": {
+    "month": "2020-05",
+    "ret_pct": 9.9
+  },
+  "worst_cycle": {
+    "month": "2024-05",
+    "ret_pct": -7.37
+  },
+  "strategy_total_return_pct": 213.7,
+  "strategy_cagr_pct": 12.72,
+  "strategy_max_drawdown_pct": -21.0,
+  "buy_hold_total_return_pct": 287.1,
+  "buy_hold_cagr_pct": 15.23,
+  "buy_hold_max_drawdown_pct": -60.79,
+  "pct_calendar_days_invested": 27.6,
+  "assumptions": [
+    "Entry = first NSE trading day on/after the 27th of each month; Exit = first NSE trading day on/after the 4th of the following month (both via Close price).",
+    "Trading/holiday calendar derived directly from the fetched index series (days with no quote = weekend/holiday) -- no separate holiday list needed.",
+    "Cash return while out of the market assumed 0% (no risk-free rate credited) -- this UNDERSTATES the strategy vs a cash-earning alternative.",
+    "Price-return index (no dividends), zero transaction costs/slippage -- real-world execution would be worse.",
+    "First cycle = Jan 2017 (per requested window); last row = today; if today falls mid-cycle it is marked OPEN and mark-to-market."
+  ]
+}

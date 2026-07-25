@@ -17,16 +17,21 @@ def _money(v):
     return f"Rs {v/1e7:.2f} Cr" if abs(v) >= 1e7 else f"Rs {v/1e5:.1f} L"
 
 
+# CEO sweep 2026-07-26: the table (fund actions) and the bridge chart (direct-equity
+# sell/trim plan) are DIFFERENT transaction sets — each panel now names its scope.
 LABELS = {
     "hni": {"eyebrow": "Tax impact of this plan", "title": "What the recommended moves trigger · before you authorise anything",
-            "cap": "Proceeds → net of est. tax", "ct": "Direct-equity tax, gap",
-            "foot": "Tax characterisations are indicative and preliminary, confirm holding period, character and applicable rates with the client's tax adviser before dealing. Illustrative."},
+            "tcap": "Mutual-fund actions · est. tax character per move",
+            "cap": "Direct-equity sells & trims · net of est. tax", "ct": "Direct-equity tax: estimate for now",
+            "foot": "Left: mutual-fund actions. Right: direct-equity sell/trim plan. Tax characterisations are indicative and preliminary, confirm holding period, character and applicable rates with the client's tax adviser before dealing. Illustrative."},
     "std": {"eyebrow": "Tax impact of this plan", "title": "What the recommended moves trigger · before you authorise anything",
-            "cap": "Proceeds → net of est. tax", "ct": "Direct-equity tax, gap",
-            "foot": "Tax characterisations are indicative and preliminary, confirm holding period, character and applicable rates with the client's tax adviser before dealing. Illustrative."},
+            "tcap": "Mutual-fund actions · est. tax character per move",
+            "cap": "Direct-equity sells & trims · net of est. tax", "ct": "Direct-equity tax: estimate for now",
+            "foot": "Left: mutual-fund actions. Right: direct-equity sell/trim plan. Tax characterisations are indicative and preliminary, confirm holding period, character and applicable rates with the client's tax adviser before dealing. Illustrative."},
     "simple": {"eyebrow": "What tax this plan may cost", "title": "The tax on these moves · an estimate to confirm with your adviser",
-               "cap": "Money freed → what's left after est. tax", "ct": "One tax figure we can't finish yet",
-               "foot": "These tax numbers are estimates only. Please confirm the exact tax with your tax adviser before we act. Illustrative."},
+               "tcap": "Your fund changes · the tax type each may trigger",
+               "cap": "Selling the weak shares · what's left after est. tax", "ct": "The share-sale tax is an estimate for now",
+               "foot": "The table covers your fund changes; the chart covers the share sales. These tax numbers are estimates only. Please confirm the exact tax with your tax adviser before we act. Illustrative."},
 }
 
 
@@ -36,17 +41,22 @@ def render(deck, ctx, tier):
     tax = ctx["tax"]
     s = deck.content(SECTION_NO, SECTION, L["eyebrow"], L["title"])
 
-    # --- left: fund-action tax table ---
+    # --- left: fund-action tax table (own scope caption; NOT the chart's numbers) ---
+    deck.txt(s, ML, 1.72, 6.95, 0.24, [(L["tcap"].upper(), SANS, 8, SLATE, True, False, 80)])
     rows = []
+    fund_total = 0
     for (action, scheme, amt, holding, character, note) in tax["fund_rows"]:
         disp, kind = ACT_MAP.get(action, (action.title(), action.title()))
         from slidekit import short_name
         rows.append([("pill", disp, kind), short_name(scheme, 30), _money(amt), character])
+        fund_total += amt
+    rows.append(["", ("b", "Total fund actions"), ("b", _money(fund_total)), ""])
     cols = [("Action", 0.16, "l"), ("Scheme", 0.44, "l"), ("Amount", 0.18, "r"), ("Tax character", 0.22, "l")]
-    deck.table(s, ML, 1.98, 6.95, cols, rows, rowh=0.5, fs=9.5, hfs=8)
+    # 7 rows (6 actions + total) x 0.42 + header keeps the block above the y=5.5 callouts
+    deck.table(s, ML, 2.02, 6.95, cols, rows, rowh=0.42, fs=9.5, hfs=8)
 
-    # --- right: tax bridge chart ---
-    deck.txt(s, ML + 7.15, 1.95, UW - 7.15, 0.24, [(L["cap"].upper(), SANS, 8, SLATE, True, False, 80)])
+    # --- right: tax bridge chart (direct-equity sell/trim plan, a separate set) ---
+    deck.txt(s, ML + 7.15, 1.72, UW - 7.15, 0.5, [(L["cap"].upper(), SANS, 8, SLATE, True, False, 80)], ls=1.05)
     png = CH.tax_bridge(tax["gross"], tax["ltcg"], tax["stcg"], "azby_tax_bridge")
     deck.pic(s, png, ML + 7.15, 2.25, UW - 7.15, 3.0, valign="middle")
     deck.txt(s, ML + 7.15, 5.05, UW - 7.15, 0.24,

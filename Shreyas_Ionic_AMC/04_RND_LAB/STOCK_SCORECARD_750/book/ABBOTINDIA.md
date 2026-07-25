@@ -1,0 +1,55 @@
+---
+symbol: "ABBOTINDIA"
+company: "ABBOTINDIA"
+sector: "Healthcare"
+universe: "universe750"
+rec: "Hold"
+quant_rec: "Hold"
+growth_3y_pct: 12
+escalation: false
+holding_value_inr: null
+updated: 2026-07-20
+tags:
+  - stock-note
+---
+# ABBOTINDIA
+
+> [!summary]
+> Abbott India: high-quality, debt-free domestic branded-formulations business with FY26 sales/PAT up 8.1%/9.7% YoY and industry-best ~28% margins, but growth is decelerating below its own trailing CAGR while trading at a rich 38.8x P/E / 12.6x P/B; Q1 FY27 results not yet out as of this check.
+
+## Recommendation — Hold
+
+Hold. This is a genuine high-quality compounder -- near-zero debt, ROE 35%/ROCE 45%, best-in-class ~28% operating margins, ~70% payout, no governance or pledging red flags, and no fresh regulatory/plant shock in the news window. But the valuation (38.8x P/E, 12.6x P/B) is pricing continuation of the trailing 9-10% sales / 18% profit CAGR, while FY26's actual sales growth (8.1%, decelerating to 6.5% in Q4) is running below that trend -- a rich-to-fair reverse-DCF read, not a growth story getting better. Under V1 rules a quant score is not yet computed for this name, and 'expensive but fundamentally sound' does not meet the bar for a fundamental-analyst-manufactured Sell (no score-Sell exists yet to rescue, and no deterioration in the underlying business, balance sheet, or regulatory standing was found) -- so this defaults to Hold, not an escalation.
+
+## Bull case
+
+Near-zero debt, ROE 35% / ROCE 45%, consistently high dividend payout (~65-73%, FY26 total Rs.656/share including a Rs.131 special dividend), stable promoter holding with no pledging, industry-leading and still-expanding operating margins (28.13% in Q4 FY26 vs 26.71% a year earlier), and a portfolio of durable domestic brands (Thyronorm, Digene, Duphaston, Cremaffin) giving pricing power and low volatility of demand. No USFDA/plant or governance red flags surfaced.
+
+## Bear case
+
+Valuation is rich (38.8x P/E, 12.6x P/B) against decelerating growth -- FY26 sales grew 8.1% and Q4 alone only 6.5%, both below the 5yr sales CAGR of 10%, so the market multiple is extrapolating a growth rate the last few quarters are not fully delivering. Stock already down ~20.7% over the past year despite continued profit growth, signalling an ongoing de-rating; a third-party quant grader (MarketsMojo) downgraded it to Sell in Jul-2026 on mixed fundamentals. A one-off Rs.18.10 Cr labour-code cost hit FY26 employee expense. Structural overhang: NLEM/DPCO price-control risk sits over parts of the branded portfolio, and revenue concentration in a handful of legacy brands is a long-run diversification risk.
+
+## Valuation (reverse-DCF judgment)
+
+[INFERENCE] Rich-to-fair. At P/E 38.8x / P/B 12.6x (implied earnings yield ~2.6%), the market is pricing sustained double-digit-plus earnings growth for several years. Actual FY26 sales growth (8.1%) and Q4 growth (6.5%) both ran below the trailing 5yr sales CAGR (10%), and operating margin (28%) is already near a ceiling for the category, limiting further margin-led profit outperformance. High ROE/ROCE and a debt-free balance sheet justify a premium to the sector, but not obviously a widening one against decelerating top-line growth -- reverse-DCF math leans RICH, with the stock's ~20% one-year drawdown reflecting a partial (not full) correction of that richness.
+
+## Detailed rationale
+
+[DATA] FY26 (Apr-25 to Mar-26): consolidated net sales Rs.6,929 Cr (+8.11% YoY), total income Rs.7,217.19 Cr (+7.97%), net profit Rs.1,552.02 Cr (+9.73% YoY). Q4 FY26 (Mar-26): net sales Rs.1,710 Cr (+6.54% YoY), PAT Rs.394.93 Cr (+7.60% YoY), operating margin expanded to 28.13% from 26.71% YoY, PBT Rs.531.23 Cr (+10.1%). Q1 FY26 PAT was Rs.365.86 Cr (+11.54% YoY) per Univest recap; Q3 FY26 commentary flagged margin pressure despite steady revenue (MarketsMojo). Sequential quarter growth has been decelerating through FY26 (Q1 double-digit PAT growth down to high-single-digit by Q4) even as margins held near-record levels. [DATA] One-off check: FY26 P&L carried a one-time Rs.18.10 Cr employee-benefit cost tied to the four New Labour Codes (notified 21-Nov-2025) -- a modest drag on reported profit, meaning underlying operating profit growth was marginally understated in FY26. Other income (~14% of PBT in Q4, largely investment income off the company's large cash pile, ~Rs.560 Cr as of Mar-25) is a recurring rather than one-off contributor and should not be read as a red flag. [DATA] Balance sheet: company is almost debt-free; ROE (3yr) 35.0%, ROCE 44.9%; dividend payout consistently ~65-73%; FY26 total dividend recommended Rs.656/share (Rs.525 final + Rs.131 special), record date 24-Jul-2026, AGM 13-Aug-2026, payment on/after 18-Aug-2026. Promoter holding stable at 74.99%, no pledging flagged. [DATA] Valuation: price ~Rs.27,410-28,300 (early-mid Jul-2026), market cap ~Rs.60,226 Cr, P/E 38.8x, P/B 12.6x, dividend yield 1.86%. Sales CAGR 10%(5yr)/9%(3yr); profit CAGR 18%(5yr)/18%(3yr) -- but FY26 actual sales growth (8.1%) and Q4 growth (6.5%) both ran BELOW the trailing CAGR, i.e. growth is decelerating from the multi-year trend that the current multiple is implicitly extrapolating. [DATA] Stock is down ~20.7% over the trailing year and ~2.4% over 6 months despite the profit growth above, i.e. some multiple de-rating has already occurred; MarketsMojo (third-party quant house, not our score) downgraded its quality grade from Excellent to Good and its Mojo Grade from Hold to Sell in Jul-2026 on 'mixed business fundamentals.' [DATA/INFERENCE] Regulatory: Abbott India's branded/OTC-skewed portfolio (Digene, Thyronorm, Cremaffin, Duphaston, Vasograin etc.) carries NLEM/DPCO price-control exposure common to the domestic branded-formulations space; NPPA's 145th Authority meeting (30-Apr-2026) fixed retail prices on 42 formulations industrywide -- routine cadence, no company-specific escalation found in the news window. No USFDA/plant-inspection issue surfaced for Abbott India in this search (its India-facing branded-formulations model has much lower US-FDA/483 exposure than export-oriented generics manufacturers). [DATA] Q1 FY27 (Apr-Jun 2026) results: NOT YET OUT as of 2026-07-20 in sources checked; Abbott India's historical cadence points to an early-August board meeting/announcement (PENDING -- exact date not confirmed in this search pass).
+
+## Sources
+
+- no quant row yet
+- MarketsMojo - Abbott India Q4 FY26 Margin Resilience Masks Profit Volatility Amid Premium Valuation - https://www.marketsmojo.com/news/result-analysis/abbott-india-q4-fy26-margin-resilience-masks-profit-volatility-amid-premium-valuation-3987661
+- Whalesbook - Abbott India FY26 Profit Climbs to Rs.1,552 Cr on Rs.7,217 Cr Revenue - https://www.whalesbook.com/corporate-news/English/healthcarebiotech/Abbott-India-FY26-Profit-Climbs-to-indian-rupee1552-Cr-on-indian-rupee7217-Cr-Revenue/6a0218a5e43db892c25a32f6
+- Business Standard - Abbott India clocks PAT of Rs 394.93 crore in March'26 quarter - https://www.business-standard.com/markets/capital-market-news/abbott-india-clocks-pat-of-rs-394-93-crore-in-march-26-quarter-126051200273_1.html
+- Business Standard - Abbott India standalone net profit rises 7.60% in the March 2026 quarter - https://www.business-standard.com/markets/capital-market-news/abbott-india-standalone-net-profit-rises-7-60-in-the-march-2026-quarter-126051200178_1.html
+- ScanX - Abbott India FY26 Results Published Under Regulation 47 (dividend Rs.656/share) - https://scanx.trade/stock-market-news/companies/abbott-india-reports-fy26-net-profit-of-rs-1-552-02-crores-declares-total-dividend-of-rs-656-per-share/40072911
+- Screener.in - Abbott India Ltd company page (valuation, ROE/ROCE, CAGR, promoter holding) - https://www.screener.in/company/ABBOTINDIA/
+- Business Standard - Abbott India Ltd gains for fifth session (price, dividend record date) - https://www.business-standard.com/markets/capital-market-news/abbott-india-ltd-gains-for-fifth-session-126070600447_1.html
+- Univest - Abbott India Q1 Results FY26: PAT Rises 11.54% to Rs.365.86 Cr - https://univest.in/blogs/abbott-india-q1-results-fy26
+- MarketsMojo - Abbott India Q3 FY26 Margin Pressure Weighs Despite Steady Revenue Growth - https://www.marketsmojo.com/news/result-analysis/abbott-india-q3-fy26-margin-pressure-weighs-despite-steady-revenue-growth-3835994
+- TheHealthMaster - NPPA fixed retail price of 42 formulations: April 2026 (145th Authority meeting) - https://thehealthmaster.com/2026/05/10/nppa-fixed-retail-price-of-42-formulations-april-2026/
+
+---
+*Generated from `results/pf_qual_ABBOTINDIA.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

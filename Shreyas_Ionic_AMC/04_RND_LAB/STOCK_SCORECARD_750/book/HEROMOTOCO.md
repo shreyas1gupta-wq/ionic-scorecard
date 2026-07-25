@@ -1,0 +1,62 @@
+---
+symbol: "HEROMOTOCO"
+company: "HEROMOTOCO"
+sector: "Automobile and Auto Components"
+universe: "universe750"
+rec: "Hold"
+quant_rec: "Hold"
+growth_3y_pct: 9
+escalation: false
+holding_value_inr: null
+updated: 2026-07-21
+tags:
+  - stock-note
+---
+# HEROMOTOCO
+
+> [!summary]
+> Hero MotoCorp had a record FY26 (revenue +15%, profit +30%) largely on the back of the September-2025 GST rate cut supercharging festive/rural demand for its commuter-heavy motorcycle lineup, but the very next monthly print (June 2026) already shows domestic dispatches down 4.2% YoY as that pull-forward fades. The bigger multi-quarter story is competitive: Honda's production overtook Hero's for the first time in 2026, and TVS out-sold both Hero and Honda in June 2026 -- market-share erosion that has been building for several quarters even as Hero remains the nominal volume leader. The balance sheet is debt-free with strong returns on capital, and management is finally investing in premium motorcycles (via Harley-Davidson) and exports to diversify away from a maturing rural commuter base, but the EV arm (VIDA) is still losing money. At ~17x earnings this looks fairly priced for a quality, low-growth compounder facing real competitive pressure -- a Hold, not a name to chase or to exit.
+
+## Recommendation — Hold
+
+Quant screen (final_score_3y 69.75, final_score_1y 55.61) already calls Hold, and nothing in the fundamental picture argues for pushing this to Sell under the asymmetric-override rule. The bear case (share erosion to Honda/TVS, GST-driven pull-forward now lapping into a domestic decline, structurally loss-making EV arm) is real and worth flagging, but it sits against a debt-free balance sheet, in-line-to-record FY26 profitability, genuine (if early) progress on premium and exports diversification, and a reasonable ~17x trailing multiple. This is squarely a Hold, not a coin-flip that needs PM adjudication -- no escalation warranted.
+
+## Bull case
+
+Debt-free balance sheet (D/E 0.036, interest coverage 90.5x) with ROE 21.6% / ROCE 27.9% -- a genuinely high-quality, capital-light franchise. FY26 was a record year (revenue +15%, PAT +30%, EBITDA margin 14.7% within the guided 14-16% band) and the GST 2.0 pass-through has structurally lowered entry price points in Hero's core rural/commuter market, where it is naturally overweight. Diversification is finally happening from a low base: exports +41% YoY (FY26) / +32.8% YoY (June-2026), premium motorcycles +18% YoY (Harley-Davidson range +26% YoY, three new premium launches slated FY27), and VIDA EV registrations +185% YoY (11.7% EV market share) -- all genuine incremental growth vectors layered on top of the mature ICE commuter base.
+
+## Bear case
+
+The competitive position is deteriorating, not just cyclically soft: FY26 domestic market share fell to 27.94% from 28.61% in FY25, Honda's production physically overtook Hero's for the first time (Jan-Apr 2026), and by June-2026 Hero's share lead over Honda had narrowed to ~1 point while TVS Motor out-sold both of them for the month. Hero's June-2026 domestic dispatches fell 4.2% YoY even as the broader GST-driven demand cycle was supposed to still be running -- suggesting the FY26 growth headline (revenue +15%, volumes +10%) was substantially a policy/base-effect pull-forward rather than durable share-gaining momentum, and the comp gets harder from here. VIDA (EV) remains structurally loss-making, dragging consolidated margins by Rs 200-250 cr/quarter with no disclosed profitability timeline, in a segment where Ola Electric, Bajaj Chetak, TVS iQube and Ather are all better-established. Commodity cost inflation (aluminium, precious metals) is already eating 40-50bps of margin per quarter, forcing incremental price hikes that could blunt the GST-driven affordability gain just delivered to the rural buyer.
+
+## Valuation (reverse-DCF judgment)
+
+At ~17.1x trailing earnings for a company with 21.6% ROE, near-zero leverage, and a high dividend payout (Rs 185/share against ~Rs 264 trailing EPS, ~70% payout -- consistent with a mature, low-reinvestment-need business), the market is pricing a durable high-single-digit growth annuity with full FCF conversion, not a re-rating case. That looks approximately fair: the core domestic ICE motorcycle business is a maturing, competitively contested franchise (share loss to Honda/TVS is a real and current trend, not a hypothetical), while exports, premium (Harley-Davidson) and EV are genuine but still-small growth vectors that would need several more years of scaling to move the consolidated growth needle meaningfully. Not cheap enough to be a clear value call given the share-erosion risk, not expensive enough (nor growth-deficient enough) to be a Sell.
+
+## Detailed rationale
+
+Hero MotoCorp is India's largest two-wheeler manufacturer by volume, overwhelmingly commuter-motorcycle-led (Splendor/HF Deluxe/Passion), with scooters (Pleasure/Destini/Xtreme), a premium push (Xtreme, plus a distribution JV for Harley-Davidson small-capacity bikes), an EV arm (VIDA), and a growing exports/global business. [DATA] FY26 (Apr-2025 to Mar-2026): revenue Rs 46,830 cr (+15% YoY), PAT Rs 5,268 cr (+30% YoY), volumes 64.69 lakh units (+10% YoY), EBITDA margin 14.7% (+30bps YoY, within the company's own 14-16% guided band), dividend Rs 185/share. Q4 FY26 alone: revenue Rs 12,797 cr (+29% YoY), PAT Rs 1,401 cr (+30% YoY), volume +24% YoY to 17.14 lakh units -- the standout print of the year, driven substantially by the GST 2.0 rate cut effective 22-Sep-2025 (Hero passed the full benefit through: cuts of Rs 5,805-6,820 on entry-level HF Deluxe/Splendor+/Passion+, up to Rs 15,743 on the Karizma) landing right before festive season. Industry retail volumes surged 51.76% YoY in Oct-2025 to an all-time-high 31.5 lakh units, with rural markets (61% of registrations, growing ~2x urban) the primary beneficiary -- a segment where Hero's commuter-heavy, rural-skewed franchise is naturally overweight. [DATA] Q3 FY26 (Oct-Dec 2025) already showed the cost side of the ledger: commodity inflation (aluminium, precious metals) cost ~40-50bps of margin, offset only partly by a ~Rs 300/vehicle price hike in January 2026; EBITDA margin still held at 14.7% (+20bps YoY) even after absorbing an EV investment drag of Rs 208 cr (Rs 252 cr in Q2 FY26) -- VIDA remains structurally loss-making despite reaching a record 11.7% EV market share and June-2026 VAHAN registrations of 21,812 units (+185% YoY off a small base). [INFERENCE] The FY26 growth print is materially flattered by a policy-driven demand pull-forward (GST cut + festive timing + a soft FY25 base), not a clean structural re-acceleration -- and the very next available monthly data point corroborates this: June-2026 total dispatches fell 2.31% YoY to 541,159 units, with domestic dispatches down 4.2% YoY, even as the broader two-wheeler industry grew. [DATA] More importantly for the competitive read: Hero's FY26 domestic market share slipped to 27.94% from 28.61% in FY25; Honda's four-plant production (2.26 mn units, Jan-Apr 2026) overtook Hero's six-plant production (2.18 mn units) for the first time; and by June-2026 Hero (25.82% share) vs Honda (24.76%) had narrowed to a ~1-point gap, while TVS Motor (565,417 units, +47% YoY) became the highest-selling individual two-wheeler brand for the month, ahead of both Hero and Honda. This is a genuine, multi-quarter competitive erosion pattern (scooters to Honda historically, now motorcycles/overall volume to both Honda and TVS), not a one-month blip. [DATA] Offsetting bright spots: exports +32.8% YoY in June-2026 (38,269 units) and +41% YoY for FY26 overall (~402,000 units, ~Rs 3,500 cr revenue); premium motorcycles +18% YoY in FY26 (Harley-Davidson-branded range +26% YoY), with three new premium launches (Hero + Harley-Davidson) slated for FY27 -- Hero's long-standing structural weak point (near-zero presence in the high-margin premium segment Royal Enfield/Bajaj/TVS dominate) is finally being addressed, though from a very low base. Balance sheet is close to debt-free (D/E 0.036, interest coverage 90.5x) with ROE 21.6% and ROCE 27.9% -- a genuinely high-quality, capital-light compounder, which is exactly why the quant screen scores it Quality 84.8/100 while Growth (3y) sits at a middling 46.2/100.
+
+## Sources
+
+- quant row: Shreyas_Ionic_AMC/04_RND_LAB/STOCK_SCORECARD_750/results/full750_scored.csv (HEROMOTOCO row: final_score_3y 69.75, final_score_1y 55.61, recommendation_overall Hold)
+- Hero MotoCorp Reports Record FY26 Revenue and Profit - Whalesbook - https://www.whalesbook.com/corporate-news/English/auto/Hero-MotoCorp-Reports-Record-FY26-Revenue-and-Profit/6a018814707d23e84434db96
+- Hero MotoCorp Q4 Results: At Rs 1,401 crore, PAT beats Street estimates; revenue up 29% - Zee Business - https://www.zeebiz.com/companies/news-hero-motocorp-q4fy26-results-profit-sales-volume-growth-margin-highlights-shares-394935
+- Hero MotoCorp Sees Record Annual Revenue of Rs 46,830 Crore; Profit touches Rs 5,268 Crore in FY26 - Ackodrive - https://ackodrive.com/news/hero-moto-corp-sees-record-annual-revenue-of-46-830-crore-profit-touches-5-268-crore-in-fy-26/
+- Hero MotoCorp Posts Record FY26 Results: Profit Jumps 30% YOY, Dividend at Rs 185 per Share - Groww - https://groww.in/blog/hero-motocorp-fy26-results
+- Hero MotoCorp June Sales Fall 2.3% YoY to 541,159 Units Amid Slowdown - Sahi.com - https://www.sahi.com/news/hero-motocorp-june-sales-fall-2-3-yoy-to-541-159-units-amid-slowdown-128-PE1_CORP
+- Hero MotoCorp dispatches fall 2.3% to 541,159 units in June, exports rise - Business Standard - https://www.business-standard.com/industry/auto/hero-motocorp-dispatches-fall-2-3-to-541-159-units-in-june-exports-rise-126070100618_1.html
+- June 2026 Two-Wheeler Sales Analysis: Hero Leads, Honda Closes Gap, TVS Strengthens Position - Autopunditz - https://www.autopunditz.com/post/june-2026-two-wheeler-registrations-rise-21-2-yoy-hero-motocorp-continues-to-lead-honda-and-tvs-g
+- Honda overtakes Hero MotoCorp in two-wheeler production lead - MSN - https://www.msn.com/en-in/news/insight/honda-overtakes-hero-motocorp-in-two-wheeler-production-lead/gm-GM3AEA5898
+- TVS tops two-wheeler sales, beats Hero and Honda - Meroauto - https://www.en.meroauto.com/tvs-tops-two-wheeler-sales-beats-hero-and-honda/
+- Hero MotoCorp Q2 FY26 Results: 11 Key Insights & Outlook (VIDA Q2 margin drag Rs 252 cr) - fiidiipro - https://www.fiidiipro.com/hero-motocorp-q2-fy26-results-analysis/
+- Hero MotoCorp Q3 FY26: Strong Revenue Growth Masks Profit Moderation Amid Margin Pressures - Marketsmojo - https://www.marketsmojo.com/news/result-analysis/hero-motocorp-q3-fy26-strong-revenue-growth-masks-profit-moderation-amid-margin-pressures-3824247
+- Hero MotoCorp Sees Input Cost Pressure Persist in Q4; to Take Calibrated Price hikes - Autocar Professional - https://www.autocarpro.in/news/hero-motocorp-sees-input-cost-pressure-persist-in-q4-to-take-calibrated-price-hikes-131036
+- Hero MotoCorp Reports Record Q3 FY26 Revenue of Rs. 12,328 Crore (EBITDA Rs 1,810 cr, EV drag Rs 208 cr) - ScanX - https://scanx.trade/stock-market-news/earnings/hero-motocorp-reports-record-q3-fy26-revenue-of-rs-12-328-crore-declares-rs-110-interim-dividend/31851643
+- Hero MotoCorp Passes GST 2.0 Benefit To Customers, Prices Slashed By Up To Rs 15,743 - DriveSpark - https://www.drivespark.com/two-wheelers/2025/hero-motocorp-gst-prices-cut-by-up-to-15743-rupees-075849.html
+- RURAL BOOST: Hero MotoCorp Crosses 1 Million Sales Mark for the First Time in October 2025 - Autocar Professional - https://www.autocarpro.in/analysis/hero-motocorp-crosses-1-million-sales-mark-for-the-first-time-in-october-auto-sales-129673
+- Hero MotoCorp rides on Harley Davidson partnership to accelerate premium push - Business Today - https://www.businesstoday.in/auto/story/hero-motocorp-rides-on-harley-davidson-partnership-to-accelerate-premium-push-538106-2026-06-19
+- Hero MotoCorp Targets Premium and EV Growth After Record FY26 - Whalesbook - https://www.whalesbook.com/news/English/auto/Hero-MotoCorp-Targets-Premium-and-EV-Growth-After-Record-FY26/6a5624971210e3dc99a91327
+
+---
+*Generated from `results/pf_qual_HEROMOTOCO.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

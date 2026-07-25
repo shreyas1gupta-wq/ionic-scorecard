@@ -1,0 +1,60 @@
+---
+symbol: "LTM"
+company: "LTM Ltd."
+sector: "Information Technology"
+universe: "nifty100"
+rec: "Sell"
+quant_rec: "Hold"
+growth_3y_pct: 8
+escalation: false
+holding_value_inr: null
+updated: 2026-07-19
+tags:
+  - stock-note
+---
+# LTM — LTM Ltd.
+
+> [!summary]
+> LTM (formerly LTIMindtree) started FY27 with headline revenue growth of 18% in rupee terms, but the more meaningful constant-currency growth was almost flat sequentially at 0.3%. Profit margins improved modestly to 15.5%, still short of the company's own long-standing 17-18% target first set out in late 2024. The stock has already fallen over 30% in six months, but even after that fall it trades at a valuation similar to or above larger peers like TCS and Infosys, despite running lower margins and no clear growth edge. The balance sheet is strong — high returns on capital and almost no debt — but on growth and margin delivery versus the price being asked, we would not hold this name at current levels.
+
+## Recommendation — Sell
+
+Sell over Hold because the valuation (~24x, a premium to TCS and roughly in line with Infosys) is not backed by superior growth (sequential CC growth essentially flat at 0.3% QoQ) or margin delivery (still 150-250bps short of the 17-18% North Star target first set out ~20 months ago) — paying a peer-premium multiple for a margin story that keeps slipping and a growth story that is decelerating sequentially is the wrong risk-reward, even though the balance sheet itself (ROE 23%, D/E 0.1x) is genuinely high quality. This also aligns directionally with the quant model's own Reduce/Reduce reads on the 1-year and 3-year composites.
+
+## Bull case
+
+The bull case rests on balance-sheet quality and a de-rated entry point. ROE of 23% and ROCE of 30% with debt-to-equity of just 0.1x and interest coverage of 27x make this one of the financially stronger names in Indian IT services. Order inflows of $1.68 billion (+3.1% YoY) and AI-linked revenue running at roughly $150 million a quarter (~12% of revenue) show real, monetizing AI traction rather than slideware. Client concentration is genuinely improving — top-5 clients down to an estimated 25-26% of revenue from 28.4% a year ago — reducing single-account risk. Margins are moving in the right direction every quarter (15.5% now vs 14.3% a year ago, +36-40bps QoQ), and the stock's 31.6% six-month decline means much of the growth-deceleration and margin-shortfall worry is already reflected in the price rather than still to come.
+
+## Bear case
+
+The strongest bear point is that the 17-18% margin aspiration is now roughly twenty months old (November 2024 investor day, the 'North Star' program) and the company is still at 15.5% — a 150-250bps gap that has closed at only ~35-40bps a quarter, meaning full delivery is realistically 4-6+ quarters away even before the risk that GenAI-led pricing deflation (flagged sector-wide by JPMorgan/JM Financial this results season) or the next wage-hike cycle interrupts the climb. Meanwhile the growth side of the story is also softening: constant-currency revenue grew just 0.3% sequentially in Q1 FY27 versus 6.4% YoY — the year-on-year number is running on momentum built in earlier quarters, not current demand — and Manufacturing (a discrete-capex bellwether) fell 5.7% QoQ in constant currency. Paying ~24x earnings — a premium to TCS's ~22.5x and roughly in line with Infosys's ~22.9x, despite lower margins than both — for a margin story that keeps slipping and a growth story that is decelerating sequentially is the crux of the Sell case; balance-sheet quality alone does not justify the multiple.
+
+## Valuation (reverse-DCF judgment)
+
+At ~24x trailing earnings (PB ~5.25x), the market is pricing in either a re-acceleration toward double-digit constant-currency growth or delivery on the 17-18% EBIT margin band (from 15.5% today) within a few years. Neither shows up in Q1 FY27: sequential CC growth was flat (0.3% QoQ) and margin progress, while real, is running at only ~35-40bps/quarter — a multi-year climb even before GenAI pricing-deflation risk is priced in. Against TCS (~22.5x) and Infosys (~22.9x) — both with higher margins and similar growth this quarter — LTM's multiple looks rich rather than cheap, even after its 31.6% six-month de-rating. Verdict: rich relative to demonstrated (not promised) fundamentals.
+
+## Detailed rationale
+
+LTM Limited (formerly LTIMindtree; ticker/name changed February 2026 — company confirmed as INE214T01019) opened FY27 with revenue of Rs 11,608 crore, up 17.96% YoY in rupee terms, or $1.22 billion in USD (+6.1% YoY, +6.4% YoY in constant currency). The more telling number is sequential: constant-currency revenue grew just 0.3% QoQ, effectively flat — FY26's exit momentum has stalled rather than carried into Q1 FY27. EBIT margin was 15.5%, up ~121bps YoY and ~36-40bps QoQ, continuing a slow recovery from 14.3% a year ago and from 15.4% for full FY26 (itself up from 14.5% in FY25; Q4 FY26 had dipped to 15.1% on wage hikes). Order inflows of $1.68 billion (+3.1% YoY) and AI-linked revenue of roughly $150 million/quarter (~12% of revenue) give some forward visibility, and client concentration keeps improving — top-5 clients down to an estimated 25-26% of revenue from 28.4% a year ago, a genuine de-risking trend. Headcount was flat-to-down (87,886, net -64) even as attrition held stable at 13.3%, consistent with a productivity-led rather than growth-led hiring posture.
+
+The central tension is the 'North Star' margin program, first articulated at the November 2024 investor day with an explicit 17-18% EBIT margin aspiration. Roughly twenty months on, under new CEO Venu Lambu (in the seat since 31 May 2025, succeeding Debashis Chatterjee), the company sits at 15.5% — still 150-250bps short of even the low end of that band, having added only ~90-120bps over the past twelve months. At the current pace of improvement (~35-40bps/quarter) closing the remaining gap is realistically 4-6+ quarters away, before accounting for GenAI-led pricing deflation risk flagged sector-wide by JPMorgan/JM Financial ahead of this results season — a risk LTM has less scale to absorb than TCS or Infosys. Vertical mix is mixed: Consumer (+30% YoY) and Technology & Services (+21.8% YoY, +3.4% QoQ) are strong, but Manufacturing/Production — a discrete-industrial-capex bellwether — fell 5.7% QoQ in constant currency (still +5.3% YoY), an early wobble worth monitoring.
+
+On valuation: at Rs 4,123.6 (16 July 2026 close) the stock trades at ~24x trailing earnings (PB ~5.25x) — down 31.6% over six months and 22.6% over a year from a 52-week high of Rs 6,429.5, so a large chunk of the growth-deceleration/margin-shortfall story is already reflected in the price. But even post-de-rating, LTM's multiple sits at a premium to TCS (~22.5x) and roughly in line with Infosys (~22.9x), despite a structurally lower margin profile (15.5% EBIT vs TCS's mid-20s%) and no demonstrated growth edge (mid-single-digit CC across the tier-1 pack this quarter). Reverse-DCF read: 24x earnings for a business whose 3-year revenue CAGR is 8.43% but whose current run-rate is decelerating sequentially (0.3% QoQ CC) is pricing in either a re-acceleration to double-digit growth or delivery on the 17-18% margin band — neither shows up yet in Q1 FY27. Balance sheet quality is undeniably strong (ROE 23%, ROCE 30%, D/E 0.1x, interest coverage 27x), which argues against a distress-driven Sell, but on demonstrated fundamentals-versus-price this is not a name to hold at a peer-premium multiple while its own flagship margin promise keeps slipping.
+
+## Sources
+
+- Quant context n100_ctx/LTM.json (PIT snapshot, staleness normal) — PE 23.99x, ROE 23%, ROCE 30%, D/E 0.1x, interest coverage 27.37x, quality_score 70, growth_3y_score 33.09, composite recommendation_3y/1y both 'Reduce'; live Q1 FY27 figures used in preference where more current
+- LTM Limited (LTIMindtree) Q1 FY2026-27 Results Analysis - Bramesh's Technical Analysis - https://brameshtechanalysis.com/2026/07/12/ltm-limited-ltimindtree-q1-fy2026-27-results-analysis/
+- LTM Q1FY27 net profit up 17% at Rs 1,469 cr, revenue jumps 18% to Rs 11,608 cr - Business Standard - https://www.business-standard.com/companies/quarterly-results/ltimindtree-q1-profit-revenue-ai-strategy-126071200125_1.html
+- LTM Limited Commences FY27 with Robust Trajectory as Q1 Net Profit Climbs 17% YoY to Rs 14,686 Million - EquityBulls - https://www.equitybulls.com/category.php?id=372812
+- LTIMindtree Q1 Profit Up 17%, Deal Wins Hit $1.68 Billion - Whalesbook - https://www.whalesbook.com/news/English/technology/LTIMindtree-Q1-Profit-Up-17percent-Deal-Wins-Hit-dollar168-Billion/6a55057f1210e3dc99a848c0
+- Deal wins, growth rates likely to help IT major LTM outperform peers - Business Standard (headline/snippet) - https://www.business-standard.com/markets/news/deal-wins-growth-rates-likely-to-help-ltimindtree-outperform-peers-126071301264_1.html
+- LTIMindtree Q4 FY26: Robust Revenue Growth Masks Margin Pressure - Marketsmojo - https://www.marketsmojo.com/news/result-analysis/ltimindtree-q4-fy26-robust-revenue-growth-masks-margin-pressure-and-bearish-technical-trend-3960843
+- LTIMindtree confident of improving operating margin 17-18% - Bizz Buzz - https://www.bizzbuzz.news/industry/infotech/ltimindtree-confident-of-improving-operating-margin-17-18-1343781
+- Debashis Chatterjee to retire, Venu Lambu appointed CEO LTIMindtree - Business Standard - https://www.business-standard.com/companies/news/debashis-chatterjee-to-retire-venu-lambu-appointed-ceo-ltimindtree-125053001375_1.html
+- LTM promoter declares no encumbrance on 68.52% equity shares - ScanX Trade - https://scanx.trade/stock-market-news/companies/ltm-promoter-declares-no-encumbrance-on-68-52-equity-shares/42840321
+- LTM Ltd share price / consensus estimates (PE ~24.63x, price targets, TCS/Infosys/HCLTech PE comparison) - Investing.com consensus page + aggregated search snippets - https://in.investing.com/equities/larsen-toubro-infotech-ltd-consensus-estimates
+- LTM Ltd Share Price Today (Rs 4,123.6 on 16-Jul-2026; -31.6% 6mo, -22.62% 1yr; 52wk range Rs 3,528-6,429.5) - INDmoney - https://www.indmoney.com/stocks/ltm-ltd-share-price
+
+---
+*Generated from `results/pf_qual_LTM.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

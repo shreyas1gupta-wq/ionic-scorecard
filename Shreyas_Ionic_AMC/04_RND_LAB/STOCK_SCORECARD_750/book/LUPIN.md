@@ -1,0 +1,62 @@
+---
+symbol: "LUPIN"
+company: "LUPIN"
+sector: "Healthcare"
+universe: "universe750"
+rec: "Hold"
+quant_rec: "Hold"
+growth_3y_pct: 10
+escalation: false
+holding_value_inr: null
+updated: 2026-07-21
+tags:
+  - stock-note
+---
+# LUPIN
+
+> [!summary]
+> Lupin just posted a record FY26 (profit up 62%), but almost all of that came from three US products with temporary limited-competition windows that are now facing generic entrants and price erosion - management's own FY27 guidance shows margins stepping down from 29.7% to about 25%, and analyst estimates already expect next quarter's profit to come in below the year-ago quarter. The India business and a growing specialty/complex-generics pipeline are genuine long-term positives and the balance sheet is clean (low debt), but at roughly 22-25x earnings the stock is priced fairly for that slower underlying growth, not cheaply. Frequent (though so far non-escalated) US FDA plant inspection findings across five different sites in the last year add a watch-item. We rate it a Hold - a solid, well-run business, but not table-pounding value at current levels.
+
+## Recommendation — Hold
+
+Quant composite (final_score_3y 67.3, final_score_1y 66.9) already lands at Hold and my own read agrees for the same reason the score implies: strong recent numbers but not a re-rating case. FY26's 62% PAT growth is substantially a temporary US limited-competition windfall (Tolvaptan/Mirabegron/Risperdal Consta) that management is itself guiding down for FY27 (margin 29.7% -> ~25%, consensus already pencils a YoY PAT decline in Q1 FY27). Balance sheet is clean and the India + specialty pipeline gives a genuine, if slower, growth base, so there is no case for a forced Sell - but the multiple (21-22x trailing, ~24.8x forward) is already paying fair value for that slower underlying rate, not a bargain, so no case for a rescue-style enthusiasm either. Elevated multi-site Form-483 activity (5 sites in 12 months) adds asymmetric downside tail risk without adding to the bull case. Net: a clean, fairly-valued Hold, no forced call either direction.
+
+## Bull case
+
+Genuine franchise strengths: US business scaled to $1.3bn in FY26 (+40% YoY, ~44% of global sales) with real depth in complex generics and specialty (Solosec) rather than pure commodity generics; India branded business growing 14.5% in Q4, ahead of the 11.6% industry rate, giving a durable domestic base largely insulated from US pricing pressure; a genuinely broad pipeline (45+ injectables, 20+ inhalation products, 15+ planned US ANDA launches in FY27, 100+ targeted by FY31) plus a strategic pivot toward higher-margin ophthalmology/pulmonology/rare-neurology specialty assets; and a clean balance sheet (D/E 0.29x, interest coverage ~18.8x, ROCE ~20.9%) that gives management room to do bolt-on specialty M&A without balance-sheet stress.
+
+## Bear case
+
+The bear case is straightforward and not fully priced by the headline growth numbers: FY26's profit surge was concentrated in three products (gTolvaptan, gMirabegron, AG Risperdal Consta) enjoying limited-competition windows that are now closing - Tolvaptan's US patent expires Sep-2026 with penetration still under 40% (more share loss likely), and Mirabegron faces a third entrant (Astellas, settled, awaiting supply). Management's own FY27 guidance embeds a ~470bp EBITDA margin compression and sell-side consensus already expects Q1 FY27 PAT (~Rs 1,053 cr est.) to come in BELOW Q1 FY26's actual Rs 1,221 cr - i.e., a YoY earnings decline is the base case for the very next print, not a tail scenario. Separately, Lupin has drawn Form-483 observations at five different manufacturing sites in the trailing twelve months (Goa-7, Nagpur-6, Indore-4, Somerset NJ-3, Ankleshwar-2) - none has escalated to a warning letter yet, but that is an unusually wide concurrent footprint of open observations, and the historical OAI-to-warning-letter conversion rate once any single site tips over is high (>75% per our sector base rates), making this a real, uncalendared tail risk rather than routine noise.
+
+## Valuation (reverse-DCF judgment)
+
+At ~21-22x trailing PE (and ~24.8x on FY27 consensus EPS, which already reflects the guided margin step-down), the market is pricing continuation of a still-respectable but clearly slower underlying growth rate, not the 62% PAT growth FY26 delivered on paper. Stripping the temporary Tolvaptan/Mirabegron/Risperdal Consta exclusivity tailwind, the durable engine - India Rx (~14-15%, above IPM) plus an early-stage specialty/complex-generics pipeline - looks like a high-single-digit-to-low-teens compounder. The current multiple is a reasonable, not generous, price for that: fair value, with the quant value_score (86.2) likely overstating cheapness because it is reading off a trailing EPS still inflated by fading one-off exclusivity gains rather than a normalized earnings base.
+
+## Detailed rationale
+
+Lupin is a diversified Indian pharma major with a US generics/specialty book (~44% of global sales in Q3 FY26), a large India branded-formulations business (core Rx +14.5% in Q4 FY26 vs IPM +11.6%), plus API/biosimilars and an emerging specialty push (ophthalmology, pulmonology, rare neurology). FY26 was a record year on paper: revenue Rs 27,958 cr (+23-26% YoY depending on the base used) and consolidated PAT Rs 5,355.5 cr (+62% YoY), with EBITDA margin expanding ~590bps to 29.7%. Every quarter in FY26 beat prior-year PAT by a wide margin - Q2 +73% YoY (Rs 1,478 cr), Q3 +37% YoY (Rs 1,175.5 cr, but -20% QoQ), Q4 +87.5% YoY (Rs 1,468.7 cr) - driven almost entirely by the US business, which hit $1.3bn for FY26 (+40% YoY) on three limited-competition launches: generic Tolvaptan (gJynarque), generic Mirabegron (gMyrbetriq) and authorized-generic Risperdal Consta.
+
+The earnings-quality point that matters here: this is a temporary exclusivity-window profit surge, not a re-rated structural growth rate, and management itself is now guiding it down. FY27 guidance is high-single-digit revenue growth with EBITDA margin compressing to ~25% (from 29.7%), explicitly citing Tolvaptan/Mirabegron competition, Astellas per-unit royalty on Mirabegron, and higher R&D (~8% of sales). US FY27 guidance of 'billion-dollar-plus' is a step down from the $1.3bn actually delivered in FY26. Sell-side consensus already reflects this: Q1 FY27 (not yet reported as of 21-Jul-2026) is projected at PAT ~Rs 1,053 cr, BELOW the Rs 1,221 cr Lupin actually posted in Q1 FY26 - i.e., consensus expects a YoY profit decline in the very first quarter of the new fiscal year. Tolvaptan's US patent formally expires Sep-2026 with penetration still under 40% (more erosion ahead), and a third Mirabegron player (Astellas, settled but awaiting supply) is a live entry risk.
+
+Balance sheet is clean and not a source of concern: D/E 0.29x, interest coverage ~18.8x, ROE ~15%, ROCE ~20.9% - all healthy for the sector. Regulatory: Lupin has run a notably active Form-483 cadence over the trailing 12 months across FIVE different sites - Goa (7 observations, Nov-2025), Nagpur (6, ~Sep-2025), Indore (4, Jul-2025), Somerset NJ (3, Apr-2026), Ankleshwar (2, Mar-2026) - none of which has escalated to a warning letter or import alert so far (last WL was Tarapur API, Sep-2022). That is a wider net of concurrent 483s than most peers carry at once and is a genuine standing tail-risk given the historical >75% OAI-to-warning-letter conversion rate once any one site tips over, even though today it remains sub-threshold. On valuation: trailing PE ~21-22x (forward PE ~24.8x on FY27 consensus, which already bakes in the margin step-down) is paying up for continuation of an elevated, exclusivity-driven run rather than for the underlying ex-one-off compounding rate. Strip the temporary US tailwind and the durable growth engine is India Rx (~14-15%, above-IPM) plus a still-early specialty/complex-generics pipeline (45+ injectables, 20+ inhalation products in development, 15+ ANDA launches guided for FY27, 100+ by FY31) - a high-single-digit to low-teens underlying grower, which the current multiple roughly reflects. Fair value, not cheap, despite the quant value_score (86.2) which is reading a trailing EPS still inflated by the fading exclusivity windows.
+
+## Sources
+
+- full750_scored.csv row: LUPIN, sector Healthcare, final_score_3y 67.32, final_score_1y 66.85, recommendation_overall Hold, pe_current 21.42, roe 15.05%, roce 20.89%, debt_equity 0.29
+- Lupin FY2026 and Q4 FY2026 Results - Lupin Press Release - https://www.lupin.com/media/press-releases/lupin-fy-2026-and-q4-fy-2026-results
+- Lupin Q4 Results: Net profit jumps 87.5% YoY to Rs 1,468.7 crore, revenue rises 31.9% - Business Upturn - https://www.businessupturn.com/finance/stock-market/quarterly-results/lupin-q4-results-net-profit-jumps-87-5-yoy-to-rs-1468-7-crore-revenue-rises-31-9
+- Lupin Exceeds Q4 Revenue Estimates; Guides for Billion-Dollar-Plus US Sales in FY27 - IndiaMedToday - https://indiamedtoday.com/lupin-exceeds-q4-revenue-estimates-guides-for-billion-dollar-plus-us-sales-in-fy27/
+- Lupin Ltd (BOM:500257) Q4 2026 Earnings Call Highlights - GuruFocus/Yahoo Finance - https://finance.yahoo.com/sectors/healthcare/articles/lupin-ltd-bom-500257-q4-070153235.html
+- Lupin Q3 FY26: Strong Revenue Growth Overshadowed by Margin Compression and Profit Decline - MarketsMojo - https://www.marketsmojo.com/news/result-analysis/lupin-ltd-q3-fy26-strong-revenue-growth-overshadowed-by-margin-compression-and-profit-decline-3837755
+- Lupin Q3 PAT soars 37% YoY to Rs 1,176 crore - Business Standard - https://www.business-standard.com/amp/markets/capital-market-news/lupin-q3-pat-soars-37-yoy-to-rs-1-176-crore-126021300575_1.html
+- Lupin Q2 PAT climbs 73% YoY to Rs 1,478 crore - Business Standard - https://www.business-standard.com/markets/capital-market-news/lupin-q2-pat-climbs-73-yoy-to-rs-1-478-crore-in-fy26-125110701312_1.html
+- Lupin Q1 Results FY27: Uniresearch Predictions, Analyst Views and Key Watchpoints - Univest - https://univest.in/blogs/lupin-q1-results-fy27
+- Lupin banks on complex generics, speciality products to sustain growth in FY26-27 - Lupin Perspective - https://www.lupin.com/media/perspectives/lupin-banks-on-complex-generics-speciality-products-to-sustain-growth-in-fy26-27
+- USFDA Form 483 to Lupin with 6 observations: Nagpur - TheHealthMaster - https://thehealthmaster.com/2025/09/19/usfda-form-483-to-lupin-with-6-observations-nagpur/
+- Lupin Receives USFDA Form 483 With Three Observations For Somerset (New Jersey) Facility - ScanX/TipRanks - https://scanx.trade/stock-market-news/companies/lupin-receives-usfda-form-483-with-three-observations-for-somerset-new-jersey-manufacturing-facility/38047117
+- Lupin Facility Inspected by USFDA, Adding to Compliance Pattern (Goa 7-obs, Indore 4-obs, Ankleshwar 2-obs) - Whalesbook - https://www.whalesbook.com/news/English/healthcarebiotech/Lupin-Facility-Inspected-by-USFDA-Adding-to-Compliance-Pattern/69e382f771f6be70c53c9d3b
+- Lupin (LUPIN) Live Share Price Today on NSE/BSE, Stock Analysis and Price Estimates - Trendlyne - https://trendlyne.com/equity/804/LUPIN/lupin-ltd/
+
+---
+*Generated from `results/pf_qual_LUPIN.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

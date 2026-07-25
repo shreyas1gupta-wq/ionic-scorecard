@@ -43,9 +43,9 @@ def render(deck, ctx, tier):
     deck.callout(s, tx, 1.95, tw, 2.25, "Same return, different price", body1, kind="note")
 
     body2 = (f"The Cost of Ownership slide prices this book's drag at {cost_bps} bps today; this "
-             f"page is that same number left running for {YRS} years. CoPilot tracks the live "
-             f"all-in fee line so the gap stays visible after this review. Use it whenever a fee "
-             f"difference is dismissed as small.")
+             f"page is that same number left running for {YRS} years. Your review team tracks the "
+             f"live all-in fee line so the gap stays visible after this review. Use it whenever a "
+             f"fee difference is dismissed as small.")
     deck.callout(s, tx, 4.35, tw, 2.15, "Ties to the Cost slide", body2, kind="human")
 
     deck.source(s, f"Projection at a constant {GROSS:.0f}% gross return; all-in fee scenarios of "

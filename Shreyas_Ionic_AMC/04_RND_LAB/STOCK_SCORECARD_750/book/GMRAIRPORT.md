@@ -1,0 +1,59 @@
+---
+symbol: "GMRAIRPORT"
+company: "GMRAIRPORT"
+sector: "Services"
+universe: "universe750"
+rec: "Sell"
+quant_rec: "Sell"
+growth_3y_pct: 16
+escalation: false
+holding_value_inr: null
+updated: 2026-07-21
+tags:
+  - stock-note
+---
+# GMRAIRPORT
+
+> [!summary]
+> GMR Airports had a genuinely good FY26 — record passenger traffic, its first full-year profit in over a decade, and real progress refinancing expensive debt. But roughly half of the latest quarter's profit came from one-off items (an insurance claim and a tax reversal), debt remains high relative to earnings (5.5x net debt/EBITDA, thin interest cover), and the stock trades at a very rich valuation that already assumes years of flawless execution on new airports (Bhogapuram, Nagpur) and continued deleveraging. We recommend Sell/reduce exposure at current levels.
+
+## Recommendation — Sell
+
+Quant score is Sell on both horizons (39/100) with quality_score at 24/100 — I agree with it rather than rescue it. The bull case (record traffic, first decade-plus annual profit, new capacity coming online, active refinancing) is real, but it is offset by three concrete negatives verified in the latest prints: ~₹220cr of the ₹400cr Q4 PAT was one-off (Crete insurance claim + Hyderabad tax reversal), leverage is 5.5x net debt/EBITDA with only 1.49x interest coverage and negative net worth, and the stock's multiple (600x+) already assumes the multi-year deleveraging and capacity-ramp story lands without a hitch. No genuine Hold-vs-Sell tension here — the fundamentals support the quant call.
+
+## Bull case
+
+FY26 was a genuine inflection: total income ~₹15,200cr (+40% YoY), EBITDA ~₹6,150cr (+47% YoY, ~72% margin), and the company's first positive annual PAT (~₹472cr) in more than a decade, on record traffic of 121.6mn passengers (Delhi 78.7mn, Hyderabad best-ever 30.5mn, both with record cargo). Q1 FY27 kept the momentum with a record 30.22mn quarterly passengers and Delhi domestic traffic up 6.9% YoY. Two new capacity legs are landing in 2026: Nagpur (privatized, commercial ops began late June) and Bhogapuram (99.7% complete, Q2 FY27 target). Management is actively deleveraging — GHIAL's $221mn 15-year NCD refinancing at 7.6% (vs costlier USD debt) saves 150bps+ on interest, with a further ~₹6,000cr refinancing planned and a stated target of sub-4x net debt/EBITDA within 18-24 months (from 5.5x currently). These are real, franchise-quality monopoly-style concession assets riding India's structural air-travel growth.
+
+## Bear case
+
+Roughly ₹220cr of the ₹400cr Q4 FY26 PAT was one-off (a ~₹100cr Crete Airport insurance claim and a ~₹120cr Hyderabad tax-liability reversal) — the 'first profit in a decade' headline is materially flattered, and true run-rate core profit is a fraction of the reported number. The balance sheet remains fragile: ~₹34,000cr net debt against ~₹6,150cr EBITDA is 5.5x leverage, interest coverage is just 1.49x, and years of losses have left net worth negative (D/E -17.45x). The deleveraging plan is credible but multi-year and refinancing-dependent, not yet delivered. And the valuation (600x+ trailing PE on the quant book; independently flagged 'Expensive' by third-party trackers) already prices in flawless execution on Bhogapuram, Nagpur and the deleveraging path, leaving no cushion for the international-traffic softness already showing up (June 2026 traffic -0.3% YoY on Middle East geopolitical disruption since late Feb 2026). A single bad quarter on traffic, rates, or the refinancing calendar breaks the math this valuation depends on.
+
+## Valuation (reverse-DCF judgment)
+
+At a ~₹3.1 lakh cr market cap on a business that just posted its first clean annual profit in over a decade (~₹472cr, itself partly one-off-aided), the current multiple prices in a full, uninterrupted decade-plus of deleveraging plus capacity expansion landing exactly on schedule. Airports are real, high-quality concession assets with structural demand tailwinds, but judged against today's fundamentals — 5.5x net debt/EBITDA, 1.49x interest cover, negative net worth, and a profit print that is >50% one-off in the latest quarter — this is priced rich, not fair, let alone cheap. Growth is real but not exceptional enough (see below) to clear a 600x+ multiple; ROE is not meaningfully computable given negative equity, which itself is a caution flag rather than a screening quirk to exempt.
+
+## Detailed rationale
+
+GMR Airports had a genuinely good FY26 on the operating line: total income of ~₹15,200cr (revenue from operations ~₹14,800cr) up ~40% YoY, EBITDA up 47% YoY to a record ~₹6,150cr (margin ~72%), and — the headline — its first full-year positive PAT in more than a decade at ~₹472cr. Passenger traffic hit a record 121.6mn across the portfolio in FY26 (Delhi 78.7mn, Hyderabad best-ever at 30.5mn), and Q1 FY27 continued the trend with a record 30.22mn quarterly passengers and Delhi up 6.9% YoY to 2.04 crore. Two new growth legs are landing: Nagpur began commercial operations in late June 2026 post-privatization (₹300cr phase-1 capex to 30mppa), and the Bhogapuram greenfield (Andhra Pradesh) is 99.7% complete for a targeted Q2 FY27 launch.
+
+But the quant Sell (final_score_3y/1y = 39/100, quality_score just 24/100) is earned, not a false positive, on three counts. Earnings quality: of the ₹400cr Q4 FY26 PAT (vs a ₹253cr loss a year ago), roughly ₹220cr was one-off — a ~₹100cr insurance claim at Crete Airport and a ~₹120cr tax-liability reversal at Hyderabad — so more than half the swing-to-profit quarter is not run-rate. Balance sheet: net debt is ~₹34,000cr against ~₹6,150cr EBITDA (~5.5x), interest coverage is a thin 1.49x, and years of accumulated losses have left net worth negative (D/E -17.45x per the quant book) — management is actively refinancing (GHIAL raised $221mn of 15-year NCDs at 7.6% to retire costlier USD debt, saving 150bps+; a further ~₹6,000cr high-cost-debt refinance is planned) with a stated glide path to sub-4x leverage in 18-24 months, but that is a multi-year bet, not a done deal. Valuation: at a ~₹3.1 lakh cr market cap the stock trades at an extreme multiple (600x+ on the quant book's trailing PE; third-party trackers show anywhere from ~155x to 836x depending on trailing window — all rich by any reading) that already prices in years of flawless execution on Bhogapuram ramp-up, Nagpur scale-up and continued deleveraging, with no room for the international-traffic softness already visible (June 2026 traffic -0.3% YoY, driven by Middle East geopolitical disruption since late Feb 2026 hitting international pax specifically).
+
+Net: real operational improvement, but priced for perfection on a still-fragile balance sheet with a profit print that flatters the run-rate. That combination is exactly what the quant Sell is built to catch, and I see no basis to rescue it to Hold.
+
+## Sources
+
+- quant row: 04_RND_LAB/STOCK_SCORECARD_750/results/full750_scored.csv (GMRAIRPORT: final_score_3y=39, final_score_1y=39, recommendation_overall=Sell, quality_score=24, bs_flag=RED, debt_equity=-17.45, pe_current=658.5)
+- Business Standard - GMR Airports Q4 FY26 result: Net profit at Rs 400cr, revenue rises 36% - https://www.business-standard.com/companies/quarterly-results/gmr-airports-posts-rs-400-crore-profit-in-q4-126052800914_1.html
+- ITLN - GMR Airports posts record Rs152bn revenue, returns to profit in FY26 - https://www.itln.in/aviation/gmr-airports-posts-record-152-bn-revenue-returns-to-profit-in-fy26-1359342
+- Tradebrains - GMR Airports Hits Record 121.6 Million Passengers in FY26 - https://tradebrains.in/gmr-airports-hits-record-121-6-million-passengers-in-fy26-despite-temporary-april-traffic-dip/
+- Sahi.com - GMR Airports Reports Record 30.22 Million Q1 Passengers as June Traffic Holds at 9.76 Million - https://www.sahi.com/news/gmr-airports-reports-record-30-22-million-q1-passengers-as-june-traffic-holds-at-9-76-million-3337-PE1_COR
+- Whalesbook - GMR Airports June Traffic Up; Nagpur Ops Begin, Bhogapuram Nears Completion - https://www.whalesbook.com/corporate-news/English/transportation/GMR-Airports-June-Traffic-Up-Nagpur-Ops-Begin-Bhogapuram-Nears-Completion/6a57ab580037f0717260dd0f
+- NiftyTrader - GMR Airports Eyes Rs 6,000cr Debt Raise to Refinance High-Cost Loans - https://www.niftytrader.in/content/gmr-airports-eyes-rs-6000-cr-debt-raise-to-refinance-high-cost-loans/
+- Business Standard - GMR Airports plans record $579mn rupee-bond sale to refinance debt - https://www.business-standard.com/amp/markets/news/gmr-airports-plans-record-579-mn-rupee-bond-sale-to-refinance-debt-125072300210_1.html
+- Investing.com/Trade Brains - GMR Airports Share: What's Behind Its First Profit in Over a Decade? - https://in.investing.com/news/stock-market-news/gmr-airports-share-whats-behind-its-first-profit-in-over-a-decade-5431724
+- Quartr - GMR Airports (GMRINFRA) Q4 25/26 Summary (net debt / leverage detail) - https://quartr.com/events/gmr-airports-gmrinfra-q4-25-26_FgLFVrcc
+- Stockopedia - GMR Airports Share Price (valuation flagged 'Expensive') - https://www.stockopedia.com/share-prices/gmr-airports-NSI:GMRAIRPORT/
+
+---
+*Generated from `results/pf_qual_GMRAIRPORT.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

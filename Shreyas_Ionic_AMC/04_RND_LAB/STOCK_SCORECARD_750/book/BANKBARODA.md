@@ -1,0 +1,67 @@
+---
+symbol: "BANKBARODA"
+company: "Bank of Baroda"
+sector: "Financial Services"
+universe: "nifty100"
+rec: "Hold"
+quant_rec: "Sell"
+growth_3y_pct: 9
+escalation: false
+holding_value_inr: null
+updated: 2026-07-20
+tags:
+  - stock-note
+---
+# BANKBARODA — Bank of Baroda
+
+> [!summary]
+> Bank of Baroda posted a record profit for FY26, with full-year profit crossing Rs 20,021 crore and bad-loan ratios at multi-year lows (bad loans at 1.89% of total loans, and loans at risk after provisioning at just 0.45%). However, the underlying growth was much weaker than the headline suggests: standalone profit grew only about 2% for the full year, and profit on a consolidated basis, which includes subsidiaries, actually fell 4%. The widely quoted quarterly profit jump was largely explained by an unusually low tax charge that quarter, rather than genuine improvement in core banking operations. Loan and deposit growth remain healthy, in the mid-teens percentage range, capital levels are adequate, and a concern over CEO succession has now been resolved. However, the bank's lending margins are compressing, the cost of bad loans jumped sharply in the March quarter, and the bank carries a live board approval for a large planned share sale, of up to Rs 8,500 crore, that would dilute existing shareholders. At roughly 0.8 times book value, the stock is not expensive, but it is not cheap enough relative to the softening profit growth trajectory to warrant anything more constructive than a Hold rating.
+
+## Recommendation — Hold
+
+Hold, not Sell, because nothing here is actually deteriorating in a way that would justify an underweight call: asset-quality ratios are at multi-year bests, capital is adequate, the CEO-succession overhang is resolved, and the RBI penalty is immaterial. Valuation (P/B ~0.78-0.83x) is not rich - it prices in a through-cycle ROE only modestly below what BoB has actually delivered over the last 3-5 years, which is a fair, not generous, PSU-bank discount given the live QIP dilution overhang, re-emerging credit-cost cyclicality, and NIM downtrend. But it's also not a Sell: there is no capital, liquidity, or asset-quality crisis, no CRAR breach risk, and the balance-sheet franchise (loan growth, deposits, overseas book) is genuinely healthy. The bear case here is about earnings QUALITY and growth deceleration (flat standalone PAT growth, declining consolidated PAT, a one-off-inflated Q4 print, NIM/credit-cost headwinds into FY27) rather than about franchise deterioration - that argues for a cautious Hold with the one-off flagged clearly, not a Sell.
+
+## Bull case
+
+Asset quality is genuinely the best it has been in years - GNPA at 1.89% and NNPA at 0.45% with a 92.73% provision coverage ratio - and the balance sheet is compounding at a healthy clip, with global advances up 16-17% YoY and domestic retail advances up over 18% YoY, advances outgrowing deposits in a sign of real credit demand rather than balance-sheet stuffing. Capital adequacy is comfortable (CRAR 15.82%, CET-1 13.16%), the overseas book (~18% of advances) is a diversified, largely trade/syndication-linked exposure to investment-grade corporates rather than a retail credit risk, and the CEO-succession question has been cleanly resolved with Debadatta Chand's three-year tenure extension approved by the Cabinet Appointment Committee effective July 2026. At roughly 0.78-0.83x book value against a 3-5yr average ROE of 14-15%, the stock is not demanding a heroic recovery to be fairly valued, and it still pays a respectable ~3.4% dividend yield.
+
+## Bear case
+
+The headline FY26 profit growth is largely an illusion of a low tax rate, not core improvement: standalone PAT grew only ~2.25% for the full year and consolidated PAT fell 4.2% YoY, while the much-quoted 11.2% YoY Q4 growth came with an effective tax rate of just 5.12% (versus a normal ~25%+) - a clearly non-recurring benefit. Meanwhile the underlying trend lines are moving the wrong way: NIM has compressed from 3.08% to 2.89% YoY with FY27 guidance of 2.75-2.95% implying further pressure, credit cost spiked to 76bps in Q4FY26 from just 17bps the prior quarter, fresh slippages rose both sequentially and YoY even as the GNPA ratio improved on denominator effects, and CASA mix deteriorated to 38.90% from 39.97% just as deposit competition intensifies. On top of that, the bank carries a live, board-approved Rs 8,500 crore QIP equity-raise authorization that is a standing dilution risk to per-share compounding for a bank that remains 63.97% government-owned - the classic PSU-bank pattern where episodic capital needs cap the multiple re-rating however clean the current NPA print looks.
+
+## Valuation (reverse-DCF judgment)
+
+At a P/B of roughly 0.78-0.83x against a trailing ROE of ~12.7-13% (declining from 17% in FY24, versus a 5yr average of ~14% and a 10yr average of just 10%) [DATA + INFERENCE for the implied-ROE math], a simple no-growth-perpetuity framework (P/B = ROE/COE) with a PSU-bank cost of equity in the 13-14% range implies the market is capitalizing BoB at a sustainable through-cycle ROE of roughly 11-12% - modestly BELOW even the current (tax-flattered) trailing print and well below the 3-5yr average. That reads as a mild valuation discount versus BoB's own recent history, but it is a justified discount rather than a mispricing: it prices in the live QIP dilution overhang, the re-emerging credit-cost cycle (Q4FY26's 76bps print), and NIM compression into FY27 - all real, not sentiment-driven, headwinds. Net judgment: fair-to-modestly-cheap on the numbers, but not cheap enough relative to the deteriorating earnings-quality trend to justify anything more constructive than Hold.
+
+## Detailed rationale
+
+Bank of Baroda's FY26 headline looks like a record year - standalone PAT crossed Rs 20,021 crore, Q4FY26 profit rose 11.2% YoY to Rs 5,616 crore, and GNPA/NNPA fell to multi-year lows of 1.89%/0.45% (PCR 92.73%) [DATA]. But underneath the headline, the growth engine has stalled: full-year standalone PAT growth was only ~2.25% YoY (Rs 19,581cr to Rs 20,021cr), and consolidated PAT actually DECLINED 4.2% YoY to Rs 19,846 crore [DATA, sourced to bank's own FY26 result disclosure and multibagg.ai summary]. The Q4 headline growth itself was substantially a tax artifact: BoB's effective tax rate in Q4FY26 was just 5.12% (Rs 303 crore tax expense) versus Rs 1,533 crore paid in Q4FY25 - a clearly non-recurring benefit that flattered the bottom line precisely in the quarter being compared YoY [DATA]. Strip that out and Q4 core pre-tax performance was considerably softer, consistent with NIM compressing to 2.89% (global, Q4FY26) from 3.08% a year earlier, and provisions/contingencies more than doubling YoY to Rs 3,150 crore (from Rs 1,551 crore) as credit cost jumped to 76bps in Q4FY26 from just 17bps in Q3FY26 and 44bps in Q4FY25 [DATA]. Fresh slippages also rose sequentially and YoY (Rs 2,944cr in Q4FY26 vs Rs 2,676cr in Q3FY26 vs Rs 2,873cr in Q4FY25) even as the GNPA ratio improved - the ratio flattered by loan-book growth and recoveries/write-offs in the denominator, a classic PSU-bank pattern worth flagging rather than taking at face value.
+
+On the franchise side, the picture is genuinely constructive: global business grew 15.46% YoY in the Q1FY27 provisional update to Rs 30.51 lakh crore, global advances +17.42% YoY (domestic retail advances +18.45% YoY led by home/personal/vehicle loans), and deposits +13.81% YoY - advances outgrowing deposits signals real credit demand, not balance-sheet stuffing [DATA]. The overseas book (~Rs 2.6 lakh crore, 18% of advances, 91 offices/17 countries) remains a diversification plus, skewed to trade/syndications with large corporates rather than retail credit risk [DATA]. Capital is adequate (CRAR 15.82%, CET-1 13.16%, Tier-1 13.64% as of Mar-26) [DATA], but the bank has standing board approvals for both an Rs 8,500 crore QIP equity raise (window to Mar-2028) and Rs 6,000 crore AT1/Tier-II bonds (window to Mar-2027) [DATA] - precautionary rather than distress-driven given the CRAR cushion, but a live dilution overhang for per-share book value and EPS compounding in a bank that is 63.97% government-owned. CASA ratio slipped to 38.90% from 39.97% YoY, meaning the bank is funding loan growth with relatively costlier deposits just as loan yields face rate-cut-cycle pressure - management's own FY27 NIM guidance of 2.75-2.95% implies further compression from FY26 levels, not stabilization. A CEO succession overhang that would otherwise be a red flag has been resolved: Debadatta Chand's tenure as MD & CEO was extended 3 years by the Cabinet's Appointment Committee, effective July 1, 2026 [DATA]. Separately, RBI imposed a modest Rs 63.60 lakh penalty (order dated 30-Jun-2026) for Fair Practices Code and KYC/CKYCR compliance lapses - immaterial in size and not license-threatening, but consistent with the recurring pattern of PSU-bank compliance friction [DATA].
+
+## Sources
+
+- quant context file BANKBARODA.json: quant=null, no quant row yet
+- Bank of Baroda Q4 FY26 Result: Net Profit Jumps 11.2% - https://indianmasterminds.com/news/bank-of-baroda-q4-fy26-results-net-profit-rises-asset-quality-improves-211876/
+- Bank of Baroda Reports Rs 5,616 Crore Q4 Profit, GNPA 1.89% - https://indianmasterminds.com/news/bank-of-baroda-q4-profit-dividend-gnpa-fy26-results-202754/
+- Bank of Baroda Q4 Result: NII Rs 12,494 crore, dividend Rs 8.5/share - https://upstox.com/news/market-news/earnings/bank-of-baroda-q4-result-net-profit-rises-11-nii-at-12-494-crore-board-recommends-final-dividend-of-8-5-share-for-fy-26/article-193402/
+- Bank Of Baroda Q4 FY26: Strong Profit Growth Amid Asset Quality Concerns (provisions, tax rate, NIM) - https://www.marketsmojo.com/news/result-analysis/bank-of-baroda-q4-fy26-strong-profit-growth-amid-asset-quality-concerns-3983051
+- Bank of Baroda Q1 FY27 business update (global business, deposits, advances, retail loans) - https://indianmasterminds.com/news/bank-of-baroda-q1-fy27-global-business-retail-loans-growth-214469/
+- Bank of Baroda Raises Loan Growth Guidance to 12-13%; Q4 FY26 Net Profit Up 11.2% (FY27 guidance) - https://www.indiaipo.in/news/detail/bank-of-baroda-raises-loan-growth-guidance-to-12-13-q4-fy26-net-profit-up-112
+- Bank of Baroda gains as global advances grow 16% YoY in Q4 FY26 - https://www.business-standard.com/markets/capital-market-news/bank-of-baroda-gains-as-global-advances-grow-16-yoy-in-q4-fy26-126040600236_1.html
+- Bank of Baroda's Global Business Crosses $324 Billion in FY26 (international book detail) - https://www.psuconnect.in/financial/bank-of-baroda-reports-record-fy26-profit-gnpa-falls-to-1-89-ahead-of-investor-meet
+- Bank of Baroda MD & CEO Debadatta Chand tenure extended 3 years - https://www.investywise.com/bank-of-baroda-tenure-extension-for-md-ceo/
+- Debadatta Chand Gets 3-Year Extension as Bank of Baroda MD & CEO - https://www.psuconnect.in/bank-news/debadatta-chand-bank-of-baroda-md-ceo-tenure-extended-three-years
+- Bank of Baroda Board Approves Capital Raising Up to Rs 6,000 Crore via AT1/Tier II Bonds - https://scanx.trade/stock-market-news/companies/bank-of-baroda-board-approves-capital-raising-up-to-6-000-crore-via-at1-and-or-tier-ii-bonds/39801577
+- Bank of Baroda gets board approval to raise up to Rs 8,500 crore equity (QIP) - https://www.business-standard.com/finance/news/bank-of-baroda-gets-board-approval-to-raise-up-to-rs-8-500-crore-equity-125021301588_1.html
+- RBI penalises Bank of Baroda Rs 63.60 lakh for KYC/Fair Practices Code lapses - https://scanx.trade/stock-market-news/companies/bank-of-baroda-penalised-rs-63-60-lacs-by-rbi-for-compliance-lapses/44631927
+- Bank of Baroda Q4FY26 Result Update (slippages, credit cost bps detail) - https://www.ajcononline.com/wp-content/uploads/research/resultupdate/2026/BankofBarodaQ4FY26.pdf
+- BoB Q4FY26 results: Analysts cautious on margins despite strong loan growth (brokerage targets: BofA, Citi, CLSA, Jefferies) - https://www.business-standard.com/markets/news/bank-of-baroda-share-price-q4-results-target-price-buy-sell-hold-126051100275_1.html
+- Bank of Baroda: Strong FY26 Outlook (FY25 vs FY26 standalone/consolidated PAT reconciliation) - https://www.multibagg.ai/market-pulse/articles/bank-baroda-financial-outlook-2026-cmnapo4j08t90pa0jxp1umz4r
+- Bank of Baroda official Q4 FY25-26 financial results page - https://bankofbaroda.bank.in/financial-result-q4-fy-2025-26
+- Screener.in BANKBARODA consolidated (P/B, ROE, book value, market cap) - https://www.screener.in/company/BANKBARODA/consolidated/
+- Bank of Baroda P/B ratio history - https://www.smart-investing.in/pb-ratio.php?Company=BANK+OF+BARODA
+- Analyst QA fix 2026-07-20: summary rewritten in plain client English (jargon removed); verdict and facts unchanged.
+
+---
+*Generated from `results/pf_qual_BANKBARODA.json` — do not hand-edit; regenerate via `05_DATA_OFFICE/scripts/build_obsidian_book.py`.*

@@ -58,7 +58,8 @@ def render(deck, ctx, tier):
     deck.callout(s, rx, 2.0, rw, 2.0, "How to read it", b1, "note")
     deck.callout(s, rx, 4.1, rw, 1.95, "Illustrative, not final",
                  "These values are illustrative. The exact map needs each fund's point-in-time "
-                 "look-through holdings, which the Data Office feed will supply.", "warn")
-    deck.source(s, "Illustrative overlap placeholder · full pairwise look-through pending the PIT "
-                   "holdings feed (Data Office). MF sleeve only.")
+                 "look-through holdings, which we build from the funds' published portfolio "
+                 "disclosures.", "warn")
+    deck.source(s, "Illustrative overlap placeholder · full pairwise look-through pending the "
+                   "funds' published portfolio disclosures. MF sleeve only.")
     return 1
