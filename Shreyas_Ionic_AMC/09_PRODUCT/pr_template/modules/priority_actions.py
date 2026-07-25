@@ -16,13 +16,13 @@ def _rows(reg, n_sell, k):
     if reg == "simple":
         return [
             ("Sell the weak names", f"Sell the {n_sell} weakest-scoring stocks, a little at a time.", "First"),
-            ("Trim the big two", "Gently reduce your two largest single stocks.", "Soon"),
+            ("Right-size the biggest names", "Gently reduce any single stock that is too large a share of your money.", "Soon"),
             ("Fix the funds", f"Tidy the fund list, move {k} to cheaper or Direct versions, drop the tiny one.", "A few days"),
             ("Keep the cash ready", "The freed money sits safely in a liquid fund; where it goes next is decided with you, separately.", "Together"),
         ]
     return [
         ("Sell programme", f"{n_sell} names scored below the gate, staged in slices at <=10% ADV.", "Wave 1"),
-        ("Trim concentration", "Two >11% positions eased toward the 8% single-name guideline, into strength.", "This cycle"),
+        ("Trim concentration", "Positions above the 8% single-name guideline eased or exited, into strength.", "This cycle"),
         ("Fund actions", f"{k} switches / redeem-to-Direct / exit, Regular to Direct or passive; exit the sub-scale sleeve.", "T+2–T+3"),
         ("Park net proceeds", "Held in liquid / overnight funds; deployment is agreed separately (transition framework in the annexure).", "On authorisation"),
     ]

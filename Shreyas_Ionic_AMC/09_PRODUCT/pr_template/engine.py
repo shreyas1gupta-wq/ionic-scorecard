@@ -39,7 +39,11 @@ MODULES = [
     # fund_quality_alloc: PARKED per Principal 2026-07-25 (quadrant graph cut; MF calls come from
     # the desk's own framework, not this deck) — module kept in the library, rendered nowhere.
     ("fund_quality_alloc", 5, "Annexure",       False),
-    ("fund_overlap",       3, "The Fund Book",  True),
+    # fund_overlap: page cut per Principal 2026-07-25 (the double-pay insight folds into
+    # fund_actions as a replacement suggestion, e.g. index-sleeve route; module stays in
+    # the library, renders nowhere by default). AMC-concentration strip (category_rules)
+    # explicitly STAYS — Principal called it out as valid.
+    ("fund_overlap",       5, "Annexure",       False),
     ("fund_actions",       3, "The Fund Book",  True),
     ("_div4",              4, "Recommendations", True),
     ("house_view_fit",     4, "Recommendations", True),
@@ -96,7 +100,7 @@ DIVIDER_TOC = {
         ("equity_book", "The book at a glance"), ("sell_list", "What we would sell"),
         ("hold_rationale", "What stays, and why")],
     3: [("fund_book_scored", "The fund book, scored"), ("funds_equity", "Equity funds vs benchmark"),
-        ("funds_hybrid", "Hybrid funds"), ("fund_overlap", "Where exposure duplicates"),
+        ("funds_hybrid", "Hybrid funds"), ("fund_category_rules", "Category & structure rules"),
         ("fund_actions", "Fund actions")],
     4: [("house_view_fit", "House-view fit"), ("cost", "What you're paying today"),
         ("tax_impact", "Tax impact"), ("priority_actions", "Your priority actions")],

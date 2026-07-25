@@ -56,7 +56,7 @@ def render(deck, ctx, tier):
         rows = [
             [("b", "Too concentrated"),
              f"Your 2 biggest shares are over 11%; the plan caps any one at {cap:.0f}%.",
-             ("c", "Trim both toward the cap, slowly.", NAVY), "01 · X-ray"],
+             ("c", "One exits via the sell list; the other is reduced slowly.", NAVY), "01 · X-ray"],
             [("b", "Weak holdings"),
              f"{t['n_sell']} shares score in the Sell zone.",
              ("c", "Sell all of them, in a planned order.", NAVY), "02 · Equity"],
@@ -74,7 +74,7 @@ def render(deck, ctx, tier):
         rows = [
             [("b", "Concentration"),
              f"Top-2 names each >11%; policy caps a single name at {cap:.0f}%.",
-             ("c", "Trim both toward the cap, into strength, sequenced last.", NAVY), "01 · X-ray"],
+             ("c", "One exits via the sell programme; the other trims toward the cap.", NAVY), "01 · X-ray"],
             [("b", "Sell programme"),
              f"{t['n_sell']} direct holdings score in the Sell band (<40).",
              ("c", "Exit all {n}, sliced by liquidity.".format(n=t["n_sell"]), NAVY), "02 · Equity"],

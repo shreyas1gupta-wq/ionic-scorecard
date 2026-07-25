@@ -27,8 +27,10 @@ def render(deck, ctx, tier):
     s = deck.content(3, "Funds", eyebrow, title)
     deck.anchor("mod:fund_actions", s, prio=5)
     deck.txt(s, ML, 1.62, UW, 0.40,
-             [("No fund here is sold on performance alone. Each action is structural: mandate, cost, "
-               "scale or consistency, measured against the fund that does the job better.", SERIF, 10, SLATE, False, True)])
+             [("No fund here is sold on performance alone. Each action is structural: mandate, cost, scale "
+               "or consistency. Where a scheme mostly re-buys index names you already hold directly, the "
+               "cleaner replacement is a low-cost index sleeve (Nifty 50 / Nifty 500 class) rather than "
+               "paying an active fee twice.", SERIF, 10, SLATE, False, True)], ls=1.04)
 
     # two columns of cards
     n = len(acts)

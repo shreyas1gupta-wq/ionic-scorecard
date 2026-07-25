@@ -17,10 +17,11 @@ def render(deck, ctx, tier):
              valign="top", halign="right")
     deck.rect(s, 0, 0, CW, 0.10, fill=GOLD)
 
-    if deck.logo_path:
-        deck.pic(s, deck.logo_path, ML, 0.55, 2.2, 0.42, halign="left")
-    else:
-        deck.txt(s, ML, 0.55, 4.0, 0.4, [("IONIC WEALTH", SANS, 15, WHITE, True, False, 80)])
+    # text lockup on navy — the white-box logo PNG reads as a pasted sticker on the
+    # dark cover (Principal 2026-07-25); content slides (white bg) keep the real logo
+    deck.txt(s, ML, 0.52, 5.0, 0.4, [("IONIC ", SANS, 17, WHITE, True, False, 100),
+                                     ("WEALTH", SANS, 17, NT3, False, False, 100)])
+    deck.txt(s, ML, 0.92, 5.0, 0.22, [("BY ANGEL ONE", SANS, 7.5, GOLD, True, False, 260)])
 
     # two-tone headline (v7 cover device), then the client block
     deck.txt(s, ML, 2.30, 7.0, 0.85, [("Portfolio ", SANS, 40, WHITE, True),
