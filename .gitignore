@@ -45,3 +45,18 @@ desktop.ini
 ~$*
 
 Shreyas_Ionic_AMC/05_DATA_OFFICE/data/
+
+# --- Client PII guard (D-039-era PR decks; QA-flagged 2026-07-21) ---
+# Client-specific portfolio-review artifacts must never be committed (name + folio PII)
+**/pr_kordes/
+**/PORTFOLIO_REVIEW_*.pptx
+*Kordes*
+*_Family_Holdings_*
+
+# Obsidian vault config — holds the MCP bearer token (mcp-tools plugin data.json), never commit
+.obsidian/
+
+# PR-template build artifacts (regenerable)
+Shreyas_Ionic_AMC/09_PRODUCT/pr_template/out/
+Shreyas_Ionic_AMC/09_PRODUCT/pr_template/_charts/
+__pycache__/
