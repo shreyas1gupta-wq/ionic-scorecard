@@ -175,6 +175,12 @@ def _funds(grand_inr):
          [], "Hold", "HOLD", "-", ""),
     ]
     bench_cagr = round((np.asarray(bench)[-1] / bench[0]) ** (252 / len(bench)) - 1, 4) * 100
+    # illustrative holding age (years) — drives the tax-inertia rule (Principal 2026-07-25):
+    # units >5y (stronger >10y) switch only on structural grounds; stocks exempt (risk dominates tax)
+    _HOLD_YRS = {"LIC MF Large Cap Fund": 9.2, "LIC MF Flexi Cap Fund": 3.1, "LIC MF Multi Cap Fund": 2.4,
+                 "ICICI Pru Multi-Asset (Regular)": 6.5, "Bandhan Small Cap Fund": 1.8,
+                 "LIC MF Balanced Advantage": 2.2, "Parag Parikh Flexi Cap (Direct)": 4.6,
+                 "Nippon India Nifty 50 Index (Direct)": 5.8, "HDFC Balanced Advantage (Direct)": 3.9}
     out = []
     for (name, amc, cat, plan, wt, seed, ub, db, alpha, idio, hit3y, flags, verdict, action, exemplar, structural) in specs:
         nav = _make_fund_nav(rb, ub, db, alpha, idio, seed=seed)
@@ -188,7 +194,8 @@ def _funds(grand_inr):
                         value_inr=round(grand_inr * wt / 100), qfra=qfra, merit=merit, verdict=verdict,
                         action=action, flags=flags, hit3y=hit3y, alpha_t=round(m["info_ratio"] * 1.3, 2),
                         exemplar=exemplar, structural_reason=structural,
-                        ter=(0.95 if plan == "Regular" else 0.55) if cat != "passive" else 0.20, **m))
+                        ter=(0.95 if plan == "Regular" else 0.55) if cat != "passive" else 0.20,
+                        holding_years=_HOLD_YRS.get(name, 2.0), **m))
     return out
 
 def build_ctx():
@@ -243,6 +250,11 @@ def build_ctx():
                 "gross": proceeds, "ltcg": ltcg, "stcg": stcg, "net": net,
                 "de_gap_note": "Direct-equity Sell tax needs the demat trade file (acquisition date + cost per lot); not in the statement provided."},
         "deployment": {"proceeds_inr": proceeds, "tax_leak_inr": ltcg + stcg, "net_inr": net,
+                       "personalization": [
+                           ("Education 2031", "The foreign-equity sleeve doubles as the USD hedge for the overseas-education goal."),
+                           ("Liquidity", "Rs 25L callable within 12 months per the IPS; the staged-cash sleeve covers it without forced selling."),
+                           ("Tax posture", "Fund units older than 5 years switch only on structural grounds; the annual LTCG exemption is harvested each FY."),
+                       ],
                        "sleeves": [("Low-vol / value core add", round(net * 0.45), "Closest-substitute risk profile to what's being sold; absorbs the largest share."),
                                    ("Foreign / global equity", round(net * 0.28), "Closes the ~12pt gap to the 15% foreign target — a real diversifier, not a return chase."),
                                    ("Gold & silver sleeve", round(net * 0.12), "Adds the missing 4pt vs the 5% target; 75:25 gold:silver per house view."),

@@ -20,6 +20,8 @@ Compute per holding: `ionic_score` (0.60×3Y + 0.40×1Y base, then growth leg �
 - Mcap: micro/small positions judged on a lower comfort band than large-caps at the same weight; note book-level mcap mix
 - Liquidity: position value vs stock's median turnover (days-to-exit at ~20% ADV) — a Trim that takes >10 trading days to execute must say so
 - Clutter: positions <0.25% → consolidation note (not a forced Sell)
+- **Tax inertia (Principal 2026-07-25): FUND units held >5y (stronger >10y) get a RAISED sell/switch bar** — embedded LTCG offsets switching alpha, so Switch/Exit only on structural grounds (plan cost, mandate, closet-index), never a performance gap. **Stocks are exempt** — single-name risk dominates the tax cost, equity Sell guidance unchanged (tax shown, threshold not raised).
+- Debt look-through flags (via /mf-lookthrough): single issuer >10% of book, debt sleeve >10% with below-AA paper, or issuer tripping the scored-universe leverage gate → surface in the review (flag only; no FI framework per Principal).
 
 ## Step 2 — FM judgment pass (agent, Sonnet)
 Summon ONE fund-manager persona (fm-fundamental-sanjay-kulkarni for long-only quality books; fm-vikram-shah for allocation-heavy questions) with the mechanical flag list + per-stock analyst summaries. The FM:

@@ -59,12 +59,25 @@ def render(deck, ctx, tier):
         deck.txt(s, px + 0.22, iy + i * step, 0.3, 0.24, [(f"{i+1}", SANS, 10, GOLD, True)])
         deck.txt(s, px + 0.5, iy + i * step, pw - 0.72, step, [(q, SERIF, 9, INK, False)], ls=1.04)
 
-    # --- left below chart: one-line rationale per sleeve ---
+    # --- left below chart: one-line rationale per sleeve (amounts in ink — one gold accent per page) ---
     ry = 4.62
     for i, (name, amt, rat) in enumerate(sleeves):
         deck.txt(s, ML, ry + i * 0.44, 7.0, 0.42,
-                 [(f"{name}  ", SANS, 9, NAVY, True), (_money(amt) + "   ", SANS, 9, GOLD, True),
+                 [(f"{name}  ", SANS, 9, NAVY, True), (_money(amt) + "   ", SANS, 9, INK, True),
                   (rat[:70], SERIF, 8.5, SLATE, False, True)], ls=1.0)
+
+    # --- right below sequencing: personalised-transition block (Principal 2026-07-25) ---
+    pers = dep.get("personalization") or []
+    if pers:
+        py2 = py + ph + 0.12
+        deck.txt(s, px + 0.02, py2, pw, 0.22,
+                 [(("PERSONALISED TO THIS MANDATE" if reg != "simple" else "BUILT AROUND YOUR GOALS"),
+                   SANS, 8.5, GOLD, True, False, 80)])
+        ly = py2 + 0.26
+        for head, line in pers[:3]:
+            deck.txt(s, px + 0.02, ly, pw, 0.34,
+                     [(head + "  ·  ", SANS, 8, NAVY, True), (line, SERIF, 8.5, INK, False, True)], ls=1.0)
+            ly += 0.34
 
     deck.source(s, L["foot"])
     return 1
