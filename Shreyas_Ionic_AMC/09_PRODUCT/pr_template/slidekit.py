@@ -297,9 +297,18 @@ class Deck:
         self.txt(s, x + 0.20, y - 0.03, RX - x - 0.35, 0.22,
                  [("SCOPE  ", SANS, 7.5, SLATE, True, False, 80), (text, SERIF, 8.5, INK, False, True)], wrap=False)
 
+    _BAND_VARIANTS = (
+        "The Ionic Score flags candidates; the Portfolio Review team confirms every call.",
+        "Scores flag, people decide: each call here carries a named reviewer's sign-off.",
+        "The score is the starting point; the final word on every name belongs to the desk.",
+        "Numbers shortlist, judgment decides: every call passed a human review.",
+    )
+
     def score_band(self, s, y=6.9):
-        """The fixed score-positioning line (F13). Attaches to score-bearing slides only."""
-        self.txt(s, ML, y, UW, 0.2, [("The Ionic Score flags candidates; the Portfolio Review team confirms every call.", SERIF, 8.5, SLATE, False, True)])
+        """The score-positioning line (F13), rotated across four phrasings so the refrain
+        reads authored, not templated. Attaches to score-bearing slides only."""
+        line = self._BAND_VARIANTS[self.folio % len(self._BAND_VARIANTS)]
+        self.txt(s, ML, y, UW, 0.18, [(line, SERIF, 8.5, SLATE, False, True)])
 
 
 def new_deck():
