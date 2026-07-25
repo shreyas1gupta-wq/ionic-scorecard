@@ -20,10 +20,10 @@ def _money(v):
 LABELS = {
     "hni": {"eyebrow": "Tax impact of this plan", "title": "What the recommended moves trigger · before you authorise anything",
             "cap": "Proceeds → net of est. tax", "ct": "Direct-equity tax, gap",
-            "foot": "Tax characterisations are indicative and preliminary, confirm holding period, character and applicable rates with the client's tax adviser before dealing. Statutory rates need Compliance sign-off. Illustrative."},
+            "foot": "Tax characterisations are indicative and preliminary, confirm holding period, character and applicable rates with the client's tax adviser before dealing. Illustrative."},
     "std": {"eyebrow": "Tax impact of this plan", "title": "What the recommended moves trigger · before you authorise anything",
             "cap": "Proceeds → net of est. tax", "ct": "Direct-equity tax, gap",
-            "foot": "Tax characterisations are indicative and preliminary, confirm holding period, character and applicable rates with the client's tax adviser before dealing. Statutory rates need Compliance sign-off. Illustrative."},
+            "foot": "Tax characterisations are indicative and preliminary, confirm holding period, character and applicable rates with the client's tax adviser before dealing. Illustrative."},
     "simple": {"eyebrow": "What tax this plan may cost", "title": "The tax on these moves · an estimate to confirm with your adviser",
                "cap": "Money freed → what's left after est. tax", "ct": "One tax figure we can't finish yet",
                "foot": "These tax numbers are estimates only. Please confirm the exact tax with your tax adviser before we act. Illustrative."},

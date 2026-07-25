@@ -55,5 +55,5 @@ def render(deck, ctx, tier):
     deck.table(s, ML, 2.12, UW, cols, rows, rowh=0.62, fs=9.5, hfs=8)
 
     deck.callout(s, ML, 5.68, UW, 0.82, L["ct"], L["cb"], kind=L["ck"])
-    deck.source(s, f"Ionic house view is advisory-owned · illustrative for the AZBY demo · as of {ctx['client']['as_of']}.")
+    deck.source(s, f"Ionic house view · illustrative for this demo · as of {ctx['client']['as_of']}.")
     return 1

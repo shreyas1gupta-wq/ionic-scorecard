@@ -56,7 +56,7 @@ def render(deck, ctx, tier):
         rows.append([e["symbol"], f"{e['ionic_score']:.0f}",
                      ("pill", e["rec"], e["rec"]),
                      ("c", "Sell zone" if e["ionic_score"] < 40 else "Pass", SELL if e["ionic_score"] < 40 else HOLD, False)])
-    deck.txt(s, tx, 1.86, tw, 0.22, [("THE OVERRIDE REGISTER", "Bahnschrift", 9, AMBER, True, False, 80)])
+    deck.txt(s, tx, 1.86, tw, 0.22, [("WHERE ANALYSTS OVERRULED THE MODEL", "Bahnschrift", 9, AMBER, True, False, 80)])
     # every ringed point on the chart gets its register row — the table and the claim
     # must reconcile 1:1 (critique 2026-07-25); callout position follows the table end
     ty = deck.table(s, tx, 2.14, tw, cols, rows, rowh=0.26, fs=8.5, hfs=7)

@@ -58,7 +58,7 @@ def render(deck, ctx, tier):
                "line is an exceptional, documented call", SERIF, 9, SLATE, False, True)],
              anchor=MSO_ANCHOR.MIDDLE)
 
-    deck.source(s, "Weight = share of direct-equity book · Ionic Score post gate/penalty/boost, "
+    deck.source(s, "Weight = share of direct-equity book · Ionic Score reflects our full review process, "
                    "forward-growth adjusted · illustrative synthetic book.")
     deck.score_band(s)
     return 1

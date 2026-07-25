@@ -136,10 +136,18 @@ def build(ctx, tier_name, verbose=True):
     tier = T.get(tier_name)
     deck = slidekit.new_deck()
     manifest = []
+    # a divider with no rendered content behind it is a dangling chapter page — skip it
+    sec_counts = {}
+    for mod_id, sec_no, sec_name, core in MODULES:
+        if mod_id.startswith("_div"):
+            continue
+        inc = (mod_id not in tier.get("skip_core", set())) if core else (mod_id in tier["optional_on"])
+        if inc:
+            sec_counts[sec_no] = sec_counts.get(sec_no, 0) + 1
     for mod_id, sec_no, sec_name, core in MODULES:
         # selection
         if mod_id.startswith("_div"):
-            included = True
+            included = sec_counts.get(sec_no, 0) > 0
         elif core:
             included = mod_id not in tier.get("skip_core", set())
         else:

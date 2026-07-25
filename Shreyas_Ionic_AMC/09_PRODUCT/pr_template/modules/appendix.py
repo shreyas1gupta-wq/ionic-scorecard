@@ -52,7 +52,7 @@ def _methodology(deck, ctx, tier):
 
     src = ("Scored universe: the firm's stock-scoring engine + per-stock analyst files (point-in-time).  ·  Fund NAVs: "
            "Direct-plan, total-return-benchmark relative.  ·  SEBI market-cap cut-offs and category rules.  ·  "
-           "House-view sector / allocation bands.  ·  Statutory tax rates (Compliance-signed, Budget-versioned).  ·  "
+           "House-view sector / allocation bands.  ·  Official statutory tax rates, updated each Budget.  ·  "
            "Client IPS and holdings as supplied by the advisory desk.")
     sy = 1.95 + h + 0.25
     deck.callout(s, ML, sy, UW, deck.callout_h(UW, src, min_h=1.0), "Data sources", src, "human")

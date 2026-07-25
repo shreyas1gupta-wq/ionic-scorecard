@@ -31,7 +31,7 @@ def render(deck, ctx, tier):
 
     # ---- KPI band ----
     deck.kpi_strip(s, [
-        (f"₹{grand/1e7:.2f} Cr", "Total AUM"),
+        (f"₹{grand/1e7:.2f} Cr", "Total portfolio value" if reg == "simple" else "Total AUM"),
         (str(n_st), "Direct equity names"),
         (str(n_fd), "Mutual-fund schemes"),
         (f"{top10:.0f}%", "In the top 10 holdings", None, (SELL if top10 >= 50 else INK)),
@@ -41,7 +41,7 @@ def render(deck, ctx, tier):
     # ---- donut (left) ----
     dpath = CH.donut([("Direct equity", eq), ("Mutual funds", mf), ("Cash", cash)],
                      "azby_snapshot_donut", colors=[CNAVY, CGOLD, CNT3],
-                     center_top=f"₹{grand/1e7:.1f} Cr", center_bot="Total AUM")
+                     center_top=f"₹{grand/1e7:.1f} Cr", center_bot="Your portfolio" if reg == "simple" else "Total AUM")
     deck.pic(s, dpath, ML, 3.05, 4.35, 3.35, valign="middle", halign="center")
 
     # ---- read (right) ----
@@ -50,15 +50,19 @@ def render(deck, ctx, tier):
                 f"About {mf:.0f}% is in mutual funds and {cash:.0f}% is kept as cash. "
                 "A lot sits in just a few shares. We look at that next.")
     elif reg == "hni":
-        body = (f"Asset mix {eq:.0f} / {mf:.0f} / {cash:.0f} (direct equity / pooled funds / cash). "
-                f"The live risk is intra-sleeve concentration: the ten largest names aggregate "
-                f"{top10:.0f}% of the book against a {cap:.0f}% single-name IPS guideline, quantified next.")
+        body = (f"The mix itself is healthy: {eq:.0f}% direct equity doing the compounding, "
+                f"{mf:.0f}% in funds for breadth, {cash:.0f}% in cash. What deserves attention "
+                f"sits inside the equity sleeve: the ten largest names carry {top10:.0f}% of the "
+                f"book against an {cap:.0f}% single-name guideline. This review deals with that "
+                f"first, then the funds, then the costs.")
     else:
         body = (f"About {eq:.0f}% of the book is in direct equity, {mf:.0f}% in mutual funds and "
                 f"{cash:.0f}% in cash. The equity sleeve drives the portfolio, and inside it the ten "
                 f"largest names hold {top10:.0f}% of the book. Concentration, not asset mix, is what we address first.")
     cx = ML + 4.85
-    deck.callout(s, cx, 3.15, RX - cx, 3.05, L["read_title"], body, kind="human")
+    # panel hugs its text — a half-empty tinted box reads as an unfilled template
+    deck.callout(s, cx, 3.15, RX - cx, deck.callout_h(RX - cx, body, min_h=1.5, max_h=3.05),
+                 L["read_title"], body, kind="human")
 
     deck.source(s, f"Source: client custody statement as of {cl['as_of']}; Ionic Wealth Portfolio Review. "
                    "Percentages of total AUM.")

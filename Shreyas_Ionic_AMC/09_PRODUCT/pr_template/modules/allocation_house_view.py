@@ -41,19 +41,20 @@ def render(deck, ctx, tier):
     # ---- one-line read (full width) ----
     lg = gap.get("Large"); fg = gap.get("Foreign"); gd = gap.get("Gold")
     if reg == "simple":
-        read = ("Right now there is too much in big Indian companies and too little in foreign "
-                "shares and gold. The plan later fixes this using the money from the sales.")
+        read = ("Right now there is a lot in big Indian companies and very little in foreign "
+                "shares and gold. When we reinvest, we plan to balance this out, with you.")
     elif reg == "hni":
         read = (f"Pronounced large-cap domestic tilt (+{lg:.1f} vs target); foreign ~{abs(fg):.0f}pts and "
-                f"gold ~{abs(gd):.0f}pts light. Sell proceeds close these gaps.")
+                f"gold ~{abs(gd):.0f}pts light. Closing these gaps is planned at deployment "
+                f"(transition framework, annexure), on your authorisation.")
     else:
         read = (f"The book leans heavily into large-cap domestic equity (+{lg:.1f} vs target), while "
                 f"foreign equity is ~{abs(fg):.0f} points light and gold ~{abs(gd):.0f} points light. "
-                "The transition plan closes these gaps with the Sell proceeds.")
+                "Closing these gaps is planned at deployment, on your authorisation.")
     deck.callout(s, ML, 5.75, UW, 0.82,
                  "WHAT IT MEANS" if reg != "simple" else "IN SHORT", read,
                  kind="note")
 
-    deck.source(s, "House-view allocation bands are advisory-owned (illustrative for this demo). "
+    deck.source(s, "House-view allocation bands are illustrative for this demo. "
                    "Gap = current book minus house-view target, in percentage points.")
     return 1

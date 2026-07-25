@@ -44,14 +44,26 @@ def render(deck, ctx, tier):
         names = ", ".join(f"{e['symbol']} ({e['weight_pct']:.1f}%)" for e in breaches[:2])
         extra = f" and {len(breaches)-2} more" if len(breaches) > 2 else ""
         comb = sum(e["weight_pct"] for e in breaches)
+        # call-aware treatment line: a breach that is also a Sell EXITS, it doesn't trim
+        sell_b = [e["symbol"] for e in breaches if e["rec"] == "Sell"]
+        hold_b = [e["symbol"] for e in breaches if e["rec"] != "Sell"]
         if reg == "simple":
             body = (f"{len(breaches)} shares are bigger than our {cap:.0f}% single-name limit: "
-                    f"{names}{extra}. We plan to slowly trim these toward {cap:.0f}%.")
+                    f"{names}{extra}. ")
+            if sell_b:
+                body += f"{', '.join(sell_b)} is on the sell list anyway. "
+            if hold_b:
+                body += f"{', '.join(hold_b)} we reduce slowly toward {cap:.0f}%."
         else:
             body = (f"{len(breaches)} names sit above the {cap:.0f}% IPS single-name guideline: "
-                    f"{names}{extra}. Together they are {comb:.1f}% of the book. The plan trims both "
-                    f"toward {cap:.0f}% into strength, sliced across days, never in one print.")
-        deck.callout(s, cx, 2.05, cw, 3.15, "SINGLE-NAME CAP", body, kind="warn")
+                    f"{names}{extra}, together {comb:.1f}% of the book. ")
+            if sell_b:
+                body += f"{', '.join(sell_b)} exits via the sell programme. "
+            if hold_b:
+                body += (f"{', '.join(hold_b)} is trimmed toward {cap:.0f}% into strength, "
+                         f"sliced across days, never in one print.")
+        deck.callout(s, cx, 2.05, cw, deck.callout_h(cw, body, min_h=1.7, max_h=3.15),
+                     "SINGLE-NAME CAP", body, kind="warn")
     else:
         deck.callout(s, cx, 2.05, cw, 3.15, "SINGLE-NAME CAP",
                      f"No position exceeds the {cap:.0f}% IPS single-name guideline. Concentration is "
@@ -61,7 +73,7 @@ def render(deck, ctx, tier):
     deck.kpi_strip(s, [
         (f"{top2:.1f}%", "Top 2 names"),
         (f"{t['top10_pct']:.0f}%", "Top 10 names"),
-        (f"{cap:.0f}%", "IPS single-name cap"),
+        (f"{cap:.0f}%", "Our single-stock limit" if reg == "simple" else "IPS single-name cap"),
         (str(len(breaches)), "Names over the cap", None, (SELL if breaches else INK)),
     ], y=5.55)
 

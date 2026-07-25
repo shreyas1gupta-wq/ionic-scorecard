@@ -6,11 +6,11 @@ from slidekit import NAVY, INK, SLATE, HOLD, SELL, AMBER, SERIF, ML, UW, short_n
 
 MERIT_COL = {"A": HOLD, "B": NAVY, "C": AMBER, "D": SELL}
 VDISP = {"Redeem-to-Direct": "To-Direct"}
-# flag chips must read as words, never as clipped codes ('DOWN_CAP_'); all <=9 chars
-FLAB = {"CLOSET_INDEX": "CLOSET", "NEG_ALPHA": "NEG ALPHA", "DOWN_CAP_HI": "DOWN-CAP",
-        "WEAK_CONSIST": "WEAK 3Y", "MANDATE_RIGIDITY": "MANDATE", "REG_PLAN_DRAG": "REG DRAG",
-        "DEEP_DD": "DEEP DD", "CAPACITY": "CAPACITY", "OVER_ALLOC": "OVERALLOC",
-        "SUB_SCALE": "SUB-SCALE", "SHORT_RECORD": "SHORT REC"}
+# flag chips read as PLAIN WORDS (leak audit 2026-07-26), never engine codes; all <=9 chars
+FLAB = {"CLOSET_INDEX": "INDEX HUG", "NEG_ALPHA": "TRAILS", "DOWN_CAP_HI": "DOWNSIDE",
+        "WEAK_CONSIST": "WEAK 3-YR", "MANDATE_RIGIDITY": "RIGID", "REG_PLAN_DRAG": "COST DRAG",
+        "DEEP_DD": "DEEP FALL", "CAPACITY": "TOO LARGE", "OVER_ALLOC": "OVERSIZED",
+        "SUB_SCALE": "TINY FUND", "SHORT_RECORD": "NEW FUND"}
 
 LABELS = {
     "hni":    ("The fund book, scored",
@@ -37,7 +37,7 @@ def render(deck, ctx, tier):
     deck.scope_tag(s, f"MF sleeve only, Direct-plan NAV vs total-return benchmark · as of {as_of}")
 
     if simple:
-        cols = [("Scheme", 0.36, "l"), ("Category", 0.16, "l"), ("Wt %", 0.12, "r"),
+        cols = [("Scheme", 0.36, "l"), ("Category", 0.16, "l"), ("Share %", 0.12, "r"),
                 ("Quality /100", 0.18, "l"), ("Suggested", 0.24, "c")]
         rows = []
         for f in funds:

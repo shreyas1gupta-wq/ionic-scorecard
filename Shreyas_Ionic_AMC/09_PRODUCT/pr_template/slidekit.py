@@ -37,6 +37,8 @@ RX = CW - MR; UW = RX - ML
 # hollow intensifiers never reach a client slide, wherever they sit in the sentence
 # (mid-word matches like 'ingenuine' are protected by the leading whitespace requirement)
 _TELL_RE = re.compile(r"\s+(?:genuinely|genuine|truly)(?=[\s,.;:…)]|$)")
+# internal epistemic tags (D-035 keeps them in research FILES; they never render client-side)
+_TAG_RE = re.compile(r"\[\s*(?:OPINION|INFERENCE|DATA|ESTIMATE)\b[^\]]*\]\s*")
 
 
 def short_name(name, n=28):
@@ -227,6 +229,14 @@ class Deck:
                     # 'a genuine, company-acknowledged' -> 'a,'); 'truly' just goes
                     t = t.replace(" genuinely", " clearly").replace(" genuine", " clear")
                     t = _TELL_RE.sub("", t)
+                    t = _TAG_RE.sub("", t)
+                    # demo-name consistency + jargon softening + data-engine narration
+                    # never reaches a client slide (leak audit 2026-07-26)
+                    t = (t.replace("AZBY", "ABXY")
+                          .replace("Forensic / governance flag", "Governance concern")
+                          .replace("our own PIT data", "our data").replace("PIT data", "our data")
+                          .replace("the quant feed", "our data feed"))
+                    t = re.sub(r"\s*\(\d+\s*rows?\b[^)]{0,60}\)", "", t)
                     # glyphs Bahnschrift lacks (render as tofu in charts/PDF): never ship
                     t = (t.replace(" → ", " to ").replace("→", "to")
                           .replace("≤ ", "max ").replace("≤", "max ")
@@ -265,7 +275,9 @@ class Deck:
         else: self.txt(s, RX - 2.3, 0.42, 2.3, 0.3, [("IONIC WEALTH", SANS, 12, NAVY, True, False, 60)], align=PP_ALIGN.RIGHT)
 
     def classified(self, s, dark=False):
-        self.txt(s, CW / 2 - 1.7, 0.14, 3.4, 0.2, [("Classified as Internal", SANS, 7.5, (NT2 if dark else SLATE), False)], align=PP_ALIGN.CENTER)
+        # client deliverable ⇒ 'Private & Confidential', never an internal security marking
+        # (leak audit 2026-07-26)
+        self.txt(s, CW / 2 - 1.7, 0.14, 3.4, 0.2, [("Private & Confidential", SANS, 7.5, (NT2 if dark else SLATE), False)], align=PP_ALIGN.CENTER)
 
     def footer(self, s, dark=False):
         self.txt(s, RX - 2.4, 7.14, 2.4, 0.2, [(f"Portfolio Review  ·  {self.folio:02d}", SANS, 7.5, (NT2 if dark else SLATE), False)], align=PP_ALIGN.RIGHT)
@@ -401,7 +413,7 @@ class Deck:
                     for fl in cell[1][:3]:
                         self.pill(s, fx, ry + rowh / 2 - 0.13, fl[:9], w=0.82,
                                   kind="Sell" if fl in ("NEG_ALPHA", "CLOSET_INDEX", "DEEP_DD", "CAPACITY",
-                                                        "NEG ALPHA", "CLOSET", "DEEP DD") else "Trim")
+                                                        "TRAILS", "INDEX HUG", "DEEP FALL", "TOO LARGE") else "Trim")
                         fx += 0.88
                 elif k in ("b", "c"):
                     col = cell[2] if (k == "c" and len(cell) > 2) else INK

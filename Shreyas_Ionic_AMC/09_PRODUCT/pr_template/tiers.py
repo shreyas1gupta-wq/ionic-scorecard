@@ -34,14 +34,20 @@ TIERS = {
         "spotlight_count": 2,
     },
     "RM_SIMPLE": {
-        "label": "RM-led / newer investor — less overwhelming",
+        "label": "RM-led / newer investor — under 20 slides, plain language",
         "register": "simple",       # plain language, bigger type, fewer numbers
         "chart_density": "minimal",
         "show_horizon_legs": False,
         "optional_on": set(),       # core only
         "spotlight_count": 0,
-        # RM tier also drops a few dense CORE modules to their lighter form (engine reads skip_core)
-        "skip_core": {"fund_quality_alloc", "fund_overlap", "house_view_fit"},
+        # RM-LITE redesign (Principal 2026-07-26): keep only the story beats — plan,
+        # what you own, strong/weak picture, sells, funds, cost/tax, next steps.
+        # Empty sections auto-drop their dividers (engine). Target ≤19 slides.
+        "skip_core": {"contents_legend", "mandate_method", "allocation_house_view",
+                      "group_concentration", "sector_exposure", "mcap_positioning",
+                      "score_method", "book_scored", "hold_rationale", "funds_equity",
+                      "funds_hybrid", "fund_category_rules", "house_view_fit",
+                      "fund_quality_alloc", "fund_overlap"},
     },
 }
 

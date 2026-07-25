@@ -49,7 +49,7 @@ def render(deck, ctx, tier):
         deck.txt(s, x + 1.62, y + 0.13, col_w - 1.75, 0.26, [(_short(f["name"], 32), "Bahnschrift", 11, INK, True)])
         flags = "  ·  ".join(f["flags"]) if f["flags"] else "structural"
         if f.get("holding_years", 0) >= 5:
-            flags += f"  ·  HELD ~{f['holding_years']:.0f}Y (LTCG BAR RAISED)"
+            flags += f"  ·  HELD ~{f['holding_years']:.0f}Y, COSTLIER TO SWITCH"
         deck.txt(s, x + 0.18, y + 0.46, col_w - 0.3, 0.2, [(flags, "Bahnschrift", 7.5, vc, True, False, 30)])
         deck.txt(s, x + 0.18, y + 0.68, col_w - 0.34, card_h - 0.9,
                  [(f["structural_reason"], SERIF, 9.5, INK, False)], ls=1.04)

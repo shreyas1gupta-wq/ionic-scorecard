@@ -25,9 +25,9 @@ def _short(name):
 
 LABELS = {
     "hni": {"eyebrow": "Transition framework · on request", "title": "How net proceeds could be staged, sequenced by liquidity",
-            "seq": "Sequencing", "foot": "Annexure framework, not a recommendation: no scheme or security is being recommended here. Sequencing reflects liquidity and settlement logic, not a market-timing call; sleeves are illustrative (advisory / CIO-owned) and nothing executes without client authorisation. Amounts are net of estimated tax."},
+            "seq": "Sequencing", "foot": "Annexure framework, not a recommendation: no scheme or security is being recommended here. Sequencing reflects liquidity and settlement logic, not a market-timing call; sleeves are illustrative and nothing executes without your authorisation. Amounts are net of estimated tax."},
     "std": {"eyebrow": "Transition framework · on request", "title": "How net proceeds could be staged, sequenced by liquidity",
-            "seq": "Sequencing", "foot": "Annexure framework, not a recommendation: no scheme or security is being recommended here. Sequencing reflects liquidity and settlement logic, not a market-timing call; sleeves are illustrative (advisory / CIO-owned) and nothing executes without client authorisation. Amounts are net of estimated tax."},
+            "seq": "Sequencing", "foot": "Annexure framework, not a recommendation: no scheme or security is being recommended here. Sequencing reflects liquidity and settlement logic, not a market-timing call; sleeves are illustrative and nothing executes without your authorisation. Amounts are net of estimated tax."},
     "simple": {"eyebrow": "If and when we reinvest", "title": "How the freed cash could go back to work, step by step",
                "seq": "The order we'd do it in", "foot": "This page is a framework, not a recommendation. The destinations are examples; nothing moves without your approval. All figures are after estimated tax."},
 }

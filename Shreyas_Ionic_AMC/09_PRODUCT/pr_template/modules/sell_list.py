@@ -36,7 +36,7 @@ def render(deck, ctx, tier):
                    key=lambda e: -(e.get("weight_pct") or 0))
     pages = max(1, (len(sells) + PER - 1) // PER)
 
-    cols = [("Holding", 0.20, "l"), ("Wt %", 0.06, "r"), ("Ionic Score", 0.13, "l"),
+    cols = [("Holding", 0.20, "l"), ("Share %" if reg == "simple" else "Wt %", 0.06, "r"), ("Ionic Score", 0.13, "l"),
             ("Call", 0.09, "c"), ("The case", 0.46, "l"), ("Detail", 0.06, "r")]
 
     for p in range(pages):

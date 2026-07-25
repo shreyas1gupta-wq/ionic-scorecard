@@ -10,10 +10,10 @@ from slidekit import INK, SLATE, SANS, SERIF, ML, UW, RX
 
 
 _SEVERE = {"CLOSET_INDEX", "NEG_ALPHA", "DEEP_DD", "CAPACITY"}
-_FLAB = {"CLOSET_INDEX": "CLOSET-IDX", "NEG_ALPHA": "NEG ALPHA", "DOWN_CAP_HI": "DOWN-CAP",
-         "WEAK_CONSIST": "WEAK 3Y", "MANDATE_RIGIDITY": "MANDATE", "REG_PLAN_DRAG": "REG DRAG",
-         "DEEP_DD": "DEEP DD", "CAPACITY": "CAPACITY", "OVER_ALLOC": "OVER-ALLOC",
-         "SUB_SCALE": "SUB-SCALE", "SHORT_RECORD": "SHORT REC"}
+_FLAB = {"CLOSET_INDEX": "INDEX HUG", "NEG_ALPHA": "TRAILS", "DOWN_CAP_HI": "DOWNSIDE",
+         "WEAK_CONSIST": "WEAK 3-YR", "MANDATE_RIGIDITY": "RIGID", "REG_PLAN_DRAG": "COST DRAG",
+         "DEEP_DD": "DEEP FALL", "CAPACITY": "TOO LARGE", "OVER_ALLOC": "OVERSIZED",
+         "SUB_SCALE": "TINY FUND", "SHORT_RECORD": "NEW FUND"}
 _FLAG_READ = {"CLOSET_INDEX": "closet indexing", "NEG_ALPHA": "negative net alpha",
               "DOWN_CAP_HI": "high down-capture", "WEAK_CONSIST": "weak 3-yr consistency",
               "MANDATE_RIGIDITY": "mandate rigidity", "REG_PLAN_DRAG": "Regular-plan cost drag",

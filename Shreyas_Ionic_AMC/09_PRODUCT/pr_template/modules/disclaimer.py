@@ -30,6 +30,6 @@ def render(deck, ctx, tier):
              [("Private & Confidential  ·  Prepared exclusively for the named client",
                SANS, 9.5, NT3, False, False, 60)], align=PP_ALIGN.CENTER)
 
-    deck.txt(s, ML, 6.9, UW, 0.3, [("Ionic Wealth by Angel One  ·  Portfolio Review  ·  Classified as Internal",
+    deck.txt(s, ML, 6.9, UW, 0.3, [("Ionic Wealth by Angel One  ·  Portfolio Review  ·  Private & Confidential",
                                     SANS, 8, NT3, False)])
     return 1

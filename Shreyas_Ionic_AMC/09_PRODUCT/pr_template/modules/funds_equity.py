@@ -66,8 +66,8 @@ def render(deck, ctx, tier):
                      ("pill", VDISP.get(f["verdict"], f["verdict"]), f["verdict"])])
     ty = deck.table(s, tx, 2.0, tw, cols, rows, rowh=0.40, fs=9, hfs=7.5)
 
-    body = ("Fund calls follow the Ionic MF desk's own framework: the long-term SIP engine and a "
-            "short-horizon overlay, refreshed on the desk's cadence. This review applies those calls "
+    body = ("Fund calls follow our fund-quality frameworks, a long-term view and a short-horizon "
+            "overlay, refreshed regularly. This review applies those calls "
             "to your holdings; it does not re-score the funds."
             if not simple else
             "These suggestions come from our fund-research desk's standing framework, applied to the "

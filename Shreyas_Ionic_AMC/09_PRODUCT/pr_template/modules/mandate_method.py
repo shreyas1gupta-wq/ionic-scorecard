@@ -47,39 +47,38 @@ def render(deck, ctx, tier):
     # ---- RIGHT: core-satellite definition + benchmark record ----
     rx = 7.30
     rw = RX - rx
-    cs_body = ("A stable, low-turnover CORE (broad quality exposure that does the compounding) is "
-               "surrounded by smaller SATELLITE positions · higher-conviction stocks and factor or "
-               "thematic sleeves · that aim to add return without destabilising the core.  "
-               "[OPINION · illustrative definition; advisory to ratify.]")
-    deck.callout(s, rx, 1.72, rw, 2.10, "What is core–satellite?", cs_body, kind="note")
+    # client copy: simple, marketable, never internal-workflow language (Principal 2026-07-26 —
+    # no '[OPINION…]' tags, no 'advisory to formalise', no ticket codes, no blend percentages)
+    cs_body = ("A stable core of quality businesses does the compounding; smaller satellite "
+               "positions around it aim to add return without disturbing the core. Steady at "
+               "the centre, selective at the edges.")
+    deck.callout(s, rx, 1.72, rw, deck.callout_h(rw, cs_body, min_h=1.4),
+                 "What is core–satellite?", cs_body, kind="note")
 
-    # benchmark typed record
+    # benchmark record — plain client language
     by = 4.00
     deck.rect(s, rx, by, rw, 1.70, fill=PANEL, round_=0.04)
     deck.rect(s, rx, by, 0.06, 1.70, fill=NAVY)
-    deck.txt(s, rx + 0.20, by + 0.14, rw - 1.6, 0.24, [("BENCHMARK", SANS, 9.5, NAVY, True, False, 60)])
-    deck.pill(s, rx + rw - 1.55, by + 0.12, "Advisory to formalise", w=1.4, kind="Watch")
-    deck.txt(s, rx + 0.20, by + 0.44, rw - 0.4, 0.24,
-             [("Type   ", SANS, 8.5, SLATE, True, False, 60),
-              ("Blended composite (house view)", SANS, 10, INK, True)])
+    deck.txt(s, rx + 0.20, by + 0.14, rw - 0.4, 0.24, [("HOW WE MEASURE PROGRESS", SANS, 9.5, NAVY, True, False, 60)])
     basis = [
         f"Foreign equity, {stance['Foreign equity']}",
         f"Gold & silver, {stance['Gold & silver']}",
         f"Low-vol / value {stance['Low-vol / value'].lower()}; momentum {stance['Momentum'].lower()}",
     ]
+    deck.txt(s, rx + 0.20, by + 0.42, rw - 0.4, 0.24,
+             [("Against our house-view mix of markets, not a single index:", SERIF, 9.5, INK, False, True)])
     for i, b in enumerate(basis):
         deck.txt(s, rx + 0.20, by + 0.72 + i * 0.22, rw - 0.4, 0.2,
                  [("·  ", SANS, 9, GOLD, True), (b, SERIF, 9.5, INK, False, True)])
     deck.txt(s, rx + 0.20, by + 1.42, rw - 0.4, 0.24,
-             [("Not yet a named / APMI-tagged index, advisory to formalise (F9).",
-               SERIF, 8.5, SLATE, False, True)])
+             [("A formal named benchmark will be agreed with you.", SERIF, 8.5, SLATE, False, True)])
 
-    # ---- BOTTOM: pointer to the scoring method ----
+    # ---- BOTTOM: pointer to the scoring method (gist only — never the blend weights) ----
     deck.rule(s, ML, 5.92, UW, HAIR, 0.008)
     deck.txt(s, ML, 6.02, UW, 0.24, [("HOW EVERY HOLDING IS SCORED", SANS, 8.5, SLATE, True, False, 120)])
-    ptr = ("The Ionic Score combines a 3-year, fundamentals-led view with a 1-year, "
-           "technical-tilted view (40%) across 7 pillars, with safety gates that cap weak names · "
-           "it flags candidates; the team confirms. Full method in Section 02, The Equity Book.")
+    ptr = ("Every holding earns an Ionic Score out of 100, blending the long-term health of the "
+           "business with how the market is treating it now, with built-in safety checks on debt "
+           "and liquidity. The score flags; our team decides. Full method in Section 02.")
     deck.txt(s, ML, 6.28, UW, 0.5, [(ptr, SERIF, 10, INK, False, True)], ls=1.05)
 
     deck.score_band(s)   # F13: score-position band attaches on this slide
