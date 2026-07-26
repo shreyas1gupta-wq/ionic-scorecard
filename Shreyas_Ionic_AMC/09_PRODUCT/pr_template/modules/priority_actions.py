@@ -32,7 +32,9 @@ def _rows(reg, n_sell, k, act_counts):
     n_exit = act_counts.get("EXIT", 0)
     n_move = k - n_exit
     if reg == "simple":
-        fund_sub = f"Tidy the fund list, move {n_move} to cheaper or Direct versions"
+        # 'cheaper or Direct versions' read as a same-fund plan change (Principal
+        # 2026-07-26) — a Switch replaces the FUND; destinations happen to be Direct
+        fund_sub = f"Tidy the fund list, replace {n_move} weak funds with stronger, cheaper ones"
         fund_sub += ", drop the tiny one." if n_exit else "."
         return [
             ("Sell the weak names", f"Sell the {n_sell} weakest-scoring stocks, a little at a time.", "First"),
