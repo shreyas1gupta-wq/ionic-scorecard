@@ -186,6 +186,11 @@ def main():
         if len(ext):
             print(f"{disp}: +{len(ext)} rows to {ext.index.max().date()}")
     seed = seed.sort_index()
+    # TRADED DAYS ONLY (Principal 2026-07-26): a row exists only where an NSE index
+    # printed a close — weekend/holiday rows where just the liquid fund accrues are out
+    fund_cols = list(AMFI_FUNDS.keys())
+    idx_cols = [c for c in seed.columns if c not in fund_cols]
+    seed = seed[seed[idx_cols].notna().any(axis=1)]
     rest = [c for c in seed.columns if c not in LEAD]
     seed = seed[LEAD + rest]
     seed.index.name = "NAV Date"
