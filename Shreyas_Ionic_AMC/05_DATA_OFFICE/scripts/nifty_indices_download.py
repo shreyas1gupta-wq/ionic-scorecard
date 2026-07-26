@@ -36,8 +36,11 @@ API = f"{BASE}/Backpage.aspx/getHistoricaldatatabletoString"
 
 def session_():
     s = requests.Session()
+    # headers synced EXACTLY to the Principal's reference downloader (2026-07-26) —
+    # the missing Sec-Fetch-* trio + Accept-Encoding made the WAF serve an HTML shell
     s.headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
-                      "Accept-Language": "en-US,en;q=0.9", "Connection": "keep-alive"})
+                      "Accept-Language": "en-US,en;q=0.9", "Accept-Encoding": "gzip, deflate, br",
+                      "Connection": "keep-alive"})
     r = s.get(REFERER, timeout=30); r.raise_for_status()
     return s
 
@@ -45,7 +48,8 @@ def session_():
 def fetch(s, name, start, end):
     payload = {"cinfo": json.dumps({"name": name, "startDate": start, "endDate": end, "indexName": name})}
     h = {"Accept": "application/json, text/javascript, */*; q=0.01", "Content-Type": "application/json; charset=UTF-8",
-         "Referer": REFERER, "Origin": BASE, "X-Requested-With": "XMLHttpRequest"}
+         "Referer": REFERER, "Origin": BASE, "X-Requested-With": "XMLHttpRequest",
+         "Sec-Fetch-Dest": "empty", "Sec-Fetch-Mode": "cors", "Sec-Fetch-Site": "same-origin"}
     try:
         r = s.post(API, json=payload, headers=h, timeout=30); r.raise_for_status()
         rows = json.loads(r.json().get("d", "[]"))

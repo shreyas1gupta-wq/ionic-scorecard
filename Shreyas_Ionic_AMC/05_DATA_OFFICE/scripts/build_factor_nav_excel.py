@@ -8,13 +8,17 @@ Column order (Principal's spec; these lead in EXACTLY this order, everything els
 
 Data layers (merged, newest wins):
   1. SEED  datasets/nifty_factor_indices/factor_navs_seed.csv — the Principal's own
-     TRI/factor NAV history (2005-04-01 .. 2026-01-05, copied from the Mf_qfra2 project
+     factor NAV history (2005-04-01 .. 2026-01-05, copied from the Mf_qfra2 project
      into the firm tree 2026-07-26 per backup policy).
-  2. INDEX EXTENSION  datasets/nifty_factor_indices/factor_indices_close.parquet —
-     nifty_indices_download.py output (niftyindices.com; first pull needs HOME NETWORK;
-     auto-refresh 16th + 29th per OPERATING_CALENDAR).
+  2a. INDEX EXTENSION (primary, OFFICE-OK)  datasets/index_daily/
+      nse_official_all_indices.parquet — the firm's NSE official daily index closes
+      (EOD-maintained, all factor indices present), mapped by normalized name.
+  2b. INDEX EXTENSION (secondary)  datasets/nifty_factor_indices/
+      factor_indices_close.parquet — nifty_indices_download.py output
+      (niftyindices.com; the office proxy STRIPS COOKIES so this leg only works from
+      the home network; auto-attempted 16th + 29th per OPERATING_CALENDAR).
   3. FUND EXTENSION  GOLDBEES + HDFC Liquid Fund(G) daily NAVs from AMFI per-house
-     history (90-day chunks; works on the office proxy), cached under
+     history (30-day chunks; works on the office proxy), cached under
      datasets/mf_nav/daily_cache/.
 
 Output: Shreyas_Ionic_AMC/09_PRODUCT/reports/FACTOR_NAVS.xlsx
@@ -114,10 +118,48 @@ def amfi_extend(col_disp, house, key, start, end):
     return out.set_index("date")["nav"] if len(out) else pd.Series(dtype=float)
 
 
+# seed column -> normalized NSE-official index_name candidates (layer 2a)
+NSE_ALIAS = {
+    "NIFTY 50": ["nifty50"], "NIFTY 100": ["nifty100"], "NIFTY 250": ["niftylargemidcap250"],
+    "NIFTY 500": ["nifty500"], "NIFTY MIDCAP 150": ["niftymidcap150"],
+    "NIFTY SMALLCAP 100": ["niftysmallcap100"], "NIFTY SMALLCAP 250": ["niftysmallcap250"],
+    "NIFTY MULTICAP 50:25:25": ["nifty500multicap502525"],
+    "NIFTY 100 Low Vol 30": ["nifty100lowvolatility30"],
+    "NIFTY 200 Quality 30": ["nifty200quality30"],
+    "NIFTY 200 Value 30": ["nifty200value30"],
+    "NIFTY 200 Momentum 30": ["nifty200momentum30"],
+    "NIFTY 200 Alpha 30": ["nifty200alpha30"],
+    "NIFTY 500 Momentum 50": ["nifty500momentum50"],
+    "NIFTY 500 Value 50": ["nifty500value50"],
+    "Nifty Midcap Momentum 50": ["niftymidcap150momentum50"],
+    "Nifty Smallcap Quality Momentum 100": ["niftysmallcap250momentumquality100"],
+    "NIFTY HIGH BETA 50": ["niftyhighbeta50"],
+}
+NSE_OFFICIAL = os.path.join(ROOT, "datasets", "index_daily", "nse_official_all_indices.parquet")
+
+
 def main():
     seed = pd.read_csv(SEED, parse_dates=["Date"]).set_index("Date").sort_index()
     print(f"seed: {len(seed)} rows to {seed.index.max().date()}")
-    # layer 2: official index closes from the downloader (extends past the seed cut)
+    seed_cut0 = seed.index.max()
+    # layer 2a: the firm's NSE official daily closes (EOD-maintained, office-OK)
+    if os.path.exists(NSE_OFFICIAL):
+        nse = pd.read_parquet(NSE_OFFICIAL)[["index_name", "date", "close"]]
+        nse["nkey"] = nse["index_name"].map(_norm)
+        nse["date"] = pd.to_datetime(nse["date"])
+        nse = nse[nse["date"] > seed_cut0]
+        n_ext = 0
+        for col, cands in NSE_ALIAS.items():
+            sub = nse[nse["nkey"].isin(cands)]
+            if len(sub):
+                ser = sub.sort_values("date").drop_duplicates("date").set_index("date")["close"]
+                for d, v in ser.items():
+                    seed.loc[d, col] = v
+                n_ext = max(n_ext, len(ser))
+        if n_ext:
+            seed = seed.sort_index()
+            print(f"NSE-official extension: index columns to {seed.index.max().date()} (+{n_ext} days)")
+    # layer 2b: niftyindices downloader output (home-network leg), newest wins
     if os.path.exists(FACTOR_PARQUET):
         idx = pd.read_parquet(FACTOR_PARQUET)
         wide = idx.pivot_table(index="date", columns="index", values="close", aggfunc="last")
@@ -134,10 +176,11 @@ def main():
     # seed_cut is captured BEFORE the loop — the first fund's extension grows
     # seed.index.max() and was starving the second fund's fetch window (bug 2026-07-26)
     end = dt.date.today().isoformat()
-    seed_cut = seed.index.max()
+    # anchor to the ORIGINAL seed cut — the NSE index extension advances seed.index.max()
+    # and was starving the fund columns' window (bug round 2, 2026-07-26)
     for disp, (house, key) in AMFI_FUNDS.items():
-        ser = amfi_extend(disp, house, key, seed_cut + pd.Timedelta(days=1), end)
-        ext = ser[ser.index > seed_cut] if len(ser) else ser
+        ser = amfi_extend(disp, house, key, seed_cut0 + pd.Timedelta(days=1), end)
+        ext = ser[ser.index > seed_cut0] if len(ser) else ser
         for d, v in ext.items():
             seed.loc[d, disp] = v
         if len(ext):
@@ -146,9 +189,16 @@ def main():
     rest = [c for c in seed.columns if c not in LEAD]
     seed = seed[LEAD + rest]
     seed.index.name = "NAV Date"
-    with pd.ExcelWriter(OUT_XLSX, engine="openpyxl", datetime_format="DD-MM-YYYY") as xw:
-        seed.reset_index().to_excel(xw, sheet_name="factor_navs", index=False)
-    print(f"\nwrote {OUT_XLSX}\nrows {len(seed)} ({seed.index.min().date()} -> {seed.index.max().date()}) · "
+    out = OUT_XLSX
+    for suffix in ("", "_v2", "_v3"):
+        try:
+            out = OUT_XLSX.replace(".xlsx", f"{suffix}.xlsx")
+            with pd.ExcelWriter(out, engine="openpyxl", datetime_format="DD-MM-YYYY") as xw:
+                seed.reset_index().to_excel(xw, sheet_name="factor_navs", index=False)
+            break
+        except PermissionError:
+            print(f"{out} is open in Excel (locked) — versioning up")
+    print(f"\nwrote {out}\nrows {len(seed)} ({seed.index.min().date()} -> {seed.index.max().date()}) · "
           f"cols: {len(LEAD)} lead + {len(rest)} rest")
 
 
