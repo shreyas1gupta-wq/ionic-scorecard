@@ -65,14 +65,27 @@ def main(frm, to):
         columns=["scheme_code", "isin", "name", "nav", "date"])
     if len(hist):
         hist["date"] = pd.to_datetime(hist["date"])
-    have = set(hist["date"].dt.strftime("%Y-%m")) if len(hist) else set()
+    # a month counts as PRESENT only if it looks healthy: scheme count near the store's
+    # median month AND its max date inside the month's last 6 days (audit 2026-07-26:
+    # mere-presence skip made a broken month — e.g. a liquid-only weekend snapshot or a
+    # proxy-truncated pull — permanently unrepairable)
+    ok_months = set()
+    if len(hist):
+        ymcol = hist["date"].dt.to_period("M")
+        counts = ymcol.value_counts()
+        med = counts.median()
+        for ym_p, n in counts.items():
+            mx = hist.loc[ymcol == ym_p, "date"].max()
+            in_window = (ym_p.end_time.date() - mx.date()).days <= 6
+            if n >= 0.7 * med and in_window:
+                ok_months.add(str(ym_p))
     s = requests.Session()
     s.headers["User-Agent"] = "Mozilla/5.0"
     added = 0
     for first, last in month_ends(frm, to):
         ym = first.strftime("%Y-%m")
-        if ym in have:
-            print(f"{ym}: already in store, skip", flush=True)
+        if ym in ok_months:
+            print(f"{ym}: healthy in store, skip", flush=True)
             continue
         frmdt = (last - dt.timedelta(days=5)).strftime("%d-%b-%Y")
         todt = last.strftime("%d-%b-%Y")
@@ -93,6 +106,15 @@ def main(frm, to):
             continue
         # month-end = each scheme's last available NAV in the window
         df = df.sort_values("date").groupby("scheme_code", as_index=False).last()
+        # post-parse sanity: a proxy-truncated 200 must never be banked as a month
+        if len(hist):
+            med = hist["date"].dt.to_period("M").value_counts().median()
+            if len(df) < 0.7 * med:
+                print(f"{ym}: parsed only {len(df)} schemes vs store median {med:.0f} — "
+                      f"looks truncated, NOT banked", flush=True)
+                continue
+        # replace any unhealthy partial rows for this month, then bank
+        hist = hist[hist["date"].dt.strftime("%Y-%m") != ym] if len(hist) else hist
         hist = pd.concat([hist, df], ignore_index=True)
         hist.to_parquet(ME_PATH, index=False)      # bank after every month (resume-safe)
         added += 1

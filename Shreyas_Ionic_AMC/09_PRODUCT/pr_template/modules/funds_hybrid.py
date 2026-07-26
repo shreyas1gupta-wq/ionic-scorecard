@@ -45,8 +45,11 @@ def _sort_col(v):
 
 
 def _bias_body(f, simple):
-    """2-3 sentences of Sell/Hold bias reasoning per hybrid, from ctx fields."""
+    """2-3 sentences of Sell/Hold bias reasoning per hybrid, from ctx fields.
+    dc = down-capture vs the scheme's OWN hybrid benchmark; dce = the cushion vs pure
+    equity (separate, explicitly-labeled stat — Principal 2026-07-26)."""
     w1, dc, so = f["worst_1y"], f["down_capture"], f["sortino"]
+    dce = f.get("down_capture_vs_equity", dc)
     v = f["verdict"]
     sr = _scrub(f.get("structural_reason"))
     flags = [_FLAG_READ.get(x, x.lower().replace("_", " ")) for x in (f.get("flags") or [])]
@@ -56,15 +59,15 @@ def _bias_body(f, simple):
         if v == "Hold":
             worst_read = (f"In its worst year it still made {w1:+.0f}%" if w1 >= 0
                           else f"In its worst year it lost only {abs(w1):.0f}%")
-            return (f"Keep. {worst_read}, and it falls only {dc:.0f}% as "
-                    f"much as the market. This is what a hybrid is for.")
+            return (f"Keep. {worst_read}, and it falls only {dce:.0f}% as "
+                    f"much as the share market. This is what a hybrid is for.")
         if v == "Trim":
             if structural_trim:
                 return ("Reduce, gently. Nothing is wrong with how it has done so far; it is simply "
                         "a young fund with a small asset base, so we lean on the bigger, proven "
                         "fund until this one has a longer record.")
-            return (f"Reduce. It lost {abs(w1):.0f}% in its worst year and falls about as much as the "
-                    f"market itself, so it is not protecting you.")
+            return (f"Reduce. It lost {abs(w1):.0f}% in its worst year and takes {dce:.0f}% of the "
+                    f"share market's falls, so it is not protecting you.")
         if v == "Redeem-to-Direct":
             return ("Keep the fund, change the plan. The same fund is cheaper in its Direct version; "
                     "the Regular version pays a yearly commission you do not need to pay.")
@@ -72,17 +75,17 @@ def _bias_body(f, simple):
                 f"the market.")
     if v == "Hold":
         # no per-card "book's benchmark" claim — with two hybrid Holds it printed twice
-        return (f"Stays a Hold. A {w1:+.1f}% worst year at {dc:.0f}% down-capture (Sortino {so:.2f}) "
-                f"means it gives up some upside and buys back the bad year, which is exactly the trade "
-                f"a hybrid is hired for.")
+        return (f"Stays a Hold. Ahead of its own hybrid benchmark with a {w1:+.1f}% worst year "
+                f"(Sortino {so:.2f}), and it takes only {dce:.0f}% of pure-equity falls — exactly "
+                f"the trade a hybrid is hired for.")
     if v == "Trim":
         if structural_trim:
             return (f"Our bias is Trim, on scale and record, not results. Under four years old, "
                     f"sub-scale, {dc:.0f}% down-capture so far is fine; it cannot yet carry a full "
                     f"allocation next to the proven core.")
-        s = (f"Our bias is Trim. Down-capture of {dc:.0f}% with a {w1:+.1f}% worst year means it falls "
-             f"like pure equity while charging for protection; Sortino at {so:.2f} says holders were "
-             f"not paid for that downside.")
+        s = (f"Our bias is Trim. Taking {dce:.0f}% of pure-equity falls with a {w1:+.1f}% worst year "
+             f"means it falls nearly like equity while charging for protection; Sortino at {so:.2f} "
+             f"says holders were not paid for that downside.")
         if flags:
             s += f" Flags firing: {', '.join(flags)}."
         return s + " We would cut the allocation, not the asset class."
@@ -126,38 +129,47 @@ def render(deck, ctx, tier):
         eyebrow = "Hybrid funds · return-for-risk, drawdown, worst year"
         title = "A hybrid earns its keep in the bad year, not the good one"
     s = deck.content(3, "Funds", eyebrow, title)
-    deck.scope_tag(s, f"MF sleeve only: hybrid schemes · Direct-plan NAV vs TR benchmark · as of {as_of}")
+    deck.scope_tag(s, f"MF sleeve only: hybrid schemes · Direct-plan NAV vs the 65:35 hybrid benchmark; "
+                      f"cushion shown vs pure equity · common 3y window · as of {as_of}")
 
     if simple:
         cols = [("Scheme", 0.40, "l"), ("Worst 1-yr", 0.20, "r"),
-                ("Falls vs market", 0.18, "r"), ("Suggested", 0.22, "c")]
+                ("Falls vs share market", 0.18, "r"), ("Suggested", 0.22, "c")]
         rows = []
         for f in hyb:
+            dce = f.get("down_capture_vs_equity", f["down_capture"])
             rows.append([_short(f["name"], 26),
                          ("c", f"{f['worst_1y']:+.0f}%", SELL if f["worst_1y"] < 0 else HOLD, True),
-                         ("c", f"{f['down_capture']:.0f}%", SELL if f["down_capture"] >= 90 else HOLD, True),
+                         ("c", f"{dce:.0f}%", SELL if dce >= 90 else HOLD, True),
                          ("pill", VDISP.get(f["verdict"], f["verdict"]), f["verdict"])])
         ty = deck.table(s, ML, 2.05, UW, cols, rows, rowh=0.5, fs=11, hfs=9)
         cy = ty + 0.22
         _bias_cards(deck, s, cards, cy, min(2.2, 6.45 - cy), True)
-        deck.source(s, "Worst 1-yr rolling return and down-capture vs total-return benchmark; Direct-plan NAV. "
-                       "Illustrative synthetic funds.")
+        deck.source(s, "Worst 1-yr rolling return over the common 3y window (every fund on the same dates, "
+                       "so no fund is penalised for having lived through an older crash); falls measured vs "
+                       "the share market. Direct-plan NAV. Illustrative synthetic funds.")
         return 1
 
-    # --- metrics table (all hybrids); max drawdown stays a number, per the Principal ---
-    cols = [("Scheme", 0.24, "l"), ("Sortino", 0.11, "r"), ("Calmar", 0.11, "r"),
-            ("Max DD", 0.12, "r"), ("Worst 1-yr", 0.13, "r"), ("Down-cap", 0.13, "r"), ("Verdict", 0.16, "c")]
+    # --- metrics table (all hybrids); max drawdown stays a number, per the Principal —
+    # on the COMMON 3y window (2026-07-26: since-inception MDDs are not comparable across
+    # funds launched at different times), down-capture vs OWN hybrid benchmark, the
+    # pure-equity cushion as its own column ---
+    cols = [("Scheme", 0.22, "l"), ("Sortino", 0.10, "r"), ("Calmar", 0.10, "r"),
+            ("Max DD (3y)", 0.12, "r"), ("Worst 1-yr", 0.12, "r"), ("Down-cap vs BM", 0.12, "r"),
+            ("Falls vs equity", 0.12, "r"), ("Verdict", 0.10, "c")]
     rows = []
     for f in hyb:
         dd = f["max_dd"]
         w1 = f["worst_1y"]
         dc = f["down_capture"]
+        dce = f.get("down_capture_vs_equity", dc)
         rows.append([_short(f["name"]),
                      ("c", f"{f['sortino']:.2f}", _sort_col(f["sortino"]), True),
                      ("c", f"{f['calmar']:.2f}", _sort_col(f["calmar"]), True),
                      ("c", f"{dd:.1f}%", SELL if dd <= -20 else (AMBER if dd <= -12 else INK), True),
                      ("c", f"{w1:+.1f}%", SELL if w1 < 0 else HOLD, True),
-                     ("c", f"{dc:.0f}%", SELL if dc >= 90 else (HOLD if dc < 75 else AMBER), True),
+                     ("c", f"{dc:.0f}%", SELL if dc >= 105 else (HOLD if dc <= 95 else AMBER), True),
+                     ("c", f"{dce:.0f}%", SELL if dce >= 90 else (HOLD if dce < 70 else AMBER), True),
                      ("pill", VDISP.get(f["verdict"], f["verdict"]), f["verdict"])])
     ty = deck.table(s, ML, 1.9, UW, cols, rows, rowh=0.34, fs=9.5, hfs=8)
 
@@ -171,6 +183,8 @@ def render(deck, ctx, tier):
     chh = min(1.95, 6.30 - cy)
     _bias_cards(deck, s, cards, cy, chh, False)
 
-    deck.source(s, "Sortino / Calmar, max drawdown, worst 1-yr rolling return & down-capture vs "
-                   "total-return benchmark; Direct-plan NAV. Illustrative synthetic funds.")
+    deck.source(s, "Sortino / Calmar / max drawdown / worst 1-yr on a COMMON 3y window (funds launched at "
+                   "different dates are never compared on since-inception drawdowns); down-capture vs the "
+                   "scheme's own 65:35 hybrid benchmark (TRI); 'falls vs equity' = share of pure-equity "
+                   "falls taken. Direct-plan NAV. Illustrative synthetic funds.")
     return 1

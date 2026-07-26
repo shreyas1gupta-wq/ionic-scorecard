@@ -29,16 +29,17 @@ def render(deck, ctx, tier):
     efunds = [f for f in ctx["funds"] if f["category"] in ("equity", "passive")]
     eyebrow, title = LABELS.get(reg, LABELS["std"])
     s = deck.content(3, "Funds", eyebrow, title)
-    deck.scope_tag(s, f"MF sleeve · equity & index schemes · Direct-plan NAV vs total-return benchmark · as of {as_of}")
+    deck.scope_tag(s, f"MF sleeve · equity & index schemes · Direct-plan NAV, each scheme vs its own "
+                      f"SEBI category benchmark (TRI) · as of {as_of}")
 
     # two charts, one per framework (Principal 2026-07-25): the long-term record and the
     # short-horizon framework's own decision variable — nothing invented, nothing contradictory
     labs = [_short(f["name"], 13) for f in efunds]
     fv = [f["cagr3y"] for f in efunds]
     bv = [f.get("bench_cagr3y", 13.0) for f in efunds]
-    png = CH.paired_bar(labs, fv, bv, "fe_vs_bm", a_label="Fund (3y CAGR)", b_label="Benchmark",
+    png = CH.paired_bar(labs, fv, bv, "fe_vs_bm", a_label="Fund (3y CAGR)", b_label="Its category benchmark",
                         figsize=(7.6, 3.0))
-    deck.txt(s, ML, 1.98, 6.5, 0.2, [("THE LONG-TERM TEST · 3-YEAR RECORD VS INDEX", SANS, 8, NAVY, True, False, 80)])
+    deck.txt(s, ML, 1.98, 6.5, 0.2, [("THE LONG-TERM TEST · 3-YEAR RECORD VS OWN CATEGORY BENCHMARK", SANS, 8, NAVY, True, False, 80)])
     deck.pic(s, png, ML, 2.2, 6.5, 1.95, valign="top")
 
     # short-horizon framework: how much of the index's falls each active fund takes,
@@ -48,7 +49,7 @@ def render(deck, ctx, tier):
     labs2 = [_short(f["name"], 13) for f in act]
     dcap = [f["down_capture"] for f in act]
     cuts = [next((v for k, v in CUT.items() if k in f["name"]), 100.0) for f in act]
-    png2 = CH.paired_bar(labs2, dcap, cuts, "fe_dcap", a_label="Share of index falls taken (6m, %)",
+    png2 = CH.paired_bar(labs2, dcap, cuts, "fe_dcap", a_label="Share of benchmark falls taken (6m, %)",
                          b_label="Framework cutoff", figsize=(7.6, 3.0))
     deck.txt(s, ML, 4.38, 6.5, 0.2, [("THE SHORT-HORIZON TEST · PARTICIPATION IN FALLS VS THE CUTOFF",
                                       SANS, 8, NAVY, True, False, 80)])
@@ -74,6 +75,7 @@ def render(deck, ctx, tier):
             "funds you hold.")
     deck.callout(s, tx, min(ty + 0.18, 5.1), tw, 1.35, "Where the calls come from", body, kind="note")
 
-    deck.source(s, "3y CAGR vs total-return benchmark, Direct-plan NAV · fund recommendations per the "
+    deck.source(s, "3y CAGR and down-capture vs each scheme's own SEBI category benchmark (TRI), "
+                   "Direct-plan NAV, common 3y window · fund recommendations per the "
                    "Ionic MF desk (long-term + short-term frameworks) · illustrative synthetic funds.")
     return 1

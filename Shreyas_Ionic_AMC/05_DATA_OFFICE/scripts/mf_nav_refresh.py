@@ -89,20 +89,24 @@ def main(digest=False):
                 pass
     # latest cross-section
     df.to_parquet(os.path.join(OUT, "nav_latest.parquet"), index=False)
-    # month-end history: on/after month-end, append that dated cross-section once
+    # month-end history — per-scheme, per-month upsert (audit fix 2026-07-26).
+    # THE OLD BUG: a global max-date filter kept only schemes stamped with the single
+    # newest NAV date, then replaced the whole month. Schemes carry DIFFERENT last-NAV
+    # dates (equity = Friday, liquid = Sunday), so a weekend month-end banked ~700
+    # liquid funds and silently dropped the entire equity cross-section.
+    # THE FIX: take each scheme's own latest row, then keep — per (scheme, month) —
+    # the latest-dated row across old+new. Idempotent and self-healing: mid-month
+    # writes are provisional and later runs replace them; the first run on/after
+    # month-end banks the true month-end row for every scheme.
     me_path = os.path.join(OUT, "nav_monthend.parquet")
-    is_me = (today + datetime.timedelta(days=1)).month != today.month
     latest_navdate = df["date"].max()
-    if is_me or True:  # always keep the LAST nav-date of each month; dedupe below handles it
-        hist = pd.read_parquet(me_path) if os.path.exists(me_path) else pd.DataFrame()
-        add = df[df["date"] == latest_navdate][["scheme_code", "isin", "name", "nav", "date"]].copy()
-        add["ym"] = add["date"].dt.to_period("M").astype(str)
-        if len(hist):
-            hist["ym"] = pd.to_datetime(hist["date"]).dt.to_period("M").astype(str)
-            hist = pd.concat([hist[hist["ym"] != add["ym"].iloc[0]], add])  # replace same-month with latest
-        else:
-            hist = add
-        hist.drop(columns=["ym"]).to_parquet(me_path, index=False)
+    hist = pd.read_parquet(me_path) if os.path.exists(me_path) else pd.DataFrame()
+    add = (df.sort_values("date").groupby("scheme_code", as_index=False).last()
+             [["scheme_code", "isin", "name", "nav", "date"]])
+    both = pd.concat([hist, add], ignore_index=True)
+    both["ym"] = pd.to_datetime(both["date"]).dt.to_period("M").astype(str)
+    both = both.sort_values("date").groupby(["scheme_code", "ym"], as_index=False).last()
+    both.drop(columns=["ym"]).to_parquet(me_path, index=False)
     print(f"NAV refresh OK: {len(df):,} schemes, nav-date {latest_navdate.date()}, raw snapshots kept <= {RETAIN_DAYS}d")
     if digest:
         eq = df[df["category"].str.contains("Equity", case=False, na=False)]

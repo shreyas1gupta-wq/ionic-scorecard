@@ -183,13 +183,31 @@ def _metrics_from_nav(nav, bench):
 
 def _funds(grand_inr):
     D = 1000
-    rb = _bench_rets(D, seed=99); bench = list(100 * np.cumprod(1 + rb))
+    rmkt = _bench_rets(D, seed=99)                 # broad-market factor (NIFTY 500 class)
+    rng_b = np.random.default_rng(7)
+    rbond = rng_b.normal(0.07 / 252.0, 0.015 / np.sqrt(252.0), D)
+    # per-category SEBI benchmarks (Principal 2026-07-26): every scheme is measured against
+    # ITS OWN category benchmark, never one common index — mirrors the desk engine, which
+    # reads each category sheet's declared benchmark (see qfra1-rerun skill)
+    BENCH = {
+        "NIFTY 100 TRI":                   rmkt * 0.95,
+        "NIFTY 500 TRI":                   rmkt,
+        "NIFTY Multicap 50:25:25 TRI":     rmkt * 1.03,
+        "NIFTY Midcap 150 TRI":            rmkt * 1.10,
+        "NIFTY Smallcap 250 TRI":          rmkt * 1.18,
+        "NIFTY 50 TRI":                    rmkt * 0.97,
+        "NIFTY 50 Hybrid Composite 65:35": rmkt * 0.65 + rbond,
+    }
+    BENCH_NAV = {k: list(100 * np.cumprod(1 + v)) for k, v in BENCH.items()}
+    EQNAV = BENCH_NAV["NIFTY 500 TRI"]
     specs = [
-        # name, amc, cat, plan, wt%, seed, up_beta, down_beta, alpha_ann, idio, hit3y, flags, verdict, action, exemplar, structural
+        # name, amc, cat, bench, plan, wt%, seed, up_beta, down_beta, alpha_ann, idio, hit3y, flags, verdict, action, exemplar, structural
+        # hybrids/passive are GENERATED against their own benchmark (betas mean 'vs own BM');
+        # equity funds are generated against the market factor, measured vs their category BM
         # verified vs MF Dashboard 'large' sheet (as of 2025-01-31): 3y -5.0pp / 5y -4.3pp vs
         # NIFTY 100, 6M dcap 1.04 vs ucap 0.97 — but r2(3y)=0.77, NOT a closet indexer.
         # CLOSET_INDEX claim removed (recheck-all-funds pass, 2026-07-25).
-        ("LIC MF Large Cap Fund", "LIC MF", "equity", "Regular", 6.0, 11, 0.97, 1.04, -4.5, 0.100, 34,
+        ("LIC MF Large Cap Fund", "LIC MF", "equity", "NIFTY 100 TRI", "Regular", 6.0, 11, 0.97, 1.04, -1.6, 0.100, 34,
          ["NEG_ALPHA", "DOWN_CAP_HI"], "Switch", "SWITCH",
          "a low-cost Large-Cap Index / Factor fund",
          "Trails the large-cap index by 4-5pp a year over 3 and 5 years; active fees for below-index outcomes."),
@@ -197,44 +215,46 @@ def _funds(grand_inr):
         # DIRECT and rated Hold — the real fund's record supports the Hold (top-quartile
         # flexi over 3y/5y, ahead of NIFTY 500); betas tuned so the synthetic lands near
         # +4-5pp vs index, not a fake bar.
-        ("HDFC Flexi Cap (Direct)", "HDFC", "equity", "Direct", 4.5, 24, 1.00, 0.90, 1.5, 0.045, 71,
+        ("HDFC Flexi Cap (Direct)", "HDFC", "equity", "NIFTY 500 TRI", "Direct", 4.5, 24, 1.00, 0.98, 3.0, 0.045, 71,
          [], "Hold", "HOLD", "-", ""),
         # verified vs 'multi' sheet: launched Nov-2022, 1y +9.8pp vs benchmark — performance is
         # FINE; the Switch is purely structural (SEBI 25/25/25 floor), which is what the card says.
-        ("LIC MF Multi Cap Fund", "LIC MF", "equity", "Regular", 3.5, 13, 1.02, 1.00, 0.6, 0.055, 52,
+        ("LIC MF Multi Cap Fund", "LIC MF", "equity", "NIFTY Multicap 50:25:25 TRI", "Regular", 3.5, 13, 1.02, 1.00, 0.6, 0.055, 52,
          ["MANDATE_RIGIDITY"], "Switch", "SWITCH",
          "a Flexi-Cap (manager-flexible cap mix)", "Multi-cap's SEBI 25/25/25 floor forces small/mid we prefer to size ourselves — structural, not performance."),
         # Principal 2026-07-26: now held in the DIRECT plan and rated Hold — the real fund's
         # record is strong (category leader among multi-asset), and in Direct there is no
         # structural issue left; no performance claim beyond what the record supports.
-        ("ICICI Pru Multi-Asset (Direct)", "ICICI Pru", "hybrid", "Direct", 4.0, 14, 0.88, 0.72, 1.6, 0.045, 64,
+        # betas vs the hybrid composite (own BM): ahead of benchmark with a real cushion
+        ("ICICI Pru Multi-Asset (Direct)", "ICICI Pru", "hybrid", "NIFTY 50 Hybrid Composite 65:35", "Direct", 4.0, 14, 1.02, 0.95, 1.2, 0.035, 64,
          [], "Hold", "HOLD", "-", ""),
         # underperformer example verified against real data (MF Dashboard 'small' sheet,
         # as of 2025-01-31): PGIM 3y CAGR 9.1% vs index 17.3% (worst in category).
         # NEVER use a strong real fund (e.g. Bandhan Small Cap: 3y rank 1/23, 5y 2/21,
         # +7-9pp over index) as a demo Sell — Principal flagged this twice.
-        ("PGIM India Small Cap Fund", "PGIM India", "equity", "Direct", 0.45, 15, 1.16, 1.34, -0.6, 0.120, 44,
+        ("PGIM India Small Cap Fund", "PGIM India", "equity", "NIFTY Smallcap 250 TRI", "Direct", 0.45, 15, 1.12, 1.26, -0.5, 0.120, 44,
          ["DEEP_DD", "NEG_ALPHA", "OVER_ALLOC"], "Exit", "EXIT",
          "the primary small-cap sleeve already held", "Sub-scale ~3L beside a larger small-cap fund; persistent underperformance and duplication — structural exit."),
         # web-checked 2026-07-25 (mstock / INDmoney / PaytmMoney): since-launch (Nov-2021)
         # ~9.4-9.8% CAGR and AHEAD of its hybrid benchmark over 1y/3y — the old DOWN_CAP_HI +
         # DEEP_DD framing was NOT supported and is removed. Verifiable weaknesses used instead:
         # AUM ~Rs 761 cr (May-2025, sub-scale) and a track record under 4 years.
-        ("LIC MF Balanced Advantage", "LIC MF", "hybrid", "Regular", 3.0, 16, 0.82, 0.78, 0.8, 0.040, 48,
+        # vs own hybrid BM: modestly ahead (real record: ahead since launch) — Trim stays structural
+        ("LIC MF Balanced Advantage", "LIC MF", "hybrid", "NIFTY 50 Hybrid Composite 65:35", "Regular", 3.0, 16, 1.02, 0.96, 0.6, 0.035, 48,
          ["SUB_SCALE", "SHORT_RECORD", "REG_PLAN_DRAG"], "Trim", "TRIM",
          "the hybrid core already held (HDFC BAF, Direct)",
          "Under four years of record, sub-scale, Regular plan; we fold the sleeve into the proven hybrid held."),
         # --- genuine Holds so the book isn't all-Sell ---
         # betas tuned so the synthetic 3y CAGR lands near the real fund's +4-5pp vs index
         # (a 56% CAGR bar reads as fake and poisons the page's credibility)
-        ("Parag Parikh Flexi Cap (Direct)", "PPFAS", "equity", "Direct", 7.5, 21, 0.98, 0.94, 1.2, 0.040, 74,
+        ("Parag Parikh Flexi Cap (Direct)", "PPFAS", "equity", "NIFTY 500 TRI", "Direct", 7.5, 21, 0.98, 0.98, 1.6, 0.040, 74,
          [], "Hold", "HOLD", "-", ""),
-        ("Nippon India Nifty 50 Index (Direct)", "Nippon", "passive", "Direct", 4.0, 22, 1.00, 1.00, -0.2, 0.004, 55,
+        ("Nippon India Nifty 50 Index (Direct)", "Nippon", "passive", "NIFTY 50 TRI", "Direct", 4.0, 22, 1.00, 1.00, -0.2, 0.004, 55,
          [], "Hold", "HOLD", "-", ""),
-        ("HDFC Balanced Advantage (Direct)", "HDFC", "hybrid", "Direct", 3.5, 23, 0.80, 0.56, 1.3, 0.040, 66,
+        # vs own hybrid BM: the proven cushion core — clearly ahead with a strong down-capture
+        ("HDFC Balanced Advantage (Direct)", "HDFC", "hybrid", "NIFTY 50 Hybrid Composite 65:35", "Direct", 3.5, 23, 0.98, 0.88, 1.0, 0.035, 66,
          [], "Hold", "HOLD", "-", ""),
     ]
-    bench_cagr = round((np.asarray(bench)[-1] / bench[0]) ** (252 / len(bench)) - 1, 4) * 100
     # illustrative holding age (years) — drives the tax-inertia rule (Principal 2026-07-25):
     # units >5y (stronger >10y) switch only on structural grounds; stocks exempt (risk dominates tax)
     _HOLD_YRS = {"LIC MF Large Cap Fund": 9.2, "HDFC Flexi Cap (Direct)": 4.2, "LIC MF Multi Cap Fund": 2.4,
@@ -242,15 +262,26 @@ def _funds(grand_inr):
                  "LIC MF Balanced Advantage": 2.2, "Parag Parikh Flexi Cap (Direct)": 4.6,
                  "Nippon India Nifty 50 Index (Direct)": 5.8, "HDFC Balanced Advantage (Direct)": 3.9}
     out = []
-    for (name, amc, cat, plan, wt, seed, ub, db, alpha, idio, hit3y, flags, verdict, action, exemplar, structural) in specs:
-        nav = _make_fund_nav(rb, ub, db, alpha, idio, seed=seed)
-        m = _metrics_from_nav(nav, bench)
-        m["bench_cagr3y"] = round(bench_cagr, 1)
+    for (name, amc, cat, bench_label, plan, wt, seed, ub, db, alpha, idio, hit3y, flags, verdict, action, exemplar, structural) in specs:
+        # hybrids/passive are generated against their own benchmark; equity funds against
+        # the market factor. Metrics are ALWAYS vs the scheme's own category benchmark
+        # (Principal 2026-07-26: never one common index), on the same 3y window for all
+        # funds (an MDD/worst-year comparison is only fair on a common window — a fund
+        # launched before a crash otherwise 'loses' on inception luck).
+        gen = BENCH[bench_label] if cat in ("hybrid", "passive") else rmkt
+        nav = _make_fund_nav(gen, ub, db, alpha, idio, seed=seed)
+        bnav = BENCH_NAV[bench_label]
+        m = _metrics_from_nav(nav, bnav)
+        m["bench_cagr3y"] = round(((bnav[-1] / bnav[0]) ** (252 / len(bnav)) - 1) * 100, 1)
+        if cat == "hybrid":
+            # the cushion story is a separate, explicitly-labeled stat vs PURE EQUITY —
+            # vs its own 65:35 benchmark a hybrid's down-capture is ~100 by construction
+            m["down_capture_vs_equity"] = _metrics_from_nav(nav, EQNAV)["down_capture"]
         # QFRA-style composite: reward alpha/consistency/cushion, penalize flags
         base = 55 + m["alpha_ann"] * 1.1 + (hit3y - 50) * 0.4 - max(0, m["down_capture"] - 100) * 0.5
         qfra = int(max(8, min(96, base - 10 * len([f for f in flags if f in ("CLOSET_INDEX", "NEG_ALPHA", "DEEP_DD")]))))
         merit = "A" if qfra >= 70 else ("B" if qfra >= 55 else ("C" if qfra >= 40 else "D"))
-        out.append(dict(name=name, amc=amc, category=cat, plan=plan, weight_pct=wt,
+        out.append(dict(name=name, amc=amc, category=cat, bench_label=bench_label, plan=plan, weight_pct=wt,
                         value_inr=round(grand_inr * wt / 100), qfra=qfra, merit=merit, verdict=verdict,
                         action=action, flags=flags, hit3y=hit3y, alpha_t=round(m["info_ratio"] * 1.3, 2),
                         exemplar=exemplar, structural_reason=structural,

@@ -46,18 +46,24 @@ def _prefix_len(a, b):
     return n
 
 
-def _fuzzy_get(dic, name, min_prefix=10):
+def _fuzzy_get(dic, name):
     """Scheme names differ in suffix decoration across sources ('-Reg(G)', 'Fund', plan
-    markers): match on the longest shared normalized prefix instead of exact keys."""
+    markers): match on the shared normalized prefix. AUDIT FIX 2026-07-26: a bare
+    10-char floor let same-AMC different funds match ('iciciprudential' alone is 15
+    chars) — the prefix must now cover >=85% of the SHORTER name, so only suffix
+    decoration may differ. Returns (value, note) — note is non-empty for fuzzy hits
+    so the caller can log it for human review; (None, reason) when nothing matches."""
     key = _norm(name)
     if key in dic:
-        return dic[key]
-    best, best_n = None, 0
+        return dic[key], ""
+    best, best_k, best_n = None, None, 0
     for k, v in dic.items():
         n = _prefix_len(key, k)
         if n > best_n:
-            best, best_n = v, n
-    return best if best_n >= min_prefix else None
+            best, best_k, best_n = v, k, n
+    if best is not None and best_n >= 0.85 * min(len(key), len(best_k)) and best_n >= 10:
+        return best, f"fuzzy-matched to '{best_k}' ({best_n} shared chars) — verify"
+    return None, "no match at the 85%-prefix bar"
 
 
 def _load_qfra1():
@@ -77,12 +83,15 @@ def qfra2_lookup(scheme_name, df=None):
     if df is None:
         df = pd.read_csv(QFRA2_CSV)
     key = _norm(scheme_name)
-    best, best_len = None, 0
+    best, best_key, best_len = None, None, 0
     for _, r in df.iterrows():
-        n = _prefix_len(key, _norm(r["fund"]))
-        if n > best_len and n >= 10:
-            best, best_len = r, n
-    if best is None:
+        k2 = _norm(r["fund"])
+        n = _prefix_len(key, k2)
+        if n > best_len:
+            best, best_key, best_len = r, k2, n
+    # same 85%-of-shorter-name bar as _fuzzy_get (audit 2026-07-26): an AMC-prefix
+    # overlap must never attribute a DIFFERENT fund's scores to a client holding
+    if best is None or best_len < max(10, 0.85 * min(len(key), len(best_key))):
         return None
     call = "Sell" if (best.get("loser_flags", 0) or 0) > 0 or best.get("qfra_score", 100) < 40 else "Hold"
     return {"qfra": int(best["qfra_score"]), "merit": str(best["merit_grade"]),
@@ -140,14 +149,30 @@ def build_fund_entries(held):
         if cat in CAT_SHEETS:
             if cat not in q1_cache:
                 q1_cache[cat] = qfra1_calls(cat, mod, wb)
-            hit = _fuzzy_get(q1_cache[cat], h["name"])
+            hit, note = _fuzzy_get(q1_cache[cat], h["name"])
             if hit:
                 st_rec, fn, hc, anchor = hit
+                if note:
+                    gaps.append(f"{h['name']}: {note}")
+                if not (st_rec and str(st_rec).strip() and str(st_rec).strip().lower() != "nan"):
+                    # an empty recommendation is a DATA GAP, never a silent Hold (audit 2026-07-26)
+                    st_rec = None
+                    gaps.append(f"{h['name']}: QFRA-1 anchor rated no recommendation "
+                                f"(incomplete NAV rows) — manual review")
                 # FN = 6M downside capture, HC = 6M total capture (both vs category benchmark)
                 e.update(down_capture=round(float(fn) * 100, 1) if fn == fn else None,
                          capture_asof=str(getattr(anchor, "date", lambda: anchor)()))
+                # staleness gate: a QFRA-1 anchor older than one Apr/Oct cycle must be
+                # acknowledged by the FM before the deck ships (audit 2026-07-26)
+                try:
+                    age_days = (pd.Timestamp.today() - pd.Timestamp(anchor)).days
+                    if age_days > 245:
+                        gaps.append(f"{h['name']}: QFRA-1 anchor {pd.Timestamp(anchor).date()} is "
+                                    f"~{age_days // 30} months stale — FM must acknowledge before ship")
+                except Exception:
+                    pass
             else:
-                gaps.append(f"{h['name']}: not in QFRA-1 {cat} sheet")
+                gaps.append(f"{h['name']}: not in QFRA-1 {cat} sheet ({note})")
         else:
             gaps.append(f"{h['name']}: category '{cat}' has no QFRA-1 counterpart "
                         f"(single-framework; needs FM sign-off per skill)")

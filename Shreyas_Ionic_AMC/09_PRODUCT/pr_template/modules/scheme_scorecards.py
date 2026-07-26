@@ -98,11 +98,13 @@ def _card(deck, f, tier, idx):
     ], y=1.95)
 
     metrics = (f"r²  {f['r2']:.2f}      ·      Info ratio  {f['info_ratio']:.2f}      ·      "
-               f"Max DD  {f['max_dd']:.1f}%      ·      Worst 1-yr  {f['worst_1y']:.1f}%      ·      "
+               f"Max DD (3y)  {f['max_dd']:.1f}%      ·      Worst 1-yr  {f['worst_1y']:.1f}%      ·      "
                f"Sortino  {f['sortino']:.2f}      ·      Calmar  {f['calmar']:.2f}      ·      "
                f"TER  {f['ter']:.2f}%")
     deck.txt(s, ML, 3.02, UW, 0.24, [(metrics, SANS, 9, INK, False)])
-    _flags(deck, s, ML, 3.38, f.get("flags") or [])
+    deck.txt(s, ML, 3.34, UW, 0.16, [(f"Measured against {f.get('bench_label', 'its SEBI category benchmark')} "
+                                      f"· all risk stats on the common 3-year window", SANS, 7.5, SLATE, False, True)])
+    _flags(deck, s, ML, 3.56, f.get("flags") or [])
 
     narr = _scrub(f.get("structural_reason"))
     if f.get("exemplar") and f["exemplar"] != "-":
@@ -116,7 +118,8 @@ def _card(deck, f, tier, idx):
     deck.callout(s, ML, 3.9, 5.35, h, "Why we act", narr or "Rationale on file.", kind)
     deck.callout(s, ML + 5.55, 3.9, UW - 5.55, h, "Our read", read, "note")
 
-    deck.source(s, "Direct-plan NAV vs total-return benchmark, point-in-time · Ionic fund-quality framework.")
+    deck.source(s, "Direct-plan NAV vs the scheme's own SEBI category benchmark (TRI), point-in-time · "
+                   "risk stats on the common 3y window · Ionic fund-quality framework.")
 
 
 def render(deck, ctx, tier):

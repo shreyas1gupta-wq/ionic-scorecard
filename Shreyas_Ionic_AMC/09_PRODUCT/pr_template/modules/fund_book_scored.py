@@ -34,7 +34,8 @@ def render(deck, ctx, tier):
     eyebrow, title = LABELS.get(reg, LABELS["std"])
 
     s = deck.content(3, "Funds", eyebrow, title)
-    deck.scope_tag(s, f"MF sleeve only, Direct-plan NAV vs total-return benchmark · as of {as_of}")
+    deck.scope_tag(s, f"MF sleeve only, Direct-plan NAV, each scheme vs its own SEBI category "
+                      f"benchmark (TRI) · as of {as_of}")
 
     if simple:
         cols = [("Scheme", 0.36, "l"), ("Category", 0.16, "l"), ("Share %", 0.12, "r"),
@@ -70,7 +71,7 @@ def render(deck, ctx, tier):
                 f"(plan, mandate rigidity, scale, consistency) rather than performance alone; "
                 f"{n_hold} are Holds on merit.")
     deck.txt(s, ML, 6.02, UW, 0.5, [(read, SERIF, 9.5, INK, False, True)], ls=1.05)
-    deck.source(s, "Ionic fund-quality framework · Direct-plan NAV vs total-return benchmark · "
-                   "structural watch-outs flagged per scheme. Illustrative synthetic funds.")
+    deck.source(s, "Ionic fund-quality framework · Direct-plan NAV vs each scheme's own SEBI category "
+                   "benchmark (TRI) · structural watch-outs flagged per scheme. Illustrative synthetic funds.")
     deck.score_band(s)
     return 1
