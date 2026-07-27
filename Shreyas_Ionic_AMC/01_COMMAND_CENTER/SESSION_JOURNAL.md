@@ -3,6 +3,64 @@ Format per entry: date, account (DESK-20/DESK-100), summary, files touched, hand
 Newest entries at TOP.
 
 ---
+## 2026-07-27 (DESK-100) — First real-client deck: Anand Reddy NDPMS review (RM_SIMPLE), jargon-leak caught + fixed
+Principal's first post-automation real project: `Anand Reddy.xlsx` (statement, ~Rs1.61cr: 27 equity
++ 26 fund lines) built into a full NDPMS review deck via the existing pr_template engine, not a demo.
+Applied the 750-scorecard/QFRA method one-time to 9 out-of-universe stocks/ETFs per Principal ruling
+("even if stock is not in nifty 750 use of method... for this review"), matched by ISIN where possible.
+Funds outside QFRA-1/QFRA-2 coverage got real 3y/1y-vs-category-benchmark research via
+analyst-financials-meera-krishnan / fm-fundamental-sanjay-kulkarni / analyst-industrials-rohan-deshmukh
+/ quant-head-arjun-rao agents (2 of 3 Wave-2 agents hit transient 529-overloaded errors on long runs,
+retried with tighter scoped prompts, both succeeded). 3 suspended/insolvent legacy holdings (Parekh
+Aluminex, Balasore Alloys, Value Industries) shown as a status, never a Sell/Hold call, per Principal
+instruction. JioBlackRock Flexi Cap excluded under the firm's 7-month track-record hard rule → "No View".
+Index/passive/factor-ETF holdings given a blanket Sell per Principal simplification (no tracking-error
+deep-dive run).
+
+**Build mechanics:** added `is_demo` ctx flag across 9 shared modules (cover/ips_summary/equity_book/
+sell_list/fund_book_scored/fund_actions/cost/priority_actions/disclaimer) so demo/ABXY/"synthetic"
+language can never leak into a real client deck — defaults True (existing demo pipeline unaffected,
+regression-checked clean, 0 findings, `build_azby.py RM_SIMPLE`). Added `No View`/`Suspended` pill
+kinds to `slidekit.py` and a new `data_notes.py` module (paginated, dynamic row heights via
+`_rowh_for()`) for holdings that don't fit a normal scored table. Paginated `fund_book_scored.py`
+(was demo-tuned for ~9 funds, broke on 25 real ones) and made `tax_impact.py`'s de-gap callout height
+dynamic instead of fixed, for real (longer, uneven) client text.
+
+**CRITICAL FIX, caught on my own tellscan-equivalent grep sweep before ship:** `sell_list.py` and
+`fund_actions.py` were rendering the raw internal `summary`/`structural_reason` audit-trail text
+directly onto client-facing slides via a fallback chain (`client_case` always None → falls to
+`negative` → falls to raw `summary`). This would have shown a real client analyst names ("Meera
+Krishnan"), internal codenames ("pf_qual", "QFRA-2 curated top-40"), and internal governance refs
+("House decision (Principal 2026-07-27)", "ESCALATION flagged to CIO") on their review deck. Fixed
+by writing an explicit, client-safe `client_case` string for all 15 Sell-rated names and rewriting
+the 2 Exit-flagged funds' (HDFC NIFTY 50 Index, HDFC Floating Rate Debt) `structural_reason` text —
+internal audit detail kept only as source-file comments, never rendered. Rebuilt, re-gated (0/0),
+re-verified visually slide-by-slide (sell_list x3, fund_actions, data_notes x2) after the fix.
+
+**Ship:** `09_PRODUCT/pr_template/out/AnandReddy_RM_SIMPLE.pptx` (23 slides). Tier choice (RM_SIMPLE
+over STANDARD/HNI_DEEP) was a judgment call under "do asap" pressure — portfolio size fits RM_SIMPLE's
+intent and it needed far fewer synthetic risk-stat fields (Sortino/Calmar/max-DD) I don't have real
+data for; NOT yet confirmed as final with the Principal.
+
+**Genuine findings from the real data (not fabricated, all sourced):** <1000cr-mcap list = Rita
+Finance and Leasing (~Rs13.3cr), Lancor Holdings (~Rs187cr), Prag Bosimi Synthetics (~Rs12.7cr) — the
+3 suspended names are separately worthless, not "small cap." SBI Gilt + HDFC Gilt = same category/
+same single risk factor (sovereign duration), no credit/maturity differentiation — genuine
+consolidation candidate even though both are individually Hold. Two unresolved statement anomalies,
+excluded rather than guessed: (1) MF sheet header row carries a stray Rs 8,61,415.04 that matches no
+fund under any row-shift hypothesis tested; (2) HDFC Overnight Fund's current value is blank on the
+statement (value_inr=0 here, understates AUM by an unknown amount).
+
+**NOT done this session, ran out of time — must happen before this deck is sent to the Principal/RM:**
+the 10+-agent parallel QA sweep explicitly requested ("use max parallel agents 10+"), the tellscan
+script run (I did an equivalent manual grep sweep, but the dedicated script — if it checks anything
+beyond jargon strings — has not run), and the transfer-in-review checklist/DOCX. Files touched: new
+`data/anand_reddy.py`, `modules/data_notes.py`, `build_anand_reddy.py`; modified `slidekit.py`,
+`engine.py`, and 9 modules listed above (all is_demo-gated, all regression-safe). Committed
+03d3d87. Next session: run the QA sweep + transfer-in-review, then confirm tier choice with Principal
+and get sign-off before this goes to the client.
+
+---
 ## 2026-07-26 (DESK-100) — Young-fund rule TIGHTENED to a hard 7-month universal floor (round 4)
 Principal: "no mimimum 7 months keep it hard rule for any recommendation for MF, if less than
 that keep no view if irrespective of QFRA 1/2." Recorded as the CURRENT operative rule in
