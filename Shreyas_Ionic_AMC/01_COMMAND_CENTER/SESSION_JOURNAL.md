@@ -3,6 +3,24 @@ Format per entry: date, account (DESK-20/DESK-100), summary, files touched, hand
 Newest entries at TOP.
 
 ---
+## 2026-07-26 (DESK-100) — QFRA1/2 track-record facts confirmed; found+fixed a real BUY-eligibility gap; dual-framework wording bug fixed in its last 2 stale copies
+Principal confirmed round 2's open scope question directly: "qfra 1 requires minimum 6month
+of navs and qfra 2 has its score which prefers >3y funds." Recorded as RESOLVED in
+NEXT_WEEK_QUEUE.md item 6 and the qfra1/2-rerun skills — QFRA-1's 6-month window is a HARD
+data-availability floor (same window as the core FN/HC calc), QFRA-2's >3y is a SOFT scoring
+preference, not a gate. Confirms the new <1y Hold-vs-No-View rule sits above both engines'
+existing behavior and does NOT touch BUY eligibility. **This surfaced a genuine, previously-
+flagged-but-untracked gap:** the Principal's confirmed 6-month minimum is NOT actually enforced
+in `mf_capture_recomm.py` — the engine computes FN/HC over whatever NAV exists (skipping NaN
+days) rather than requiring the full window, so a fund thinner than the stated minimum can
+still get a mismatched-window score and spuriously pass the downside filter. Added as new
+queue item 6b (next week) and to the qfra1-rerun skill's method section directly. **Also
+fixed:** the dual-framework "both non-Hold" wording bug (audit 2026-07-26 found it in 4 docs;
+only qfra1-rerun got fixed last round) — the remaining 3 copies in qfra2-rerun, ndpms-deck,
+and agentic-fund-manager skills now all read "both frameworks independently at Sell; a BUY on
+either side vetoes," with a NEXT_WEEK_QUEUE pointer so nobody treats the current unvalidated
+adapter rule as ratified method in the meantime. Doc-only turn, no execution, no backtests run.
+
 ## 2026-07-26 (DESK-100) — NEXT_WEEK_QUEUE.md expanded (round 2): QFRA1+2 sell-logic completion spec'd, young-fund graduation check added
 Same-day follow-up from the Principal on the queue just created. Doc-only turn again (no
 execution, no backtests run — token-conscious). **Item 1 rewritten into a 5-part QFRA-1+2

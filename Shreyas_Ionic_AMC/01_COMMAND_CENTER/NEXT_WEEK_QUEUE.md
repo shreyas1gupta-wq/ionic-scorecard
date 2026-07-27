@@ -149,26 +149,45 @@ giving hold/sell calls."
     week (which cadence event owns the re-check) — do not build the classification without
     also building this graduation check, or it becomes a silent second staleness bug exactly
     like the pf_state one this session just found.
-  - **SCOPE QUESTION TO VERIFY (round 2), do not assume either way:** the Principal believes
-    QFRA-1/QFRA-2 already apply a higher, ~2-3 year minimum track record before a fund is
-    eligible for a BUY recommendation, and that the <1y Hold/No-View rule above is therefore
-    ONLY about the Sell/Hold call on an EXISTING holding under review, not about BUY
-    eligibility for new candidates. **Checked today (quick code read, not exhaustive):** no
-    explicit 2-3y minimum-history gate was found in either engine. The only track-record-
-    related mechanics on file are (a) QFRA-1's blank-gate — a documented BUG, not an
-    intentional design, that happens to need ~24 months of prior NAV before a fund's CJ/HC
-    can be non-blank, giving a de facto ~2-year effect as a side effect of a bug rather than a
-    rule, and (b) QFRA-2's 3-year FORWARD win-rate metric, which evaluates how a pick performed
-    over the NEXT 3 years (a backtest scoring window) — not a gate on whether a young fund can
-    BE recommended today. **Next week: confirm with the QFRA-2 source/Principal whether an
-    explicit BUY-eligibility age gate exists anywhere (e.g. the `new_fund` flag in
-    QFRA2_current.csv) before finalizing that the <1y rule only touches Sell/Hold/No-View.**
+  - **SCOPE QUESTION — RESOLVED (Principal, round 3): "qfra 1 requires minimum 6month of navs
+    and qfra 2 has its score which prefers >3y funds."** Confirmed distinct mechanics, not
+    the same kind of gate:
+      - **QFRA-1 = a HARD data-availability floor at 6 months.** This is the SAME 6-calendar-
+        month window already at the core of the method (§method step 1: "6M downside capture
+        (FN)") — a fund literally cannot get FN/HC computed, and therefore cannot be ranked
+        for BUY, without a full 6-month window. This is NOT the ~24-month blank-gate bug
+        (that's a separate, unrelated defect further down the pipeline); it's the intended
+        minimum for the core calculation itself.
+      - **QFRA-2 = a SOFT scoring preference, not a hard gate, toward >3y funds.** Its score
+        naturally tilts against younger funds (3y/5y-based metrics, statistical-significance
+        effects of longer windows) without literally blocking a <3y fund from being scored —
+        it just tends to score lower / not reach ACTIVE.
+    **Implication for this rule (item 6):** the new <1y Hold-vs-No-View classification sits
+    ABOVE both engines' existing behavior, for the sub-1-year gap where the engines' own
+    outputs are thin (QFRA-1 can technically score a fund past 6mo but the industry-standard
+    caution window the Principal wants is 1y for the CLIENT-FACING existing-holding call;
+    QFRA-2 will simply be soft-scoring it low already). It does NOT touch BUY eligibility for
+    NEW candidates — that stays governed by QFRA-1's 6-month floor and QFRA-2's own scoring,
+    unchanged. No code change needed to the BUY side from this rule.
 **Before building:** confirm (a) the exact age cutoff and whether it's calendar-days or
 trading-days, (b) whether "No View" needs its own pill color/kind in the NDPMS deck (verdict
 vocabulary currently hardcoded to Hold/Trim/Switch/Redeem-to-Direct/Exit/Sell everywhere —
 adding a 6th value touches slidekit + every fund module), (c) whether "No View" positions
 should still render a scorecard slide or be silently excluded like a Hold, (d) the 1y
-graduation trigger point above, (e) the BUY-eligibility scope question above.
+graduation trigger point above.
+
+## 6b. QFRA-1's 6-month floor is INTENDED but not actually ENFORCED in code [NEXT WEEK]
+Directly surfaced by confirming item 6's scope question. The Principal just confirmed the
+6-month NAV window is a real, intended minimum for QFRA-1 (not incidental) — but the method
+audit (2026-07-26, major finding) found the ENGINE does not hard-gate on it: `mf_capture_recomm.py`
+computes FN/HC over whatever window exists, skipping individual NaN days (factor 1.0) rather
+than requiring the full 6-month span end-to-end. A fund with only 2 of 6 months of real NAV
+history currently gets FN/HC computed on a MISMATCHED window (fund partial, benchmark full),
+which understates FN and can spuriously pass the downside filter — i.e. a fund thinner than
+the Principal's own stated 6-month minimum can currently sneak into a BUY rank. Task: require
+non-NaN fund NAV at the window's start (`apos[r-6]`) before computing FN/HC for that fund at
+that anchor; emit blank/ineligible otherwise, matching what's now confirmed as the intended
+rule rather than the current NaN-tolerant approximation.
 
 ## 7. save_mf_recommendations.py polish [NEXT WEEK]
 From the method audit (majors/minors, all mechanical):

@@ -42,7 +42,10 @@ Principal's PowerPoint — bump PR_SUFFIX, never fight the lock.
    curated funds only: held funds outside it = honest gap "needs a QFRA-2 scoring run") +
    QFRA-1 (mf_capture_recomm.compute_category on MF Dashboard.xlsx; returns (df, anchor);
    FN=6M down-capture, HC=6M total capture); merged by the dual-framework rule (Sell needs
-   BOTH non-Hold; disagreement → Hold, flagged).
+   BOTH frameworks independently at Sell — a BUY/high-score on either side VETOES the Sell;
+   disagreement → Hold, flagged. The old "both non-Hold" wording is wrong, never use it —
+   it's literally satisfied by BUY+Sell). Sell-derivation rule is UNVALIDATED/unbacktested —
+   see NEXT_WEEK_QUEUE.md item 1 before treating any new Sell as standing method.
 3. **Build** `PR_SUFFIX=_vN python build_azby.py [TIER]`; `since_last_review` module renders
    only when profile has meeting_history.
 4. **Gates** (QA LAW above). 5. **PDF** `09_PRODUCT/scripts/pptx_to_pdf.py <deck.pptx>` —

@@ -25,7 +25,21 @@ Compute per holding: `ionic_score` (0.60×3Y + 0.40×1Y base, then growth leg �
 - Liquidity: position value vs stock's median turnover (days-to-exit at ~20% ADV) — a Trim that takes >10 trading days to execute must say so
 - Clutter: positions <0.25% → consolidation note (not a forced Sell)
 - **Tax inertia (Principal 2026-07-25): FUND units held >5y (stronger >10y) get a RAISED sell/switch bar** — embedded LTCG offsets switching alpha, so Switch/Exit only on structural grounds (plan cost, mandate, closet-index), never a performance gap. **Stocks are exempt** — single-name risk dominates the tax cost, equity Sell guidance unchanged (tax shown, threshold not raised).
-- **Fund Sell needs BOTH frameworks to agree (Principal 2026-07-25): the long-term framework (/qfra2-rerun) and the short-term capture framework (/qfra1-rerun · MF Dashboard) each produce calls. A fund Sell/Exit goes to the client ONLY when both are non-Hold. One says Sell, the other Hold → default HOLD (or spawn one adjudication agent if the position is large); both Hold → Hold.** Structural actions (Redeem-to-Direct, mandate switch) are exempt — they are plan/category facts, not performance calls. **Coverage gap (verified 2026-07-25): QFRA-2 covers focused + value/contra categories that QFRA-1's dashboard has no sheet for — in those two categories a Sell is necessarily single-framework and needs explicit FM sign-off, labelled as such.** The cross-check is a judgment step, not yet script-enforced (backlog: automated QFRA-1×QFRA-2 diff report).
+- **Fund Sell needs BOTH frameworks to agree (wording corrected 2026-07-26 — the long-term
+  framework /qfra2-rerun and the short-term capture framework /qfra1-rerun · MF Dashboard each
+  produce calls). A fund Sell/Exit goes to the client ONLY when BOTH frameworks are
+  independently AT SELL; a BUY/high-score on EITHER side VETOES the Sell.** (The old "both
+  non-Hold" wording is wrong and must not be used — it's literally satisfied by one side BUY
+  + the other Sell, exactly the silent contradiction the Principal flagged 2026-07-26.) One
+  says Sell, the other Hold → default HOLD (or spawn one adjudication agent if the position is
+  large); both Hold → Hold. Structural actions (Redeem-to-Direct, mandate switch) are exempt —
+  they are plan/category facts, not performance calls. **Coverage gap (verified 2026-07-25):
+  QFRA-2 covers focused + value/contra categories that QFRA-1's dashboard has no sheet for —
+  in those two categories a Sell is necessarily single-framework and needs explicit FM
+  sign-off, labelled as such.** **The cross-check is STILL a judgment step, not yet
+  script-enforced — an explicit contradiction-flagging step + a validated (backtested)
+  QFRA-2 Sell rule are queued for next week, `01_COMMAND_CENTER/NEXT_WEEK_QUEUE.md` item 1.**
+  Do not treat the current `loser_flags>0 OR qfra_score<40` adapter rule as ratified method.
 - **Client vocabulary (Principal 2026-07-25): internal codenames NEVER reach a client artifact — no 'SENTINEL', 'QFRA', 'MERIT', engine version numbers or agent names. Use plain words: 'fund score /100', 'grade', 'watch-outs', 'the firm's fund-quality framework'.** The deck tell-scan enforces this.
 - Debt look-through flags (via /mf-lookthrough): single issuer >10% of book, debt sleeve >10% with below-AA paper, or issuer tripping the scored-universe leverage gate → surface in the review (flag only; no FI framework per Principal).
 
