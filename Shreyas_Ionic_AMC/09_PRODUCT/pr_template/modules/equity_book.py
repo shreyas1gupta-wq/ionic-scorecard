@@ -58,7 +58,8 @@ def render(deck, ctx, tier):
                "line is an exceptional, documented call", SERIF, 9, SLATE, False, True)],
              anchor=MSO_ANCHOR.MIDDLE)
 
+    demo_tag = " Illustrative synthetic book." if ctx.get("is_demo", True) else ""
     deck.source(s, "Weight = share of direct-equity book · Ionic Score reflects our full review process, "
-                   "forward-growth adjusted · illustrative synthetic book.")
+                   f"forward-growth adjusted.{demo_tag}")
     deck.score_band(s)
     return 1

@@ -66,7 +66,8 @@ def render(deck, ctx, tier):
 
     # --- bottom: two callouts — direct-equity tax gap + the tax-inertia rule (Principal 2026-07-25) ---
     half = (UW - 0.3) / 2
-    deck.callout(s, ML, 5.5, half, 0.98, L["ct"], tax["de_gap_note"], kind="warn")
+    gap_h = deck.callout_h(half, tax["de_gap_note"], min_h=0.98, max_h=1.4)
+    deck.callout(s, ML, 5.5, half, gap_h, L["ct"], tax["de_gap_note"], kind="warn")
     inertia = ("Units held >5y (>10y more so) carry gains that offset switching alpha; their bar "
                "rises to structural-only. Stocks get no such pass."
                if tier.get("register") != "simple" else

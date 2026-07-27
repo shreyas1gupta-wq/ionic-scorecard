@@ -98,7 +98,16 @@ def clip_sentences(txt, n):
 REC_STYLE = {"Sell": (SELLBG, SELL), "Exit": (SELLBG, SELL), "Redeem-to-Direct": (AMBERBG, AMBER),
              "Redeem": (AMBERBG, AMBER), "Switch": (AMBERBG, AMBER), "Trim": (AMBERBG, AMBER),
              "Hold": (HOLDBG, HOLD), "Aligned": (HOLDBG, HOLD), "Watch": (PANEL, SLATE),
-             "Gap": (SELLBG, SELL), "Breach": (SELLBG, SELL)}
+             "Gap": (SELLBG, SELL), "Breach": (SELLBG, SELL),
+             # added 2026-07-27 (first real client, Anand Reddy): "No View" = a genuine
+             # verdict class (young/uncovered fund, firm's 7-month rule) — distinct from a
+             # Hold/Watch judgment, so it gets its own neutral-but-labelled look, not reused
+             # colors that would blur the distinction in a table scan.
+             "No View": (RGBColor(0xEC, 0xE9, 0xF6), RGBColor(0x5B, 0x4A, 0x8A)),
+             # "Suspended" = a status, not a recommendation (delisted/insolvent/under NCLT) —
+             # deliberately drab/inert so it reads as "not a call" at a glance, never confused
+             # with an active Sell/Hold/Watch judgment.
+             "Suspended": (RGBColor(0xE7, 0xE8, 0xEA), RGBColor(0x3A, 0x3F, 0x47))}
 
 
 class Deck:

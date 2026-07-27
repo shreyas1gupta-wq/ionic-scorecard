@@ -93,7 +93,8 @@ def render(deck, ctx, tier):
         if exc_any:
             deck.txt(s, ML, fy, UW, 0.2, [(EXC_NOTE, SERIF, 8.5, SLATE, False, True)])
 
+        demo_tag = " Illustrative synthetic book." if ctx.get("is_demo", True) else ""
         deck.source(s, "Each row links to the name's full rationale page (score panel, the case, the bull "
-                       "we rejected, valuation check). Illustrative synthetic book.")
+                       f"we rejected, valuation check).{demo_tag}")
         deck.score_band(s)
     return pages

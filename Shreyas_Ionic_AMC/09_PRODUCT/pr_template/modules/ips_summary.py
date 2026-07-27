@@ -16,9 +16,17 @@ def render(deck, ctx, tier):
     title = "Your plan, in one page" if simple else "The mandate we manage to"
     s = deck.content(0, "Understanding", "Investment Policy Statement", title)
 
-    # illustrative tag (top-right, under the header rule)
-    deck.txt(s, RX - 3.4, 1.62, 3.4, 0.2,
-             [("[ILLUSTRATIVE, demo IPS]", SANS, 8, GOLD, True, True)], align=PP_ALIGN.RIGHT)
+    # tag (top-right, under the header rule) — demo tag on the synthetic book, "NOT ON
+    # FILE" on a real client with no IPS yet (2026-07-27), nothing when a real IPS exists
+    if ctx.get("is_demo", True):
+        tag = "[ILLUSTRATIVE, demo IPS]"
+    elif not ips.get("on_file", True):
+        tag = "IPS NOT ON FILE — bands shown are placeholders, not a house mandate"
+    else:
+        tag = ""
+    if tag:
+        deck.txt(s, RX - 4.6, 1.62, 4.6, 0.2,
+                 [(tag, SANS, 8, GOLD, True, True)], align=PP_ALIGN.RIGHT)
 
     # ---- Row 1: risk-tier badge + objective ----
     deck.txt(s, ML, 1.80, 1.8, 0.2, [("RISK TIER", SANS, 8, SLATE, True, False, 120)])

@@ -52,6 +52,9 @@ MODULES = [
     ("cost",               4, "Recommendations", True),
     ("tax_impact",         4, "Recommendations", True),
     ("priority_actions",   4, "Recommendations", True),
+    # renders ONLY when ctx['data_notes'] has content (suspended holdings / No-View funds /
+    # statement data-quality flags) — always checked, silent on the synthetic demo book.
+    ("data_notes",         4, "Recommendations", True),
     # ---- F18 cut line: optional annexure ----
     ("_div5",              5, "Annexure",       False),
     # transition-plan slides live in the ANNEXURE (Principal 2026-07-25: no buy

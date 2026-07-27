@@ -129,5 +129,6 @@ def render(deck, ctx, tier):
     deck.txt(s, RX - 3.75, 6.1, 3.75, 0.46,
              [("Reviewed with client on  ____________________", SANS, 8, SLATE, False)],
              align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
-    deck.source(s, f"Amounts illustrative for the AZBY demo · net figures after estimated tax · as of {ctx['client']['as_of']}.")
+    demo_tag = "Amounts illustrative for the AZBY demo · " if ctx.get("is_demo", True) else ""
+    deck.source(s, f"{demo_tag}Net figures after estimated tax · as of {ctx['client']['as_of']}.")
     return 1

@@ -3,7 +3,7 @@
 every card cites a STRUCTURAL reason (mandate rigidity / plan-cost / capacity / closet-index / down-capture)
 and the firing SENTINEL flags, measured against the category exemplar it failed. SEBI-safe verbs only."""
 from slidekit import (NAVY, INK, SLATE, HOLD, SELL, AMBER, GOLD, SERIF, ML, UW, RX, PANEL,
-                      SELLBG, AMBERBG)
+                      SELLBG, AMBERBG, clip_clause)
 
 VERB = {"SWITCH": ("Switch", AMBER, AMBERBG), "EXIT": ("Exit", SELL, SELLBG),
         "REDEEM": ("Redeem to Direct", AMBER, AMBERBG), "TRIM": ("Trim", AMBER, AMBERBG)}
@@ -51,14 +51,17 @@ def render(deck, ctx, tier):
         if f.get("holding_years", 0) >= 5:
             flags += f"  ·  HELD ~{f['holding_years']:.0f}Y, COSTLIER TO SWITCH"
         deck.txt(s, x + 0.18, y + 0.46, col_w - 0.3, 0.2, [(flags, "Bahnschrift", 7.5, vc, True, False, 30)])
+        # clipped to the card's real capacity (2026-07-27: a real client's structural_reason
+        # ran to ~300 chars and silently overflowed this fixed-height card)
         deck.txt(s, x + 0.18, y + 0.68, col_w - 0.34, card_h - 0.9,
-                 [(f["structural_reason"], SERIF, 9.5, INK, False)], ls=1.04)
+                 [(clip_clause(f["structural_reason"], 175), SERIF, 9.5, INK, False)], ls=1.04)
         if f.get("exemplar") and f["exemplar"] != "-":
             deck.txt(s, x + 0.18, y + card_h - 0.24, col_w - 0.34, 0.2,
                      [("Measured against ", SERIF, 8.5, SLATE, False, True),
                       (f["exemplar"], SERIF, 8.5, NAVY, False, True)])
 
+    demo_tag = " Synthetic demo funds." if ctx.get("is_demo", True) else ""
     deck.source(s, "Category exemplar = the fund our quality framework ranks best in the category, used as the "
                    "measuring stick, not a recommendation to buy it. Whether a replacement is named is a "
-                   "compliance decision. Synthetic demo funds.")
+                   f"compliance decision.{demo_tag}")
     return 1
