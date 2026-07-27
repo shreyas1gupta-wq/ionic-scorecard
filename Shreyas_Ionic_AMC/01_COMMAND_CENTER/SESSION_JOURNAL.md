@@ -3,6 +3,23 @@ Format per entry: date, account (DESK-20/DESK-100), summary, files touched, hand
 Newest entries at TOP.
 
 ---
+## 2026-07-26 (DESK-100) — Young-fund rule TIGHTENED to a hard 7-month universal floor (round 4)
+Principal: "no mimimum 7 months keep it hard rule for any recommendation for MF, if less than
+that keep no view if irrespective of QFRA 1/2." Recorded as the CURRENT operative rule in
+NEXT_WEEK_QUEUE.md item 6 (round 4), superseding round 2's softer alpha-branch (>-1%→Hold,
+<-1%→No View) — my reading, flagged explicitly for correction if wrong since two readings are
+plausible (full replacement of the <1y alpha branch vs. an additional floor sitting under it
+for 7mo-12mo). Key distinction now documented clearly in both the queue and the qfra1/qfra2-
+rerun skills: this 7-month figure is a separate, universal, CLIENT-FACING business floor
+("No View" on ANY recommendation, ANY framework) layered ON TOP of — not the same as — QFRA-
+1's own 6-month ENGINE data floor (§method, still tracked separately as item 6b, the code
+enforcement gap found last round). For QFRA-2 (frozen model): implemented as a post-processing
+override on the engine's OUTPUT, not a change to the frozen scoring itself, so it doesn't
+trip the "do not modify the model" rule. Doc-only turn, nothing built or executed. Full
+reasoning trail (rounds 1-4) kept in NEXT_WEEK_QUEUE.md item 6 so nothing gets lost across the
+back-and-forth. NEXT: this is now the single most-refined open spec — worth a clean re-read
+next week before build to confirm the round-4-vs-round-2 reading is right.
+
 ## 2026-07-26 (DESK-100) — QFRA1/2 track-record facts confirmed; found+fixed a real BUY-eligibility gap; dual-framework wording bug fixed in its last 2 stale copies
 Principal confirmed round 2's open scope question directly: "qfra 1 requires minimum 6month
 of navs and qfra 2 has its score which prefers >3y funds." Recorded as RESOLVED in

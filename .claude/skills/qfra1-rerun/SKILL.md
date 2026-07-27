@@ -46,9 +46,16 @@ To recompute recommendations at an anchor NEWER than the workbook's data cut:
 3. **Fund DAILY NAVs** for the 6M capture windows: AMFI history endpoint per window (works through proxy), or the Principal's workbook refresh (note his hand-edits can carry typos — parser is NaN-tolerant since 2026-07-26).
 4. Then either extend the workbook (Principal's call — engine treats it read-only) or compute from the side stores with value-based fund matching on an overlap month.
 
-## Pending method extension (Principal 2026-07-26, spec'd not built — see NEXT_WEEK_QUEUE.md)
-Young-fund (<1y track record) client verdict: **alpha > -1% → Hold; alpha < -1% → "No View"** (a
-new verdict distinct from Sell/Hold/Trim — insufficient record + mildly negative early
-performance earns no house call rather than a forced Sell/Hold). Same logic floated for the
-STOCK_SCORECARD_750 universe too (an estimated 15-30 of 750 names lacking adequate history).
-Do not implement without re-confirming scope/thresholds — captured precisely in the queue doc.
+## Pending method extension (Principal 2026-07-26, spec'd not built, TIGHTENED TWICE — see NEXT_WEEK_QUEUE.md item 6 for the full reasoning trail)
+**CURRENT rule (round 4, supersedes round 2 below unless flagged wrong):** a fund with **<7
+months** of track record gets **"No View"** on ANY recommendation — hard, unconditional, no
+alpha check, **irrespective of QFRA-1/QFRA-2's own internal score/verdict.** This is a
+separate, slightly-stricter, CLIENT-FACING business floor layered on top of — not the same
+as — QFRA-1's own 6-month ENGINE data floor (§method step 1; enforcement gap tracked
+separately, queue item 6b). Round-2 spec (kept for the record, likely superseded): <1y +
+alpha > -1% → Hold; <1y + alpha < -1% → "No View". Either way: a fund/stock tagged under this
+rule needs a recurring re-check so it graduates into normal Sell/Hold logic once it ages past
+the threshold — do not build the classification without also building that graduation check.
+Same "No View" idea floated (optional, separate go-ahead needed) for STOCK_SCORECARD_750 (an
+estimated 15-30 of 750 names lacking adequate history). Do not implement without re-confirming
+which round is operative — captured precisely in the queue doc.

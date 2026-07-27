@@ -6,7 +6,8 @@ silently. Principal's own words are quoted where useful so intent isn't reinterp
 ## Timing bands
 - **NEXT WEEK** (week of 2026-08-03): items 1 (expanded: backtest+better-rule search for BOTH
   frameworks, contradiction check, analyst+FM escalation, CSV buy-readiness + random audit),
-  2(code), 3, 6(spec confirm, incl. 1y graduation check + BUY-scope verify), 7, 8, 9, 10, 11
+  2(code), 3, 6(7-month hard No-View floor, confirm round-4-vs-round-2 reading + graduation
+  trigger), 6b(engine-level 6mo enforcement fix), 7, 8, 9, 10, 11
 - **NEXT-TO-NEXT WEEK** (week of 2026-08-10, token budget permitting): item 5-bundle (a,b,c)
 
 ---
@@ -127,54 +128,85 @@ basis alpha if >-1% alpha say hold else say noview but we have to check when the
 giving hold/sell calls."
 
 **Exact spec as given:**
+**STATUS: rule tightened twice since first specified — round 4 (below) is CURRENT. Rounds
+2-3 kept underneath for the reasoning trail; do not build from the round-2 alpha-branch
+alone without reading round 4.**
+
+### Round 4 (Principal, CURRENT RULE): a hard 7-month floor, universal, alpha-independent
+Principal: "no mimimum 7 months keep it hard rule for any recommendation for MF, if less
+than that keep no view if irrespective of QFRA 1/2."
+  - **<7 months of track record → "No View", full stop.** Hard, unconditional: no alpha
+    check, no branching. This applies to ANY MF recommendation (Sell/Hold/Buy alike) and
+    is **irrespective of QFRA-1/QFRA-2** — i.e. it overrides whatever either engine's raw
+    score/verdict would otherwise say; a fund under 7 months simply gets no house view.
+  - **This is DIFFERENT from QFRA-1's own internal 6-month computational floor** (the FN/HC
+    calculation's own window requirement, §method / item 6b below) — that's an ENGINE-level
+    data requirement for the math to run at all; this 7-month figure is a separate, slightly
+    stricter, CLIENT-FACING business floor for issuing any recommendation, applied uniformly
+    across both frameworks regardless of each engine's own internal minimum.
+  - **MY READING, FLAG IF WRONG:** this round-4 hard rule is read as SUPERSEDING round 2's
+    alpha-branch (alpha>-1%→Hold, alpha<-1%→No View) for the sub-1-year gap — i.e. the
+    simpler operative rule is now: <7mo → No View (hard, no alpha check); ≥7mo → normal
+    QFRA-1/QFRA-2-driven Sell/Hold/Buy, with no separate 7mo-12mo alpha-gated tier. If the
+    Principal instead meant the 7-month rule to be an ADDITIONAL absolute floor sitting
+    UNDER the round-2 alpha branch (i.e. <7mo→No View hard; 7mo-12mo→ round-2's alpha check
+    still applies; ≥12mo→normal), correct this line before building — zero cost to fix since
+    nothing is built yet, but the two readings produce different code.
+  - The recurring re-check / graduation requirement from round 2 (below) still stands
+    regardless of which reading is correct — replace "1 year" with "7 months" as the
+    graduation trigger if round 4 fully supersedes round 2.
+  - The optional STOCK_SCORECARD_750 extension (15-30 of 750 names, round 1) is unaffected
+    by this refinement — still optional, still needs a separate go-ahead.
+
+### Round 2 (superseded by round 4 above unless flagged wrong): original spec, kept for trail
   - Fund/stock has <1 year of track record (engine already flags young funds under ~30
     months in `save_mf_recommendations.py`'s `young_fund_months` — the <1y threshold here
-    is TIGHTER and MF-specific; confirm whether to use 12 months exactly or reuse the
-    existing 30-month flag column with a new cutoff).
-  - **alpha > -1% → Hold** (young + not meaningfully negative = treat as a normal Hold).
-  - **alpha < -1% → "No View"** (young + meaningfully negative = a NEW verdict, distinct
+    was TIGHTER and MF-specific; round 4 replaces "<1y" with "<7mo").
+  - alpha > -1% → Hold (young + not meaningfully negative = treat as a normal Hold).
+  - alpha < -1% → "No View" (young + meaningfully negative = a NEW verdict, distinct
     from Sell/Hold/Trim/Exit — signals "insufficient record to call, watch it" rather than
-    forcing a premature Sell or an falsely-reassuring Hold).
+    forcing a premature Sell or a falsely-reassuring Hold).
   - Optionally extend the same "No View" bucket to the STOCK_SCORECARD_750 universe for
     names with inadequate history/coverage — Principal estimates ~15-30 of 750 could
     qualify. Explicitly optional ("if we want this... we can do that as well") — needs a
     separate go-ahead before touching the stock engine.
-  - **NEW (round 2): a recurring re-check, not a one-time tag.** A fund/stock tagged Hold or
-    No View under the <1y rule must be re-evaluated automatically once it CROSSES the 1-year
-    mark, so it graduates into the normal Sell/Hold rules rather than staying frozen in the
-    provisional bucket forever. Implementation idea: compute each covered name's age at every
-    standing cadence event (MF: the monthly NAV refresh or the Apr/Oct QFRA runs; stocks: the
-    weekly re-score once it's live) and flip any name that has now crossed 12 months out of
-    the <1y path into the standard verdict logic. Needs a concrete trigger point decided next
-    week (which cadence event owns the re-check) — do not build the classification without
-    also building this graduation check, or it becomes a silent second staleness bug exactly
-    like the pf_state one this session just found.
-  - **SCOPE QUESTION — RESOLVED (Principal, round 3): "qfra 1 requires minimum 6month of navs
-    and qfra 2 has its score which prefers >3y funds."** Confirmed distinct mechanics, not
-    the same kind of gate:
-      - **QFRA-1 = a HARD data-availability floor at 6 months.** This is the SAME 6-calendar-
-        month window already at the core of the method (§method step 1: "6M downside capture
-        (FN)") — a fund literally cannot get FN/HC computed, and therefore cannot be ranked
-        for BUY, without a full 6-month window. This is NOT the ~24-month blank-gate bug
-        (that's a separate, unrelated defect further down the pipeline); it's the intended
-        minimum for the core calculation itself.
-      - **QFRA-2 = a SOFT scoring preference, not a hard gate, toward >3y funds.** Its score
-        naturally tilts against younger funds (3y/5y-based metrics, statistical-significance
-        effects of longer windows) without literally blocking a <3y fund from being scored —
-        it just tends to score lower / not reach ACTIVE.
-    **Implication for this rule (item 6):** the new <1y Hold-vs-No-View classification sits
-    ABOVE both engines' existing behavior, for the sub-1-year gap where the engines' own
-    outputs are thin (QFRA-1 can technically score a fund past 6mo but the industry-standard
-    caution window the Principal wants is 1y for the CLIENT-FACING existing-holding call;
-    QFRA-2 will simply be soft-scoring it low already). It does NOT touch BUY eligibility for
-    NEW candidates — that stays governed by QFRA-1's 6-month floor and QFRA-2's own scoring,
-    unchanged. No code change needed to the BUY side from this rule.
-**Before building:** confirm (a) the exact age cutoff and whether it's calendar-days or
-trading-days, (b) whether "No View" needs its own pill color/kind in the NDPMS deck (verdict
+  - **A recurring re-check, not a one-time tag.** A fund/stock tagged Hold or No View under
+    the young-fund rule must be re-evaluated automatically once it CROSSES the age
+    threshold, so it graduates into the normal Sell/Hold rules rather than staying frozen in
+    the provisional bucket forever. Implementation idea: compute each covered name's age at
+    every standing cadence event (MF: the monthly NAV refresh or the Apr/Oct QFRA runs;
+    stocks: the weekly re-score once it's live) and flip any name that has now crossed the
+    threshold out of the young-fund path into the standard verdict logic. Needs a concrete
+    trigger point decided next week (which cadence event owns the re-check) — do not build
+    the classification without also building this graduation check, or it becomes a silent
+    second staleness bug exactly like the pf_state one this session just found.
+
+### Round 3 (resolved facts, still true, informs round 4's reasoning above)
+Principal: "qfra 1 requires minimum 6month of navs and qfra 2 has its score which prefers
+>3y funds." Confirmed distinct mechanics, not the same kind of gate:
+  - **QFRA-1 = a HARD data-availability floor at 6 months.** This is the SAME 6-calendar-
+    month window already at the core of the method (§method step 1: "6M downside capture
+    (FN)") — a fund literally cannot get FN/HC computed, and therefore cannot be ranked
+    for BUY, without a full 6-month window. This is NOT the ~24-month blank-gate bug
+    (that's a separate, unrelated defect further down the pipeline); it's the intended
+    minimum for the core calculation itself.
+  - **QFRA-2 = a SOFT scoring preference, not a hard gate, toward >3y funds.** Its score
+    naturally tilts against younger funds (3y/5y-based metrics, statistical-significance
+    effects of longer windows) without literally blocking a <3y fund from being scored —
+    it just tends to score lower / not reach ACTIVE.
+  - Round 4's 7-month client-facing floor sits slightly ABOVE QFRA-1's own 6-month engine
+    floor (a small buffer beyond the bare data minimum before the firm puts a view in front
+    of a client) and is applied even where QFRA-2 might already be soft-scoring a young fund
+    low on its own — round 4 makes the outcome explicit and uniform (No View) rather than
+    relying on QFRA-2's score happening to land low enough.
+
+**Before building:** confirm (a) which reading of round 4 vs round 2 is correct (flagged
+above), (b) whether "No View" needs its own pill color/kind in the NDPMS deck (verdict
 vocabulary currently hardcoded to Hold/Trim/Switch/Redeem-to-Direct/Exit/Sell everywhere —
 adding a 6th value touches slidekit + every fund module), (c) whether "No View" positions
-should still render a scorecard slide or be silently excluded like a Hold, (d) the 1y
-graduation trigger point above.
+should still render a scorecard slide or be silently excluded like a Hold, (d) the exact
+graduation trigger point (7mo? 12mo? which cadence event owns the check), (e) whether "7
+months" is calendar-days or trading-days from first NAV.
 
 ## 6b. QFRA-1's 6-month floor is INTENDED but not actually ENFORCED in code [NEXT WEEK]
 Directly surfaced by confirming item 6's scope question. The Principal just confirmed the
@@ -188,6 +220,10 @@ the Principal's own stated 6-month minimum can currently sneak into a BUY rank. 
 non-NaN fund NAV at the window's start (`apos[r-6]`) before computing FN/HC for that fund at
 that anchor; emit blank/ineligible otherwise, matching what's now confirmed as the intended
 rule rather than the current NaN-tolerant approximation.
+**Relationship to item 6's round-4 rule:** this is QFRA-1's OWN 6-month engine-level data
+floor (fixing how FN/HC is computed internally); item 6's 7-month rule is the separate,
+universal, CLIENT-FACING "No View" floor applied on top, across both frameworks. Fixing this
+does not replace building that — both are needed.
 
 ## 7. save_mf_recommendations.py polish [NEXT WEEK]
 From the method audit (majors/minors, all mechanical):
