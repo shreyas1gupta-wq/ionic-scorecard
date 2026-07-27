@@ -3,6 +3,31 @@ Format per entry: date, account (DESK-20/DESK-100), summary, files touched, hand
 Newest entries at TOP.
 
 ---
+## 2026-07-26 (DESK-100) — NEXT_WEEK_QUEUE.md expanded (round 2): QFRA1+2 sell-logic completion spec'd, young-fund graduation check added
+Same-day follow-up from the Principal on the queue just created. Doc-only turn again (no
+execution, no backtests run — token-conscious). **Item 1 rewritten into a 5-part QFRA-1+2
+completion spec:** (a) backtest the EXISTING QFRA-1 sell rule's own hit-rate/forward
+performance (only the BUY side has ever been backtested, via the anchor-pair study); (b)
+backtest QFRA-2's implied sell rule (currently a zero-validation adapter invention); (c)
+explicitly search for a BETTER sell rule for BOTH frameworks, not just validate the current
+ones; (d) mandatory cross-framework contradiction check — QFRA-1 Sell + QFRA-2 high-score/
+A-grade on the same fund must never pass silently, needs a logged reconciliation step; (e)
+genuinely ambiguous cases route to Analyst+FM (case-by-case), kept distinct from the CEO+CIO
+D-025 ratification of the eventual standing rule. Folded in: the saved CSV must always carry
+ready BUY funds for both frameworks (verify this stays true), plus a recurring random-sample
+audit checking the CSV's stated recommendations actually match the rule. **Item 6 (young-fund
+Hold-vs-No View) gained a graduation mechanism:** Principal flagged that a <1y tag can't be a
+one-time label — needs a recurring re-check so a fund crossing 12 months exits the provisional
+bucket into normal Sell/Hold logic (trigger point TBD next week: NAV refresh vs Apr/Oct run).
+Principal also raised a scope question — his belief that QFRA-1/2 already gate BUY at a 2-3y
+minimum track record, making the <1y rule purely a Sell/Hold/No-View matter, not a BUY-
+eligibility one. Checked (quick read, not exhaustive): no explicit 2-3y BUY gate found in
+either engine — the only track-record mechanics are QFRA-1's blank-gate (a documented BUG with
+a ~24-month side effect, not an intentional rule) and QFRA-2's 3-year FORWARD win-rate
+backtest metric (a scoring window, not an eligibility gate). Flagged as a next-week
+verification item, not resolved either way. Both items fully detailed in
+`01_COMMAND_CENTER/NEXT_WEEK_QUEUE.md` items 1 and 6 — read there before building.
+
 ## 2026-07-26 (DESK-100) — Principal dispositions on the full open ledger; NEXT_WEEK_QUEUE.md created
 Principal responded item-by-item to the prior session's open-tasks report. Doc/skill-only turn
 (explicit "short of tokens" signal honored — no workflows/agents spawned, no code behavior
