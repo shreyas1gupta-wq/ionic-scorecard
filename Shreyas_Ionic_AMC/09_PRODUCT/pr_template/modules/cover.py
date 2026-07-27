@@ -29,8 +29,14 @@ def render(deck, ctx, tier):
     deck.txt(s, ML, 3.42, 7.0, 0.3, [("PREPARED FOR", SANS, 10, NT2, True, False, 260)])
     deck.txt(s, ML, 3.74, 7.0, 0.65, [(c["name"], SANS, 28, WHITE, True)])
     deck.rule(s, ML, 4.50, 3.4, GOLD, 0.03)
-    deck.txt(s, ML, 4.72, 7.0, 0.4, [(f"{c['account_type']}   ·   {c['profile']}   ·   {c['horizon']}",
-                                     SERIF, 12.5, NT3, False, True)])
+    # collapse repeated placeholder text (2026-07-27: a first-review client with neither
+    # profile nor horizon on file printed "... · Not yet on file · Not yet on file")
+    _segs = [c["account_type"]]
+    if c["profile"] == c["horizon"]:
+        _segs.append(f"Profile & horizon: {c['profile']}" if "file" in c["profile"].lower() else c["profile"])
+    else:
+        _segs += [c["profile"], c["horizon"]]
+    deck.txt(s, ML, 4.72, 7.0, 0.4, [("   ·   ".join(_segs), SERIF, 12.5, NT3, False, True)])
 
     deck.txt(s, ML, 6.45, 7.0, 0.3, [("Co-founder in your journey of wealth creation",
                                       SERIF, 12, NT2, False, True)])

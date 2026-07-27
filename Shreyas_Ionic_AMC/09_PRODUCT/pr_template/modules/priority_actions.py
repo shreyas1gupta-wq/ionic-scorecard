@@ -73,7 +73,15 @@ def render(deck, ctx, tier):
     dep, funds, equity = ctx["deployment"], ctx["funds"], ctx["equity"]
     proceeds, net = dep["proceeds_inr"], dep["net_inr"]
     sell_sum = sum(e["value_inr"] for e in equity if e["rec"] == "Sell")
-    trim_cash = max(proceeds - sell_sum, 0)
+    # real trim cash = money actually coming off over-cap Hold names, reduced toward the
+    # single-name cap -- NOT "whatever proceeds are left over once sells are subtracted"
+    # (that residual silently included fund-exit money whenever a book has zero Trim-rec
+    # equities, e.g. Anand Reddy 2026-07-27: showed fund-exit cash against a stock-trim
+    # action label, wrongly implying HDFCBANK/TCS trims were worth the fund-exit amount)
+    cap = ctx["ips"]["single_name_cap_pct"]
+    grand = t["grand_inr"]
+    trim_cash = round(sum((e["weight_pct"] - cap) / 100 * grand
+                          for e in equity if e["rec"] != "Sell" and e["weight_pct"] > cap))
     fund_acts = [f for f in funds if f["action"] not in ("HOLD", "Hold")]
     k = len(fund_acts)
     act_counts = {}

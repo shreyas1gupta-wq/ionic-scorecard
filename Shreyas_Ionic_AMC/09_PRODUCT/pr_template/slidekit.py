@@ -51,6 +51,10 @@ def short_name(name, n=28):
     words = name.split(" ")
     while len(words) > 2 and len(" ".join(words)) > n:
         words.pop()
+    # dropping trailing words can strand a lone separator ("HDFC Floating Rate Debt -")
+    # once everything after it is gone -- 2026-07-27, first real-client statement to hit this
+    while words and words[-1] in ("-", "–"):
+        words.pop()
     out = " ".join(words)
     return out if len(out) <= n else out[:n - 1].rsplit(" ", 1)[0]
 

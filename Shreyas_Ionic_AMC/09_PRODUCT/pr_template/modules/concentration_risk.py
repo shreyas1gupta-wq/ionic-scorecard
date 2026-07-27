@@ -77,6 +77,8 @@ def render(deck, ctx, tier):
         (str(len(breaches)), "Names over the cap", None, (SELL if breaches else INK)),
     ], y=5.55)
 
-    deck.source(s, f"Source: client holdings as of {as_of}. Weights as % of total AUM; "
-                   "IPS single-name guideline per the Investment Policy Statement.")
+    ips_note = ("IPS single-name guideline per the Investment Policy Statement."
+                if ctx["ips"].get("on_file", True) else
+                "Single-name guideline per house risk policy — no client-specific IPS on file yet.")
+    deck.source(s, f"Source: client holdings as of {as_of}. Weights as % of total AUM; {ips_note}")
     return 1

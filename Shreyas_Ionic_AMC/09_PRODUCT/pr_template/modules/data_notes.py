@@ -40,8 +40,8 @@ def render(deck, ctx, tier):
     # past the footer the first time this module ran on a real, content-heavy book).
     if suspended or no_view:
         s = deck.content(SECTION_NO, SECTION, eyebrow, title)
-        deck.scope_tag(s, "These positions sit outside the normal scored tables on purpose "
-                          "— folding them in would distort the comparison for every other holding.")
+        deck.scope_tag(s, "These positions sit outside the normal scored tables — folding them "
+                          "in would distort every comparison.")
         y = 2.0
         if suspended:
             cols = [("Holding", 0.24, "l"), ("Status", 0.20, "l"), ("Statement value", 0.16, "r"), ("What we'd do", 0.40, "l")]
@@ -75,7 +75,9 @@ def render(deck, ctx, tier):
         for i, f in enumerate(flags):
             body = clip_clause(f, 300)
             h = deck.callout_h(UW, body, min_h=0.6, max_h=1.15)
-            if y + h > 6.9:
+            # deck.source() below is fixed at y=6.66 -- the valve must clear THAT, not the
+            # slide's bottom edge (2026-07-27: 6.9 let the last flag's box overlap the source line)
+            if y + h > 6.6:
                 break  # safety valve: never spill past the footer, even if flags grows later
             deck.callout(s, ML, y, UW, h, f"Flag {i + 1}", body, "warn")
             y += h + 0.14

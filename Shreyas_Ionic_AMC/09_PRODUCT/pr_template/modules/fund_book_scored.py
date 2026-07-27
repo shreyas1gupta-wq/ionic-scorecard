@@ -57,7 +57,7 @@ def render(deck, ctx, tier):
             rows = []
             for f in chunk:
                 v = f["verdict"]
-                rows.append([_short(f["name"], 30), f["category"].title(), f"{f['weight_pct']:.1f}",
+                rows.append([_short(f["name"], 30), f["category"].replace("_", " ").title(), f"{f['weight_pct']:.1f}",
                              ("bar", f["qfra"]), ("pill", VDISP.get(v, v), v)])
             deck.table(s, ML, 2.0, UW, cols, rows, rowh=0.40, fs=11, hfs=9)
         else:
@@ -68,7 +68,7 @@ def render(deck, ctx, tier):
             for f in chunk:
                 v = f["verdict"]
                 fcell = ("flags", [FLAB.get(x, x[:9]) for x in f["flags"]]) if f["flags"] else ("c", "-", SLATE)
-                rows.append([_short(f["name"]), f["category"].title(), f["plan"][:3],
+                rows.append([_short(f["name"]), f["category"].replace("_", " ").title(), f["plan"][:3],
                              f"{f['weight_pct']:.1f}", ("bar", f["qfra"]),
                              ("c", f["merit"], MERIT_COL.get(f["merit"], INK), True),
                              fcell, ("pill", VDISP.get(v, v), v)])

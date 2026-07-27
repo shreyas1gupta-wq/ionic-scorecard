@@ -199,6 +199,15 @@ _EQUITY = [
                      "consolidate this account out of direct passive/factor exposure, not a concern "
                      "with the fund itself."),
 ]
+# real Invested Value from the client's own statement (Stocks sheet), for the 15 Sell-rated
+# names only -- used to compute a REAL gain/loss for the tax slide rather than assume one.
+# Verified 2026-07-27: net gain across all 15 = -Rs 1,93,522 (a real, computed LOSS).
+_INVESTED = {
+    "RELIANCE": 2928706.0, "JIOFIN": 393145.0, "SBFC": 42870.0, "RITAFIN": 51871.0,
+    "MANAPPURAM": 8778.0, "LANCORHOL": 20000.0, "SUMMITSEC": 25712.0, "NETWORK18": 23913.0,
+    "MOSCHIP": 6600.0, "SJVN": 8954.0, "MOVALUE": 5016.0, "MUFIN": 2778.0,
+    "MOM30IETF": 3519.0, "PRAGBOSIMI": 2990.0, "RPOWER": 1121.0,
+}
 for _e in _EQUITY:
     _e.setdefault("score_3y", _e["ionic_score"]); _e.setdefault("score_1y", _e["ionic_score"])
     _e.setdefault("pe", None); _e.setdefault("roe", None); _e.setdefault("mcap_band", "Small")
@@ -210,6 +219,7 @@ for _e in _EQUITY:
     _e.setdefault("detailed", _e.get("summary", "")); _e.setdefault("escalation", "ESCALATION" in _e.get("summary", ""))
     _e.setdefault("reason_category", "" if _e["rec"] != "Sell" else "Weaker forward risk-reward")
     _e.setdefault("conviction", "Core" if (_e["ionic_score"] >= 58) else ("Watch" if _e["rec"] == "Hold" else "Exit"))
+    _e["invested_value"] = _INVESTED.get(_e["symbol"])
 
 # ============================================================================
 # FUNDS (25 scored: 5 with a real QFRA-2 category match + 20 one-time benchmark-
@@ -366,12 +376,26 @@ for f in _FUNDS:
     f["value_inr"] = _CV.get(f["name"], 0)
 
 
+_NO_VIEW = [
+    dict(name="JioBlackRock Flexi Cap Fund - Direct Plan", category="Flexi Cap",
+         value_inr=2826.10,
+         reason="Brand-new fund (JioBlackRock JV) — under our house minimum of 7 months' "
+                "live track record before any fund gets a Sell/Hold view. No performance "
+                "view given yet; re-review once it crosses 7 months live."),
+]
+
+
 def build_ctx():
     eq = [dict(e) for e in _EQUITY]
     funds = [dict(f) for f in _FUNDS]
     eq_val = sum(e["value_inr"] for e in eq)
     mf_val = sum(f["value_inr"] for f in funds)
-    grand = eq_val + mf_val  # cash sleeve: none identified on this statement
+    # real, disclosed statement value of "No View" holdings (e.g. JioBlackRock, too young
+    # to score) still counts toward total AUM — only the Sell/Hold call is withheld, not
+    # the money itself. Suspended/insolvent stocks are handled separately: their stated
+    # values are disclosed as stale/fictitious, so they are correctly NOT added here.
+    no_view_val = sum(n.get("value_inr", 0) for n in _NO_VIEW)
+    grand = eq_val + mf_val + no_view_val  # cash sleeve: none identified on this statement
     for e in eq:
         e["weight_pct"] = round(100 * e["value_inr"] / grand, 3) if grand else 0
     for f in funds:
@@ -383,10 +407,27 @@ def build_ctx():
 
     sell_val = sum(e["value_inr"] for e in eq if e["rec"] == "Sell")
     fund_action_val = sum(f["value_inr"] for f in funds if f["action"] != "Hold")
-    proceeds = sell_val + fund_action_val
-    # tax lots unknown (statement has no acquisition dates) — LTCG/STCG split cannot be
-    # computed; show gross only and flag the gap rather than assume a split.
-    ltcg = 0; stcg = 0; net = proceeds
+    # real trim cash: over-cap Hold names (HDFCBANK, TCS) reduced toward the single-name cap --
+    # computed the same way priority_actions.py displays it, so the KPI/tax/deployment totals
+    # actually include this money instead of silently excluding it (2026-07-27 fix)
+    _cap = 8.0
+    trim_val = round(sum((e["weight_pct"] - _cap) / 100 * grand
+                         for e in eq if e["rec"] != "Sell" and e["weight_pct"] > _cap))
+    proceeds = sell_val + trim_val + fund_action_val
+    # Per Principal instruction (2026-07-27): assume long-term (LTCG) treatment throughout.
+    # Equity side has REAL acquisition cost on the statement (Stocks sheet "Invested Value"),
+    # so this is a computed real figure, not a guess: net gain across all 15 Sell names is a
+    # LOSS of Rs 1,93,522 -- under any LTCG/STCG classification a loss carries zero tax, so
+    # equity-side tax = 0 (real result, not a simplification). The 2 fund exits (HDFC NIFTY 50
+    # Index, HDFC Floating Rate Debt) have NO acquisition-cost data on this statement (the MF
+    # sheet has no Invested Value column) -- their gain/loss and tax genuinely cannot be
+    # computed here; shown as a separate, disclosed unknown rather than assumed zero or guessed.
+    LTCG_RATE, LTCG_EXEMPT = 0.125, 125000
+    eq_sell_gain = sum((e["value_inr"] - e["invested_value"]) for e in eq
+                       if e["rec"] == "Sell" and e.get("invested_value") is not None)
+    eq_tax = round(max(0, eq_sell_gain - LTCG_EXEMPT) * LTCG_RATE) if eq_sell_gain > 0 else 0
+    ltcg = eq_tax; stcg = 0
+    net = proceeds - ltcg
 
     ctx = {
         "is_demo": False,  # real client — modules must not print "illustrative"/"synthetic" text
@@ -401,7 +442,7 @@ def build_ctx():
         "house_view": {"alloc_gap": {"Foreign": 0.0}},
         "equity": eq, "funds": funds,
         "totals": {"grand_inr": grand, "eq_pct": round(100 * eq_val / grand, 1) if grand else 0,
-                  "mf_pct": round(100 * mf_val / grand, 1) if grand else 0, "cash_pct": 0.0,
+                  "mf_pct": round(100 * (mf_val + no_view_val) / grand, 1) if grand else 0, "cash_pct": 0.0,
                   "top10_pct": round(top10, 1), "n_stocks": len(eq), "n_funds": len(funds),
                   "n_sell": n_sell, "n_trim": 0, "n_hold": n_hold},
         "cost": {"rows": [(f["name"], f["plan"], f["ter"], 0.0) for f in funds],
@@ -409,11 +450,17 @@ def build_ctx():
                  "total_inr": round(sum(f["ter"] / 100 * f["value_inr"] for f in funds)),
                  "reg_drag_inr": 0},  # every fund on this statement is already Direct plan
         "tax": {"fund_rows": [(f["action"].upper(), f["name"], f["value_inr"], f">{f['holding_years']:.0f}y",
-                              "Unknown — no acquisition date on statement", f["structural_reason"][:60])
+                              "No cost data", f["structural_reason"][:60])
                              for f in funds if f["action"] != "Hold"],
                 "gross": proceeds, "ltcg": ltcg, "stcg": stcg, "net": net,
-                "de_gap_note": "Tax character (LTCG/STCG) unknown — no acquisition dates on this "
-                               "statement. Confirm from demat/CAS records before any execution."},
+                "de_gap_note": (f"The 15 sell-list shares net to a real LOSS of Rs "
+                               f"{abs(eq_sell_gain)/1e5:.2f}L, so equity tax is genuinely Rs0 (not "
+                               f"assumed). The 2 fund exits' tax is separately unknown — no cost data "
+                               f"on this statement."
+                               if eq_sell_gain <= 0 else
+                               "Tax character assumes long-term (LTCG) treatment throughout, per house "
+                               "convention; confirm exact holding periods and liability with your tax "
+                               "adviser before any execution.")},
         "deployment": {"proceeds_inr": proceeds, "tax_leak_inr": 0, "net_inr": net,
                       "personalization": [], "sleeves": [("Liquid / cash", proceeds, "Parked pending client discussion — no goals/IPS on file yet to size a redeployment plan.")],
                       "sequence": []},
@@ -441,26 +488,18 @@ def build_ctx():
                             "May-2026 NCLAT order. Zero revenue, negative net worth (~-Rs 1,821cr, "
                             "Sep-2024 filing). The Rs 760 statement value is stale, not real."),
             ],
-            "no_view": [
-                dict(name="JioBlackRock Flexi Cap Fund - Direct Plan", category="Flexi Cap",
-                     reason="Brand-new fund (JioBlackRock JV) — under our house minimum of 7 months' "
-                            "live track record before any fund gets a Sell/Hold view. No performance "
-                            "view given yet; re-review once it crosses 7 months live."),
-            ],
+            "no_view": [dict(n) for n in _NO_VIEW],
             "flags": [
-                "Two unresolved data points on the client's statement, excluded rather than guessed: "
-                "(1) the MF sheet's header row carries a stray value (Rs 8,61,415.04) that does not "
-                "match any fund name on the statement — needs RM/client confirmation before it can "
-                "be assigned; (2) HDFC Overnight Fund's current value is blank on the statement — "
-                "shown here with a Hold view but zero value until confirmed.",
-                "Two SBI/HDFC Gilt Fund holdings are genuine duplication — same category (dynamic "
-                "gilt), same single risk factor (sovereign duration), no credit/maturity "
-                "differentiation; consolidation candidate even though both are individually Hold.",
-                "No tax-lot / acquisition-date data exists on this statement for any holding — LTCG/"
-                "STCG character cannot be computed; the tax-impact figures show gross proceeds only.",
-                "No IPS, goals/timeline, family structure, or meeting history exists yet for this "
-                "client — this is a first review; all personalization fields are marked 'not yet on "
-                "file' rather than assumed.",
+                "MF header carries Rs 8,61,415.04 — per RM, a total-of-funds figure, but it doesn't "
+                "match the real fund sum (Rs 94.2L); treated as stale, excluded. HDFC Overnight Fund's "
+                "value is blank on the statement — shown as Hold at Rs0 pending confirmation.",
+                "SBI Gilt Fund and HDFC Gilt Fund duplicate each other — same category, same single "
+                "risk factor (sovereign duration); a consolidation candidate even though both are "
+                "individually Hold.",
+                "Equity gain/loss uses real Invested Value from the statement — a real loss, zero tax. "
+                "The 2 fund exits have no cost-basis data at all; their tax is unknown, not assumed zero.",
+                "No IPS, goals, timeline, or family/meeting history exists yet — this is a first "
+                "review; personalization fields are marked 'not yet on file' rather than assumed.",
             ],
         },
     }
@@ -468,12 +507,13 @@ def build_ctx():
 
 
 # ----------------------------------------------------------------------------
-# DATA_GAPS — do not resolve these by guessing; they need the Principal/RM.
-# 1. MF sheet header row = ('Fund Name', 861415.04) — 861,415.04 does not match
-#    any fund's value on the statement under any row-shift hypothesis tested.
-#    Excluded from all totals. ASK: what does this number represent?
-# 2. 'HDFC Overnight Fund - Direct Plan' has a blank current value on the
-#    statement (last row, MF sheet). Real 3y/1y performance was still verified
+# DATA_GAPS
+# 1. RESOLVED 2026-07-27 (Principal): MF sheet header row = ('Fund Name', 861415.04)
+#    is a total-of-funds figure, not a discrete holding. Does not arithmetically
+#    match the real fund-lines sum (Rs 94.2L) -- treated as a stale/superseded
+#    total, excluded from all per-fund and portfolio totals.
+# 2. STILL OPEN: 'HDFC Overnight Fund - Direct Plan' has a blank current value on
+#    the statement (last row, MF sheet). Real 3y/1y performance was still verified
 #    (Hold), but value_inr is set to 0 here — AUM totals in this deck are
 #    understated by whatever this holding's true value is. ASK: what is it?
 # ----------------------------------------------------------------------------
