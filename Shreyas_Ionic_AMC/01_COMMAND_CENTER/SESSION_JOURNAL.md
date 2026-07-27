@@ -3,6 +3,35 @@ Format per entry: date, account (DESK-20/DESK-100), summary, files touched, hand
 Newest entries at TOP.
 
 ---
+## 2026-07-26 (DESK-100) — Principal dispositions on the full open ledger; NEXT_WEEK_QUEUE.md created
+Principal responded item-by-item to the prior session's open-tasks report. Doc/skill-only turn
+(explicit "short of tokens" signal honored — no workflows/agents spawned, no code behavior
+changed). **RULED:** PK=3 quadrant never-sells is CORRECT, evidence-backed (firm backtest:
+quadrant-3 funds mean-revert with lower forward underperformance than the catch-all bucket) —
+qfra1-rerun skill updated from "escalated, ambiguous" to "ruled correct, do not change."
+**RELIANCE CONFIRMED SELL** — Principal: "I want reliance remain as sell." Found + fixed a
+STALE duplicate of the same staleness class the last session's audit caught in pf_state:
+`ESCALATIONS_BOARD.md` and `ESCALATIONS_FOR_PRINCIPAL.md` both still showed RELIANCE as
+"Hold (quant Sell)" from before the 2026-07-25 recheck — both now marked RESOLVED/SELL with
+the ratification reference (`pf_qual_RELIANCE.json` recheck_20260725_symmetric, conviction
+55% < 60% rescue bar). **CLARIFIED:** the factor-NAV Excel request was for PRICE (PRI) NAV,
+a different purpose than the MF Dashboard TRI fix — FACTOR_NAVS.xlsx needs no change;
+qfra1-rerun skill's TRI note reworded from "critical, urgent" to "scheduled next week,
+scoped to the Indices sheet only." **NEW SPEC (not built):** young-fund (<1y) verdict rule —
+alpha>-1% → Hold, alpha<-1% → new "No View" verdict; optionally extend to 15-30 of 750 stock
+names — captured precisely in NEXT_WEEK_QUEUE.md item 6, needs 3 clarifying decisions before
+build (age-window definition, deck pill/kind for a 6th verdict value, scorecard-render rule).
+**DEFERRED, ALL CAPTURED in new `01_COMMAND_CENTER/NEXT_WEEK_QUEUE.md`** (timing bands: next
+week vs next-to-next week for token reasons): QFRA-2 Sell-rule backtest + CEO/CIO ratification;
+category-wise benchmark MAP shown visually in the funds_equity chart (data already fixed
+2026-07-26 earlier same day, only the visual legend is pending — noted in ndpms-deck skill
+§PENDING); weekly-stock-run bundle (router 90/60 patch + pf_state re-seed + earnings-feed
+refresh, pushed to week of 08-10); save_mf_recommendations polish (4 sub-items); move
+QFRA2_current.csv out of Downloads into the firm tree; cross-category --verify before Oct-end;
+unify the coverage walk-back between the deck adapter and the save script; Sanjay Kulkarni +
+sector-analyst persona updates. NSDL CAS sample left indefinitely (no timing given). NEXT:
+read NEXT_WEEK_QUEUE.md at the start of the week-of-08-03 session; nothing else pending today.
+
 ## 2026-07-26 (DESK-100) — PER-CATEGORY BENCHMARKS IN DECK + METHOD AUDIT (criticals fixed) + FACTOR_NAVS.xlsx SHIPPED
 **Deck method (Principal):** every fund now measured vs its OWN SEBI category benchmark (N100/N500/Multicap/Smallcap250/N50/65:35 hybrid composite; midcap = NIFTY Midcap 150 TRI), betas recalibrated so realized alphas match verified narratives (LIC Large −5.0pp, HDFC Flexi +4.4pp, ICICI MA +4.7pp vs hybrid BM); MDD/worst-1yr relabeled COMMON 3y WINDOW everywhere (since-inception MDDs across different launch dates are not comparable — Principal ruling); hybrids: down-capture vs own BM + separate "falls vs equity" cushion column; scorecards print "Measured against <benchmark>". All 4 decks re-gated 0/0/0, republished (HNI_v2 + RM_Lite, PPTX+PDF). **2-agent method audit (19 findings: 3 critical / 7 major / 9 minor) — criticals FIXED:** (1) mf_nav_refresh month-end writer kept only schemes on the global max NAV-date (weekend month-end = liquid-only; 2026-07 held 688 rows, zero equity) → per-scheme/per-month upsert, self-healing; July repaired to 8,504 schemes; backfill resume now health-checks months (count + date window) + truncation guard; (2) fund_ctx_adapter 10-char prefix fuzzy-match could hand a client holding a DIFFERENT same-AMC fund's scores → 85%-of-shorter-name bar, fuzzy hits logged to gaps, empty rec = gap (never silent Hold), >8-month anchor staleness flag; (3) **[DATA] Dashboard Indices sheet CONFIRMED PRI, not TRI** (N500 = 21,580.9 on 2025-01-31) — CJ 12M excess flattered ~1.2-1.5pp/yr, SELLs suppressed; MUST rebuild from TRI before Oct-end (source = the new factor store). Skill texts fixed: quadrant-4 = catch-all bucket (PK=3, the true losing quadrant, can NEVER sell — **ESCALATED to Principal: intended vs workbook bug?**); dual-framework wording "both at Sell; a BUY vetoes" (old "non-Hold" allowed Sell-against-BUY); rank-over-ALL-funds. **FACTOR_NAVS.xlsx SHIPPED: `09_PRODUCT/reports/FACTOR_NAVS.xlsx`** — 5,352 daily rows 2005-04-01→2026-07-25 in the Principal's exact lead order (N200 Mom 30 | Midcap Mom 50 | Smallcap Qual Mom 100 | N200 Qual 30 | GOLDBEES | HDFC Liquid(G) | N100 LowVol 30 | N200 Value 30 | +12); seed = Principal's Mf_qfra2 factor_navs.csv (copied into datasets/nifty_factor_indices/), GOLDBEES +136 / HDFC Liquid +201 rows extended via AMFI (house codes probed: HDFC=9, Nippon=21; 30-day chunks); index columns end at seed cut until a home-network niftyindices pull (proxy block re-confirmed today). **Auto-refresh 16th + 29th 08:33** wired (OPERATING_CALENDAR + session cron; builder = 05_DATA_OFFICE/scripts/build_factor_nav_excel.py). **THURSDAY STOCK RUN BLOCKED (audit, high):** run_weekly_v1 still enforces the superseded no-Hold→Sell clamp (not the 90/60 bars), pf_state predates the 07-25/26 recheck (RELIANCE would ship as Hold; 66/125 names lack quant baseline), earnings feed stale (max 07-03, misses all late-July reporters). Required before first run: 90/60 patch + pf_state re-seed + feed refresh (~half-day; Manoj/Kavya + FM sign-off). Also pending: QFRA-2 Sell-derivation mapping (loser_flags>0 OR score<40) needs CEO+CIO ratification; save_mf_recommendations minors; Sanjay/Rohan persona updates.
 

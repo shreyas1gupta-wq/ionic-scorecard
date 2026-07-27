@@ -94,6 +94,20 @@ Principal's PowerPoint — bump PR_SUFFIX, never fight the lock.
   `action in ("Switch","Exit")` check never matched UPPERCASE codes, printing all-STCG.
 - CoPilot CTA is OUT (spec F5 conservative default): cost slide carries a neutral "NEXT STEP"
   line, no product names client-side.
+- Every fund is measured vs its OWN SEBI category benchmark (never one common index):
+  large=N100, largemid=N250, **mid=NIFTY Midcap 150 TRI**, flexi=N500, multi=Multicap
+  50:25:25, small=Smallcap 250, hybrid=N50 Hybrid Composite 65:35 (data layer:
+  `data/azby_family.py` BENCH dict; `bench_label` carried per fund/scheme). MDD/worst-1yr
+  are labeled COMMON 3-YEAR WINDOW everywhere (since-inception drawdowns across different
+  launch dates are not a fair comparison — Principal ruling 2026-07-26).
+
+## PENDING (Principal 2026-07-26, next time — do NOT implement without re-confirming)
+`funds_equity.py`'s paired-bar chart currently shows each fund's own-benchmark CAGR
+correctly in the underlying data, but the chart's visual legend just says "Its category
+benchmark" generically — a reader can't tell WHICH benchmark applies to WHICH fund bar
+from the graph alone (only the scope-tag/source text names it). Principal wants a
+category-wise benchmark MAP visible directly in the graph (e.g., a per-bar label/tick
+annotation, or a small legend table naming fund→benchmark) — not this build, add next time.
 
 ## SLIDEKIT PRIMITIVES THAT PREVENT REGRESSIONS
 `clip_sentences` (whole sentences, decimal-safe), `clip_clause` (sentence/semicolon-only periods,

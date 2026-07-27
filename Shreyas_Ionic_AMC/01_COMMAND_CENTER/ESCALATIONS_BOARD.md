@@ -4,7 +4,7 @@ kanban-plugin: board
 
 ## ⚖️ Pending Principal — stock judgment (31)
 
-- [ ] **RELIANCE** Hold (quant Sell) — three-way call; margin of safety rides on H2-2026 Jio IPO [[Shreyas_Ionic_AMC/04_RND_LAB/STOCK_SCORECARD_750/results/ESCALATIONS_FOR_PRINCIPAL#RELIANCE — Hold (quant: Sell), value Rs 451,773|→ detail]]
+- [x] **RELIANCE** ~~Hold~~ **RESOLVED 2026-07-26: SELL** (rescue conviction 55% < 60% bar; Principal reconfirmed "remain as Sell") [[Shreyas_Ionic_AMC/04_RND_LAB/STOCK_SCORECARD_750/results/ESCALATIONS_FOR_PRINCIPAL#RELIANCE — Hold (quant: Sell), value Rs 451,773|→ detail]]
 - [ ] **SUNPHARMA** Hold — pending $11.75bn debt-funded Organon deal flips net-cash to ~2.3x ND/EBITDA [[Shreyas_Ionic_AMC/04_RND_LAB/STOCK_SCORECARD_750/results/ESCALATIONS_FOR_PRINCIPAL#SUNPHARMA — Hold (quant: Hold), value Rs 632,905|→ detail]]
 - [ ] **HDFCBANK** Hold — FY26 EPS flattered by ~₹9,373cr HDB IPO one-off; LDR normalization behind schedule [[Shreyas_Ionic_AMC/04_RND_LAB/STOCK_SCORECARD_750/results/ESCALATIONS_FOR_PRINCIPAL#HDFCBANK — Hold (quant: Hold), value Rs 902,889|→ detail]]
 - [ ] **POWERINDIA** SELL (quant Hold) — ~150x fails reverse-DCF; order momentum = one HVDC mega-order [[Shreyas_Ionic_AMC/04_RND_LAB/STOCK_SCORECARD_750/results/ESCALATIONS_FOR_PRINCIPAL#POWERINDIA — Sell (quant: Hold), value Rs 436,150|→ detail]]
