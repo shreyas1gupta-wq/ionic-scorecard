@@ -62,9 +62,9 @@ MANDATE: LOW_RISK  ({'objective': 'CAGR', 'mdd_limit': 10.0, 'w_cap': array([0.2
 NAIVE  weights: {'SWEEP': np.float64(0.25), 'CALENDAR': np.float64(0.2), 'OVERSHOOT': np.float64(0.08), 'LD_SELL': np.float64(0.1), 'BOOK': np.float64(0.25)}
   FIT : {'span': '2022-01-04..2023-12-31', 'years': 1.99, 'net_rs': 3153561, 'CAGR_pct': 14.79, 'maxDD_pct': -6.45, 'maxDD_rs': -648378, 'Calmar': 2.292, 'Sharpe': 2.01, 'PF': 1.71, 'months': 24, 'month_win_pct': 70.8, 'worst_month_pct': -2.96, 'worst_day_pct': -1.74, 'active_days': 497}
   EVAL: {'span': '2024-01-01..2025-12-31', 'years': 2.0, 'net_rs': 2436593, 'CAGR_pct': 11.53, 'maxDD_pct': -6.47, 'maxDD_rs': -836727, 'Calmar': 1.782, 'Sharpe': 1.47, 'PF': 1.44, 'months': 24, 'month_win_pct': 54.2, 'worst_month_pct': -2.63, 'worst_day_pct': -1.31, 'active_days': 502}   OOS/IS(Calmar)=0.777
-FITTED weights: {'SWEEP': np.float64(0.275), 'CALENDAR': np.float64(0.22), 'OVERSHOOT': np.float64(0.0197), 'LD_SELL': np.float64(0.11), 'BOOK': np.float64(0.275)}
-  FIT : {'span': '2022-01-04..2023-12-31', 'years': 1.99, 'net_rs': 3470325, 'CAGR_pct': 16.17, 'maxDD_pct': -7.13, 'maxDD_rs': -716665, 'Calmar': 2.269, 'Sharpe': 2.01, 'PF': 1.71, 'months': 24, 'month_win_pct': 70.8, 'worst_month_pct': -3.28, 'worst_day_pct': -1.91, 'active_days': 497}
-  EVAL: {'span': '2024-01-01..2025-12-31', 'years': 2.0, 'net_rs': 2662977, 'CAGR_pct': 12.54, 'maxDD_pct': -6.96, 'maxDD_rs': -919926, 'Calmar': 1.801, 'Sharpe': 1.47, 'PF': 1.43, 'months': 24, 'month_win_pct': 54.2, 'worst_month_pct': -2.88, 'worst_day_pct': -1.44, 'active_days': 502}   OOS/IS(Calmar)=0.794
+FITTED weights: {'SWEEP': np.float64(0.275), 'CALENDAR': np.float64(0.22), 'OVERSHOOT': np.float64(0.0), 'LD_SELL': np.float64(0.11), 'BOOK': np.float64(0.275)}
+  FIT : {'span': '2022-01-04..2023-12-31', 'years': 1.99, 'net_rs': 3470324, 'CAGR_pct': 16.17, 'maxDD_pct': -7.14, 'maxDD_rs': -717579, 'Calmar': 2.266, 'Sharpe': 2.01, 'PF': 1.71, 'months': 24, 'month_win_pct': 70.8, 'worst_month_pct': -3.29, 'worst_day_pct': -1.91, 'active_days': 490}
+  EVAL: {'span': '2024-01-01..2025-12-31', 'years': 2.0, 'net_rs': 2657666, 'CAGR_pct': 12.52, 'maxDD_pct': -6.96, 'maxDD_rs': -919681, 'Calmar': 1.797, 'Sharpe': 1.46, 'PF': 1.43, 'months': 24, 'month_win_pct': 54.2, 'worst_month_pct': -2.88, 'worst_day_pct': -1.44, 'active_days': 488}   OOS/IS(Calmar)=0.793
   -> CHOSEN for LOW_RISK: NAIVE  (obj_key=CAGR_pct, obj_wins=False, not_degenerate=True)
 
 ====================================================================================================
@@ -74,9 +74,9 @@ MANDATE: HIGH_CAGR  ({'objective': 'CAGR', 'mdd_limit': 25.0, 'w_cap': array([0.
 NAIVE  weights: {'SWEEP': np.float64(0.0723), 'CALENDAR': np.float64(1.0928), 'OVERSHOOT': np.float64(0.625), 'LD_SELL': np.float64(0.6001), 'BOOK': np.float64(0.1098)}
   FIT : {'span': '2022-01-04..2023-12-31', 'years': 1.99, 'net_rs': 1861814, 'CAGR_pct': 8.97, 'maxDD_pct': -1.67, 'maxDD_rs': -166748, 'Calmar': 5.383, 'Sharpe': 2.54, 'PF': 1.93, 'months': 24, 'month_win_pct': 79.2, 'worst_month_pct': -0.75, 'worst_day_pct': -0.76, 'active_days': 497}
   EVAL: {'span': '2024-01-01..2025-12-31', 'years': 2.0, 'net_rs': 1836887, 'CAGR_pct': 8.8, 'maxDD_pct': -2.58, 'maxDD_rs': -298180, 'Calmar': 3.415, 'Sharpe': 1.86, 'PF': 1.65, 'months': 24, 'month_win_pct': 75.0, 'worst_month_pct': -1.5, 'worst_day_pct': -1.98, 'active_days': 502}   OOS/IS(Calmar)=0.634
-FITTED weights: {'SWEEP': np.float64(1.2295), 'CALENDAR': np.float64(0.1991), 'OVERSHOOT': np.float64(0.1021), 'LD_SELL': np.float64(0.1551), 'BOOK': np.float64(0.7732)}
-  FIT : {'span': '2022-01-04..2023-12-31', 'years': 1.99, 'net_rs': 12238243, 'CAGR_pct': 49.49, 'maxDD_pct': -24.78, 'maxDD_rs': -2503488, 'Calmar': 1.997, 'Sharpe': 1.75, 'PF': 1.65, 'months': 24, 'month_win_pct': 58.3, 'worst_month_pct': -12.17, 'worst_day_pct': -5.37, 'active_days': 497}
-  EVAL: {'span': '2024-01-01..2025-12-31', 'years': 2.0, 'net_rs': 10184980, 'CAGR_pct': 42.11, 'maxDD_pct': -18.06, 'maxDD_rs': -4116607, 'Calmar': 2.332, 'Sharpe': 1.4, 'PF': 1.44, 'months': 24, 'month_win_pct': 58.3, 'worst_month_pct': -12.96, 'worst_day_pct': -5.25, 'active_days': 502}   OOS/IS(Calmar)=1.168
+FITTED weights: {'SWEEP': np.float64(1.1921), 'CALENDAR': np.float64(0.0902), 'OVERSHOOT': np.float64(0.0274), 'LD_SELL': np.float64(0.3134), 'BOOK': np.float64(0.7867)}
+  FIT : {'span': '2022-01-04..2023-12-31', 'years': 1.99, 'net_rs': 12229197, 'CAGR_pct': 49.46, 'maxDD_pct': -24.71, 'maxDD_rs': -2496898, 'Calmar': 2.002, 'Sharpe': 1.79, 'PF': 1.66, 'months': 24, 'month_win_pct': 62.5, 'worst_month_pct': -12.21, 'worst_day_pct': -5.46, 'active_days': 497}
+  EVAL: {'span': '2024-01-01..2025-12-31', 'years': 2.0, 'net_rs': 10040916, 'CAGR_pct': 41.6, 'maxDD_pct': -17.64, 'maxDD_rs': -3976979, 'Calmar': 2.359, 'Sharpe': 1.41, 'PF': 1.44, 'months': 24, 'month_win_pct': 58.3, 'worst_month_pct': -12.65, 'worst_day_pct': -5.08, 'active_days': 502}   OOS/IS(Calmar)=1.178
   -> CHOSEN for HIGH_CAGR: FITTED  (obj_key=CAGR_pct, obj_wins=True, not_degenerate=True)
 
 ====================================================================================================
@@ -86,9 +86,9 @@ MANDATE: BALANCED  ({'objective': 'CALMAR', 'mdd_limit': 25.0, 'w_cap': array([0
 NAIVE  weights: {'SWEEP': np.float64(0.1786), 'CALENDAR': np.float64(0.525), 'OVERSHOOT': np.float64(0.225), 'LD_SELL': np.float64(0.3), 'BOOK': np.float64(0.2714)}
   FIT : {'span': '2022-01-04..2023-12-31', 'years': 1.99, 'net_rs': 3108188, 'CAGR_pct': 14.59, 'maxDD_pct': -5.83, 'maxDD_rs': -586258, 'Calmar': 2.503, 'Sharpe': 2.33, 'PF': 1.79, 'months': 24, 'month_win_pct': 70.8, 'worst_month_pct': -2.56, 'worst_day_pct': -1.88, 'active_days': 497}
   EVAL: {'span': '2024-01-01..2025-12-31', 'years': 2.0, 'net_rs': 2355417, 'CAGR_pct': 11.16, 'maxDD_pct': -4.11, 'maxDD_rs': -517769, 'Calmar': 2.713, 'Sharpe': 1.59, 'PF': 1.47, 'months': 24, 'month_win_pct': 58.3, 'worst_month_pct': -1.96, 'worst_day_pct': -1.79, 'active_days': 502}   OOS/IS(Calmar)=1.084
-FITTED weights: {'SWEEP': np.float64(0.1675), 'CALENDAR': np.float64(0.3842), 'OVERSHOOT': np.float64(0.1646), 'LD_SELL': np.float64(0.2195), 'BOOK': np.float64(0.0628)}
-  FIT : {'span': '2022-01-04..2023-12-31', 'years': 1.99, 'net_rs': 1655699, 'CAGR_pct': 8.01, 'maxDD_pct': -2.51, 'maxDD_rs': -250538, 'Calmar': 3.197, 'Sharpe': 1.82, 'PF': 1.69, 'months': 24, 'month_win_pct': 62.5, 'worst_month_pct': -1.32, 'worst_day_pct': -0.54, 'active_days': 497}
-  EVAL: {'span': '2024-01-01..2025-12-31', 'years': 2.0, 'net_rs': 1627679, 'CAGR_pct': 7.84, 'maxDD_pct': -3.63, 'maxDD_rs': -429804, 'Calmar': 2.159, 'Sharpe': 1.62, 'PF': 1.57, 'months': 24, 'month_win_pct': 62.5, 'worst_month_pct': -1.86, 'worst_day_pct': -0.81, 'active_days': 502}   OOS/IS(Calmar)=0.675
+FITTED weights: {'SWEEP': np.float64(0.1734), 'CALENDAR': np.float64(0.3844), 'OVERSHOOT': np.float64(0.1647), 'LD_SELL': np.float64(0.2196), 'BOOK': np.float64(0.0576)}
+  FIT : {'span': '2022-01-04..2023-12-31', 'years': 1.99, 'net_rs': 1658573, 'CAGR_pct': 8.03, 'maxDD_pct': -2.51, 'maxDD_rs': -251224, 'Calmar': 3.193, 'Sharpe': 1.77, 'PF': 1.67, 'months': 24, 'month_win_pct': 62.5, 'worst_month_pct': -1.33, 'worst_day_pct': -0.54, 'active_days': 497}
+  EVAL: {'span': '2024-01-01..2025-12-31', 'years': 2.0, 'net_rs': 1653259, 'CAGR_pct': 7.96, 'maxDD_pct': -3.76, 'maxDD_rs': -446850, 'Calmar': 2.114, 'Sharpe': 1.6, 'PF': 1.57, 'months': 24, 'month_win_pct': 62.5, 'worst_month_pct': -1.92, 'worst_day_pct': -0.79, 'active_days': 502}   OOS/IS(Calmar)=0.662
   -> CHOSEN for BALANCED: NAIVE  (obj_key=Calmar, obj_wins=False, not_degenerate=True)
 
 ====================================================================================================
@@ -97,29 +97,35 @@ DYNAMIC WEIGHTING TEST -- CPPI-style drawdown-floor overlay vs STATIC (mandate: 
 [NOTE] Regime-conditioning on monthly sleeve P&L already tested in this lab and FAILED (28
  cells, 0 candidates, 22 dead, n only 111-172 months) -- not re-run here per the mandate's
  own instruction; only the CPPI/drawdown-floor variant (the promising one) is tested below.
-STATIC  (BALANCED weights, FULL_EXT 2022-2026H1): {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 5541987, 'CAGR_pct': 10.29, 'maxDD_pct': -5.83, 'maxDD_rs': -586258, 'Calmar': 1.765, 'Sharpe': 1.81, 'PF': 1.57, 'months': 55, 'month_win_pct': 63.6, 'worst_month_pct': -2.56, 'worst_day_pct': -1.88, 'active_days': 1088}
-CPPI    (same weights, dd-floor 6%->35% exposure, recover<2%): {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 5541987, 'CAGR_pct': 10.29, 'maxDD_pct': -5.83, 'maxDD_rs': -586258, 'Calmar': 1.765, 'Sharpe': 1.81, 'PF': 1.57, 'months': 55, 'month_win_pct': 63.6, 'worst_month_pct': -2.56, 'worst_day_pct': -1.88, 'active_days': 1088}
-CPPI helps? CAGR WORSE, maxDD WORSE, Calmar WORSE
+[LOW_RISK] STATIC : {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 5755913, 'CAGR_pct': 10.62, 'maxDD_pct': -6.45, 'maxDD_rs': -836727, 'Calmar': 1.646, 'Sharpe': 1.64, 'PF': 1.54, 'months': 55, 'month_win_pct': 61.8, 'worst_month_pct': -2.96, 'worst_day_pct': -1.74, 'active_days': 1088}
+[LOW_RISK] CPPI   : {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 4963130, 'CAGR_pct': 9.36, 'maxDD_pct': -6.31, 'maxDD_rs': -836727, 'Calmar': 1.484, 'Sharpe': 1.52, 'PF': 1.48, 'months': 55, 'month_win_pct': 60.0, 'worst_month_pct': -2.96, 'worst_day_pct': -1.74, 'active_days': 1088}
+[LOW_RISK] CPPI helps? CAGR WORSE, maxDD better, Calmar WORSE
+[HIGH_CAGR] STATIC : {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 23098978, 'CAGR_pct': 30.44, 'maxDD_pct': -24.71, 'maxDD_rs': -3976979, 'Calmar': 1.232, 'Sharpe': 1.51, 'PF': 1.52, 'months': 55, 'month_win_pct': 60.0, 'worst_month_pct': -12.65, 'worst_day_pct': -5.46, 'active_days': 1088}
+[HIGH_CAGR] CPPI   : {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 16739732, 'CAGR_pct': 24.41, 'maxDD_pct': -14.36, 'maxDD_rs': -2631158, 'Calmar': 1.699, 'Sharpe': 1.32, 'PF': 1.48, 'months': 55, 'month_win_pct': 60.0, 'worst_month_pct': -9.37, 'worst_day_pct': -5.46, 'active_days': 1088}
+[HIGH_CAGR] CPPI helps? CAGR WORSE, maxDD better, Calmar better
+[BALANCED] STATIC : {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 5541987, 'CAGR_pct': 10.29, 'maxDD_pct': -5.83, 'maxDD_rs': -586258, 'Calmar': 1.765, 'Sharpe': 1.81, 'PF': 1.57, 'months': 55, 'month_win_pct': 63.6, 'worst_month_pct': -2.56, 'worst_day_pct': -1.88, 'active_days': 1088}
+[BALANCED] CPPI   : {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 5541987, 'CAGR_pct': 10.29, 'maxDD_pct': -5.83, 'maxDD_rs': -586258, 'Calmar': 1.765, 'Sharpe': 1.81, 'PF': 1.57, 'months': 55, 'month_win_pct': 63.6, 'worst_month_pct': -2.56, 'worst_day_pct': -1.88, 'active_days': 1088}
+[BALANCED] CPPI helps? CAGR WORSE, maxDD WORSE, Calmar WORSE
 
 ====================================================================================================
 FINAL PORTFOLIO METRICS (chosen weights, FULL_EXT window incl. post-BOOK-data 2026H1)
 ====================================================================================================
 LOW_RISK {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 5755913, 'CAGR_pct': 10.62, 'maxDD_pct': -6.45, 'maxDD_rs': -836727, 'Calmar': 1.646, 'Sharpe': 1.64, 'PF': 1.54, 'months': 55, 'month_win_pct': 61.8, 'worst_month_pct': -2.96, 'worst_day_pct': -1.74, 'active_days': 1088, 'worst_3mo_stretch_pct': -4.98, 'capital_deployed_pct': np.float64(88.0), 'capital_utilisation_pct': np.float64(28.7), 'per_sleeve_active_frac_pct': {'SWEEP': np.float64(36.6), 'CALENDAR': np.float64(3.0), 'OVERSHOOT': np.float64(49.3), 'LD_SELL': np.float64(7.0), 'BOOK': np.float64(57.2)}}
-HIGH_CAGR {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 23305375, 'CAGR_pct': 30.62, 'maxDD_pct': -24.78, 'maxDD_rs': -4116607, 'Calmar': 1.236, 'Sharpe': 1.49, 'PF': 1.52, 'months': 55, 'month_win_pct': 58.2, 'worst_month_pct': -12.96, 'worst_day_pct': -5.37, 'active_days': 1088, 'worst_3mo_stretch_pct': -23.07, 'capital_deployed_pct': np.float64(245.9), 'capital_utilisation_pct': np.float64(96.0), 'per_sleeve_active_frac_pct': {'SWEEP': np.float64(36.6), 'CALENDAR': np.float64(3.0), 'OVERSHOOT': np.float64(49.3), 'LD_SELL': np.float64(7.0), 'BOOK': np.float64(57.2)}}
+HIGH_CAGR {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 23098978, 'CAGR_pct': 30.44, 'maxDD_pct': -24.71, 'maxDD_rs': -3976979, 'Calmar': 1.232, 'Sharpe': 1.51, 'PF': 1.52, 'months': 55, 'month_win_pct': 60.0, 'worst_month_pct': -12.65, 'worst_day_pct': -5.46, 'active_days': 1088, 'worst_3mo_stretch_pct': -22.52, 'capital_deployed_pct': np.float64(241.0), 'capital_utilisation_pct': np.float64(92.5), 'per_sleeve_active_frac_pct': {'SWEEP': np.float64(36.6), 'CALENDAR': np.float64(3.0), 'OVERSHOOT': np.float64(49.3), 'LD_SELL': np.float64(7.0), 'BOOK': np.float64(57.2)}}
 BALANCED {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 5541987, 'CAGR_pct': 10.29, 'maxDD_pct': -5.83, 'maxDD_rs': -586258, 'Calmar': 1.765, 'Sharpe': 1.81, 'PF': 1.57, 'months': 55, 'month_win_pct': 63.6, 'worst_month_pct': -2.56, 'worst_day_pct': -1.88, 'active_days': 1088, 'worst_3mo_stretch_pct': -4.01, 'capital_deployed_pct': np.float64(150.0), 'capital_utilisation_pct': np.float64(36.9), 'per_sleeve_active_frac_pct': {'SWEEP': np.float64(36.6), 'CALENDAR': np.float64(3.0), 'OVERSHOOT': np.float64(49.3), 'LD_SELL': np.float64(7.0), 'BOOK': np.float64(57.2)}}
 
 ====================================================================================================
 PORTFOLIO-vs-SLEEVE correlation (monthly & quarterly), FULL_EXT window
 ====================================================================================================
 LOW_RISK {'SWEEP': (0.867, 0.863), 'CALENDAR': (0.064, 0.101), 'OVERSHOOT': (-0.136, -0.415), 'LD_SELL': (0.031, 0.267), 'BOOK': (0.586, 0.515)}
-HIGH_CAGR {'SWEEP': (0.937, 0.936), 'CALENDAR': (0.06, 0.126), 'OVERSHOOT': (-0.093, -0.356), 'LD_SELL': (0.002, 0.206), 'BOOK': (0.45, 0.367)}
+HIGH_CAGR {'SWEEP': (0.93, 0.928), 'CALENDAR': (0.055, 0.121), 'OVERSHOOT': (-0.101, -0.37), 'LD_SELL': (0.019, 0.22), 'BOOK': (0.464, 0.386)}
 BALANCED {'SWEEP': (0.761, 0.754), 'CALENDAR': (0.127, 0.156), 'OVERSHOOT': (-0.171, -0.462), 'LD_SELL': (0.155, 0.403), 'BOOK': (0.691, 0.636)}
 
 ====================================================================================================
 LOT / CAPITAL FEASIBILITY  (1 AU = Rs10L natural allocation per sleeve)
 ====================================================================================================
 LOW_RISK AU@1cr: {'SWEEP': 2.5, 'CALENDAR': 2.0, 'OVERSHOOT': 0.8, 'LD_SELL': 1.0, 'BOOK': 2.5}  total: 8.8  | AU@10L: {'SWEEP': 0.25, 'CALENDAR': 0.2, 'OVERSHOOT': 0.08, 'LD_SELL': 0.1, 'BOOK': 0.25}  total: 0.88
-HIGH_CAGR AU@1cr: {'SWEEP': 12.29, 'CALENDAR': 1.99, 'OVERSHOOT': 1.02, 'LD_SELL': 1.55, 'BOOK': 7.73}  total: 24.58  | AU@10L: {'SWEEP': 1.23, 'CALENDAR': 0.199, 'OVERSHOOT': 0.102, 'LD_SELL': 0.155, 'BOOK': 0.773}  total: 2.459
+HIGH_CAGR AU@1cr: {'SWEEP': 11.92, 'CALENDAR': 0.9, 'OVERSHOOT': 0.27, 'LD_SELL': 3.13, 'BOOK': 7.87}  total: 24.09  | AU@10L: {'SWEEP': 1.192, 'CALENDAR': 0.09, 'OVERSHOOT': 0.027, 'LD_SELL': 0.313, 'BOOK': 0.787}  total: 2.409
 BALANCED AU@1cr: {'SWEEP': 1.79, 'CALENDAR': 5.25, 'OVERSHOOT': 2.25, 'LD_SELL': 3.0, 'BOOK': 2.71}  total: 15.0  | AU@10L: {'SWEEP': 0.179, 'CALENDAR': 0.525, 'OVERSHOOT': 0.225, 'LD_SELL': 0.3, 'BOOK': 0.271}  total: 1.5
 
 WROTE: c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\THREE_PORTFOLIOS_20260731\weights.csv c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\THREE_PORTFOLIOS_20260731\portfolio_daily.json c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\THREE_PORTFOLIOS_20260731\_state.pkl

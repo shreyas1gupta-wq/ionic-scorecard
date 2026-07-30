@@ -333,16 +333,19 @@ MANDATES = {
                       cagr_floor=8.0),
 }
 
+SEEDS = {"LOW_RISK": 101, "HIGH_CAGR": 202, "BALANCED": 303}  # fixed (Python's hash() of a string
+# is randomized per-process by default -- using it as a seed made the "FITTED" search silently
+# non-reproducible run to run; fixed here for a reproducible artifact).
 results = {}
 for pname, cfg in MANDATES.items():
     print("\n" + "=" * 100)
     print(f"MANDATE: {pname}  ({cfg})")
     print("=" * 100)
     w_fit, info_fit = scan_weights(mat_fit, n_samples=40000, w_cap=cfg["w_cap"], gross_cap=cfg["gross_cap"],
-                                    objective=cfg["objective"], mdd_limit=cfg["mdd_limit"], seed=hash(pname) % 10000,
+                                    objective=cfg["objective"], mdd_limit=cfg["mdd_limit"], seed=SEEDS[pname],
                                     cagr_floor=cfg["cagr_floor"])
     # polish: local refinement around best with tighter dirichlet noise
-    rng2 = np.random.default_rng(hash(pname + "polish") % 10000)
+    rng2 = np.random.default_rng(SEEDS[pname] + 1)
     for _ in range(3):
         noise = rng2.normal(0, 0.03, size=(20000, len(SLEEVES)))
         cand = np.clip(w_fit[None, :] + noise, 0, cfg["w_cap"])
@@ -472,16 +475,24 @@ def cppi_overlay(mat: pd.DataFrame, w_base: np.ndarray, idx, cap: float,
     return pd.Series(out, index=idx)
 
 
-bal_w = results["BALANCED"]["chosen_w_arr"]
-static_full = combined(mat_full, bal_w)
-static_m = port_metrics_from_arr(static_full, idx_full, TOTAL_CAPITAL)
-cppi_full = cppi_overlay(mat_full, bal_w, idx_full, TOTAL_CAPITAL)
-cppi_m = eq_metrics(cppi_full, TOTAL_CAPITAL)
-print(f"STATIC  (BALANCED weights, FULL_EXT 2022-2026H1): {static_m}")
-print(f"CPPI    (same weights, dd-floor 6%->35% exposure, recover<2%): {cppi_m}")
-print(f"CPPI helps? CAGR {'better' if (cppi_m['CAGR_pct'] or -9) > (static_m['CAGR_pct'] or -9) else 'WORSE'}, "
-      f"maxDD {'better' if abs(cppi_m['maxDD_pct']) < abs(static_m['maxDD_pct']) else 'WORSE'}, "
-      f"Calmar {'better' if (cppi_m['Calmar'] or -9) > (static_m['Calmar'] or -9) else 'WORSE'}")
+# Tested on HIGH_CAGR (real drawdown depth, -24.78% MDD -- BALANCED/LOW_RISK barely draw down at
+# all, -5..7%, so a 6% floor never engages there and the test is a non-event; HIGH_CAGR is where a
+# drawdown-floor overlay could actually matter).
+cppi_results = {}
+for pname in MANDATES:
+    w_ = results[pname]["chosen_w_arr"]
+    static_full_ = combined(mat_full, w_)
+    static_m_ = port_metrics_from_arr(static_full_, idx_full, TOTAL_CAPITAL)
+    cppi_full_ = cppi_overlay(mat_full, w_, idx_full, TOTAL_CAPITAL)
+    cppi_m_ = eq_metrics(cppi_full_, TOTAL_CAPITAL)
+    cppi_results[pname] = dict(static=static_m_, cppi=cppi_m_)
+    print(f"[{pname}] STATIC : {static_m_}")
+    print(f"[{pname}] CPPI   : {cppi_m_}")
+    print(f"[{pname}] CPPI helps? CAGR {'better' if (cppi_m_['CAGR_pct'] or -9) > (static_m_['CAGR_pct'] or -9) else 'WORSE'}, "
+          f"maxDD {'better' if abs(cppi_m_['maxDD_pct']) < abs(static_m_['maxDD_pct']) else 'WORSE'}, "
+          f"Calmar {'better' if (cppi_m_['Calmar'] or -9) > (static_m_['Calmar'] or -9) else 'WORSE'}")
+# headline pair used in the report = HIGH_CAGR (the only one where the floor actually engages)
+static_m, cppi_m = cppi_results["HIGH_CAGR"]["static"], cppi_results["HIGH_CAGR"]["cppi"]
 
 # ---------------------------------------------------------------- finished-portfolio metrics (chosen weights, FULL_EXT)
 print("\n" + "=" * 100)
@@ -557,13 +568,14 @@ for pname in MANDATES:
     w = results[pname]["chosen_w_arr"]
     s_full = pd.Series(combined(mat_full, w), index=idx_full)
     port_daily_out[pname] = {d.strftime("%Y-%m-%d"): round(float(v), 2) for d, v in s_full.items() if v != 0}
-port_daily_out["CPPI_on_BALANCED"] = {d.strftime("%Y-%m-%d"): round(float(v), 2) for d, v in cppi_full.items() if v != 0}
+cppi_full_high_cagr = cppi_overlay(mat_full, results["HIGH_CAGR"]["chosen_w_arr"], idx_full, TOTAL_CAPITAL)
+port_daily_out["CPPI_on_HIGH_CAGR"] = {d.strftime("%Y-%m-%d"): round(float(v), 2) for d, v in cppi_full_high_cagr.items() if v != 0}
 json.dump(port_daily_out, open(OUT / "portfolio_daily.json", "w"), indent=0)
 
 # stash everything needed for the .md writer
 import pickle
 pickle.dump(dict(sleeve_full_metrics=sleeve_full_metrics, crash_df=crash_df, results=results,
-                  static_m=static_m, cppi_m=cppi_m, final_rows=final_rows, corr_df=corr_df,
+                  static_m=static_m, cppi_m=cppi_m, cppi_results=cppi_results, final_rows=final_rows, corr_df=corr_df,
                   feas_rows=feas_rows, naive_w=naive_w_raw.to_dict(), cap_table=CAP_TABLE.to_dict(),
                   FIT_START=FIT_START, FIT_END=FIT_END, EVAL_START=EVAL_START, EVAL_END=EVAL_END,
                   CW_START=CW_START, FULL_END=FULL_END),

@@ -263,20 +263,45 @@ for k in ts_keys:
     pnl_col = "pnl_o" if "pnl_o" in df.columns else [c for c in df.columns if "pnl" in c.lower()][0]
     ts_daily[k] = df.groupby(pd.to_datetime(df[day_col]).dt.normalize())[pnl_col].sum()
 ts_matrix = pd.DataFrame(ts_daily).sort_index()
-# headline = the position-capped/non-overlapping corrected series is the honest one per the session
-# journal (raw overlapping THREE_SOLDIERS inflated t by 2.9-10.7x); use the filter=none/RR2.0-ish
-# middle cell as representative if a specific "adopted" cell isn't separately saved
-headline_col = [c for c in ts_matrix.columns if "|none|" in c]
-headline_ts = ts_matrix[headline_col[0]] if headline_col else ts_matrix.iloc[:, 0]
-rep = candidate_report("THREE_SOLDIERS", ts_matrix, headline_ts, N_raw_family=30,
-                        label="6 filters x 5 exits for the ONE formation that survived the random-entry "
-                              "placebo (30 of the parent 480-cell candle grid); NOTE raw cells here are "
-                              "STILL THE OVERLAPPING version (multiple concurrent positions per the "
-                              "session's own Defect-1 finding) -- this DSR uses the overlapping per-trade "
-                              "series as-is, so it is upper-bound/optimistic versus the position-capped "
-                              "n=758 Newey-West re-test (t_NW 7.85) the desk already ran separately.")
+rho_bar_ts, neff_corr_ts, neff_pca_ts = effective_n(ts_matrix)
+print(f"Raw (overlapping) 30-cell grid correlation structure: avg_abs_corr={rho_bar_ts:.4f}, "
+      f"N_eff_corr={neff_corr_ts:.4f} -- used as a PROXY for family redundancy (the redundancy driver is "
+      "shared formation/filter/exit, not the overlap artifact, so this should transfer reasonably to the "
+      "corrected series; the SHARPE itself does not transfer, see below).")
+
+# Use the session's OWN already-corrected, position-capped, non-overlapping headline
+# (nonoverlap_cells.csv row 'THREE_SOLDIERS|none|BE_1R_trail|hold78': n=758, t_NW=7.85) rather
+# than my own day-summed overlapping series, which is NOT the same statistical object (day-summing
+# overlapping concurrent positions mixes ~3-10x correlated exposure into each observation and is not
+# a valid single-position-at-a-time trade series). Back out an approximate per-trade Sharpe from the
+# already-published Newey-West t: sharpe_per_trade ~= t_NW / sqrt(n) [INFERENCE -- a standard-error
+# back-solve, not a re-derivation of the NW covariance itself; skew/kurtosis inherited from the raw
+# overlapping series below as the best available proxy, since no per-trade file was saved for the
+# corrected series and re-deriving it means re-running the backtest, out of scope for an audit pass].
+noc = pd.read_csv(f"{R}/CANDLE_MTF_20260730/nonoverlap_cells.csv")
+row = noc[noc.cell == "THREE_SOLDIERS|none|BE_1R_trail|hold78"].iloc[0]
+n_corrected = int(row["n"])
+t_nw_corrected = float(row["t_NW"])
+sr_hat_corrected = t_nw_corrected / np.sqrt(n_corrected)
+raw_col = [c for c in ts_matrix.columns if "|none|" in c][0]
+skew_proxy = float(stats.skew(ts_matrix[raw_col].dropna().values))
+kurt_proxy = float(stats.kurtosis(ts_matrix[raw_col].dropna().values, fisher=False))
+var_sr_ts = np.nanvar([sharpe(ts_matrix.iloc[:, j].dropna().values) for j in range(ts_matrix.shape[1])], ddof=1)
+dsr_ts, sr0_ts, z_ts = dsr(sr_hat_corrected, n_corrected, skew_proxy, kurt_proxy, max(neff_corr_ts, 1.001), var_sr_ts)
+rep = dict(candidate="THREE_SOLDIERS", label="headline = session's OWN position-capped/non-overlapping "
+           "series (n=758, t_NW=7.85, the corrected reading after the 2.9-10.7x overlap bug fix); "
+           "N_eff from the raw 30-cell (6 filters x 5 exits) overlapping grid as a redundancy-structure "
+           "proxy [INFERENCE, see notes]", n_obs=n_corrected, sharpe_hat=round(sr_hat_corrected, 4),
+           skew=round(skew_proxy, 4), kurt_nonexcess=round(kurt_proxy, 4), N_raw_measured=30,
+           N_raw_family_stated=30, avg_abs_corr=round(rho_bar_ts, 4), N_eff_corr=round(neff_corr_ts, 4),
+           N_eff_pca=round(neff_pca_ts, 4), DSR_using_Neff=round(dsr_ts, 6), PBO_CSCV=np.nan)
 print(rep)
+print("[Also shown for disclosure -- the RAW overlapping day-summed series, upper-bound/optimistic:]")
+rep_raw = candidate_report("THREE_SOLDIERS_raw_overlapping_UPPERBOUND", ts_matrix, ts_matrix[raw_col],
+                            N_raw_family=30, label="raw overlapping day-sum, NOT the corrected reading")
+print(rep_raw)
 results.append(rep)
+results.append(rep_raw)
 
 # =============================================================================
 # WRITE OUT

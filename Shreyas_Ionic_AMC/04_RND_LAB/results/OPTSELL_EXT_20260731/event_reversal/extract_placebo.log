@@ -1,0 +1,17 @@
+﻿[extract] 280 placebo candidates
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+[expiry] 0 candidates with no suitable expiry (dropped)
+[extract] 87 distinct expiries
+[ckpt] 15/87 expiries, 40 trades, free RAM 2.87GB, elapsed 13s
+[ckpt] 30/87 expiries, 79 trades, free RAM 2.92GB, elapsed 23s
+[ckpt] 45/87 expiries, 117 trades, free RAM 2.95GB, elapsed 31s
+[ckpt] 60/87 expiries, 158 trades, free RAM 2.78GB, elapsed 39s
+[ckpt] 75/87 expiries, 207 trades, free RAM 2.73GB, elapsed 48s
+[ckpt] 87/87 expiries, 226 trades, free RAM 2.75GB, elapsed 53s
+[done] 226 placebo trades extracted
+cell
+PLACEBO_2D     79
+PLACEBO_3D    111
+PLACEBO_5D     36
+dtype: int64
