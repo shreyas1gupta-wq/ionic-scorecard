@@ -1,0 +1,55 @@
+                                   label    n  trades_per_month  mean_net_pnl  win_rate    avg_rr    t_stat  concentration_top1_frac  maxDD_pct_of_avg_capital
+0             straddle_DTE15_hold=expiry  221          1.762442    -12.125973  0.434389  1.164901 -0.648431                 0.052226              -1472.618439
+1             straddle_DTE30_hold=expiry  122          0.978314    -28.684262  0.426230  1.123740 -0.753837                 0.115181              -1298.598140
+2             straddle_DTE45_hold=expiry   77          0.622049    -10.769870  0.441558  1.194892 -0.166995                 0.196848               -896.119128
+3             straddle_DTE60_hold=expiry   62          0.500870      2.555161  0.516129  0.948505  0.034326                 0.145729               -391.265837
+4             straddle_DTE90_hold=expiry   41          0.336853     -4.071707  0.463415  1.140507 -0.037645                 0.134253               -577.032993
+5       straddle_DTE45_hold=partial50pct  124          1.001475    -10.790403  0.379032  1.472720 -0.367646                 0.190576               -563.011102
+6    straddle_DTE60_gate=vix_low_le25pct   20          0.190607     33.185000  0.500000  1.205489  0.256835                 0.511053               -215.582938
+7   straddle_DTE60_gate=vix_high_ge75pct   11          0.122115   -131.740000  0.454545  0.779923 -0.552683                 0.553061               -369.437421
+8   straddle_DTE60_gate=rv20_low_le25pct   15          0.142956   -104.603333  0.533333  0.406735 -1.021752                 0.369519               -357.978084
+9              CE_only_DTE60_hold=expiry   62          0.500870     50.173548  0.435484  1.592448  0.623866                 0.135549               -859.604077
+10             PE_only_DTE60_hold=expiry   62          0.500870    -47.618387  0.258065  2.247269 -0.786114                 0.132821              -1883.881059
+
+--- era splits ---
+             era    n        mean  win_rate              arm
+0   2019_2024sep  142  -19.673451  0.394366     DTE15_expiry
+1   2024oct_plus   42  -37.379286  0.428571     DTE15_expiry
+2        pre2019   37   45.505946  0.594595     DTE15_expiry
+3   HELDOUT_2026   11  -51.935455  0.545455     DTE15_expiry
+4   2019_2024sep   68   -7.192941  0.411765     DTE30_expiry
+5   2024oct_plus   19 -202.655789  0.315789     DTE30_expiry
+6        pre2019   35   24.002857  0.514286     DTE30_expiry
+7   HELDOUT_2026    4 -699.090000  0.000000     DTE30_expiry
+8   2019_2024sep   42   44.642143  0.476190     DTE45_expiry
+9   2024oct_plus   12 -334.985833  0.250000     DTE45_expiry
+10       pre2019   23   57.199130  0.478261     DTE45_expiry
+11  HELDOUT_2026    2 -620.540000  0.000000     DTE45_expiry
+12  2019_2024sep   34   23.921765  0.529412     DTE60_expiry
+13  2024oct_plus    9 -184.090000  0.555556     DTE60_expiry
+14       pre2019   19   52.731053  0.473684     DTE60_expiry
+15  HELDOUT_2026    2 -117.565000  0.500000     DTE60_expiry
+16  2019_2024sep   23   -8.311739  0.478261     DTE90_expiry
+17  2024oct_plus    6  -56.315000  0.500000     DTE90_expiry
+18       pre2019   12   30.176667  0.416667     DTE90_expiry
+19  HELDOUT_2026    1  335.260000  1.000000     DTE90_expiry
+20  2019_2024sep   68   -7.084853  0.367647  DTE45_partial50
+21  2024oct_plus   19  -55.432105  0.315789  DTE45_partial50
+22       pre2019   37    5.323514  0.432432  DTE45_partial50
+23  HELDOUT_2026    3  212.526667  0.666667  DTE45_partial50
+
+--- theta/gamma decomposition ---
+   mean_theta_paid  mean_gamma_captured  mean_gross_pnl  decomposition_residual_check  pct_cycles_gamma_gt_theta              arm
+0       364.296380           355.710407       -8.585973                  2.273737e-13                   0.434389     DTE15_expiry
+1       512.961885           487.817623      -25.144262                  2.273737e-13                   0.426230     DTE30_expiry
+2       644.739610           637.509740       -7.229870                  9.094947e-13                   0.454545     DTE45_expiry
+3       699.427419           705.522581        6.095161                  2.273737e-13                   0.516129     DTE60_expiry
+4       821.134146           820.602439       -0.531707                  6.821210e-13                   0.463415     DTE90_expiry
+5       464.627823           457.377419       -7.250403                  2.273737e-13                   0.403226  DTE45_partial50
+
+--- gate placebo ---
+               gate  dte   n  observed_mean  baseline_mean  placebo_pctile  placebo_p
+0   vix_low_le25pct   60  20      33.185000      -3.421481           0.642      0.750
+1  vix_high_ge75pct   60  11    -131.740000      -3.421481           0.226      0.476
+2  rv20_low_le25pct   60  15    -104.603333      -3.421481           0.212      0.446
+DONE

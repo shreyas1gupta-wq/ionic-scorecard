@@ -1,0 +1,15 @@
+[load] NIFTY spot + gold (IST)
+  NIFTY 1,047,541 bars 2015-01-09 09:15:00..2026-05-14 15:29:00
+  gold  3,731,361 bars  2009-03-16 09:00:00..2025-12-31 23:30:00  (12.1s)
+  gold daily anchor table: 4341 calendar days (30.2s)
+  matched NIFTY days with an overnight gold read: 2670
+
+=== ALL_DAYS  (n_days=2670) ===
+  [GOLD_UP_NIFTY_UP] n=2670 tpm=20.23 mean_net=-3.17 t_naive=0.88 t_nw=0.91 conc=0.15 placebo_p=None bench_p=None -> DEAD
+  [GOLD_UP_NIFTY_DOWN] n=2670 tpm=20.23 mean_net=-7.12 t_naive=-0.88 t_nw=-0.91 conc=0.07 placebo_p=None bench_p=None -> DEAD
+
+=== EXTREME_ONLY  (n_days=529) ===
+  [GOLD_UP_NIFTY_UP] n=529 tpm=4.13 mean_net=+1.75 t_naive=1.19 t_nw=1.31 conc=0.95 placebo_p=None bench_p=None -> DEAD
+  [GOLD_UP_NIFTY_DOWN] n=529 tpm=4.13 mean_net=-12.11 t_naive=-1.19 t_nw=-1.31 conc=0.14 placebo_p=None bench_p=None -> DEAD
+
+[done] elapsed 65.6s

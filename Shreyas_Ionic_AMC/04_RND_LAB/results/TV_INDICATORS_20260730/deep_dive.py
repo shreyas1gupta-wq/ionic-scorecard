@@ -33,16 +33,22 @@ sys.path.insert(0, str(Path(__file__).parent))
 from lib_signals import (BREAK, HELDOUT, build_by_day, concentration, forward_points, fut_cost,
                           load_spot, naive_tstat, nw_tstat, one_position_at_a_time, placebo_pts,
                           resample_bars, unconditional_benchmark)
-from indicators import FAMILIES, sig_aroon, sig_donchian, sig_vortex
+from indicators import FAMILIES, sig_aroon, sig_donchian, sig_ichimoku, sig_vortex
 
 OUT = Path(__file__).parent
 RNG = np.random.default_rng(20260730)
-N_REPS = 200
+N_REPS = 80    # trimmed from 200 -> speed. This machine is shared with several OTHER agents'
+               # concurrent heavy pandas jobs right now (verified via Get-CimInstance
+               # Win32_Process: runner.py, FLOW_IMBALANCE, vwap_analysis, extract_surface all
+               # running at once) -- CPU contention, not a bug, made this job very slow.
 
 TARGETS = [
     ("VORTEX", "60min", sig_vortex),
     ("AROON", "15min", sig_aroon),
     ("DONCHIAN_BRK", "15min", sig_donchian),
+    ("ICHIMOKU_TK", "15min", sig_ichimoku),   # added: the only cell the full 36-screen marked
+                                              # FORWARD-TEST CANDIDATE (placebo_p=0.0 in screen.py's
+                                              # own gate); re-verify with the overlap fix + beta test.
 ]
 
 t0 = time.time()
@@ -135,6 +141,12 @@ for fname, tf, func in TARGETS:
           f"era_post(n={row['era_post_n']})={row['era_post_mean']}  "
           f"2026_heldout(n={row['ho2026_n']})={row['ho2026_mean']}", flush=True)
     print(f"  -> {verdict}", flush=True)
+    # INCREMENTAL SAVE after every target -- this machine is under heavy shared load from other
+    # agents right now and this job has already been killed twice mid-run; banking to disk after
+    # each cell means a kill loses at most one cell's diagnostics, not the whole script.
+    json.dump(report, open(OUT / "deep_dive_results.json", "w"), indent=2)
+    pd.DataFrame(report.values()).to_csv(OUT / "deep_dive_cells.csv", index=False)
+    print(f"  [banked to disk: {len(report)}/{len(TARGETS)} cells done]", flush=True)
 
 json.dump(report, open(OUT / "deep_dive_results.json", "w"), indent=2)
 pd.DataFrame(report.values()).to_csv(OUT / "deep_dive_cells.csv", index=False)

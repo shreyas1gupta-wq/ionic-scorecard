@@ -1153,7 +1153,8 @@ engine_v2.py + build_median_pe.py + build_report_v2.py reproduce. SUMMARY.md v2 
 - **WS-4 run: arm A 20/20 banked (Fable); arm B 0/20 (spend limit). Revised plan in PROGRESS.md: next-week uniform-Sonnet all-arms run (Fable A = bonus grid point), DESK-20 reserved for grading. Human-baseline integrity ruling: assumed scores publish only as labeled author-estimates, never measured; desk estimate 60-75%% for elite generalist. Session closed near limit; everything resumable.**
 - **/weekly-meet held (written, compressed): minutes at 08_BOARD_ROOM/minutes/weekly/2026-07-13_leaders_meeting.md. Key decisions: Sonnet-only week + grader tiering (budget law); 5 week-priorities set (WS-4 grid Wed, publication pack Sat, forward engines Tue/Thu/Fri, cadence catch-up Tue, XBRL Tue-Wed). Risk/paper packs trivially empty (no positions yet); macro/pipeline packs deferred-sanctioned.**
 - **S1-F FIRST-EVER PAPER TICKET FILLED (2026-07-14): S1F-001, NIFTY 0DTE 24150 CE+PE SELL, 2 lots.** No vetoes. Fills marked from actual 09:20 1-min bar closes (CE 45.00 / PE 83.15, Angel getCandleData) since the ticket was run late (11:35) at Principal request after a backtest-CAGR clarification (register shows 13-17% CAGR/-5% maxDD, not <5% as Principal recalled -- no change made, forward clock proceeds as registered). Credit Rs 19,222.50. SL: CE 58.50 / PE 108.10 (1.30x). Exit survivors 15:25 -- desk to log exit fills EOD. PAPER_LEDGER open-positions row added (S1F-001). Angel API hit AB1021 rate-limit once on the PE candle pull (retried once cleanly, no further hammering).
-- **Web-account Sonnet 5 run INGESTED (Principal ran WEB_RUN_PACKET on a web account): full column = 8 MG + 20 battery arm A, tools off, single-session task-by-task (disclose: shared-session vs harness fresh-context for the open-ended cells). Label sonnetweb (kept distinct from 5 partial org sonnet cells). Puzzle grader hardened TWICE for notation-fairness (unicode minus/dot/brackets, then LaTeX rac/\left/ight) after it under-credited correct answers - now uniform. Objective puzzles: haiku/opus/sonnetweb ALL 2.0 (floor all tiers clear; discrimination will come from open-ended + battery). Fable puzzles imputed 2.0 (labeled).**
+- **Web-account Sonnet 5 run INGESTED (Principal ran WEB_RUN_PACKET on a web account): full column = 8 MG + 20 battery arm A, tools off, single-session task-by-task (disclose: shared-session vs harness fresh-context for the open-ended cells). Label sonnetweb (kept distinct from 5 partial org sonnet cells). Puzzle grader hardened TWICE for notation-fairness (unicode minus/dot/brackets, then LaTeX rac/\left/
+ight) after it under-credited correct answers - now uniform. Objective puzzles: haiku/opus/sonnetweb ALL 2.0 (floor all tiers clear; discrimination will come from open-ended + battery). Fable puzzles imputed 2.0 (labeled).**
 
 ---
 ## 2026-07-14 (DESK-100) — NEW ALPHA DISCOVERED: PEAD Q5, registered S-07
@@ -1336,3 +1337,31 @@ Visual artifact of all six sleeves + portfolio: cumulative P&L curves with drawd
 
 ### RUNNING SCORE ON THE >100% CAGR MANDATE
 Still not achieved by any single strategy, and the reason is now measured from four independent directions: (a) directional intraday edge is 2-5 index pts vs 5-6 pts futures cost; (b) MFE/|MAE| 0.92-1.32 everywhere ⇒ no convexity for a buyer; (c) the 1:1.5 option-buying harvest is priced fairly at a 40-43% hit rate vs 44.7% needed; (d) the one 59%-CAGR candle system is ~60% index beta. Portfolio route remains the only one that works: three independent constructions all land at **~73% CAGR at 25% MaxDD** (Calmar 2.597).
+
+### CORRECTION issued 2026-07-31 (DESK-100) — "selling sleeves have no crash data" was WRONG for 2 of 3
+I asserted repeatedly this session, including in the entry above and in four agent briefs, that "the
+three option-selling sleeves have NO CRASH DATA AT ALL because option data starts 2021-05". Verified
+against `FINAL_RANKING_20260730/all_sleeves_daily.json`, that is **wrong for two of the three**:
+
+| sleeve | span | 2015-16 | 2018 | COVID | 2022 |
+|---|---|---|---|---|---|
+| CALENDAR | 2011-01-21 .. 2026-07-07 | +9,581 (12d) | -1,841 (5d) | **+13,438 (4d)** | +27,517 (6d) |
+| LD_SELL | 2011-02-24 .. 2026-06-17 | +13,721 (12d) | +11,967 (5d) | **-37,120 (7d)** | +17,430 (13d) |
+| OVERSHOOT | 2021-06-21 .. 2026-05-27 | — | — | **NONE** | +9,233 (90d) |
+
+The 2021-05 start applies to the 1-min HF option data, which is what OVERSHOOT uses. CALENDAR and
+LD_SELL are built on NSE bhavcopy DAILY option data reaching back to 2011. My own sleeve-span table
+printed those 2011 dates while the prose kept saying 2021 — I had the contradicting number in front of
+me and failed to reconcile it.
+
+**CORRECTED POSITION:** only OVERSHOOT lacks crash data. CALENDAR and LD_SELL have crash EVIDENCE, but
+it is THIN — they are low-frequency sleeves (178 and 286 cycles across 15 years), so COVID contributes
+only 4 and 7 observation days. Read it as "a handful of cycles rolled through the crash", not
+"well-sampled through it". LD_SELL's COVID result is NEGATIVE (-37,120), which is correct behaviour for
+short premium and makes its tail measured rather than assumed — OPTSELL_EXT_20260731 independently
+measured the same structure losing Rs42,545 across 27 COVID cycles with a worst single trade at -50.6%
+of that trade's allocated margin, even with a 2x-credit stop armed, because a stop is a
+next-available-price mechanism and gap/circuit days jump past strike and stop together.
+
+The hard-cap on OVERSHOOT stands unchanged. The hard-cap rationale for CALENDAR and LD_SELL must now
+be stated as "thin crash sampling" rather than "no crash data".

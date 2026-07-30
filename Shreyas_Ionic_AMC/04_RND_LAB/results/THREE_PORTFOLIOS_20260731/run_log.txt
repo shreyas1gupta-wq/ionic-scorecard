@@ -1,0 +1,125 @@
+Loaded series: {'SWEEP': (1578, '2015-01-13..2026-05-14'), 'S1_GAPFADE': (1618, '2015-02-19..2026-05-14'), 'CALENDAR': (178, '2011-01-21..2026-07-07'), 'OVERSHOOT': (913, '2021-06-21..2026-05-27'), 'LD_SELL': (286, '2011-02-24..2026-06-17'), 'BOOK': (942, '2022-01-04..2025-12-31'), 'PORTFOLIO': (1646, '2022-01-04..2026-07-07')}
+
+====================================================================================================
+PER-SLEEVE STANDALONE METRICS (natural 1x = Rs10L cap; FULL available history)
+====================================================================================================
+SWEEP      span=2015-01-13..2026-05-14 yrs=11.33  CAGR%=13.82   maxDD%=-17.61  Calmar=0.785  Sharpe=1.76   PF=1.43  monthwin%=64.2  active_days=1578
+CALENDAR   span=2011-01-21..2026-07-07 yrs=15.46  CAGR%=0.66    maxDD%=-1.65   Calmar=0.398  Sharpe=2.85   PF=1.6   monthwin%=57.2  active_days=178
+OVERSHOOT  span=2021-06-21..2026-05-27 yrs=4.93   CAGR%=0.55    maxDD%=-1.76   Calmar=0.313  Sharpe=0.72   PF=1.16  monthwin%=53.3  active_days=913
+LD_SELL    span=2011-02-24..2026-06-17 yrs=15.31  CAGR%=1.45    maxDD%=-5.92   Calmar=0.245  Sharpe=2.19   PF=1.45  monthwin%=68.6  active_days=286
+BOOK       span=2022-01-04..2025-12-31 yrs=3.99   CAGR%=16.9    maxDD%=-19.24  Calmar=0.879  Sharpe=1.5    PF=1.36  monthwin%=62.5  active_days=942
+
+====================================================================================================
+CRASH-WINDOW BEHAVIOUR (raw Rs P&L at natural 1x, only where span covers >=80% of window)
+====================================================================================================
+2015-16 (Aug15-Feb16) {'window': '2015-16 (Aug15-Feb16)', 'SWEEP': 360137, 'SWEEP_n': 81, 'CALENDAR': -85, 'CALENDAR_n': 7, 'OVERSHOOT': None, 'OVERSHOOT_n': 0, 'LD_SELL': 13239, 'LD_SELL_n': 7, 'BOOK': None, 'BOOK_n': 0}
+2018 (Jan-Mar VIX-plosion) {'window': '2018 (Jan-Mar VIX-plosion)', 'SWEEP': 75256, 'SWEEP_n': 31, 'CALENDAR': -2059, 'CALENDAR_n': 1, 'OVERSHOOT': None, 'OVERSHOOT_n': 0, 'LD_SELL': -7756, 'LD_SELL_n': 3, 'BOOK': None, 'BOOK_n': 0}
+COVID (Feb-Apr 2020) {'window': 'COVID (Feb-Apr 2020)', 'SWEEP': 321216, 'SWEEP_n': 17, 'CALENDAR': -4144, 'CALENDAR_n': 2, 'OVERSHOOT': None, 'OVERSHOOT_n': 0, 'LD_SELL': -43196, 'LD_SELL_n': 4, 'BOOK': None, 'BOOK_n': 0}
+2022 (Jan-Jun selloff) {'window': '2022 (Jan-Jun selloff)', 'SWEEP': 403139, 'SWEEP_n': 69, 'CALENDAR': 27517, 'CALENDAR_n': 6, 'OVERSHOOT': 9233, 'OVERSHOOT_n': 90, 'LD_SELL': 17430, 'LD_SELL_n': 13, 'BOOK': -132930, 'BOOK_n': 113}
+
+[CORRECTED 2026-07-31, coordinator catch] Risk classification of the three non-SWEEP/non-BOOK
+sleeves through crashes is NOT uniform:
+  - OVERSHOOT: genuinely NO crash-window data (span starts 2021-06; 0 days in 2015-16/2018/COVID).
+    This is the one sleeve that gets a HARD cap on "we have literally never seen it in a crash".
+  - CALENDAR & LD_SELL: span back to 2011 (daily bhavcopy), so they DO have crash-era data, but
+    THINLY SAMPLED (~1 cycle/month => single-digit trade counts inside any one crash window; a
+    lumpy Rs5-30k trade dominates the window sum and flips sign under small boundary changes --
+    verified directly: widening the COVID window from Feb15-Apr15 to Jan15-Apr30 changes CALENDAR
+    from -4,144 (n=2) to +13,438 (n=4), and LD_SELL from -43,196 (n=4, Feb15-Apr15) to -37,120
+    (n=7, Jan15-Apr30) -- LD_SELL's sign is STABLE negative across both windows (short premium
+    bleeding in a crash, as expected), CALENDAR's sign FLIPS (too few trades to characterize).
+  - LD_SELL's negative COVID behaviour is independently corroborated by the selling desk's own
+    per-trade study: -Rs42,545 net across 27 COVID cycles, WORST SINGLE TRADE -50.6% of that
+    trade's allocated margin, even with a 2x-credit stop armed (a stop is a next-available-price
+    mechanism; gap/circuit days jump past strike AND stop together). This is a MEASURED tail fact,
+    not a modelled one, and it is why LD_SELL gets a reduced cap specifically in the LOW-RISK
+    mandate below (never the full equal share the other sleeves get in that mandate).
+  - Also corrected: a same-expiry-hedged (condor) version of LD_SELL does NOT improve risk-adjusted
+    return (tested: held CAGR -13.6% vs naked +20.0%, held maxDD -64.3% vs naked -36.2%, Sharpe
+    0.02 vs 0.92 -- wing cost exceeds the margin-efficiency gain). LD_SELL is sized here on the
+    naked/unhedged 10%-margin convention throughout; no 5%-hedged-margin credit is taken anywhere.
+
+
+FIT window  2022-01-04..2023-12-31  (727 days)
+EVAL window 2024-01-01..2025-12-31  (731 days)
+FULL_EXT    2022-01-04..2026-07-07  (BOOK=0 after 2025-12-31, flagged)
+
+NAIVE inverse-vol weight shares (FIT-only, UNCAPPED direction -- capacity cap applied per-mandate below):
+  {'SWEEP': 0.0149, 'CALENDAR': 0.2261, 'OVERSHOOT': 0.6121, 'LD_SELL': 0.1241, 'BOOK': 0.0227}
+
+PER-SLEEVE CAPACITY/CRASH-RISK CAP TABLE (max weight share of Rs1cr book, by mandate):
+           LOW_RISK  HIGH_CAGR  BALANCED
+SWEEP          0.25       0.50      0.35
+CALENDAR       0.20       0.50      0.35
+OVERSHOOT      0.08       0.25      0.15
+LD_SELL        0.10       0.35      0.20
+BOOK           0.25       0.50      0.35
+
+====================================================================================================
+MANDATE: LOW_RISK  ({'objective': 'CAGR', 'mdd_limit': 10.0, 'w_cap': array([0.25, 0.2 , 0.08, 0.1 , 0.25]), 'gross_cap': 1.0, 'cagr_floor': 6.0})
+====================================================================================================
+  naive capped @ {'SWEEP': np.float64(0.25), 'CALENDAR': np.float64(0.2), 'OVERSHOOT': np.float64(0.08), 'LD_SELL': np.float64(0.1), 'BOOK': np.float64(0.25)}: {'SWEEP': np.float64(0.25), 'CALENDAR': np.float64(0.2), 'OVERSHOOT': np.float64(0.08), 'LD_SELL': np.float64(0.1), 'BOOK': np.float64(0.25)}
+NAIVE  weights: {'SWEEP': np.float64(0.25), 'CALENDAR': np.float64(0.2), 'OVERSHOOT': np.float64(0.08), 'LD_SELL': np.float64(0.1), 'BOOK': np.float64(0.25)}
+  FIT : {'span': '2022-01-04..2023-12-31', 'years': 1.99, 'net_rs': 3153561, 'CAGR_pct': 14.79, 'maxDD_pct': -6.45, 'maxDD_rs': -648378, 'Calmar': 2.292, 'Sharpe': 2.01, 'PF': 1.71, 'months': 24, 'month_win_pct': 70.8, 'worst_month_pct': -2.96, 'worst_day_pct': -1.74, 'active_days': 497}
+  EVAL: {'span': '2024-01-01..2025-12-31', 'years': 2.0, 'net_rs': 2436593, 'CAGR_pct': 11.53, 'maxDD_pct': -6.47, 'maxDD_rs': -836727, 'Calmar': 1.782, 'Sharpe': 1.47, 'PF': 1.44, 'months': 24, 'month_win_pct': 54.2, 'worst_month_pct': -2.63, 'worst_day_pct': -1.31, 'active_days': 502}   OOS/IS(Calmar)=0.777
+FITTED weights: {'SWEEP': np.float64(0.275), 'CALENDAR': np.float64(0.22), 'OVERSHOOT': np.float64(0.0197), 'LD_SELL': np.float64(0.11), 'BOOK': np.float64(0.275)}
+  FIT : {'span': '2022-01-04..2023-12-31', 'years': 1.99, 'net_rs': 3470325, 'CAGR_pct': 16.17, 'maxDD_pct': -7.13, 'maxDD_rs': -716665, 'Calmar': 2.269, 'Sharpe': 2.01, 'PF': 1.71, 'months': 24, 'month_win_pct': 70.8, 'worst_month_pct': -3.28, 'worst_day_pct': -1.91, 'active_days': 497}
+  EVAL: {'span': '2024-01-01..2025-12-31', 'years': 2.0, 'net_rs': 2662977, 'CAGR_pct': 12.54, 'maxDD_pct': -6.96, 'maxDD_rs': -919926, 'Calmar': 1.801, 'Sharpe': 1.47, 'PF': 1.43, 'months': 24, 'month_win_pct': 54.2, 'worst_month_pct': -2.88, 'worst_day_pct': -1.44, 'active_days': 502}   OOS/IS(Calmar)=0.794
+  -> CHOSEN for LOW_RISK: NAIVE  (obj_key=CAGR_pct, obj_wins=False, not_degenerate=True)
+
+====================================================================================================
+MANDATE: HIGH_CAGR  ({'objective': 'CAGR', 'mdd_limit': 25.0, 'w_cap': array([0.5 , 0.5 , 0.25, 0.35, 0.5 ]), 'gross_cap': 2.5, 'cagr_floor': 6.0})
+====================================================================================================
+  naive capped @ {'SWEEP': np.float64(0.5), 'CALENDAR': np.float64(0.5), 'OVERSHOOT': np.float64(0.25), 'LD_SELL': np.float64(0.35), 'BOOK': np.float64(0.5)}: {'SWEEP': np.float64(0.0289), 'CALENDAR': np.float64(0.4371), 'OVERSHOOT': np.float64(0.25), 'LD_SELL': np.float64(0.2401), 'BOOK': np.float64(0.0439)}
+NAIVE  weights: {'SWEEP': np.float64(0.0723), 'CALENDAR': np.float64(1.0928), 'OVERSHOOT': np.float64(0.625), 'LD_SELL': np.float64(0.6001), 'BOOK': np.float64(0.1098)}
+  FIT : {'span': '2022-01-04..2023-12-31', 'years': 1.99, 'net_rs': 1861814, 'CAGR_pct': 8.97, 'maxDD_pct': -1.67, 'maxDD_rs': -166748, 'Calmar': 5.383, 'Sharpe': 2.54, 'PF': 1.93, 'months': 24, 'month_win_pct': 79.2, 'worst_month_pct': -0.75, 'worst_day_pct': -0.76, 'active_days': 497}
+  EVAL: {'span': '2024-01-01..2025-12-31', 'years': 2.0, 'net_rs': 1836887, 'CAGR_pct': 8.8, 'maxDD_pct': -2.58, 'maxDD_rs': -298180, 'Calmar': 3.415, 'Sharpe': 1.86, 'PF': 1.65, 'months': 24, 'month_win_pct': 75.0, 'worst_month_pct': -1.5, 'worst_day_pct': -1.98, 'active_days': 502}   OOS/IS(Calmar)=0.634
+FITTED weights: {'SWEEP': np.float64(1.2295), 'CALENDAR': np.float64(0.1991), 'OVERSHOOT': np.float64(0.1021), 'LD_SELL': np.float64(0.1551), 'BOOK': np.float64(0.7732)}
+  FIT : {'span': '2022-01-04..2023-12-31', 'years': 1.99, 'net_rs': 12238243, 'CAGR_pct': 49.49, 'maxDD_pct': -24.78, 'maxDD_rs': -2503488, 'Calmar': 1.997, 'Sharpe': 1.75, 'PF': 1.65, 'months': 24, 'month_win_pct': 58.3, 'worst_month_pct': -12.17, 'worst_day_pct': -5.37, 'active_days': 497}
+  EVAL: {'span': '2024-01-01..2025-12-31', 'years': 2.0, 'net_rs': 10184980, 'CAGR_pct': 42.11, 'maxDD_pct': -18.06, 'maxDD_rs': -4116607, 'Calmar': 2.332, 'Sharpe': 1.4, 'PF': 1.44, 'months': 24, 'month_win_pct': 58.3, 'worst_month_pct': -12.96, 'worst_day_pct': -5.25, 'active_days': 502}   OOS/IS(Calmar)=1.168
+  -> CHOSEN for HIGH_CAGR: FITTED  (obj_key=CAGR_pct, obj_wins=True, not_degenerate=True)
+
+====================================================================================================
+MANDATE: BALANCED  ({'objective': 'CALMAR', 'mdd_limit': 25.0, 'w_cap': array([0.35, 0.35, 0.15, 0.2 , 0.35]), 'gross_cap': 1.5, 'cagr_floor': 8.0})
+====================================================================================================
+  naive capped @ {'SWEEP': np.float64(0.35), 'CALENDAR': np.float64(0.35), 'OVERSHOOT': np.float64(0.15), 'LD_SELL': np.float64(0.2), 'BOOK': np.float64(0.35)}: {'SWEEP': np.float64(0.1191), 'CALENDAR': np.float64(0.35), 'OVERSHOOT': np.float64(0.15), 'LD_SELL': np.float64(0.2), 'BOOK': np.float64(0.1809)}
+NAIVE  weights: {'SWEEP': np.float64(0.1786), 'CALENDAR': np.float64(0.525), 'OVERSHOOT': np.float64(0.225), 'LD_SELL': np.float64(0.3), 'BOOK': np.float64(0.2714)}
+  FIT : {'span': '2022-01-04..2023-12-31', 'years': 1.99, 'net_rs': 3108188, 'CAGR_pct': 14.59, 'maxDD_pct': -5.83, 'maxDD_rs': -586258, 'Calmar': 2.503, 'Sharpe': 2.33, 'PF': 1.79, 'months': 24, 'month_win_pct': 70.8, 'worst_month_pct': -2.56, 'worst_day_pct': -1.88, 'active_days': 497}
+  EVAL: {'span': '2024-01-01..2025-12-31', 'years': 2.0, 'net_rs': 2355417, 'CAGR_pct': 11.16, 'maxDD_pct': -4.11, 'maxDD_rs': -517769, 'Calmar': 2.713, 'Sharpe': 1.59, 'PF': 1.47, 'months': 24, 'month_win_pct': 58.3, 'worst_month_pct': -1.96, 'worst_day_pct': -1.79, 'active_days': 502}   OOS/IS(Calmar)=1.084
+FITTED weights: {'SWEEP': np.float64(0.1675), 'CALENDAR': np.float64(0.3842), 'OVERSHOOT': np.float64(0.1646), 'LD_SELL': np.float64(0.2195), 'BOOK': np.float64(0.0628)}
+  FIT : {'span': '2022-01-04..2023-12-31', 'years': 1.99, 'net_rs': 1655699, 'CAGR_pct': 8.01, 'maxDD_pct': -2.51, 'maxDD_rs': -250538, 'Calmar': 3.197, 'Sharpe': 1.82, 'PF': 1.69, 'months': 24, 'month_win_pct': 62.5, 'worst_month_pct': -1.32, 'worst_day_pct': -0.54, 'active_days': 497}
+  EVAL: {'span': '2024-01-01..2025-12-31', 'years': 2.0, 'net_rs': 1627679, 'CAGR_pct': 7.84, 'maxDD_pct': -3.63, 'maxDD_rs': -429804, 'Calmar': 2.159, 'Sharpe': 1.62, 'PF': 1.57, 'months': 24, 'month_win_pct': 62.5, 'worst_month_pct': -1.86, 'worst_day_pct': -0.81, 'active_days': 502}   OOS/IS(Calmar)=0.675
+  -> CHOSEN for BALANCED: NAIVE  (obj_key=Calmar, obj_wins=False, not_degenerate=True)
+
+====================================================================================================
+DYNAMIC WEIGHTING TEST -- CPPI-style drawdown-floor overlay vs STATIC (mandate: test honestly)
+====================================================================================================
+[NOTE] Regime-conditioning on monthly sleeve P&L already tested in this lab and FAILED (28
+ cells, 0 candidates, 22 dead, n only 111-172 months) -- not re-run here per the mandate's
+ own instruction; only the CPPI/drawdown-floor variant (the promising one) is tested below.
+STATIC  (BALANCED weights, FULL_EXT 2022-2026H1): {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 5541987, 'CAGR_pct': 10.29, 'maxDD_pct': -5.83, 'maxDD_rs': -586258, 'Calmar': 1.765, 'Sharpe': 1.81, 'PF': 1.57, 'months': 55, 'month_win_pct': 63.6, 'worst_month_pct': -2.56, 'worst_day_pct': -1.88, 'active_days': 1088}
+CPPI    (same weights, dd-floor 6%->35% exposure, recover<2%): {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 5541987, 'CAGR_pct': 10.29, 'maxDD_pct': -5.83, 'maxDD_rs': -586258, 'Calmar': 1.765, 'Sharpe': 1.81, 'PF': 1.57, 'months': 55, 'month_win_pct': 63.6, 'worst_month_pct': -2.56, 'worst_day_pct': -1.88, 'active_days': 1088}
+CPPI helps? CAGR WORSE, maxDD WORSE, Calmar WORSE
+
+====================================================================================================
+FINAL PORTFOLIO METRICS (chosen weights, FULL_EXT window incl. post-BOOK-data 2026H1)
+====================================================================================================
+LOW_RISK {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 5755913, 'CAGR_pct': 10.62, 'maxDD_pct': -6.45, 'maxDD_rs': -836727, 'Calmar': 1.646, 'Sharpe': 1.64, 'PF': 1.54, 'months': 55, 'month_win_pct': 61.8, 'worst_month_pct': -2.96, 'worst_day_pct': -1.74, 'active_days': 1088, 'worst_3mo_stretch_pct': -4.98, 'capital_deployed_pct': np.float64(88.0), 'capital_utilisation_pct': np.float64(28.7), 'per_sleeve_active_frac_pct': {'SWEEP': np.float64(36.6), 'CALENDAR': np.float64(3.0), 'OVERSHOOT': np.float64(49.3), 'LD_SELL': np.float64(7.0), 'BOOK': np.float64(57.2)}}
+HIGH_CAGR {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 23305375, 'CAGR_pct': 30.62, 'maxDD_pct': -24.78, 'maxDD_rs': -4116607, 'Calmar': 1.236, 'Sharpe': 1.49, 'PF': 1.52, 'months': 55, 'month_win_pct': 58.2, 'worst_month_pct': -12.96, 'worst_day_pct': -5.37, 'active_days': 1088, 'worst_3mo_stretch_pct': -23.07, 'capital_deployed_pct': np.float64(245.9), 'capital_utilisation_pct': np.float64(96.0), 'per_sleeve_active_frac_pct': {'SWEEP': np.float64(36.6), 'CALENDAR': np.float64(3.0), 'OVERSHOOT': np.float64(49.3), 'LD_SELL': np.float64(7.0), 'BOOK': np.float64(57.2)}}
+BALANCED {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 5541987, 'CAGR_pct': 10.29, 'maxDD_pct': -5.83, 'maxDD_rs': -586258, 'Calmar': 1.765, 'Sharpe': 1.81, 'PF': 1.57, 'months': 55, 'month_win_pct': 63.6, 'worst_month_pct': -2.56, 'worst_day_pct': -1.88, 'active_days': 1088, 'worst_3mo_stretch_pct': -4.01, 'capital_deployed_pct': np.float64(150.0), 'capital_utilisation_pct': np.float64(36.9), 'per_sleeve_active_frac_pct': {'SWEEP': np.float64(36.6), 'CALENDAR': np.float64(3.0), 'OVERSHOOT': np.float64(49.3), 'LD_SELL': np.float64(7.0), 'BOOK': np.float64(57.2)}}
+
+====================================================================================================
+PORTFOLIO-vs-SLEEVE correlation (monthly & quarterly), FULL_EXT window
+====================================================================================================
+LOW_RISK {'SWEEP': (0.867, 0.863), 'CALENDAR': (0.064, 0.101), 'OVERSHOOT': (-0.136, -0.415), 'LD_SELL': (0.031, 0.267), 'BOOK': (0.586, 0.515)}
+HIGH_CAGR {'SWEEP': (0.937, 0.936), 'CALENDAR': (0.06, 0.126), 'OVERSHOOT': (-0.093, -0.356), 'LD_SELL': (0.002, 0.206), 'BOOK': (0.45, 0.367)}
+BALANCED {'SWEEP': (0.761, 0.754), 'CALENDAR': (0.127, 0.156), 'OVERSHOOT': (-0.171, -0.462), 'LD_SELL': (0.155, 0.403), 'BOOK': (0.691, 0.636)}
+
+====================================================================================================
+LOT / CAPITAL FEASIBILITY  (1 AU = Rs10L natural allocation per sleeve)
+====================================================================================================
+LOW_RISK AU@1cr: {'SWEEP': 2.5, 'CALENDAR': 2.0, 'OVERSHOOT': 0.8, 'LD_SELL': 1.0, 'BOOK': 2.5}  total: 8.8  | AU@10L: {'SWEEP': 0.25, 'CALENDAR': 0.2, 'OVERSHOOT': 0.08, 'LD_SELL': 0.1, 'BOOK': 0.25}  total: 0.88
+HIGH_CAGR AU@1cr: {'SWEEP': 12.29, 'CALENDAR': 1.99, 'OVERSHOOT': 1.02, 'LD_SELL': 1.55, 'BOOK': 7.73}  total: 24.58  | AU@10L: {'SWEEP': 1.23, 'CALENDAR': 0.199, 'OVERSHOOT': 0.102, 'LD_SELL': 0.155, 'BOOK': 0.773}  total: 2.459
+BALANCED AU@1cr: {'SWEEP': 1.79, 'CALENDAR': 5.25, 'OVERSHOOT': 2.25, 'LD_SELL': 3.0, 'BOOK': 2.71}  total: 15.0  | AU@10L: {'SWEEP': 0.179, 'CALENDAR': 0.525, 'OVERSHOOT': 0.225, 'LD_SELL': 0.3, 'BOOK': 0.271}  total: 1.5
+
+WROTE: c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\THREE_PORTFOLIOS_20260731\weights.csv c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\THREE_PORTFOLIOS_20260731\portfolio_daily.json c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\THREE_PORTFOLIOS_20260731\_state.pkl

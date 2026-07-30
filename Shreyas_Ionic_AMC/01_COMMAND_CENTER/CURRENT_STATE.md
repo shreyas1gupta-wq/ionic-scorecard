@@ -1,5 +1,8 @@
 # CURRENT STATE — read me first (updated every session end)
 
+> **CORRECTION 2026-07-31:** an earlier claim that all three option-selling sleeves have no crash data is WRONG for two of three. Only OVERSHOOT (from 2021-06) lacks it; CALENDAR and LD_SELL span 2011-2026 with thin crash sampling. Detail in SESSION_JOURNAL.
+
+
 ## 2026-07-30/31 (DESK-100) — >100% CAGR hunt part 2: buying refused a 3rd time, regime-ML answered, candle system exposed as BETA
 **HEADLINE: no single strategy reaches >100% CAGR at <25% MDD, and the reason is now measured four
 independent ways.** (a) directional intraday edge is 2-5 index pts vs 5-6 pts futures cost; (b)
