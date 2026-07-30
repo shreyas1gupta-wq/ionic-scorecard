@@ -1,18 +1,23 @@
 # -*- coding: utf-8 -*-
-"""Annexure A2 - correlation grid of the top-8 direct-equity holdings (synthetic but plausible
-pairwise correlations) with a 'diversification actually held' read."""
+"""Annexure A2 - correlation grid of the top-15 direct-equity holdings (synthetic but plausible
+pairwise correlations) with a 'diversification actually held' read. Capped to 15 (2026-07-29,
+permanent, was top-8) -- a matrix stops being readable well before a 30-holding book. Stocks get
+15, funds get 10 (scheme_overlap_full.py) -- a wider equity book vs a typically smaller,
+higher-conviction fund sleeve, per the Principal's explicit split."""
 import chart_ext_a as CA
 from slidekit import ML, RX
+
+TOP_N = 15
 
 GROUP = {"BAJFINANCE": "fin", "HDFCBANK": "fin", "ICICIBANK": "fin", "SBIN": "fin",
          "JIOFIN": "fin", "BANDHANBNK": "fin",
          "SUNPHARMA": "def", "CIPLA": "def", "ITC": "def"}
 
 LABELS = {
-    "hni":    ("What the top eight actually share",
+    "hni":    ("What the top holdings actually share",
                "Pairwise correlation of the largest direct-equity holdings"),
     "std":    ("Do the big holdings move together?",
-               "Pairwise correlation of the top-8 direct-equity positions"),
+               "Pairwise correlation of the top direct-equity positions"),
     "simple": ("Do the big holdings move together?",
                "Dark squares move together, green squares balance each other"),
 }
@@ -35,8 +40,12 @@ def render(deck, ctx, tier):
     as_of = ctx["client"]["as_of"]
     eyebrow, title = LABELS.get(reg, LABELS["std"])
 
-    top8 = sorted(ctx["equity"], key=lambda e: -e["weight_pct"])[:8]
-    syms = [e["symbol"] for e in top8]
+    if len(ctx["equity"]) < 2:
+        return 0  # 2026-07-28: a correlation grid needs at least 2 holdings to be meaningful
+    all_eq = ctx["equity"]
+    top = sorted(all_eq, key=lambda e: -e["weight_pct"])[:TOP_N]
+    capped = len(all_eq) > TOP_N
+    syms = [e["symbol"] for e in top]
     n = len(syms)
     M = [[1.0 if i == j else _pair(syms[i], syms[j], i, j) for j in range(n)] for i in range(n)]
 
@@ -47,7 +56,8 @@ def render(deck, ctx, tier):
     nfin = sum(1 for x in syms if GROUP.get(x) == "fin")
 
     s = deck.content(5, "Annexure", eyebrow, title)
-    deck.scope_tag(s, f"[ILLUSTRATIVE] Top-8 direct-equity holdings by weight · synthetic "
+    scope = f"Top {n} of {len(all_eq)}" if capped else f"Top {n}"
+    deck.scope_tag(s, f"[ILLUSTRATIVE] {scope} direct-equity holdings by weight · synthetic "
                       f"pairwise correlations · as of {as_of}")
 
     png = CA.corr_heat(syms, M, "axa_corr")
@@ -56,13 +66,13 @@ def render(deck, ctx, tier):
     tx = 7.57; tw = RX - tx
     body1 = (f"The {nfin} financial names move as a block: {mxa} and {mxb} top the grid at "
              f"{mxv:.2f}. {mna} against {mnb} is the most independent pair at {mnv:.2f}. Average "
-             f"pairwise correlation is {avg:.2f}, so these eight tickers diversify like a "
+             f"pairwise correlation is {avg:.2f}, so these {n} tickers diversify like a "
              f"smaller handful.")
     deck.callout(s, tx, 1.95, tw, 1.95, "Diversification actually held", body1, kind="note")
 
     body2 = ("Bring this page out when the number of holdings is offered as diversification. "
              "Portfolio risk is set by how much the names respond to the same forces (rates, "
-             "credit, the consumer); a ninth name from the same cluster adds little.")
+             "credit, the consumer); one more name from the same cluster adds little.")
     deck.callout(s, tx, 4.10, tw, 1.85, "When to use this view", body2, kind="human")
 
     deck.source(s, "Synthetic correlation estimates for illustration, patterned on typical "

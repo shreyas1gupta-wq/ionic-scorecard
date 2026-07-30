@@ -4,6 +4,7 @@ retirement 2041 [ILLUSTRATIVE]) plus a funding table: corpus needed, needed toda
 return, and funded-today % on a priority waterfall (nearest goal funded first)."""
 import charts as CH
 from slidekit import ML, UW, RX, HOLD, AMBER, SELL
+from modules.growth_projection import _derive_mu_sigma
 
 LABELS = {
     "hni":    ("Goal mapping", "What the corpus already covers, goal by goal"),
@@ -11,7 +12,6 @@ LABELS = {
     "simple": ("Goal mapping", "Which goals this money already covers"),
 }
 
-MU, SIGMA = 12.0, 14.0
 # (name, target year, years from 2026, corpus needed then, Rs) [ILLUSTRATIVE placeholders
 # until the family confirms actual goals]
 GOALS = [
@@ -25,6 +25,10 @@ def render(deck, ctx, tier):
     reg = tier.get("register", "std")
     v0 = ctx["totals"]["grand_inr"]
     as_of = ctx["client"]["as_of"]
+    # 2026-07-28 fix: reuse the same holdings-derived mu/sigma as growth_projection.py instead
+    # of a second, independent flat 12%/14% constant -- two different expected-return
+    # assumptions for the same book in the same deck was a cross-panel consistency failure.
+    MU, SIGMA = _derive_mu_sigma(ctx)
     eyebrow, title = LABELS.get(reg, LABELS["std"])
     s = deck.content(5, "Annexure", eyebrow, title)
     deck.scope_tag(s, f"Whole portfolio (Rs {v0/1e7:.1f} Cr) vs illustrative goals [ILLUSTRATIVE, "
@@ -59,16 +63,23 @@ def render(deck, ctx, tier):
     tw = RX - tx
     deck.table(s, tx, 1.95, tw, cols, rows, rowh=0.36, fs=8.5, hfs=6.5)
 
+    # 2026-07-28 fix: describe the near-goals' coverage from the actual computed `funded` %,
+    # not an assumed "fully covered" outcome that only held for the original demo corpus size.
+    near_funded = [rows[i][3][1] for i in range(len(GOALS) - 1)]  # all goals except the last
+    near_covered = all(f == "100%" for f in near_funded)
+    near_clause = ("the nearer goals" if near_covered
+                   else "the nearer goals are " + ", ".join(near_funded) + " funded respectively,")
     if reg == "simple":
-        body = ("The nearer goals are already covered by today's money. Retirement is most of the "
-                "way there; time and ongoing savings close the rest. A shortfall is fixed with "
-                "contributions or patience, never by taking extra risk.")
+        body = (f"{'The nearer goals are already covered by' if near_covered else near_clause + ' from'} "
+                f"today's money. Retirement is ~{rows[len(GOALS)-1][3][1]} of the way there; time and "
+                f"ongoing savings close the rest. A shortfall is fixed with contributions or patience, "
+                f"never by taking extra risk.")
     else:
-        body = (f"Funded-today discounts each goal at the assumed {MU:.0f}% return and fills goals "
-                f"nearest-first. Education and the home are fully covered by today's corpus; "
-                f"retirement is ~{rows[2][3][1]} funded, a gap that ongoing savings and the "
-                f"{15}-year horizon can close. A goal short of 100% calls for contributions or "
-                f"time, never for stretching the risk profile.")
+        body = (f"Funded-today discounts each goal at the holdings-derived {MU:.0f}% return and fills "
+                f"goals nearest-first. {'Education and the home are fully covered by' if near_covered else near_clause.capitalize()} "
+                f"today's corpus; retirement is ~{rows[len(GOALS)-1][3][1]} funded, a gap that ongoing "
+                f"savings and the {GOALS[-1][2]}-year horizon can close. A goal short of 100% calls for "
+                f"contributions or time, never for stretching the risk profile.")
     deck.callout(s, tx, 4.05, tw, 2.30, "How to read funded-today", body, kind="human")
 
     deck.source(s, f"Illustrative projection at {MU:.0f}% p.a. return, {SIGMA:.0f}% volatility; goal "

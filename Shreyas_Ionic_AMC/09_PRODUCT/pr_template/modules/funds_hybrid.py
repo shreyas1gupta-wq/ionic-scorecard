@@ -11,7 +11,7 @@ crowded it. The _synth_nav reconstruction is gone with the charts.
 """
 from slidekit import NAVY, INK, SLATE, HOLD, SELL, AMBER, SERIF, SANS, ML, UW
 
-VDISP = {"Redeem-to-Direct": "To-Direct"}
+VDISP = {"Redeem-to-Direct": "Switch"}  # display label only (Principal 2026-07-27); internal verdict code unchanged
 _ORDER = {"Exit": 0, "Switch": 1, "Trim": 2, "Redeem-to-Direct": 3, "Hold": 4}
 _KIND = {"Hold": "good", "Trim": "warn", "Exit": "warn", "Switch": "warn", "Redeem-to-Direct": "human"}
 _FLAG_READ = {"DOWN_CAP_HI": "high down-capture", "DEEP_DD": "deep drawdown",
@@ -20,6 +20,36 @@ _FLAG_READ = {"DOWN_CAP_HI": "high down-capture", "DEEP_DD": "deep drawdown",
               "MANDATE_RIGIDITY": "mandate rigidity", "CAPACITY": "capacity strain",
               "OVER_ALLOC": "over-allocation", "SUB_SCALE": "sub-scale AUM",
               "SHORT_RECORD": "record under 4 years"}
+
+
+def _fmt(v, spec="{:.0f}"):
+    """None-safe number formatting: prints 'n/a' instead of crashing or printing 'None' when a
+    fund's risk battery (worst_1y/down_capture/sortino/calmar/max_dd) isn't populated yet."""
+    return spec.format(v) if v is not None else "n/a"
+
+
+def _dd_col(dd):
+    if dd is None:
+        return INK
+    return SELL if dd <= -20 else (AMBER if dd <= -12 else INK)
+
+
+def _w1_col(w1):
+    if w1 is None:
+        return INK
+    return SELL if w1 < 0 else HOLD
+
+
+def _dc_col(dc):
+    if dc is None:
+        return INK
+    return SELL if dc >= 105 else (HOLD if dc <= 95 else AMBER)
+
+
+def _dce_col(dce):
+    if dce is None:
+        return INK
+    return SELL if dce >= 90 else (HOLD if dce < 70 else AMBER)
 
 
 def _short(name, n=28):
@@ -41,13 +71,18 @@ def _scrub(t):
 
 
 def _sort_col(v):
+    if v is None:
+        return INK
     return HOLD if v >= 1 else (SELL if v < 0 else INK)
 
 
 def _bias_body(f, simple):
     """2-3 sentences of Sell/Hold bias reasoning per hybrid, from ctx fields.
     dc = down-capture vs the scheme's OWN hybrid benchmark; dce = the cushion vs pure
-    equity (separate, explicitly-labeled stat — Principal 2026-07-26)."""
+    equity (separate, explicitly-labeled stat — Principal 2026-07-26). Any of these can be
+    None when a fund lacks enough NAV history for the risk battery yet — in that case the
+    sentence falls back to the verdict/flags/structural_reason alone, never a fabricated or
+    "None"-printed number."""
     w1, dc, so = f["worst_1y"], f["down_capture"], f["sortino"]
     dce = f.get("down_capture_vs_equity", dc)
     v = f["verdict"]
@@ -55,47 +90,76 @@ def _bias_body(f, simple):
     flags = [_FLAG_READ.get(x, x.lower().replace("_", " ")) for x in (f.get("flags") or [])]
     # scale/record Trims are consolidation calls — never dressed as a cushioning failure
     structural_trim = bool({"SHORT_RECORD", "SUB_SCALE"} & set(f.get("flags") or []))
+    no_stats = w1 is None and dc is None and so is None
     if simple:
         if v == "Hold":
-            worst_read = (f"In its worst year it still made {w1:+.0f}%" if w1 >= 0
-                          else f"In its worst year it lost only {abs(w1):.0f}%")
-            return (f"Keep. {worst_read}, and it falls only {dce:.0f}% as "
+            if no_stats:
+                return ("Keep. We don't yet have enough NAV history on this fund to show its "
+                        "worst-year and cushioning numbers, but nothing else on file argues "
+                        "against it.")
+            worst_read = (f"In its worst year it still made {w1:+.0f}%" if (w1 is not None and w1 >= 0)
+                          else (f"In its worst year it lost only {abs(w1):.0f}%" if w1 is not None
+                                else "Its worst-year figure isn't available yet"))
+            return (f"Keep. {worst_read}, and it falls only {_fmt(dce)}% as "
                     f"much as the share market. This is what a hybrid is for.")
         if v == "Trim":
             if structural_trim:
                 return ("Reduce, gently. Nothing is wrong with how it has done so far; it is simply "
                         "a young fund with a small asset base, so we lean on the bigger, proven "
                         "fund until this one has a longer record.")
-            return (f"Reduce. It lost {abs(w1):.0f}% in its worst year and takes {dce:.0f}% of the "
+            if no_stats:
+                return ("Reduce. We don't yet have enough NAV history on this fund to confirm it is "
+                        "protecting you in a bad year.")
+            w1_txt = f"{abs(w1):.0f}%" if w1 is not None else "n/a"
+            return (f"Reduce. It lost {w1_txt} in its worst year and takes {_fmt(dce)}% of the "
                     f"share market's falls, so it is not protecting you.")
         if v == "Redeem-to-Direct":
             return ("Keep the fund, change the plan. The same fund is cheaper in its Direct version; "
                     "the Regular version pays a yearly commission you do not need to pay.")
-        return (f"Our suggestion is {v}. Worst year {w1:+.0f}%, and it falls {dc:.0f}% as much as "
-                f"the market.")
+        if no_stats:
+            return f"Our suggestion is {v}. Full risk numbers aren't available for this fund yet."
+        return (f"Our suggestion is {v}. Worst year {_fmt(w1, '{:+.0f}')}%, and it falls "
+                f"{_fmt(dc)}% as much as the market.")
     if v == "Hold":
-        # no per-card "book's benchmark" claim — with two hybrid Holds it printed twice
-        return (f"Stays a Hold. Ahead of its own hybrid benchmark with a {w1:+.1f}% worst year "
-                f"(Sortino {so:.2f}), and it takes only {dce:.0f}% of pure-equity falls — exactly "
-                f"the trade a hybrid is hired for.")
+        if no_stats:
+            # no per-card "book's benchmark" claim — with two hybrid Holds it printed twice
+            return ("Stays a Hold. Full risk-adjusted numbers (worst year, Sortino, downside "
+                    "cushion) aren't available for this fund yet; nothing else on file argues "
+                    "against holding it.")
+        return (f"Stays a Hold. Ahead of its own hybrid benchmark with a {_fmt(w1, '{:+.1f}')}% worst "
+                f"year (Sortino {_fmt(so, '{:.2f}')}), and it takes only {_fmt(dce)}% of pure-equity "
+                f"falls — exactly the trade a hybrid is hired for.")
     if v == "Trim":
         if structural_trim:
             return (f"Our bias is Trim, on scale and record, not results. Under four years old, "
-                    f"sub-scale, {dc:.0f}% down-capture so far is fine; it cannot yet carry a full "
+                    f"sub-scale, {_fmt(dc)}% down-capture so far is fine; it cannot yet carry a full "
                     f"allocation next to the proven core.")
-        s = (f"Our bias is Trim. Taking {dce:.0f}% of pure-equity falls with a {w1:+.1f}% worst year "
-             f"means it falls nearly like equity while charging for protection; Sortino at {so:.2f} "
-             f"says holders were not paid for that downside.")
+        if no_stats:
+            s = ("Our bias is Trim. We don't yet have the risk-adjusted numbers (worst year, "
+                 "Sortino, downside cushion) to confirm this fund is earning its keep.")
+        else:
+            s = (f"Our bias is Trim. Taking {_fmt(dce)}% of pure-equity falls with a "
+                 f"{_fmt(w1, '{:+.1f}')}% worst year means it falls nearly like equity while charging "
+                 f"for protection; Sortino at {_fmt(so, '{:.2f}')} says holders were not paid for that "
+                 f"downside.")
         if flags:
             s += f" Flags firing: {', '.join(flags)}."
         return s + " We would cut the allocation, not the asset class."
     if v == "Redeem-to-Direct":
-        s = (f"To-Direct, not a quality call. The fund passes the bad-year test: {w1:+.1f}% worst year, "
-             f"{dc:.0f}% down-capture, Sortino {so:.2f}.")
+        if no_stats:
+            s = "Switch to Direct plan, not a quality call. Full risk numbers aren't on file for this fund yet."
+        else:
+            s = (f"Switch to Direct plan, not a quality call. The fund passes the bad-year test: "
+                 f"{_fmt(w1, '{:+.1f}')}% worst year, {_fmt(dc)}% down-capture, "
+                 f"Sortino {_fmt(so, '{:.2f}')}.")
         if sr:
             s += f" {sr}"
         return s + " We keep the exposure and change the plan."
-    s = f"Our bias is {v}. Worst year {w1:+.1f}% at {dc:.0f}% down-capture, Sortino {so:.2f}."
+    if no_stats:
+        s = f"Our bias is {v}. Full risk numbers aren't available for this fund yet."
+    else:
+        s = (f"Our bias is {v}. Worst year {_fmt(w1, '{:+.1f}')}% at {_fmt(dc)}% down-capture, "
+             f"Sortino {_fmt(so, '{:.2f}')}.")
     if sr:
         s += f" {sr}"
     if flags:
@@ -116,12 +180,15 @@ def render(deck, ctx, tier):
     reg = tier.get("register", "std")
     simple = reg == "simple"
     hyb = [f for f in ctx["funds"] if f["category"] == "hybrid"]
-    worst = min(hyb, key=lambda f: f["worst_1y"])
-    best = max(hyb, key=lambda f: f["worst_1y"])
+    if not hyb:
+        return 0  # 2026-07-28: a client simply holding no hybrid funds is common, not an error
     as_of = ctx["client"]["as_of"]
 
-    # cards: problems first, the fix second, the benchmark Hold last; cap at 3
-    cards = sorted(hyb, key=lambda f: (_ORDER.get(f["verdict"], 2), f["worst_1y"]))[:3]
+    # cards: problems first, the fix second, the benchmark Hold last; cap at 3.
+    # None-safe sort key (2026-07-28: worst_1y is frequently None for real clients -- thin fund
+    # NAV history firm-wide -- comparing None to a float inside sorted() raised TypeError)
+    cards = sorted(hyb, key=lambda f: (_ORDER.get(f["verdict"], 2),
+                                        f["worst_1y"] is None, f["worst_1y"] or 0))[:3]
 
     if simple:
         eyebrow, title = "Hybrid funds · the bad-year test", "A hybrid should protect you when markets fall"
@@ -137,17 +204,19 @@ def render(deck, ctx, tier):
                 ("Falls vs share market", 0.18, "r"), ("Suggested", 0.22, "c")]
         rows = []
         for f in hyb:
+            w1 = f["worst_1y"]
             dce = f.get("down_capture_vs_equity", f["down_capture"])
             rows.append([_short(f["name"], 26),
-                         ("c", f"{f['worst_1y']:+.0f}%", SELL if f["worst_1y"] < 0 else HOLD, True),
-                         ("c", f"{dce:.0f}%", SELL if dce >= 90 else HOLD, True),
+                         ("c", _fmt(w1, "{:+.0f}%"), INK if w1 is None else (SELL if w1 < 0 else HOLD), True),
+                         ("c", _fmt(dce, "{:.0f}%"), INK if dce is None else (SELL if dce >= 90 else HOLD), True),
                          ("pill", VDISP.get(f["verdict"], f["verdict"]), f["verdict"])])
         ty = deck.table(s, ML, 2.05, UW, cols, rows, rowh=0.5, fs=11, hfs=9)
         cy = ty + 0.22
         _bias_cards(deck, s, cards, cy, min(2.2, 6.45 - cy), True)
+        demo_tag = " Illustrative synthetic funds." if ctx.get("is_demo", False) else ""
         deck.source(s, "Worst 1-yr rolling return over the common 3y window (every fund on the same dates, "
                        "so no fund is penalised for having lived through an older crash); falls measured vs "
-                       "the share market. Direct-plan NAV. Illustrative synthetic funds.")
+                       "the share market. Direct-plan NAV." + demo_tag)
         return 1
 
     # --- metrics table (all hybrids); max drawdown stays a number, per the Principal —
@@ -164,12 +233,12 @@ def render(deck, ctx, tier):
         dc = f["down_capture"]
         dce = f.get("down_capture_vs_equity", dc)
         rows.append([_short(f["name"]),
-                     ("c", f"{f['sortino']:.2f}", _sort_col(f["sortino"]), True),
-                     ("c", f"{f['calmar']:.2f}", _sort_col(f["calmar"]), True),
-                     ("c", f"{dd:.1f}%", SELL if dd <= -20 else (AMBER if dd <= -12 else INK), True),
-                     ("c", f"{w1:+.1f}%", SELL if w1 < 0 else HOLD, True),
-                     ("c", f"{dc:.0f}%", SELL if dc >= 105 else (HOLD if dc <= 95 else AMBER), True),
-                     ("c", f"{dce:.0f}%", SELL if dce >= 90 else (HOLD if dce < 70 else AMBER), True),
+                     ("c", _fmt(f['sortino'], "{:.2f}"), _sort_col(f["sortino"]), True),
+                     ("c", _fmt(f['calmar'], "{:.2f}"), _sort_col(f["calmar"]), True),
+                     ("c", _fmt(dd, "{:.1f}%"), _dd_col(dd), True),
+                     ("c", _fmt(w1, "{:+.1f}%"), _w1_col(w1), True),
+                     ("c", _fmt(dc, "{:.0f}%"), _dc_col(dc), True),
+                     ("c", _fmt(dce, "{:.0f}%"), _dce_col(dce), True),
                      ("pill", VDISP.get(f["verdict"], f["verdict"]), f["verdict"])])
     ty = deck.table(s, ML, 1.9, UW, cols, rows, rowh=0.34, fs=9.5, hfs=8)
 
@@ -183,8 +252,9 @@ def render(deck, ctx, tier):
     chh = min(1.95, 6.30 - cy)
     _bias_cards(deck, s, cards, cy, chh, False)
 
+    demo_tag2 = " Illustrative synthetic funds." if ctx.get("is_demo", False) else ""
     deck.source(s, "Sortino / Calmar / max drawdown / worst 1-yr on a COMMON 3y window (funds launched at "
                    "different dates are never compared on since-inception drawdowns); down-capture vs the "
                    "scheme's own 65:35 hybrid benchmark (TRI); 'falls vs equity' = share of pure-equity "
-                   "falls taken. Direct-plan NAV. Illustrative synthetic funds.")
+                   "falls taken. Direct-plan NAV." + demo_tag2)
     return 1

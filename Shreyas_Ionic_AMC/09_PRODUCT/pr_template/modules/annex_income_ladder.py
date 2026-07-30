@@ -30,6 +30,9 @@ def render(deck, ctx, tier):
     eyebrow, title = LABELS.get(reg, LABELS["std"])
 
     eq = ctx["equity"]
+    if len(eq) < 2:
+        return 0  # 2026-07-28: a fund-heavy client with <2 direct holdings has no meaningful
+                  # "top 2 names pay X%" income-concentration story to tell
     inc = [(e, e["value_inr"] * YLD.get(e["symbol"], 0.7) / 100.0) for e in eq]
     total = sum(v for _, v in inc)
     eq_val = sum(e["value_inr"] for e in eq)

@@ -24,17 +24,24 @@ def render(deck, ctx, tier):
     # ---- LEFT: 'our understanding' prose + NDPMS execution note ----
     lx, lw = ML, 6.05
     deck.txt(s, lx, 1.80, lw, 0.2, [("OUR UNDERSTANDING", SANS, 8.5, SLATE, True, False, 120)])
+    # first-review accounts may not have a horizon/construction on file yet (no IPS) — phrase
+    # around the gap honestly instead of printing "None" or "built not yet on file"
+    horizon_known = ips.get('horizon_yrs') is not None
+    horizon_txt = f"{ips['horizon_yrs']} years or more" if horizon_known else "a horizon to be agreed with you"
+    horizon_txt_formal = f"a {ips['horizon_yrs']}-year-plus horizon" if horizon_known else "a horizon still to be agreed with you"
+    construction_known = (c.get('construction') or '').strip().lower() not in ('', 'not yet on file')
     if simple:
         prose = (f"We look after the {c['name']} portfolio under a non-discretionary mandate: "
                  f"we advise, and you approve every trade yourself. The aim is to grow your money "
-                 f"over {ips['horizon_yrs']} years or more, favouring good-quality businesses, using a "
+                 f"over {horizon_txt}, favouring good-quality businesses, using a "
                  f"‘core plus satellites’ style. Right now you hold about {t['eq_pct']:.0f}% shares, "
                  f"{t['mf_pct']:.0f}% funds and {t['cash_pct']:.0f}% cash, {t['n_stocks']} shares and "
                  f"{t['n_funds']} funds.")
     else:
+        built_clause = f", built {c['construction'].lower()}" if construction_known else ""
         prose = (f"The {c['name']} portfolio is managed under a {c['account_type']} mandate, we advise, "
                  f"you authorise every trade. The stated objective is long-term capital growth with a "
-                 f"quality bias over a {ips['horizon_yrs']}-year-plus horizon, built {c['construction'].lower()}. "
+                 f"quality bias over {horizon_txt_formal}{built_clause}. "
                  f"The book today runs ~{t['eq_pct']:.0f}% direct equity, {t['mf_pct']:.0f}% funds and "
                  f"{t['cash_pct']:.0f}% cash, across {t['n_stocks']} stocks and {t['n_funds']} schemes.")
     deck.txt(s, lx, 2.06, lw, 1.9, [(prose, SERIF, 11.5, INK, False)], ls=1.16)

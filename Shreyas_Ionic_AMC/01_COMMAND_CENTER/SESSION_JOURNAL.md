@@ -3,6 +3,343 @@ Format per entry: date, account (DESK-20/DESK-100), summary, files touched, hand
 Newest entries at TOP.
 
 ---
+## 2026-07-28 (later still) — Rapid-fire correction round: IPS self-gates on missing data, 6 more permanent page cuts (all sell/hold-only scope), a "page 26" mis-identification caught and fixed, index-fund placeholder-data bug found and fixed, LTCG-assumed tax convention, AMFI backfill dispatched
+Fast sequence of corrections after the IPS rebuild shipped. **`ips_summary.py` now self-gates**:
+renders ONLY when `ips["on_file"]` is True — a client with no bespoke IPS gets no page at all
+(not a TBD/Pending page), per Principal instruction. **Principal then clarified the deck's scope
+is Sell/Hold ONLY — this account never uses freed cash to buy, so any page implying redeployment
+is inherently biased** (a cash-heavier "after" always looks safer by construction, not from real
+improvement) — 6 more modules cut PERMANENTLY, all tiers, all client decks (not one-time):
+`deployment.py` (the redeployment-staging framework itself), `opportunity_set.py` ("Today vs an
+Illustrative mix" — implies a different future allocation), `annex_liquidity_ladder.py` ("how
+fast this book turns into cash"), `annex_returns_quilt.py` ("Ten years, five assets, the winner
+rotates" — an asset-rotation story), plus `annex_mcap_migration.py` (flagged specifically:
+"how fast the plan moves things to cash"). Fixed a dangling text reference in
+`priority_actions.py` that pointed to the now-cut `deployment.py` annexure page.
+**A "page 26" mis-identification caught mid-stream:** the Principal's first "remove page 26"
+instruction was interpreted (from the THEN-current build) as `scheme_overlap_full.py`, which got
+cut — but the Principal later clarified by exact title ("Category & structure · preference
+rules") that he meant `fund_category_rules.py`. Corrected: `fund_category_rules.py` cut instead
+(superseding the 2026-07-25 ruling that its AMC-concentration strip should stay), and
+`scheme_overlap_full.py` restored to its 2026-07-27 position. Lesson: page-NUMBER instructions
+are fragile across rebuilds since slide count shifts — confirm by rendering and viewing the
+actual slide before cutting, which is what caught this one before it went further uncorrected.
+**Real data-integrity bug found while handling "no analysis pages needed for index/factor
+funds":** `data/anand_reddy.py`'s two portfolio-construction-Sell funds (HDFC NIFTY 50 Index Fund,
+HDFC Floating Rate Debt Fund) used a `(0,0,0,0)` PLACEHOLDER for `(f3,f1,b3,b1)` meaning "no
+independent research run" — but downstream code read literal `0` as a real "0% alpha" finding,
+so `funds_equity.py`'s vs-benchmark chart would have plotted a fabricated zero-height bar for an
+index fund, and `scheme_scorecards.py` would give it a full analysis page with a fake 0% alpha.
+Fixed at the source: these fields now report `None` when the placeholder pattern is detected,
+which every downstream None-safe filter already handles correctly. `scheme_scorecards.py` also
+now explicitly excludes `category=="passive"` funds from getting their own analysis page at all
+(portfolio-construction calls don't need one). **Tax: LTCG now assumed (not "unknown") for funds
+lacking cost-basis data**, per house convention — disclosed as an assumption; the debt-fund exit
+specifically may not qualify for real long-term treatment under current law (Finance Act 2023 —
+debt funds taxed at slab rate regardless of holding period), flagged in code comments for the
+tax adviser even though the shortened on-slide text couldn't carry that full nuance. **AMFI
+backfill dispatched to a background agent** (real risk-battery data — down/up-capture, Sortino,
+Calmar, max drawdown, worst-1y — for funds currently showing "n/a", reusing existing
+`05_DATA_OFFICE/scripts/mf_nav_backfill.py`/`mf_nav_refresh.py` infrastructure, D-009 spot-check
+required, never fabricate if a fund's NAV history is genuinely too short) — result pending.
+**Gates after this round: 70 slides, 0 crashes, 0/0 geometry, 0 tellscan** (2 acceptable false
+positives unchanged). Files touched: `engine.py`, `tiers.py`, `data/anand_reddy.py`,
+`modules/scheme_scorecards.py`, `modules/priority_actions.py`, `modules/ips_summary.py`.
+**New standing rule for this skill: confirm an ambiguous "page N" instruction against the actual
+rendered slide before cutting anything** (this exact mistake happened once already today).
+
+---
+## 2026-07-29 — Page-cut correction, index-fund analysis suppressed, AMFI risk-battery backfill verified, new client-specific liquid/debt/arbitrage-to-cash constraint, 2 layout bugs caught by visual QA that the automated gate missed
+**Page-26 correction:** Principal's earlier "remove page 26" was applied to the wrong page
+(`scheme_overlap_full.py`, based on that build's numbering at the time) — Principal clarified he
+meant "Category & structure · preference rules" (`fund_category_rules.py`). Restored
+`scheme_overlap_full.py`, cut `fund_category_rules.py` instead (permanent, all tiers). Also
+cut on explicit instruction (permanent, all tiers): `deployment.py`, `opportunity_set.py`,
+`annex_liquidity_ladder.py` ("how fast this book turns into cash"), `annex_returns_quilt.py`
+("Ten years, five assets, the winner rotates") — Principal's stated reason: this deck only
+sells/holds, never recommends buying with freed cash, so any redeployment-implying comparison
+is out of scope and inherently biased.
+**Index/factor funds get no analysis page (permanent):** found the ROOT cause was worse than a
+page-level issue — `data/anand_reddy.py`'s `(f3,f1,b3,b1)==(0,0,0,0)` placeholder pattern (meaning
+"no independent research run," e.g. HDFC NIFTY 50 Index Fund) was feeding literal zeros into
+`cagr3y`/`alpha_ann`/`bench_cagr3y` instead of `None` — a fund_equity.py chart or scheme_scorecards
+page would have plotted a fabricated "0% vs 0%" as if it were real research. Fixed at the source
+(these fields now correctly report `None`); `scheme_scorecards.py` also now excludes
+`category=="passive"` funds from getting a per-scheme page at all.
+**AMFI risk-battery backfill (background agent, independently re-verified):** 23 funds' `worst_1y`/
+`max_dd`/`sortino`/`calmar` computed from real AMFI NAV history (via this firm's existing
+`datasets/mf_nav/nav_latest.parquet` code lookup, not re-scraped), common trailing-3y window;
+2 D-009 spot-checks against Groww matched within 0.2pp. up/down-capture stayed `None` — no clean
+single benchmark TRI existed across this book's 10+ fund categories, correctly not fabricated.
+**New client-specific constraint (Principal, NOT a firm-wide rule):** "sell all liquid/debt/
+arbitrage and related funds, move to cash" for Anand Reddy. Clarified scope via question: debt-
+dominant only (gilt, overnight, debt-short, 15:85 conservative-hybrid) — the 65:35 equity-dominant
+hybrids stay Hold/Watch as before. Flipped 5 funds Hold→Sell (Aditya Birla Regular Savings, HDFC
+Hybrid Debt, SBI Gilt, HDFC Gilt, HDFC Overnight), bringing total fund exits to 7. Every stale
+"2 fund exits" reference (comments, the client-facing tax de_gap_note, data_notes flags) updated
+to the real count, made dynamic where it's client-facing text.
+**Two real layout bugs found by visual QA that `check_geometry.py`/`check_geometry2.py` both
+missed:** (1) `fund_actions.py`'s 2-column card grid had a hardcoded budget that assumed ~2 non-
+Hold funds; at 7 it shrank every card toward zero height regardless of text length -- fixed with
+an adaptive 2-vs-3-column layout plus a column-width-aware text clip length. (2)
+`tax_impact.py`'s fund-action table had a comment-documented but code-hardcoded assumption of
+"6 actions + total"; at 7+1=8 rows it silently pushed past the fixed-position callout boxes below
+it -- fixed with a dynamic row height that targets a stable end-y regardless of row count. Also
+fixed a cosmetic "-0.0%" negative-zero display artifact (SBI Gilt's near-zero real alpha) in
+`scheme_scorecards.py`. **Lesson: an automated geometry gate catches box-vs-box overlap on the
+slide it's given, not "this hardcoded row/column budget assumption breaks at N+1 items" -- visual
+QA on any slide whose content scales with client-specific data (fund count, holding count) remains
+necessary, gates are necessary but not sufficient.**
+**Gates final: 75 slides, 0 crashes, 0/0 geometry, 2 pre-existing accepted tellscan false
+positives ("genuine", "MERIT") + 1 new accepted false positive ("+0.0%", a real near-zero
+computed alpha for SBI Gilt, not a fabrication).** Ship:
+`09_PRODUCT/reports/NDPMS_Portfolio_Review_AnandReddy_HNI_DEEP_DRAFT.pptx` republished (v29).
+**OPEN:** Principal sign-off on the new liquid/debt/arbitrage constraint's material impact
+(proceeds/tax/deployment totals all changed substantially); whether the fund_actions 3-column
+threshold (>6) and tax_impact row-height formula generalize well to a client with even more
+fund actions (untested beyond n=7 today).
+
+---
+## 2026-07-28 (later) — IPS rebuilt v2 ("best of both worlds"), ips_summary un-cut, opportunity_set wired to real IPS + real look-through equity; PDF no longer auto-generated
+Principal supplied a reference IPS image (another platform's "Portfolio Contours" template:
+Ideal-vs-Current across Portfolio/Equity/Fixed-Income/Commodities-level parameters) and asked
+for a merged design using that coverage + our existing nicer rail/pill visual style — plus flagged
+that the sell/trim cash-deployment story wasn't well covered by the (now-cut) old IPS page.
+**Rebuilt `ips_summary.py` from scratch (v2):** richer schema (`single_amc_cap_pct`,
+`locked_in_cap_pct`, `cash_cap_pct`, `equity_mcap_bands`, `thematic_sectoral_cap_pct`,
+`unlisted_equity_cap_pct`, `international_equity_cap_pct`, `fi_credit_bands`,
+`mod_duration_cap_yrs`, `gold_band_pct`, `silver_band_pct` added to `ctx["ips"]` in both
+`data/azby_family.py` — the house-standard demo template — and `data/anand_reddy.py`), rendered
+as 4 sectioned mini-tables (Portfolio/Equity/Fixed-Income/Commodities) with navy section bars +
+Aligned/Gap/Pending pills, not a plain corporate table. **"Current" is computed LIVE from ctx for
+every row that's honestly derivable** — including a new `_lookthrough_mix()` helper that blends
+direct equity + equity-oriented FUND categories for a true Equity/Debt split (Anand Reddy: ~86%
+real look-through equity, vs the ~42% direct-equity-only figure used elsewhere — his exposure via
+funds was previously invisible on this page), single-scheme/single-AMC concentration across BOTH
+stocks and funds, ELSS lock-in share, market-cap mix, international/unlisted exposure (both
+genuinely 0% for him — real facts, not gaps) — and "Not tracked" (never fabricated) for
+fixed-income credit-quality/duration, which no ctx field supports yet. **Real finding surfaced
+immediately:** Single-scheme concentration shows a GAP at 17.9% vs the 8% cap — that's RELIANCE,
+his largest holding and already a Sell elsewhere in the deck, now with quantitative IPS backing.
+**`ips_summary.py` un-cut** (reverses the 2026-07-27 removal) — restored `core=True` in
+`engine.py`, removed from Anand Reddy's client-specific `skip_core` in `build_anand_reddy.py`;
+the old cut was about the THIN version being low-value with no bespoke IPS, not the concept.
+**`opportunity_set.py` wired to real data** (Principal: "illustrative can be best recomm based on
+profile and ips"): "Today" now uses the same real look-through Equity/Debt/Cash split as the IPS
+page (was direct-equity-only, understating exposure for any fund-heavy client); "Illustrative"
+now derives from the client's own IPS `alloc_bands`/`foreign_target_pct`/`gold_band_pct` targets
+when `on_file=True`, falling back to a generic diversification example only when no bespoke IPS
+exists yet — reuses `_lookthrough_mix()` from ips_summary.py rather than duplicating the logic.
+**Two real geometry bugs caught and fixed mid-build:** (1) a raw hex-string color crashed
+`ips_summary.py` (needed the `WHITE` RGBColor constant, not `"#FFFFFF"`); (2) the constraints
+strip and the page footer collided — tightened row heights (0.285→0.25in) and gap/threshold
+constants to buy clearance; (3) `opportunity_set.py`'s lengthened source line overflowed its
+fixed-height box — shortened. **One real data bug caught on visual QA:** Anand Reddy's old
+`alloc_bands` used a degenerate `(0,100,100)`/`(0,0,100)` placeholder that trivially self-satisfied
+"Aligned" once the page started reading it meaningfully — fixed to `None` (honest "TBD"), matching
+every other unset field on the page.
+**Gates: 78 slides, 0 crashes, 0/0 geometry, 0 tellscan (2 acceptable false positives),
+visual QA on both new/changed pages.** Bonus: the corrected ~86% look-through equity share also
+resolved a previously-flagged cosmetic chart-label crowding issue on the opportunity_set frontier
+plot (Today's marker moved to a less crowded position). **New standing instruction (Principal):
+PDF is no longer auto-generated after every rebuild — ask at the end whether PPTX, PDF, or both
+are wanted.** Ship: `09_PRODUCT/reports/NDPMS_Portfolio_Review_AnandReddy_HNI_DEEP_DRAFT.pptx`
+re-published (PDF not regenerated this round, per the new instruction). Files touched:
+`modules/ips_summary.py` (full rewrite), `modules/opportunity_set.py`, `data/azby_family.py`,
+`data/anand_reddy.py`, `engine.py`, `build_anand_reddy.py`. **OPEN:** Principal sign-off; whether
+`deployment.py`'s sleeve sizing should also be wired to real IPS bands (only `opportunity_set.py`
+was wired this round); the demo (ABXY) build couldn't be re-verified in this worktree (a required
+data file, `portfolio_quant.csv`, exists in the main repo but isn't checked into this worktree —
+pre-existing environment gap, not caused by this session's edits).
+
+---
+## 2026-07-28 — Full pr_template audit (3 parallel agents, ~47 modules): a CONFIRMED false-content bug shipped to a real client, caught and fixed, plus ~15 more real bugs
+Principal asked for (1) a 18% cap on the growth-projection return, (2) removal of the MDD/
+scenario-comparison page (structurally biased since this deck only sells, never buys — cash
+always looks safer), and (3) a full audit/debug pass across the whole module library: what's
+redundant, what's safe-as-is, what needs data vs code changes, plus a Haiku/Sonnet/Opus
+model-tier plan. Ran 3 parallel Sonnet audits (D-023's 3-agent cap respected, flagged to
+Principal since he asked for "many" agents) covering all ~47 live modules + 7 parked ones.
+**Immediate fixes applied directly:** `growth_projection.py` capped at `MU_CAP=18.0`;
+`annex_stress_scenarios.py` deleted outright (its `TODAY`/`PROP` drawdown arrays were literally
+hardcoded, not computed — worse than just biased) and its `optional_on` entry removed (the
+earlier same-day fix had only unwired it, not actually removed the string — caught and corrected
+mid-session).
+**Audit's most severe finding — CONFIRMED FACTUALLY FALSE CONTENT ALREADY SHOWN TO THE PRINCIPAL:**
+`house_view_fit.py`'s hardcoded `PLAN` dict claimed proceeds were seeded into a foreign/global
+sleeve and a gold-silver sleeve, and that "two >11% positions were trimmed" — cross-checked
+against the real `data/anand_reddy.py` ctx: 100% of proceeds are parked in cash (no such sleeves
+exist) and `n_trim=0` (zero trims happened). Every prior HNI_DEEP build (v1-v15) shipped this
+false claim. Rewrote `_plan_for()` to derive each dimension's text from real
+`ctx["deployment"]["sleeves"]`/`ctx["totals"]` fields, with an honest "no sleeve funded yet"
+fallback — same bug class and same severity tier as the stress_scenarios fabrication.
+**~15 more real bugs found and fixed, all LIVE in the current build (not just parked modules):**
+`annex_mcap_migration.py` had an undisclosed `TRIM_PT=2.0` hardcoded constant feeding its "after"
+bars regardless of whether any trim actually happened, AND presented a proposed redeployment as
+already "executed" (cross-panel violation vs `deployment.py`'s own "nothing executes without
+authorisation" caveat) — both fixed, trim now computed from each holding's real weight vs the
+real single-name cap. `annex_goal_mapping.py` had a second, independent flat `MU,SIGMA=12,14`
+constant — the exact anti-pattern banned in growth_projection.py a day earlier, resurfacing in a
+sibling module — fixed to reuse `growth_projection._derive_mu_sigma()` (one shared formula, no
+duplicate assumption); also fixed static "fully covered" prose to reflect the real computed
+funded-% per goal. `opportunity_set.py`'s "Today" mix was a hardcoded `[0.80,0.03,0.12,0.05]`
+constant asserted as the client's real allocation — replaced with the real `eq_pct` share (honest
+gap disclosed for the untracked foreign/gold split, not fabricated). `fund_actions.py` leaked raw
+SENTINEL codes (CLOSET_INDEX, NEG_ALPHA) instead of the plain-word translation every sibling
+module already uses — now reuses `fund_book_scored.py`'s `FLAB` dict; also fixed its "Redeem to
+Direct" label to "Switch" (missed in the earlier rename pass). `funds_hybrid.py` had dead
+`min()`/`max()` code that would crash on a client holding zero hybrid funds, plus a None-unsafe
+sort key — both fixed. `funds_equity.py`'s down-capture chart had no None-filter (real clients
+frequently have `down_capture=None`, thin NAV history firm-wide) — fixed. **Systemic:**
+`ctx.get("is_demo", True)` was backwards in 17 modules firm-wide — a real client whose ctx ever
+omitted the key would silently print "illustrative synthetic" disclaimers; flipped the default
+to `False` in all 17, and `client_intake.py` (the real-client pipeline's single point of truth)
+now explicitly stamps `is_demo: False` on every intake. **Crash-risk guards added** (real risk for
+a future fund-heavy/thin-equity first-review client, not triggered by Anand Reddy's 27-holding
+book but genuinely live code paths): `annex_concentration_curve.py` (IndexError <5 holdings, plus
+a nonsensical >100%-equal-weight table row for a small book), `annex_income_ladder.py` and
+`annex_liquidity_ladder.py` (IndexError <2 holdings), `annex_correlation.py`,
+`annex_risk_contribution.py`, `annex_beta_ladder.py` (ZeroDivisionError on an all-fund client),
+`annex_valuation_bands.py` (ZeroDivisionError if no holding has a usable PE — now an honest "not
+available" fallback instead of a crash). `sector_exposure.py` fixed a real single-sector text bug
+("leans toward IT and IT"). `group_concentration.py` (parked, not currently rendering) had a
+denominator bug flattering its post-sale group-share number, plus an undisclosed promoter-map
+coverage gap — both fixed ahead of any future resurrection, per the audit's "fix then resurrect,
+don't delete" recommendation. `fund_quality_alloc.py` (parked) had an unconditional "Synthetic
+demo funds" label — gated on `is_demo` for hygiene.
+**Redundancy calls flagged, NOT silently resolved (Principal/Product-head judgment needed):**
+`book_scored.py` (table) vs `equity_book.py` (bubble chart) show the same weight/score/rec data
+in two forms — candidate to drop one from some tiers, not a confirmed cut. `fund_overlap.py`
+(parked, the more decision-relevant "double-pay" overlap module) vs `scheme_overlap_full.py`
+(live, hash-fabricated-but-disclosed overlap matrix, just repositioned into the main deck) —
+audit flags it's odd that the weaker module is prominent while the stronger one is cut; recommend
+wiring `fund_overlap.py` to the new `mf-lookthrough` skill once portfolio-disclosure data lands.
+`cost.py` (parked) — audit says correctly cut, real computation, just redundant with fund-action
+cost framing now.
+**Gates after the full fix batch: 77 slides, 0/0 geometry, 0 tellscan (2 acceptable false
+positives: "on merit", "genuine deleveraging" — ordinary English), visual QA on the two most
+severe fixes (house_view_fit, annex_mcap_migration) plus the growth/goal-mapping/opportunity_set
+trio.** One minor known cosmetic item, NOT fixed: `opportunity_set.py`'s "Today"/"Max-Sharpe mix"
+chart labels crowd each other for this client's real ~42%-equity risk/return position — a
+matplotlib label-placement detail inside `charts.py`, not a data/content bug; flagged for a
+follow-up chart-layout pass, not blocking.
+**Deliverables on disk (not yet actioned further):** `MODEL_TIER_ASSIGNMENT.md` (Haiku vs
+Sonnet vs Opus boundaries across the full pipeline), `AUDIT_GROUP{1,2,3}_*.md` (the three raw
+audit reports, full detail behind every fix summarized above). Ship:
+`09_PRODUCT/reports/NDPMS_Portfolio_Review_AnandReddy_HNI_DEEP_DRAFT.pptx/.pdf` re-published at
+v15. **OPEN:** Principal sign-off; the book_scored/equity_book and fund_overlap/
+scheme_overlap_full redundancy calls; the opportunity_set chart-label cosmetic fix; whether to
+raise the D-023 3-agent cap for bulk multi-client work (Principal asked for "many" agents this
+round, only 3 ran).
+
+---
+## 2026-07-27 (later still) — Anand Reddy Principal feedback round: 5 permanent policy/content rules baked into the template, growth-model rework, tellscan.py built, 2 optimization/design docs
+Principal reviewed the HNI_DEEP build (82 slides) and gave a batch of corrections — ALL explicitly
+"permanent, not one-time," applied to the shared pr_template code (engine.py/tiers.py/modules),
+not just Anand Reddy's ctx. Rebuilt to v10 (78 slides), all gates re-verified 0/0/0.
+1. **Factor-fund rule reversed:** blanket "consolidate all passive/factor exposure" Sell is gone.
+   Factor ETFs default **Hold** now; the one named exception is a **Nifty 200 Momentum 30**
+   factor fund, which stays **Sell**. Anand Reddy's book: MOVALUE (value-factor ETF) flipped
+   Sell→Hold; MOM30IETF (momentum-30) stays Sell. Plain non-factor index funds unaffected.
+2. **5 pages cut permanently** (module stays in the library, `engine.py` core flag flipped to
+   False, same convention as the already-parked fund_overlap/fund_quality_alloc):
+   `ips_summary`, `group_concentration`, `cost`, `factor_profile` ("index/factor fund analysis"
+   — Principal's words, mapped to the one page whose factor tilts are an illustrative/approximated
+   proxy, not a real regression), `annex_currency_geo` ("geography analysis").
+3. **"Redeem-to-Direct" → displays as "Switch"** everywhere client-facing (`VDISP` mappings in
+   funds_equity/funds_hybrid/fund_book_scored + inline prose in scheme_scorecards/appendix/
+   exec_summary/contents_legend/gallery); internal verdict code/color-key unchanged. **Flagged,
+   not silently resolved:** this now visually collides with the pre-existing, differently-meaning
+   `Switch` verdict (different fund vs same-fund-cheaper-plan) — no fund in this book triggered
+   the collision, but a future client might; revisit if it ever reads confusingly.
+4. **Repositioned into the main deck:** `scheme_overlap_full` ("fund overlap") moved
+   Annexure→Section 3 The Fund Book, now sits right before `fund_actions`. `growth_projection`
+   moved Annexure→Section 4 Recommendations, now sits right after `priority_actions`. Both
+   modules' own section tags updated to match their new `engine.MODULES` entries.
+5. **Growth-projection formula replaced:** flat 12%/14% assumed return/volatility is gone.
+   `modules/growth_projection.py::_derive_mu_sigma()` now computes both from the client's real
+   holdings — equity-weighted forward EPS growth (+ disclosed dividend-yield proxy) blended with
+   the fund sleeve's real 3y CAGR, weighted by eq/mf split; volatility from a documented
+   composition proxy (large-cap share, concentration) since no per-holding return series exists
+   yet. Anand Reddy's real output: 13.6% mu / 11.0% sigma (vs the old flat 12%/14%) — pure
+   Python, zero LLM cost, same formula every build.
+**New standing artifact:** `tellscan.py` (alongside check_geometry.py/2.py) — the tell-scan is no
+longer re-derived from memory each session; a versioned script with the full banned-term list
+(internal jargon, data-QA vocabulary, source citations, snake_case leaks, synthetic-demo
+mislabeling), runnable on a rendered pptx OR a raw ctx `.py` source file. Tested clean on the
+final deck (2 acceptable false positives: "on merit", "genuine deleveraging" — ordinary English).
+**Two background-agent deliverables (design/analysis only, not yet acted on):**
+`INTAKE_WORKFLOW_SPEC.md` — full design for a new Step-0 advisor intake (2-4 questions, tier
+picker mapped onto existing HNI_DEEP/STANDARD/RM_SIMPLE with real slide-count evidence,
+Recommended-vs-Customize checklist, parallel background research so wait time costs nothing) —
+its "Step 0" text was merged into SKILL.md's FULL PIPELINE section this session, so the workflow
+is LIVE, not just proposed. `TOKEN_TIME_OPTIMIZATION.md` — prioritized pipeline efficiency
+recommendations (per-module render cache, diff-based visual QA, model-tier reassignment) — the
+#1 recommendation (tellscan.py as a standing script) was built this session; the rest (render
+cache, diff-based QA, ctx placeholder linter) are NOT yet built, next-session candidates.
+**Ship:** `09_PRODUCT/reports/NDPMS_Portfolio_Review_AnandReddy_HNI_DEEP_DRAFT.pptx/.pdf`
+re-published at v10 (78 slides, 0/0 geometry, 0 tellscan). Files touched: `engine.py`, `tiers.py`,
+`data/anand_reddy.py`, `modules/{growth_projection,scheme_overlap_full,funds_equity,funds_hybrid,
+fund_book_scored,scheme_scorecards,appendix,exec_summary,tax_impact,contents_legend}.py`,
+`gallery.py`, new `tellscan.py`, `.claude/skills/ndpms-deck/SKILL.md`. **OPEN:** Principal
+sign-off on v10; the Switch/Redeem-to-Direct display collision (item 3); whether to build the
+render-cache/diff-QA optimizations next session.
+
+---
+## 2026-07-27 (later) — Anand Reddy: full HNI_DEEP tier built (82 slides), 13 crashing modules + a factual-accuracy bug fixed
+Principal ask: "complete large deck, max automation, template use" for Anand Reddy, using the
+standardized pr_template/ABXY pipeline (haiku for mechanical work, sonnet for judgment). The
+RM_SIMPLE deck (below entry) only exercised 23 of ~57 modules — building HNI_DEEP (the full
+tier) surfaced real gaps the smaller tier never touched:
+- **13 modules crashed outright** on the real ctx (missing `house_view.stance`, `funds[].amc`,
+  equity `pe`/`roe`, fund risk-battery fields). Fixed by wiring in REAL data two agents pulled
+  from disk (`full750_scored.csv` pe/roe 19/27, `pf_qual_*.json` forward-growth 12/27, real
+  NSE index-membership mcap band 13/27, `nav_latest.parquet`/public registry AMC names 24/26,
+  QFRA-2's real down-capture for the 2 funds it actually covers) — plus honest graceful
+  degradation (print "n/a", skip a chart, drop a clause) for stats that genuinely don't exist
+  yet for this book (fund NAV history caps at 18 monthly points firm-wide — no Sortino/Calmar/
+  drawdown is computable; no IPS on file yet — no client allocation-target gap for
+  Large/Mid/Small/Gold). Never fabricated a number to fill a gap.
+- **Tell-scan found 151 internal-jargon hits** (pf_qual, screener.in, analyst names, third-party
+  source citations INDmoney/Groww/Paytm Money/Advisorkhoj, "Quant-only, analyst view...") on
+  modules the RM_SIMPLE ship never rendered (sell_cards.py, book_scored.py, hold_rationale.py,
+  spotlight_holdings.py, fund-side modules) — root cause: `client_case` (the hand-scrubbed
+  client-safe text from the RM_SIMPLE fix) was only ever read by 2 of ~8 modules that show
+  equity rationale, and funds had NO scrubbed field at all. Fixed at the data layer: a
+  `_scrub_client_text()` regex strips the citation preamble and de-snake-cases stray internal
+  field names, applied to all 19 Hold names (15 Sells already had hand-authored `client_case`)
+  and every fund's `structural_reason`; `sell_cards.py`/`spotlight_holdings.py` fixed to prefer
+  the clean field. Re-scan: 0.
+- **Real accuracy bug caught on visual QA pass (not caught by any gate):** HDFC NIFTY 50 Index
+  Fund's slide showed "0.0% CAGR / +0.0 vs BM" — a `(0,0,0,0)` placeholder tuple used purely to
+  keep the internal QFRA score neutral for 2 blanket portfolio-construction Sells (consolidate
+  index/debt exposure, not a performance call), rendered as if it were the fund's real return.
+  A real Nifty 50 index fund's 3y CAGR is nowhere near zero — fixed to `None` at the data layer
+  + None-safe "n/a" formatting in `funds_equity.py`/`scheme_scorecards.py`.
+- **8 modules unconditionally printed "illustrative synthetic book/funds/demo"** on slides
+  showing 100% real client data (`appendix.py`, `book_scored.py`, `fund_category_rules.py`,
+  `funds_equity.py`, `funds_hybrid.py` x2, `hold_rationale.py`, `house_view_fit.py`,
+  `annex_concentration_curve.py`) — copy-pasted from the AZBY demo build, never gated on
+  `ctx.get("is_demo")`. All 8 fixed to gate correctly; `annex_concentration_curve.py`'s
+  `[ILLUSTRATIVE]` tag removed outright (its concentration curve is pure real-weight math, no
+  synthetic component at all, unlike the genuinely-synthetic annex pages like
+  `annex_correlation.py`). Also fixed a literal "None-year-plus horizon" / "built not yet on
+  file" string bug in `mandate_method.py` (ips.horizon_yrs/construction absent for a first
+  review) and a near-blank allocation-gap chart in `allocation_house_view.py` (no IPS on file
+  → only a single 0.0 Foreign data point) — both now render an honest fallback sentence instead.
+- **Gates: 82/82 slides render, 0/0 both geometry checkers, 0 tell-scan hits, visual QA pass
+  done on ~15 slides across every touched module.** Ship: `09_PRODUCT/reports/
+  NDPMS_Portfolio_Review_AnandReddy_HNI_DEEP_DRAFT.pptx` + `.pdf` (DRAFT, pre-sign-off).
+  Files touched: `data/anand_reddy.py` (scrub function, real-field wiring, factual-accuracy
+  fix), `build_anand_reddy.py` unchanged, 13 `modules/*.py` (hardening + demo-language gates).
+- **OPEN before this can ship past DRAFT:** Principal sign-off; whether the fund-side risk
+  battery (Sortino/Calmar/drawdown/up-down-capture) should get a proper NAV-history pull for
+  this client's 26 funds rather than staying "n/a" (would need daily, not monthly, NAV — a
+  new data-sourcing task, not a code fix); the pending 10+-agent parallel QA sweep and
+  transfer-in-review DOCX flagged as not-yet-done in the RM_SIMPLE entry below are STILL open
+  and apply here too.
+
+---
 ## 2026-07-27 (DESK-100) — First real-client deck: Anand Reddy NDPMS review (RM_SIMPLE), jargon-leak caught + fixed
 Principal's first post-automation real project: `Anand Reddy.xlsx` (statement, ~Rs1.61cr: 27 equity
 + 26 fund lines) built into a full NDPMS review deck via the existing pr_template engine, not a demo.

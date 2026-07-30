@@ -84,8 +84,9 @@ def render(deck, ctx, tier):
 
     more = len(eq) - min(MAXROWS, len(eq))
     extra = " Rows link to each name's page there." if (linked and more > 0) else ""
+    demo_tag = " Illustrative synthetic book." if ctx.get("is_demo", False) else ""
     deck.source(s, (f"All {len(eq)} holdings are scored; the remaining {more} sit in the annexure.{extra} " if more > 0 else "")
-                   + "Ionic Score: two-horizon composite with safety gates, reviewed by the desk · "
-                     "illustrative synthetic book.")
+                   + "Ionic Score: two-horizon composite with safety gates, reviewed by the desk."
+                   + demo_tag)
     deck.score_band(s)
     return 1

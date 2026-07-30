@@ -317,10 +317,33 @@ def build_ctx():
         "client": {"name": "ABXY Family", "code": "ABXY-NDPMS-DEMO", "account_type": "NDPMS (Non-Discretionary)",
                    "profile": "Aggressive", "horizon": "Long term (7yr+)", "construction": "Core–satellite",
                    "aum_inr": grand, "as_of": "2026-07-25"},
-        "ips": {"risk_tier": "Aggressive", "objective": "Long-term capital growth with a quality bias; tolerates interim drawdowns for higher compounding.",
-                "horizon_yrs": 7, "single_name_cap_pct": 8.0, "foreign_target_pct": 15.0, "gold_target_pct": 5.0,
+        # IPS schema v2 (2026-07-28, "best of both worlds" — Principal reference deck +
+        # our existing rail-bar visual style): richer parameter coverage (portfolio/equity/
+        # fixed-income/commodities level, each with a real min-target-max or max-only band),
+        # on_file=True here since this is the house-standard DEMO template; a real client
+        # with on_file=False gets the same shape with "Not yet on file"/None where a bespoke
+        # target hasn't been agreed yet -- ips_summary.py computes "Current" live from ctx,
+        # never from a client-authored guess.
+        "ips": {"on_file": True, "risk_tier": "Aggressive",
+                "objective": "Long-term capital growth with a quality bias; tolerates interim drawdowns for higher compounding.",
+                "horizon_yrs": 7,
                 "alloc_bands": {"Equity": (65, 78, 85), "Hybrid/Debt": (5, 12, 25), "Alternatives/Gold": (0, 5, 10), "Cash": (0, 5, 15)},
-                "constraints": ["No single stock above 8% of the book", "Min 15% of equity in foreign/global by target",
+                # portfolio-level caps (single_name_cap_pct kept as the canonical field name --
+                # used by 7 other modules already; it covers "single scheme/instrument" exactly)
+                "single_name_cap_pct": 8.0, "single_amc_cap_pct": 25.0,
+                "locked_in_cap_pct": 10.0, "cash_cap_pct": 5.0,
+                # equity-level parameters
+                "equity_mcap_bands": {"Large": (50, 70), "Mid & Small": (30, 50)},
+                "thematic_sectoral_cap_pct": 20.0, "unlisted_equity_cap_pct": None,
+                "foreign_target_pct": 15.0, "international_equity_cap_pct": 25.0,
+                # fixed-income parameters (not derivable from equity/fund ctx yet -- house
+                # policy bands only, "Current" stays "Not tracked" until credit-quality/
+                # duration data is sourced per debt holding)
+                "fi_credit_bands": {"AAA": (75, 85), "AA+ / AA / AA-": (5, 15), "Below AA-": (5, 15)},
+                "mod_duration_cap_yrs": 5.0,
+                # commodities
+                "gold_band_pct": (0, 5, 10), "silver_band_pct": (0, 2, 5),
+                "constraints": ["No single stock above the single-scheme cap of the book", "Min 15% of equity in foreign/global by target",
                                 "No unrated / F&O / leveraged positions", "ESG: no tobacco primary-producer adds"]},
         "house_view": {"stance": {"Domestic equity": "Incrementally positive", "Foreign equity": "~15% target, under-owned",
                                   "Gold & silver": "Positive, 75:25", "Momentum": "On hold", "Low-vol / value": "Favoured"},

@@ -39,7 +39,11 @@ def render(deck, ctx, tier):
     hpath = CH.hbar(labels, values, "azby_sector", highlight=0, fmt="{:.1f}%")
     deck.pic(s, hpath, ML, 2.0, 6.75, 4.35, valign="top", halign="left")
 
-    top1, v1 = ranked[0]; top2, v2 = ranked[1] if len(ranked) > 1 else (ranked[0])
+    single_sector = len(ranked) == 1  # 2026-07-28: a real thin/single-sector book must not
+                                      # read as "leans toward X and X" -- two mentions of the
+                                      # same sector was a real, visible sentence bug
+    top1, v1 = ranked[0]
+    top2, v2 = ranked[1] if len(ranked) > 1 else (None, None)
     t3 = sum(v for _, v in ranked[:3])
 
     # ---- scope note (right, top) ----
@@ -50,7 +54,13 @@ def render(deck, ctx, tier):
     deck.callout(s, cx, 2.0, cw, 1.95, "SCOPE, MF NOT LOOKED THROUGH", scope_body, kind="warn")
 
     # ---- read (right, bottom) ----
-    if reg == "simple":
+    if single_sector:
+        read = (f"Your entire direct-equity book sits in one sector: {top1}."
+                if reg == "simple" else
+                f"The direct-equity sleeve sits entirely in one sector, {top1} ({v1:.0f}%). "
+                "Sector risk here is total, not partial · it compounds with any single-name "
+                "concentration flagged earlier.")
+    elif reg == "simple":
         read = (f"Most of your shares are in {top1} and {top2}. Remember, this is only your direct "
                 "shares · your mutual funds also hold shares in these areas, so your real exposure is a bit higher.")
     elif reg == "hni":

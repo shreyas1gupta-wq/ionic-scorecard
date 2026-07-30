@@ -76,7 +76,8 @@ def render(deck, ctx, tier):
     extra = (len(core) - len(core_show)) + (len(watch) - len(watch_show))
     more_note = f"{extra} further Holds scored and read in the annexure · " if extra > 0 else ""
 
-    deck.source(s, more_note + "Conviction tier from Ionic Score × position size · reads are the analyst summary · "
-                   "illustrative synthetic book.")
+    demo_tag = " · illustrative synthetic book." if ctx.get("is_demo", False) else "."
+    deck.source(s, more_note + "Conviction tier from Ionic Score × position size · reads are the analyst summary"
+                   + demo_tag)
     deck.score_band(s)
     return 1

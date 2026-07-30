@@ -62,6 +62,8 @@ def render(deck, ctx, tier):
         deck.txt(s, tx + 0.16, y + 0.58, tw - 0.3, 0.24, [(names, SERIF, 8.5, SLATE, False)])
         y += 0.98
 
+    demo_tag = " Synthetic demo funds." if ctx.get("is_demo", False) else ""
     deck.source(s, "Allocation gap = fund weight minus the equal-weight reference (illustrative; a live "
-                   "review uses the house-view category bands). Quality = fund score. Synthetic demo funds.")
+                   "review uses the house-view category bands). Quality = fund score."
+                   + demo_tag)
     return 1

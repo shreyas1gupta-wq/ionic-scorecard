@@ -9,18 +9,34 @@ TIERS = {
         "chart_density": "rich",
         "show_horizon_legs": True,
         "optional_on": {            # every annexure module on
-            "deployment", "before_after",
-            "opportunity_set", "quality_vs_price", "factor_profile", "growth_projection",
-            "spotlight_holdings", "holdings_detail", "sell_cards", "scheme_overlap_full",
+            "before_after", "scheme_overlap_full",
+            "quality_vs_price", "growth_projection",
+            "spotlight_holdings", "holdings_detail", "sell_cards",
             "scheme_scorecards", "appendix",
             # extended visual annexure (Principal cut 2026-07-25: seasonality,
             # drawdown-history, sip-vs-lumpsum, fee-compounding, tax-lot-aging and the
-            # glossary page are out of the client deck; modules stay in the library)
-            "annex_score_vs_call", "annex_valuation_bands", "annex_returns_quilt",
-            "annex_correlation", "annex_risk_contribution", "annex_stress_scenarios",
-            "annex_beta_ladder", "annex_concentration_curve", "annex_liquidity_ladder",
-            "annex_currency_geo", "annex_mcap_migration", "annex_income_ladder",
+            # glossary page are out of the client deck; modules stay in the library).
+            # Principal cut 2026-07-27 (permanent): factor_profile ("index/factor fund
+            # analysis" — illustrative/approximated, one of the low-confidence pages) and
+            # annex_currency_geo ("geography analysis") are also out; modules stay in the
+            # library, rendered nowhere by default.
+            "annex_score_vs_call", "annex_valuation_bands",
+            "annex_correlation", "annex_risk_contribution",
+            "annex_beta_ladder", "annex_concentration_curve",
+            "annex_income_ladder",
             "annex_goal_mapping",
+            # Principal cut 2026-07-28 (permanent): annex_stress_scenarios is OUT — its
+            # "today's mix vs proposed mix" drawdown numbers were hardcoded constants, not
+            # computed from real data, AND structurally biased regardless (this deck only
+            # ever sells into cash, never buys into new positions, so a cash-heavier "after"
+            # mix will always show a smaller drawdown than "today" by construction — not a
+            # genuine risk-reduction finding). Module file DELETED outright 2026-07-28 (audit
+            # found it was still a live landmine, not just parked) -- see engine.py.
+            # Principal cuts 2026-07-28 (permanent, ALL tiers): deployment, opportunity_set,
+            # annex_mcap_migration, annex_liquidity_ladder, annex_returns_quilt — all sell-biased
+            # or redeployment-implying pages; this deck is Sell/Hold analysis only.
+            # scheme_overlap_full RESTORED 2026-07-28 (the earlier same-day cut was a page-26
+            # mis-identification; the Principal meant fund_category_rules).
         },
         "spotlight_count": 3,
     },
@@ -29,7 +45,7 @@ TIERS = {
         "register": "std",          # professional, accessible
         "chart_density": "standard",
         "show_horizon_legs": False,
-        "optional_on": {"deployment", "before_after", "opportunity_set", "growth_projection",
+        "optional_on": {"before_after", "growth_projection",
                         "spotlight_holdings", "appendix"},
         "spotlight_count": 2,
     },

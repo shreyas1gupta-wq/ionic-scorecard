@@ -29,7 +29,11 @@ def _one(deck, e, tier):
     # and fourth restatement of HOLD read as templated filler — cut, declutter 2026-07-25) ---
     rx = ML + 3.75
     rw = RX - rx
-    read = clip_sentences((e.get("summary") or e.get("detailed") or e.get("analyst_read") or "").strip(), 480)
+    # client_case/detailed are the scrubbed client-safe text (2026-07-27 sweep); summary
+    # carries the raw internal audit trail (pf_qual/analyst-name citations) and must never
+    # be shown to a client directly, so it's the last resort, not the first.
+    read = clip_sentences((e.get("client_case") or e.get("detailed") or e.get("analyst_read")
+                            or e.get("summary") or "").strip(), 480)
     deck.callout(s, rx, py, rw, 2.44, "Our read", read or "Analyst read on file.", "note")
 
     call = f"{e['rec']}"

@@ -1,6 +1,80 @@
 # CURRENT STATE — read me first (updated every session end)
 
-## 2026-07-27 (DESK-100, latest) — FIRST REAL CLIENT DECK: Anand Reddy NDPMS review built + shipped (RM_SIMPLE)
+## 2026-07-28 (DESK-100) — Full audit found a CONFIRMED false-content bug already shipped; IPS page rebuilt v2 "best of both worlds"; PDF now on-request only
+Two rounds today. **Round 1 (audit):** Principal asked for an 18%-cap on growth projection, the
+biased MDD-scenario page removed, and a full redundant/safe/needs-changes audit + Haiku-vs-
+Sonnet/Opus plan. 3 parallel Sonnet audits (D-023's cap respected, flagged since "many" were
+asked for) covering ~47 modules found **`house_view_fit.py` was showing CONFIRMED FALSE CONTENT
+to the Principal already** — a hardcoded "what the plan does" table claimed a foreign/gold sleeve
+and 2 trims that don't exist in Anand Reddy's real data (100% cash, 0 trims). Fixed, plus ~15
+more real bugs: an undisclosed hardcoded constant in `annex_mcap_migration.py`, a second flat-
+rate anti-pattern in `annex_goal_mapping.py`, a hardcoded fake "Today" mix in `opportunity_set.py`,
+a raw-jargon leak in `fund_actions.py`, dead crash-prone code in `funds_hybrid.py`, a backwards
+`is_demo` default in 17 modules firm-wide, and crash-risk guards on 7 annexure modules for a
+thin-equity/fund-heavy client. `annex_stress_scenarios.py` deleted outright (was only unwired
+earlier the same day, not removed — caught mid-session). **Round 2 (IPS rebuild):** Principal
+supplied a reference IPS image from another platform; `ips_summary.py` rebuilt v2 with much
+richer coverage (single-scheme/AMC/locked-in/cash caps, market-cap bands, thematic/unlisted/
+international-equity caps, fixed-income credit/duration, gold/silver bands) in our house visual
+style, "Current" always computed live from real ctx (incl. a new look-through Equity/Debt split
+blending direct equity + equity-oriented funds — Anand Reddy's real equity exposure is ~86% this
+way, not the ~42% direct-only figure used elsewhere). IPS page UN-CUT (reverses yesterday's
+removal — the old thin version was the problem, not the concept). `opportunity_set.py`'s
+"Illustrative" mix now derives from real IPS targets when on file. Real finding: Single-scheme
+concentration shows GAP at 17.9% — RELIANCE, already a Sell elsewhere in the deck, now with
+quantitative IPS backing. **Gates: 78 slides, 0 crashes, 0/0 geometry, 0 tellscan, visual QA
+throughout.** **New standing rule: PDF is no longer auto-generated — ask PPTX/PDF/both at the
+end of each turn.** Full detail: SESSION_JOURNAL.md 2026-07-28 entries (both rounds). Ship:
+`09_PRODUCT/reports/NDPMS_Portfolio_Review_AnandReddy_HNI_DEEP_DRAFT.pptx` (PDF not regenerated
+this round). **OPEN:** Principal sign-off; book_scored/equity_book + fund_overlap/
+scheme_overlap_full redundancy calls (flagged, not resolved); whether `deployment.py` should also
+wire to real IPS bands; demo (ABXY) build couldn't be re-verified in this worktree (missing
+untracked data file, pre-existing gap).
+
+## 2026-07-27 (later still, DESK-100) — Principal feedback round: 5 PERMANENT template rules + tellscan.py + intake-workflow live
+Principal reviewed the HNI_DEEP build below and issued a batch of corrections, all explicitly
+permanent (applied to shared pr_template code, not just Anand Reddy). Rebuilt v10 = 78 slides,
+0/0/0 gates. **(1)** Factor-fund rule reversed: factor ETFs default Hold now, except a named
+Nifty 200 Momentum 30 fund which stays Sell (Anand Reddy: MOVALUE Sell→Hold, MOM30IETF stays
+Sell). **(2)** 5 pages cut permanently (module stays in library, never renders by default):
+ips_summary, group_concentration, cost, factor_profile, annex_currency_geo. **(3)**
+"Redeem-to-Direct" now displays as "Switch" everywhere client-facing (internal code unchanged) —
+flagged open risk: collides visually with the pre-existing different-meaning "Switch" verdict.
+**(4)** scheme_overlap_full + growth_projection repositioned from Annexure into the main deck
+(Fund Book / Recommendations sections respectively). **(5)** growth_projection's flat 12%/14%
+assumption replaced with a real holdings-derived formula (EPS growth + fund CAGR + composition
+volatility proxy) — zero LLM cost, same formula every build. **New:** `tellscan.py` — the
+tell-scan is now a standing script (like check_geometry.py), not re-derived from memory each
+session. **New (designed + partially wired into SKILL.md this session):** a Step-0 advisor
+intake workflow — 2-4 questions, tier picker (Detailed/Medium/RM-Light mapped onto existing
+presets), Recommended-vs-Customize checklist, parallel background research so wait time costs
+nothing — full spec in `INTAKE_WORKFLOW_SPEC.md`, "Step 0" text merged live into SKILL.md.
+Full detail: SESSION_JOURNAL.md 2026-07-27 (later still) entry. **OPEN:** Principal sign-off on
+v10; the Switch/Redeem-to-Direct display collision; next-session candidates in
+`TOKEN_TIME_OPTIMIZATION.md` (per-module render cache, diff-based visual QA) not yet built.
+
+## 2026-07-27 (later, DESK-100) — Anand Reddy: complete HNI_DEEP tier built (82 slides), max-automation pass
+Principal ask ("complete large deck, max automation, template use, haiku+sonnet split") went
+beyond the RM_SIMPLE ship below to the full HNI_DEEP tier. Building the larger tier exercised
+~57 modules vs RM_SIMPLE's 23 and surfaced real gaps the small tier never hit: 13 modules
+crashed outright on missing real-data fields (fixed by wiring real pe/roe/growth/AMC/mcap-band
+data two agents pulled from disk, plus honest "n/a"/graceful-degrade for stats that genuinely
+don't exist yet — fund NAV history caps at 18 monthly points firm-wide, no IPS on file yet);
+tell-scan found 151 internal-jargon hits (pf_qual/screener.in/analyst names/source citations) on
+modules RM_SIMPLE never rendered, root-caused to `client_case` only being read by 2 of ~8
+rationale-showing modules — fixed with a `_scrub_client_text()` function applied deck-wide; a
+real accuracy bug (HDFC NIFTY 50 Index Fund showing a fabricated "0.0% CAGR" instead of "n/a"
+for a fund whose 3y record was never independently benchmarked) caught only on the mandatory
+visual QA pass, not any automated gate; 8 modules unconditionally printed "illustrative
+synthetic book/demo" on 100% real client data (copy-pasted AZBY-demo language, never gated on
+`is_demo`) — all fixed. **Gates: 82/82 render, 0/0 geometry x2, 0 tell-scan, visual QA on ~15
+slides.** Ship: `09_PRODUCT/reports/NDPMS_Portfolio_Review_AnandReddy_HNI_DEEP_DRAFT.pptx/.pdf`
+(DRAFT). Full detail: SESSION_JOURNAL.md 2026-07-27 (later) entry. **OPEN:** Principal sign-off;
+whether the fund risk battery (Sortino/Calmar/drawdown) is worth a real daily-NAV pull for this
+client (currently honest "n/a" — needs new data sourcing, not a code fix); the RM_SIMPLE entry's
+still-open 10+-agent QA sweep + transfer-in-review DOCX apply here too.
+
+## 2026-07-27 (DESK-100) — FIRST REAL CLIENT DECK: Anand Reddy NDPMS review built + shipped (RM_SIMPLE)
 First real (non-demo) portfolio review, built from `Anand Reddy.xlsx` (~Rs1.61cr, 27 equity + 26 fund lines) through the pr_template engine. Same 750-scorecard/QFRA methodology applied one-time to 9 out-of-universe names (Principal ruling); MF funds outside QFRA-1/2 coverage got real 3y/1y-vs-benchmark research via analyst/quant-head agents. **CRITICAL FIX before ship:** `sell_list.py`/`fund_actions.py` were rendering raw internal audit text (analyst names, "pf_qual"/"QFRA" codenames, "Principal"/"CIO" refs) straight onto client slides via a summary-field fallback — caught on a tellscan-equivalent grep sweep, fixed by adding explicit client-safe `client_case` text for all 15 Sell names + rewriting 2 funds' structural_reason; internal audit trail kept only as source comments. Also added `is_demo` ctx flag (9 shared modules) so demo/ABXY language can never leak into a real deck, and a new `data_notes` module for holdings that don't fit a normal Sell/Hold call. Ship: `09_PRODUCT/pr_template/out/AnandReddy_RM_SIMPLE.pptx` (23 slides), 0/0 geometry gates, visual QA pass. **OPEN for Principal/RM:** (1) MF-sheet header stray value Rs 8,61,415.04 — unexplained, excluded not guessed; (2) HDFC Overnight Fund's current value is blank on statement, shown at value_inr=0; (3) SBI Gilt + HDFC Gilt = same-factor duplication, consolidation candidate; (4) whether a STANDARD/HNI_DEEP tier build is also wanted (RM_SIMPLE was a judgment call under time pressure, not yet confirmed as final). **NOT YET DONE this session** (ran out of time): the 10+-agent parallel QA sweep and the transfer-in-review DOCX — both still pending, do next session before this deck is considered client-ready to send. Full detail: SESSION_JOURNAL.md 2026-07-27 entry.
 
 ## 2026-07-26 (DESK-100, latest) — Principal dispositions on the open ledger; **read `NEXT_WEEK_QUEUE.md` before touching any of it**

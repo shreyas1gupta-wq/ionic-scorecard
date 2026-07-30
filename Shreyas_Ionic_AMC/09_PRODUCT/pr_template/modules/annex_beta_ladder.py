@@ -33,6 +33,8 @@ def _beta(e):
 def render(deck, ctx, tier):
     reg = tier.get("register", "std")
     eq = ctx["equity"]
+    if not eq:
+        return 0  # 2026-07-28: an all-fund client has no direct-equity beta ladder to show
     as_of = ctx["client"]["as_of"]
     betas = {e["symbol"]: _beta(e) for e in eq}
     wsum = sum(e["weight_pct"] for e in eq)
@@ -71,12 +73,18 @@ def render(deck, ctx, tier):
     deck.txt(s, tx, 1.86, tw, 0.22, [(kick, "Bahnschrift", 9, SELL, True, False, 60)])
     deck.table(s, tx, 2.14, tw, cols, rows, rowh=0.26, fs=8.5, hfs=7)
 
+    if book_beta < 0.85:
+        stance, stance_simple = "below the market", "calmer than the market"
+    elif book_beta > 1.15:
+        stance, stance_simple = "above the market", "jumpier than the market"
+    else:
+        stance, stance_simple = "close to the market", "close to the market"
     if reg == "simple":
         body = (f"Beta says how much a stock moves when the market moves. The book overall sits near "
-                f"{book_beta:.1f}, close to the market. A small tail of names moves harder in both "
+                f"{book_beta:.1f}, {stance_simple}. A small tail of names moves harder in both "
                 f"directions; in a fall they will drop more than the index.")
     else:
-        body = (f"Book-weighted beta is {book_beta:.2f}, close to the market. The tail above "
+        body = (f"Book-weighted beta is {book_beta:.2f}, {stance}. The tail above "
                 f"{FLAG:.1f} ({tail_wt:.1f}% of the book) is where a drawdown bites hardest: these "
                 f"names fall further than the index and recover on their own cycle. Position sizes "
                 f"there should earn their volatility.")

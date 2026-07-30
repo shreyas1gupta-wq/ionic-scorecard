@@ -7,14 +7,54 @@ from pptx.enum.text import PP_ALIGN
 
 SECTION_NO, SECTION = 4, "Recommendations"
 
-# Authored "what the plan does" + fit verdict per house-view dimension (content, not numbers).
-PLAN = {
-    "Domestic equity": ("Core book kept; only sub-gate names sold and the two >11% positions trimmed toward guideline.", "Aligned"),
-    "Foreign equity": ("~28% of net proceeds seeds a global sleeve, a first step; the full ~15% target is phased over cycles.", "Gap"),
-    "Gold & silver": ("New gold–silver sleeve (75:25) added from proceeds; still building toward the ~5% target.", "Gap"),
-    "Momentum": ("No momentum chase, every sell is fundamentals-driven, not a price-trend call.", "Aligned"),
-    "Low-vol / value": ("Largest redeployment sleeve is a low-vol / value core, the closest-substitute risk profile.", "Aligned"),
-}
+
+def _sleeve_amount(sleeves, prefixes):
+    for name, amt, _note in sleeves:
+        if any(name.lower().startswith(p) for p in prefixes):
+            return amt
+    return 0
+
+
+def _plan_for(dim, ctx):
+    """What the plan does per house-view dimension, derived from THIS client's real ctx --
+    never authored/static prose (2026-07-28 fix: the old static PLAN dict claimed a global
+    sleeve, a gold-silver sleeve and 2 trims that did not exist on the real Anand Reddy deck --
+    confirmed shipped-false content, same bug class as the cut annex_stress_scenarios.py)."""
+    t = ctx["totals"]
+    sleeves = ctx.get("deployment", {}).get("sleeves", [])
+    if dim == "Domestic equity":
+        n_sell, n_trim = t.get("n_sell", 0), t.get("n_trim", 0)
+        txt = f"{n_sell} equity name(s) sold on quality/value grounds"
+        txt += (f"; {n_trim} position(s) trimmed toward the single-name guideline."
+                if n_trim else "; no position currently sits far enough over guideline to "
+                "warrant a trim.")
+        return txt, "Aligned"
+    if dim == "Foreign equity":
+        amt = _sleeve_amount(sleeves, ("foreign", "global"))
+        if amt > 0:
+            return (f"Rs {amt/1e5:.1f}L of net proceeds seeded into a foreign/global sleeve, "
+                    "a first step toward the house target.", "Gap")
+        return ("No foreign sleeve funded yet — proceeds are held in cash pending your goals "
+                "and IPS discussion.", "Gap")
+    if dim == "Gold & silver":
+        amt = _sleeve_amount(sleeves, ("gold",))
+        if amt > 0:
+            return (f"Rs {amt/1e5:.1f}L of net proceeds seeded into a gold & silver sleeve, "
+                    "building toward the house target.", "Gap")
+        return ("No gold/silver sleeve funded yet — proceeds are held in cash pending your "
+                "goals and IPS discussion.", "Gap")
+    if dim == "Momentum":
+        # firm methodology statement, not a client-specific portfolio claim -- always true
+        return ("No momentum chase — every sell/hold call here is fundamentals-driven, not a "
+                "price-trend call.", "Aligned")
+    if dim == "Low-vol / value":
+        amt = _sleeve_amount(sleeves, ("low-vol", "value"))
+        if amt > 0:
+            return ("Largest redeployment sleeve is a low-vol / value core, the closest-"
+                    "substitute risk profile.", "Aligned")
+        return ("No redeployment sleeve funded yet — proceeds are held in cash pending your "
+                "goals and IPS discussion.", "Gap")
+    return None, None
 
 LABELS = {
     "hni": {"eyebrow": "House-view fit", "title": "Where the plan aligns with Ionic's positioning · and where a gap stays open",
@@ -43,7 +83,7 @@ def render(deck, ctx, tier):
     gaps = ctx["house_view"].get("alloc_gap", {})
     rows = []
     for dim, view in stance.items():
-        plan_txt, fit = PLAN.get(dim, (None, None))
+        plan_txt, fit = _plan_for(dim, ctx)
         if plan_txt is None:
             # generic fallback if the stance dimensions change: flag a gap on any large signed band
             plan_txt = "Reviewed against the house view; see recommendations."
@@ -55,5 +95,6 @@ def render(deck, ctx, tier):
     deck.table(s, ML, 2.12, UW, cols, rows, rowh=0.62, fs=9.5, hfs=8)
 
     deck.callout(s, ML, 5.68, UW, 0.82, L["ct"], L["cb"], kind=L["ck"])
-    deck.source(s, f"Ionic house view · illustrative for this demo · as of {ctx['client']['as_of']}.")
+    demo_tag = " · illustrative for this demo" if ctx.get("is_demo", False) else ""
+    deck.source(s, f"Ionic house view{demo_tag} · as of {ctx['client']['as_of']}.")
     return 1

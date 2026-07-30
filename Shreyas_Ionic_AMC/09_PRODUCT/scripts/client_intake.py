@@ -141,7 +141,13 @@ def intake(holdings_path, profile_path, out_dir):
     for f in mf:
         f["weight_pct"] = round(100.0 * f["value_inr"] / total, 2) if total else 0
 
-    ctx = {"profile": profile, "equity": equity, "mf": mf,
+    # is_demo=False explicit here (2026-07-28) -- every module in the deck engine defaults
+    # ctx.get("is_demo", False) now (was accidentally True firm-wide, which would silently
+    # print "illustrative synthetic" disclaimers on a real client's deck if this key were ever
+    # missing). Anything going through the real intake pipeline is never a demo -- make that a
+    # fact stamped at the single point of truth, not an assumption left to each new client's
+    # data/<client>.py author to remember.
+    ctx = {"profile": profile, "equity": equity, "mf": mf, "is_demo": False,
            "totals": {"grand_inr": total, "n_equity": len(equity), "n_mf": len(mf),
                       "n_exceptions": len(exceptions)}}
     out_ctx = os.path.join(out_dir, "client_ctx.json")

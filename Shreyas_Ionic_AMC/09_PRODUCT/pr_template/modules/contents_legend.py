@@ -72,8 +72,10 @@ def render(deck, ctx, tier):
     deck.txt(s, rx, 2.20, 0.9, 0.24, [("EQUITY", SANS, 8, NT2, True, False, 60)], anchor=MSO_ANCHOR.MIDDLE)
     pills_row(rx + 0.95, 2.19, [("Sell", 0.62, "Sell"), ("Trim", 0.62, "Trim"), ("Hold", 0.62, "Hold")])
     deck.txt(s, rx, 2.58, 0.9, 0.24, [("FUNDS", SANS, 8, NT2, True, False, 60)], anchor=MSO_ANCHOR.MIDDLE)
+    # "Redeem-to-Direct" displays as "Switch" now (Principal 2026-07-27) -- dropped as its own
+    # legend row since it would be a second, identical-looking "Switch" pill
     pills_row(rx + 0.95, 2.57, [("Hold", 0.62, "Hold"), ("Trim", 0.62, "Trim"), ("Switch", 0.72, "Switch"),
-                                ("Redeem-to-Direct", 1.5, "Redeem-to-Direct"), ("Exit", 0.6, "Exit")])
+                                ("Exit", 0.6, "Exit")])
     vocab = ("A review of the holdings you already own; every call here applies to existing positions."
              if not simple else
              "A review of what you already own, and what we would do with each holding.")
