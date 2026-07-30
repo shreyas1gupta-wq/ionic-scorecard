@@ -173,6 +173,44 @@ house_view_fit, tax_impact, priority_actions, growth_projection (mu/sigma from r
 before_after, quality_vs_price, spotlight_holdings, holdings_detail, sell_cards, scheme_scorecards, annex_score_vs_call, annex_valuation_bands, annex_correlation (top 15 by weight), annex_risk_contribution, annex_beta_ladder, annex_concentration_curve, annex_income_ladder, annex_goal_mapping, appendix, disclaimer
 (CUT permanently: opportunity_set, deployment, factor_profile, annex_currency_geo, annex_mcap_migration, annex_liquidity_ladder, annex_returns_quilt, annex_stress_scenarios [DELETED], annex_seasonality, annex_drawdown_history, annex_sip_vs_lumpsum, annex_fee_compounding, annex_tax_lot_aging, glossary)
 
+### Sell page structure (sell_list.py + sell_cards.py)
+- **sell_list**: confirmed Sells only (no "Under review" pill client-side), no reason-category column, analyst-authored 2-line case per name, visible p.NN link per row to the rationale card, paginates at 5 rows.
+- **sell_cards**: each Sell name gets a full-page rationale card with:
+  - `negative_para`: the driver — why we're selling (OPENS the card, leans with the call)
+  - `positive` ("The bull we rejected"): the strongest counter-argument, explicitly discounted
+  - `reverse_dcf` ("Reverse-DCF: margin of safety"): what the market is pricing in vs our estimate
+  - `rationale`: the analyst's full reasoning
+  - If `positive` or `reverse_dcf` is empty, it falls back to "On file with the analyst desk." — always populate these from the scored universe's `pf_qual_*.json` or `ANALYST_RECOMMENDATIONS_v2.xlsx`
+
+### Tax chart scope (tax_impact.py)
+The tax chart shows **direct-equity sells & trims only** (not fund proceeds). In the data layer:
+- `eq_proceeds = sell_val + trim_val` — equity-only, used for `tax["gross"]`
+- `proceeds = eq_proceeds + fund_action_val` — combined total, used for `deployment["proceeds_inr"]`
+The chart caption says "Direct-equity sells & trims, net of est. tax" — if the gross number includes fund actions, it's a BUG.
+
+### IPS page (ips_summary.py, v2, RESTORED)
+Renders ONLY when `ctx["ips"]["on_file"]` is True. Structure:
+- 4 mini-tables in the house navy/gold rail-and-pill style (never a plain corporate table)
+- **Portfolio level**: equity/debt split, single-scheme/AMC/locked-in/cash caps
+- **Equity level**: market-cap bands, thematic/unlisted/international caps
+- **Fixed income**: credit-quality bands (AAA/AA/A/below-A) + duration cap
+- **Commodities**: gold/silver bands
+- "Current" is ALWAYS computed live from ctx via `_lookthrough_mix()` — includes look-through equity/debt split (direct equity + equity-oriented fund categories), materially different from direct-equity-only figures
+- "Ideal" shows "TBD" and Fit shows "Pending" for any parameter with no bespoke IPS on file — never a fabricated target
+
+### Cross-panel consistency scan (mandatory QA gate)
+Any two numbers on the same slide that a reader will assume are the same set MUST reconcile or be explicitly scoped. Examples:
+- Tax table = fund actions vs waterfall = equity plan → different bases, both disclosed
+- concentration_risk KPI vs holdings table rows = same basis: % of equity sleeve
+- Same-entity names identical across slides (short_name width >=30 for scheme tables)
+- A driver/tag must match the narrative beside it and the same call's rationale elsewhere in the deck
+
+### CEO-sweep fixes (baked in, do not regress)
+- `_reason_category`: buckets scored by keyword-hit COUNT on negative_para first (rationale fallback), with negation scrub (`no ... red flags` never trips forensic) and bare "growth" excluded (stat mentions like "PAT growth +156%" aren't a slowing-growth thesis)
+- Commodity-cycle reversal suffix (sell_cards): applies to sector "Metals & Mining" ONLY — conglomerates/utilities in Oil&Gas/Power must not get "metal price" language
+- Tax rows: character from holding_years (>=1y = LTCG; REDEEM = "Mixed, lot-by-lot") — the old `action in ("Switch","Exit")` check never matched UPPERCASE codes
+- CoPilot CTA is OUT — no product names client-side
+
 ### Slidekit primitives (prevent regressions)
 - `clip_sentences`: whole sentences, decimal-safe
 - `clip_clause`: sentence/semicolon-only periods, paren-balanced
@@ -325,12 +363,38 @@ Internal verdict code stays `Redeem-to-Direct`. Client-facing display = "Switch"
 
 ## PART 4: CLIENT INTAKE WORKFLOW
 
-### Full pipeline (real client)
+### Design principle
+**"Standardize the FORMULA, personalize the DATA, never standardize the OUTPUT."**
+Every module is a pure function of the `ctx` dict — numbers/names/verdicts all trace to `ctx[...]` lookups. The template is standardized; the data layer is per-client; the rendered deck is unique to that client's book.
+
+### Full pipeline (real client, Apr/Oct cadence)
 
 **Step 0: Advisor intake (same turn as holdings upload)**
-When a holdings file arrives, simultaneously:
-(a) Launch parallel-compute: `client_intake.py` match + pf_qual lookups per stock + fund_ctx_adapter QFRA verdicts per fund + aggregates — all to disk
-(b) Ask the advisor 4 questions: deck depth (HNI_DEEP/STANDARD/RM_SIMPLE), first-vs-follow-up, exclusions, turnaround. Then one follow-up: Recommended preset or Customize (checklist of optional modules).
+The INSTANT a holdings file arrives, do TWO things in parallel:
+
+**(a) Launch parallel-compute** (zero advisor interaction needed):
+`client_intake.py` match → `pf_qual_*.json` lookups per matched stock → `fund_ctx_adapter.py` QFRA-1/QFRA-2 verdicts per matched fund → sector/mcap/concentration/cost aggregates → all written to `client_ctx.json` + `exceptions.csv` on disk.
+
+**(b) Ask the advisor up to 4 questions** (while compute runs):
+
+**Q1 — Deck depth:**
+| Option | Slides | Description |
+|---|---|---|
+| **Detailed (HNI_DEEP)** | 60-100pg | Full methodology, all annexure modules, family-office grade |
+| **Medium (STANDARD)** | 30-60pg | Professional, accessible, selected annexure |
+| **RM Light (RM_SIMPLE)** | 15-30pg | Plain language, bigger type, story beats only |
+Warn: RM Light can occasionally print >30pg on a large book (pagination, not a preset bug) — offer Medium instead of forcing the ceiling.
+
+**Q2 — First review or follow-up?** (unlocks `since_last_review` module if meeting_history supplied)
+
+**Q3 — Anything to exclude/downplay?** (tax detail, methodology detail, specific sections)
+
+**Q4 — Turnaround / PDF need?** (PDF conversion is ON REQUEST ONLY, never auto)
+
+**Then ONE follow-up after Q1 is answered:**
+**Recommended** (ship the tier's current preset from `tiers.py` as-is) or **Customize** (show a checklist of the tier's optional modules, each tagged **(recommended)** when it's in that tier's `optional_on`; for RM_SIMPLE only, also show its `skip_core` modules as re-addable). Modules that are PARKED/CUT are never listed — they're retired, not a choice. Full spec: `INTAKE_WORKFLOW_SPEC.md`.
+
+Do NOT wait on (b) to start (a) — they're independent; by the time the advisor answers, the expensive research is already on disk.
 
 **Step 1: Intake**
 ```bash
@@ -353,6 +417,7 @@ Matching: ISIN first, then normalized-name prefix. Unmatched rows go to `excepti
 set PR_SUFFIX=_v1
 %PYTHON% build_<client>.py HNI_DEEP
 ```
+If build errors with **PermissionError** — the PPTX is OPEN in PowerPoint. Bump `PR_SUFFIX` (e.g. `_v2`), never fight the lock.
 
 **Step 4: QA gates** (see Part 1)
 
@@ -396,11 +461,21 @@ A raw NSDL CAS PDF parser is planned when a sample statement arrives.
 - Commodity-cycle names get explicit cycle-position read.
 - Demo-data: real name in demo only if real record supports it.
 
+### Scheme overlap heatmap (scheme_overlap_full.py)
+- Fund-vs-fund overlap matrix capped to **top 10 by weight** (permanent)
+- Label generation uses **case-insensitive 22-keyword matching** (LARGE/FLEXI/MULTI-ASSET/MULTI/SMALL/MIDCAP/MID CAP/BALANCED/HYBRID/ELSS/VALUE/FOCUSED/DIVIDEND/NIFTY/INDEX/OVERNIGHT/LIQUID/GILT/SHORT/ULTRA SHORT/ARBITRAGE/EQUITY SAVINGS) to prevent label collisions between same-AMC funds
+
+### Redeem-to-Direct display collision risk
+Internal verdict code stays `Redeem-to-Direct`; client-facing display = "Switch" via VDISP mapping. Known open risk: this visually collides with the pre-existing "Switch" verdict (move to a different fund). Both show identical "Switch" pill. Revisit if a client ever holds both action types and it reads as confusing.
+
 ### Internal jargon control
 Client vocab: "watch-outs", "fund score /100", "grade", "the firm's fund-quality framework".
 NEVER in client materials: SENTINEL, QFRA, MERIT, pf_qual, engine version numbers, agent names, technical jargon.
 
 ### "What would flip a Hold" type meta-text is BANNED.
+
+### Pending (next time, do NOT implement without re-confirming)
+`funds_equity.py`'s paired-bar chart currently shows each fund's own-benchmark CAGR correctly, but the visual legend just says "Its category benchmark" generically — a reader can't tell WHICH benchmark applies to WHICH fund. Principal wants a category-wise benchmark MAP visible directly in the graph.
 
 ---
 
