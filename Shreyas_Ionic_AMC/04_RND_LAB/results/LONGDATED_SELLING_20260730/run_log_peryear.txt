@@ -1,0 +1,55 @@
+[    0.0s] [0] lightweight pass: global EXPIRIES + TRADING_DAYS (column-subset, per year) ...
+[   10.9s] date-parse guard OK: 0 NaT across all years (raw row counts below include case-variant duplicates; per-year dedup happens in YearChainCache, logged there when it fires).
+[   10.9s] global: 518 distinct expiries, 3818 distinct trading days (<= 2026-06-30). per-year OPTIDX raw row counts: {2011: 359390, 2012: 356096, 2013: 386550, 2014: 474968, 2015: 533036, 2016: 514250, 2017: 527414, 2018: 566450, 2019: 770090, 2020: 731639, 2021: 510565, 2022: 562041, 2023: 339069, 2024: 402556, 2025: 394283, 2026: 230360}
+[   10.9s] [2] building underlying spot proxy (official Nifty50 close 2016+, FUTIDX near-month pre-2016) ...
+[   11.8s]     spot proxy: 3840 days, 2011-01-03..2026-07-30 (1231 days on FUTIDX proxy, basis validated <1% typical, see PREREG)
+[   11.8s] [3] trailing realized vol + expanding no-lookahead percentile (self-computed, full 2011-2026) ...
+[   11.8s]     rv20 valid 3819, rv_pct valid 3759
+[   11.8s] [4] loading reused IV series (INVERSE_VRP_NICHE_20260729/daily_vol_series.csv) ...
+[   11.8s]     1169 valid iv_pct rows, window 2021-05-24..2026-06-03
+[   11.8s] [5/6/7] per-tenor chronological sweep (entry discovery + raw trade construction fused, YearChainCache resident<= 2 yrs) ...
+[   69.7s]     year 2024: dropped 8406 dup rows post-parse
+[   89.0s]     biweekly: 289 entry cycles, 2011-01-07..2026-06-10, dropped={'strike': 0, 'wing': 7, 'T': 3} (chain-year loads so far: 16)
+[  123.6s]     year 2024: dropped 8406 dup rows post-parse
+[  127.0s]     monthly: 190 entry cycles, 2011-01-03..2026-05-27, dropped={'strike': 0, 'wing': 26, 'T': 3} (chain-year loads so far: 32)
+[  160.3s]     year 2024: dropped 8406 dup rows post-parse
+[  162.4s]     bimonthly: 93 entry cycles, 2011-01-03..2026-04-29, dropped={'strike': 2, 'wing': 10, 'T': 4} (chain-year loads so far: 48)
+[  162.5s]     ('biweekly', 0.1, 'naked'): 286 trades
+[  162.5s]     ('biweekly', 0.1, 'condor'): 281 trades
+[  162.5s]     ('biweekly', 0.15, 'naked'): 286 trades
+[  162.5s]     ('biweekly', 0.15, 'condor'): 285 trades
+[  162.5s]     ('biweekly', 0.25, 'naked'): 286 trades
+[  162.5s]     ('biweekly', 0.25, 'condor'): 285 trades
+[  162.5s]     ('monthly', 0.1, 'naked'): 187 trades
+[  162.5s]     ('monthly', 0.1, 'condor'): 174 trades
+[  162.5s]     ('monthly', 0.15, 'naked'): 187 trades
+[  162.5s]     ('monthly', 0.15, 'condor'): 177 trades
+[  162.5s]     ('monthly', 0.25, 'naked'): 187 trades
+[  162.5s]     ('monthly', 0.25, 'condor'): 184 trades
+[  162.5s]     ('bimonthly', 0.1, 'naked'): 88 trades
+[  162.5s]     ('bimonthly', 0.1, 'condor'): 81 trades
+[  162.5s]     ('bimonthly', 0.15, 'naked'): 88 trades
+[  162.5s]     ('bimonthly', 0.15, 'condor'): 86 trades
+[  162.5s]     ('bimonthly', 0.25, 'naked'): 89 trades
+[  162.5s]     ('bimonthly', 0.25, 'condor'): 88 trades
+[  162.5s] [8] running 54 base configs (3 tenor x 3 delta x 2 structure x 3 mgmt) ...
+[  166.4s]     done, 54 configs, elapsed 166s, total chain-year loads=48, stale-wing-mark clips (floored at 0)=528
+[  166.5s] [9] computing build/held-out metrics for all 54 configs ...
+[  167.7s]     wrote config_grid_summary.csv (54 rows)
+[  167.7s]     BEST base config by build-window net Sharpe: ('biweekly', np.float64(0.1), 'naked', 'stop2x') (sharpe=0.6521085945087491, calmar=0.23704918455573443)
+[  167.7s] [10] overlay tests on best config: IV-gate, RV-skip, both stacked ...
+[  167.7s]     wrote overlay_tests.csv
+                      overlay                       label    n      cagr     maxdd    calmar    sharpe        pf      nw_t  win_rate_monthly  worst_day_rs  worst_day_pct_margin  worst_month_rs  worst_month_pct_margin  trades_per_year  span_start    span_end
+0       baseline_in_iv_window       baseline_in_iv_window  130  0.285228 -0.240434  1.186306  1.138255  1.661742  2.553925          0.672131     -26197.50             -0.175965       -34260.00               -0.218440        26.046352  2021-06-04  2026-06-01
+1          iv_gate_top_decile          iv_gate_top_decile    7  0.076214 -0.128465  0.593269  0.790658  2.966943  2.050764          0.094340     -20441.75             -0.128465       -20441.75               -0.128465         1.594978  2021-11-22  2026-04-13
+2  rv_regime_skip_full_period  rv_regime_skip_full_period  264  0.148484 -0.546285  0.271806  0.639441  1.422236  2.353778          0.627027     -26197.50             -0.312709       -34260.00               -0.312709        17.182110  2011-02-04  2026-06-17
+3         iv_gate_AND_rv_skip         iv_gate_AND_rv_skip    4  0.036042 -0.128465  0.280561  0.406519  1.914012       NaN          0.057692     -20441.75             -0.128465       -20441.75               -0.128465         0.929389  2021-11-22  2026-03-13
+[  167.7s] [11] tail and era-slice reporting on best config (descriptive, not selected on) ...
+[  167.7s]     wrote era_slices_best_config.csv
+          era   n  gross_rs    net_rs  worst_trade_rs  worst_trade_pct_margin
+0     2015-16  24  23959.00  19063.00        -5238.25               -0.095555
+1        2018  12   1872.00   -576.00        -8124.25               -0.115660
+2  2020_covid  27 -37037.00 -42545.00       -32765.75               -0.506357
+3     2024-09   6  16285.75  15061.75        -6405.00               -0.039647
+[  167.8s]     wrote all_trades_full_grid.csv
+[  167.8s]     TOTAL TRIALS THIS ARM: 57 (pre-registered as 57 in PREREG.md)

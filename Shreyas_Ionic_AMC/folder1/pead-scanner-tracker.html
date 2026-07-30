@@ -1,0 +1,532 @@
+<!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Pead Scanner Tracker",
+  "schemaVersion": 1,
+  "description": "PEAD scanner & tracker for Indian earnings season. Grades each strong-result candidate on an EP Strength Score (5 pillars: beat quality, nature/durability, Day-1 tape, positioning, setup — with disqualifier penalties) and a running Structure Score + stage (Just reacted → Basing → Coiled → Broken) computed from daily price logs. mcap >500 Cr focus. Data persists in browser localStorage; candidates seeded from a screener.in screen, price/volume logged manually."
+}
+</script>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PEAD Scanner &amp; Tracker</title>
+<style>
+:root{
+  color-scheme: light;
+  --bg:#f6f7f9; --panel:#ffffff; --ink:#161a1d; --muted:#68727d; --line:#e6e9ee;
+  --accent:#1f5fd6; --accentSoft:#eaf1fd;
+  --a:#0f9d58; --aSoft:#e6f4ea; --b:#2b78d4; --bSoft:#e7f0fb; --c:#c98a00; --cSoft:#fbf1d9;
+  --bad:#d23f3f; --badSoft:#fbe7e7; --neutral:#8a94a0;
+  --coil:#7b3fe4; --coilSoft:#efe7fb;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1320px;margin:0 auto;padding:20px 18px 60px}
+h1{font-size:20px;margin:0 0 2px}
+.sub{color:var(--muted);font-size:12.5px;margin:0 0 14px}
+.tabs{display:flex;gap:6px;margin-bottom:14px;border-bottom:1px solid var(--line)}
+.tab{padding:9px 15px;border:none;background:none;font-size:13.5px;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab.on{color:var(--accent);border-bottom-color:var(--accent)}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+.btn{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;padding:8px 12px;font-size:13px;cursor:pointer;font-weight:600}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn.primary:hover{opacity:.92;color:#fff}
+.btn.ghost{background:transparent;border:1px dashed var(--line);font-weight:500;color:var(--muted)}
+.btn.sm{padding:4px 9px;font-size:12px;border-radius:6px}
+.notice{background:#fff8e8;border:1px solid #f0e0b5;color:#7a5c00;border-radius:9px;padding:10px 13px;font-size:12.5px;margin-bottom:14px}
+.notice b{color:#6a4f00}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;min-width:110px}
+.stat .n{font-size:22px;font-weight:700}
+.stat .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px;font-size:12.5px;color:var(--muted)}
+select,input,textarea{font:inherit;border:1px solid var(--line);border-radius:7px;padding:7px 9px;background:#fff;color:var(--ink)}
+select.mini{padding:5px 7px;font-size:12.5px}
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);cursor:pointer;user-select:none;white-space:nowrap;background:#fbfcfd}
+th:hover{color:var(--accent)}
+td{font-size:13px}
+tr:last-child td{border-bottom:none}
+tr.sub500{opacity:.5}
+.name{font-weight:700}
+.tick{color:var(--muted);font-size:11.5px;font-weight:500}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap}
+.grade-A{background:var(--aSoft);color:var(--a)} .grade-B{background:var(--bSoft);color:var(--b)}
+.grade-C{background:var(--cSoft);color:var(--c)} .grade-D{background:#eef1f4;color:var(--neutral)}
+.stick-4{background:var(--aSoft);color:var(--a)}.stick-3{background:var(--bSoft);color:var(--b)}
+.stick-2{background:var(--cSoft);color:var(--c)}.stick-1{background:var(--badSoft);color:var(--bad)}.stick-0{background:#eef1f4;color:var(--neutral)}
+.pos{color:var(--a);font-weight:600}.neg{color:var(--bad);font-weight:600}
+.score{font-weight:700;font-size:15px}
+.scoreWrap{display:flex;align-items:center;gap:8px}
+.mini-mtr{width:44px;height:6px;border-radius:4px;background:#eef1f4;overflow:hidden}
+.mini-mtr>i{display:block;height:100%}
+.flags{display:flex;gap:4px;flex-wrap:wrap}
+.flag{font-size:10px;padding:1px 6px;border-radius:5px;background:var(--badSoft);color:var(--bad);font-weight:600}
+.spark{display:block}
+.act{display:flex;gap:6px}
+.iconbtn{border:1px solid var(--line);background:#fff;border-radius:6px;padding:3px 7px;font-size:12px;cursor:pointer;color:var(--muted)}
+.iconbtn:hover{border-color:var(--accent);color:var(--accent)}
+.detail{background:#fbfcfd}.detail td{padding:0}.detailInner{padding:14px 18px}
+.pill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:10px}
+.pill{border:1px solid var(--line);border-radius:9px;padding:10px 12px;background:#fff}
+.pill h4{margin:0 0 6px;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);display:flex;justify-content:space-between}
+.pill .pv{font-weight:700;color:var(--ink)}
+.bar-line{height:6px;background:#eef1f4;border-radius:4px;overflow:hidden;margin-top:4px}
+.bar-line>i{display:block;height:100%;background:var(--accent)}
+.kv{font-size:12px;color:var(--muted);margin:3px 0}
+.kv b{color:var(--ink);font-weight:600}
+.sec{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+.sec h5{margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--accent)}
+.cat{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+.cat:last-child{border-bottom:none}
+.cat .ci{flex:1}
+.cat .ct{font-size:11px;color:var(--muted)}
+.logtbl{width:100%;font-size:12px;margin-top:8px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.logtbl th,.logtbl td{padding:5px 8px;font-size:12px}
+.overlay{position:fixed;inset:0;background:rgba(20,26,29,.42);display:none;align-items:flex-start;justify-content:center;z-index:50;overflow:auto;padding:30px 16px}
+.overlay.on{display:flex}
+.modal{background:#fff;border-radius:14px;max-width:860px;width:100%;padding:22px 24px;box-shadow:0 18px 50px rgba(0,0,0,.25)}
+.modal h3{margin:0 0 4px;font-size:17px}
+.modal .mh{color:var(--muted);font-size:12.5px;margin:0 0 16px}
+.fs{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:12px}
+.fs legend{font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--accent);font-weight:700;padding:0 6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.fld{display:flex;flex-direction:column;gap:3px}
+.fld label{font-size:11.5px;color:var(--muted);font-weight:600}
+.fld input,.fld select{width:100%}
+.modal-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px}
+.livescore{font-size:13px;color:var(--muted)}.livescore b{font-size:20px;color:var(--ink)}
+.empty{background:var(--panel);border:1px dashed var(--line);border-radius:12px;padding:36px;text-align:center;color:var(--muted)}
+.empty h3{color:var(--ink);margin:0 0 6px}
+.muted{color:var(--muted)}.right{text-align:right}
+.hint{font-size:11.5px;color:var(--muted);margin-top:3px}
+details.help{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:0 14px;margin-bottom:16px}
+details.help summary{cursor:pointer;font-weight:700;padding:12px 0;font-size:13px}
+details.help[open] summary{border-bottom:1px solid var(--line);margin-bottom:10px}
+details.help .body{padding-bottom:14px;font-size:13px;color:#33404b}
+details.help code{background:#f0f2f5;padding:1px 5px;border-radius:4px;font-size:12px}
+.tag{display:inline-block;background:var(--accentSoft);color:var(--accent);border-radius:5px;padding:1px 6px;font-size:11px;font-weight:600;margin-left:6px}
+.tv{text-decoration:none;margin-left:6px;font-size:12px;opacity:.7}.tv:hover{opacity:1}
+textarea{width:100%;min-height:60px;font-size:12.5px}
+.catrow{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:6px;align-items:end;margin-bottom:6px}
+.view{display:none}.view.on{display:block}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>PEAD Scanner &amp; Tracker <span class="tag" id="season">Q1 FY27</span></h1>
+  <p class="sub">Funda-driven <b>PEAD Score</b> from Tijori quarterly results · <b>Catalyst stickiness</b> for durability · price structure &amp; entries tracked manually.</p>
+
+  <div class="notice" id="feedNotice"></div>
+
+  <div class="tabs">
+    <button class="tab on" id="tab-watch" onclick="showTab('watch')">My watchlist</button>
+    <button class="tab" id="tab-feed" onclick="showTab('feed')">Latest results feed</button>
+  </div>
+
+  <!-- WATCHLIST -->
+  <div class="view on" id="view-watch">
+    <div class="bar">
+      <button class="btn primary" onclick="openAdd()">+ Add candidate</button>
+      <button class="btn ghost" onclick="exportJSON()">Export</button>
+      <button class="btn ghost" onclick="wipe()">Clear all</button>
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="filters">
+      <span>Sort:</span>
+      <select class="mini" id="sortBy" onchange="render()">
+        <option value="ep">PEAD Score</option>
+        <option value="cat">Catalyst stickiness</option>
+        <option value="date">Result date (newest)</option>
+      </select>
+      <label class="muted" style="margin-left:8px"><input type="checkbox" id="fA" onchange="render()" style="width:auto"> A/B grade only</label>
+    </div>
+    <div id="tableHost"></div>
+  </div>
+
+  <!-- FEED -->
+  <div class="view" id="view-feed">
+    <div class="filters">
+      <label class="muted"><input type="checkbox" id="feed500" checked onchange="renderFeed()" style="width:auto"> mcap &gt; 500 Cr only</label>
+      <span style="margin-left:8px">Sort:</span>
+      <select class="mini" id="feedSort" onchange="renderFeed()">
+        <option value="score">PEAD Score</option>
+        <option value="date">Date</option>
+        <option value="np">PAT YoY%</option>
+        <option value="mcap">Mkt cap</option>
+      </select>
+      <span class="muted" style="margin-left:auto" id="feedMeta"></span>
+    </div>
+    <div id="feedHost"></div>
+  </div>
+
+  <details class="help">
+    <summary>How scoring works &amp; how to use catalysts</summary>
+    <div class="body">
+      <p><b>PEAD Score (0–100, auto from fundamentals):</b> Growth magnitude (30) — YoY on PAT/Sales/OP, scaled for fly-worthy prints, not 15% hurdles. Acceleration (20) — QoQ momentum + sequential level breaking trend. Margin / operating leverage (25) — OPM expansion + OP growing faster than sales. Quality of beat (25) — starts full, docked for <i>PAT growing far faster than OP</i> (other-income/tax/one-off tell), <i>sales down while profit up</i>, <i>low absolute base</i> (%-illusions), and <i>loss quarters</i>. This is the durability filter the raw screener can't give you.</p>
+      <p><b>Catalyst stickiness:</b> for each identified name, log the real drivers (order win, capacity ramp, margin reset, price hike, new product, guidance raise, restructuring, sector upcycle, or one-off). Rate each by how long it persists — <b>Structural (multi-year)</b> / <b>Multi-quarter</b> / <b>1–2 quarters</b> / <b>One-off</b>. Drift lives on <i>durable</i> catalysts that force multi-quarter estimate upgrades; a one-off beat rarely drifts. The tracker surfaces the most durable catalyst as the stickiness grade.</p>
+      <p><b>You handle the tape:</b> log the daily close/high/low/volume to watch the base build; that view is for your eyes, not scored.</p>
+      <p class="muted">Data: Tijori public quarterly-results feed (fundamentals only). No price/volume — that's your read.</p>
+    </div>
+  </details>
+</div>
+
+<!-- Add/Edit modal -->
+<div class="overlay" id="ov">
+  <div class="modal">
+    <h3 id="mTitle">Add candidate</h3>
+    <p class="mh">Enter the Tijori fundamentals. Score computes automatically. Add catalysts to grade durability.</p>
+    <form id="frm" onsubmit="return false">
+      <input type="hidden" id="f_id">
+      <fieldset class="fs"><legend>Identity</legend>
+        <div class="grid">
+          <div class="fld"><label>Company *</label><input id="f_name" required></div>
+          <div class="fld"><label>Ticker</label><input id="f_ticker"></div>
+          <div class="fld"><label>Result date *</label><input id="f_date" type="date" required></div>
+          <div class="fld"><label>Mkt cap (₹ Cr)</label><input id="f_mcap" type="number" oninput="liveScore()"></div>
+          <div class="fld"><label>PE</label><input id="f_pe" type="number" step="0.01"></div>
+        </div>
+      </fieldset>
+      <fieldset class="fs"><legend>Growth % (YoY / QoQ)</legend>
+        <div class="grid">
+          <div class="fld"><label>Sales YoY %</label><input id="f_salesYoY" type="number" step="0.01" oninput="liveScore()"></div>
+          <div class="fld"><label>Sales QoQ %</label><input id="f_salesQoQ" type="number" step="0.01" oninput="liveScore()"></div>
+          <div class="fld"><label>Op. Profit YoY %</label><input id="f_opYoY" type="number" step="0.01" oninput="liveScore()"></div>
+          <div class="fld"><label>Net Profit YoY %</label><input id="f_npYoY" type="number" step="0.01" oninput="liveScore()"></div>
+          <div class="fld"><label>Net Profit QoQ %</label><input id="f_npQoQ" type="number" step="0.01" oninput="liveScore()"></div>
+        </div>
+      </fieldset>
+      <fieldset class="fs"><legend>Absolute values (₹ Cr) — latest / prev qtr / year-ago qtr</legend>
+        <div class="grid">
+          <div class="fld"><label>Sales — latest</label><input id="f_sMar" type="number" step="0.01" oninput="liveScore()"></div>
+          <div class="fld"><label>Sales — prev qtr</label><input id="f_sDec" type="number" step="0.01"></div>
+          <div class="fld"><label>Sales — year-ago</label><input id="f_sPrev" type="number" step="0.01" oninput="liveScore()"></div>
+          <div class="fld"><label>Op.Profit — latest</label><input id="f_opMar" type="number" step="0.01" oninput="liveScore()"></div>
+          <div class="fld"><label>Op.Profit — year-ago</label><input id="f_opPrev" type="number" step="0.01" oninput="liveScore()"></div>
+          <div class="fld"><label>Net Profit — latest</label><input id="f_npMar" type="number" step="0.01" oninput="liveScore()"></div>
+          <div class="fld"><label>Net Profit — prev qtr</label><input id="f_npDec" type="number" step="0.01" oninput="liveScore()"></div>
+          <div class="fld"><label>Net Profit — year-ago</label><input id="f_npPrev" type="number" step="0.01" oninput="liveScore()"></div>
+        </div>
+        <div class="hint">Latest = this reporting quarter. Used for margin, acceleration and low-base checks.</div>
+      </fieldset>
+      <fieldset class="fs"><legend>Catalysts &amp; stickiness</legend>
+        <div id="catEditor"></div>
+        <button class="btn sm" type="button" onclick="addCatRow()">+ Add catalyst</button>
+      </fieldset>
+      <fieldset class="fs"><legend>Structure setup (you track the tape)</legend>
+        <div class="grid">
+          <div class="fld"><label>Result-day low (₹) — invalidation</label><input id="f_rdlow" type="number" step="0.05"></div>
+          <div class="fld"><label>Notes</label><input id="f_notes"></div>
+        </div>
+      </fieldset>
+      <div class="modal-foot">
+        <div class="livescore">PEAD Score: <b id="liveVal">–</b> <span id="liveGrade"></span></div>
+        <div><button class="btn" type="button" onclick="closeModal()">Cancel</button>
+             <button class="btn primary" type="button" onclick="saveCand()">Save</button></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Log price modal -->
+<div class="overlay" id="ovlog">
+  <div class="modal" style="max-width:560px">
+    <h3 id="logTitle">Log price</h3>
+    <p class="mh">One session, or paste rows as <code>date,close,high,low,volume</code>.</p>
+    <input type="hidden" id="l_id">
+    <div class="grid" style="grid-template-columns:repeat(5,1fr)">
+      <div class="fld"><label>Date</label><input id="l_date" type="date"></div>
+      <div class="fld"><label>Close</label><input id="l_close" type="number" step="0.05"></div>
+      <div class="fld"><label>High</label><input id="l_high" type="number" step="0.05"></div>
+      <div class="fld"><label>Low</label><input id="l_low" type="number" step="0.05"></div>
+      <div class="fld"><label>Volume</label><input id="l_vol" type="number"></div>
+    </div>
+    <div style="margin:6px 0 12px"><button class="btn sm" onclick="addOneLog()">Add session</button></div>
+    <div class="fld"><label>Paste multiple rows</label><textarea id="l_paste"></textarea></div>
+    <div style="margin-top:8px"><button class="btn sm" onclick="addPasteLog()">Import rows</button></div>
+    <div id="logList" style="margin-top:12px"></div>
+    <div class="modal-foot"><span></span><button class="btn primary" onclick="closeLog()">Done</button></div>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ===== TIJORI FEED (auto-refreshed by the daily scheduled task) ===== */
+const FEED_META={asOf:"20 Jul 2026",fetched:"28 Jul 2026",note:"⚠️ STALE FEED: Q1 FY27 (Jun-2026 qtr) results — page 1 (20 of 187), latest batch dated 18 Jul 2026. Re-fetched 28 Jul but the feed header still reads 20 Jul (8 days old) and rows are byte-for-byte identical to the 21 Jul snapshot — the CDN is serving a stale cache. The cache-bust query param could NOT be appended this run (fetch-tool provenance lock rejects any URL variant) and the Chrome fallback was offline, so no fresher data could be forced. Treat the scores below as reflecting the 18 Jul batch, not this week's prints."};
+const FEED=[
+ {name:"Bhansali Engg. Poly.",ticker:"BEPL",date:"2026-07-18",mcap:2803,pe:14.02,salesYoY:53.34,salesQoQ:38.22,opYoY:57.16,npYoY:42.84,npQoQ:26.06,sMar:472,sDec:341,sPrev:307,opMar:82.59,opPrev:52.55,npMar:65.14,npDec:51.67,npPrev:45.6,url:"https://www.tijorifinance.com/company/bhansali-engineering-polymers-limited/"},
+ {name:"IDBI Bank",ticker:"IDBI",date:"2026-07-18",mcap:93567,pe:10.04,salesYoY:7.44,salesQoQ:-3.26,opYoY:-7.76,npYoY:5.35,npQoQ:5.98,sMar:7549,sDec:7803,sPrev:7026,opMar:2193,opPrev:2377,npMar:2130,npDec:1987,npPrev:2023,url:"https://www.tijorifinance.com/company/idbi-bank-limited/"},
+ {name:"HDFC Bank",ticker:"HDFCBANK",date:"2026-07-18",mcap:1262000,pe:15.98,salesYoY:3.67,salesQoQ:3.89,opYoY:-14.29,npYoY:18.37,npQoQ:-5.43,sMar:90575,sDec:87182,sPrev:87371,opMar:30996,opPrev:36163,npMar:20382,npDec:21074,npPrev:17090,url:"https://www.tijorifinance.com/company/hdfc-bank-limited/"},
+ {name:"Kotak Mahindra Bank",ticker:"KOTAKBANK",date:"2026-07-18",mcap:388000,pe:19.11,salesYoY:6.41,salesQoQ:2.96,opYoY:12.19,npYoY:22.55,npQoQ:1.06,sMar:18354,sDec:17827,sPrev:17248,opMar:8273,opPrev:7374,npMar:5487,npDec:5401,npPrev:4429,url:"https://www.tijorifinance.com/company/kotak-mahindra-bank-limited/"},
+ {name:"Can Fin Homes",ticker:"CANFINHOME",date:"2026-07-18",mcap:11850,pe:10.49,salesYoY:7.43,salesQoQ:2.09,opYoY:7.67,npYoY:19.63,npQoQ:-22.52,sMar:1096,sDec:1073,sPrev:1020,opMar:1000,opPrev:929,npMar:267,npDec:345,npPrev:223,url:"https://www.tijorifinance.com/company/can-fin-homes-limited/"},
+ {name:"Sangam (India)",ticker:"SANGAMIND",date:"2026-07-18",mcap:3189,pe:26.25,salesYoY:8.94,salesQoQ:-2.67,opYoY:82.84,npYoY:1825,npQoQ:24.76,sMar:860,sDec:883,sPrev:789,opMar:105,opPrev:57.63,npMar:41.02,npDec:32.88,npPrev:2.13,url:"https://www.tijorifinance.com/company/sangam-india-limited/"},
+ {name:"Ashima",ticker:"ASHIMASYN",date:"2026-07-18",mcap:276,pe:0.0,salesYoY:200,salesQoQ:31.6,opYoY:4025,npYoY:176,npQoQ:126,sMar:8.33,sDec:6.33,sPrev:2.77,opMar:3.3,opPrev:0.08,npMar:1.93,npDec:-7.4,npPrev:-2.53,url:"https://www.tijorifinance.com/company/ashima-limited/"},
+ {name:"Premier Polyfilm",ticker:"PREMIERPOL",date:"2026-07-18",mcap:775,pe:22.17,salesYoY:34.25,salesQoQ:8.93,opYoY:40.1,npYoY:51.33,npQoQ:5.83,sMar:100,sDec:92.4,sPrev:74.97,opMar:13.52,opPrev:9.65,npMar:9.08,npDec:8.58,npPrev:6.0,url:"https://www.tijorifinance.com/company/premier-polyfilm-limited/"},
+ {name:"India Cements",ticker:"INDIACEM",date:"2026-07-18",mcap:12715,pe:137.48,salesYoY:-0.52,salesQoQ:-17.03,opYoY:87.19,npYoY:120,npQoQ:-54.87,sMar:1019,sDec:1228,sPrev:1024,opMar:155,opPrev:83.19,npMar:26.85,npDec:59.5,npPrev:-131,url:"https://www.tijorifinance.com/company/the-india-cements-limited/"},
+ {name:"ICICI Bank",ticker:"ICICIBANK",date:"2026-07-18",mcap:1034000,pe:19.82,salesYoY:6.44,salesQoQ:5.34,opYoY:6.04,npYoY:13.88,npQoQ:4.64,sMar:52240,sDec:49593,sPrev:49079,opMar:22604,opPrev:21316,npMar:16209,npDec:15611,npPrev:14393,url:"https://www.tijorifinance.com/company/icici-bank-limited/"},
+ {name:"Axis Bank",ticker:"AXISBANK",date:"2026-07-18",mcap:413000,pe:14.89,salesYoY:9.87,salesQoQ:4.01,opYoY:2.33,npYoY:22.24,npQoQ:0.39,sMar:35541,sDec:34170,sPrev:32348,opMar:12498,opPrev:12213,npMar:7656,npDec:7631,npPrev:6260,url:"https://www.tijorifinance.com/company/axis-bank-limited/"},
+ {name:"PNB",ticker:"PNB",date:"2026-07-18",mcap:122000,pe:5.51,salesYoY:3.12,salesQoQ:2.41,opYoY:4.7,npYoY:174,npQoQ:3.99,sMar:33589,sDec:32797,sPrev:32572,opMar:7662,opPrev:7318,npMar:5339,npDec:5225,npPrev:1832,url:"https://www.tijorifinance.com/company/punjab-national-bank/"},
+ {name:"JK Cement",ticker:"JKCEMENT",date:"2026-07-18",mcap:41639,pe:44.04,salesYoY:20.26,salesQoQ:3.71,opYoY:-5.81,npYoY:-15.3,npQoQ:-17.02,sMar:4031,sDec:3887,sPrev:3352,opMar:647,opPrev:687,npMar:274,npDec:330,npPrev:324,url:"https://www.tijorifinance.com/company/jk-cement-limited/"},
+ {name:"Yes Bank",ticker:"YESBANK",date:"2026-07-18",mcap:74168,pe:19.65,salesYoY:5.92,salesQoQ:5.12,opYoY:24.61,npYoY:32.54,npQoQ:-0.96,sMar:8054,sDec:7662,sPrev:7604,opMar:1705,opPrev:1368,npMar:1071,npDec:1082,npPrev:808,url:"https://www.tijorifinance.com/company/yes-bank-limited/"},
+ {name:"Punjab & Sind Bank",ticker:"PSB",date:"2026-07-18",mcap:17583,pe:12.7,salesYoY:10.4,salesQoQ:6.05,opYoY:1.0,npYoY:23.16,npQoQ:-21.41,sMar:3213,sDec:3029,sPrev:2910,opMar:545,opPrev:540,npMar:331,npDec:421,npPrev:269,url:"https://www.tijorifinance.com/company/punjab-sind-bank/"},
+ {name:"Indo Cotspin",ticker:"",date:"2026-07-18",mcap:26,pe:0.0,salesYoY:4.82,salesQoQ:-66.44,opYoY:-11.67,npYoY:100,npQoQ:120,sMar:2.0,sDec:5.97,sPrev:1.91,opMar:0.11,opPrev:0.12,npMar:0.01,npDec:-0.03,npPrev:0.0,url:"https://www.tijorifinance.com/company/indo-cotspin-ltd/"},
+ {name:"Rossari Biotech",ticker:"ROSSARI",date:"2026-07-18",mcap:2940,pe:19.51,salesYoY:28.23,salesQoQ:1.8,opYoY:18.81,npYoY:4.73,npQoQ:-23.79,sMar:697,sDec:684,sPrev:543,opMar:80.62,opPrev:67.85,npMar:34.64,npDec:45.45,npPrev:33.08,url:"https://www.tijorifinance.com/company/rossari-biotech-ltd/"},
+ {name:"FMEC Internatl. Fin",ticker:"",date:"2026-07-18",mcap:58,pe:11.51,salesYoY:306,salesQoQ:95.23,opYoY:430,npYoY:860,npQoQ:317,sMar:8.02,sDec:4.11,sPrev:1.97,opMar:4.69,opPrev:0.88,npMar:3.16,npDec:0.76,npPrev:0.33,url:"https://www.tijorifinance.com/company/f-mec-international-financial-services-ltd/"},
+ {name:"Ganga Forging",ticker:"",date:"2026-07-18",mcap:67,pe:0.0,salesYoY:-7.24,salesQoQ:-33.02,opYoY:1182,npYoY:463,npQoQ:328,sMar:7.18,sDec:10.73,sPrev:7.75,opMar:0.67,opPrev:-0.06,npMar:1.06,npDec:-0.46,npPrev:-0.29,url:"https://www.tijorifinance.com/company/ganga-forging-ltd/"},
+ {name:"Madhusudan Masala",ticker:"MADHUSUDAN",date:"2026-07-18",mcap:389,pe:18.67,salesYoY:34.47,salesQoQ:1.14,opYoY:47.26,npYoY:56.05,npQoQ:5.86,sMar:98.28,sDec:97.17,sPrev:73.09,opMar:11.07,opPrev:7.52,npMar:6.5,npDec:6.14,npPrev:4.17,url:"https://www.tijorifinance.com/company/madhusudan-masala-ltd/"}
+];
+
+const KEY="pead_tracker_v3";
+let DATA=load();
+let catRows=[];
+
+function load(){try{const r=localStorage.getItem(KEY);return r?JSON.parse(r):[]}catch(e){return[]}}
+function save(){localStorage.setItem(KEY,JSON.stringify(DATA))}
+function uid(){return Math.random().toString(36).slice(2,9)}
+function num(v){if(v===null||v===undefined||v==='')return null;const n=parseFloat(v);return isNaN(n)?null:n}
+function clamp(x,a,b){return Math.max(a,Math.min(b,x))}
+function todayISO(){return new Date().toISOString().slice(0,10)}
+function esc(s){return (s==null?'':String(s)).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
+
+/* ===== TRADINGVIEW LINKS ===== */
+const TV_TICKERS={"Steel Strips Wheels":"SSWL","SG Finserve":"SGFIN","Billionbrains Garage (Groww)":"GROWW","KSolves India":"KSOLVES","L&T Technology Services":"LTTS","Tata Elxsi":"TATAELXSI","Union Bank Of India":"UNIONBANK","Den Networks":"DEN","Jindal Saw":"JINDALSAW","Benares Hotels":"BENARHOTEL","Manaksia Coated Metals":"MANAKCOAT"};
+function tvSym(c){return (c.ticker&&c.ticker.trim())||TV_TICKERS[c.name]||''}
+function tvUrl(c){const s=tvSym(c);return s?`https://www.tradingview.com/chart/?symbol=NSE%3A${encodeURIComponent(s)}`:`https://www.tradingview.com/symbols/?query=${encodeURIComponent((c.name||'').replace(/\(.*\)/,'').trim()+' NSE')}`}
+function tvLink(c){return `<a href="${tvUrl(c)}" target="_blank" rel="noopener" class="tv" title="Open chart in TradingView">📈</a>`}
+
+/* ===== FUNDAMENTAL PEAD SCORE ===== */
+function scoreEP(c){
+  const flags=[];
+  const npY=num(c.npYoY),sY=num(c.salesYoY),opY=num(c.opYoY);
+  const npMar=num(c.npMar),npDec=num(c.npDec),npPrev=num(c.npPrev);
+  const sMar=num(c.sMar),sPrev=num(c.sPrev),opMar=num(c.opMar),opPrev=num(c.opPrev);
+  // P1 growth magnitude (30)
+  let g=0;
+  if(npY!=null) g+=clamp((npY-25)/(100-25),0,1)*14;
+  if(sY!=null) g+=clamp((sY-8)/(30-8),0,1)*8;
+  if(opY!=null) g+=clamp((opY-15)/(60-15),0,1)*8;
+  g=clamp(g,0,30);
+  // P2 acceleration (20)
+  let a=0;
+  if(num(c.salesQoQ)!=null&&num(c.salesQoQ)>0) a+=5;
+  if(num(c.npQoQ)!=null&&num(c.npQoQ)>0) a+=5;
+  if(npMar!=null&&npDec!=null&&npMar>npDec) a+=5;
+  if(npMar!=null&&npPrev!=null&&npMar>npPrev) a+=5;
+  a=clamp(a,0,20);
+  // P3 margin / operating leverage (25)
+  let m=0,omN=null,omP=null;
+  if(opMar!=null&&sMar!=null&&sMar>0&&opPrev!=null&&sPrev!=null&&sPrev>0){
+    omN=opMar/sMar*100; omP=opPrev/sPrev*100;
+    m+=clamp((omN-omP)/4,0,1)*13;
+  }
+  if(opY!=null&&sY!=null&&opY>sY) m+=clamp((opY-sY)/30,0,1)*12;
+  m=clamp(m,0,25);
+  // P4 quality of beat (25)
+  let q=25;
+  if(npY!=null&&opY!=null){
+    if(opY<=0&&npY>0){q-=12;flags.push('NP↑ OP↓');}
+    else if(npY>opY+40){q-=8;flags.push('NP≫OP');}
+  }
+  if(sY!=null&&sY<0&&npY!=null&&npY>0){q-=8;flags.push('sales↓');}
+  if(npMar!=null&&Math.abs(npMar)<5){q-=10;flags.push('low base');}
+  if(npMar!=null&&npMar<0){q-=15;flags.push('loss qtr');}
+  q=clamp(q,0,25);
+  const total=Math.round(g+a+m+q);
+  return {total,g:Math.round(g),a:Math.round(a),m:Math.round(m),q:Math.round(q),flags,omN,omP};
+}
+function grade(t){return t>=75?"A":t>=60?"B":t>=45?"C":"D"}
+function gLabel(g){return {A:"Prime",B:"Strong",C:"Watch",D:"Weak"}[g]}
+function gColor(g){return {A:'var(--a)',B:'var(--b)',C:'var(--c)',D:'var(--neutral)'}[g]}
+
+/* ===== CATALYST STICKINESS ===== */
+function scoreCat(c){
+  const cats=c.catalysts||[];
+  if(!cats.length) return {score:null,best:0};
+  const best=Math.max(...cats.map(x=>+x.stick||0));
+  const score=Math.round(clamp(best/4*80 + Math.min(cats.length-1,2)*10,0,100));
+  return {score,best};
+}
+const STICK_LABEL={4:"Structural",3:"Multi-quarter",2:"1–2 quarters",1:"One-off",0:"—"};
+const CAT_TYPES=["Order win / book","Capacity / volume ramp","Margin reset","Price hike","New product / segment","Guidance raise","Restructuring / demerger","Debt reduction","Sector upcycle","Cost cut / one-off"];
+
+/* ===== SPARKLINE (manual price log) ===== */
+function spark(c){
+  const log=(c.log||[]).slice().sort((a,b)=>a.date<b.date?-1:1);
+  const w=90,h=28,pad=3;
+  if(log.length<2) return '<span class="muted" style="font-size:11px">—</span>';
+  const cl=log.map(x=>x.close),rd=num(c.rdlow);
+  const allv=cl.concat(rd!=null?[rd]:[]);
+  const mn=Math.min(...allv),mx=Math.max(...allv),rng=(mx-mn)||1;
+  const X=i=>pad+i*(w-2*pad)/(cl.length-1),Y=v=>pad+(h-2*pad)*(1-(v-mn)/rng);
+  let d='M'+X(0).toFixed(1)+','+Y(cl[0]).toFixed(1);
+  for(let i=1;i<cl.length;i++) d+=' L'+X(i).toFixed(1)+','+Y(cl[i]).toFixed(1);
+  const up=cl[cl.length-1]>=cl[0], col=up?'var(--a)':'var(--c)';
+  let rl='';if(rd!=null){const y=Y(rd).toFixed(1);rl=`<line x1="${pad}" y1="${y}" x2="${w-pad}" y2="${y}" stroke="var(--bad)" stroke-width="0.7" stroke-dasharray="2 2" opacity=".6"/>`;}
+  return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${rl}<path d="${d}" fill="none" stroke="${col}" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
+}
+
+/* ===== TABS ===== */
+function showTab(t){
+  document.getElementById('view-watch').classList.toggle('on',t==='watch');
+  document.getElementById('view-feed').classList.toggle('on',t==='feed');
+  document.getElementById('tab-watch').classList.toggle('on',t==='watch');
+  document.getElementById('tab-feed').classList.toggle('on',t==='feed');
+  if(t==='feed') renderFeed();
+}
+
+/* ===== WATCHLIST RENDER ===== */
+function render(){
+  document.getElementById('feedNotice').innerHTML=
+    `<b>Feed:</b> Tijori public quarterly results, as of <b>${FEED_META.asOf}</b> (fetched ${FEED_META.fetched}). ${FEED_META.note}`;
+  const host=document.getElementById('tableHost');
+  const scored=DATA.map(c=>({c,ep:scoreEP(c),cat:scoreCat(c)}));
+  const prime=scored.filter(x=>grade(x.ep.total)==="A").length;
+  const sticky=scored.filter(x=>x.cat.best>=3).length;
+  document.getElementById('stats').innerHTML=[
+    ['Watchlist',DATA.length],['Prime (A)',prime],['Durable catalyst',sticky]
+  ].map(s=>`<div class="stat"><div class="n">${s[1]}</div><div class="l">${s[0]}</div></div>`).join('');
+  if(!DATA.length){host.innerHTML=`<div class="empty"><h3>No candidates yet</h3><p>Open <b>Latest results feed</b> and add the strong prints, or <b>+ Add candidate</b> manually.</p></div>`;return;}
+  const sb=document.getElementById('sortBy').value, onlyA=document.getElementById('fA').checked;
+  let rows=scored.filter(x=>!onlyA||["A","B"].includes(grade(x.ep.total)));
+  rows.sort((a,b)=> sb==="ep"?b.ep.total-a.ep.total : sb==="cat"?(b.cat.score??-1)-(a.cat.score??-1) : (a.c.date<b.c.date?1:-1));
+  let html=`<table><thead><tr><th>Company</th><th>Result</th><th>PEAD Score</th><th>Quality flags</th><th>Sales/OP/NP YoY</th><th>Catalyst</th><th>Tape</th><th></th></tr></thead><tbody>`;
+  for(const x of rows){
+    const c=x.c,ep=x.ep,g=grade(ep.total),cat=x.cat;
+    const yoy=`${fmtPct(c.salesYoY)} / ${fmtPct(c.opYoY)} / ${fmtPct(c.npYoY)}`;
+    html+=`<tr>
+      <td class="name"><a href="${tvUrl(c)}" target="_blank" rel="noopener" style="color:inherit" title="Open chart on TradingView">${esc(c.name)}</a>${tvLink(c)}${c.ticker?` <span class="tick">${esc(c.ticker)}</span>`:''}<div class="tick">₹${c.mcap||'?'} Cr</div></td>
+      <td class="muted">${c.date||'–'}</td>
+      <td><div class="scoreWrap"><span class="score">${ep.total}</span><span class="badge grade-${g}">${g}</span>
+        <span class="mini-mtr"><i style="width:${ep.total}%;background:${gColor(g)}"></i></span></div></td>
+      <td>${ep.flags.length?`<div class="flags">${ep.flags.map(f=>`<span class="flag">${f}</span>`).join('')}</div>`:'<span class="muted">clean</span>'}</td>
+      <td style="font-size:12px">${yoy}</td>
+      <td>${cat.score!=null?`<span class="badge stick-${cat.best}">${STICK_LABEL[cat.best]}</span>`:'<span class="muted">none</span>'}</td>
+      <td>${spark(c)}</td>
+      <td><div class="act">
+        <button class="iconbtn" title="Log price" onclick="openLog('${c.id}')">＋₹</button>
+        <button class="iconbtn" title="Details" onclick="toggle('${c.id}')">▾</button>
+        <button class="iconbtn" title="Edit" onclick="openEdit('${c.id}')">✎</button>
+        <button class="iconbtn" title="Delete" onclick="del('${c.id}')">✕</button></div></td></tr>
+      <tr class="detail" id="det_${c.id}" style="display:none"><td colspan="8"><div class="detailInner">${detailHTML(x)}</div></td></tr>`;
+  }
+  html+='</tbody></table>';host.innerHTML=html;
+}
+function fmtPct(v){v=num(v);if(v==null)return '<span class="muted">–</span>';const cls=v>=0?'pos':'neg';return `<span class="${cls}">${v>=0?'+':''}${v}%</span>`;}
+
+function detailHTML(x){
+  const c=x.c,ep=x.ep;
+  const pill=(n,v,mx)=>`<div class="pill"><h4>${n}<span class="pv">${v}/${mx}</span></h4><div class="bar-line"><i style="width:${v/mx*100}%"></i></div></div>`;
+  const cats=(c.catalysts||[]);
+  const catHTML=cats.length? cats.map(k=>`<div class="cat"><div class="ci">${esc(k.desc||'')}<div class="ct">${esc(k.type||'')}</div></div><span class="badge stick-${k.stick}">${STICK_LABEL[k.stick]}</span></div>`).join('')
+    :'<div class="muted" style="font-size:12px">No catalysts logged — add them via Edit to grade durability.</div>';
+  const log=(c.log||[]).slice().sort((a,b)=>a.date<b.date?-1:1);
+  const logHTML=log.length?`<table class="logtbl"><thead><tr><th>Date</th><th class="right">Close</th><th class="right">H</th><th class="right">L</th><th class="right">Vol</th></tr></thead><tbody>`+
+    log.map(l=>`<tr><td>${l.date}</td><td class="right">${l.close??''}</td><td class="right">${l.high??''}</td><td class="right">${l.low??''}</td><td class="right">${l.vol!=null?Number(l.vol).toLocaleString('en-IN'):''}</td></tr>`).join('')+`</tbody></table>`
+    :'<div class="muted" style="font-size:12px">No price log — hit ＋₹ each session to watch the base.</div>';
+  const om = ep.omN!=null?`OPM <b>${ep.omN.toFixed(1)}%</b> vs <b>${ep.omP.toFixed(1)}%</b> yr-ago`:'OPM n/a';
+  return `<div class="kv" style="margin-bottom:8px"><a href="${tvUrl(c)}" target="_blank" rel="noopener" style="font-weight:600;font-size:13px;color:var(--accent);text-decoration:none">📈 Open ${esc(c.name)} chart on TradingView</a>${c.url?` &nbsp;·&nbsp; <a href="${c.url}" target="_blank" rel="noopener" style="font-size:12px;color:var(--muted)">Financials on Tijori ↗</a>`:''}</div>
+    <div class="pill-grid">${pill('Growth magnitude',ep.g,30)}${pill('Acceleration',ep.a,20)}${pill('Margin / op-leverage',ep.m,25)}${pill('Quality of beat',ep.q,25)}</div>
+    <div class="kv">Sales YoY ${fmtPct(c.salesYoY)} · OP YoY ${fmtPct(c.opYoY)} · NP YoY ${fmtPct(c.npYoY)} · NP QoQ ${fmtPct(c.npQoQ)} · ${om} · PE <b>${c.pe??'–'}</b></div>
+    ${c.notes?`<div class="kv">Notes: <b>${esc(c.notes)}</b></div>`:''}
+    <div class="sec"><h5>Catalysts &amp; stickiness</h5>${catHTML}</div>
+    <div class="sec"><h5>Price structure (your read) · invalidation ₹${c.rdlow??'–'}</h5>${logHTML}</div>`;
+}
+function toggle(id){const r=document.getElementById('det_'+id);r.style.display=r.style.display==='none'?'':'none'}
+
+/* ===== FEED RENDER ===== */
+function renderFeed(){
+  const host=document.getElementById('feedHost');
+  document.getElementById('feedMeta').textContent=`${FEED.length} results · as of ${FEED_META.asOf}`;
+  const only=document.getElementById('feed500').checked, sb=document.getElementById('feedSort').value;
+  let rows=FEED.map(f=>({f,ep:scoreEP(f)}));
+  if(only) rows=rows.filter(x=>(num(x.f.mcap)||0)>=500);
+  rows.sort((a,b)=> sb==="score"?b.ep.total-a.ep.total : sb==="np"?(num(b.f.npYoY)??-1e9)-(num(a.f.npYoY)??-1e9) : sb==="mcap"?(num(b.f.mcap)||0)-(num(a.f.mcap)||0) : (a.f.date<b.f.date?1:-1));
+  if(!rows.length){host.innerHTML=`<div class="empty"><h3>Nothing above ₹500 Cr in this snapshot</h3><p>The current public snapshot is the Q4 FY26 tail. The daily task will refresh this as Q1 FY27 rolls in.</p></div>`;return;}
+  let html=`<table><thead><tr><th>Company</th><th>Result</th><th>Mkt cap</th><th>Sales YoY</th><th>OP YoY</th><th>NP YoY</th><th>PEAD Score</th><th>Flags</th><th></th></tr></thead><tbody>`;
+  for(const x of rows){
+    const f=x.f,ep=x.ep,g=grade(ep.total),sub=(num(f.mcap)||0)<500;
+    html+=`<tr class="${sub?'sub500':''}">
+      <td class="name"><a href="${tvUrl(f)}" target="_blank" rel="noopener" style="color:inherit" title="Open chart on TradingView">${esc(f.name)}</a>${tvLink(f)}${f.url?` <a class="tv" href="${f.url}" target="_blank" rel="noopener" title="Financials on Tijori" style="font-size:10px">ⓕ</a>`:''}</td>
+      <td class="muted">${f.date}</td>
+      <td>₹${f.mcap} Cr</td>
+      <td>${fmtPct(f.salesYoY)}</td><td>${fmtPct(f.opYoY)}</td><td>${fmtPct(f.npYoY)}</td>
+      <td><div class="scoreWrap"><span class="score">${ep.total}</span><span class="badge grade-${g}">${g}</span></div></td>
+      <td>${ep.flags.length?`<div class="flags">${ep.flags.map(fl=>`<span class="flag">${fl}</span>`).join('')}</div>`:'<span class="muted">clean</span>'}</td>
+      <td><button class="btn sm" onclick='addFromFeed(${JSON.stringify(f).replace(/'/g,"&#39;")})'>+ Watch</button></td></tr>`;
+  }
+  html+='</tbody></table>';host.innerHTML=html;
+}
+function addFromFeed(f){
+  if(DATA.some(c=>c.name===f.name&&c.date===f.date)){alert(f.name+' is already on your watchlist.');return;}
+  const c=Object.assign({id:uid(),catalysts:[],log:[]},f);
+  DATA.push(c);save();render();showTab('watch');
+  const el=document.getElementById('tab-watch');el.scrollIntoView({behavior:'smooth'});
+}
+
+/* ===== ADD/EDIT ===== */
+const FIELDS=['name','ticker','date','mcap','pe','salesYoY','salesQoQ','opYoY','npYoY','npQoQ','sMar','sDec','sPrev','opMar','opPrev','npMar','npDec','npPrev','rdlow','notes'];
+function openAdd(){document.getElementById('mTitle').textContent='Add candidate';clearForm();document.getElementById('f_date').value=todayISO();catRows=[];renderCatEditor();document.getElementById('ov').classList.add('on');liveScore();}
+function openEdit(id){const c=DATA.find(x=>x.id===id);if(!c)return;document.getElementById('mTitle').textContent='Edit candidate';clearForm();
+  document.getElementById('f_id').value=c.id;
+  FIELDS.forEach(f=>{const e=document.getElementById('f_'+f);if(e&&c[f]!=null)e.value=c[f];});
+  catRows=(c.catalysts||[]).map(x=>Object.assign({},x));renderCatEditor();
+  document.getElementById('ov').classList.add('on');liveScore();}
+function clearForm(){document.getElementById('f_id').value='';FIELDS.forEach(f=>{const e=document.getElementById('f_'+f);if(e)e.value='';});catRows=[];renderCatEditor();}
+function addCatRow(){catRows.push({desc:'',type:CAT_TYPES[0],stick:3});renderCatEditor();}
+function renderCatEditor(){
+  const host=document.getElementById('catEditor');
+  host.innerHTML=catRows.map((k,i)=>`<div class="catrow">
+    <div class="fld"><label>Catalyst</label><input value="${esc(k.desc)}" oninput="catRows[${i}].desc=this.value"></div>
+    <div class="fld"><label>Type</label><select onchange="catRows[${i}].type=this.value">${CAT_TYPES.map(t=>`<option ${t===k.type?'selected':''}>${t}</option>`).join('')}</select></div>
+    <div class="fld"><label>Stickiness</label><select onchange="catRows[${i}].stick=+this.value;liveScore()">
+      <option value="4" ${k.stick==4?'selected':''}>Structural (multi-yr)</option>
+      <option value="3" ${k.stick==3?'selected':''}>Multi-quarter</option>
+      <option value="2" ${k.stick==2?'selected':''}>1–2 quarters</option>
+      <option value="1" ${k.stick==1?'selected':''}>One-off</option></select></div>
+    <button class="iconbtn" type="button" title="Remove" onclick="catRows.splice(${i},1);renderCatEditor();liveScore()">✕</button>
+  </div>`).join('') || '<div class="muted" style="font-size:12px;margin-bottom:6px">No catalysts yet.</div>';
+}
+function readForm(){
+  const c={id:document.getElementById('f_id').value||uid()};
+  FIELDS.forEach(f=>{const e=document.getElementById('f_'+f);if(e&&e.value!=='')c[f]=e.value;});
+  c.catalysts=catRows.filter(k=>(k.desc||'').trim()).map(k=>({desc:k.desc,type:k.type,stick:+k.stick}));
+  const old=DATA.find(x=>x.id===c.id);if(old&&old.log)c.log=old.log;
+  return c;
+}
+function liveScore(){const ep=scoreEP(readForm());const g=grade(ep.total);
+  document.getElementById('liveVal').textContent=ep.total;
+  document.getElementById('liveGrade').innerHTML=`<span class="badge grade-${g}">${g} · ${gLabel(g)}</span>`;}
+function saveCand(){const name=document.getElementById('f_name').value.trim();if(!name){alert('Company name required');return;}
+  const c=readForm();const i=DATA.findIndex(x=>x.id===c.id);if(i>=0)DATA[i]=c;else DATA.push(c);save();closeModal();render();}
+function closeModal(){document.getElementById('ov').classList.remove('on')}
+function del(id){if(!confirm('Delete this candidate?'))return;DATA=DATA.filter(x=>x.id!==id);save();render();}
+
+/* ===== PRICE LOG ===== */
+function openLog(id){document.getElementById('l_id').value=id;const c=DATA.find(x=>x.id===id);
+  document.getElementById('logTitle').textContent='Log price — '+(c?c.name:'');document.getElementById('l_date').value=todayISO();
+  ['l_close','l_high','l_low','l_vol','l_paste'].forEach(k=>document.getElementById(k).value='');renderLogList(id);document.getElementById('ovlog').classList.add('on');}
+function closeLog(){document.getElementById('ovlog').classList.remove('on');render();}
+function addOneLog(){const id=document.getElementById('l_id').value;const c=DATA.find(x=>x.id===id);if(!c)return;
+  const d=document.getElementById('l_date').value,cl=num(document.getElementById('l_close').value);if(!d||cl==null){alert('Date and close required');return;}
+  c.log=(c.log||[]).filter(x=>x.date!==d);c.log.push({date:d,close:cl,high:num(document.getElementById('l_high').value),low:num(document.getElementById('l_low').value),vol:num(document.getElementById('l_vol').value)});
+  save();['l_close','l_high','l_low','l_vol'].forEach(k=>document.getElementById(k).value='');renderLogList(id);}
+function addPasteLog(){const id=document.getElementById('l_id').value;const c=DATA.find(x=>x.id===id);if(!c)return;
+  const txt=document.getElementById('l_paste').value.trim();if(!txt)return;c.log=c.log||[];
+  txt.split(/\n+/).forEach(line=>{const p=line.split(/[,\t]/).map(s=>s.trim());if(p.length<2)return;const d=p[0],cl=num(p[1]);if(!d||cl==null)return;c.log=c.log.filter(x=>x.date!==d);c.log.push({date:d,close:cl,high:num(p[2]),low:num(p[3]),vol:num(p[4])});});
+  save();document.getElementById('l_paste').value='';renderLogList(id);}
+function renderLogList(id){const c=DATA.find(x=>x.id===id);const host=document.getElementById('logList');const log=(c.log||[]).slice().sort((a,b)=>a.date<b.date?-1:1);
+  if(!log.length){host.innerHTML='<div class="muted" style="font-size:12px">No sessions logged.</div>';return;}
+  host.innerHTML=`<table class="logtbl"><thead><tr><th>Date</th><th class="right">Close</th><th class="right">H</th><th class="right">L</th><th class="right">Vol</th><th></th></tr></thead><tbody>`+
+    log.map(l=>`<tr><td>${l.date}</td><td class="right">${l.close??''}</td><td class="right">${l.high??''}</td><td class="right">${l.low??''}</td><td class="right">${l.vol!=null?Number(l.vol).toLocaleString('en-IN'):''}</td><td class="right"><button class="iconbtn" onclick="delLog('${id}','${l.date}')">✕</button></td></tr>`).join('')+`</tbody></table>`;}
+function delLog(id,date){const c=DATA.find(x=>x.id===id);if(!c)return;c.log=(c.log||[]).filter(x=>x.date!==date);save();renderLogList(id);}
+
+/* ===== EXPORT ===== */
+function exportJSON(){const blob=new Blob([JSON.stringify(DATA,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='pead_watchlist.json';a.click();}
+function wipe(){if(confirm('Clear ALL watchlist candidates?')){DATA=[];save();render();}}
+
+render();
+</script>
+</body>
+</html>

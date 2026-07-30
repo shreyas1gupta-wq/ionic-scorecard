@@ -1,0 +1,15 @@
+[spot] 1,047,541 bars 2015-01-09 09:15:00 .. 2026-05-14 15:29:00
+[15min] 72,642 bars
+[signals] priorday_reclaim total=4378
+    priorday_reclaim: 4378
+    priorday_continue: 30346
+    intraday_reclaim: 8178
+    intraday_continue: 14003
+  A_intraday_stop30        1lot: n=4378 CAGR=-1.31% MDD=-38.12% Sh=-0.13 PF=0.98 t=-0.33 | OOS15-21 PF=1.06 pts=3.59
+  B_intraday_trail25       1lot: n=4378 CAGR=3.37% MDD=-15.2% Sh=0.56 PF=1.09 t=1.43 | OOS15-21 PF=1.13 pts=4.44
+  C_intraday_trail40       1lot: n=4378 CAGR=4.66% MDD=-18.21% Sh=0.59 PF=1.11 t=1.47 | OOS15-21 PF=1.14 pts=5.05
+  D_overnight1_trail40     1lot: n=4378 CAGR=10.29% MDD=-12.81% Sh=1.35 PF=1.26 t=3.31 | OOS15-21 PF=1.32 pts=9.63
+  E_swing3_trail60         1lot: n=4378 CAGR=14.4% MDD=-21.66% Sh=1.65 PF=1.34 t=3.92 | OOS15-21 PF=1.3 pts=12.01
+  F_intraday_tgt200        1lot: n=4378 CAGR=-0.04% MDD=-39.13% Sh=-0.0 PF=1.0 t=-0.01 | OOS15-21 PF=1.1 pts=4.32
+
+wrote report.json + heatmaps + trade CSVs

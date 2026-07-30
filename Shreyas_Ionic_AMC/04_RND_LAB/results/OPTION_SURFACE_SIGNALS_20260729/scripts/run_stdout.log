@@ -1,0 +1,100 @@
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+[01:07:19] [bn_chain] 61 BANKNIFTY expiries 2021-05-27..2026-05-26
+[01:07:19] total NIFTY trading days candidate: 1236 (2021-05-24..2026-05-27)
+[01:07:19] ...0/1236 days processed, elapsed 3s, rows so far 0
+[01:07:41] ...100/1236 days processed, elapsed 26s, rows so far 100
+=== attempt 1 at Thu Jul 30 01:14:59 IST 2026 ===
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+[01:15:08] [bn_chain] 61 BANKNIFTY expiries 2021-05-27..2026-05-26
+[01:15:08] total NIFTY trading days candidate: 1236 (2021-05-24..2026-05-27)
+[01:15:08] RESUMING: 100 rows already done, skipping those days
+[01:15:08] ...100/1236 days processed, elapsed 3s, rows so far 100
+[01:15:30] ...200/1236 days processed, elapsed 24s, rows so far 196
+=== attempt 1 exited rc=139 ===
+=== attempt 2 at Thu Jul 30 01:15:46 IST 2026 ===
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+[01:15:57] [bn_chain] 61 BANKNIFTY expiries 2021-05-27..2026-05-26
+[01:15:57] total NIFTY trading days candidate: 1236 (2021-05-24..2026-05-27)
+[01:15:57] RESUMING: 196 rows already done, skipping those days
+[01:15:57] ...200/1236 days processed, elapsed 3s, rows so far 196
+[01:16:24] ...300/1236 days processed, elapsed 30s, rows so far 296
+[01:16:38] ERROR on day 2022-11-11: MemoryError: Unable to allocate 1.95 MiB for an array with shape (255114, 1) and data type datetime64[ns]
+[01:16:46] ...400/1236 days processed, elapsed 51s, rows so far 395
+[01:17:06] ...500/1236 days processed, elapsed 71s, rows so far 495
+[01:17:25] ...600/1236 days processed, elapsed 91s, rows so far 595
+[01:17:30] ERROR on day 2023-11-10: ArrowMemoryError: ZSTD_DCtx create failed
+=== attempt 2 exited rc=139 ===
+=== attempt 3 at Thu Jul 30 01:17:38 IST 2026 ===
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+[01:17:50] [bn_chain] 61 BANKNIFTY expiries 2021-05-27..2026-05-26
+[01:17:50] total NIFTY trading days candidate: 1236 (2021-05-24..2026-05-27)
+[01:17:50] RESUMING: 595 rows already done, skipping those days
+[01:17:53] ...600/1236 days processed, elapsed 5s, rows so far 596
+[01:17:58] ERROR on day 2023-10-27: MemoryError: Unable to allocate 1.50 MiB for an array with shape (2, 98018) and data type int64
+=== attempt 3 exited rc=139 ===
+=== attempt 4 at Thu Jul 30 01:18:15 IST 2026 ===
+Traceback (most recent call last):
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPTION_SURFACE_SIGNALS_20260729\scripts\build_panel.py", line 353, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPTION_SURFACE_SIGNALS_20260729\scripts\build_panel.py", line 185, in main
+    n_close, n_snap = daily_series(idx[idx.index.time >= dt.time(9, 15)])
+                      ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPTION_SURFACE_SIGNALS_20260729\scripts\build_panel.py", line 178, in daily_series
+    d["day"] = d.index.date
+               ^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\indexes\extension.py", line 71, in fget
+    result = getattr(self._data, name)
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\arrays\datetimes.py", line 1552, in date
+    return ints_to_pydatetime(timestamps, box="date", reso=self._creso)
+  File "pandas/_libs/tslibs/vectorized.pyx", line 139, in pandas._libs.tslibs.vectorized.ints_to_pydatetime
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 3.60 MiB for an array with shape (472505,) and data type object
+=== attempt 4 exited rc=1 ===
+=== attempt 5 at Thu Jul 30 01:18:35 IST 2026 ===
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+[01:18:51] [bn_chain] 61 BANKNIFTY expiries 2021-05-27..2026-05-26
+[01:18:51] total NIFTY trading days candidate: 1236 (2021-05-24..2026-05-27)
+[01:18:51] RESUMING: 596 rows already done, skipping those days
+[01:18:51] ...600/1236 days processed, elapsed 3s, rows so far 596
+=== attempt 5 exited rc=139 ===
+=== attempt 6 at Thu Jul 30 01:19:19 IST 2026 ===
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+[01:19:30] [bn_chain] 61 BANKNIFTY expiries 2021-05-27..2026-05-26
+[01:19:30] total NIFTY trading days candidate: 1236 (2021-05-24..2026-05-27)
+[01:19:31] RESUMING: 596 rows already done, skipping those days
+[01:19:31] ...600/1236 days processed, elapsed 3s, rows so far 596
+[01:19:54] ...700/1236 days processed, elapsed 26s, rows so far 696
+[01:20:14] ...800/1236 days processed, elapsed 46s, rows so far 796
+[01:20:33] ...900/1236 days processed, elapsed 65s, rows so far 896
+[01:20:52] ERROR on day 2025-04-25: MemoryError: Unable to allocate 3.98 MiB for an array with shape (521884,) and data type int64
+[01:20:57] ...1000/1236 days processed, elapsed 89s, rows so far 995
+=== attempt 6 exited rc=139 ===
+=== attempt 7 at Thu Jul 30 01:21:17 IST 2026 ===
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+[01:22:02] [bn_chain] 61 BANKNIFTY expiries 2021-05-27..2026-05-26
+[01:22:02] total NIFTY trading days candidate: 1236 (2021-05-24..2026-05-27)
+[01:22:02] RESUMING: 995 rows already done, skipping those days
+[01:22:06] ...1000/1236 days processed, elapsed 37s, rows so far 996
+[01:22:23] ...1100/1236 days processed, elapsed 54s, rows so far 1091
+[01:22:37] ...1200/1236 days processed, elapsed 68s, rows so far 1191
+[01:22:42] panel rows: 1227  drops: {'no_E1': 9, 'no_spot': 0, 'no_atm_E1': 0, 'no_bn': 1, 'error': 0}
+[01:22:42] wrote c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPTION_SURFACE_SIGNALS_20260729\panel_raw.parquet  shape=(1227, 25)
+[01:22:42] wrote c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPTION_SURFACE_SIGNALS_20260729\oi_coverage.csv
+      n_days  frac_oi_ce_zero  frac_oi_pe_zero  frac_pcr_nan
+year                                                        
+2021   149.0              0.0              0.0           0.0
+2022   247.0              0.0              0.0           0.0
+2023   245.0              0.0              0.0           0.0
+2024   248.0              0.0              0.0           0.0
+2025   242.0              0.0              0.0           0.0
+2026    96.0              0.0              0.0           0.0
+[01:22:42] DONE in 73s
+=== attempt 7 exited rc=0 ===
+SUCCESS after 7 attempts

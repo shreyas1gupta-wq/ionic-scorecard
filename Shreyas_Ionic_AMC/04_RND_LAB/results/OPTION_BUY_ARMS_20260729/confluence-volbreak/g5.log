@@ -1,0 +1,221 @@
+=== stackA_exact2 / C1_ATM_hold1525 (attempt 1) ===
+[cells] 1: ['stackA_exact2']
+
+=== stackA_exact2  build n=6634 -> subsampled 4000  forward n=730 ===
+=== stackA_exact2 / C2_ATM_tgt50_stp30 (attempt 1) ===
+[cells] 1: ['stackA_exact2']
+
+=== stackA_exact2  build n=6634 -> subsampled 4000  forward n=730 ===
+=== stackA_exact2 / C3_ITM2_hold1525 (attempt 1) ===
+[cells] 1: ['stackA_exact2']
+
+=== stackA_exact2  build n=6634 -> subsampled 4000  forward n=730 ===
+=== stackA_exact2 / C4_ATM_0dte_hold1525 (attempt 1) ===
+[cells] 1: ['stackA_exact2']
+
+=== stackA_exact2  build n=6634 -> subsampled 4000  forward n=730 ===
+=== stackA_exact1 / C1_ATM_hold1525 (attempt 1) ===
+[cells] 1: ['stackA_exact1']
+
+=== stackA_exact1  build n=18699 -> subsampled 4000  forward n=1642 ===
+=== stackA_exact1 / C2_ATM_tgt50_stp30 (attempt 1) ===
+[cells] 1: ['stackA_exact1']
+
+=== stackA_exact1  build n=18699 -> subsampled 4000  forward n=1642 ===
+Traceback (most recent call last):
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPTION_BUY_ARMS_20260729\confluence-volbreak\run_option_arms.py", line 204, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPTION_BUY_ARMS_20260729\confluence-volbreak\run_option_arms.py", line 190, in main
+    r = evaluate(label, cfgname, cfg, bs, "build")
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPTION_BUY_ARMS_20260729\confluence-volbreak\run_option_arms.py", line 139, in evaluate
+    tr = H.run_signals(sigs[["t", "direction"]], cfg)
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPTION_PL_HARNESS_20260729\opt_pl.py", line 454, in run_signals
+    sp_dates = np.array([d for d in spot.index.date])
+                         ^
+MemoryError
+=== stackA_exact1 / C3_ITM2_hold1525 (attempt 1) ===
+[cells] 1: ['stackA_exact1']
+
+=== stackA_exact1  build n=18699 -> subsampled 4000  forward n=1642 ===
+Traceback (most recent call last):
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPTION_BUY_ARMS_20260729\confluence-volbreak\run_option_arms.py", line 204, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPTION_BUY_ARMS_20260729\confluence-volbreak\run_option_arms.py", line 190, in main
+    r = evaluate(label, cfgname, cfg, bs, "build")
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPTION_BUY_ARMS_20260729\confluence-volbreak\run_option_arms.py", line 139, in evaluate
+    tr = H.run_signals(sigs[["t", "direction"]], cfg)
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPTION_PL_HARNESS_20260729\opt_pl.py", line 454, in run_signals
+    sp_dates = np.array([d for d in spot.index.date])
+                         ^
+MemoryError
+=== stackA_exact1 / C4_ATM_0dte_hold1525 (attempt 1) ===
+[cells] 1: ['stackA_exact1']
+
+=== stackA_exact1  build n=18699 -> subsampled 4000  forward n=1642 ===
+  stackA_exact1        C4_ATM_0dte_hold1525   build   filled  3984/ 4000 gross   -1,022,011 net   -1,261,363 ret/tr -6.06% t=-5.00 (142.2s)
+  stackA_exact1        C4_ATM_0dte_hold1525   forward filled  1642/ 1642 gross     -396,350 net     -506,990 ret/tr -3.58% t=-1.86 (68.9s)
+
+[done] 2 runs -> res_stackA_exact1__C4_ATM_0dte_hold1525.json
+=== volbrk_orb_volfilter / C1_ATM_hold1525 (attempt 1) ===
+[cells] 1: ['volbrk_orb_volfilter']
+
+=== volbrk_orb_volfilter  build n=994  forward n=87 ===
+  volbrk_orb_volfilter C1_ATM_hold1525        build   [cached] filled   978/  994 net     -243,992
+  volbrk_orb_volfilter C1_ATM_hold1525        forward [cached] filled    84/   87 net       -5,177
+
+[done] 2 runs -> res_volbrk_orb_volfilter__C1_ATM_hold1525.json
+=== volbrk_orb_volfilter / C2_ATM_tgt50_stp30 (attempt 1) ===
+[cells] 1: ['volbrk_orb_volfilter']
+
+=== volbrk_orb_volfilter  build n=994  forward n=87 ===
+  volbrk_orb_volfilter C2_ATM_tgt50_stp30     build   [cached] filled   978/  994 net      -92,945
+  volbrk_orb_volfilter C2_ATM_tgt50_stp30     forward [cached] filled    84/   87 net      -31,958
+
+[done] 2 runs -> res_volbrk_orb_volfilter__C2_ATM_tgt50_stp30.json
+=== volbrk_orb_volfilter / C3_ITM2_hold1525 (attempt 1) ===
+[cells] 1: ['volbrk_orb_volfilter']
+
+=== volbrk_orb_volfilter  build n=994  forward n=87 ===
+  volbrk_orb_volfilter C3_ITM2_hold1525       build   [cached] filled   978/  994 net     -285,579
+  volbrk_orb_volfilter C3_ITM2_hold1525       forward [cached] filled    84/   87 net      -10,407
+
+[done] 2 runs -> res_volbrk_orb_volfilter__C3_ITM2_hold1525.json
+=== volbrk_orb_volfilter / C4_ATM_0dte_hold1525 (attempt 1) ===
+[cells] 1: ['volbrk_orb_volfilter']
+
+=== volbrk_orb_volfilter  build n=994  forward n=87 ===
+  volbrk_orb_volfilter C4_ATM_0dte_hold1525   build   [cached] filled   987/  994 net     -251,883
+  volbrk_orb_volfilter C4_ATM_0dte_hold1525   forward filled    87/   87 gross       -4,375 net      -10,236 ret/tr -0.72% t=-0.10 (10.6s)
+
+[done] 2 runs -> res_volbrk_orb_volfilter__C4_ATM_0dte_hold1525.json
+=== stackA_exact3 / C1_ATM_hold1525 (attempt 1) ===
+[cells] 1: ['stackA_exact3']
+
+=== stackA_exact3  build n=463  forward n=39 ===
+  stackA_exact3        C1_ATM_hold1525        build   [cached] filled   453/  463 net     -135,714
+  stackA_exact3        C1_ATM_hold1525        forward [cached] filled    38/   39 net       14,548
+
+[done] 2 runs -> res_stackA_exact3__C1_ATM_hold1525.json
+=== stackA_exact3 / C2_ATM_tgt50_stp30 (attempt 1) ===
+[cells] 1: ['stackA_exact3']
+
+=== stackA_exact3  build n=463  forward n=39 ===
+  stackA_exact3        C2_ATM_tgt50_stp30     build   [cached] filled   453/  463 net     -129,385
+  stackA_exact3        C2_ATM_tgt50_stp30     forward [cached] filled    38/   39 net        9,451
+
+[done] 2 runs -> res_stackA_exact3__C2_ATM_tgt50_stp30.json
+=== stackA_exact3 / C3_ITM2_hold1525 (attempt 1) ===
+[cells] 1: ['stackA_exact3']
+
+=== stackA_exact3  build n=463  forward n=39 ===
+  stackA_exact3        C3_ITM2_hold1525       build   [cached] filled   451/  463 net     -156,931
+  stackA_exact3        C3_ITM2_hold1525       forward [cached] filled    38/   39 net       17,217
+
+[done] 2 runs -> res_stackA_exact3__C3_ITM2_hold1525.json
+=== stackA_exact3 / C4_ATM_0dte_hold1525 (attempt 1) ===
+[cells] 1: ['stackA_exact3']
+
+=== stackA_exact3  build n=463  forward n=39 ===
+  stackA_exact3        C4_ATM_0dte_hold1525   build   [cached] filled   457/  463 net     -136,596
+  stackA_exact3        C4_ATM_0dte_hold1525   forward [cached] filled    39/   39 net       19,839
+
+[done] 2 runs -> res_stackA_exact3__C4_ATM_0dte_hold1525.json
+=== stackA_exact4 / C1_ATM_hold1525 (attempt 1) ===
+[cells] 1: ['stackA_exact4']
+
+=== stackA_exact4  build n=35  forward n=3 ===
+  stackA_exact4        C1_ATM_hold1525        build   [cached] filled    33/   35 net       -5,524
+  stackA_exact4        C1_ATM_hold1525        forward [cached] filled     3/    3 net       -7,419
+
+[done] 2 runs -> res_stackA_exact4__C1_ATM_hold1525.json
+=== stackA_exact4 / C2_ATM_tgt50_stp30 (attempt 1) ===
+[cells] 1: ['stackA_exact4']
+
+=== stackA_exact4  build n=35  forward n=3 ===
+  stackA_exact4        C2_ATM_tgt50_stp30     build   [cached] filled    34/   35 net         -484
+  stackA_exact4        C2_ATM_tgt50_stp30     forward [cached] filled     3/    3 net         -455
+
+[done] 2 runs -> res_stackA_exact4__C2_ATM_tgt50_stp30.json
+=== stackA_exact4 / C3_ITM2_hold1525 (attempt 1) ===
+[cells] 1: ['stackA_exact4']
+
+=== stackA_exact4  build n=35  forward n=3 ===
+  stackA_exact4        C3_ITM2_hold1525       build   [cached] filled    34/   35 net       -6,706
+  stackA_exact4        C3_ITM2_hold1525       forward [cached] filled     3/    3 net       -7,882
+
+[done] 2 runs -> res_stackA_exact4__C3_ITM2_hold1525.json
+=== stackA_exact4 / C4_ATM_0dte_hold1525 (attempt 1) ===
+[cells] 1: ['stackA_exact4']
+
+=== stackA_exact4  build n=35  forward n=3 ===
+  stackA_exact4        C4_ATM_0dte_hold1525   build   [cached] filled    34/   35 net       -1,852
+  stackA_exact4        C4_ATM_0dte_hold1525   forward [cached] filled     3/    3 net      -12,025
+
+[done] 2 runs -> res_stackA_exact4__C4_ATM_0dte_hold1525.json
+=== volbrk_atr_expansion / C1_ATM_hold1525 (attempt 1) ===
+[cells] 1: ['volbrk_atr_expansion']
+
+=== volbrk_atr_expansion  build n=5959 -> subsampled 4000  forward n=497 ===
+  volbrk_atr_expansion C1_ATM_hold1525        build   [cached] filled  3929/ 4000 net   -1,170,036
+  volbrk_atr_expansion C1_ATM_hold1525        forward [cached] filled   483/  497 net      193,093
+
+[done] 2 runs -> res_volbrk_atr_expansion__C1_ATM_hold1525.json
+=== volbrk_atr_expansion / C2_ATM_tgt50_stp30 (attempt 1) ===
+[cells] 1: ['volbrk_atr_expansion']
+
+=== volbrk_atr_expansion  build n=5959 -> subsampled 4000  forward n=497 ===
+  volbrk_atr_expansion C2_ATM_tgt50_stp30     build   [cached] filled  3929/ 4000 net     -839,128
+  volbrk_atr_expansion C2_ATM_tgt50_stp30     forward [cached] filled   483/  497 net      -42,084
+
+[done] 2 runs -> res_volbrk_atr_expansion__C2_ATM_tgt50_stp30.json
+=== volbrk_atr_expansion / C3_ITM2_hold1525 (attempt 1) ===
+[cells] 1: ['volbrk_atr_expansion']
+
+=== volbrk_atr_expansion  build n=5959 -> subsampled 4000  forward n=497 ===
+  volbrk_atr_expansion C3_ITM2_hold1525       build   [cached] filled  3929/ 4000 net   -1,431,829
+  volbrk_atr_expansion C3_ITM2_hold1525       forward [cached] filled   483/  497 net      212,951
+
+[done] 2 runs -> res_volbrk_atr_expansion__C3_ITM2_hold1525.json
+=== volbrk_atr_expansion / C4_ATM_0dte_hold1525 (attempt 1) ===
+[cells] 1: ['volbrk_atr_expansion']
+
+=== volbrk_atr_expansion  build n=5959 -> subsampled 4000  forward n=497 ===
+  volbrk_atr_expansion C4_ATM_0dte_hold1525   build   [cached] filled  3964/ 4000 net   -1,226,251
+  volbrk_atr_expansion C4_ATM_0dte_hold1525   forward [cached] filled   497/  497 net      161,700
+
+[done] 2 runs -> res_volbrk_atr_expansion__C4_ATM_0dte_hold1525.json
+=== volbrk_keltner_squeeze_release / C1_ATM_hold1525 (attempt 1) ===
+[cells] 1: ['volbrk_keltner_squeeze_release']
+
+=== volbrk_keltner_squeeze_release  build n=821  forward n=63 ===
+  volbrk_keltner_squeeze_release C1_ATM_hold1525        build   [cached] filled   801/  821 net     -209,728
+  volbrk_keltner_squeeze_release C1_ATM_hold1525        forward [cached] filled    62/   63 net       53,915
+
+[done] 2 runs -> res_volbrk_keltner_squeeze_release__C1_ATM_hold1525.json
+=== volbrk_keltner_squeeze_release / C2_ATM_tgt50_stp30 (attempt 1) ===
+[cells] 1: ['volbrk_keltner_squeeze_release']
+
+=== volbrk_keltner_squeeze_release  build n=821  forward n=63 ===
+  volbrk_keltner_squeeze_release C2_ATM_tgt50_stp30     build   [cached] filled   800/  821 net     -126,718
+  volbrk_keltner_squeeze_release C2_ATM_tgt50_stp30     forward [cached] filled    62/   63 net        8,438
+
+[done] 2 runs -> res_volbrk_keltner_squeeze_release__C2_ATM_tgt50_stp30.json
+=== volbrk_keltner_squeeze_release / C3_ITM2_hold1525 (attempt 1) ===
+[cells] 1: ['volbrk_keltner_squeeze_release']
+
+=== volbrk_keltner_squeeze_release  build n=821  forward n=63 ===
+  volbrk_keltner_squeeze_release C3_ITM2_hold1525       build   filled   804/  821 gross     -196,332 net     -253,260 ret/tr -2.21% t=-2.14 (36.6s)
+  volbrk_keltner_squeeze_release C3_ITM2_hold1525       forward filled    62/   63 gross       62,257 net       57,416 ret/tr +4.81% t=+0.92 (3.3s)
+
+[done] 2 runs -> res_volbrk_keltner_squeeze_release__C3_ITM2_hold1525.json
+=== volbrk_keltner_squeeze_release / C4_ATM_0dte_hold1525 (attempt 1) ===
+[cells] 1: ['volbrk_keltner_squeeze_release']
+
+=== volbrk_keltner_squeeze_release  build n=821  forward n=63 ===
+  volbrk_keltner_squeeze_release C4_ATM_0dte_hold1525   build   filled   814/  821 gross     -152,514 net     -200,650 ret/tr -5.03% t=-1.81 (35.8s)
+  volbrk_keltner_squeeze_release C4_ATM_0dte_hold1525   forward filled    63/   63 gross       59,602 net       55,444 ret/tr +2.53% t=+0.25 (3.3s)
+
+[done] 2 runs -> res_volbrk_keltner_squeeze_release__C4_ATM_0dte_hold1525.json
+ALL DONE

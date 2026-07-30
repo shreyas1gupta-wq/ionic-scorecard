@@ -7,6 +7,7 @@
 4. **Option-data gap — STATUS UPDATE 2026-07-03: FILLED.** Apr-2024→Aug-2025 + Jun-2026 single-stock options backfilled from NSE UDiFF/legacy bhavcopy (1,408 sym-expiry daily parquets). Residual truths: (a) backfilled files are DAILY (EOD OHLC+settle+vol+OI), not 1-min; (b) untraded strikes carry 0.00 O/H/L (settlement still populated) — filter volume>0 for prints; (c) guard L6 now asserts SCHEMA AWARENESS not trade absence.
 5. `india_fundamentals_mc/Train.parquet` `annual_report` column corrupt at source — never read it.
 6. **Survivorship:** universe membership ONLY from `NIFTY500_TICKER_2005_2025_Final.xlsx` (42 PIT snapshots).
+7. **fo_bhavcopy_hist date-string format is NOT uniform (found 2026-07-30, Arjun, STRUCTURAL_EDGES task):** `fo_idx_{year}.parquet` EXPIRY_DT/TIMESTAMP are strings, almost always `DD-Mon-YYYY` (11 chars, e.g. `27-Jan-2011`) — but `fo_idx_2012.parquet` has 1,467 rows (0.4% of that file) in `DD-Mon-YY` (9 chars, e.g. `31-May-12`). A single `pd.to_datetime(..., format="%d-%b-%Y")` crashes on these; a naive `format="mixed"` WITHOUT `dayfirst=True` can silently mis-parse. Verified fix (either works, cross-checked 0 disagreements across all 16 years / 7,670,250 NIFTY rows): dispatch on string length (11→`%d-%b-%Y`, 9→`%d-%b-%y`), or `pd.to_datetime(s, format="mixed", dayfirst=True)`. All other years/symbols checked clean (11-char only). Month abbreviation case also varies (`JAN`/`Jan`) — both formats above handle it.
 
 ## Dual-schema warning (stocks_options/)
 | Source | Granularity | Timestamp | Extra cols | Tell |

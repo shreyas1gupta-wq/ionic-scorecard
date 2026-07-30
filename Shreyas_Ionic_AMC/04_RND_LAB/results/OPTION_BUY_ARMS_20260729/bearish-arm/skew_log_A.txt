@@ -1,0 +1,84 @@
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+[skew] 261 expiries
+[skew] 984 daily snapshots
+{
+  "A_otm1_equidistant": {
+    "n": 984,
+    "iv_ce_mean": 0.15931,
+    "iv_pe_mean": 0.14888,
+    "iv_pe_minus_ce_mean_volpts": -1.0434,
+    "iv_pe_minus_ce_median_volpts": -1.0345,
+    "frac_days_pe_richer": 0.2907,
+    "t_stat_iv_diff": -17.494,
+    "premium_ratio_pe_over_ce_mean": 0.9205,
+    "premium_ratio_pe_over_ce_median": 0.911,
+    "premium_gap_rs_mean": -11.557,
+    "premium_gap_pct_of_ce_mean": -7.946
+  },
+  "A2_atm_same_strike": {
+    "n": 984,
+    "iv_atm_ce_mean": 0.16207,
+    "iv_atm_pe_mean": 0.14583,
+    "iv_pe_minus_ce_mean_volpts": -1.6235,
+    "note": "same strike, same expiry, same minute -> put-call parity makes this a check on the forward/discount rate, NOT a skew measure. Reported for transparency only."
+  },
+  "A_by_year": {
+    "2021": {
+      "n": 118,
+      "iv_pe_minus_ce_volpts": 0.422,
+      "frac_pe_richer": 0.636
+    },
+    "2022": {
+      "n": 199,
+      "iv_pe_minus_ce_volpts": -0.206,
+      "frac_pe_richer": 0.503
+    },
+    "2023": {
+      "n": 193,
+      "iv_pe_minus_ce_volpts": -1.476,
+      "frac_pe_richer": 0.145
+    },
+    "2024": {
+      "n": 202,
+      "iv_pe_minus_ce_volpts": -1.432,
+      "frac_pe_richer": 0.243
+    },
+    "2025": {
+      "n": 192,
+      "iv_pe_minus_ce_volpts": -1.99,
+      "frac_pe_richer": 0.089
+    },
+    "2026": {
+      "n": 80,
+      "iv_pe_minus_ce_volpts": -0.991,
+      "frac_pe_richer": 0.212
+    }
+  },
+  "A_by_dte": {
+    "2": {
+      "n": 213,
+      "iv_pe_minus_ce_volpts": -0.53
+    },
+    "3": {
+      "n": 204,
+      "iv_pe_minus_ce_volpts": -0.728
+    },
+    "4": {
+      "n": 34,
+      "iv_pe_minus_ce_volpts": -1.481
+    },
+    "5": {
+      "n": 48,
+      "iv_pe_minus_ce_volpts": -1.139
+    },
+    "6": {
+      "n": 241,
+      "iv_pe_minus_ce_volpts": -1.156
+    },
+    "7": {
+      "n": 244,
+      "iv_pe_minus_ce_volpts": -1.564
+    }
+  }
+}

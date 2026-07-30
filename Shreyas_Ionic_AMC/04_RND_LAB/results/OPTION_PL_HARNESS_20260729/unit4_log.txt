@@ -1,0 +1,18 @@
+==============================================================================
+UNIT-4a  no stop / no target / no trail / no time-stop => mandatory exits only
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+exit reasons: {'squareoff': 19, 'expiry_settle': 3}
+UNIT-4a: PASS
+
+==============================================================================
+UNIT-4b  evidence that the earlier 'stop @ 99%' firings were REAL, not a bug
+exit reasons: {'squareoff': 19, 'stop': 2, 'expiry_settle': 1}
+  2022-07-11 K16250CE entry_fill=78.84 stop_level=0.7884 exit_px_raw=0.75 -> premium fell to 0.951% of entry (legit)
+  2024-04-01 K22600CE entry_fill=89.14 stop_level=0.8914 exit_px_raw=0.75 -> premium fell to 0.841% of entry (legit)
+UNIT-4b: PASS (every 99%-stop was a genuine >99% premium collapse)
+
+==============================================================================
+UNIT-4c  exit-precedence check: no exit price violates its own trigger level
+reasons {'stop': 12, 'target': 9, 'squareoff': 1}
+UNIT-4c: PASS

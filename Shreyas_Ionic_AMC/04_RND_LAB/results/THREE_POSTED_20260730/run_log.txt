@@ -1,0 +1,17 @@
+[    0.1s] loading daily bars from nifty_1min.parquet
+[    1.3s] daily bars: 2794 days 2015-01-09..2026-05-14
+[    2.9s] S1 meanrev primary_z1.0: 1618 signal days
+[  179.6s]   options[S1/primary_z1.0]: 729 candidate events >= 2021-05-24
+[  316.6s]   options[S1/primary_z1.0]: 727 filled, 2 dropped, 727 expiry-days loaded, 72 cache clears
+[  400.2s] S2 trend atr_normalised: 414 signal days
+[  485.6s] S2 atr_normalised: futures gross 37.43 clears cost bar -> building options leg
+[  485.6s]   options[S2/atr_normalised]: 188 candidate events >= 2021-05-24
+[  532.8s]   options[S2/atr_normalised]: 187 filled, 1 dropped, 187 expiry-days loaded, 18 cache clears
+[  532.9s] S2 trend raw_points: 488 signal days
+[  600.9s] S2 raw_points: futures gross -25.76 pts does NOT clear the 6.5pt futures cost bar (or n=318<10) -> options leg (theta+roll on top of the same signal) NOT built, kill-fast per pre-reg
+[  600.9s] S3 gap atr_normalised: 601 signal days
+[  640.9s]   options[S3/atr_normalised]: 292 candidate events >= 2021-05-24
+[  702.8s]   options[S3/atr_normalised]: 292 filled, 0 dropped, 292 expiry-days loaded, 29 cache clears
+[  702.9s] S3 gap raw_points: 745 signal days
+[  744.2s]   options[S3/raw_points]: 400 candidate events >= 2021-05-24
+[  812.8s]   options[S3/raw_points]: 399 filled, 1 dropped, 399 expiry-days loaded, 39 cache clears

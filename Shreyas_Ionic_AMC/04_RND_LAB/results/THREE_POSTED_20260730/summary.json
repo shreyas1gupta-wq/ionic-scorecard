@@ -1,0 +1,404 @@
+[
+  {
+    "label": "S1_futures_primary_z1.0_eod",
+    "n": 1618,
+    "mean_gross_pts": 9.466192830655126,
+    "mean_net_pts": 4.282966625463526,
+    "median_net_pts": 2.4799999999998183,
+    "hit_rate": 0.5135970333745364,
+    "RR": 1.0523979022189127,
+    "top1_trade_share_of_profit": 0.1700010389850273,
+    "top2_trade_share_of_profit": 0.3010112787596833,
+    "maxDD_pts": -2890.5699999999547,
+    "pts_per_year": 617.0463334958545,
+    "points_calmar": 0.21346873920917472,
+    "era_split": {
+      "2019-Sep2024": {
+        "n": 812,
+        "mean_net": 6.804753694581282,
+        "median_net": 2.005000000000364
+      },
+      "2026-heldout": {
+        "n": 54,
+        "mean_net": 14.666111111111002,
+        "median_net": 36.10500000000073
+      },
+      "Oct2024-2025": {
+        "n": 176,
+        "mean_net": 8.98511363636353,
+        "median_net": 11.429999999997818
+      },
+      "pre-2019": {
+        "n": 576,
+        "mean_net": -1.6822395833333155,
+        "median_net": -0.29499999999981785
+      }
+    },
+    "robustness": {
+      "net_at_1.0x_cost": 4.496192830655121,
+      "net_at_1.5x_cost": 2.011192830655128,
+      "net_at_2.0x_cost": -0.47380716934487294,
+      "net_at_3.0x_cost": -5.443807169344871
+    },
+    "concentration_hard_kill": false,
+    "placebo_p": 0.006,
+    "placebo_null_mean": -2.031822187886277,
+    "secondary_2day_hold_mean_net": 3.2141372912801547
+  },
+  {
+    "label": "S1_options_primary_z1.0_eod",
+    "n": 727,
+    "mean_gross_pts": -2.227592847317746,
+    "mean_net_pts": -3.897592847317747,
+    "median_net_pts": -24.82,
+    "hit_rate": 0.3782668500687758,
+    "RR": 1.4440924154883756,
+    "top1_trade_share_of_profit": -0.33931993435796065,
+    "top2_trade_share_of_profit": -0.5092763494556295,
+    "maxDD_pts": -3784.1800000000007,
+    "pts_per_year": -569.9086660242295,
+    "points_calmar": -0.1506029485976432,
+    "era_split": {
+      "2019-Sep2024": {
+        "n": 499,
+        "mean_net": -4.542945891783569,
+        "median_net": -24.82
+      },
+      "2026-heldout": {
+        "n": 54,
+        "mean_net": 4.767962962962959,
+        "median_net": -5.370000000000017
+      },
+      "Oct2024-2025": {
+        "n": 174,
+        "mean_net": -4.73614942528736,
+        "median_net": -26.794999999999987
+      }
+    },
+    "robustness": {
+      "net_at_1.0x_cost": -3.897592847317747,
+      "net_at_1.5x_cost": -4.732592847317744,
+      "net_at_2.0x_cost": -5.567592847317746,
+      "net_at_3.0x_cost": -7.237592847317745
+    },
+    "concentration_hard_kill": false,
+    "n_events_scanned": 729,
+    "n_dropped": 2
+  },
+  {
+    "label": "S2_futures_atr_normalised_trail",
+    "n": 76,
+    "mean_gross_pts": 37.43265977443615,
+    "mean_net_pts": 32.22581766917296,
+    "median_net_pts": -118.97892857142799,
+    "hit_rate": 0.40789473684210525,
+    "RR": 1.6706306061444214,
+    "top1_trade_share_of_profit": 0.7037018782224923,
+    "top2_trade_share_of_profit": 1.4019397887382457,
+    "maxDD_pts": -3308.3235714285756,
+    "pts_per_year": 218.77145333298418,
+    "points_calmar": 0.06612758655844414,
+    "era_split": {
+      "2019-Sep2024": {
+        "n": 35,
+        "mean_net": 181.02326530612208,
+        "median_net": 101.84428571428478
+      },
+      "2026-heldout": {
+        "n": 3,
+        "mean_net": -169.44380952380993,
+        "median_net": -357.7699999999993
+      },
+      "Oct2024-2025": {
+        "n": 9,
+        "mean_net": -208.75690476190445,
+        "median_net": -305.71642857142683
+      },
+      "pre-2019": {
+        "n": 29,
+        "mean_net": -51.70719211822614,
+        "median_net": -119.28785714285615
+      }
+    },
+    "robustness": {
+      "excl_top_5pct": {
+        "n_left": 72,
+        "mean_net": -55.018462301587206
+      },
+      "excl_top_10pct": {
+        "n_left": 68,
+        "mean_net": -124.25146008403357
+      },
+      "excl_top_20pct": {
+        "n_left": 61,
+        "mean_net": -220.11162763466024
+      }
+    },
+    "concentration_hard_kill": true,
+    "placebo_p": 0.432,
+    "placebo_null_mean": 17.719446898977246,
+    "n_signal_days": 414
+  },
+  {
+    "label": "S2_options_atr_normalised_APPROX",
+    "n": 187,
+    "mean_gross_pts": -6.715561497326202,
+    "mean_net_pts": -8.385561497326202,
+    "median_net_pts": -22.720000000000013,
+    "hit_rate": 0.3582887700534759,
+    "RR": 1.3074653695215914,
+    "top1_trade_share_of_profit": -0.2637459345704993,
+    "top2_trade_share_of_profit": -0.38569606530195777,
+    "maxDD_pts": -2479.3599999999997,
+    "pts_per_year": -315.5639256198347,
+    "points_calmar": -0.12727636390836133,
+    "era_split": {
+      "2019-Sep2024": {
+        "n": 143,
+        "mean_net": 1.749930069930068,
+        "median_net": -11.270000000000001
+      },
+      "2026-heldout": {
+        "n": 12,
+        "mean_net": -68.8825,
+        "median_net": -102.00000000000001
+      },
+      "Oct2024-2025": {
+        "n": 32,
+        "mean_net": -30.9921875,
+        "median_net": -46.300000000000004
+      }
+    },
+    "robustness": {
+      "net_at_1.0x_cost": -8.385561497326202,
+      "net_at_1.5x_cost": -9.220561497326202,
+      "net_at_2.0x_cost": -10.055561497326204,
+      "net_at_3.0x_cost": -11.725561497326202
+    },
+    "concentration_hard_kill": false,
+    "caveat": "APPROX same-day EOD proxy, NOT the multi-day roll engine (see notes)"
+  },
+  {
+    "label": "S2_futures_raw_points_trail",
+    "n": 318,
+    "mean_gross_pts": -25.758018867924495,
+    "mean_net_pts": -30.949716981132052,
+    "median_net_pts": -44.32000000000036,
+    "hit_rate": 0.36163522012578614,
+    "RR": 1.1890751420225223,
+    "top1_trade_share_of_profit": -0.10601797803497441,
+    "top2_trade_share_of_profit": -0.1834848775809007,
+    "maxDD_pts": -10795.649999999972,
+    "pts_per_year": -878.922775672371,
+    "points_calmar": -0.08141453045183693,
+    "era_split": {
+      "2019-Sep2024": {
+        "n": 188,
+        "mean_net": -22.93728723404252,
+        "median_net": -40.694999999998544
+      },
+      "2026-heldout": {
+        "n": 13,
+        "mean_net": -89.58538461538491,
+        "median_net": -174.26999999999927
+      },
+      "Oct2024-2025": {
+        "n": 34,
+        "mean_net": -87.04941176470601,
+        "median_net": -103.36999999999964
+      },
+      "pre-2019": {
+        "n": 83,
+        "mean_net": -16.933855421686623,
+        "median_net": -32.51999999999927
+      }
+    },
+    "robustness": {
+      "net_at_1.0x_cost": -30.72801886792451,
+      "net_at_1.5x_cost": -33.2130188679245,
+      "net_at_2.0x_cost": -35.698018867924496,
+      "net_at_3.0x_cost": -40.66801886792448
+    },
+    "concentration_hard_kill": false,
+    "placebo_p": 0.998,
+    "placebo_null_mean": 2.3979445923693774,
+    "n_signal_days": 488
+  },
+  {
+    "label": "S2_options_raw_points",
+    "n": 0,
+    "not_built_reason": "futures signal failed cost bar or n<10; options leg strictly worse (theta+roll on top of the same dead/thin direction) -- not built"
+  },
+  {
+    "label": "S3_futures_atr_normalised_eod",
+    "n": 601,
+    "mean_gross_pts": -8.719550748752068,
+    "mean_net_pts": -13.879234608985016,
+    "median_net_pts": -7.319999999998545,
+    "hit_rate": 0.46755407653910147,
+    "RR": 0.83365311355692,
+    "top1_trade_share_of_profit": -0.05918416768367997,
+    "top2_trade_share_of_profit": -0.10765672990929638,
+    "maxDD_pts": -9317.150000000047,
+    "pts_per_year": -741.2904270072988,
+    "points_calmar": -0.07956192902414312,
+    "era_split": {
+      "2019-Sep2024": {
+        "n": 334,
+        "mean_net": -13.781077844311364,
+        "median_net": -5.195000000001273
+      },
+      "2026-heldout": {
+        "n": 23,
+        "mean_net": -10.27869565217402,
+        "median_net": 29.03
+      },
+      "Oct2024-2025": {
+        "n": 53,
+        "mean_net": -4.4690566037734,
+        "median_net": -19.920000000000726
+      },
+      "pre-2019": {
+        "n": 191,
+        "mean_net": -17.095654450261808,
+        "median_net": -12.469999999999999
+      }
+    },
+    "robustness": {
+      "net_at_1.0x_cost": -13.68955074875207,
+      "net_at_1.5x_cost": -16.17455074875207,
+      "net_at_2.0x_cost": -18.659550748752068,
+      "net_at_3.0x_cost": -23.629550748752063
+    },
+    "concentration_hard_kill": false,
+    "placebo_p": 0.88,
+    "placebo_null_mean": -8.455178202995018,
+    "secondary_2day_hold_mean_net": -11.270748752079845
+  },
+  {
+    "label": "S3_options_atr_normalised_eod",
+    "n": 292,
+    "mean_gross_pts": 3.080684931506848,
+    "mean_net_pts": 1.4106849315068488,
+    "median_net_pts": -17.345,
+    "hit_rate": 0.4349315068493151,
+    "RR": 1.3614426564309745,
+    "top1_trade_share_of_profit": 0.9616673140415618,
+    "top2_trade_share_of_profit": 1.8332685958438542,
+    "maxDD_pts": -1021.2300000000001,
+    "pts_per_year": 82.98608935466076,
+    "points_calmar": 0.08126092002258135,
+    "era_split": {
+      "2019-Sep2024": {
+        "n": 216,
+        "mean_net": 1.749629629629627,
+        "median_net": -11.219999999999997
+      },
+      "2026-heldout": {
+        "n": 23,
+        "mean_net": -1.8478260869565106,
+        "median_net": -20.620000000000047
+      },
+      "Oct2024-2025": {
+        "n": 53,
+        "mean_net": 1.4433962264150932,
+        "median_net": -34.470000000000006
+      }
+    },
+    "robustness": {
+      "net_at_1.0x_cost": 1.4106849315068488,
+      "net_at_1.5x_cost": 0.5756849315068506,
+      "net_at_2.0x_cost": -0.2593150684931538,
+      "net_at_3.0x_cost": -1.929315068493152
+    },
+    "concentration_hard_kill": true,
+    "n_events_scanned": 292,
+    "n_dropped": 0
+  },
+  {
+    "label": "S3_futures_raw_points_eod",
+    "n": 745,
+    "mean_gross_pts": -12.158859060402673,
+    "mean_net_pts": -17.348322147651,
+    "median_net_pts": -9.420000000000726,
+    "hit_rate": 0.46174496644295304,
+    "RR": 0.80124681490427,
+    "top1_trade_share_of_profit": -0.038197222329684054,
+    "top2_trade_share_of_profit": -0.06948121784208308,
+    "maxDD_pts": -13909.229999999952,
+    "pts_per_year": -1141.6381197097942,
+    "points_calmar": -0.08207773684882615,
+    "era_split": {
+      "2019-Sep2024": {
+        "n": 444,
+        "mean_net": -14.875180180180193,
+        "median_net": -7.269999999999272
+      },
+      "2026-heldout": {
+        "n": 33,
+        "mean_net": -29.73060606060603,
+        "median_net": -1.119999999997817
+      },
+      "Oct2024-2025": {
+        "n": 76,
+        "mean_net": -26.498289473684036,
+        "median_net": -31.820000000000363
+      },
+      "pre-2019": {
+        "n": 192,
+        "mean_net": -17.317395833333357,
+        "median_net": -9.39500000000109
+      }
+    },
+    "robustness": {
+      "net_at_1.0x_cost": -17.12885906040268,
+      "net_at_1.5x_cost": -19.613859060402675,
+      "net_at_2.0x_cost": -22.09885906040267,
+      "net_at_3.0x_cost": -27.06885906040267
+    },
+    "concentration_hard_kill": false,
+    "placebo_p": 0.992,
+    "placebo_null_mean": -8.449447516778534,
+    "secondary_2day_hold_mean_net": -14.548657718120786
+  },
+  {
+    "label": "S3_options_raw_points_eod",
+    "n": 399,
+    "mean_gross_pts": -1.4917794486215543,
+    "mean_net_pts": -3.1617794486215542,
+    "median_net_pts": -21.67,
+    "hit_rate": 0.39097744360902253,
+    "RR": 1.399706859993164,
+    "top1_trade_share_of_profit": -0.3140026158297332,
+    "top2_trade_share_of_profit": -0.598596964052158,
+    "maxDD_pts": -2087.6199999999994,
+    "pts_per_year": -254.01385749724372,
+    "points_calmar": -0.12167629046341949,
+    "era_split": {
+      "2019-Sep2024": {
+        "n": 291,
+        "mean_net": -1.6764604810996588,
+        "median_net": -19.22
+      },
+      "2026-heldout": {
+        "n": 33,
+        "mean_net": 1.1318181818181912,
+        "median_net": -17.42
+      },
+      "Oct2024-2025": {
+        "n": 75,
+        "mean_net": -10.814000000000002,
+        "median_net": -36.09
+      }
+    },
+    "robustness": {
+      "net_at_1.0x_cost": -3.1617794486215542,
+      "net_at_1.5x_cost": -3.9967794486215533,
+      "net_at_2.0x_cost": -4.831779448621557,
+      "net_at_3.0x_cost": -6.501779448621553
+    },
+    "concentration_hard_kill": false,
+    "n_events_scanned": 400,
+    "n_dropped": 1
+  }
+]

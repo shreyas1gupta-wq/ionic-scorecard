@@ -1,0 +1,23 @@
+[setup] hold=78 bars (~3 sessions), exit=BE_1R_trail, stop=max(prior-candle range, 0.4 x daily ATR)
+        median stop across all bars = 63 index points -> this is a WIDE stop
+        NIFTY 8294 -> 23714 over the sample (+186%)
+
+[N2] unconditional LONG on a random 3,000-bar sample, same exit, one-at-a-time
+     n=689  mean +29.25 pts  expR +0.432  win 48.6%
+     SHORT mirror: n=689  mean +13.57 pts  expR +0.145  win 43.0%
+
+pattern              n     real   expR   N1 plc  plc p95      p  N3 short             verdict
+THREE_SOLDIERS     758    45.52  0.607    26.81    35.92  0.000      8.60        PATTERN ADDS
+MORNING_STAR       776    33.68  0.443    26.42    34.23  0.092     16.36                weak
+HAMMER             783    29.37  0.421    25.28    33.87  0.242     20.47   BETA, NOT PATTERN
+MARUBOZU_BULL      741    33.96  0.440    27.32    39.07  0.200     12.49   BETA, NOT PATTERN
+BULL_ENGULF        717    31.63  0.462    25.93    35.09  0.225     19.22   BETA, NOT PATTERN
+TWEEZER_BOTTOM     747    24.95  0.389    27.36    38.40  0.642     18.23   BETA, NOT PATTERN
+THREE_CROWS        755    21.21  0.306    16.09    26.74  0.233     18.61   BETA, NOT PATTERN
+SHOOTING_STAR      761    16.16  0.207    16.40    27.93  0.517     26.12   BETA, NOT PATTERN
+
+wrote beta_placebo.csv/.json
+
+UNCONDITIONAL LONG BENCHMARK: +29.25 pts / +0.432R per trade.
+Any pattern whose mean does not clearly exceed that number is harvesting index drift with a
+wide trailing stop, and must be reported as beta rather than as a candlestick edge.

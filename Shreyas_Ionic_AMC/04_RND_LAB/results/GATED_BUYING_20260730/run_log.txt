@@ -1,0 +1,38 @@
+[gates] building index features
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+[run] 261 expiries
+  [0/261] 2021-05-27  trades so far 0
+  [25/261] 2021-11-25  trades so far 3,415
+  [50/261] 2022-05-19  trades so far 6,923
+  [75/261] 2022-11-10  trades so far 10,303
+  [100/261] 2023-05-04  trades so far 13,979
+  [125/261] 2023-10-26  trades so far 17,515
+  [150/261] 2024-04-18  trades so far 20,945
+  [175/261] 2024-10-10  trades so far 24,461
+  [200/261] 2025-04-03  trades so far 28,081
+  [225/261] 2025-09-23  trades so far 31,317
+  [250/261] 2026-03-24  trades so far 34,957
+
+[done] 36,061 trade-rows
+
+====================================================================================================================================
+IS 2021-2025   RR fixed at 1:1.5 (target = 1.5 x stop).  BREAKEVEN HIT RATE = 40.0%
+====================================================================================================================================
+cell                                             n    hit%     mean     med    win%     PF   pts/yr    maxDD  Calmar      t
+------------------------------------------------------------------------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\GATED_BUYING_20260730\gated_buying.py", line 317, in <module>
+    block(D_[(D_.trig == trig) & (D_.strike_rule == sr) & (D_.stop == st)],
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          f"{tag[:2]} {trig} {sr} stop{st}", rep)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\GATED_BUYING_20260730\gated_buying.py", line 275, in block
+    s = summarize([type("R", (), dict(pnl_pessimistic=float(a), pnl_optimistic=float(b),
+                                     reason_pessimistic="", reason_optimistic="",
+                                     n_ambiguous_bars=0, n_bars=1,
+                                     is_ambiguous=(a != b)))()
+                   for a, b in zip(sub.pnl_p, sub.pnl_o)], verbose=False)
+  File "c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\lib\pathsafe.py", line 202, in summarize
+    raise PathSafeError("summarize() needs ExitResult objects from simulate_exit()")
+pathsafe.PathSafeError: summarize() needs ExitResult objects from simulate_exit()

@@ -1,0 +1,30 @@
+{
+  "elapsed_seconds": 167.8,
+  "n_configs": 54,
+  "best_config": "('biweekly', np.float64(0.1), 'naked', 'stop2x')",
+  "trading_days": 3818,
+  "expiries": 518,
+  "dropped": {
+    "biweekly": {
+      "strike": 0,
+      "wing": 7,
+      "T": 3
+    },
+    "monthly": {
+      "strike": 0,
+      "wing": 26,
+      "T": 3
+    },
+    "bimonthly": {
+      "strike": 2,
+      "wing": 10,
+      "T": 4
+    }
+  },
+  "lot_used": 65,
+  "lot_correction_note": "PREREG.md/original script used stale LOT=75; corrected to firm's current LOT=65 (effective Jan-2026, SESSION_JOURNAL) -- data correction, not a grid change.",
+  "chain_year_loads_total": 48,
+  "cache_years_resident": 2,
+  "stale_wing_mark_clips": 528,
+  "stale_wing_note": "forward-filled untraded far-OTM wing/short CLOSE prints occasionally imply a negative buy-back cost (asynchronous stale EOD quotes, not a real arb) -- floored mark at 0 before applying mgmt triggers; count is the total bars affected across all 54 configs, see L7b guard above."
+}

@@ -1,0 +1,55 @@
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+  [backspread_CE_unconditional_w2] cycle 0/259 near_exp=2021-06-03 elapsed=0.0s trades_so_far=0
+  [backspread_CE_unconditional_w2] cycle 40/259 near_exp=2022-03-17 elapsed=6.4s trades_so_far=40
+  [backspread_CE_unconditional_w2] cycle 80/259 near_exp=2022-12-29 elapsed=12.1s trades_so_far=80
+  [backspread_CE_unconditional_w2] cycle 120/259 near_exp=2023-10-05 elapsed=21.9s trades_so_far=120
+  [backspread_CE_unconditional_w2] cycle 160/259 near_exp=2024-07-11 elapsed=29.4s trades_so_far=160
+  [backspread_CE_unconditional_w2] cycle 200/259 near_exp=2025-04-17 elapsed=46.7s trades_so_far=200
+Traceback (most recent call last):
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\CONVEX_STRUCTURES_20260729\run_backspread.py", line 283, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\CONVEX_STRUCTURES_20260729\run_backspread.py", line 267, in main
+    df, skips = run_cell(label, mode, width, sig, hold_to_expiry=hte)
+                ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\CONVEX_STRUCTURES_20260729\run_backspread.py", line 140, in run_cell
+    res, reason = try_enter(entry_day, entry_t0, near_exp, forced_otype, width)
+                  ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\CONVEX_STRUCTURES_20260729\run_backspread.py", line 88, in try_enter
+    frames = [lc.leg_frame(leg.expiry, leg.strike, leg.otype) for leg in legs]
+              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\CONVEX_STRUCTURES_20260729\lib_convex.py", line 127, in leg_frame
+    return _leg_series_raw(exp, strike, otype)
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\CONVEX_STRUCTURES_20260729\lib_convex.py", line 62, in _leg_series_raw
+    df = with_memory_retry(_read)
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\CONVEX_STRUCTURES_20260729\lib_convex.py", line 102, in with_memory_retry
+    return fn(*args, **kwargs)
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\CONVEX_STRUCTURES_20260729\lib_convex.py", line 59, in _read
+    tbl = pq.read_table(mapping[exp], columns=_EXP_COLS,
+                         filters=[("strike", "=", strike), ("option_type", "=", otype)])
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pyarrow\parquet\core.py", line 1891, in read_table
+    dataset = ParquetDataset(
+        source,
+    ...<16 lines>...
+        arrow_extensions_enabled=arrow_extensions_enabled,
+    )
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pyarrow\parquet\core.py", line 1471, in __init__
+    self._dataset = ds.dataset(path_or_paths, filesystem=filesystem,
+                    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                               schema=schema, format=parquet_format,
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                               partitioning=partitioning,
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+                               ignore_prefixes=ignore_prefixes)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pyarrow\dataset.py", line 790, in dataset
+    return _filesystem_dataset(source, **kwargs)
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pyarrow\dataset.py", line 482, in _filesystem_dataset
+    return factory.finish(schema)
+           ~~~~~~~~~~~~~~^^^^^^^^
+  File "pyarrow/_dataset.pyx", line 3226, in pyarrow._dataset.DatasetFactory.finish
+  File "pyarrow/error.pxi", line 155, in pyarrow.lib.pyarrow_internal_check_status
+  File "pyarrow/error.pxi", line 92, in pyarrow.lib.check_status
+    raise convert_status(status)
+OSError: Error creating dataset. Could not read schema from 'c:/Users/Shreyas.1Gupta/OneDrive - Angel Broking Limited/Desktop/Backup/NIFTY 500/intraday_options_strategy/datasets/raw/hf_index_options_1m/options/NIFTY/2025-12-16.parquet'. Is this a 'parquet' file?: Could not open Parquet input source 'c:/Users/Shreyas.1Gupta/OneDrive - Angel Broking Limited/Desktop/Backup/NIFTY 500/intraday_options_strategy/datasets/raw/hf_index_options_1m/options/NIFTY/2025-12-16.parquet': Error reading bytes from file

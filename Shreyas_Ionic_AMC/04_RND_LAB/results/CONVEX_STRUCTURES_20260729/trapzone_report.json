@@ -1,0 +1,51 @@
+{
+  "n_cycles": 259,
+  "w1_exit_-1d": {
+    "n": 259,
+    "ce_trap_freq": 0.06563706563706563,
+    "pe_trap_freq": 0.03861003861003861,
+    "either_trap_freq": 0.10424710424710425,
+    "median_abs_move_pts": 227.5,
+    "p75_abs_move_pts": 367.22500000000036
+  },
+  "w1_hold_to_expiry": {
+    "n": 259,
+    "ce_trap_freq": 0.05019305019305019,
+    "pe_trap_freq": 0.05791505791505792,
+    "either_trap_freq": 0.10810810810810811,
+    "median_abs_move_pts": 259.34999999999854,
+    "p75_abs_move_pts": 450.0500000000011
+  },
+  "w2_exit_-1d": {
+    "n": 259,
+    "ce_trap_freq": 0.11583011583011583,
+    "pe_trap_freq": 0.08494208494208494,
+    "either_trap_freq": 0.20077220077220076,
+    "median_abs_move_pts": 227.5,
+    "p75_abs_move_pts": 367.22500000000036
+  },
+  "w2_hold_to_expiry": {
+    "n": 259,
+    "ce_trap_freq": 0.10424710424710425,
+    "pe_trap_freq": 0.11583011583011583,
+    "either_trap_freq": 0.22007722007722008,
+    "median_abs_move_pts": 259.34999999999854,
+    "p75_abs_move_pts": 450.0500000000011
+  },
+  "w4_exit_-1d": {
+    "n": 259,
+    "ce_trap_freq": 0.2471042471042471,
+    "pe_trap_freq": 0.1969111969111969,
+    "either_trap_freq": 0.444015444015444,
+    "median_abs_move_pts": 227.5,
+    "p75_abs_move_pts": 367.22500000000036
+  },
+  "w4_hold_to_expiry": {
+    "n": 259,
+    "ce_trap_freq": 0.19305019305019305,
+    "pe_trap_freq": 0.21235521235521235,
+    "either_trap_freq": 0.40540540540540543,
+    "median_abs_move_pts": 259.34999999999854,
+    "p75_abs_move_pts": 450.0500000000011
+  }
+}

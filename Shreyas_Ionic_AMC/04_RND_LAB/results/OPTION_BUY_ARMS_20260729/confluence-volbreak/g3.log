@@ -1,0 +1,19 @@
+[cells] 2: ['volbrk_atr_expansion', 'volbrk_keltner_squeeze_release']
+
+=== volbrk_atr_expansion  build n=5959 -> subsampled 4000  forward n=497 ===
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+  volbrk_atr_expansion C1_ATM_hold1525        build   filled  3929/ 4000 gross     -920,842 net   -1,170,036 ret/tr -3.06% t=-4.62 (268.2s)
+  volbrk_atr_expansion C1_ATM_hold1525        forward filled   483/  497 gross      228,400 net      193,093 ret/tr +4.55% t=+2.22 (26.9s)
+  volbrk_atr_expansion C2_ATM_tgt50_stp30     build   filled  3929/ 4000 gross     -589,465 net     -839,128 ret/tr -2.52% t=-5.23 (260.6s)
+  volbrk_atr_expansion C2_ATM_tgt50_stp30     forward filled   483/  497 gross       -7,110 net      -42,084 ret/tr +0.04% t=+0.03 (30.0s)
+  volbrk_atr_expansion C3_ITM2_hold1525       build   filled  3929/ 4000 gross   -1,151,053 net   -1,431,829 ret/tr -2.59% t=-4.96 (287.7s)
+  volbrk_atr_expansion C3_ITM2_hold1525       forward filled   483/  497 gross      252,033 net      212,951 ret/tr +3.39% t=+1.93 (33.4s)
+  volbrk_atr_expansion C4_ATM_0dte_hold1525   build   filled  3964/ 4000 gross     -989,731 net   -1,226,251 ret/tr -5.07% t=-3.99 (306.9s)
+  volbrk_atr_expansion C4_ATM_0dte_hold1525   forward filled   497/  497 gross      195,578 net      161,700 ret/tr +3.20% t=+0.81 (34.7s)
+
+=== volbrk_keltner_squeeze_release  build n=821  forward n=63 ===
+  volbrk_keltner_squeeze_release C1_ATM_hold1525        build   filled   801/  821 gross     -159,604 net     -209,728 ret/tr -2.41% t=-1.83 (158.1s)
+  volbrk_keltner_squeeze_release C1_ATM_hold1525        forward filled    62/   63 gross       58,269 net       53,915 ret/tr +6.14% t=+1.02 (13.1s)
+  volbrk_keltner_squeeze_release C2_ATM_tgt50_stp30     build   filled   800/  821 gross      -76,506 net     -126,718 ret/tr -1.47% t=-1.44 (175.7s)
+  volbrk_keltner_squeeze_release C2_ATM_tgt50_stp30     forward filled    62/   63 gross       12,728 net        8,438 ret/tr +1.24% t=+0.32 (15.3s)

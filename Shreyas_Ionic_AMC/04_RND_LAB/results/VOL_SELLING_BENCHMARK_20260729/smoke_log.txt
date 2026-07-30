@@ -1,0 +1,59 @@
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+testing on [datetime.date(2021, 5, 27), datetime.date(2021, 6, 3), datetime.date(2021, 6, 10), datetime.date(2021, 6, 17), datetime.date(2021, 6, 24), datetime.date(2021, 7, 1), datetime.date(2021, 7, 8), datetime.date(2021, 7, 15), datetime.date(2021, 7, 22), datetime.date(2021, 7, 29), datetime.date(2021, 8, 5), datetime.date(2021, 8, 12)]
+[flags] building 15-min bars + signal flags ...
+[flags] 1241 entry-days flagged. reclaim=1167 (94.0%), round_reject=1219 (98.2%), pd_continue=974 (78.5%), trend_veto=315 (25.4%)
+[trades] expiry 0/12 (2021-05-27) ...
+  [skip] 2021-07-15: load error MemoryError: Unable to allocate 1.66 MiB for an array with shape (217734,) and data type int64
+[trades] built 22 structure-trades from 12 expiries (1 expiry-level skips: corrupt/stub/no-data/thin-chain).
+(22, 19)
+         structure   entry_day         exp  credit  fill_credit   net_pnl  gross_pnl  cost_rs  reason  max_loss_per_lot     spot0
+0   short_strangle  2021-05-24  2021-05-27   59.00      58.7640  2323.145    2448.75    100.0  target               NaN  15243.00
+1      iron_condor  2021-05-24  2021-05-27   30.50      30.1500  1022.110    1252.50    200.0  target          8988.750  15243.00
+2   short_strangle  2021-05-31  2021-06-03   51.75      51.5430  1973.585    2096.25    100.0  target               NaN  15418.05
+3      iron_condor  2021-05-31  2021-06-03   24.50      24.1840   713.965     941.25    200.0  target          5686.200  15418.05
+4   short_strangle  2021-06-07  2021-06-10   48.35      48.1566  1723.370    1845.00    100.0  target               NaN  15704.80
+5      iron_condor  2021-06-07  2021-06-10   28.65      28.3778   892.960    1117.50    200.0  target          9121.665  15704.80
+6   short_strangle  2021-06-14  2021-06-17   56.05      55.8258  2008.655    2133.75    100.0  target               NaN  15750.00
+7      iron_condor  2021-06-14  2021-06-17   28.25      27.9146   869.515    1098.75    200.0  target          5406.405  15750.00
+8   short_strangle  2021-06-21  2021-06-24   64.35      64.0926  2312.405    2441.25    100.0  target               NaN  15542.00
+9      iron_condor  2021-06-21  2021-06-24   28.45      28.0490 -2892.935   -2643.75    200.0    stop          9146.325  15542.00
+10  short_strangle  2021-06-28  2021-07-01   50.65      50.4474  1876.355    1998.75    100.0  target               NaN  15882.65
+11     iron_condor  2021-06-28  2021-07-01   26.00      25.6988   838.870    1065.00    200.0  target          5572.590  15882.65
+12  short_strangle  2021-07-05  2021-07-08   37.20      37.0512  1353.560    1470.00    100.0  target               NaN  15792.65
+13     iron_condor  2021-07-05  2021-07-08   13.30      13.0556   297.250     517.50    200.0  target          2770.830  15792.65
+14  short_strangle  2021-07-19  2021-07-22   44.20      44.0232 -3477.370   -3337.50    100.0    stop               NaN  15790.05
+15     iron_condor  2021-07-19  2021-07-22   23.35      23.0898 -2003.600   -1770.00    200.0    stop          5768.265  15790.05
+16  short_strangle  2021-07-26  2021-07-29   43.25      43.0770  1519.355    1638.75    100.0  target               NaN  15814.00
+17     iron_condor  2021-07-26  2021-07-29   13.90      13.6096 -1306.505   -1076.25    200.0    stop          2729.280  15814.00
+18  short_strangle  2021-08-02  2021-08-05   52.40      52.1904 -4374.595   -4226.25    100.0    stop               NaN  15862.70
+19     iron_condor  2021-08-02  2021-08-05   29.15      28.8474 -2573.270   -2332.50    200.0    stop          5336.445  15862.70
+short_strangle (11, 9)
+           exp   entry_day  lots  net_pnl_rs  gross_pnl_rs  net_pnl_per_lot  gross_pnl_per_lot  reason      eq_net
+0   2021-05-27  2021-05-24     6    13938.87       14692.5         2323.145            2448.75  target  1013938.87
+1   2021-06-03  2021-05-31     6    11841.51       12577.5         1973.585            2096.25  target  1025780.38
+2   2021-06-10  2021-06-07     6    10340.22       11070.0         1723.370            1845.00  target  1036120.60
+3   2021-06-17  2021-06-14     6    12051.93       12802.5         2008.655            2133.75  target  1048172.53
+4   2021-06-24  2021-06-21     6    13874.43       14647.5         2312.405            2441.25  target  1062046.96
+5   2021-07-01  2021-06-28     6    11258.13       11992.5         1876.355            1998.75  target  1073305.09
+6   2021-07-08  2021-07-05     6     8121.36        8820.0         1353.560            1470.00  target  1081426.45
+7   2021-07-22  2021-07-19     6   -20864.22      -20025.0        -3477.370           -3337.50    stop  1060562.23
+8   2021-07-29  2021-07-26     6     9116.13        9832.5         1519.355            1638.75  target  1069678.36
+9   2021-08-05  2021-08-02     6   -26247.57      -25357.5        -4374.595           -4226.25    stop  1043430.79
+10  2021-08-12  2021-08-09     6    12503.01       13252.5         2083.835            2208.75  target  1055933.80
+{'n': 11, 'yrs': 0.21, 'CAGR_%': np.float64(29.46), 'maxDD_%': np.float64(-3.51), 'Calmar': np.float64(8.38), 'Sharpe': np.float64(2.7), 'PF': np.float64(2.19), 'NW_t': np.float64(1.19), 'win_mo_net_%': np.float64(50.0), 'win_mo_gross_%': np.float64(50.0), 'worst_day_rs': -26248, 'worst_day_%cap': np.float64(-2.62), 'worst_month_rs': -13745, 'worst_month_%cap': np.float64(-1.37), 'largest_trade_share': np.float64(0.469), 'gross_total_rs': 64305, 'net_total_rs': 55934, 'final_equity': 1055934, 'avg_lots': np.float64(6.0), 'max_lots': 6}
+iron_condor (11, 9)
+           exp   entry_day  lots  net_pnl_rs  gross_pnl_rs  net_pnl_per_lot  gross_pnl_per_lot  reason       eq_net
+0   2021-05-27  2021-05-24    13   13287.430      16282.50         1022.110            1252.50  target  1013287.430
+1   2021-06-03  2021-05-31    13    9281.545      12236.25          713.965             941.25  target  1022568.975
+2   2021-06-10  2021-06-07    13   11608.480      14527.50          892.960            1117.50  target  1034177.455
+3   2021-06-17  2021-06-14    13   11303.695      14283.75          869.515            1098.75  target  1045481.150
+4   2021-06-24  2021-06-21    13  -37608.155     -34368.75        -2892.935           -2643.75    stop  1007872.995
+5   2021-07-01  2021-06-28    12   10066.440      12780.00          838.870            1065.00  target  1017939.435
+6   2021-07-08  2021-07-05    12    3567.000       6210.00          297.250             517.50  target  1021506.435
+7   2021-07-22  2021-07-19    12  -24043.200     -21240.00        -2003.600           -1770.00    stop   997463.235
+8   2021-07-29  2021-07-26    12  -15678.060     -12915.00        -1306.505           -1076.25    stop   981785.175
+9   2021-08-05  2021-08-02    12  -30879.240     -27990.00        -2573.270           -2332.50    stop   950905.935
+10  2021-08-12  2021-08-09    11   10391.645      12911.25          944.695            1173.75  target   961297.580
+{'n': 11, 'yrs': 0.21, 'CAGR_%': np.float64(-17.07), 'maxDD_%': np.float64(-9.05), 'Calmar': np.float64(-1.89), 'Sharpe': np.float64(-1.28), 'PF': np.float64(0.64), 'NW_t': np.float64(-0.65), 'win_mo_net_%': np.float64(25.0), 'win_mo_gross_%': np.float64(50.0), 'worst_day_rs': -37608, 'worst_day_%cap': np.float64(-3.76), 'worst_month_rs': -36154, 'worst_month_%cap': np.float64(-3.62), 'largest_trade_share': np.float64(0.972), 'gross_total_rs': -7282, 'net_total_rs': -38702, 'final_equity': 961298, 'avg_lots': np.float64(12.36), 'max_lots': 13}
+SMOKE TEST OK

@@ -1,0 +1,150 @@
+[    0.0s] PASS 1: global EXPIRIES + TIMESTAMPS (column-subset SYMBOL/INSTRUMENT/EXPIRY_DT/TIMESTAMP) ...
+[   13.3s] PASS 1 done: 518 distinct expiries, 3826 distinct trading days. per-year OPTIDX raw row counts: {2011: 359390, 2012: 356096, 2013: 386550, 2014: 474968, 2015: 533036, 2016: 514250, 2017: 527414, 2018: 566450, 2019: 770090, 2020: 731639, 2021: 510565, 2022: 562041, 2023: 339069, 2024: 402556, 2025: 394283, 2026: 230360}
+[   13.3s] Effect 1: expiry weekday history (MIN_WEEKLY_RUN connected-component fix) ...
+[   13.3s] Weekly-cadence connected components: 111 total, 1 genuine (size>=15), 9 rejected as holiday-shift blips (2<=size<15)
+[   13.4s] Effect 1: 2 weekly-expiry weekday regimes found:
+  regime_start regime_end  weekday_num weekday_name
+0   2019-02-14 2025-09-02            3          Thu
+1   2025-09-09 2026-08-11            1          Tue
+[   13.4s]   regime 2019-02-14..2025-09-02 (Thu): top-weekday share=95.36% n=345 -> CONCENTRATED
+[   13.4s]   regime 2025-09-09..2026-08-11 (Tue): top-weekday share=85.19% n=54 -> CONCENTRATED
+[   13.4s] Monthly expiry modal weekday by year:
+year
+2011    Thu
+2012    Thu
+2013    Thu
+2014    Thu
+2015    Thu
+2016    Thu
+2017    Thu
+2018    Thu
+2019    Thu
+2020    Thu
+2021    Thu
+2022    Thu
+2023    Thu
+2024    Thu
+2025    Thu
+2026    Tue
+2027    Tue
+2028    Thu
+2029    Thu
+2030    Tue
+2031    Tue
+[   13.4s] Building global near-expiry map (merge_asof, day -> next EXPIRY_DT) ...
+[   13.4s] Building global max-pain event list (weekly expiry E -> T-2 via trading calendar) ...
+[   13.5s]     381 candidate events, 18 skipped (no calendar match), bucketed across 8 years
+[   13.5s] PASS 2: per-year heavy pass (full column subset, one year resident at a time) ...
+[   14.1s]     year 2011: 359,390 raw OPTIDX rows, 0 dup dropped, 359,390 kept, maxpain events resolved so far=0
+[   14.8s]     year 2012: 356,096 raw OPTIDX rows, 0 dup dropped, 356,096 kept, maxpain events resolved so far=0
+[   15.8s]     year 2013: 386,550 raw OPTIDX rows, 0 dup dropped, 386,550 kept, maxpain events resolved so far=0
+[   16.6s]     year 2014: 474,968 raw OPTIDX rows, 0 dup dropped, 474,968 kept, maxpain events resolved so far=0
+[   17.6s]     year 2015: 533,036 raw OPTIDX rows, 0 dup dropped, 533,036 kept, maxpain events resolved so far=0
+[   18.5s]     year 2016: 514,250 raw OPTIDX rows, 0 dup dropped, 514,250 kept, maxpain events resolved so far=0
+[   19.7s]     year 2017: 527,414 raw OPTIDX rows, 0 dup dropped, 527,414 kept, maxpain events resolved so far=0
+[   21.1s]     year 2018: 566,450 raw OPTIDX rows, 0 dup dropped, 566,450 kept, maxpain events resolved so far=0
+[   23.8s]     year 2019: 770,090 raw OPTIDX rows, 0 dup dropped, 770,090 kept, maxpain events resolved so far=47
+[   26.1s]     year 2020: 731,639 raw OPTIDX rows, 0 dup dropped, 731,639 kept, maxpain events resolved so far=99
+[   28.0s]     year 2021: 510,565 raw OPTIDX rows, 0 dup dropped, 510,565 kept, maxpain events resolved so far=150
+[   30.5s]     year 2022: 562,041 raw OPTIDX rows, 0 dup dropped, 562,041 kept, maxpain events resolved so far=202
+[   32.0s]     year 2023: 339,069 raw OPTIDX rows, 0 dup dropped, 339,069 kept, maxpain events resolved so far=253
+[   33.2s]     year 2024: 402,556 raw OPTIDX rows, 8406 dup dropped, 394,150 kept, maxpain events resolved so far=306
+[   34.0s]     year 2025: 394,283 raw OPTIDX rows, 0 dup dropped, 394,283 kept, maxpain events resolved so far=358
+[   34.5s]     year 2026: 230,360 raw OPTIDX rows, 0 dup dropped, 230,360 kept, maxpain events resolved so far=376
+[   34.6s] PASS 2 done: 8,406 dup rows dropped total (landmine #2), 376 max-pain events resolved, 5 skipped (no snapshot).
+[   34.6s] PASS 2 memory profile: 16 year-chunks accumulated for OI/vol/chg/herf (each a few thousand rows at most -- this is the entire fix vs the 7.65M-row crash).
+[   34.7s] Loading nifty_1min.parquet (full file) ...
+[   35.7s] spot loaded: 1,047,541 bars, 2015-01-09..2026-05-14
+[   36.3s] Max-pain events with usable spot: 376 (of 376 chain-resolved)
+[   36.3s] Effect 2: expiry-day realized vol vs non-expiry ...
+[   36.3s] Effect2 expiry-vs-non: t=0.500 mean|ret| exp=0.00718 non=0.00698 n_exp=430 n_non=2363 placebo95=2.164 -> NO CONTENT (placebo-indistinguishable)
+[   36.4s] Effect2 T-1/T/T+1 mean|ret| around WEEKLY expiry: {-1: (np.float64(0.006560357836416917), 381), 0: (np.float64(0.007231942205839773), 381), 1: (np.float64(0.007690151454212388), 381)}
+[   36.4s] Effect 3: weekly-only vs monthly-expiry vol ...
+[   36.4s] Effect3: t=-0.563 mean|ret| weekly-only=0.00705 (n=297) monthly=0.00749 (n=132)
+[   36.4s] Effect 4: daily PCR (OI + volume) from per-year-accumulated chain ...
+[   36.5s] Effect4 sample: build n=2453 holdout n=335
+[   36.5s] Effect 4 (PCR predictive, 16 sub-trials):
+     signal  dep  horizon  n_build  t_build  beta_build  t_placebo_shuffle  t_placebo_circshift  placebo_bar  n_holdout  t_holdout  beta_holdout                                              verdict
+0    PCR_OI  ret        1     2394    0.970    0.000191             -0.467                0.443        0.467        334      0.731      0.000344           LEAD (clears placebo + holdout sign match)
+1    PCR_OI  ret        3     2394    0.656    0.000221              0.200                0.933        0.933        332     -0.084     -0.000068               NO CONTENT (placebo-indistinguishable)
+2    PCR_OI  ret        5     2394    0.566    0.000246              0.072                2.438        2.438        330      0.340      0.000359               NO CONTENT (placebo-indistinguishable)
+3    PCR_OI  ret       10     2394    0.823    0.000511              0.399                4.693        4.693        325     -0.272     -0.000407               NO CONTENT (placebo-indistinguishable)
+4    PCR_OI  vol        1     2394   -9.665   -0.001372             -0.866               -3.556        3.556        334     -0.316     -0.000099           LEAD (clears placebo + holdout sign match)
+5    PCR_OI  vol        3     2394  -11.683   -0.001237              0.219               -3.204        3.204        332     -0.285     -0.000063           LEAD (clears placebo + holdout sign match)
+6    PCR_OI  vol        5     2394  -13.207   -0.001354             -1.946               -4.197        4.197        330      0.065      0.000013  CLEARS PLACEBO but holdout sign flips -> not a lead
+7    PCR_OI  vol       10     2394  -12.793   -0.001247             -1.500               -5.549        5.549        325     -0.202     -0.000039           LEAD (clears placebo + holdout sign match)
+8   PCR_VOL  ret        1     2394    2.003    0.000416              0.820                0.760        0.820        334     -1.799     -0.000802  CLEARS PLACEBO but holdout sign flips -> not a lead
+9   PCR_VOL  ret        3     2394    1.668    0.000590              1.131                0.906        1.131        332     -1.017     -0.000775  CLEARS PLACEBO but holdout sign flips -> not a lead
+10  PCR_VOL  ret        5     2394    1.041    0.000477             -1.517                2.175        2.175        330     -1.669     -0.001669               NO CONTENT (placebo-indistinguishable)
+11  PCR_VOL  ret       10     2394    1.090    0.000713              0.314                3.683        3.683        325     -1.670     -0.002367               NO CONTENT (placebo-indistinguishable)
+12  PCR_VOL  vol        1     2394   -8.939   -0.001340             -0.489               -2.388        2.388        334     -1.792     -0.000531           LEAD (clears placebo + holdout sign match)
+13  PCR_VOL  vol        3     2394   -8.950   -0.001009             -0.388               -2.716        2.716        332     -1.801     -0.000374           LEAD (clears placebo + holdout sign match)
+14  PCR_VOL  vol        5     2394   -9.785   -0.001073              0.512               -2.190        2.190        330     -1.959     -0.000380           LEAD (clears placebo + holdout sign match)
+15  PCR_VOL  vol       10     2394   -9.016   -0.000941              0.659               -3.085        3.085        325     -1.220     -0.000224           LEAD (clears placebo + holdout sign match)
+[   36.5s] Effect 5: max-pain gravitation ...
+[   36.5s] Effect5 max-pain: events_used=376 beta=0.1696 t=1.981 permbar95=2.026 -> NO CONTENT (placebo-indistinguishable)
+[   36.5s] Effect 6/8: OI concentration + Oct-2024 regime break ...
+[   36.6s] Herfindahl pre/post Oct2024 (full 2011-2026 chain): mean_pre=0.0558(n=3380) mean_post=0.0263(n=431) t=62.107 KS_D=0.7321 KS_p~2.204e-178
+[   36.6s] PCR_OI level pre/post Oct2024 (full chain 2011-2026): mean_pre=1.143(n=3389) mean_post=0.947(n=437) t=20.843
+[   36.6s] Expiry-day |ret| pre/post Oct2024 (cash series): mean_pre=0.00739(n=343) mean_post=0.00633(n=87) t=1.474
+[   36.6s] PCR_OI->fwd_ret_5 t: pre=0.153 post=1.162 | PCR_OI->fwd_vol_5 t: pre=-13.475 post=0.094
+[   36.6s] Weekday-switch segments starting in 2023-2025 window: 
+  regime_start regime_end  weekday_num weekday_name
+1   2025-09-09 2026-08-11            1          Tue
+[   36.6s] REGIME BREAK VERDICT: BROKEN -- multiple structural markers shift at/around Oct-2024 (n_breaks=3/4 markers)
+[   36.6s] Effect 7: OI build-up/unwind sign (CHG_IN_OI) ...
+[   36.6s] Effect 7 (OI buildup sign):
+   horizon  n_build  t_build  placebo_bar  n_holdout  t_holdout                                 verdict
+0        1     2453   -0.918        1.657        334     -0.262  NO CONTENT (placebo-indistinguishable)
+1        3     2453   -0.070        0.614        332      1.130  NO CONTENT (placebo-indistinguishable)
+2        5     2453   -0.287        1.638        330      1.188  NO CONTENT (placebo-indistinguishable)
+[   36.6s] Effect 9: intraday seasonality ...
+[   37.1s] Effect9 era1-vs-era3 bucket-vol-profile corr=0.893 -> STABLE (corr>0.7)
+[   37.1s] Effect9 first30=0.00038 last30=0.00025 midday=0.00021
+[   37.4s] Effect9 first30-vs-midday diff=0.00017 bar95=0.00005 -> REAL (clears random-window null)
+[   37.4s] Effect9 last30-vs-midday diff=0.00004 bar95=0.00005 -> NO CONTENT vs random-window null
+[   37.4s] Effect 10: day-of-week / turn-of-month ...
+[   37.7s] Effect10 day-of-week:
+  weekday    n  mean_ret         t  placebo_bar95                                 verdict
+0     Mon  557 -0.000304 -1.584221       1.823519  NO CONTENT (placebo-indistinguishable)
+1     Tue  560  0.001158  1.989323       2.026048  NO CONTENT (placebo-indistinguishable)
+2     Wed  562  0.000731  0.880362       2.019393  NO CONTENT (placebo-indistinguishable)
+3     Thu  560  0.000288 -0.380146       2.072267  NO CONTENT (placebo-indistinguishable)
+4     Fri  549  0.000351 -0.209552       1.924577  NO CONTENT (placebo-indistinguishable)
+[   37.8s] Effect10 TOM_narrow: t=1.195 mean_tom=0.00117 mean_rest=0.00035 n_tom=274 placebo95=1.881 -> NO CONTENT (placebo-indistinguishable)
+[   37.8s] Effect10 TOM_wide_pm3: t=2.252 mean_tom=0.00097 mean_rest=0.00008 n_tom=1096 placebo95=1.943 -> REAL (clears placebo)
+[   37.8s] 
+=== FINAL EFFECTS TABLE (32 rows) ===
+                                effect                                            measurement            n         t             vs_placebo                                              verdict
+0          expiry_day_vol_vs_nonexpiry                Welch t, mean|ret|, exp vs non-exp days     430/2363   0.50000                  2.164               NO CONTENT (placebo-indistinguishable)
+1    weekly_only_vs_monthly_expiry_vol                                     Welch t, mean|ret|      297/132  -0.56300      n/a (descriptive)                                       monthly higher
+2                PCR_PCR_OI_fwd_ret_h1                          OLS beta t-stat, build n=2394         2394   0.97000                  0.467           LEAD (clears placebo + holdout sign match)
+3                PCR_PCR_OI_fwd_ret_h3                          OLS beta t-stat, build n=2394         2394   0.65600                  0.933               NO CONTENT (placebo-indistinguishable)
+4                PCR_PCR_OI_fwd_ret_h5                          OLS beta t-stat, build n=2394         2394   0.56600                  2.438               NO CONTENT (placebo-indistinguishable)
+5               PCR_PCR_OI_fwd_ret_h10                          OLS beta t-stat, build n=2394         2394   0.82300                  4.693               NO CONTENT (placebo-indistinguishable)
+6                PCR_PCR_OI_fwd_vol_h1                          OLS beta t-stat, build n=2394         2394  -9.66500                  3.556           LEAD (clears placebo + holdout sign match)
+7                PCR_PCR_OI_fwd_vol_h3                          OLS beta t-stat, build n=2394         2394 -11.68300                  3.204           LEAD (clears placebo + holdout sign match)
+8                PCR_PCR_OI_fwd_vol_h5                          OLS beta t-stat, build n=2394         2394 -13.20700                  4.197  CLEARS PLACEBO but holdout sign flips -> not a lead
+9               PCR_PCR_OI_fwd_vol_h10                          OLS beta t-stat, build n=2394         2394 -12.79300                  5.549           LEAD (clears placebo + holdout sign match)
+10              PCR_PCR_VOL_fwd_ret_h1                          OLS beta t-stat, build n=2394         2394   2.00300                   0.82  CLEARS PLACEBO but holdout sign flips -> not a lead
+11              PCR_PCR_VOL_fwd_ret_h3                          OLS beta t-stat, build n=2394         2394   1.66800                  1.131  CLEARS PLACEBO but holdout sign flips -> not a lead
+12              PCR_PCR_VOL_fwd_ret_h5                          OLS beta t-stat, build n=2394         2394   1.04100                  2.175               NO CONTENT (placebo-indistinguishable)
+13             PCR_PCR_VOL_fwd_ret_h10                          OLS beta t-stat, build n=2394         2394   1.09000                  3.683               NO CONTENT (placebo-indistinguishable)
+14              PCR_PCR_VOL_fwd_vol_h1                          OLS beta t-stat, build n=2394         2394  -8.93900                  2.388           LEAD (clears placebo + holdout sign match)
+15              PCR_PCR_VOL_fwd_vol_h3                          OLS beta t-stat, build n=2394         2394  -8.95000                  2.716           LEAD (clears placebo + holdout sign match)
+16              PCR_PCR_VOL_fwd_vol_h5                          OLS beta t-stat, build n=2394         2394  -9.78500                   2.19           LEAD (clears placebo + holdout sign match)
+17             PCR_PCR_VOL_fwd_vol_h10                          OLS beta t-stat, build n=2394         2394  -9.01600                  3.085           LEAD (clears placebo + holdout sign match)
+18                max_pain_gravitation  OLS beta(actual_move ~ predicted_pull), T-2 to expiry          376   1.98100                  2.026               NO CONTENT (placebo-indistinguishable)
+19          OI_buildup_sign_fwd_ret_h1             OLS beta t-stat, sign(dCE_OI)-sign(dPE_OI)         2453  -0.91800                  1.657               NO CONTENT (placebo-indistinguishable)
+20          OI_buildup_sign_fwd_ret_h3             OLS beta t-stat, sign(dCE_OI)-sign(dPE_OI)         2453  -0.07000                  0.614               NO CONTENT (placebo-indistinguishable)
+21          OI_buildup_sign_fwd_ret_h5             OLS beta t-stat, sign(dCE_OI)-sign(dPE_OI)         2453  -0.28700                  1.638               NO CONTENT (placebo-indistinguishable)
+22  intraday_seasonality_era_stability        corr(era1,era3) of per-bucket mean|ret| profile   75 buckets   0.89300  n/a (stability check)                                    STABLE (corr>0.7)
+23       intraday_first30min_vs_midday          weighted mean|ret| diff vs random-window null  n_bar=80970   0.00017                0.00005                     REAL (clears random-window null)
+24        intraday_last30min_vs_midday          weighted mean|ret| diff vs random-window null  n_bar=83775   0.00004                0.00005                     NO CONTENT vs random-window null
+25                     day_of_week_Mon                        Welch t, mean ret vs other days          557  -1.58400                  1.824               NO CONTENT (placebo-indistinguishable)
+26                     day_of_week_Tue                        Welch t, mean ret vs other days          560   1.98900                  2.026               NO CONTENT (placebo-indistinguishable)
+27                     day_of_week_Wed                        Welch t, mean ret vs other days          562   0.88000                  2.019               NO CONTENT (placebo-indistinguishable)
+28                     day_of_week_Thu                        Welch t, mean ret vs other days          560  -0.38000                  2.072               NO CONTENT (placebo-indistinguishable)
+29                     day_of_week_Fri                        Welch t, mean ret vs other days          549  -0.21000                  1.925               NO CONTENT (placebo-indistinguishable)
+30                          TOM_narrow                     Welch t, mean ret vs rest-of-month          274   1.19500                  1.881               NO CONTENT (placebo-indistinguishable)
+31                        TOM_wide_pm3                     Welch t, mean ret vs rest-of-month         1096   2.25200                  1.943                                REAL (clears placebo)

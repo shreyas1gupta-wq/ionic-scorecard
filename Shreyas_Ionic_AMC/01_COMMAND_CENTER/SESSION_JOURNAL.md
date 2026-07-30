@@ -1261,3 +1261,78 @@ Principal ordered the build ("we have nifty much data 1min and 1day build anc ba
 **THE ONE UNRESOLVED EXPOSURE — trials/DSR, escalate to Sameer Bhat.** ~150 in-sample design cells (`S1F_SPEC.md:39`) incl. an 84-cell sensitivity surface explicitly marked "do NOT adopt". Naive Bonferroni at m=150 needs |t|≈3.60; headline t=3.92 clears it but **not comfortably**, and no proper DSR/PBO accounting for cell correlation has ever been run. This, not the code, is where the result is most likely to be overstated.
 **REVISED HONEST FIGURES — supersede everything quoted earlier this session:** per-trade **+9.71 pts/day** (was +10.73); spec-true CAGR ≈ **11.4%** [INFERENCE: 12.57% × 0.904 edge haircut — needs a proper re-run of the equity layer with high-triggered SL, not yet done]; MDD unchanged-to-slightly-worse. The 1DTE verdict is UNAFFECTED in direction — the same −9.6% haircut applies to all arms and 1DTE was dominated by far more than 10%.
 **NEXT (owed):** re-run the equity/metrics layer with SL-on-high to get exact revised CAGR/MDD; rebuild T3 properly; volume-across-all-bars forward-fill check; DSR/PBO on the trials ledger.
+
+---
+
+## 2026-07-30/31 (DESK-100) — >100% CAGR hunt, part 2: option buying REFUSED again, regime-ML answered, candle system found to be BETA not alpha
+Continuation of the same session. Principal's asks, in order: (1) high-CAGR option buying at 0.6 delta / ITM-100 / ITM-50 with RR ≥ 1:1.5; (2) an ML that predicts STATE (choppy/trending/mean-reverting/volatility) and WHEN NOT TO TRADE rather than entry/exit; (3) "what happened to your technical indicators and levels, you did not mention it"; (4) 15-min candle formations + weekly candles × 9/21 EMA or 10/20 DMA, retail scale 10-100 trades/month; (5) first-15min U-shape reversals + first-30min patterns; (6) 3 agents on TradingView indicator handpicking / levels / better ideas, and 1 agent on a master strategy table sorted by Sharpe.
+
+### (3) THE INDICATOR/LEVELS ANSWER I OWED — delivered from work already on disk, unreported
+`INDICATOR_MINE_20260730`: 15 cells against a Bonferroni bar of **t=3.8 (m=481)**. 9 dead, 6 candidates, **exactly one over the bar**:
+| cell | pts | t | placebo p | maxday | n |
+|---|---|---|---|---|---|
+| **B2_vix_rv_divergence_LOW** | +4.584 | **4.029** | 0.000 | 0.133 | 19,504 |
+| A6_vwap_proxy_continue | +4.153 | 2.576 | 0.000 | 0.087 | 9,655 |
+| C2/C1 sweep prior-day reclaim 45/30min | +6.892/+6.669 | 2.124/2.085 | 0.020/0.055 | — | 1,092/1,232 |
+Dead: chain imbalance (A1-A2), OTM concentration (A3-A4), VWAP *reclaim* (A5 — only *continue* worked), OI short-buildup/long-unwind, VIX-RV-HIGH, VIX ROC spike.
+`STRUCTURAL_EDGES_20260730`, 33 effects — **the single most valuable line of the whole session:** PCR/PCR_OI → forward RETURN is t = 0.57-2.00 and FAILS placebo (no directional content); PCR/PCR_OI → forward VOLATILITY is **t = −8.9 to −13.2, clears placebo, holdout sign matches**. The chain predicts the STATE, not the DIRECTION — which independently confirmed the Principal's ML thesis before he proposed it. Also dead: expiry-day vol vs non-expiry (t=0.5 vs placebo 2.16), max-pain gravitation (1.98 vs 2.03), OI-buildup sign, every day-of-week. Real: turn-of-month ±3, first-30min vs midday.
+**`effect8` — THE STANDING CAVEAT ON EVERYTHING CHAIN-DERIVED:** PCR→vol predictive t was **−13.48 pre-Oct-2024 and +0.09 post**. Chain Herfindahl HALVED (0.0558→0.0263, t=62, KS p≈1e-178) when SEBI tightened F&O. The best chain feature in the book is structurally dead in exactly the era the Principal cares about.
+**Honestly disclosed gap:** Saty ATR Levels, Fibonacci and Elliott were NEVER tested despite two asks. The measurable Saty core (`atr_consumed` = range/ATR20, `dist_pc_atr`, `gap_atr`, `or30_atr`) went into the regime ML this session and two of them landed top-5 for the vol head. The LEVELS themselves were handed to a dedicated agent (`PRICE_LEVELS_20260730`, still running at journal time).
+
+### (1) OPTION BUYING AT THE PRINCIPAL'S OWN SPEC — 36,061 legs, 87 cells, **0 positive**
+`GATED_BUYING_20260730`. Delta inverted from each strike's own traded price: delta0.60 rule → measured mean **0.602** (median 0.602); ITM-50 → 0.590; ITM-100 → 0.664. **So "0.6 delta" and "ITM 50 points" are the same instrument in practice.**
+Triggers were the pre-registered, placebo-cleared ones (A6 vwap-continue 16,759 legs; C1/C2 sweep-reclaim 9,651 each). Stops 10/15/20/25 premium pts, target always 1.5× stop.
+**The mechanism, which is the useful part: hit rate clusters at 40-43% and breakeven at RR 1:1.5 is exactly 40.0%.** Best cell 42.78%. Required to clear the 1.77-pt round trip: **44.7%**. Gap = 1.9 points of hit rate; nothing closes it. The 1:1.5 harvest is priced FAIRLY — buying at 0.6 delta with a hard stop is a coin-flip within 2 points of its own breakeven, and the cost is the entire loss. Not a tuning problem.
+**The B2 gate did NOT transfer to the option vehicle:** CHEAP −0.99 / MID −0.45 / RICH (control) −0.98. CHEAP ≈ RICH and MID beats both ⇒ B2 was noise at option level; the +4.58 index pts are real but theta+spread consume them before the buyer sees them. Held-out 2026 far worse: hit 30-37%, mean −2.60 to −5.52.
+
+### (2) THE REGIME-STATE ML — the Principal's framing was RIGHT about vol and WRONG about direction
+`REGIME_ML_20260730`. 42,528 samples at 15-min granularity, purged expanding walk-forward, 5-trading-day embargo (> the 2h label horizon), 200-draw label-permutation placebo shuffled WITHIN quarter, held-out from 2025-07-01 untouched by any fitting decision.
+| head | OOS AUC | **held-out** | placebo p99 | verdict |
+|---|---|---|---|---|
+| H3 volatility bucket | 0.8528 | **0.8742** | 0.6570 | **STRONG — improves held-out** |
+| H4 tradeable (no-trade head) | 0.6795 | 0.6917 | 0.5238 | real |
+| H1 choppy/mixed/trending | 0.5356 | **0.5055** | 0.5091 | **coin flip OOS** |
+| H2 mean-reverting | 0.5264 | 0.5309 | 0.5135 | marginal |
+**You can predict HOW MUCH it will move; you cannot predict WHETHER it will trend or chop.** Top features: H3 = `rv_back60` (+0.144), `hhmm`, `atr_pct`, `rv_back15`, `atr_consumed`; H4 = `rv_back15`, `rv5_over_rv20`, `or30_atr`, `atr_consumed`.
+**SELF-CORRECTION, my own inflated headline WITHDRAWN.** First economic null showed the gate turning −0.0589 ATR into **+0.0089** at 50% decline, p=0.000, held-out included. That was **~17× inflated**: `tradeable` was labelled `winnable(long) OR winnable(short)`, crediting a perfect direction choice the model never makes. `direction_committed.py` re-ran it with the side committed PIT:
+| arm | baseline | gated 50% | held-out 50% | held-out 80% |
+|---|---|---|---|---|
+| DIR_vwap | +0.0114 | +0.0161 ✓p=.000 | +0.0070 ✗p=.62 | **−0.0045** ✗ |
+| DIR_coin (placebo direction) | +0.0017 | +0.0026 ✗p=.23 | +0.0006 ✗ | +0.0074 ✗ |
+| BEST-OF-BOTH (the inflated metric) | +0.1902 | +0.2137 | +0.2085 | +0.2282 |
+Two real results survive: the **placebo direction gains nothing (p=0.23)**, so the gate needs a genuine direction rule and is not merely dodging high-vol windows; and the gate **does not survive held-out** — negative when aggressive. Where the ML IS usable: position sizing and the SELLING book (forward vol bucket at AUC 0.87 is monetisable through strike and size), never to rescue buying.
+Also explains why `REGIME_GATE_20260730` found nothing earlier (28 cells, 0 candidates, 22 dead): it tested regime conditioning on MONTHLY sleeve P&L, n = 111-172 **months**. 15-min granularity gives 250× the observations for the same question.
+
+### (4) 15-MIN CANDLES × EMA/DMA — a system that works, but ~60% of it is BETA. Two self-caught defects.
+`CANDLE_MTF_20260730`. 16 formations × 6 filters × 5 exits = **480 cells**, 346 positive, best raw **t=9.90**.
+**Defect 1 (mine) — OVERLAP.** THREE_SOLDIERS fires on 8,172 of 69,848 bars = **11.7% of all 15-min bars** while the hold cap was 78 bars (3 sessions), so ~10 positions were open at once and the sweep summed them as independent. Untradeable for one retail account, and the t-stat counted the same market move ~10×. Measured overlap **2.9× to 10.7×**. Fixed to ONE POSITION AT A TIME + Newey-West t. It survived: n=758, 5.5/mo, win 53.4%, mean +45.52, RR 2.04, exp_R 0.607, **t_NW 7.85**, CAGR 59.6%, held-out 2026 +67.56.
+**Defect 2 — BETA, caught by noticing every top cell was BULLISH and none bearish, on a sample where NIFTY went 8,294→23,714 (+186%), with a stop of `max(prior-candle range, 0.4×DAILY ATR)` = median 63 index points.**
+> **Unconditional LONG on random 15-min bars, same stop/trail/hold: +29.25 pts, exp_R 0.432, win 48.6%. Random SHORT: +13.57.**
+Against matched-random entries (count + time-of-day + side), **7 of 8 formations are the wide trail in costume**: HAMMER p=0.242, MARUBOZU_BULL p=0.200, BULL_ENGULF p=0.225, TWEEZER_BOTTOM p=0.642, THREE_CROWS p=0.233, SHOOTING_STAR p=0.517, MORNING_STAR p=0.092 (weak). **Only THREE_SOLDIERS adds: +45.52 vs +26.81 random, p=0.000 ⇒ +18.7 pts incremental**, which is 41% of the headline not 100%.
+**THE EMA/DMA ANSWER: the filters do NOT help.** Held-out 2026 by filter — none **+67.56**, wk_ema +86.72, 15m_ema +4.83, **d_dma −44.06** (inverts the result), d+wk −7.43. Unfiltered is the honest default; consistent with the earlier MA/RSI 0-of-56 failure.
+**Retail band:** only the 1-session hold reaches it (13.0/mo, win 52.0%, RR 1.45, t_NW 7.10, CAGR 56.9%). The edge lives in the 3-session hold (RR 2.04, exp_R 0.607) which fires 5.5/mo. The edge and the spinner are not the same trade.
+**STANDING RISK:** this is a long-biased wide-trail trend harvest measured entirely inside a bull sample. Random longs earning exp_R 0.432 IS the strategy. No bear segment in the data is long enough to test it. Must be sized as BETA with a trend overlay, not as market-neutral alpha.
+**OWED:** weekly candle FORMATIONS were computed as columns (`wk_engulf_bull/bear`, `wk_hammer`) but only weekly 9/21 EMA was used as a filter — weekly formations were never tested as TRIGGERS. Half of ask (4) is outstanding.
+
+### (5) OPENING PATTERNS — 75 cells, **0 survive**, and the 15-min U-shape actively LOSES
+`OPENING_PATTERNS_20260730`. Shapes built from 1-MINUTE bars so a "U" inside the first candle is actually resolvable. Bonferroni bar t≈4.14. 0 of 75 clears it; **no cell even qualified to enter the placebo stage**, which is itself the verdict. 0 of 75 flagged unreliable by pathsafe.
+| | n | win | mean | t_NW |
+|---|---|---|---|---|
+| U_DOWN_UP_15m (all 5 exits) | 211 | **32-37%** | **−10.1 to −13.3** | −2.00 to −3.09 |
+| U_DOWN_UP_30m | 245 | 43.3% | +3.15 | 0.61 |
+| best in family (INV-U 30m) | 197 | 50.8% | +6.51 | **1.23** vs bar 4.14 |
+Reversal arithmetic (per the standing reverse-strong-negatives rule): gross of the 5.47-pt round trip the loss is −6.64, so flipped it is **+1.17 pts** — roughly half the loss is direction and half is cost, so flipping does not rescue it.
+Most interesting non-finding: **narrow opening range then DOWNSIDE break** — +9.94 pts, RR 1.54, improving across eras (+8.07 → +18.50 → +41.38 held-out) — but t_NW 2.60 under a 4.14 bar, only **4.0 trades/month**, 14 held-out trades. Candidate to re-check as 2026-27 accumulates, not a finding. Note the sign flips vs the candle result: **downside opening breaks work, upside ones don't**, consistent with a liquidity/vol effect rather than drift.
+
+### (6) AGENTS — 4 launched at the Principal's stated count. One complete at journal time.
+**ORTHOGONAL ALPHA (Aditya) — COMPLETE.** 24 cells. Every daily-close macro cross-asset signal DEAD (SPX/VIX/USDINR/US10Y all t<1.4, placebo p 0.18-1.00). NIFTY-BANKNIFTY dispersion is MOMENTUM not reversion (opposite of prior) but ≈1.3 NIFTY-pts vs a ≥10-12pt cost floor ⇒ killed on magnitude; also self-flagged that its raw t=4.1-7.7 is inflated by overlapping 1-min observations. Breadth (A/D) directionally consistent in both eras but fails placebo (p=0.10-0.40) ⇒ UNDERPOWERED-UNRESOLVED, not dead; PIT membership file ends Oct-2025.
+**The one real lead: SHORT NIFTY intraday after the most extreme overnight WTI crude crashes (q20).** n=229, **4.1 trades/mo, +27.60 pts, 59.0% win, t=2.83, placebo p=0.008**, era magnitude stable (~28 vs ~26), **held-out 2026 t=1.97, n=19, +81.6 pts — LARGER out of sample**. maxDD −634.5 pts (1-lot), largest trade 8.5% of profit (clears the 30% fragility kill). Asymmetric — the LONG leg after crude spikes is DEAD (−6.76). Misses this session's own 24-cell Bonferroni bar (needs p<0.00208), and loosening to tercile for frequency destroyed the held-out result (t 1.97→0.40) ⇒ the effect is genuinely confined to extreme crude-crash days. **Forward-test candidate, sub-scale, not a validated strategy.**
+Highest-prior UNEXPLOITED channel per Aditya: genuinely same-morning **Asian-session lead-lag (Nikkei/HSI)** — no local data, needs a D-009 data proposal. Best next step.
+**NEW DATASET, needs cataloguing:** `05_DATA_OFFICE/data/wti_crude_fred_daily.parquet`, D-009 spot-checked but NOT in DATA_CATALOG — flagged for Data Officer.
+STILL RUNNING at journal time: master strategy table (sorted by Sharpe incl. rejected), TradingView indicators (resumed after it stalled waiting on its own job — VORTEX|60min t=4.071 with positive mean_net +2.39 and conc 0.31 is its only cell over the bar and had NEVER been placebo-tested; sent it the overlap+beta warnings from my own defects), price levels (Saty ATR ladder / Fib / pivots / CPR / round numbers, with a random-LEVEL placebo as the decisive control).
+
+### DELIVERABLE SHIPPED
+Visual artifact of all six sleeves + portfolio: cumulative P&L curves with drawdown traces, OOS shading, colour-coded monthly heatmaps. `04_RND_LAB/results/FINAL_RANKING_20260730/sleeve_performance.html`.
+
+### RUNNING SCORE ON THE >100% CAGR MANDATE
+Still not achieved by any single strategy, and the reason is now measured from four independent directions: (a) directional intraday edge is 2-5 index pts vs 5-6 pts futures cost; (b) MFE/|MAE| 0.92-1.32 everywhere ⇒ no convexity for a buyer; (c) the 1:1.5 option-buying harvest is priced fairly at a 40-43% hit rate vs 44.7% needed; (d) the one 59%-CAGR candle system is ~60% index beta. Portfolio route remains the only one that works: three independent constructions all land at **~73% CAGR at 25% MaxDD** (Calmar 2.597).

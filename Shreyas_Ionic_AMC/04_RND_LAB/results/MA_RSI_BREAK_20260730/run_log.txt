@@ -1,0 +1,21 @@
+[shared] NSE NIFTY50/VIX daily 2015-11-09..2026-07-10, n=2630
+[partA] built 14 MA/RSI signals on NSE NIFTY50 close
+[partA] sleeve SWEEP_E: n_months=137 span 2015-01..2026-05
+[partA] sleeve CALENDAR_1x1_3d: n_months=178 span 2011-01..2026-07
+[partA] sleeve S1F: n_months=48 span 2022-01..2025-12
+[partA] sleeve SWING_priorweek_f10: n_months=46 span 2021-07..2026-05
+[partA] wrote partA_cell_results.csv (56 rows, expect 56)
+[partA] VERDICT COUNTS: {'DEAD': 43, 'UNDERPOWERED': 12, 'SUGGESTIVE': 1}
+[partB] loading nifty_1min.parquet (11.34y, ~1.05M rows)...
+[partB] spot 1,047,541 bars 2015-01-09 09:15:00..2026-05-14 15:29:00
+[partB] daily bars n=2794, 15min bars n=72642
+[partB] sweep priorday_reclaim events: 5483
+[partB] wrote partB_sweep_mechanism.csv
+[partB] wrote partB_persistence.csv
+[partB] wrote partB_rsi_behavior.csv
+[partB] wrote partB_vol_structure.csv
+[partB] trades_E post-Oct2024-all n=601 (motivating fact cites n=600 for post_Oct2024 window)
+[partB] wrote partB_cost_decomp.csv and partB_power_calc.csv
+[partB] POWER CALC (per_trade): {"level":"per_trade","reference_era":"y2019_sep2024","n_reference":2192,"mu_reference":1152.69,"sigma_reference":7794.29,"n_observed":601,"observed_mean":18.25,"z":-3.568,"p_one_sided_leq_observed":0.00018,"note":"iid CLT approximation on trade-level net P&L; trades from a 3-day-swing strategy can overlap\/cluster in time so this likely OVERSTATES effective n (understates the true p-value) -- see monthly cross-check below"}
+[partB] POWER CALC (monthly_NW): {"level":"monthly_NW","reference_era":"y2019_sep2024","n_reference":69,"mu_reference":36618.69,"sigma_reference":78063.83,"n_observed":20,"observed_mean":548.41,"z":-2.066,"p_one_sided_leq_observed":0.0194,"note":"monthly-aggregated net P&L, Newey-West (lag5) long-run variance on the reference era -- more defensible independence assumption than per-trade"}
+DONE

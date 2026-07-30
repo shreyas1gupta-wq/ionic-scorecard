@@ -1,0 +1,466 @@
+[
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "DIR_vwap  (A6 logic)",
+    "decline": 0.0,
+    "n": 30638,
+    "gated": 0.01138,
+    "verdict": "baseline"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "DIR_vwap  (A6 logic)",
+    "decline": 0.3,
+    "n": 21446,
+    "gated": 0.01351,
+    "random": 0.01137,
+    "p_value": 0.005,
+    "verdict": "BEATS NULL"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "DIR_vwap  (A6 logic)",
+    "decline": 0.5,
+    "n": 15319,
+    "gated": 0.01613,
+    "random": 0.01131,
+    "p_value": 0.0,
+    "verdict": "BEATS NULL"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "DIR_vwap  (A6 logic)",
+    "decline": 0.6,
+    "n": 12255,
+    "gated": 0.01818,
+    "random": 0.01129,
+    "p_value": 0.0,
+    "verdict": "BEATS NULL"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "DIR_vwap  (A6 logic)",
+    "decline": 0.7,
+    "n": 9192,
+    "gated": 0.01791,
+    "random": 0.01128,
+    "p_value": 0.0,
+    "verdict": "BEATS NULL"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "DIR_vwap  (A6 logic)",
+    "decline": 0.8,
+    "n": 6128,
+    "gated": 0.01942,
+    "random": 0.01123,
+    "p_value": 0.0,
+    "verdict": "BEATS NULL"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "DIR_trend (vs prior close)",
+    "decline": 0.0,
+    "n": 30638,
+    "gated": 0.00381,
+    "verdict": "baseline"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "DIR_trend (vs prior close)",
+    "decline": 0.3,
+    "n": 21446,
+    "gated": 0.00667,
+    "random": 0.0038,
+    "p_value": 0.001,
+    "verdict": "BEATS NULL"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "DIR_trend (vs prior close)",
+    "decline": 0.5,
+    "n": 15319,
+    "gated": 0.00742,
+    "random": 0.00384,
+    "p_value": 0.001,
+    "verdict": "BEATS NULL"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "DIR_trend (vs prior close)",
+    "decline": 0.6,
+    "n": 12255,
+    "gated": 0.01103,
+    "random": 0.0038,
+    "p_value": 0.0,
+    "verdict": "BEATS NULL"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "DIR_trend (vs prior close)",
+    "decline": 0.7,
+    "n": 9192,
+    "gated": 0.01483,
+    "random": 0.00383,
+    "p_value": 0.0,
+    "verdict": "BEATS NULL"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "DIR_trend (vs prior close)",
+    "decline": 0.8,
+    "n": 6128,
+    "gated": 0.01687,
+    "random": 0.00382,
+    "p_value": 0.0,
+    "verdict": "BEATS NULL"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "DIR_coin  (PLACEBO dir)",
+    "decline": 0.0,
+    "n": 30638,
+    "gated": 0.0017,
+    "verdict": "baseline"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "DIR_coin  (PLACEBO dir)",
+    "decline": 0.3,
+    "n": 21446,
+    "gated": 0.00251,
+    "random": 0.0017,
+    "p_value": 0.163,
+    "verdict": "weak"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "DIR_coin  (PLACEBO dir)",
+    "decline": 0.5,
+    "n": 15319,
+    "gated": 0.00265,
+    "random": 0.00171,
+    "p_value": 0.23,
+    "verdict": "NO EDGE"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "DIR_coin  (PLACEBO dir)",
+    "decline": 0.6,
+    "n": 12255,
+    "gated": 0.00247,
+    "random": 0.00174,
+    "p_value": 0.316,
+    "verdict": "NO EDGE"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "DIR_coin  (PLACEBO dir)",
+    "decline": 0.7,
+    "n": 9192,
+    "gated": 0.00271,
+    "random": 0.00171,
+    "p_value": 0.321,
+    "verdict": "NO EDGE"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "DIR_coin  (PLACEBO dir)",
+    "decline": 0.8,
+    "n": 6128,
+    "gated": 0.00187,
+    "random": 0.00176,
+    "p_value": 0.469,
+    "verdict": "NO EDGE"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "BEST-OF-BOTH (upper bound)",
+    "decline": 0.0,
+    "n": 30638,
+    "gated": 0.19016,
+    "verdict": "baseline"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "BEST-OF-BOTH (upper bound)",
+    "decline": 0.3,
+    "n": 21446,
+    "gated": 0.20529,
+    "random": 0.19014,
+    "p_value": 0.0,
+    "verdict": "BEATS NULL"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "BEST-OF-BOTH (upper bound)",
+    "decline": 0.5,
+    "n": 15319,
+    "gated": 0.21373,
+    "random": 0.19014,
+    "p_value": 0.0,
+    "verdict": "BEATS NULL"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "BEST-OF-BOTH (upper bound)",
+    "decline": 0.6,
+    "n": 12255,
+    "gated": 0.21847,
+    "random": 0.19014,
+    "p_value": 0.0,
+    "verdict": "BEATS NULL"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "BEST-OF-BOTH (upper bound)",
+    "decline": 0.7,
+    "n": 9192,
+    "gated": 0.22451,
+    "random": 0.19014,
+    "p_value": 0.0,
+    "verdict": "BEATS NULL"
+  },
+  {
+    "slice": "ALL 2015-2026",
+    "arm": "BEST-OF-BOTH (upper bound)",
+    "decline": 0.8,
+    "n": 6128,
+    "gated": 0.23102,
+    "random": 0.19009,
+    "p_value": 0.0,
+    "verdict": "BEATS NULL"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "DIR_vwap  (A6 logic)",
+    "decline": 0.0,
+    "n": 3424,
+    "gated": 0.00842,
+    "verdict": "baseline"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "DIR_vwap  (A6 logic)",
+    "decline": 0.3,
+    "n": 2397,
+    "gated": 0.01082,
+    "random": 0.00831,
+    "p_value": 0.162,
+    "verdict": "weak"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "DIR_vwap  (A6 logic)",
+    "decline": 0.5,
+    "n": 1712,
+    "gated": 0.007,
+    "random": 0.00815,
+    "p_value": 0.623,
+    "verdict": "NO EDGE"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "DIR_vwap  (A6 logic)",
+    "decline": 0.6,
+    "n": 1370,
+    "gated": 0.00434,
+    "random": 0.00819,
+    "p_value": 0.791,
+    "verdict": "NO EDGE"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "DIR_vwap  (A6 logic)",
+    "decline": 0.7,
+    "n": 1027,
+    "gated": 0.00312,
+    "random": 0.00846,
+    "p_value": 0.814,
+    "verdict": "NO EDGE"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "DIR_vwap  (A6 logic)",
+    "decline": 0.8,
+    "n": 685,
+    "gated": -0.00454,
+    "random": 0.00859,
+    "p_value": 0.963,
+    "verdict": "NO EDGE"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "DIR_trend (vs prior close)",
+    "decline": 0.0,
+    "n": 3424,
+    "gated": 0.00467,
+    "verdict": "baseline"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "DIR_trend (vs prior close)",
+    "decline": 0.3,
+    "n": 2397,
+    "gated": 0.00893,
+    "random": 0.00459,
+    "p_value": 0.04,
+    "verdict": "BEATS NULL"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "DIR_trend (vs prior close)",
+    "decline": 0.5,
+    "n": 1712,
+    "gated": 0.00321,
+    "random": 0.00445,
+    "p_value": 0.634,
+    "verdict": "NO EDGE"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "DIR_trend (vs prior close)",
+    "decline": 0.6,
+    "n": 1370,
+    "gated": 0.00391,
+    "random": 0.00451,
+    "p_value": 0.55,
+    "verdict": "NO EDGE"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "DIR_trend (vs prior close)",
+    "decline": 0.7,
+    "n": 1027,
+    "gated": 0.00361,
+    "random": 0.00454,
+    "p_value": 0.564,
+    "verdict": "NO EDGE"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "DIR_trend (vs prior close)",
+    "decline": 0.8,
+    "n": 685,
+    "gated": -0.00229,
+    "random": 0.00453,
+    "p_value": 0.804,
+    "verdict": "NO EDGE"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "DIR_coin  (PLACEBO dir)",
+    "decline": 0.0,
+    "n": 3424,
+    "gated": 0.0003,
+    "verdict": "baseline"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "DIR_coin  (PLACEBO dir)",
+    "decline": 0.3,
+    "n": 2397,
+    "gated": -0.00033,
+    "random": 0.00036,
+    "p_value": 0.625,
+    "verdict": "NO EDGE"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "DIR_coin  (PLACEBO dir)",
+    "decline": 0.5,
+    "n": 1712,
+    "gated": 0.00058,
+    "random": 0.00028,
+    "p_value": 0.473,
+    "verdict": "NO EDGE"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "DIR_coin  (PLACEBO dir)",
+    "decline": 0.6,
+    "n": 1370,
+    "gated": 0.00014,
+    "random": 0.00038,
+    "p_value": 0.51,
+    "verdict": "NO EDGE"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "DIR_coin  (PLACEBO dir)",
+    "decline": 0.7,
+    "n": 1027,
+    "gated": 0.00289,
+    "random": 0.00042,
+    "p_value": 0.325,
+    "verdict": "NO EDGE"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "DIR_coin  (PLACEBO dir)",
+    "decline": 0.8,
+    "n": 685,
+    "gated": 0.0074,
+    "random": 0.00046,
+    "p_value": 0.161,
+    "verdict": "weak"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "BEST-OF-BOTH (upper bound)",
+    "decline": 0.0,
+    "n": 3424,
+    "gated": 0.18804,
+    "verdict": "baseline"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "BEST-OF-BOTH (upper bound)",
+    "decline": 0.3,
+    "n": 2397,
+    "gated": 0.20316,
+    "random": 0.18802,
+    "p_value": 0.0,
+    "verdict": "BEATS NULL"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "BEST-OF-BOTH (upper bound)",
+    "decline": 0.5,
+    "n": 1712,
+    "gated": 0.20848,
+    "random": 0.18795,
+    "p_value": 0.0,
+    "verdict": "BEATS NULL"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "BEST-OF-BOTH (upper bound)",
+    "decline": 0.6,
+    "n": 1370,
+    "gated": 0.21132,
+    "random": 0.18799,
+    "p_value": 0.0,
+    "verdict": "BEATS NULL"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "BEST-OF-BOTH (upper bound)",
+    "decline": 0.7,
+    "n": 1027,
+    "gated": 0.21666,
+    "random": 0.18802,
+    "p_value": 0.0,
+    "verdict": "BEATS NULL"
+  },
+  {
+    "slice": "HELD OUT from 2025-07-01",
+    "arm": "BEST-OF-BOTH (upper bound)",
+    "decline": 0.8,
+    "n": 685,
+    "gated": 0.22817,
+    "random": 0.18812,
+    "p_value": 0.0,
+    "verdict": "BEATS NULL"
+  }
+]

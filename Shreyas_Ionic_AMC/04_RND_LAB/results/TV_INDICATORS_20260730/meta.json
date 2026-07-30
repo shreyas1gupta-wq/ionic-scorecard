@@ -1,0 +1,36 @@
+{
+  "n_cells": 36,
+  "bonferroni_bar_own_m": 3.197,
+  "own_m": 36,
+  "cumulative_firm_m": 997,
+  "bonferroni_bar_cumulative": 4.055,
+  "heldout_from": "2026-01-01",
+  "break_date": "2024-10-01",
+  "families": [
+    "KELTNER_BRK",
+    "DONCHIAN_BRK",
+    "SQUEEZE_RELEASE",
+    "STOCH_RSI",
+    "CCI_EXTREME",
+    "WILLIAMS_R",
+    "ELDER_RAY",
+    "VORTEX",
+    "AROON",
+    "ICHIMOKU_TK",
+    "CONNORS_RSI",
+    "RVI",
+    "KST",
+    "HMA_TURN",
+    "FRACTAL_BRK",
+    "COMBO_SQUEEZE_ST",
+    "COMBO_DONCHIAN_CHOP",
+    "COMBO_HMA_ER"
+  ],
+  "timeframes": [
+    "15min",
+    "60min"
+  ],
+  "n_placebo": 200,
+  "t_gate": 2.0,
+  "conc_gate": 0.3
+}

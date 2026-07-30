@@ -1,0 +1,49 @@
+[events] 1,403 rich+ex-event spikes | expiries 254
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+  [40] 2022-03-31 rows 195
+  [80] 2023-01-12 rows 385
+  [120] 2023-10-19 rows 559
+  [160] 2024-08-01 rows 799
+  [200] 2025-05-15 rows 1,093
+  [240] 2026-02-24 rows 1,309
+
+[built] 1,400 trades
+
+==========================================================================================================================
+STRUCTURE 1 — NAKED OPPOSITE-SIDE SHORT (no delta hedge; both effects aligned)
+==========================================================================================================================
+  ALL                                n= 1400 mean   -0.40 med    1.93 win  57.8% worst   -142.6 PF  0.95
+    era=post_Oct2024                 n=  547 mean   -0.94 med    3.00 win  58.1% worst   -142.6 PF  0.91
+    era=pre_Oct2024                  n=  853 mean   -0.06 med    1.65 win  57.6% worst   -102.5 PF  0.99
+    split=build                      n= 1267 mean   -0.38 med    1.85 win  57.6% worst   -141.4 PF  0.95
+    split=held_out_2026              n=  133 mean   -0.62 med    5.25 win  59.4% worst   -142.6 PF  0.95
+    dte_band=0-1DTE                  n=  610 mean    0.39 med    2.28 win  61.5% worst   -141.4 PF  1.06
+    dte_band=2-7DTE                  n=  790 mean   -1.01 med    1.72 win  54.9% worst   -142.6 PF  0.89
+
+==========================================================================================================================
+STRUCTURE 2 — CREDIT SPREAD on the opposite side (capped tail, capital-efficient)
+==========================================================================================================================
+  ALL                                n= 1399 mean   -2.39 med   -0.95 win  46.3% worst   -125.1 PF  0.61
+    era=post_Oct2024                 n=  547 mean   -2.90 med   -0.85 win  46.8% worst   -125.1 PF  0.61
+    era=pre_Oct2024                  n=  852 mean   -2.06 med   -1.05 win  46.0% worst    -85.3 PF  0.62
+    split=build                      n= 1266 mean   -2.28 med   -1.02 win  46.3% worst    -85.3 PF  0.62
+    split=held_out_2026              n=  133 mean   -3.43 med   -0.55 win  46.6% worst   -125.1 PF  0.56
+    dte_band=0-1DTE                  n=  609 mean   -1.71 med    0.30 win  51.2% worst   -125.1 PF  0.71
+    dte_band=2-7DTE                  n=  790 mean   -2.91 med   -1.70 win  42.5% worst    -53.9 PF  0.54
+
+==========================================================================================================================
+ECONOMICS — CAGR / maxDD at Principal margin rules (lot=65, spot~25000)
+==========================================================================================================================
+
+  NAKED OPPOSITE SHORT (10% margin): 23.3 trades/mo  edge -0.40 pts  capital Rs162,500/lot -> max 6 lots
+    100% dep (  6 lots):  -0.37%/mo -> CAGR     -4.3%   maxDD   -55.9%  BREACHES 25%
+     50% dep (  3 lots):  -0.18%/mo -> CAGR     -2.2%   maxDD   -28.0%  BREACHES 25%
+     25% dep (  1 lots):  -0.06%/mo -> CAGR     -0.7%   maxDD    -9.3%  OK
+
+  CREDIT SPREAD (capital = width-credit ~ 157 pts): 23.3 trades/mo  edge -2.39 pts  capital Rs10,208/lot -> max 97 lots
+    100% dep ( 97 lots): -35.14%/mo -> CAGR    -99.4%   maxDD -2110.9%  BREACHES 25%
+     50% dep ( 48 lots): -17.39%/mo -> CAGR    -89.9%   maxDD -1044.6%  BREACHES 25%
+     25% dep ( 24 lots):  -8.70%/mo -> CAGR    -66.4%   maxDD  -522.3%  BREACHES 25%
+
+wrote opposite_spread_trades.csv

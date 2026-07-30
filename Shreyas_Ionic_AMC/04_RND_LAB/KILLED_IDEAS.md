@@ -71,3 +71,30 @@ Principal-triggered review ("check once again if we were too hard on them"). Fou
 **Reusable components:** (a) **50/50 monthly-rebal NIFTY-gold BENCHMARK dominates** (12.29% CAGR / 10.47% vol / −21.49% DD) — evidence FOR K-011's unclaimed strategic-gold-sleeve, routed to Devika; (b) any gold-rotation retest must beat the 50/50 benchmark, not B&H.
 **Resurrection:** (1) as timing OVERLAY on a 50/50 base (tilt 70/30, not 100/0 switches — halves whipsaw cost); (2) monthly-frequency variant with drag <1pp/yr AND t+1-open CAGR ≥ B&H AND DD ≤ 0.7× B&H; (3) integration with the banked VIX-252d-percentile regime gate. GT-2 signed-corr template applies to any corr claim.
 **Addendum 2026-07-13 (Principal: "execute 15:25-15:30"):** that execution = the 12.44%/−25.3%DD variant (recovers ~2.6pp overnight drift vs next-open), NOT the 29.4% same-bar row (unreachable at any clock time — books the day's move in the asset chosen at that day's close). CAGR prong then passes but DD + cost prongs still fail; 50/50 rebal still dominates → kill stands. Resurrection path (2) is the right door if pursued.
+
+## K-017 — Inverse-VRP niche, Niches 2 & 3 (2026-07-29/30) — the ARM's premise survives, two of its four candidate niches don't
+**Context:** ARM-level hypothesis (buyer wins only where RV_realized>IV_priced) tested across 4 candidate
+niches, real 1-min option P&L via `OPTION_PL_HARNESS_20260729/opt_pl.py`, COST_STANDARDS D-021.
+Full detail + scripts + CSVs: `results/INVERSE_VRP_NICHE_20260729/` (PREREG.md pre-registered
+before any run).
+**Niche 2 — post-compression expansion, pure REALIZED-vol trough (trailing-10d RV percentile≤10),
+long ATM straddle, hold to expiry:** KILLED on both pre-registered criteria — net mean **−26.13
+pts/straddle** (n=47, t=−1.10), WORSE than the unconditional baseline (−22.93 pts/trade, n=245).
+Historical calm alone (independent of whether IV was cheap) does NOT identify a buyable edge —
+confirms the ROADMAP's tautology warning: RV mean-reverting off a compressed base does not imply
+the buyer wins if IV re-priced concurrently. **Resurrection:** none for pure-RV conditioning alone;
+subsumed by Niche 1 (IV-percentile), which DOES show a (weak) effect — see IDEA_PIPELINE.
+**Niche 3 — overnight tail BUY, mirror of NS-1 (which killed the SELL side 2026-07-25):** buy 1×CE+1×PE
+at 5 strike distances (0/0.5/1.0/1.5/2.0% OTM), D−1 15:25→D0 open, n=258-259/arm, same population as
+NS-1. KILLED on the pre-registered criterion — **net pts/night negative at EVERY distance** (−3.2 to
+−6.8 pts/night FULL sample, t=−2.2 to −2.6 FULL / −3.3 to −3.9 BUILD-only). The fat right tail IS real
+and event-driven (best nights land on 2026-02-03 and 2022-02-24, the Russia-Ukraine invasion — not data
+artifacts, skew +5 to +7, best single night +228 to +443 pts) but it is NOT large or frequent enough
+(win rate only 6-23%, falling as distance widens) to overcome the frequent small overnight decay losses
+plus costs. **The buy-side mirror of NS-1 loses money on average, exactly as the seller's small-positive
+edge implies it must** (these are ~complementary, not identical, populations once costs are netted on
+each side, but both point the same direction: no exploitable structure in raw overnight NIFTY option
+holding, buy or sell, beyond NS-1's already-banked ~5pt gross/night ceiling).
+**Resurrection (either niche):** only a construction that changes WHICH nights are entered (a filter,
+not unconditional entry) — e.g., an ex-ante flag for scheduled-event eve (see Niche 4/K-pending below)
+— tested as a NEW pre-registered cell, not a re-run of the unconditional population.

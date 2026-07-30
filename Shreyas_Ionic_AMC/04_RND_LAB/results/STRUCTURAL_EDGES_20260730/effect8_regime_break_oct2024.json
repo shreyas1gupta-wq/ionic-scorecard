@@ -1,0 +1,41 @@
+{
+  "herfindahl": {
+    "t": 62.10722818742205,
+    "mean_pre": 0.055750307629286434,
+    "mean_post": 0.026294623567130693,
+    "n_pre": 3380,
+    "n_post": 431,
+    "ks_D": 0.7321057400568377,
+    "ks_p_approx": 2.204250708277633e-178
+  },
+  "pcr_oi_level_full_chain": {
+    "t": 20.842866069493873,
+    "mean_pre": 1.1430740810443323,
+    "mean_post": 0.9471273107075346,
+    "n_pre": 3389,
+    "n_post": 437
+  },
+  "expiry_day_vol_cash": {
+    "t": 1.473821508641328,
+    "mean_pre": 0.007393662874054611,
+    "mean_post": 0.006334050436669474,
+    "n_pre": 343,
+    "n_post": 87
+  },
+  "pcr_predictive_diag_h5": {
+    "ret_t_pre": 0.15264183859080604,
+    "ret_t_post": 1.161729363069948,
+    "vol_t_pre": -13.475053890124881,
+    "vol_t_post": 0.09444335964529506
+  },
+  "weekday_switch_2023_2025": [
+    {
+      "regime_start": "2025-09-09 00:00:00",
+      "regime_end": "2026-08-11 00:00:00",
+      "weekday_num": 1,
+      "weekday_name": "Tue"
+    }
+  ],
+  "verdict": "BROKEN -- multiple structural markers shift at/around Oct-2024",
+  "n_breaks_of_4": "3"
+}

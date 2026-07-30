@@ -1,0 +1,36 @@
+[spot] 463,826 1-min bars  2021-05-24 09:15:00 .. 2026-06-03 15:30:00
+
+=== 1. SUPERTREND ===
+[supertrend_5min_ATR10_x3] build_n=1269 forward_n=107 best=to15:25 mean=0.0236% (4.812pts) t=2.759 conc=0.0731 -> FAIL
+[supertrend_5min_ATR7_x2] build_n=2727 forward_n=244 best=to15:25 mean=0.0088% (1.74pts) t=1.802 conc=0.1011 -> FAIL
+[supertrend_5min_ATR14_x3] build_n=1173 forward_n=92 best=to15:25 mean=0.0238% (4.542pts) t=2.706 conc=0.0838 -> FAIL
+[supertrend_15min_ATR10_x3] build_n=156 forward_n=14 best=+60m mean=0.0429% (8.646pts) t=2.295 conc=0.1413 -> FAIL
+[supertrend_15min_ATR7_x2] build_n=581 forward_n=38 best=to15:25 mean=0.0195% (3.473pts) t=1.43 conc=0.2115 -> FAIL
+[supertrend_15min_ATR14_x3] build_n=79 forward_n=5 best=to15:25 mean=0.0431% (9.65pts) t=1.798 conc=0.2639 -> FAIL
+
+=== 2. VOLATILITY BREAKOUT (5min) ===
+[volbrk_keltner_squeeze_release] build_n=821 forward_n=63 best=+60m mean=0.0089% (2.154pts) t=1.264 conc=0.1805 -> FAIL
+[volbrk_atr_expansion] build_n=5959 forward_n=497 best=+120m mean=0.0098% (1.802pts) t=2.055 conc=0.1458 -> FAIL
+[volbrk_orb_volfilter] build_n=994 forward_n=87 best=to15:25 mean=0.0279% (5.6pts) t=2.227 conc=0.0704 -> FAIL
+
+=== 3. LIQUIDITY SWEEP (15min) ===
+[sweep_priorday_reclaim] build_n=1775 forward_n=149 best=to15:25 mean=0.056% (10.027pts) t=3.103 conc=0.1253 -> FAIL
+[sweep_priorday_continue] build_n=12368 forward_n=1205 best=to15:25 mean=0.0049% (1.612pts) t=0.528 conc=0.3233 -> FAIL
+[sweep_intraday_reclaim] build_n=3557 forward_n=305 best=+15m mean=-0.007% (-1.437pts) t=-3.643 conc=0.0476 -> FAIL
+[sweep_intraday_continue] build_n=5836 forward_n=489 best=to15:25 mean=0.0336% (6.516pts) t=2.936 conc=0.1127 -> FAIL
+
+=== 4. WEEKLY/MONTHLY/ROUND S-R (15min) ===
+[sr_week_breakout] build_n=1505 forward_n=131 best=to15:25 mean=0.0127% (2.743pts) t=1.504 conc=0.1914 -> FAIL
+[sr_week_reject] build_n=2935 forward_n=236 best=to15:25 mean=0.0206% (3.975pts) t=2.001 conc=0.1129 -> FAIL
+[sr_month_breakout] build_n=654 forward_n=56 best=to15:25 mean=0.0231% (4.301pts) t=1.788 conc=0.1389 -> FAIL
+[sr_month_reject] build_n=1363 forward_n=114 best=to15:25 mean=0.0243% (5.367pts) t=1.53 conc=0.2222 -> FAIL
+[sr_round_breakout] build_n=4185 forward_n=497 best=to15:25 mean=0.004% (0.883pts) t=0.647 conc=0.3264 -> FAIL
+[sr_round_reject] build_n=8081 forward_n=961 best=to15:25 mean=-0.0047% (-1.001pts) t=-0.784 conc=0.2503 -> FAIL
+
+=== 5. CONFLUENCE STACKING (15min) ===
+[confluence_stack1] build_n=18697 forward_n=1642 best=+60m mean=0.0011% (0.245pts) t=0.663 conc=0.1912 -> FAIL
+[confluence_stack2] build_n=6634 forward_n=730 best=to15:25 mean=0.0127% (2.788pts) t=1.567 conc=0.1916 -> FAIL
+[confluence_stack3] build_n=463 forward_n=39 best=+120m mean=0.008% (2.033pts) t=0.463 conc=0.7884 -> FAIL
+[confluence_stack4] build_n=35 forward_n=3 best=to15:25 mean=0.0914% (20.741pts) t=1.728 conc=0.2772 -> FAIL
+
+==== VERDICT: ALL_FAIL_signal_magnitude_below_option_budget ====

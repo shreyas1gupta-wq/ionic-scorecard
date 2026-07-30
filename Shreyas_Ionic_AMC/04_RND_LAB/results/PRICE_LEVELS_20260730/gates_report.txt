@@ -1,0 +1,29 @@
+=== (a) SATY PRIORITY vs NORMAL levels (build+recent, holdout excluded) ===
+REJECT tight_atr PRIORITY: n= 4952 mean=  -6.58 t= -8.20  | BUILD n= 4372 mean=  -6.34 t= -7.92  | RECENT n=  580 mean=  -8.39 t= -2.59
+REJECT tight_atr normal  : n= 6340 mean=  -6.94 t= -9.66  | BUILD n= 5587 mean=  -6.70 t= -9.35  | RECENT n=  753 mean=  -8.71 t= -3.02
+REJECT wide_atr  PRIORITY: n= 4952 mean=  -7.09 t= -6.43  | BUILD n= 4372 mean=  -7.39 t= -6.75  | RECENT n=  580 mean=  -4.79 t= -1.06
+REJECT wide_atr  normal  : n= 6340 mean=  -9.20 t= -9.57  | BUILD n= 5587 mean=  -8.92 t= -9.37  | RECENT n=  753 mean= -11.21 t= -2.84
+BREAK  tight_atr PRIORITY: n= 2148 mean=  -0.67 t= -0.53  | BUILD n= 1908 mean=  -0.28 t= -0.22  | RECENT n=  240 mean=  -3.80 t= -0.72
+BREAK  tight_atr normal  : n= 2797 mean=  +0.07 t=  0.06  | BUILD n= 2475 mean=  +0.04 t=  0.04  | RECENT n=  322 mean=  +0.25 t=  0.05
+BREAK  wide_atr  PRIORITY: n= 2148 mean=  +0.14 t=  0.08  | BUILD n= 1908 mean=  +1.45 t=  0.84  | RECENT n=  240 mean= -10.25 t= -1.47
+BREAK  wide_atr  normal  : n= 2797 mean=  +0.48 t=  0.31  | BUILD n= 2475 mean=  +1.35 t=  0.88  | RECENT n=  322 mean=  -6.18 t= -0.97
+
+=== (b) SATY ATR-CONSUMED gate (day range used up AT touch / ATR14prior) ===
+REJECT tight_atr consumed<0.7   : n= 8043 mean=  -6.13 t= -9.41  | BUILD n= 7132 mean=  -5.84 t= -8.97  | RECENT n=  911 mean=  -8.38 t= -3.15
+REJECT tight_atr consumed>=0.7  : n= 3249 mean=  -8.40 t= -9.05  | BUILD n= 2827 mean=  -8.31 t= -9.08  | RECENT n=  422 mean=  -8.97 t= -2.44
+REJECT wide_atr  consumed<0.7   : n= 8043 mean=  -7.45 t= -8.44  | BUILD n= 7132 mean=  -7.30 t= -8.31  | RECENT n=  911 mean=  -8.61 t= -2.34
+REJECT wide_atr  consumed>=0.7  : n= 3249 mean= -10.30 t= -8.26  | BUILD n= 2827 mean= -10.65 t= -8.72  | RECENT n=  422 mean=  -8.01 t= -1.59
+BREAK  tight_atr consumed<0.7   : n= 3495 mean=  -0.17 t= -0.17  | BUILD n= 3097 mean=  -0.15 t= -0.15  | RECENT n=  398 mean=  -0.35 t= -0.08
+BREAK  tight_atr consumed>=0.7  : n= 1450 mean=  -0.45 t= -0.32  | BUILD n= 1286 mean=  +0.03 t=  0.02  | RECENT n=  164 mean=  -4.23 t= -0.66
+BREAK  wide_atr  consumed<0.7   : n= 3495 mean=  +1.17 t=  0.83  | BUILD n= 3097 mean=  +2.41 t=  1.72  | RECENT n=  398 mean=  -8.53 t= -1.48
+BREAK  wide_atr  consumed>=0.7  : n= 1450 mean=  -1.67 t= -0.87  | BUILD n= 1286 mean=  -1.06 t= -0.55  | RECENT n=  164 mean=  -6.43 t= -0.81
+
+=== (c) CPR_DAY width gate (proxy for virgin-CPR; median width_ratio=0.154) ===
+REJECT tight_atr narrow(<med) : n= 2534 mean=  -5.09 t= -4.28  | BUILD n= 2223 mean=  -5.17 t= -4.42  | RECENT n=  311 mean=  -4.46 t= -0.92
+REJECT tight_atr wide(>=med)  : n= 2066 mean=  -4.09 t= -3.10  | BUILD n= 1807 mean=  -4.33 t= -3.26  | RECENT n=  259 mean=  -2.42 t= -0.49
+REJECT wide_atr  narrow(<med) : n= 2534 mean=  -7.15 t= -4.58  | BUILD n= 2223 mean=  -6.93 t= -4.52  | RECENT n=  311 mean=  -8.77 t= -1.35
+REJECT wide_atr  wide(>=med)  : n= 2066 mean=  -6.70 t= -3.75  | BUILD n= 1807 mean=  -6.69 t= -3.71  | RECENT n=  259 mean=  -6.75 t= -1.01
+BREAK  tight_atr narrow(<med) : n= 1311 mean=  -7.29 t= -4.50  | BUILD n= 1148 mean=  -7.35 t= -4.65  | RECENT n=  163 mean=  -6.87 t= -1.01
+BREAK  tight_atr wide(>=med)  : n=  974 mean=  -2.97 t= -1.55  | BUILD n=  870 mean=  -2.32 t= -1.21  | RECENT n=  104 mean=  -8.40 t= -1.05
+BREAK  wide_atr  narrow(<med) : n= 1311 mean=  -4.76 t= -2.08  | BUILD n= 1148 mean=  -3.32 t= -1.50  | RECENT n=  163 mean= -14.89 t= -1.51
+BREAK  wide_atr  wide(>=med)  : n=  974 mean=  -0.22 t= -0.08  | BUILD n=  870 mean=  -0.26 t= -0.09  | RECENT n=  104 mean=  +0.11 t=  0.01

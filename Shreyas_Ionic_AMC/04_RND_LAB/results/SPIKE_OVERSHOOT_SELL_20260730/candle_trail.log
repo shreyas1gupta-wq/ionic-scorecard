@@ -1,0 +1,60 @@
+[events] 4,569  late-session 1,990
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+  [60] 2022-08-18 rows 1,054
+  [120] 2023-10-12 rows 2,066
+  [180] 2024-12-05 rows 3,076
+  [240] 2026-02-03 rows 4,150
+
+[built] 4,433
+
+======================================================================================================================
+CANDLE-STRUCTURE TRAIL (stop = low of last N completed bars). CONSERVATIVE fill convention.
+  compare against my optimistic fixed trail25 = +3.03 pts and the losing endpoint = -1.69 pts
+======================================================================================================================
+rule             n     mean   median    win%    worst     PF     RR    ROI%
+----------------------------------------------------------------------------------------------------------------------
+b15_n2        4042    -0.69   -10.40   33.5%   -133.7   0.95   1.89  -0.41%
+b15_n3        4042    -0.51   -11.04   36.2%   -170.9   0.97   1.71  -0.30%
+b15_n5        3707    -0.71   -12.37   38.1%   -199.7   0.97   1.57  -0.42%
+b3_n2         4433    -1.03    -5.82   32.2%   -127.0   0.87   1.83  -0.61%
+b3_n3         4433    -1.04    -6.32   34.1%    -96.0   0.89   1.71  -0.62%
+b3_n5         4433    -1.23    -7.12   36.0%   -111.2   0.89   1.58  -0.73%
+b5_n2         4433    -1.07    -6.97   31.4%    -96.0   0.88   1.93  -0.63%
+b5_n3         4433    -0.90    -7.57   34.2%   -111.2   0.92   1.77  -0.54%
+b5_n5         4334    -0.46    -8.47   37.2%   -130.3   0.97   1.63  -0.27%
+
+--- BEST RULE: b5_n5 ---
+  by era:
+                 n  mean    med    win   worst
+era                                           
+post_Oct2024  1546 -2.35 -10.84  34.09 -130.32
+pre_Oct2024   2887  0.56  -7.22  37.58 -127.67
+  by split:
+                  n  mean    med    win   worst
+split                                          
+build          4000 -0.28  -8.12  36.40 -130.32
+held_out_2026   433 -2.12 -10.97  36.03 -116.97
+  by dte_band:
+             n  mean   med    win   worst
+dte_band                                 
+0-1DTE    1697 -1.41 -9.65  35.71 -127.67
+2-7DTE    2736  0.14 -7.47  36.77 -130.32
+  by late:
+          n  mean   med    win   worst
+late                                  
+False  2574 -0.76 -8.77  36.36 -127.67
+True   1859 -0.02 -8.15  36.36 -130.32
+
+  ** the Principal's 3-min / late-session hypothesis **
+     3min | all                      best -1.03 pts (b3_n2)  n=4433
+     3min | late-session (>=12:00)   best -0.82 pts (b3_n5)  n=1859
+     3min | late + 0-1DTE            best -0.00 pts (b3_n5)  n=663
+     5min | all                      best -0.46 pts (b5_n5)  n=4433
+     5min | late-session (>=12:00)   best -0.02 pts (b5_n5)  n=1859
+     5min | late + 0-1DTE            best +0.37 pts (b5_n3)  n=663
+    15min | all                      best -0.51 pts (b15_n3)  n=4433
+    15min | late-session (>=12:00)   best +0.03 pts (b15_n5)  n=1859
+    15min | late + 0-1DTE            best +0.44 pts (b15_n5)  n=663
+
+wrote candle_trail.csv

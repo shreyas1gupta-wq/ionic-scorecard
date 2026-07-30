@@ -1,0 +1,46 @@
+[load] 1-min spot
+       1,047,541 bars  2015-01-09 09:15:00 .. 2026-05-14 15:29:00
+[prep] pre-splitting spot by calendar day (reused across all 36 cells)
+[bars] 15min: 72,642 bars  2015-01-09 09:15:00 .. 2026-05-14 15:30:00
+[bars] 60min: 22,351 bars  2015-01-09 09:15:00 .. 2026-05-14 16:15:00
+  [KELTNER_BRK|15min] n=2799 tpm=21.2 mean_net=-2.37 t=1.504 conc=0.14 placebo_p=None -> DEAD
+  [KELTNER_BRK|60min] n=716 tpm=5.4 mean_net=-3.29 t=0.593 conc=0.20 placebo_p=None -> DEAD
+  [DONCHIAN_BRK|15min] n=7424 tpm=56.2 mean_net=-0.17 t=3.359 conc=2.31 placebo_p=None -> DEAD
+  [DONCHIAN_BRK|60min] n=2035 tpm=15.4 mean_net=-0.20 t=2.421 conc=3.51 placebo_p=None -> DEAD
+  [SQUEEZE_RELEASE|15min] n=1143 tpm=8.7 mean_net=-0.77 t=1.878 conc=0.63 placebo_p=None -> DEAD
+  [SQUEEZE_RELEASE|60min] n=236 tpm=2.1 mean_net=-1.09 t=0.79 conc=1.86 placebo_p=None -> DEAD
+  [STOCH_RSI|15min] n=5227 tpm=39.6 mean_net=-5.94 t=-2.173 conc=0.01 placebo_p=None -> DEAD
+  [STOCH_RSI|60min] n=920 tpm=7.0 mean_net=-3.81 t=0.711 conc=0.13 placebo_p=None -> DEAD
+  [CCI_EXTREME|15min] n=5009 tpm=37.9 mean_net=-5.47 t=-0.793 conc=0.02 placebo_p=None -> DEAD
+  [CCI_EXTREME|60min] n=919 tpm=7.0 mean_net=-1.90 t=1.795 conc=0.25 placebo_p=None -> DEAD
+  [WILLIAMS_R|15min] n=7590 tpm=57.5 mean_net=-5.80 t=-1.883 conc=0.01 placebo_p=None -> DEAD
+  [WILLIAMS_R|60min] n=1333 tpm=10.1 mean_net=-3.50 t=1.052 conc=0.09 placebo_p=None -> DEAD
+  [ELDER_RAY|15min] n=10186 tpm=77.2 mean_net=-4.51 t=0.91 conc=0.03 placebo_p=None -> DEAD
+  [ELDER_RAY|60min] n=1895 tpm=14.4 mean_net=-2.04 t=1.783 conc=0.18 placebo_p=None -> DEAD
+  [VORTEX|15min] n=5760 tpm=43.6 mean_net=-3.27 t=2.873 conc=0.03 placebo_p=None -> DEAD
+  [VORTEX|60min] n=1196 tpm=9.1 mean_net=+2.39 t=4.071 conc=0.31 placebo_p=None -> DEAD
+  [AROON|15min] n=1662 tpm=12.6 mean_net=+0.55 t=3.404 conc=0.51 placebo_p=None -> DEAD
+  [AROON|60min] n=459 tpm=3.5 mean_net=-1.54 t=0.868 conc=1.25 placebo_p=None -> DEAD
+  [ICHIMOKU_TK|15min] n=1126 tpm=8.5 mean_net=+2.44 t=3.377 conc=0.22 placebo_p=0.0 -> FORWARD-TEST CANDIDATE
+  [ICHIMOKU_TK|60min] n=221 tpm=2.0 mean_net=-2.93 t=0.531 conc=0.38 placebo_p=None -> DEAD
+  [CONNORS_RSI|15min] n=2194 tpm=16.6 mean_net=-6.66 t=-2.215 conc=0.02 placebo_p=None -> DEAD
+  [CONNORS_RSI|60min] n=571 tpm=4.4 mean_net=-13.43 t=-2.797 conc=0.14 placebo_p=None -> DEAD
+  [RVI|15min] n=10716 tpm=81.2 mean_net=-5.67 t=-1.333 conc=0.02 placebo_p=None -> DEAD
+  [RVI|60min] n=2315 tpm=17.5 mean_net=-3.60 t=1.085 conc=0.06 placebo_p=None -> DEAD
+  [KST|15min] n=3181 tpm=24.1 mean_net=-1.29 t=3.46 conc=0.13 placebo_p=None -> DEAD
+  [KST|60min] n=694 tpm=5.3 mean_net=-0.18 t=1.742 conc=3.19 placebo_p=None -> DEAD
+  [HMA_TURN|15min] n=6176 tpm=46.8 mean_net=-4.56 t=0.936 conc=0.02 placebo_p=None -> DEAD
+  [HMA_TURN|60min] n=1254 tpm=9.5 mean_net=-2.61 t=1.314 conc=0.14 placebo_p=None -> DEAD
+  [FRACTAL_BRK|15min] n=5660 tpm=42.9 mean_net=-2.21 t=2.738 conc=0.09 placebo_p=None -> DEAD
+  [FRACTAL_BRK|60min] n=1221 tpm=9.2 mean_net=-3.44 t=0.844 conc=0.14 placebo_p=None -> DEAD
+  [COMBO_SQUEEZE_ST|15min] n=1143 tpm=8.7 mean_net=-0.28 t=1.835 conc=1.78 placebo_p=None -> DEAD
+  [COMBO_SQUEEZE_ST|60min] n=236 tpm=2.1 mean_net=-4.95 t=0.04 conc=0.41 placebo_p=None -> DEAD
+  [COMBO_DONCHIAN_CHOP|15min] n=3076 tpm=23.3 mean_net=+1.37 t=2.702 conc=0.64 placebo_p=None -> DEAD
+  [COMBO_DONCHIAN_CHOP|60min] n=949 tpm=7.2 mean_net=-1.85 t=1.137 conc=0.82 placebo_p=None -> DEAD
+  [COMBO_HMA_ER|15min] n=1269 tpm=9.6 mean_net=-6.04 t=-0.493 conc=0.07 placebo_p=None -> DEAD
+  [COMBO_HMA_ER|60min] n=194 tpm=2.0 mean_net=-3.76 t=0.216 conc=0.54 placebo_p=None -> DEAD
+
+[done] 36 cells scored -> cells.csv, cells_all_horizons.csv, meta.json
+       Bonferroni bar @ own m=36: t>=3.20
+       Bonferroni bar @ cumulative firm m=997: t>=4.05
+       elapsed 2660.7s

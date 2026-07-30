@@ -1,0 +1,21 @@
+[signals] 5569 bearish signals, 7 triggers
+  [rescore from banked CSV] dte0_1_ITM1_E1_tgt50_stop30
+  T1_sweep_priorday_reclaim_bear|dte0_1|ITM1|E1_tgt50_stop30         n=  426 net=     18,914 gross=     44,327 fless=     73,935 t= -0.3494 FAIL
+  T2_supertrend15m_ATR10x3_bear|dte0_1|ITM1|E1_tgt50_stop30          n=    4 net=     -2,910 gross=     -2,677 fless=     -2,430 t= -0.7312 INSUFFICIENT_N
+  T2b_supertrend5m_ATR10x3_bear|dte0_1|ITM1|E1_tgt50_stop30          n=  130 net=    -22,269 gross=    -14,681 fless=     -6,735 t=  -1.369 FAIL
+  T3_supertrend15m_ATR14x3_bear|dte0_1|ITM1|E1_tgt50_stop30          n=    1 net=     -2,166 gross=     -2,111 fless=     -2,062 t=    None INSUFFICIENT_N
+  T4_sr_week_reject_bear|dte0_1|ITM1|E1_tgt50_stop30                 n=  524 net=   -163,849 gross=   -132,918 fless=    -97,912 t= -1.9006 FAIL
+  T5_sr_month_reject_bear|dte0_1|ITM1|E1_tgt50_stop30                n=  267 net=    -58,155 gross=    -42,291 fless=    -23,471 t= -2.1177 FAIL
+  T6_sweep_intraday_reclaim_FADE_bear|dte0_1|ITM1|E1_tgt50_stop30    n=  764 net=     87,266 gross=    132,607 fless=    185,636 t=  0.9103 FAIL
+  [dte0_1_ITM1_E1_tgt50_stop30] 0s  banked
+  [rescore from banked CSV] dte0_1_ATM_E1_tgt50_stop30
+  T1_sweep_priorday_reclaim_bear|dte0_1|ATM|E1_tgt50_stop30          n=  424 net=      7,387 gross=     30,952 fless=     50,336 t= -0.3721 FAIL
+  T2_supertrend15m_ATR10x3_bear|dte0_1|ATM|E1_tgt50_stop30           n=    4 net=        794 gross=      1,012 fless=      1,170 t= -0.5025 INSUFFICIENT_N
+  T2b_supertrend5m_ATR10x3_bear|dte0_1|ATM|E1_tgt50_stop30           n=  130 net=    -13,636 gross=     -6,573 fless=     -1,556 t= -1.7616 FAIL
+  T3_supertrend15m_ATR14x3_bear|dte0_1|ATM|E1_tgt50_stop30           n=    1 net=     -1,014 gross=       -963 fless=       -941 t=    None INSUFFICIENT_N
+  T4_sr_week_reject_bear|dte0_1|ATM|E1_tgt50_stop30                  n=  524 net=   -161,077 gross=   -132,261 fless=   -109,661 t= -2.9294 FAIL
+  T5_sr_month_reject_bear|dte0_1|ATM|E1_tgt50_stop30                 n=  267 net=    -27,618 gross=    -12,796 fless=       -626 t= -1.9529 FAIL
+  T6_sweep_intraday_reclaim_FADE_bear|dte0_1|ATM|E1_tgt50_stop30     n=  762 net=     35,169 gross=     77,152 fless=    109,571 t=  0.1596 FAIL
+  [dte0_1_ATM_E1_tgt50_stop30] 0s  banked
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02

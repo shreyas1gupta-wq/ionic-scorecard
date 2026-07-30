@@ -1,5 +1,85 @@
 # CURRENT STATE — read me first (updated every session end)
 
+## 2026-07-30/31 (DESK-100) — >100% CAGR hunt part 2: buying refused a 3rd time, regime-ML answered, candle system exposed as BETA
+**HEADLINE: no single strategy reaches >100% CAGR at <25% MDD, and the reason is now measured four
+independent ways.** (a) directional intraday edge is 2-5 index pts vs 5-6 pts futures cost; (b)
+MFE/|MAE| = 0.92-1.32 across every signal family ⇒ no convexity for a buyer; (c) the 1:1.5
+option-buying harvest is priced FAIRLY — hit rate 40-43% against the 44.7% needed to clear cost;
+(d) the one 59%-CAGR candle system is ~60% index beta. **The portfolio route is still the only one
+that works: ~73% CAGR at 25% MaxDD, Calmar 2.597, three independent constructions agreeing.**
+
+**Option buying at the Principal's own spec (0.6 delta / ITM-100 / ITM-50, RR 1:1.5): 36,061 legs,
+87 cells, 0 POSITIVE.** `GATED_BUYING_20260730`. Measured delta on the 0.60 rule = 0.602; ITM-50 =
+0.590 ⇒ *0.6 delta and ITM-50 are the same instrument in practice*. Hit rate clusters at 40-43% and
+breakeven at RR 1:1.5 is exactly 40.0%; clearing the 1.77-pt round trip needs 44.7%. The harvest is
+priced fairly and the cost is the entire loss — not a tuning problem. The B2 IV/RV gate that cleared
+its bar on the UNDERLYING (+4.584 pts, t=4.029) does NOT transfer to the option vehicle: CHEAP −0.99
+≈ RICH −0.98, MID −0.45 beats both ⇒ noise at option level. Held-out 2026 worse (hit 30-37%).
+
+**Regime-state ML built to spec — vol is predictable, direction is not.** `REGIME_ML_20260730`,
+42,528 samples at 15-min, purged walk-forward + 5-day embargo + label-permutation placebo + held-out
+from 2025-07. **Volatility bucket AUC 0.8528 OOS / 0.8742 HELD-OUT (strong, improves out of sample).
+Choppy-vs-trending 0.5356 / 0.5055 held-out (coin flip).** No-trade head 0.6795 / 0.6917.
+**I WITHDREW MY OWN HEADLINE HERE:** the first economic null (−0.0589 → +0.0089 gated, p=0.000) was
+~17× inflated because the `tradeable` label was `winnable(long) OR winnable(short)`, crediting a
+perfect direction choice the model never makes. Direction-committed rerun: the gate BEATS the
+random-decline null 2015-2025 but **FAILS held-out** (−0.0045 at 80% decline). The placebo direction
+gains nothing (p=0.23), so it is not merely a vol filter. **Usable for SIZING and the SELLING book,
+never to rescue buying.** Also explains the earlier `REGIME_GATE_20260730` null result: that tested
+monthly sleeve P&L at n=111-172 months; 15-min granularity gives 250× the observations.
+
+**Candle formations × EMA/DMA: it works, but it is BETA.** `CANDLE_MTF_20260730`. 480 cells, best raw
+t=9.90 → two self-caught defects. (1) OVERLAP: the signal fires on 11.7% of all 15-min bars with a
+78-bar hold, so ~10 positions were open at once and the t-stat counted the same move ~10× (measured
+2.9-10.7×); fixed to one-position-at-a-time, survived at t_NW 7.85 / CAGR 59.6%. (2) **BETA:
+unconditional random LONG on any 15-min bar with the same 63-pt stop/trail/3-day hold earns +29.25
+pts, exp_R 0.432** (random SHORT +13.57) on a sample where NIFTY went 8,294→23,714 (+186%). Against
+matched-random entries, **7 of 8 formations are that wide trail in costume; only THREE_SOLDIERS adds
+(+45.52 vs +26.81, p=0.000 ⇒ +18.7 pts incremental) = 41% of the headline, not 100%.**
+**THE EMA/DMA ANSWER: the filters do NOT help** — held-out 2026 is +67.56 unfiltered vs **−44.06 with
+the daily 10/20 DMA filter** (it inverts the result), +4.83 with 15-min 9/21. Retail band reached only
+by the 1-session hold (13.0/mo, win 52.0%, RR 1.45). **STANDING RISK: this is a long-biased wide-trail
+trend harvest with no bear segment in the data long enough to test it. Size as beta with a trend
+overlay, not as market-neutral alpha.**
+
+**Opening patterns: 0 of 75 survive; the 15-min U-shape actively LOSES.**
+`OPENING_PATTERNS_20260730`, shapes built from 1-minute bars so a U inside the first candle is
+resolvable. U_DOWN_UP_15m: −10.1 to −13.3 pts, win 32-37%, t_NW −2.00 to −3.09 across all five exits.
+Best in family (inverted-U 30m) t_NW 1.23 against a 4.14 bar. Flipping it yields only +1.17 pts —
+half the loss is cost. Best non-finding: narrow-OR then DOWNSIDE break, +9.94 pts, RR 1.54, improving
+across eras (+8.07 → +18.50 → +41.38), but t_NW 2.60 at only 4.0 trades/month with 14 held-out
+trades. Note the sign: downside opening breaks work, upside ones do not — opposite to the candle
+result, consistent with a liquidity effect rather than drift.
+
+**Indicator/levels debt DISCHARGED (the Principal had asked twice).** `INDICATOR_MINE_20260730`: only
+**B2_vix_rv_divergence_LOW** cleared the t=3.8 Bonferroni bar at m=481 (+4.584 pts, t=4.029, placebo
+p=0.000). `STRUCTURAL_EDGES_20260730`: **PCR predicts VOLATILITY (t = −8.9 to −13.2, clears placebo,
+holdout sign matches) and NOT DIRECTION (t = 0.57-2.00, fails placebo)** — which independently
+confirmed the Principal's ML thesis before he proposed it. **CRITICAL CAVEAT (`effect8`): PCR→vol t
+was −13.48 pre-Oct-2024 and +0.09 post**; chain Herfindahl halved at the SEBI break (0.0558→0.0263,
+KS p≈1e-178). Saty ATR Levels / Fibonacci / Elliott had NEVER been tested — now with a dedicated
+agent; the measurable Saty core (`atr_consumed`, `dist_pc_atr`, `gap_atr`, `or30_atr`) went into the
+regime ML and two landed top-5 for the vol head.
+
+**Orthogonal alpha (agent, complete): one lead, sub-scale.** SHORT NIFTY intraday after extreme
+overnight WTI crude crashes — n=229, +27.60 pts, 59.0% win, t=2.83, placebo p=0.008, **held-out 2026
+LARGER (+81.6 pts, t=1.97)** — but **4.1 trades/month** and it misses its own 24-cell bar. Loosening
+the threshold for frequency destroyed the held-out result (t 1.97→0.40) ⇒ genuinely confined to
+extreme days. Forward-test candidate only. Everything else dead: SPX/VIX/USDINR/US10Y all t<1.4;
+NIFTY-BANKNIFTY dispersion is momentum-not-reversion but ~1.3 pts against a 10-12 pt cost floor.
+Breadth UNDERPOWERED-UNRESOLVED (PIT membership file ends Oct-2025). Highest-prior untested channel:
+**same-morning Asian lead-lag (Nikkei/HSI)** — needs a D-009 data proposal.
+
+**SHIPPED:** `04_RND_LAB/results/FINAL_RANKING_20260730/sleeve_performance.html` — all six sleeves +
+portfolio, cumulative P&L with drawdown traces, OOS shading, colour-coded monthly heatmaps.
+
+**OPEN / OWED:** weekly candle FORMATIONS as triggers (computed as columns, never tested — half of
+that ask outstanding); catalogue `05_DATA_OFFICE/data/wti_crude_fred_daily.parquet` (D-009
+spot-checked, not yet in DATA_CATALOG); 3 agents still running (master strategy table sorted by
+Sharpe incl. rejected; TradingView indicators — `VORTEX|60min` t=4.071 with positive mean_net and low
+concentration was never placebo-tested; price levels); and from earlier in the session: DSR/PBO at
+634 trials, the SWING maxDD contradiction, and 2008/Black-Monday tail stress on daily data.
+
 ## 2026-07-28 (DESK-100) — Full audit found a CONFIRMED false-content bug already shipped; IPS page rebuilt v2 "best of both worlds"; PDF now on-request only
 Two rounds today. **Round 1 (audit):** Principal asked for an 18%-cap on growth projection, the
 biased MDD-scenario page removed, and a full redundant/safe/needs-changes audit + Haiku-vs-
