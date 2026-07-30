@@ -1,20 +1,31 @@
 # -*- coding: utf-8 -*-
 """Annexure, Scheme overlap & redundancy (F17): an illustrative fund-vs-fund overlap heatmap
-(placeholder until the PIT look-through feed is wired), with the OVERLAP formula note (CH.heatmap)."""
+(placeholder until the PIT look-through feed is wired), with the OVERLAP formula note (CH.heatmap).
+Capped to the top 10 funds by weight (2026-07-29, permanent) -- an uncapped matrix stops being
+readable well before a 30-fund book."""
 import charts as CH
 from slidekit import ML, UW, RX
 
 
 def _short(f):
     """Deliberate short nicknames for heatmap axes — never a mid-word chop
-    ('ICICI M-Asse'); every label must be a whole word/abbreviation."""
+    ('ICICI M-Asse'); every label must be a whole word/abbreviation.
+    Case-insensitive keyword scan with a wide keyword list so same-AMC funds
+    (e.g. two Mirae or two HDFC schemes) get distinct labels."""
     amc = f["amc"].split()[0]
+    name_up = f["name"].upper()
     key = ""
-    for k in ("Large", "Flexi", "Multi-Asset", "Multi", "Small", "Balanced", "Nifty"):
-        if k in f["name"]:
-            key = k
+    for k, tag in [("LARGE", "Large"), ("FLEXI", "Flexi"), ("MULTI-ASSET", "MA"),
+                   ("MULTI", "Multi"), ("SMALL", "Small"), ("MIDCAP", "Mid"),
+                   ("MID CAP", "Mid"), ("BALANCED", "BAF"), ("HYBRID", "Hybrid"),
+                   ("ELSS", "ELSS"), ("VALUE", "Value"), ("FOCUSED", "Focus"),
+                   ("DIVIDEND", "DivY"), ("NIFTY", "N50"), ("INDEX", "Idx"),
+                   ("OVERNIGHT", "O/N"), ("LIQUID", "Liq"), ("GILT", "Gilt"),
+                   ("SHORT", "Short"), ("ULTRA SHORT", "UST"), ("ARBITRAGE", "Arb"),
+                   ("EQUITY SAVINGS", "EqSav")]:
+        if k in name_up:
+            key = tag
             break
-    key = {"Multi-Asset": "MA", "Balanced": "BAF", "Nifty": "N50"}.get(key, key)
     return f"{amc[:6]} {key}".strip()
 
 
@@ -34,9 +45,15 @@ def _ov(a, b, i, j):
     return min(72, v + h)
 
 
+TOP_N = 10  # 2026-07-29 (permanent): a fund-vs-fund matrix stops being readable well before a
+            # 30-fund book -- cap to the top 10 by holding weight, same rule as annex_correlation.py
+
+
 def render(deck, ctx, tier):
     reg = tier.get("register", "std")
-    funds = ctx["funds"]
+    all_funds = ctx["funds"]
+    funds = sorted(all_funds, key=lambda f: -f["weight_pct"])[:TOP_N]
+    capped = len(all_funds) > TOP_N
     labels = [_short(f) for f in funds]
     n = len(funds)
     M = [[_ov(funds[i], funds[j], i, j) for j in range(n)] for i in range(n)]
@@ -44,7 +61,11 @@ def render(deck, ctx, tier):
 
     title = ("Where funds re-buy the same exposure"
              if reg != "simple" else "Funds that own many of the same shares")
-    s = deck.content(5, "Annexure", "Scheme overlap & redundancy", title)
+    s = deck.content(3, "The Fund Book", "Scheme overlap & redundancy", title)
+    if capped:
+        deck.scope_tag(s, f"Top {TOP_N} of {len(all_funds)} funds by weight · MF sleeve only")
+    else:
+        deck.scope_tag(s, f"All {n} funds · MF sleeve only")
     deck.pic(s, png, ML, 1.9, 7.4, 4.5, valign="top", halign="left")
 
     rx = ML + 7.65

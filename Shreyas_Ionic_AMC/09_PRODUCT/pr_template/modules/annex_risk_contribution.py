@@ -33,6 +33,8 @@ def render(deck, ctx, tier):
     eyebrow, title = LABELS.get(reg, LABELS["std"])
 
     eq = ctx["equity"]
+    if not eq:
+        return 0  # 2026-07-28: an all-fund client has no direct-equity risk contribution to show
     tot_w = sum(e["weight_pct"] for e in eq)
     raw = []
     for e in eq:

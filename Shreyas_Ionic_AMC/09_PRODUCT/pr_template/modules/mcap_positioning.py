@@ -50,7 +50,10 @@ def render(deck, ctx, tier):
 
     # ---- mid/small VIEW line (right, bottom) ----
     mid = gap.get("Mid"); sml = gap.get("Small")
-    if reg == "simple":
+    if mid is None or sml is None:
+        view = ("Mid/small-cap positioning against a target isn't set for this account yet. No "
+                "allocation targets on file.")
+    elif reg == "simple":
         view = ("Your money is mostly in large, well-known companies, that is steadier. We are not "
                 "adding more small companies right now.")
     elif reg == "hni":

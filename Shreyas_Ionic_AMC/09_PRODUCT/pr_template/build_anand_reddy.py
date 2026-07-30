@@ -9,16 +9,15 @@ import engine
 import tiers as T
 
 # Client-specific tier variants, registered at runtime (never edit the shared tiers.py for a
-# one-off client call). Anand Reddy (2026-07-27): (1) the fund cost/TER slide is pulled --
-# per-fund TER in this ctx was a flat placeholder (0.55 for every fund), not researched real
-# data, so the slide would show incorrect fund costs; (2) the IPS-summary slide is pulled --
-# there is no real IPS for this first-review client, and a page that just says "not yet on
-# file" repeatedly reads as broken/incomplete rather than informative (ctx['ips'] itself is
-# untouched, other modules that reference it -- exec_summary, concentration_risk, snapshot --
-# already handle the no-IPS case honestly).
+# one-off client call). Anand Reddy: the fund cost/TER slide stays pulled per-client -- per-fund
+# TER in this ctx was a flat placeholder (0.55 for every fund), not researched real data, so the
+# slide would show incorrect fund costs (cost.py is ALSO globally cut in engine.py as of
+# 2026-07-27, making this redundant belt-and-suspenders, kept for clarity). ips_summary is no
+# longer skipped here (2026-07-28): the v2 rebuild shows real live-computed Current values and
+# an honest TBD/Pending treatment for a no-IPS-on-file client, so it's informative again.
 for _base in ("RM_SIMPLE", "STANDARD", "HNI_DEEP"):
     _t = dict(T.TIERS[_base])
-    _t["skip_core"] = set(_t.get("skip_core", set())) | {"cost", "ips_summary"}
+    _t["skip_core"] = set(_t.get("skip_core", set())) | {"cost"}
     T.TIERS[f"ANANDREDDY_{_base}"] = _t
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "out")

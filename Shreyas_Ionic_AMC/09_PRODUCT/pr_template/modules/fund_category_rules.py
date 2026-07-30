@@ -86,6 +86,7 @@ def render(deck, ctx, tier):
                     f"(~{wt[top]:.1f}% of the money). Spreading across fund houses lowers the risk.")
     deck.callout(s, ML, 5.72, UW, 0.85, "AMC concentration", amc_body, kind="warn")
 
+    demo_tag = " Illustrative synthetic funds." if ctx.get("is_demo", False) else ""
     deck.source(s, "SEBI category framework (25/25/25 multi-cap floor) · net-of-fee alpha and r² measured "
-                   "vs total-return benchmark. Rules applied to the held schemes. Illustrative synthetic funds.")
+                   "vs total-return benchmark. Rules applied to the held schemes." + demo_tag)
     return 1

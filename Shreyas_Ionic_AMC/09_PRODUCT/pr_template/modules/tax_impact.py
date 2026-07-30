@@ -9,7 +9,7 @@ from pptx.enum.text import PP_ALIGN
 SECTION_NO, SECTION = 4, "Recommendations"
 
 # fund_rows action codes are UPPERCASE -> (pill display, REC_STYLE kind)
-ACT_MAP = {"SWITCH": ("Switch", "Switch"), "REDEEM": ("Redeem", "Redeem-to-Direct"),
+ACT_MAP = {"SWITCH": ("Switch", "Switch"), "REDEEM": ("Switch", "Redeem-to-Direct"),
            "EXIT": ("Exit", "Exit"), "TRIM": ("Trim", "Trim"), "HOLD": ("Hold", "Hold")}
 
 
@@ -54,8 +54,14 @@ def render(deck, ctx, tier):
     total_disp = f"Rs {total_l/100:.2f} Cr" if total_l >= 100 else f"Rs {total_l:.1f} L"
     rows.append(["", ("b", "Total fund actions"), ("b", total_disp), ""])
     cols = [("Action", 0.16, "l"), ("Scheme", 0.44, "l"), ("Amount", 0.18, "r"), ("Tax character", 0.22, "l")]
-    # 7 rows (6 actions + total) x 0.42 + header keeps the block above the y=5.5 callouts
-    deck.table(s, ML, 2.02, 6.95, cols, rows, rowh=0.42, fs=9.5, hfs=8)
+    # Row height scales down as the fund-action count grows (2026-07-29 fix: a flat 0.42in was
+    # hand-fit for "6 actions + total" -- a real client's liquid/debt/arbitrage-to-cash sweep can
+    # produce more rows, e.g. 7+1=8 here, which pushed the table past the fixed y=5.5 callouts
+    # below; keeping the same target end-y regardless of row count avoids that regardless of how
+    # many fund actions a future client's constraint produces).
+    rowh = max(0.30, min(0.42, 3.0 / len(rows)))
+    fs = 9.5 if rowh >= 0.36 else 8.5
+    deck.table(s, ML, 2.02, 6.95, cols, rows, rowh=rowh, fs=fs, hfs=8)
 
     # --- right: tax bridge chart (direct-equity sell/trim plan, a separate set) ---
     deck.txt(s, ML + 7.15, 1.72, UW - 7.15, 0.5, [(L["cap"].upper(), SANS, 8, SLATE, True, False, 80)], ls=1.05)

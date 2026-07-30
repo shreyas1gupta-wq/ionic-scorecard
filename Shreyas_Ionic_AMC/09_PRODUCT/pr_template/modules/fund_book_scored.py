@@ -5,7 +5,7 @@ Scope banner: MF sleeve only. Pairs the QFRA number with a desk human-read (rule
 from slidekit import NAVY, INK, SLATE, HOLD, SELL, AMBER, SERIF, ML, UW, short_name
 
 MERIT_COL = {"A": HOLD, "B": NAVY, "C": AMBER, "D": SELL}
-VDISP = {"Redeem-to-Direct": "To-Direct"}
+VDISP = {"Redeem-to-Direct": "Switch"}  # display label only (Principal 2026-07-27); internal verdict code unchanged
 # flag chips read as PLAIN WORDS (leak audit 2026-07-26), never engine codes; all <=9 chars
 FLAB = {"CLOSET_INDEX": "INDEX HUG", "NEG_ALPHA": "TRAILS", "DOWN_CAP_HI": "DOWNSIDE",
         "WEAK_CONSIST": "WEAK 3-YR", "MANDATE_RIGIDITY": "RIGID", "REG_PLAN_DRAG": "COST DRAG",
@@ -35,7 +35,7 @@ def render(deck, ctx, tier):
     funds = ctx["funds"]
     as_of = ctx["client"]["as_of"]
     eyebrow, title = LABELS.get(reg, LABELS["std"])
-    demo = ctx.get("is_demo", True)
+    demo = ctx.get("is_demo", False)
 
     # pagination (added 2026-07-27, first real client: this module was built assuming a
     # ~9-fund demo book and silently overflowed past the read-line and footer on a 25-fund
@@ -68,9 +68,11 @@ def render(deck, ctx, tier):
             for f in chunk:
                 v = f["verdict"]
                 fcell = ("flags", [FLAB.get(x, x[:9]) for x in f["flags"]]) if f["flags"] else ("c", "-", SLATE)
+                m = f["merit"]
+                grade_cell = ("c", m, MERIT_COL.get(m, INK), True) if m else ("c", "-", SLATE)
                 rows.append([_short(f["name"]), f["category"].replace("_", " ").title(), f["plan"][:3],
                              f"{f['weight_pct']:.1f}", ("bar", f["qfra"]),
-                             ("c", f["merit"], MERIT_COL.get(f["merit"], INK), True),
+                             grade_cell,
                              fcell, ("pill", VDISP.get(v, v), v)])
             deck.table(s, ML, 2.0, UW, cols, rows, rowh=0.40, fs=9.5, hfs=8)
 
@@ -83,7 +85,7 @@ def render(deck, ctx, tier):
                 read = (f"The desk read: the fund score ranks the scheme; the Portfolio Review team sets the "
                         f"verdict. {n_act} of {len(funds)} schemes carry an action, mostly on cost and "
                         f"structure (plan, mandate rigidity, scale, consistency) rather than performance "
-                        f"alone; {n_hold} are Holds on merit.")
+                        f"alone; {n_hold} are Holds on their own standing.")
             deck.txt(s, ML, 6.02, UW, 0.5, [(read, SERIF, 9.5, INK, False, True)], ls=1.05)
         demo_tag = " Illustrative synthetic funds." if demo else ""
         deck.source(s, "Ionic fund-quality framework · Direct-plan NAV vs each scheme's own SEBI category "

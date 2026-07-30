@@ -66,7 +66,7 @@ def render(deck, ctx, tier):
              [("NEXT STEP   ", SANS, 8, AMBER, True, False, 60), (L["hook"], SERIF, 10, SLATE, False, True)],
              anchor=MSO_ANCHOR.MIDDLE)
 
-    demo_tag = " Illustrative for the AZBY demo." if ctx.get("is_demo", True) else ""
+    demo_tag = " Illustrative for the AZBY demo." if ctx.get("is_demo", False) else ""
     deck.source(s, "Basis: scheme Total Expense Ratio (current plan) from scheme documents, "
                    f"weighted by holding value.{demo_tag}")
     return 1

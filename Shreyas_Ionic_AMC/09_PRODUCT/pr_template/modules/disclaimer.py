@@ -20,7 +20,7 @@ _REAL_SUFFIX = (" This review is prepared for the named client's actual holdings
 
 
 def render(deck, ctx, tier):
-    text = _BASE + (_DEMO_SUFFIX if ctx.get("is_demo", True) else _REAL_SUFFIX)
+    text = _BASE + (_DEMO_SUFFIX if ctx.get("is_demo", False) else _REAL_SUFFIX)
     deck.folio += 1
     s = deck.slide(NAVY)
     deck.txt(s, ML, 0.7, UW, 0.5, [("Disclaimer & basis of preparation", SANS, 20, WHITE, True)])

@@ -108,11 +108,11 @@ def render(deck, ctx, tier):
              ("c", "Agree an IPS with the RM before the next review cycle.", NAVY), "01 · X-ray"])
         fee_row = ([("b", "Regular-plan cost"),
              f"~{_k(reg_drag)}/yr avoidable trail on Regular-plan funds.",
-             ("c", "Redeem-to-Direct where the same scheme exists Direct." if has_redeem
+             ("c", "Switch to Direct where the same scheme exists Direct." if has_redeem
               else "Every recommended fund move lands in a Direct plan.", NAVY), "04 · Plan"]
             if show_fee_row else
             [("b", "Plan cost"),
-             "Every scheme in this account is already held Direct — no regular-to-direct drag to correct.",
+             "Every scheme in this account is already held Direct — no Regular-plan drag to correct.",
              ("c", "The fund actions below address structure and consistency, not cost.", NAVY), "03 · Funds"])
         fundline_row = ([("b", "Fund structure"),
              f"{n_switch} schemes: index-trailing or rigid mandate.",

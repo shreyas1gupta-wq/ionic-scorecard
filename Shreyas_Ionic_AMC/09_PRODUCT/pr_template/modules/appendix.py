@@ -43,7 +43,7 @@ def _methodology(deck, ctx, tier):
         fu_body = ("Funds are scored 0-100 by the firm's fund-quality framework on Direct-plan NAV against "
                    "total-return benchmarks, point-in-time. It rewards net-of-fee alpha, rolling-window "
                    "consistency and downside cushioning, and penalises structural watch-outs. Verdicts: "
-                   "Hold / Trim / Switch / Redeem-to-Direct / Exit.")
+                   "Hold / Trim / Switch / Exit.")
     # panels hug their text (shared height keeps the pair aligned); data sources become a
     # third, full-width boxed panel so the lower half of the page doesn't sit empty
     h = max(deck.callout_h(colw, eq_body, min_h=1.6), deck.callout_h(colw, fu_body, min_h=1.6))
@@ -56,7 +56,9 @@ def _methodology(deck, ctx, tier):
            "Client IPS and holdings as supplied by the advisory desk.")
     sy = 1.95 + h + 0.25
     deck.callout(s, ML, sy, UW, deck.callout_h(UW, src, min_h=1.0), "Data sources", src, "human")
-    deck.source(s, "Illustrative synthetic demo (AZBY Family); equity scores real, holdings & funds synthetic.")
+    demo_tag = " Illustrative synthetic demo (AZBY Family); equity scores real, holdings & funds synthetic." \
+        if ctx.get("is_demo", False) else ""
+    deck.source(s, ("Data sources for this review." + demo_tag).strip())
 
 
 def _glossary(deck, ctx, tier):

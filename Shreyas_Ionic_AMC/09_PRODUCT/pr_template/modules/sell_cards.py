@@ -67,7 +67,11 @@ def _card(deck, e, tier):
     colw = (UW - 0.3) / 2
     x2 = ML + colw + 0.3
     y1, y2, h = 2.5, 4.5, 1.9
-    deck.callout(s, ML, y1, colw, h, "Why it's on the sell list", _clip(e.get("negative")), "warn")
+    # client_case is the hand-scrubbed, client-safe rationale (2026-07-27 CEO-sweep rule);
+    # negative is an internal-audit-trail fallback for names that don't have one yet — never
+    # show negative on a client slide if client_case exists.
+    deck.callout(s, ML, y1, colw, h, "Why it's on the sell list",
+                 _clip(e.get("client_case") or e.get("negative")), "warn")
     deck.callout(s, x2, y1, colw, h, "The bull we rejected", _clip(e.get("positive")), "note")
     deck.callout(s, ML, y2, colw, h, "Reverse-DCF: margin of safety", _clip(e.get("reverse_dcf")), "note")
     deck.callout(s, x2, y2, colw, h, "What would change our mind", _clip(_reversal(e)), "human")

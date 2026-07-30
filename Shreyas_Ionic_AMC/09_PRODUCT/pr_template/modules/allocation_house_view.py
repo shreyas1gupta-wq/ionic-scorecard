@@ -27,8 +27,18 @@ def render(deck, ctx, tier):
     # ---- over/under bar (left) ----
     cats = [k for k in _ORDER if k in gap] + [k for k in gap if k not in _ORDER]
     gaps = [gap[k] for k in cats]
-    cpath = CH.over_under_bar(cats, gaps, "azby_alloc_gap")
-    deck.pic(s, cpath, ML, 2.0, 6.7, 3.55, valign="top", halign="left")
+    # a book with no IPS/allocation-target data yet has at most one placeholder gap sitting
+    # at exactly 0 -- an over/under bar with nothing to show is dead ink, not a chart; skip it
+    # and give the stance table the full width instead.
+    has_real_gap = len(cats) >= 2 or any(v != 0 for v in gaps)
+    if has_real_gap:
+        cpath = CH.over_under_bar(cats, gaps, "azby_alloc_gap")
+        deck.pic(s, cpath, ML, 2.0, 6.7, 3.55, valign="top", halign="left")
+    else:
+        deck.callout(s, ML, 2.0, 6.7, 3.55, "ALLOCATION TARGETS",
+                     "No allocation targets are on file for this account yet — this is a first "
+                     "review with no IPS agreed. Once one is in place, the book's mix will be "
+                     "measured against it here.", kind="note")
 
     # ---- house-view stance table (right) ----
     tx = ML + 6.95; tw = RX - tx
@@ -40,7 +50,10 @@ def render(deck, ctx, tier):
 
     # ---- one-line read (full width) ----
     lg = gap.get("Large"); fg = gap.get("Foreign"); gd = gap.get("Gold")
-    if reg == "simple":
+    if lg is None or gd is None:
+        read = ("Allocation targets versus a house view aren't fully set for this account yet. "
+                "Closing any gaps will follow once an IPS is agreed.")
+    elif reg == "simple":
         read = ("Right now there is a lot in big Indian companies and very little in foreign "
                 "shares and gold. When we reinvest, we plan to balance this out, with you.")
     elif reg == "hni":
@@ -55,6 +68,7 @@ def render(deck, ctx, tier):
                  "WHAT IT MEANS" if reg != "simple" else "IN SHORT", read,
                  kind="note")
 
-    deck.source(s, "House-view allocation bands are illustrative for this demo. "
+    demo_tag = " Illustrative for the AZBY demo." if ctx.get("is_demo", False) else ""
+    deck.source(s, f"House-view allocation bands.{demo_tag} "
                    "Gap = current book minus house-view target, in percentage points.")
     return 1

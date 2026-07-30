@@ -7,7 +7,12 @@ from slidekit import (NAVY, INK, SLATE, SELL, AMBER, HOLD, SERIF, SANS, ML, UW, 
 
 THRESHOLD = 20.0   # % of the direct-equity sleeve
 
-# promoter-group map (symbols we cover; extend as the universe grows)
+# promoter-group map -- KNOWN INCOMPLETE (~40 tickers, 10 groups). A real client concentrated
+# in a group outside this map (HDFC, Kotak, Wipro, Godrej, Piramal, Bharti, ITC, Hero, Vardhman,
+# etc.) gets a false "nothing trips" (return 0) instead of a true alert -- a silent false
+# negative, not a secret one. Fix before resurrecting this module for a client whose holdings
+# aren't dominated by the 10 groups below: either expand coverage meaningfully or surface a
+# "coverage: N of M holdings mapped" note so the gap is visible, not silent (2026-07-28 audit).
 GROUP = {
     "TITAN": "Tata", "TATAPOWER": "Tata", "TATASTEEL": "Tata", "TATATECH": "Tata",
     "TCS": "Tata", "TATACONSUM": "Tata", "INDHOTEL": "Tata", "TMCV": "Tata", "TMPV": "Tata",
@@ -69,7 +74,13 @@ def render(deck, ctx, tier):
              ("pill", e["rec"], e["rec"])] for e in members]
     ty = deck.table(s, ML, 3.05, 7.1, cols, rows, rowh=0.32, fs=9.5, hfs=8)
 
-    after = 100.0 * sum(e["weight_pct"] for e in members if e["rec"] != "Sell") / eq_total
+    # 2026-07-28 fix: the post-sale denominator must shrink by ALL sells across the whole book
+    # (any equity sell shrinks the sleeve every remaining holding is a share of), not stay at
+    # the pre-sale total -- the old code flattered the post-sale group share the same way the
+    # cut annex_stress_scenarios.py flattered its "after" drawdown, just smaller in scale.
+    sold_total = sum(e["weight_pct"] for e in eq if e["rec"] == "Sell")
+    post_sale_eq_total = max(eq_total - sold_total, 1.0)
+    after = 100.0 * sum(e["weight_pct"] for e in members if e["rec"] != "Sell") / post_sale_eq_total
     cx = ML + 7.35
     cw = RX - cx
     if reg == "simple":

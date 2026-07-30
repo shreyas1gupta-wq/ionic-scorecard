@@ -46,7 +46,7 @@ def _rows(reg, n_sell, k, act_counts):
         ("Sell programme", f"{n_sell} names scored below the gate, staged in slices at <=10% ADV.", "Wave 1"),
         ("Trim concentration", "Positions above the 8% single-name guideline eased or exited, into strength.", "This cycle"),
         ("Fund actions", f"{_mix(act_counts)}; every destination is a Direct-plan or passive vehicle.", "T+2–T+3"),
-        ("Park net proceeds", "Held in liquid / overnight funds; deployment is agreed separately (transition framework in the annexure).", "On authorisation"),
+        ("Park net proceeds", "Held in liquid / overnight funds pending your goals and IPS discussion; no redeployment is assumed or recommended here.", "On authorisation"),
     ]
 
 
@@ -110,7 +110,7 @@ def render(deck, ctx, tier):
     amounts = [sell_sum, trim_cash, fund_sum, net]
     rows = _rows(reg, n_sell, k, act_counts)
     # v7 device (p.29): every action row carries a REF back to the page that justifies it
-    refs = ["tbl:sell_list", "mod:concentration", "mod:fund_actions", "mod:deployment"]
+    refs = ["tbl:sell_list", "mod:concentration", "mod:fund_actions", "mod:tax_impact"]
     ry0, rowh = 2.98, 0.78
     for i, ((title, sub, when), amt) in enumerate(zip(rows, amounts)):
         ry = ry0 + i * rowh
@@ -137,6 +137,6 @@ def render(deck, ctx, tier):
     deck.txt(s, RX - 3.75, 6.1, 3.75, 0.46,
              [("Reviewed with client on  ____________________", SANS, 8, SLATE, False)],
              align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
-    demo_tag = "Amounts illustrative for the AZBY demo · " if ctx.get("is_demo", True) else ""
+    demo_tag = "Amounts illustrative for the AZBY demo · " if ctx.get("is_demo", False) else ""
     deck.source(s, f"{demo_tag}Net figures after estimated tax · as of {ctx['client']['as_of']}.")
     return 1

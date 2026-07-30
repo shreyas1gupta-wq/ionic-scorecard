@@ -117,7 +117,7 @@ def add_style_reference(deck):
     # pills
     deck.txt(s, ML, 3.35, UW, 0.24, [("RECOMMENDATION PILLS", SANS, 9, SLATE, True, False, 120)])
     for i, k in enumerate(["Sell", "Trim", "Hold", "Switch", "Exit", "Redeem-to-Direct", "Watch"]):
-        deck.pill(s, ML + i * 1.55, 3.65, k if k != "Redeem-to-Direct" else "To-Direct", w=1.35, kind=k)
+        deck.pill(s, ML + i * 1.55, 3.65, k if k != "Redeem-to-Direct" else "Switch", w=1.35, kind=k)
     # score bars
     deck.txt(s, ML, 4.25, UW, 0.24, [("IONIC SCORE BAR  (Sell < 40 · Trim 40-50 · Hold >= 50)", SANS, 9, SLATE, True, False, 120)])
     for i, sc in enumerate([27, 45, 72]):

@@ -12,6 +12,49 @@ analyst-industrials-rohan-deshmukh, quant-head-arjun-rao (parallel agent researc
 2026-07-27, web-sourced — see each entry's `source` field).
 """
 import os
+import re
+
+# ----------------------------------------------------------------------------
+# Client-safe text scrub (2026-07-27, HNI_DEEP tell-scan sweep). The `summary` /
+# `structural_reason` fields above carry the REAL internal audit trail (who
+# reviewed it, which method, what date, which third-party source) -- essential
+# for our own record, banned from a client slide (QA LAW #3: no analyst names,
+# no source names, no "pf_qual"/"quant-only"/method-citation vocabulary).
+# `client_case` already carries a hand-authored clean sentence for all 15 Sell
+# names (unchanged below); this scrub produces the same for the 19 Hold names
+# and every fund's structural_reason, by stripping the citation clause and
+# keeping the real analysis that follows -- never inventing new content.
+# ----------------------------------------------------------------------------
+_CITE_PREFIX = re.compile(
+    r'^(Quant-only,?\s*)?analyst view [\d-]+\s*(\([^)]*\))?\s*[:.,]?\s*'
+    r'|^Quant-head research [\d-]+\s*\([^)]*\)\s*[:.,]?\s*'
+    r'|^One-time review\s*\([^)]*\)\s*[:.,]?\s*'
+    r'|^House decision\s*\([^)]*\)\s*[:.,]?\s*'
+    r'|^Ratified (Sell|Hold)\s*\(pf_qual[^)]*\)\.?\s*,?\s*',
+    re.IGNORECASE)
+_CITE_PAREN_TOKENS = re.compile(
+    r'(INDmoney|Groww|Paytm Money|Advisorkhoj|AMFI NAV|pf_qual|screener\.in|'
+    r'Meera Krishnan|Sanjay Kulkarni|Principal|code \d+)', re.IGNORECASE)
+
+
+def _scrub_client_text(raw):
+    """Strip the internal-audit citation preamble from a real analyst sentence, keeping the
+    substantive reasoning. Returns "" if nothing survives (bare citation, no content) -- caller
+    supplies a generic, score-derived fallback in that case, never an invented claim."""
+    if not raw:
+        return ""
+    t = _CITE_PREFIX.sub("", raw.strip())
+
+    def _kill_paren(m):
+        return "" if _CITE_PAREN_TOKENS.search(m.group(1)) else m.group(0)
+    t = re.sub(r'\(([^)]*)\)', _kill_paren, t)
+    t = t.replace("quality_score", "quality score")  # de-snake-case, QA LAW #3
+    t = re.sub(r'\s{2,}', ' ', t).strip(' ,.')
+    if t:
+        t = t[0].upper() + t[1:]
+        if not t.endswith('.'):
+            t += '.'
+    return t
 
 FIRM_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 
@@ -180,24 +223,31 @@ _EQUITY = [
          client_case="Negative net worth and negative return on capital, and the company's own "
                      "auditors have flagged material doubt over its ability to continue as a going "
                      "concern."),
+    # Standing rule (Principal 2026-07-27, permanent — see ndpms-deck skill "PRINCIPAL RULINGS"):
+    # a factor ETF/index fund held directly defaults to HOLD, not Sell, on portfolio-construction
+    # grounds alone — the earlier "consolidate all passive/factor exposure" blanket call is
+    # superseded. The ONE named exception is a Nifty 200 Momentum 30 factor fund specifically,
+    # which stays Sell (momentum has a documented regime-dependent failure mode the house already
+    # gates elsewhere — ALPHA_RANKER valuation-band rule). Plain, non-factor index funds (e.g. a
+    # vanilla Nifty 50 index fund) are unaffected by this rule and can still be Sold on ordinary
+    # consolidation/cost grounds.
     dict(symbol="MOVALUE", name="Motilal Oswal S&P BSE Enhanced Value ETF", sector="Passive/Factor ETF",
-         value_inr=5635, ionic_score=35, score_3y=35, score_1y=35, rec="Sell", pit_date="2026-07-27",
-         summary="House decision (Principal 2026-07-27): consolidate away from passive/factor-ETF "
-                 "exposure held directly in this account. (Fund-level note: a genuine, low-cost "
-                 "multi-factor value screen, ~0.20-0.35% TER, ~Rs147cr AUM — the Sell is a "
-                 "portfolio-construction call, not a quality concern with the ETF itself.)",
-         client_case="A sound, low-cost factor ETF in its own right; the Sell reflects a house call "
-                     "to consolidate this account out of direct passive/factor exposure, not a "
-                     "concern with the fund itself."),
+         value_inr=5635, ionic_score=35, score_3y=35, score_1y=35, rec="Hold", pit_date="2026-07-27",
+         summary="House rule (Principal 2026-07-27): factor ETFs default to Hold, not a blanket "
+                 "passive-consolidation Sell. A genuine, low-cost multi-factor value screen, "
+                 "~0.20-0.35% TER, ~Rs147cr AUM — no quality concern with the ETF itself.",
+         client_case="A sound, low-cost factor ETF with no quality concern; held as a Hold under "
+                     "our standing policy for factor funds."),
     dict(symbol="MOM30IETF", name="ICICI Prudential Nifty 200 Momentum 30 ETF", sector="Passive/Factor ETF",
          value_inr=3059, ionic_score=35, score_3y=35, score_1y=35, rec="Sell", pit_date="2026-07-27",
-         summary="House decision (Principal 2026-07-27): consolidate away from passive/factor-ETF "
-                 "exposure held directly in this account. (Fund-level note: tracks the Nifty 200 "
-                 "Momentum 30 TRI, ~0.30% TER, ~Rs656cr AUM, reasonably liquid — the Sell is a "
-                 "portfolio-construction call, not a quality concern with the ETF itself.)",
-         client_case="A liquid, well-tracked momentum ETF; the Sell reflects a house call to "
-                     "consolidate this account out of direct passive/factor exposure, not a concern "
-                     "with the fund itself."),
+         reason_category="Weaker forward risk-reward",
+         summary="House rule (Principal 2026-07-27): factor ETFs default to Hold, EXCEPT a Nifty 200 "
+                 "Momentum 30 factor fund specifically, which stays Sell. Tracks the Nifty 200 "
+                 "Momentum 30 TRI, ~0.30% TER, ~Rs656cr AUM, reasonably liquid — the Sell is the "
+                 "named policy exception, not a quality concern with the ETF itself.",
+         client_case="A liquid, well-tracked momentum ETF; momentum factors carry a regime-dependent "
+                     "risk our house view treats as a standing exception, so this one stays a Sell "
+                     "while other factor funds in this account are Held."),
 ]
 # real Invested Value from the client's own statement (Stocks sheet), for the 15 Sell-rated
 # names only -- used to compute a REAL gain/loss for the tax slide rather than assume one.
@@ -208,7 +258,110 @@ _INVESTED = {
     "MOSCHIP": 6600.0, "SJVN": 8954.0, "MOVALUE": 5016.0, "MUFIN": 2778.0,
     "MOM30IETF": 3519.0, "PRAGBOSIMI": 2990.0, "RPOWER": 1121.0,
 }
+# Bull case we rejected + reverse-DCF margin-of-safety text for every Sell name
+# (RELIANCE, JIOFIN from ANALYST_RECOMMENDATIONS_v2.xlsx; others from analyst one-time reviews)
+_BULL_RDCF = {
+    "RELIANCE": {
+        "positive": ("Both O2C and Jio Platforms hit record EBITDA in Q1 FY27. Jio Platforms IPO "
+                     "DRHP filed June 2026, $133-180bn implied valuation, potentially unlocking "
+                     "20-40% of RIL market cap in H2 2026. New Energy giga-complex on timeline. "
+                     "Consolidated leverage comfortable (D/E 0.45, interest cover 6.6x)."),
+        "reverse_dcf": ("Conservative sum-of-parts (O2C 8x, Jio 9x standalone-telco, Retail 22x, "
+                        "E&P 5x, New Energy at committed capex): ~Rs 18L crore equity, within 3% of "
+                        "current market cap. Not cheap, not overpriced. The asymmetry sits in Jio: "
+                        "if the IPO prices near the DRHP range, that alone could unlock Rs 3.5-7L "
+                        "crore not currently credited. But without that catalyst crystallising, "
+                        "there is no margin of safety at today's price."),
+    },
+    "JIOFIN": {
+        "positive": ("Jio Credit AUM 2.6x YoY to Rs 30,667cr, funded by promoter capital (D/E 0.16), "
+                     "not leverage. JioBlackRock AMC past Rs 10,000cr AUM. Sell-side models 46% PAT "
+                     "CAGR FY26-28. Stock already de-rated 26% over 12 months."),
+        "reverse_dcf": ("At ~1.1x book the market prices in a normalised ROE of ~13.5-14% vs actual "
+                        "~1-2%. Closing that gap requires multi-fold AUM growth and treasury "
+                        "redeployment, none likely inside 2-3 years. A fair, not cheap, price for "
+                        "patience with no margin of safety if the ramp disappoints."),
+    },
+    "SBFC": {
+        "positive": ("Profit growing ~29% YoY, GNPA stable at 2.66%, a micro-NBFC gaining scale in "
+                     "small-ticket secured lending with no balance-sheet stress."),
+        "reverse_dcf": ("At ~29x earnings the stock prices in sustained 25%+ growth; current quality "
+                        "score of 22.7 and sub-scale AUM leave no margin if growth slows."),
+    },
+    "MANAPPURAM": {
+        "positive": ("Bain Capital stake approved, RBI eased gold-loan LTV norms, genuine structural "
+                     "tailwinds for the gold-lending model."),
+        "reverse_dcf": ("At ~29x earnings against falling revenue (-5.4% YoY), the stock prices in a "
+                        "turnaround the top line has not yet delivered. No margin of safety."),
+    },
+    "SJVN": {
+        "positive": ("5,091MW under construction doubles installed capacity; a government-backed PSU "
+                     "with a visible pipeline in hydro and solar."),
+        "reverse_dcf": ("At ~43x earnings with D/E 2.3x, the price assumes flawless multi-year "
+                        "execution of a capital programme larger than the existing asset base. "
+                        "No margin for delays or cost overruns."),
+    },
+    "RPOWER": {
+        "positive": ("Reliance group pedigree and a general power-sector tailwind."),
+        "reverse_dcf": ("Negative trailing PE, negative cash flow, flat revenue for three years. No "
+                        "meaningful reverse-DCF is possible on negative earnings; the stock is priced "
+                        "on hope, not cash flow."),
+    },
+    "RITAFIN": {
+        "positive": ("A listed NBFC with a valid stock code and nominal promoter holding."),
+        "reverse_dcf": ("Rs 13cr market cap on Rs 1.3cr of sales with 77% promoter pledge. No "
+                        "credible earnings base exists to reverse-engineer a fair value from."),
+    },
+    "LANCORHOL": {
+        "positive": ("Trades at 0.78x book, a Chennai-based developer with a 40-year track record "
+                     "and low headline debt."),
+        "reverse_dcf": ("FY26 profit was built on Rs 73.9cr of one-off litigation recovery against "
+                        "Rs 1cr operating profit. Core margin collapsed from 17% to ~1%. At 0.78x "
+                        "book, this is a value trap, not a margin of safety."),
+    },
+    "SUMMITSEC": {
+        "positive": ("A genuine 0.19x book discount to Rs 3,776cr of RPG-group investments with zero "
+                     "debt, a textbook deep-value holdco play."),
+        "reverse_dcf": ("No monetisation catalyst, ROE 1.14%, zero dividends ever, promoters at "
+                        "74.6% with no float headroom. The discount is earned and indefinite; too "
+                        "small a position to justify a decade-long wait."),
+    },
+    "NETWORK18": {
+        "positive": ("An unlisted stake in JioStar (the merged Viacom18-Star entity) that could "
+                     "carry significant hidden value if eventually marked or monetised."),
+        "reverse_dcf": ("Loss-making with negative ROE; the bull case rests entirely on an unlisted, "
+                        "unvalued stake. No margin of safety when the only potentially valuable asset "
+                        "has no public price."),
+    },
+    "MOSCHIP": {
+        "positive": ("A semiconductor and VLSI design play in a growing addressable market, scaling "
+                     "through acquisitions."),
+        "reverse_dcf": ("At 129x PE for 11% ROE, the price assumes a massive ramp in returns the "
+                        "declining quarterly trajectory contradicts. Promoter dilution from 50% to "
+                        "39% via preferential issues means existing shareholders fund the growth."),
+    },
+    "MUFIN": {
+        "positive": ("A green-finance NBFC in an expanding market with government support for "
+                     "renewable lending."),
+        "reverse_dcf": ("88x PE against 6.7% ROE with negative operating cash flow. No credible "
+                        "valuation framework justifies this multiple on current economics."),
+    },
+    "PRAGBOSIMI": {
+        "positive": ("A listed entity with a stock code."),
+        "reverse_dcf": ("Negative net worth, negative returns on capital, and auditor going-concern "
+                        "doubt. No reverse-DCF is possible; the equity is likely worthless."),
+    },
+    "MOM30IETF": {
+        "positive": ("A well-tracked, liquid momentum factor ETF (ICICI Pru, ~0.30% TER, Rs 656cr "
+                     "AUM) capturing the Nifty 200 Momentum 30 factor."),
+        "reverse_dcf": ("An index product with no independent valuation to reverse-engineer. The "
+                        "Sell is a house-view policy call on the momentum factor's regime-dependent "
+                        "risk, not a valuation call on the ETF itself."),
+    },
+}
 for _e in _EQUITY:
+    if _e["symbol"] in _BULL_RDCF:
+        _e.update(_BULL_RDCF[_e["symbol"]])
     _e.setdefault("score_3y", _e["ionic_score"]); _e.setdefault("score_1y", _e["ionic_score"])
     _e.setdefault("pe", None); _e.setdefault("roe", None); _e.setdefault("mcap_band", "Small")
     _e.setdefault("binding_trigger", (_e.get("summary", "")[:130]) if _e["rec"] == "Sell" else "")
@@ -220,6 +373,58 @@ for _e in _EQUITY:
     _e.setdefault("reason_category", "" if _e["rec"] != "Sell" else "Weaker forward risk-reward")
     _e.setdefault("conviction", "Core" if (_e["ionic_score"] >= 58) else ("Watch" if _e["rec"] == "Hold" else "Exit"))
     _e["invested_value"] = _INVESTED.get(_e["symbol"])
+
+# Real fundamentals enrichment (2026-07-27, quant-head research pass over
+# full750_scored.csv / pf_qual_*.json / NSE index-constituent lists -- verified
+# on-disk, not fabricated). Coverage disclosed, not padded: pe/roe 19/27, forward
+# growth 12/27 (analyst-ratified pf_qual figure only -- no historical-growth
+# stand-in used, to avoid mislabeling a backward-looking number as forward),
+# official SEBI/AMFI cap-band 13/27 (the rest keep the existing "Small" default --
+# NOT the internal quant-tercile field, which a spot-check showed can disagree
+# with the real index membership, e.g. MAHABANK tercile="Large" vs real
+# Midcap150 constituent).
+_FUND_PE_ROE = {  # symbol -> (pe, roe_pct)
+    "RELIANCE": (23.48, 25.0), "HDFCBANK": (15.74, 59.66), "TCS": (15.99, 100.0),
+    "JIOFIN": (73.64, 5.04), "ICICIBANK": (18.1, 72.27), "SBIN": (11.33, 68.07),
+    "SBFC": (29.36, 22.69), "IDFCFIRSTB": (39.05, 12.61), "TATASTEEL": (21.49, 33.33),
+    "MANAPPURAM": (28.57, 40.34), "NTPC": (12.27, 52.38), "MAHABANK": (8.11, 78.15),
+    "BEL": (49.11, 84.11), "IDBI": (9.87, 35.29), "SJVN": (42.98, 19.05),
+    "UCOBANK": (12.79, 14.29), "ITC": (16.91, 88.37), "RPOWER": (-30.36, 4.76),
+    "NETWORK18": (-131.78, 12.5),
+}
+_FUND_GROWTH = {  # symbol -> analyst-ratified expected next-3y growth %, pf_qual_*.json
+    "RELIANCE": 11, "HDFCBANK": 13, "TCS": 7, "JIOFIN": 28, "ICICIBANK": 12, "SBIN": 11,
+    "IDFCFIRSTB": 26, "TATASTEEL": 8, "NTPC": 10, "MAHABANK": 13, "BEL": 17, "ITC": 6,
+}
+_MCAP_OFFICIAL = {  # symbol -> real NSE index-constituent-confirmed band
+    "RELIANCE": "Large", "HDFCBANK": "Large", "TCS": "Large", "JIOFIN": "Large",
+    "ICICIBANK": "Large", "SBIN": "Large", "IDFCFIRSTB": "Mid", "TATASTEEL": "Large",
+    "NTPC": "Large", "MAHABANK": "Mid", "BEL": "Large", "SJVN": "Mid", "ITC": "Large",
+}
+for _e in _EQUITY:
+    _sym = _e["symbol"]
+    if _sym in _FUND_PE_ROE:
+        _e["pe"], _e["roe"] = _FUND_PE_ROE[_sym]
+    if _sym in _FUND_GROWTH:
+        _e["growth_pct"] = _FUND_GROWTH[_sym]
+    if _sym in _MCAP_OFFICIAL:
+        _e["mcap_band"] = _MCAP_OFFICIAL[_sym]
+    # client_case is the single source of truth every module should read for client-facing
+    # rationale prose. The 15 Sell names already carry a hand-authored one (kept as-is); the
+    # 19 Holds get the scrubbed summary, or -- when the summary is a bare audit stamp with no
+    # analysis attached ("Ratified Hold (pf_qual)." and nothing else) -- a generic sentence
+    # built only from real, already-computed fields (the Ionic score itself), never invented.
+    if not _e.get("client_case"):
+        _scrubbed = _scrub_client_text(_e.get("summary", ""))
+        _e["client_case"] = _scrubbed or (
+            f"Scores {_e['ionic_score']:.0f}/100 on our quality/value/momentum framework — "
+            + ("below our bar; recommended for exit." if _e["rec"] == "Sell"
+               else "comfortably within our Hold range; no changes recommended this review."))
+    _e["analyst_read"] = _e["client_case"][:150]
+    _e["detailed"] = _e["client_case"]
+    _e["negative"] = _e["client_case"]
+    if _e["rec"] == "Sell":
+        _e["binding_trigger"] = _e["client_case"][:130]
 
 # ============================================================================
 # FUNDS (25 scored: 5 with a real QFRA-2 category match + 20 one-time benchmark-
@@ -263,9 +468,15 @@ _FUNDS_RAW = [
      "Quant-head research 2026-07-27 (INDmoney, NAV-verified): ranked 1st in category, ahead "
      "~10.4pp/3y and ~6.7pp/1y. NOTE: a gap this large is unlikely to persist and raises a "
      "capacity question as AUM grows — flagged for the next review, not an action now."),
+    # Client-specific constraint (Principal 2026-07-29): exit all liquid/debt/arbitrage and
+    # debt-dominant (conservative-hybrid) holdings, proceeds to cash -- a portfolio-construction
+    # call for THIS client, not a performance verdict; real performance was ahead on both windows.
     ("Aditya Birla Sun Life Regular Savings Fund", "conservative_hybrid", "NIFTY 50 Hybrid Composite Debt 15:85",
-     9.32, 5.23, 6.95, 1.78, "Hold",
-     "Quant-head research 2026-07-27 (AMFI NAV history, code 120705): ahead ~2.4pp/3y, ~3.5pp/1y."),
+     9.32, 5.23, 6.95, 1.78, "Sell",
+     "Quant-head research 2026-07-27 (AMFI NAV history, code 120705): ahead ~2.4pp/3y, ~3.5pp/1y "
+     "on performance. Sell reflects the Principal's 2026-07-29 client-specific instruction to exit "
+     "all liquid/debt/arbitrage and debt-dominant conservative-hybrid holdings to cash, not a "
+     "quality concern with the scheme."),
     ("Canara Robeco Flexi Cap Fund", "flexi", "NIFTY 500 TRI", 12.78, -1.55, 12.9, -1.71, "Hold",
      "Quant-head research 2026-07-27 (AMFI NAV history, code 118275): marginally ahead 1y, within "
      "noise of TRI on 3y."),
@@ -273,20 +484,26 @@ _FUNDS_RAW = [
      "Quant-head research 2026-07-27 (AMFI NAV history, code 119609; corroborated Advisorkhoj): "
      "ahead both windows, though the 65:35 benchmark's Nifty-50-only equity leg lagged the "
      "broad market this period — treat as earned on outcome, not proven on process."),
-    ("HDFC Hybrid Debt Fund", "conservative_hybrid", "NIFTY 50 Hybrid Composite Debt 15:85", 8.70, 2.60, 6.95, 1.78, "Hold",
-     "Quant-head research 2026-07-27 (AMFI NAV, code 119118): ahead ~1.75pp/3y vs its own stated benchmark."),
-    ("SBI Gilt Fund", "gilt", "Gilt category median", 7.01, 4.19, 7.04, 4.19, "Hold",
+    ("HDFC Hybrid Debt Fund", "conservative_hybrid", "NIFTY 50 Hybrid Composite Debt 15:85", 8.70, 2.60, 6.95, 1.78, "Sell",
+     "Quant-head research 2026-07-27 (AMFI NAV, code 119118): ahead ~1.75pp/3y vs its own stated "
+     "benchmark on performance. Sell reflects the Principal's 2026-07-29 client-specific instruction "
+     "to exit all liquid/debt/arbitrage and debt-dominant conservative-hybrid holdings to cash, not "
+     "a quality concern with the scheme."),
+    ("SBI Gilt Fund", "gilt", "Gilt category median", 7.01, 4.19, 7.04, 4.19, "Sell",
      "Quant-head research 2026-07-27 (AMFI NAV, code 119707): sitting exactly on the category "
-     "median (CRISIL Dynamic Gilt index return unpublished; category median of 22 direct-growth "
-     "gilt schemes substituted, disclosed)."),
+     "median on performance (CRISIL Dynamic Gilt index return unpublished; category median of 22 "
+     "direct-growth gilt schemes substituted, disclosed). Sell reflects the Principal's 2026-07-29 "
+     "client-specific instruction to exit all liquid/debt/arbitrage holdings to cash, not a quality "
+     "concern with the scheme."),
     ("ICICI Prudential Equity & Debt Fund", "hybrid", "NIFTY 50 Hybrid Composite Debt 65:35", 16.43, 2.89, 8.18, -2.38, "Hold",
      "Quant-head research 2026-07-27 (AMFI NAV, code 120251): strongest of the hybrid set on 3y, "
      "though the gap is mix-driven (can run equity above 65%), not purely stock-selection skill."),
-    ("HDFC Gilt Fund", "gilt", "Gilt category median", 7.13, 4.30, 7.04, 4.19, "Hold",
+    ("HDFC Gilt Fund", "gilt", "Gilt category median", 7.13, 4.30, 7.04, 4.19, "Sell",
      "Quant-head research 2026-07-27 (AMFI NAV, code 119116): a whisker above category median "
-     "both windows. NOTE: held alongside SBI Gilt Fund — same category, same single risk factor "
-     "(sovereign duration), no credit/maturity differentiation. Genuine duplication; consolidation "
-     "candidate even though both are individually Hold on performance."),
+     "both windows on performance — held alongside SBI Gilt Fund, same category, same single risk "
+     "factor (sovereign duration). Sell reflects the Principal's 2026-07-29 client-specific "
+     "instruction to exit all liquid/debt/arbitrage holdings to cash, not a quality concern with "
+     "either scheme."),
     ("ICICI Prudential Large Cap Fund", "large", "NIFTY 100 TRI", 12.4, -2.1, 9.55, -2.25, "Hold",
      "Quant-head research 2026-07-27 (Paytm Money+Groww): ahead ~2.9pp/3y, level on 1y — the only "
      "fund in its research batch actually beating its benchmark on 3y."),
@@ -303,12 +520,13 @@ _FUNDS_RAW = [
     # internal audit note (2026-07-27, Principal ruling): blanket Sell, no independent benchmark
     # research run for this scheme
     ("HDFC Floating Rate Debt Fund", "debt_short", "CRISIL Liquid Fund Index", 0, 0, 0, 0, "Sell",
-     "A call to consolidate the debt sleeve of this account into fewer, more liquid holdings; "
-     "not a concern with the scheme's mandate or management."),
-    ("HDFC Overnight Fund", "overnight", "Overnight category avg.", 6.1, 5.3, 6.32, 5.95, "Hold",
+     "Sell reflects the Principal's 2026-07-29 client-specific instruction to exit all liquid/"
+     "debt/arbitrage holdings to cash; not a concern with the scheme's mandate or management."),
+    ("HDFC Overnight Fund", "overnight", "Overnight category avg.", 6.1, 5.3, 6.32, 5.95, "Sell",
      "Quant-head research 2026-07-27 (Groww): tracking the overnight category within the expected "
-     "~0.1-0.6pp drag at 0.11% TER — cash parking doing its job, not a performance thesis. NOTE: "
-     "the value of this holding is MISSING from the client's statement — see DATA_GAPS."),
+     "~0.1-0.6pp drag at 0.11% TER on performance — cash parking was doing its job. Sell reflects "
+     "the Principal's 2026-07-29 client-specific instruction to exit all liquid/debt/arbitrage "
+     "holdings to cash, not a performance concern. The value of this holding is pending confirmation."),
 ]
 
 _QFRA2_MATCHED = {"Templeton India Value Fund": ("value", "Hold",
@@ -330,20 +548,142 @@ _FUNDS = []
 _grand_for_wt = None  # computed after totals known; placeholder set below in build_ctx
 
 for name, cat, bench, f3, f1, b3, b1, verdict, note in _FUNDS_RAW:
-    qfra = _qscore(f3 - b3, f1 - b1) if (f3 or f1) else 50
+    # (f3,f1,b3,b1) == (0,0,0,0) is a PLACEHOLDER meaning "no independent benchmark research
+    # run" (a portfolio-construction-call fund, e.g. an index fund being consolidated), never
+    # a real "0% alpha" finding. Report None, not 0 -- otherwise a fund_equity.py chart or a
+    # scheme_scorecards.py page would plot/analyze a fabricated zero as if it were real
+    # research, which is exactly the "index fund gets an analysis page it doesn't need" bug
+    # (2026-07-28 fix). Downstream filters (funds_equity.py's `cagr3y is not None`, scheme_
+    # scorecards.py's `if a is None`) already correctly skip a None value.
+    _no_research = (f3, f1, b3, b1) == (0, 0, 0, 0)
+    qfra = None if _no_research else (_qscore(f3 - b3, f1 - b1) if (f3 or f1) else 50)
+    merit = None if qfra is None else ("A" if qfra >= 70 else "B" if qfra >= 55 else "C" if qfra >= 40 else "D")
     _FUNDS.append(dict(name=f"{name} - Direct Plan", category=cat, plan="Direct", bench_label=bench,
                        verdict=verdict, action=("Exit" if verdict == "Sell" else "Hold"),
-                       flags=[], qfra=qfra, merit=("A" if qfra >= 70 else "B" if qfra >= 55 else "C" if qfra >= 40 else "D"),
-                       hit3y=None, alpha_t=round(f3 - b3, 1), exemplar="-", structural_reason=note,
+                       flags=[], qfra=qfra, merit=merit,
+                       hit3y=None, alpha_t=(None if _no_research else round(f3 - b3, 1)), exemplar="-", structural_reason=note,
                        ter=0.55, holding_years=2.0, up_capture=None, down_capture=None,
-                       max_dd=None, worst_1y=None, sortino=None, calmar=None, cagr3y=f3,
-                       alpha_ann=round(f3 - b3, 1), info_ratio=None, r2=None, bench_cagr3y=b3))
+                       max_dd=None, worst_1y=None, sortino=None, calmar=None,
+                       cagr3y=(None if _no_research else f3),
+                       alpha_ann=(None if _no_research else round(f3 - b3, 1)), info_ratio=None, r2=None,
+                       bench_cagr3y=(None if _no_research else b3)))
 for name, (cat, verdict, note) in _QFRA2_MATCHED.items():
     _FUNDS.append(dict(name=f"{name} - Direct Plan", category=cat, plan="Direct", bench_label="",
                        verdict=verdict, action="Hold", flags=[], qfra=68, merit="B", hit3y=None,
                        alpha_t=None, exemplar="-", structural_reason=note, ter=0.55, holding_years=3.0,
                        up_capture=None, down_capture=None, max_dd=None, worst_1y=None, sortino=None,
                        calmar=None, cagr3y=None, alpha_ann=None, info_ratio=None, r2=None, bench_cagr3y=None))
+
+# Real AMC (fund-house) names -- public information literally embedded in each scheme's
+# registered name, verified 2026-07-27 against nav_latest.parquet/nav_monthend.parquet
+# "category" column (24/26 direct matches; Canara Robeco + UTI Flexi Cap filled by hand,
+# same public-registry name, where the NAV-file join missed the exact scheme string).
+_AMC = {
+    "Mirae Asset Midcap Fund - Direct Plan": "Mirae Asset Mutual Fund",
+    "HDFC NIFTY 50 Index Fund - Direct Plan": "HDFC Mutual Fund",
+    "HDFC Hybrid Equity Fund - Direct Plan": "HDFC Mutual Fund",
+    "Mirae Asset ELSS Tax Saver Fund - Direct Plan": "Mirae Asset Mutual Fund",
+    "ICICI Prudential Dividend Yield Equity Fund - Direct Plan": "ICICI Prudential Mutual Fund",
+    "Edelweiss Small Cap Fund - Direct Plan": "Edelweiss Mutual Fund",
+    "Bandhan Small Cap Fund - Direct Plan": "Bandhan Mutual Fund",
+    "Aditya Birla Sun Life Regular Savings Fund - Direct Plan": "Aditya Birla Sun Life Mutual Fund",
+    "Canara Robeco Flexi Cap Fund - Direct Plan": "Canara Robeco Mutual Fund",
+    "SBI Equity Hybrid Fund - Direct Plan": "SBI Mutual Fund",
+    "HDFC Hybrid Debt Fund - Direct Plan": "HDFC Mutual Fund",
+    "SBI Gilt Fund - Direct Plan": "SBI Mutual Fund",
+    "ICICI Prudential Equity & Debt Fund - Direct Plan": "ICICI Prudential Mutual Fund",
+    "HDFC Gilt Fund - Direct Plan": "HDFC Mutual Fund",
+    "ICICI Prudential Large Cap Fund - Direct Plan": "ICICI Prudential Mutual Fund",
+    "UTI Flexi Cap Fund - Direct Plan": "UTI Mutual Fund",
+    "UTI Mid Cap Fund - Direct Plan": "UTI Mutual Fund",
+    "Aditya Birla Sun Life MNC Fund - Direct Plan": "Aditya Birla Sun Life Mutual Fund",
+    "HDFC Floating Rate Debt Fund - Direct Plan": "HDFC Mutual Fund",
+    "HDFC Overnight Fund - Direct Plan": "HDFC Mutual Fund",
+    "Templeton India Value Fund - Direct Plan": "Franklin Templeton Mutual Fund",
+    "360 ONE Focused Fund - Direct Plan": "360 ONE Mutual Fund",
+    "Parag Parikh Flexi Cap Fund - Direct Plan": "PPFAS Mutual Fund",
+    "Nippon India Multi Cap Fund - Direct Plan": "Nippon India Mutual Fund",
+    "Tata Small Cap Fund - Direct Plan": "Tata Mutual Fund",
+}
+for _f in _FUNDS:
+    _f["amc"] = _AMC.get(_f["name"], "")
+# Real engine-computed down-capture/hit-rate/QFRA score for the 2 funds actually present in
+# the saved QFRA-2 export (03_RESEARCH_DESK/MF_RECOMMENDATIONS/saved_2026-07-26/QFRA2_verdicts.csv)
+# -- the other 3 nominally QFRA-2-matched funds in this book aren't in that saved export, so
+# their fields stay None (disclosed gap, not backfilled from the point-CAGR proxy).
+_QFRA2_REAL = {
+    "360 ONE Focused Fund - Direct Plan": dict(down_capture=0.95, hit3y=85.0),
+    "Nippon India Multi Cap Fund - Direct Plan": dict(down_capture=0.90, hit3y=43.0),
+}
+for _f in _FUNDS:
+    if _f["name"] in _QFRA2_REAL:
+        _f.update(_QFRA2_REAL[_f["name"]])
+# The 2 blanket portfolio-construction Sells (index/debt consolidation, not a performance
+# call) used a (0,0,0,0) placeholder tuple in _FUNDS_RAW purely so _qscore lands neutral --
+# that 0.0 is NOT this fund's real CAGR (a real Nifty 50 index fund's 3y CAGR is nowhere
+# near zero). Showing "0.0%"/"+0.0 vs BM" on a client slide would be a fabricated number, not
+# a real one. Correct these two to None so every module's None-safe formatting shows "n/a"
+# instead of a false zero.
+for _f in _FUNDS:
+    if _f["name"] in ("HDFC NIFTY 50 Index Fund - Direct Plan", "HDFC Floating Rate Debt Fund - Direct Plan"):
+        _f["cagr3y"] = None; _f["bench_cagr3y"] = None; _f["alpha_ann"] = None
+# Scrub the same internal-audit citation preamble out of every fund's structural_reason --
+# every fund-module in the deck reads this field directly for its client-facing rationale
+# text (there is no separate fund-side client_case), so it must be clean at the source.
+for _f in _FUNDS:
+    _scrubbed = _scrub_client_text(_f.get("structural_reason", ""))
+    _f["structural_reason"] = _scrubbed or _f.get("structural_reason", "")
+
+# Real risk-battery computed from AMFI NAV history (api.mfapi.in, Direct Growth plan, scheme
+# codes below), 2026-07-29 (quant-head research pass, resolves the risk-battery None-fields
+# gap flagged 2026-07-28). Common trailing-3y window 2023-07-28 -> 2026-07-28 (as-of the
+# latest NAV date at fetch time), same convention as funds_hybrid.py/funds_equity.py's
+# "COMMON 3y window" (every fund measured on the same dates so none is penalised for an
+# older/younger crash). worst_1y = worst rolling 1-yr return in the window (nearest-date
+# match, +/-7d tolerance); max_dd = max drawdown in the window; sortino = 3y CAGR / annualized
+# downside deviation (MAR=0%, semideviation over all daily obs); calmar = 3y CAGR / |max_dd|.
+# D-009 spot-checked 2026-07-29 against Groww's own 3y-annualised-return figure: Mirae Asset
+# Midcap (code 147445) computed 18.5% vs Groww 18.48%; Parag Parikh Flexi Cap (code 122639)
+# computed 13.8% vs Groww 13.98% -- both within ~0.2pp, pipeline trusted at scale on that basis.
+# up_capture/down_capture left None: this book's 23 funds span >10 different category
+# benchmarks (Midcap150/Smallcap250/N100/N500/hybrid composites/gilt-category-median/MNC etc.)
+# and no single clean TRI series for all of them is readily on hand in this repo -- rather than
+# half-fetch a subset, left None across the board per the task's explicit fallback instruction.
+# HDFC Overnight Fund: sortino/calmar genuinely None, not a gap -- an overnight/money-market
+# fund has essentially zero drawdown (max_dd -0.0%), so both ratios' denominators are ~zero.
+# HDFC NIFTY 50 Index Fund and HDFC Floating Rate Debt Fund are UNTOUCHED (Principal's
+# (0,0,0,0)/"no independent research run" marker stays as-is, per instruction).
+_RISK_BATTERY = {  # base fund name -> (worst_1y_pct, max_dd_pct, sortino, calmar, scheme_code)
+    "Mirae Asset Midcap Fund": (-4.2, -22.5, 1.58, 0.82, 147445),
+    "HDFC Hybrid Equity Fund": (-7.8, -12.6, 1.01, 0.55, 119062),
+    "Mirae Asset ELSS Tax Saver Fund": (-2.9, -17.1, 1.33, 0.79, 135781),
+    "ICICI Prudential Dividend Yield Equity Fund": (-2.6, -15.9, 1.97, 1.14, 129312),
+    "Edelweiss Small Cap Fund": (-7.6, -22.9, 1.45, 0.76, 146196),
+    "Bandhan Small Cap Fund": (-5.2, -22.8, 2.12, 1.19, 147946),
+    "Aditya Birla Sun Life Regular Savings Fund": (4.1, -3.0, 4.17, 3.05, 120705),
+    "Canara Robeco Flexi Cap Fund": (-4.4, -17.5, 1.29, 0.70, 118275),
+    "SBI Equity Hybrid Fund": (1.0, -9.9, 1.90, 1.31, 119609),
+    "HDFC Hybrid Debt Fund": (-0.2, -3.6, 3.19, 2.24, 119118),
+    "SBI Gilt Fund": (0.0, -3.2, 4.04, 2.14, 119707),
+    "ICICI Prudential Equity & Debt Fund": (0.3, -11.2, 2.14, 1.33, 120251),
+    "HDFC Gilt Fund": (-0.8, -3.0, 4.00, 2.32, 119116),
+    "ICICI Prudential Large Cap Fund": (-5.4, -15.4, 1.40, 0.81, 120586),
+    "UTI Flexi Cap Fund": (-10.2, -20.1, 1.03, 0.46, 120662),
+    "UTI Mid Cap Fund": (-8.5, -22.7, 1.22, 0.60, 120726),
+    "Aditya Birla Sun Life MNC Fund": (-8.1, -22.2, 0.99, 0.41, 119646),
+    "HDFC Overnight Fund": (5.2, -0.0, None, None, 119110),
+    "Templeton India Value Fund": (-8.0, -18.0, 1.20, 0.64, 118494),
+    "360 ONE Focused Fund": (-7.8, -16.9, 1.13, 0.73, 131580),
+    "Parag Parikh Flexi Cap Fund": (-3.8, -11.0, 2.02, 1.26, 122639),
+    "Nippon India Multi Cap Fund": (-3.7, -18.6, 1.44, 0.82, 118650),
+    "Tata Small Cap Fund": (-15.8, -30.9, 0.96, 0.40, 145206),
+}
+for _f in _FUNDS:
+    _base = _f["name"].replace(" - Direct Plan", "")
+    if _base in _RISK_BATTERY:
+        _w1, _dd, _so, _ca, _code = _RISK_BATTERY[_base]
+        _f["worst_1y"], _f["max_dd"] = _w1, _dd
+        _f["sortino"], _f["calmar"] = _so, _ca
 
 _CV = {  # real current values from the client statement, MF sheet rows 2-27 (excl. header anomaly)
     "Mirae Asset Midcap Fund - Direct Plan": 839102.84,
@@ -413,15 +753,19 @@ def build_ctx():
     _cap = 8.0
     trim_val = round(sum((e["weight_pct"] - _cap) / 100 * grand
                          for e in eq if e["rec"] != "Sell" and e["weight_pct"] > _cap))
-    proceeds = sell_val + trim_val + fund_action_val
+    eq_proceeds = sell_val + trim_val
+    proceeds = eq_proceeds + fund_action_val
     # Per Principal instruction (2026-07-27): assume long-term (LTCG) treatment throughout.
     # Equity side has REAL acquisition cost on the statement (Stocks sheet "Invested Value"),
     # so this is a computed real figure, not a guess: net gain across all 15 Sell names is a
     # LOSS of Rs 1,93,522 -- under any LTCG/STCG classification a loss carries zero tax, so
-    # equity-side tax = 0 (real result, not a simplification). The 2 fund exits (HDFC NIFTY 50
-    # Index, HDFC Floating Rate Debt) have NO acquisition-cost data on this statement (the MF
-    # sheet has no Invested Value column) -- their gain/loss and tax genuinely cannot be
-    # computed here; shown as a separate, disclosed unknown rather than assumed zero or guessed.
+    # equity-side tax = 0 (real result, not a simplification). The fund exits (2026-07-29: 7
+    # funds now Sell -- HDFC NIFTY 50 Index, HDFC Floating Rate Debt, HDFC Overnight, SBI Gilt,
+    # HDFC Gilt, Aditya Birla Regular Savings, HDFC Hybrid Debt -- the last 5 added per the
+    # Principal's client-specific liquid/debt/arbitrage-to-cash instruction) have NO acquisition-
+    # cost data on this statement (the MF sheet has no Invested Value column) -- their gain/loss
+    # and tax genuinely cannot be computed here; shown as a separate, disclosed unknown (assumed
+    # LTCG per house convention where a rate must be shown, never assumed zero or guessed).
     LTCG_RATE, LTCG_EXEMPT = 0.125, 125000
     eq_sell_gain = sum((e["value_inr"] - e["invested_value"]) for e in eq
                        if e["rec"] == "Sell" and e.get("invested_value") is not None)
@@ -432,14 +776,43 @@ def build_ctx():
     ctx = {
         "is_demo": False,  # real client — modules must not print "illustrative"/"synthetic" text
         "client": {"name": "Anand Reddy", "code": "ANANDREDDY-NDPMS-01", "account_type": "NDPMS (Non-Discretionary)",
-                   "profile": "Not yet on file", "horizon": "Not yet on file", "construction": "Not yet on file",
+                   # risk profile confirmed Aggressive (Principal, 2026-07-29); horizon/construction
+                   # and the formal IPS bands (single-scheme/AMC caps, allocation targets, etc.)
+                   # remain not yet on file -- knowing the client's risk temperament is a separate,
+                   # earlier fact than an agreed, bespoke IPS with specific bands.
+                   "profile": "Aggressive", "horizon": "Not yet on file", "construction": "Not yet on file",
                    "aum_inr": grand, "as_of": "2026-07-27", "meeting_history": []},
+        # IPS schema v2 (2026-07-28): same richer shape as the house template, honestly empty
+        # where no bespoke target has been agreed yet -- ips_summary.py computes "Current" for
+        # every row live from real ctx data regardless of on_file status, so the page still
+        # shows the client his real position against each parameter even before a target exists.
+        # on_file stays False (2026-07-29): risk tier is now known (Aggressive), but the actual
+        # IPS document -- specific allocation bands, caps, horizon -- is still not agreed, so the
+        # bands below correctly stay TBD rather than being invented from the risk tier alone.
         "ips": {"on_file": False,
-                "risk_tier": "Not yet on file", "objective": "Not yet on file — first review, no IPS on file.",
+                "risk_tier": "Aggressive", "objective": "Not yet on file — first review, no IPS on file.",
                 "horizon_yrs": None, "single_name_cap_pct": 8.0, "foreign_target_pct": 0.0, "gold_target_pct": 0.0,
-                "alloc_bands": {"Equity": (0, 100, 100), "Hybrid/Debt": (0, 0, 100), "Alternatives/Gold": (0, 0, 100), "Cash": (0, 0, 100)},
+                # None, not a degenerate (0,100,100) placeholder (2026-07-28 fix): the old
+                # dummy band always self-satisfied "Aligned" once ips_summary.py started
+                # actually reading it meaningfully -- a real, if trivial, false-positive.
+                "alloc_bands": {"Equity": None, "Hybrid/Debt": None, "Alternatives/Gold": None, "Cash": None},
+                "single_amc_cap_pct": None, "locked_in_cap_pct": None, "cash_cap_pct": None,
+                "equity_mcap_bands": {"Large": None, "Mid & Small": None},
+                "thematic_sectoral_cap_pct": None, "unlisted_equity_cap_pct": None,
+                "international_equity_cap_pct": None,
+                "fi_credit_bands": {"AAA": None, "AA+ / AA / AA-": None, "Below AA-": None},
+                "mod_duration_cap_yrs": None,
+                "gold_band_pct": None, "silver_band_pct": None,
                 "constraints": ["No IPS on file yet — bands shown are placeholders, not a house mandate"]},
-        "house_view": {"alloc_gap": {"Foreign": 0.0}},
+        # Firm-level house view (identical across every client deck, per the shipped ABXY
+        # family -- not derived from Anand Reddy's own holdings). alloc_gap stays Foreign-only:
+        # the other buckets need a client allocation TARGET (from an IPS) to compute a gap
+        # against, and this is a first review with no IPS on file yet -- disclosed in data_notes.
+        "house_view": {"stance": {"Domestic equity": "Incrementally positive",
+                                   "Foreign equity": "~15% target, under-owned",
+                                   "Gold & silver": "Positive, 75:25", "Momentum": "On hold",
+                                   "Low-vol / value": "Favoured"},
+                       "alloc_gap": {"Foreign": 0.0}},
         "equity": eq, "funds": funds,
         "totals": {"grand_inr": grand, "eq_pct": round(100 * eq_val / grand, 1) if grand else 0,
                   "mf_pct": round(100 * (mf_val + no_view_val) / grand, 1) if grand else 0, "cash_pct": 0.0,
@@ -449,14 +822,22 @@ def build_ctx():
                  "pms_bps": 0, "total_bps": round(sum(f["ter"] * f["value_inr"] for f in funds) / mf_val * 100, 0) if mf_val else 0,
                  "total_inr": round(sum(f["ter"] / 100 * f["value_inr"] for f in funds)),
                  "reg_drag_inr": 0},  # every fund on this statement is already Direct plan
+        # Per Principal ruling (2026-07-28): where a fund's real STCG/LTCG classification isn't
+        # available (no acquisition-cost data on this statement), ASSUME LTCG as a fixed house
+        # convention rather than showing "unknown" -- disclosed as an assumption, not a computed
+        # fact. Caveat that stays disclosed regardless: HDFC Floating Rate Debt Fund is a DEBT
+        # scheme, and debt mutual funds bought after Apr-2023 have NO long-term concept at all
+        # under current law (taxed at slab rate regardless of holding period) -- "LTCG (assumed)"
+        # here is the Principal's simplifying convention, not a claim that debt-fund LTCG
+        # treatment is available; flagged for the tax adviser to confirm either way.
         "tax": {"fund_rows": [(f["action"].upper(), f["name"], f["value_inr"], f">{f['holding_years']:.0f}y",
-                              "No cost data", f["structural_reason"][:60])
+                              "LTCG (assumed)", f["structural_reason"][:60])
                              for f in funds if f["action"] != "Hold"],
-                "gross": proceeds, "ltcg": ltcg, "stcg": stcg, "net": net,
-                "de_gap_note": (f"The 15 sell-list shares net to a real LOSS of Rs "
-                               f"{abs(eq_sell_gain)/1e5:.2f}L, so equity tax is genuinely Rs0 (not "
-                               f"assumed). The 2 fund exits' tax is separately unknown — no cost data "
-                               f"on this statement."
+                "gross": eq_proceeds, "ltcg": ltcg, "stcg": stcg, "net": eq_proceeds - ltcg,
+                "de_gap_note": (f"The 15 sell-list shares net to a real LOSS (Rs "
+                               f"{abs(eq_sell_gain)/1e5:.2f}L) — equity tax is genuinely Rs0. The "
+                               f"{sum(1 for f in funds if f['action'] != 'Hold')} fund exits: LTCG "
+                               f"assumed (no cost data), confirm with your adviser."
                                if eq_sell_gain <= 0 else
                                "Tax character assumes long-term (LTCG) treatment throughout, per house "
                                "convention; confirm exact holding periods and liability with your tax "
@@ -491,13 +872,18 @@ def build_ctx():
             "no_view": [dict(n) for n in _NO_VIEW],
             "flags": [
                 "MF header carries Rs 8,61,415.04 — per RM, a total-of-funds figure, but it doesn't "
-                "match the real fund sum (Rs 94.2L); treated as stale, excluded. HDFC Overnight Fund's "
-                "value is blank on the statement — shown as Hold at Rs0 pending confirmation.",
-                "SBI Gilt Fund and HDFC Gilt Fund duplicate each other — same category, same single "
-                "risk factor (sovereign duration); a consolidation candidate even though both are "
-                "individually Hold.",
+                "match the real fund sum (Rs 94.2L); excluded as an unexplained outlier. HDFC "
+                "Overnight Fund's value is blank on the statement — shown as Sell at Rs0 pending "
+                "confirmation.",
+                "Per the Principal's 2026-07-29 client-specific instruction, all liquid/debt/"
+                "arbitrage and debt-dominant conservative-hybrid holdings are exited to cash: SBI "
+                "Gilt, HDFC Gilt, HDFC Overnight, Aditya Birla Regular Savings, HDFC Hybrid Debt, "
+                "plus the pre-existing HDFC NIFTY 50 Index and HDFC Floating Rate Debt Sells — 7 "
+                "fund exits total, none a performance call. SBI Gilt and HDFC Gilt also duplicate "
+                "each other (same category, same single risk factor) — moot now both are exiting.",
                 "Equity gain/loss uses real Invested Value from the statement — a real loss, zero tax. "
-                "The 2 fund exits have no cost-basis data at all; their tax is unknown, not assumed zero.",
+                "The 7 fund exits have no cost-basis data at all; LTCG is assumed per house "
+                "convention (not computed) — confirm with your tax adviser.",
                 "No IPS, goals, timeline, or family/meeting history exists yet — this is a first "
                 "review; personalization fields are marked 'not yet on file' rather than assumed.",
             ],

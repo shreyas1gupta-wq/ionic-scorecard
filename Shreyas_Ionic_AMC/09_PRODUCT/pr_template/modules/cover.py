@@ -41,7 +41,7 @@ def render(deck, ctx, tier):
     deck.txt(s, ML, 6.45, 7.0, 0.3, [("Co-founder in your journey of wealth creation",
                                       SERIF, 12, NT2, False, True)])
     demo_tag = ("[ILLUSTRATIVE, synthetic demo client; not a real portfolio]"
-                if ctx.get("is_demo", True) else "")
+                if ctx.get("is_demo", False) else "")
     sep = "   ·   " if demo_tag else ""
     deck.txt(s, ML, 6.80, 7.0, 0.25, [(f"As of {c['as_of']}{sep}", SANS, 8.5, NT2, False),
                                       (demo_tag, SANS, 7.5, NT2, False, True)])

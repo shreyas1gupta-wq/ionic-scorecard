@@ -29,6 +29,10 @@ def render(deck, ctx, tier):
     as_of = ctx["client"]["as_of"]
     eyebrow, title = LABELS.get(reg, LABELS["std"])
 
+    if len(ctx["equity"]) < 2:
+        return 0  # 2026-07-28: a fund-heavy client with <2 direct holdings has no "two largest
+                  # positions" story; the module's body text names them by index below
+
     b = [0.0, 0.0, 0.0, 0.0]
     b[0] += ctx["totals"]["cash_pct"]                       # cash: same day
     for e in ctx["equity"]:

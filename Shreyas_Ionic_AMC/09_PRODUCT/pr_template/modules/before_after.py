@@ -60,7 +60,7 @@ def render(deck, ctx, tier):
         deck.pic(s, png, bx, 2.02, 3.5, 2.85, valign="middle")
 
     body = (f"{_money(proceeds)} is freed to cash after execution and stays in cash until deployment "
-            f"is agreed separately, never auto-invested; the staging framework sits on the previous page.")
+            f"is agreed separately, never auto-invested.")
     if reg == "simple":
         body = (f"After we sell, {_money(proceeds)} sits safely in cash. We reinvest it slowly, "
                 f"step by step, it is never put to work automatically.")
