@@ -3,9 +3,59 @@ name: ionic-wealth-complete
 description: The ONE comprehensive operating manual for Ionic Wealth's client product suite — NDPMS portfolio-review deck (pr_template), Stock Scorecard 750 (quantamental scoring), MF quality frameworks (QFRA-1/QFRA-2), client intake, QA gates, all Principal rulings, environment, and the full agent roster. Give this file to any team member; nothing else needed besides the GitHub repo.
 ---
 
-# Ionic Wealth — Complete Operating Manual (v1, 2026-07-30)
+# Ionic Wealth — Complete Operating Manual (v2, 2026-07-31)
 
-Everything a team member needs to produce client deliverables. This is the SINGLE source of truth. The GitHub repo (`NIFTY 500/Shreyas_Ionic_AMC/`) has all code, data, and scripts referenced below.
+Everything a team member needs to produce client deliverables. This is the SINGLE source of truth. The GitHub repo has all code, data, and scripts referenced below.
+
+> **Repo:** https://github.com/shreyas1gupta-wq/ionic-scorecard (private)
+
+---
+
+## QUICK START: Holdings In → PPTX Deck Out
+
+**INPUT:** A client's holdings file (CSV or XLSX extracted from NSDL CAS statement).
+Required columns (case-insensitive): `type` (EQ/MF), `name`, `isin` (preferred), `units`, `value_inr`.
+
+**OUTPUT:** A branded Ionic Wealth PPTX portfolio-review deck (75/40/23 slides depending on tier).
+
+### The 6-step pipeline (end to end)
+
+```
+STEP 1  Holdings file arrives (CSV/XLSX from CAS)
+   ↓
+STEP 2  client_intake.py matches each holding to the scored universe
+   ↓    → pf_qual_*.json (equity scores) + QFRA verdicts (fund scores)
+   ↓    → exceptions.csv (unmatched rows → back to RM, never dropped)
+   ↓
+STEP 3  Create data/<client>.py (ctx dict) from matched results
+   ↓    → Copy data/azby_family.py as template, fill real numbers
+   ↓    → Every Sell/Hold call comes from scorecard + analyst research
+   ↓    → Every fund verdict comes from QFRA-1 + QFRA-2 frameworks
+   ↓
+STEP 4  Build the deck
+   ↓    cd Shreyas_Ionic_AMC/09_PRODUCT/pr_template
+   ↓    set PYTHONIOENCODING=utf-8 && set PYTHONUNBUFFERED=1
+   ↓    "C:\...\python.exe" build_<client>.py HNI_DEEP
+   ↓
+STEP 5  QA gates (ALL mandatory, in order)
+   ↓    a) check_geometry.py + check_geometry2.py = 0 findings
+   ↓    b) tellscan.py = 0 real findings
+   ↓    c) Visual check of changed slides
+   ↓    d) Cross-panel number consistency
+   ↓
+STEP 6  Principal sign-off → publish to 09_PRODUCT/reports/
+```
+
+### What if the scored universe is missing for a stock?
+The intake script flags unmatched stocks in `exceptions.csv`. For each:
+- Run the Stock Scorecard 750 pipeline (Part 2 below) to score it — one Sonnet agent per stock does ~3min deep research
+- The analyst's `pf_qual_<SYMBOL>.json` is the output, which feeds directly into the deck's data layer
+- Until scored, the stock gets `"No Recommendation"` — never a fabricated score
+
+### What if QFRA data is missing for a fund?
+- QFRA-2 covers 40 curated funds; held funds outside it get an honest gap note: "needs a QFRA-2 scoring run"
+- A fund with no framework coverage gets `"No View"` — never a fabricated verdict
+- The deck renders these honestly (the module handles missing data gracefully)
 
 ---
 
