@@ -495,8 +495,12 @@ Always set: PYTHONIOENCODING=utf-8  PYTHONUNBUFFERED=1  (console is cp1252)
 ### PowerShell 5.1
 No `&&` operator. Write Python to .py files and execute (here-strings break raw strings).
 
-### LibreOffice (PDF conversion)
-User-local install: `%LOCALAPPDATA%\Apps\LibreOffice` (msiexec /a extract, no admin).
+### PDF conversion (`pptx_to_pdf.py`, auto-backend)
+Three backends tried in order (best-available wins):
+1. **PowerPoint COM** (desktop, pixel-perfect) — needs `comtypes` pip package + MS Office. `pip install comtypes` once.
+2. **LibreOffice** (user-local `%LOCALAPPDATA%\Apps\LibreOffice`, msiexec /a extract, no admin)
+3. **Slide-to-PNG** (pure Python, works on web/sandbox/no-Office) — rasterises at 150 DPI, text not selectable but layout faithful
+Force a backend: `--backend pptx|libre|png`. Default = auto-detect.
 
 ### Angel SmartAPI (data only, NO real trades ever)
 API key: 8crMtPbu, client: S59047501. Rate limit AB1021: use >=1.2s/req, retry passes.
