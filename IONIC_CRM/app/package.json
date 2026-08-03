@@ -1,0 +1,54 @@
+{
+  "name": "ionic-crm",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Internal ticket and status-punch CRM. Append-only progress log, deadline discipline, tamper-evident audit trail.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+
+    "test": "node scripts/test-all.mjs",
+    "test:unit": "vitest run src/domain src/auth",
+    "test:db": "vitest run src/db",
+    "test:repo": "vitest run src/repo",
+    "test:service": "vitest run src/service",
+    "test:all": "vitest run",
+    "test:watch": "vitest",
+
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm run test && npm run build"
+  },
+  "//test": [
+    "`test` deliberately runs four SEPARATE vitest invocations rather than one.",
+    "Each database-backed suite loads a whole Postgres compiled to WebAssembly, and on a",
+    "memory-constrained machine (this one had ~2.7 GB free of 15.6 GB) three of those plus",
+    "Vite's transform pipeline in a single process exhausts the allocator. The failure",
+    "surfaces as ERR_IPC_CHANNEL_CLOSED, which looks nothing like the out-of-memory error",
+    "it actually is. Separate processes let the OS reclaim between suites.",
+    "",
+    "It chains `vitest` directly rather than `npm run test:unit && npm run test:db && ...`",
+    "because each nested `npm run` keeps its own long-lived node process alive for the",
+    "duration of the child, and four of those was itself enough to tip the run over.",
+    "",
+    "`test:all` runs everything in one process: faster, and fine on a machine with room."
+  ],
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.4",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "postcss": "^8.5.25",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "jose": "^6.2.7",
+    "next": "^16.2.12",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  }
+}

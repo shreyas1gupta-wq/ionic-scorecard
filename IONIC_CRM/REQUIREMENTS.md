@@ -143,9 +143,9 @@ Reports are read-only derivations. No report can alter a record.
 
 ---
 
-## 8. Scope boundary — three things this tool must never hold
+## 8. Scope boundary — what this tool must never hold
 
-This is the most important section in the document. Research into the SEBI Portfolio Managers Regulations found two specific provisions that would pull an internal task tracker into regulated-records territory, with obligations this design cannot meet. Staying outside them is a *design rule*, not a preference.
+The most important section in the document. Research into the SEBI Portfolio Managers and Research Analysts Regulations found several provisions that would pull an internal task tracker into regulated-records territory, carrying obligations this design cannot meet — five-year preservation, Principal Officer custody, and SEBI-specified formats. Staying outside them is a *design rule*, not a preference.
 
 ### 8.1 No client identifiers
 The `client_ref` field holds **an opaque code only**. Client names, portfolio values, PAN, contact details and account numbers never go anywhere in this system.
@@ -160,8 +160,22 @@ So: tickets may say *"prepare the Q2 review deck for account 4471"*. They may no
 ### 8.3 No client complaints — Regulation 11(d)
 Reg 11(d) requires grievance redressal within one month and that SEBI be kept informed of *"the number, nature and other particulars of the complaints received"*. **If client complaints are logged as tickets, this tool becomes the firm's complaints register** — with SCORES obligations attached. Complaints go wherever the firm already handles them.
 
-### 8.4 Why this matters more than it looks
-Keeping all three out means the tool holds only **employee task data**, which carries no SEBI preservation duty on its face. That is the difference between an internal convenience and a regulated record system. It costs nothing to decide now and is expensive to unwind later.
+### 8.4 No client-report or account evidence — Regulations 30–31
+Reg 29 preserves *"records and documents mentioned under this chapter"*, and that chapter — **Chapter IV, Regulations 21 to 34** — also contains Reg 30 (separate client-wise accounts) and Reg 31 (periodic reports to the client). So a ticket that *evidences* a client report having been produced, checked or sent is itself inside the preserved set.
+
+Tickets may reference *that* a deliverable exists. They must not become the record of its content or its sign-off.
+
+### 8.5 No client correspondence, if the firm holds RA registration
+SEBI (Research Analysts) Reg 25(1) was amended on 16 December 2024 to add clause **(vii): *"records of communication including emails, call recordings etc. with all clients including prospective clients in such manner as may be specified"***. This is wider than the investment-reasoning rule — it captures client *correspondence* generally, and lets SEBI specify the manner of keeping it.
+
+### 8.6 Why this matters more than it looks
+**A correction from the research verification.** My first draft called the five-year preserved set "a closed enumeration" that an employee-only tracker escapes entirely. That was wrong and gave false comfort: the set is defined by **subject matter across all of Chapter IV**, not by a short list. A ticketing tool used by an APM at an NDPMS house plausibly touches §8.3 and §8.4, not just §8.2.
+
+Keeping all five categories out means the tool holds only **employee task data**, which carries no preservation duty. That is the difference between an internal convenience and a regulated record system, and it is far cheaper to decide now than to unwind.
+
+**What this does NOT buy.** It does not put the app outside SEBI's cybersecurity framework. CSCRF scope follows *what the system is used for*, and a tracker holding NDPMS deliverables is used for regulated activity whether or not client names appear in it. The realistic target is **in scope but classified non-critical**, which SEBI expressly permits for business-non-critical internal tools on a documented risk assessment. `DESIGN.md` §8.5 covers this.
+
+**One hard rule follows from it:** **no integration, no data feed, no shared credential and no link between this tool and any other firm system that handles client or regulated data.** Connected systems get pulled into audit scope. Segregation is the control.
 
 Honest limitation: this is **policy, not enforcement.** Nothing can stop someone typing a client name — or an investment rationale — into a free-text box. Mitigations: an inline warning on description and note fields, the rule stated at first login, and an admin able to see and act on violations. But the boundary is ultimately held by the people using it, and it should be said out loud when the tool is introduced.
 
@@ -189,6 +203,7 @@ No impersonation feature. An admin viewing data is fine; an admin *acting as* so
 - **IST throughout.** Server time is authoritative for every punch.
 - **Mobile-responsive.** People punch status from their phones; if that is awkward they will not do it, and the tool dies.
 - **Every write audited**, including reads of the audit log itself.
+- **Access and authentication events recorded by the application itself**, retained **two years — at least six months queryable, the remainder archived**. This is a SEBI CSCRF obligation on all regulated entities, and no free-tier vendor log meets it: Cloudflare Access retains authentication logs for about a day, Supabase for one day (one hour for auth). If the app does not write these rows, "who logged in, when, and what did they see" is unrecoverable. See `DESIGN.md` §8.
 - **Sessions:** governed by the Cloudflare Access policy, not by application code — see `DESIGN.md` §3. Revocation is an Access action, not a feature we build.
 - **Availability:** an internal tool. Brief downtime is an inconvenience, not an incident. No HA requirement.
 - **Recoverable:** a documented restore drill that has actually been run, not just written down.
@@ -203,7 +218,7 @@ Named so they don't creep in: client-facing access · sales pipeline / leads / d
 
 ## 12. V1 / V2 split
 
-**V1 — build this:** roles and Cloudflare Access OTP login · ticket CRUD · the punch model with the immutability rules · deadlines with working-day maths and change control · My Tickets / team / admin views · stale flagging · the seven reports · CSV + Excel export · user lifecycle · audit log with integrity check · encrypted backup.
+**V1 — build this:** roles and Cloudflare Access OTP login · ticket CRUD · the punch model with the immutability rules · deadlines with working-day maths and change control · My Tickets / team / admin views · stale flagging · the seven reports · CSV + Excel export · user lifecycle · audit log with integrity check · **access-event log with two-year retention** · encrypted backup · rate limiting.
 
 **V2 — after it's in real use:** Auditor role · verification step on close · file attachments · SLA clocks with auto-escalation · saved filters · bulk operations · calendar view · recurring tickets · webhook out · digest email once delivery is solved.
 

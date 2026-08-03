@@ -244,6 +244,27 @@ column), and the note now states plainly this must not be carried into any Princ
 without re-running the underlying test from scratch.
 
 ---
+## ADDENDUM 2026-08-03 (OPEN_ITEMS_20260803) — correction to DEBT 3's "cannot be measured" claim
+**[DATA] Independent spot-check found a pre-2010 series this pass missed.**
+`datasets/index_daily/factor_navs_principal.parquet` (already in `DATA_CATALOG.md` line 65, source:
+Principal-contributed `factor_navs (1).xlsx`) contains a row-series `series=='NIFTY 50'` spanning
+**2005-04-01 -> 2026-01-05, n=5,151 daily rows, 0 nulls** — a different file from the
+`datasets/index_daily/nifty50.parquet` (2016+) this report checked, in the same directory.
+Verified against two independent public-record facts, not just internal consistency: **2008-01-08 =
+6287.85** (matches the well-known pre-GFC NIFTY 50 closing high that week) and **2008-10-24 =
+2584.00** (matches the well-known Lehman-week crash print). High confidence this is the genuine
+NIFTY 50 price index, not a mislabeled/Total-Return variant (a TRI series would sit materially
+higher by 2008 given 3 years of reinvested-dividend compounding from a 1995 base).
+**Correction**: the claim "2008 GFC and any pre-2012 event CANNOT be measured from what the firm
+holds" is WRONG for NIFTY 50 specifically — 2008 IS measurable now, on the index the selling book
+actually trades (more directly useful than the originally-recommended SENSEX acquisition would have
+been). The narrower claim **"no SENSEX series exists anywhere on disk or in git history" still
+stands** — this addendum found a NIFTY 50 substitute, not a SENSEX series, and did not re-search for
+one. Not yet done: re-running DEBT 3's tail-stress table (`tail_stress.csv`, currently 2012-2026 only)
+on this longer series to get real 2008 numbers — flagged for a follow-up, not fabricated here.
+`05_DATA_OFFICE/DATA_CATALOG.md` line 65 already documented this file's 2005 start; the miss was in
+this report's own directory sweep, not in the catalog.
+
 ## Files
 `scripts/debt1_dsr_pbo.py` · `scripts/debt2_swing_maxdd.py` · `scripts/debt3_tail_stress.py` ·
 `dsr_pbo.csv` · `swing_maxdd_reconciliation.csv` · `tail_stress.csv` · edits to

@@ -1,0 +1,33 @@
+[load] gold 1-min, ET->IST, MCX session filter (memory-light path)
+Traceback (most recent call last):
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\GOLD_VENUE_20260803\gold_venue_scan.py", line 62, in <module>
+    spot = gl.load_gold_ist()
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\GOLD_INTRADAY_20260731\gold_lib.py", line 58, in load_gold_ist
+    df = df.drop_duplicates("ts").sort_values("ts").reset_index(drop=True)
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\frame.py", line 8370, in sort_values
+    indexer = nargsort(
+        k, kind=kind, ascending=ascending, na_position=na_position, key=key
+    )
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\sorting.py", line 428, in nargsort
+    return items.argsort(
+           ~~~~~~~~~~~~~^
+        ascending=ascending,
+        ^^^^^^^^^^^^^^^^^^^^
+        kind=kind,
+        ^^^^^^^^^^
+        na_position=na_position,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\arrays\base.py", line 1012, in argsort
+    return nargsort(
+        values,
+    ...<3 lines>...
+        mask=np.asarray(self.isna()),
+    )
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\sorting.py", line 435, in nargsort
+    non_nans = items[~mask]
+                     ^^^^^
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 5.61 MiB for an array with shape (5880521,) and data type bool
+exit=1

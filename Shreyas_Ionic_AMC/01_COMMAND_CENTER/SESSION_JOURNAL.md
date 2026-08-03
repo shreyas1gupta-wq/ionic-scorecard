@@ -4,6 +4,28 @@ Newest entries at TOP.
 
 ---
 
+## 2026-08-03 (DESK-100) — 750-universe research completion LAUNCHED (522 stocks, 27 Sonnet agents) + firm cadence re-armed
+Principal order: "complete 750 stocks final... batch of 100 stocks using multiple agents for 10 10
+or 20 20 each basis our finalized method also complete the weekly autorun task and MF also same."
+State found: quant layer COMPLETE for all 751 (results/full750_scored.csv, TTM v7); analyst layer at
+230/751 pf_qual files → 522 missing. Plan banked to
+`04_RND_LAB/STOCK_SCORECARD_750/results/RESEARCH_750_BATCH_PLAN.json` (6 batches of ≤100, 27
+agent-chunks of ≤20; done = pf_qual file exists on disk → fully resume-safe; agents write each
+pf_qual_<SYM>.json the moment the stock finishes, never batch-saved). Workflow `research-750-
+completion` (run wf_5f002bfa-5f4) dispatched: 27 Sonnet agents on the FROZEN V1 method
+(ANALYST_KIT/SKILL.md binding: Sell/Hold only, asymmetric Sell→Hold override, growth number
+calibrated, narrow escalation, real sources). RESUME IF CUT: re-run make-batch-plan (recomputes
+missing from disk) and relaunch the same workflow — nothing already on disk is redone.
+Cadence re-armed per OPERATING_CALENDAR §automatable (session-bound crons, 7-day expiry —
+re-arm each session per protocol): weekly stock re-score Thu 16:33 (run_weekly_v1.py router),
+EOD daily 17:03, paper Fri 15:57, risk Fri 17:07, macro Sun 18:03, pipeline Sun 19:07,
+weekly-meet Mon 09:33, month-end ×2 one-shots Aug-31, factor-NAV one-shot Aug-16, MF NAV refresh
+one-shot Sep-1 08:10. MF model runs stay Apr/Oct (next Oct-end 2026, per Principal 2026-07-26).
+Files: RESEARCH_750_BATCH_PLAN.json, RESEARCH_750_SECTORS.json (new); pf_qual_*.json accruing in
+STOCK_SCORECARD_750/results/. Next: on workflow completion — reconcile coverage (target 751/751),
+rebuild ANALYST_RECOMMENDATIONS.xlsx via build_analyst_excel.py, journal the Sell/Hold/escalation
+tallies, Principal review of escalations.
+
 ## 2026-08-02/03 (DESK-100) — PLEDGE_SAFE: Rs50L bond+Rs50L MF pledge-and-sell backtest, red-teamed, corrected; put-calendar family killed; protective-put hedge validated
 Principal ask: backtest pledging Rs 50L G-sec (8%) + Rs 50L equity MF (12% assumed) as broker
 collateral, running the margin through options to generate yield "in a very very safe way." Reused

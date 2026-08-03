@@ -35,15 +35,14 @@ HERE = Path(__file__).parent
 sys.path.insert(0, str(HERE))
 import gold_venue_lib as gvl  # noqa: E402
 
+import gold_lib as gl  # noqa: E402
+
 t0 = time.time()
-print("[load] gold 1-min, ET->IST, FULL", flush=True)
-full = gvl.load_gold_full_ist()
-tod = full.index.time
-sess_mask = (tod >= gvl.MCX_START) & (tod <= gvl.MCX_END)
-spot = full[sess_mask].copy()
+print("[load] gold 1-min, ET->IST, MCX session filter (memory-light path)", flush=True)
+spot = gl.load_gold_ist()
 print(f"       session bars={len(spot):,}  ({time.time()-t0:.1f}s)", flush=True)
 
-daily = gvl.session_daily_stats(full)
+daily = gvl.compute_daily_stats()
 print(f"       daily table: {len(daily)} days  ({time.time()-t0:.1f}s)", flush=True)
 
 spot["date"] = spot.index.date

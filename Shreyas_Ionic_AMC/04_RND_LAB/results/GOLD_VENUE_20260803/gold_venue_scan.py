@@ -33,6 +33,7 @@ PRE-REGISTRATION (written before any cell was run):
 """
 from __future__ import annotations
 
+import datetime as dt
 import json
 import sys
 import time
@@ -42,6 +43,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 from scipy import stats
+from sklearn.metrics import roc_auc_score
 
 warnings.filterwarnings("ignore")
 HERE = Path(__file__).parent
@@ -49,7 +51,20 @@ sys.path.insert(0, str(HERE))
 import gold_venue_lib as gvl  # noqa: E402
 import gold_lib as gl  # noqa: E402
 from pathsafe import simulate_exit  # noqa: E402
-from indicators import atr as _atr, sig_squeeze_release, make_entries  # noqa: E402
+import indicators  # noqa: E402
+from indicators import atr as _atr, sig_squeeze_release  # noqa: E402
+
+# BUG FOUND 2026-08-03 (before any cell ran): indicators.make_entries hard-filters entries to
+# lib_signals.TOD_START..TOD_END = 09:20-14:45 (NIFTY's own window). Gold's MCX session is
+# 09:00-23:30; reusing the NIFTY filter verbatim would have silently zeroed every SQUEEZE_RELEASE
+# / NR7_BREAKOUT / BB_WIDTH_PCTL / KC_WIDTH_PCTL / INSIDE_BAR_CLUSTER entry after 14:45 -- exactly
+# the London-open/NY-open/late-session buckets this scan exists to test (mandate priority #1).
+# Patch BOTH the indicators module's own global (so sig_squeeze_release's internal call picks it
+# up) and this module's local name (so _nr7 below picks it up) to gold_venue_lib's MCX-aware
+# version. gold_venue_lib.py's own sig_inside_bar_cluster/sig_width_pctl_release were fixed at
+# their source instead (they call gvl.make_entries_mcx directly now).
+indicators.make_entries = gvl.make_entries_mcx
+make_entries = gvl.make_entries_mcx
 
 RNG = np.random.default_rng(20260803)
 N_REPS = 150
@@ -57,26 +72,48 @@ RR_GRID = [1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0, 8.0]
 COST_1X, COST_2X = gvl.COST_1X_PCT, gvl.COST_2X_PCT
 BUCKET_NAMES = [b[0] for b in gvl.BUCKET_EDGES]
 
+# MEMORY NOTE (2026-08-03): this box was under severe system-wide virtual-memory pressure today
+# (other processes had committed 62-63 of 64.7GB pagefile) -- even `gl.load_gold_ist()`'s own
+# all-years concat of the full 1-min frame (~3.7M rows) OOM'd at a 5.6MiB allocation. Everything
+# below is built from `gvl.build_bars15_streaming()` / `gvl.compute_daily_stats()`, which process
+# ONE YEAR FILE AT A TIME and never hold more than ~350k raw 1-min rows in memory. The full 1-min
+# `spot` frame is loaded LAZILY (see get_spot_by_day() below) and ONLY if a cell actually clears
+# the cheap-gate cascade and needs its placebo/benchmark diagnostic -- on the 2026-07-31 prior
+# pass NEITHER trigger cleared that gate, so this path is expected to be rarely/never exercised.
 t0 = time.time()
-print("[load] gold 1-min, ET->IST, FULL (no session filter, for the gap test)", flush=True)
-full = gvl.load_gold_full_ist()
-print(f"       {len(full):,} bars  {full.index[0]} .. {full.index[-1]}  ({time.time()-t0:.1f}s)",
-      flush=True)
-
-tod = full.index.time
-sess_mask = (tod >= gvl.MCX_START) & (tod <= gvl.MCX_END)
-spot = full[sess_mask].copy()
-print(f"[filter] MCX session: {len(spot):,} bars ({time.time()-t0:.1f}s)", flush=True)
-by_day = gl.build_by_day(spot)
-
-print("[stats] per-day gap/OR/typical-range table", flush=True)
-daily = gvl.session_daily_stats(full)
-print(f"       {len(daily):,} MCX days  ({time.time()-t0:.1f}s)", flush=True)
-
-bars15 = gl.resample_bars(spot, "15min")
-print(f"[bars] 15min: {len(bars15):,} bars  ({time.time()-t0:.1f}s)", flush=True)
+print("[load] MCX 15-min bars, streamed one year at a time (memory-light)", flush=True)
+bars15 = gvl.build_bars15_streaming()
+print(f"       {len(bars15):,} bars  {bars15.index[0]} .. {bars15.index[-1]}  "
+      f"({time.time()-t0:.1f}s)", flush=True)
 by_day15 = {d: g for d, g in bars15.groupby(bars15.index.date)}
 atr20 = _atr(bars15.h, bars15.l, bars15.c, 20)
+
+print("[stats] per-day gap/OR/typical-range table (streamed one year at a time)", flush=True)
+daily = gvl.compute_daily_stats()
+print(f"       {len(daily):,} MCX days  ({time.time()-t0:.1f}s)", flush=True)
+
+_spot_cache: dict = {}
+
+
+def get_spot_by_day():
+    """Lazy, cached, memory-guarded load of the full 1-min session-filtered spot (needed only by
+    gl.placebo_pct/gl.forward_pct/gl.unconditional_benchmark for cells that clear the cheap gate).
+    Returns (None, None) if the load fails so callers can degrade gracefully instead of crashing
+    the whole run."""
+    if "spot" not in _spot_cache:
+        print("  [lazy-load] a cell cleared the cheap gate -- loading full 1-min spot for its "
+              "placebo/benchmark diagnostic (this is the allocation that OOM'd earlier today)",
+              flush=True)
+        try:
+            sp = gl.load_gold_ist()
+            _spot_cache["spot"] = sp
+            _spot_cache["by_day"] = gl.build_by_day(sp)
+        except MemoryError as e:
+            print(f"  [lazy-load FAILED] {e!r} -- diagnostic skipped, cell reported UNVERIFIED",
+                  flush=True)
+            _spot_cache["spot"] = None
+            _spot_cache["by_day"] = None
+    return _spot_cache["spot"], _spot_cache["by_day"]
 
 
 # ------------------------------------------------------------------ day-keyed signal generators
@@ -167,6 +204,15 @@ def _nr7(bars, n=7):
     return make_entries(bull, bear, bars.index)
 
 
+def _checkpoint():
+    """Incremental checkpoint (2026-08-03: jobs in this fleet have died mid-run repeatedly today).
+    Called after EVERY family below so a crash loses at most one family's diagnostics, never the
+    whole run. Overwrites the same 3 files each time -- cheap at 10 families."""
+    pd.DataFrame(all_curve_rows).to_csv(HERE / "cells.csv", index=False)
+    pd.DataFrame(all_bucket_rows).to_csv(HERE / "timebuckets.csv", index=False)
+    json.dump(report, open(HERE / "gold_venue_results.json", "w"), indent=2, default=str)
+
+
 # ------------------------------------------------------------------------------ the family loop
 report = {}
 all_curve_rows = []
@@ -235,6 +281,7 @@ for tname, tfunc in TRIGGERS.items():
     if not curve:
         print("  no RR cell had n>=40, skip", flush=True)
         report[tname] = dict(rr_curve=curve, verdict="INSUFFICIENT_N")
+        _checkpoint()
         continue
 
     cdf = pd.DataFrame(curve)
@@ -255,25 +302,32 @@ for tname, tfunc in TRIGGERS.items():
 
     cheap_pass = net_1x_best > 0 and np.isfinite(t_nw) and abs(t_nw) >= 2.0 and conc <= 0.30
     placebo_p = bench_mean = bench_p = None
+    diag_unavailable = False
     if cheap_pass:
-        ent_for_diag = deduped[deduped["t"].isin(sel["t"])][["t", "dir"]]
-        obs_proxy_col = "r_eod" if best_rr >= 3 else "r60"
-        pl = gl.placebo_pct(spot, ent_for_diag, obs_proxy_col, RNG, N_REPS, by_day=by_day)
-        pl = pl[np.isfinite(pl)]
-        f_obs = gl.forward_pct(spot, ent_for_diag, by_day=by_day)
-        obs_proxy_mean = float(f_obs[obs_proxy_col].mean()) if len(f_obs) else np.nan
-        placebo_p = float((pl >= obs_proxy_mean).mean()) if len(pl) else np.nan
-        bm = gl.unconditional_benchmark(spot, ent_for_diag, obs_proxy_col, RNG, by_day, N_REPS)
-        bm = bm[np.isfinite(bm)]
-        bench_mean = float(np.mean(bm)) if len(bm) else np.nan
-        bench_p = float((bm >= obs_proxy_mean).mean()) if len(bm) else np.nan
+        spot, by_day = get_spot_by_day()
+        if spot is None:
+            diag_unavailable = True
+        else:
+            ent_for_diag = deduped[deduped["t"].isin(sel["t"])][["t", "dir"]]
+            obs_proxy_col = "r_eod" if best_rr >= 3 else "r60"
+            pl = gl.placebo_pct(spot, ent_for_diag, obs_proxy_col, RNG, N_REPS, by_day=by_day)
+            pl = pl[np.isfinite(pl)]
+            f_obs = gl.forward_pct(spot, ent_for_diag, by_day=by_day)
+            obs_proxy_mean = float(f_obs[obs_proxy_col].mean()) if len(f_obs) else np.nan
+            placebo_p = float((pl >= obs_proxy_mean).mean()) if len(pl) else np.nan
+            bm = gl.unconditional_benchmark(spot, ent_for_diag, obs_proxy_col, RNG, by_day, N_REPS)
+            bm = bm[np.isfinite(bm)]
+            bench_mean = float(np.mean(bm)) if len(bm) else np.nan
+            bench_p = float((bm >= obs_proxy_mean).mean()) if len(bm) else np.nan
     else:
         print(f"  cheap gates failed (net1x={net_1x_best:+.4f}%, t_nw={t_nw:.2f}, "
               f"conc={conc:.3f}) -> skip placebo/benchmark", flush=True)
 
     verdict = "DEAD (magnitude/t/concentration)"
     if cheap_pass:
-        if placebo_p is not None and placebo_p >= 0.05:
+        if diag_unavailable:
+            verdict = "CLEARS CHEAP GATE -- PLACEBO UNVERIFIED (memory constrained)"
+        elif placebo_p is not None and placebo_p >= 0.05:
             verdict = "DEAD (fails own placebo)"
         elif bench_p is not None and bench_p >= 0.05:
             verdict = "DEAD (beta -- no better than unconditional benchmark)"
@@ -325,33 +379,25 @@ for tname, tfunc in TRIGGERS.items():
           f"-> {verdict}", flush=True)
     print(f"  HELD OUT n={len(ho)}: gross={report[tname]['heldout_mean_gross_pct']}% "
           f"net1x={report[tname]['heldout_mean_net_1x_pct']}%", flush=True)
+    _checkpoint()
 
-json.dump(report, open(HERE / "gold_venue_results.json", "w"), indent=2, default=str)
-pd.DataFrame(all_curve_rows).to_csv(HERE / "cells.csv", index=False)
-pd.DataFrame(all_bucket_rows).to_csv(HERE / "timebuckets.csv", index=False)
 print(f"\n[done family loop] elapsed {time.time()-t0:.1f}s", flush=True)
 
 # ------------------------------------------------------------------- descriptive session profile
+# BUG FOUND 2026-08-03 (before any cell ran): this section originally referenced a bare `spot`
+# global that is ONLY assigned inside the family loop's lazy cheap-gate branch (line ~284) -- if
+# NO family cleared the cheap gate (as happened on the entire 2026-07-31 prior pass), `spot` was
+# never assigned and this section would NameError, losing every result computed above it. Rebuilt
+# as a memory-light streaming pass (one year file at a time) so it is now BOTH crash-proof and
+# immune to the full-frame OOM that hit gl.load_gold_ist() earlier today.
 print("\n=== SESSION PROFILE (descriptive, unconditional) ===", flush=True)
-spot_p = spot.copy()
-spot_p["logret"] = np.log(spot_p["close"]).diff()
-spot_p["bucket"] = gvl.time_bucket(pd.Series(spot_p.index, index=spot_p.index))
-prof_rows = []
-for b in BUCKET_NAMES:
-    bd = spot_p[spot_p["bucket"] == b]
-    lr = bd["logret"].dropna()
-    n_days = bd.index.normalize().nunique()
-    rng_pct = (bd.groupby(bd.index.date)["high"].max() - bd.groupby(bd.index.date)["low"].min())
-    open_by_day = bd.groupby(bd.index.date)["open"].first()
-    rng_pct_norm = (rng_pct / open_by_day * 100).mean()
-    prof_rows.append(dict(bucket=b, n_days=int(n_days), n_1min_bars=int(len(bd)),
-                          mean_1min_logret_bps=round(float(lr.mean()) * 1e4, 4),
-                          std_1min_logret_bps=round(float(lr.std()) * 1e4, 4),
-                          mean_bucket_range_pct=round(float(rng_pct_norm), 4)))
-    print(f"  {b:<12} n_days={n_days:<5} mean_1min_ret_bps={prof_rows[-1]['mean_1min_logret_bps']:+.4f} "
-          f"std_1min_bps={prof_rows[-1]['std_1min_logret_bps']:.4f} "
-          f"mean_range_pct={prof_rows[-1]['mean_bucket_range_pct']:.4f}", flush=True)
-pd.DataFrame(prof_rows).to_csv(HERE / "session_profile.csv", index=False)
+print("  (memory-light streaming pass, one year file at a time)", flush=True)
+prof_df = gvl.compute_session_profile_streaming()
+for _, r in prof_df.iterrows():
+    print(f"  {r['bucket']:<12} n_days={r['n_days']:<5} mean_1min_ret_bps={r['mean_1min_logret_bps']:+.4f} "
+          f"std_1min_bps={r['std_1min_logret_bps']:.4f} "
+          f"mean_range_pct={r['mean_bucket_range_pct']:.4f}", flush=True)
+prof_df.to_csv(HERE / "session_profile.csv", index=False)
 
 # --------------------------------------------------------------------------------- RR-curve verdict
 print("\n=== RR-CURVE VERDICT (excess-hit slope across families) ===", flush=True)

@@ -1,0 +1,61 @@
+@import 'tailwindcss';
+
+/**
+ * Theme tokens.
+ *
+ * Both light and dark are defined because people will open this on a phone at
+ * 22:00 to punch a status, and a tool that only looks right in one mode reads as
+ * unfinished. Colours are neutral by design — this is an internal work tool, and
+ * the only place colour carries meaning is a status or an overdue flag, so
+ * everything else stays out of the way.
+ */
+:root {
+  --bg: #fbfbfa;
+  --surface: #ffffff;
+  --border: #e4e4e2;
+  --text: #1c1c1a;
+  --muted: #6b6b66;
+  --accent: #1f5f4f;
+  --danger: #9a2f2f;
+  --warn: #8a6415;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #131315;
+    --surface: #1b1b1e;
+    --border: #2e2e33;
+    --text: #ececea;
+    --muted: #9a9a95;
+    --accent: #6bbfa6;
+    --danger: #e08a8a;
+    --warn: #d9b46a;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-border-subtle: var(--border);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-danger: var(--danger);
+  --color-warn: var(--warn);
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Tabular figures keep deadline columns from shifting as digits change. */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}

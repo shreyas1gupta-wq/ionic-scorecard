@@ -1,0 +1,69 @@
+name = "ionic-crm"
+main = ".open-next/worker.js"
+compatibility_date = "2026-08-03"
+compatibility_flags = ["nodejs_compat"]
+
+# =============================================================================
+# THE SINGLE MOST IMPORTANT LINE IN THIS FILE
+#
+# Cloudflare Access enforces on a HOSTNAME. A Worker is also reachable at
+# <name>.<subdomain>.workers.dev unless that route is switched off — and that URL
+# does NOT pass through Access. Leaving it enabled gives the application a second
+# front door with no lock on it, which no amount of JWT verification in the app
+# can compensate for.
+#
+# Do not set this to true to "quickly test something". Use a preview deployment
+# behind the same Access policy instead.
+#
+# There is a test that hits the workers.dev URL and asserts a non-200 response.
+# If that test is failing, this is why.
+# =============================================================================
+workers_dev = false
+
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
+
+[observability]
+enabled = true
+
+# -----------------------------------------------------------------------------
+# Scheduled work. See DESIGN.md §8 recurring obligations.
+#   03:00 IST daily — encrypted backup + publish the audit chain's daily anchor
+#   03:30 IST daily — archive access_events older than six months
+# Cron is UTC: 21:30 and 22:00 the previous day.
+# -----------------------------------------------------------------------------
+[triggers]
+crons = ["30 21 * * *", "0 22 * * *"]
+
+# -----------------------------------------------------------------------------
+# Application-level rate limiting (src/security/rate-limit.ts, wired in
+# middleware.ts) runs inside this Worker and is bounded by ITS memory, not by
+# Cloudflare's network. It cannot see or throttle a flood before the request
+# reaches this isolate, and its in-memory store is per-isolate, not global
+# (see middleware.ts's file comment). CSCRF asks for rate limiting AND
+# throttling at the API — the network-edge half of that is a Cloudflare
+# dashboard configuration, not code, and nobody has done it yet:
+#
+#   - Zero Trust / WAF -> Rate limiting rules: a rule on the custom hostname
+#     capping requests per IP per interval, BEFORE the request reaches this
+#     Worker. This is a human action in the dashboard, not a file in this repo.
+#   - Security -> WAF -> Managed rules: enabling Cloudflare's managed ruleset
+#     is also a dashboard action; it is not represented anywhere in this repo.
+#   - Security -> Bots: bot-fight mode or Super Bot Fight Mode, dashboard-only,
+#     relevant because a scripted flood is the realistic threat model for an
+#     internal tool with no public marketing surface.
+#
+# None of the above is verified done. Recorded here so it is not silently
+# assumed to already exist just because the in-Worker limiter does.
+# -----------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
+# Secrets are NEVER listed here. Set them with:
+#   wrangler secret put CRM_ACCESS_TEAM_DOMAIN
+#   wrangler secret put CRM_ACCESS_AUD
+#   wrangler secret put CRM_DATABASE_URL
+# Anything in [vars] is plain text in the dashboard and in this repo.
+# -----------------------------------------------------------------------------
+[vars]
+NODE_ENV = "production"
