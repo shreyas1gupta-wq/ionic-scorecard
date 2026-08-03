@@ -26,7 +26,7 @@ Two Claude accounts run this firm on the same laptop, same folder:
 ## ENVIRONMENT (hard-won facts — do not re-learn)
 - Python: `C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\python.exe` (`python` alias BROKEN). Always `PYTHONIOENCODING=utf-8`, `PYTHONUNBUFFERED=1` (console is cp1252).
 - `truststore.inject_into_ssl()` before any HTTPS. Corporate proxy ~0.7MB/s; sequential `requests.Session()` only (threads stall). **NSE partially works:** `nsearchives.nseindia.com` bhavcopy zips + corporate-board-meetings/event-calendar APIs succeed after cookie warm-up (verified 370+ downloads 2026-07-03); other `/api` endpoints (FII/DII, constituents) still 403 → home network/VPN.
-- Angel SmartAPI: rate limit AB1021; use ≥1.2s/req, retry passes. Creds: data-only account (API key 8crMtPbu, client S59047501). Angel **purges expired option contracts** from its master — daily capture task `AngelDailyOptionCapture` (15:45/20:00/23:00 IST) handles this; DESK-100 owns it.
+- Angel SmartAPI: rate limit AB1021; use ≥1.2s/req, retry passes. Creds: data-only account (API key <ANGEL_API_KEY_REDACTED>, client <ANGEL_CLIENT_ID_REDACTED>). Angel **purges expired option contracts** from its master — daily capture task `AngelDailyOptionCapture` (15:45/20:00/23:00 IST) handles this; DESK-100 owns it.
 - PowerShell 5.1: no `&&`; write Python to .py files (here-strings break raw strings).
 
 ## DATA LANDMINES (violating these = fake backtests)

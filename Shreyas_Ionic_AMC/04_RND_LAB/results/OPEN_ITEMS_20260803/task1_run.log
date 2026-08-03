@@ -42,3 +42,7 @@ numpy._core._exceptions._ArrayMemoryError: Unable to allocate 1.18 MiB for an ar
 === ATTEMPT 2 Mon Aug  3 22:05:52 IST 2026 ===
 [speed] placebo draws reduced 200->50 (disclosed deviation, wall-clock)
 [spot] 463,826 bars 2021-05-24 09:15:00 .. 2026-06-03 15:30:00
+SANITY (target: n=9655 mean_pts=4.153 t_nw=2.576 largest_day_share=0.087): {'label': 'A6_ORIGINAL_BUGGY_REPRO', 'n_build': 9655, 'n_forward': 849, 'best_horizon': 'to15:25', 'mean_pts': 4.153, 't_nw': 2.576, 'hit': 0.5384, 'largest_day_share': 0.0872, 'placebo_p': 0.0, 'verdict': 'FORWARD-TEST CANDIDATE'}
+[checkpoint] wrote c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPEN_ITEMS_20260803\task1_a6_isolation.json (top keys: ['ablations', 'sanity_original_repro'], ablations: [])
+[audit] naive-vs-corrected expiry mismatch on 32,397 common buckets: 0.513 (NEWDIM reported 0.256)
+[checkpoint] wrote c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPEN_ITEMS_20260803\task1_a6_isolation.json (top keys: ['ablations', 'sanity_original_repro', 'expiry_mismatch_frac', 'n_buckets_dte_negative_dropped'], ablations: [])

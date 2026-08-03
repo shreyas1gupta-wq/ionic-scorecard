@@ -1,0 +1,16 @@
+[load] MCX daily stats + per-day trailing/afternoon features, streamed one year at a time (memory-light path)
+       daily table: 4341 days  (10.4s)
+       feature table: 4335 days  (19.1s)
+[panel] 4324 usable MCX days  (19.1s)
+  build n=4193  held-out n=131
+  build tercile cuts on forward_range_pct: lo=0.8186 hi=1.2273
+  [BUILD] trailing_rv_2h     rho=+0.3990 (p=0.0000)  AUC=0.7475
+  [BUILD] trailing_rv_4h     rho=+0.4264 (p=0.0000)  AUC=0.7641
+  [BUILD] atr_consumption    rho=+0.0866 (p=0.0000)  AUC=0.5529
+  [BUILD] or60_width_norm    rho=+0.1086 (p=0.0000)  AUC=0.5670
+  [HELDOUT] trailing_rv_2h     rho=+0.4034 (p=0.0000)  AUC=0.7495
+  [HELDOUT] trailing_rv_4h     rho=+0.4618 (p=0.0000)  AUC=0.7865
+  [HELDOUT] atr_consumption    rho=+0.1675 (p=0.0558)  AUC=0.5865
+  [HELDOUT] or60_width_norm    rho=+0.2134 (p=0.0144)  AUC=0.6444
+
+[done] elapsed 19.3s -> volstate.csv, volstate_panel.csv

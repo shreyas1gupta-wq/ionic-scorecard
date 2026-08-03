@@ -1,0 +1,17 @@
+{
+  "ablations": {},
+  "sanity_original_repro": {
+    "label": "A6_ORIGINAL_BUGGY_REPRO",
+    "n_build": 9655,
+    "n_forward": 849,
+    "best_horizon": "to15:25",
+    "mean_pts": 4.153,
+    "t_nw": 2.576,
+    "hit": 0.5384,
+    "largest_day_share": 0.0872,
+    "placebo_p": 0.0,
+    "verdict": "FORWARD-TEST CANDIDATE"
+  },
+  "expiry_mismatch_frac": 0.5133191344877612,
+  "n_buckets_dte_negative_dropped": 0
+}

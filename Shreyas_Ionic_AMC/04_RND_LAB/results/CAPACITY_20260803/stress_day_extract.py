@@ -46,4 +46,4 @@ zdte_2020 = zdte[(zdte.TS >= "2020-01-01") & (zdte.TS <= "2020-12-31")]
 print(f"0DTE (TS==EXPIRY_DT) NIFTY option rows found in ALL of 2020: {len(zdte_2020):,} "
       f"across {zdte_2020.TS.nunique()} distinct 0DTE days")
 if zdte_2020.TS.nunique() > 0:
-    print("distinct 0DTE days in 2020:", sorted(d.date() for d in zdte_2020.TS.dt.date.unique())[:10], "...")
+    print("distinct 0DTE days in 2020:", sorted(zdte_2020.TS.dt.date.unique())[:10], "...")

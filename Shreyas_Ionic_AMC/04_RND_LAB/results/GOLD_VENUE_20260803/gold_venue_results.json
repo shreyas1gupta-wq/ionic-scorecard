@@ -687,9 +687,9 @@
     "t_naive": 3.743,
     "t_nw": 3.894,
     "concentration": 0.258,
-    "placebo_p": null,
-    "unconditional_bench_mean_pct": null,
-    "beats_unconditional_bench_p": null,
+    "placebo_p": 0.0467,
+    "unconditional_bench_mean_pct": 0.0023,
+    "beats_unconditional_bench_p": 0.0667,
     "heldout_mean_gross_pct": 0.0309,
     "heldout_n": 42,
     "heldout_mean_net_1x_pct": 0.0063,
@@ -749,7 +749,8 @@
         "hit_rate": 0.0541
       }
     ],
-    "verdict": "CLEARS CHEAP GATE -- PLACEBO UNVERIFIED (memory constrained)"
+    "verdict": "DEAD (beta -- no better than unconditional benchmark)",
+    "placebo_recovery_note": "Live full-frame placebo lazy-load OOM-then-SIGSEGV-crashed on 2026-08-03; recovered via kc_placebo_streaming.py (year-batched, memory-light, same RNG seed 20260803, same r_eod/placebo/unconditional_benchmark formula). See kc_placebo_streaming_result.json."
   },
   "ATR_CONSUMPTION_BRK": {
     "rr_curve": [

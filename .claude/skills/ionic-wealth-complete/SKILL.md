@@ -503,7 +503,7 @@ Three backends tried in order (best-available wins):
 Force a backend: `--backend pptx|libre|png`. Default = auto-detect.
 
 ### Angel SmartAPI (data only, NO real trades ever)
-API key: 8crMtPbu, client: S59047501. Rate limit AB1021: use >=1.2s/req, retry passes.
+API key: <ANGEL_API_KEY_REDACTED>, client: <ANGEL_CLIENT_ID_REDACTED>. Rate limit AB1021: use >=1.2s/req, retry passes.
 Angel purges expired option contracts from master — daily capture task handles this.
 
 ### NSE data

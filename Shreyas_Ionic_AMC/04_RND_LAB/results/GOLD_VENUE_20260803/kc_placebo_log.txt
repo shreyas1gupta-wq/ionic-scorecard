@@ -1,0 +1,32 @@
+[rebuild] KC_WIDTH_PCTL entries from bars15 (fast, proven not to OOM)
+  bars15=254,109  (117.3s)
+  raw=2683 deduped=1707
+  build n=1661 (main run reported n_build=1661)
+  ent_for_diag n=1661
+[stats] MCX day pool (streamed, already proven memory-light)
+  day pool = 4341 days  (141.6s)
+  total (day,time,dir) lookups needed: 499,961 across 17 years
+  processed year 2009: 23,904 lookups  (149.0s)
+  processed year 2010: 29,818 lookups  (151.9s)
+  processed year 2011: 29,969 lookups  (154.5s)
+  processed year 2012: 29,682 lookups  (156.7s)
+  processed year 2013: 29,743 lookups  (159.3s)
+  processed year 2014: 29,521 lookups  (161.3s)
+  processed year 2015: 29,807 lookups  (163.1s)
+  processed year 2016: 29,800 lookups  (165.1s)
+  processed year 2017: 29,561 lookups  (166.9s)
+  processed year 2018: 30,035 lookups  (168.7s)
+  processed year 2019: 29,689 lookups  (170.6s)
+  processed year 2020: 29,952 lookups  (172.4s)
+  processed year 2021: 29,650 lookups  (175.5s)
+  processed year 2022: 29,479 lookups  (178.8s)
+  processed year 2023: 29,634 lookups  (182.2s)
+  processed year 2024: 30,007 lookups  (185.7s)
+  processed year 2025: 29,710 lookups  (189.1s)
+
+[RESULT] n_real_resolved=1661/1661  obs_proxy_mean(r_eod)=+0.0290%
+  placebo: n_reps_used=150/150  mean=-0.0002%  placebo_p=0.0467
+  unconditional benchmark: n_reps_used=150/150  mean=+0.0023%  bench_p=0.0667
+  -> DEAD (beta -- no better than unconditional benchmark)
+
+[done] elapsed 189.1s -> kc_placebo_streaming_result.json
