@@ -1,5 +1,72 @@
 # CURRENT STATE — read me first (updated every session end)
 
+## >>> RESUME HERE — 2026-08-03, session paused softly by the Principal <<<
+**READ THIS BLOCK FIRST NEXT SESSION.**
+
+### The one thing that changed everything today
+**Budget-2026 STT hike CONFIRMED (2 independent sources), effective 1 April 2026:**
+futures on sale value **0.02% -> 0.05% (+150%)**, options on premium 0.10% -> 0.15%, exercise
+0.125% -> 0.15%. STT is not a line item in our futures cost, it IS the cost (non-STT residual only
+1.97 pts). **NIFTY futures round trip 7.27 -> 14.47 index pts at spot 24,000 (1.99x).** Measured gross
+edges cluster at 2-5 pts, so they are now 3.6x under the floor.
+**Asymmetry:** futures 1.99x, options **1.027x** (STT is on PREMIUM not notional), MCX gold **1.00x**
+(CTT not STT). **Gold is now 2.45x CHEAPER than NIFTY futures, reversing my own earlier "no cost
+advantage" conclusion.** Four survivors died, including ICHIMOKU_TK (+2.442 -> -4.758), which had been
+the only TradingView cell to clear a placebo. Evidence pack: `04_RND_LAB/results/STT_RECOST_20260803/`.
+
+### FIRST ACTION NEXT SESSION — needs the Principal, not more research
+**COST_STANDARDS.md amendment awaiting sign-off (APPROVED under D-021, so only he can change it).**
+Recommended: futures STT 0.05% with the STT term computed from CONTEMPORANEOUS SPOT rather than a fixed
+point value; options STT 0.15% of premium; an explicit MCX row noting CTT-not-STT. Until signed, every
+quoted futures result carries a pre-April-2026 cost basis, and April-Jun 2026 held-out figures are
+UNDER-COSTED (small in trade count, uniformly optimistic).
+
+### SECOND ACTION — read three agent folders that were still running at pause
+They bank to disk continuously, so their outputs should be present even though the session ended:
+1. `04_RND_LAB/results/SELL_PLUS_TAIL_20260803/` — **the highest-value open build.** Short-premium core
+   x long-put tail overlay (hedge ratio x moneyness x tenor), re-costed at new STT, net-hedge-positive
+   discipline, max survivable notional under a COVID repeat. The case for it: selling is the edge
+   (VRP +0.0605 vol pts at **t=32.14**, the strongest number in the book; realised short of straddle
+   breakeven on 95.3% of trades; gamma/theta fell 1.15 -> 1.03 -> **0.83** post-Oct-2024) but a crash
+   ruins it (20-day -37.01% = **3.70x the entire margin**; LD_SELL's real COVID cycles lost Rs42,545,
+   worst trade -50.6% of its margin WITH a 2x stop armed). The fix is measured and nearly free: a plain
+   5%-OTM long put held to expiry costs **-18 to -20 pts/yr at t=-0.69** and paid **+3,463 pts in the
+   real 2020 crash**. PLEDGE_SAFE already showed it converting a FAILING COVID drawdown (-20.17%) into
+   a PASSING one (-17.53%). And the STT hike makes an all-options book strictly better.
+2. `04_RND_LAB/results/GOLD_VENUE_20260803/` — gold re-opened as the now-cheapest venue: time-of-day
+   decomposition across the 14.5h MCX session, MCX-session gap behaviour, RR curve as a third test of
+   the negative-excess-slope result. NOTE gold's standalone verdict was still NEGATIVE (gross 0.0149%
+   vs its own 0.0246% cost) — only the venue RANKING moved.
+3. `04_RND_LAB/results/OPEN_ITEMS_20260803/` — isolates how much of A6_vwap_proxy_continue's
+   +4.153/t=2.576 was the 25.6% wrong-expiry drop_duplicates defect vs methodology; writes
+   PUTCAL_LADDER's missing FINDINGS.md; spot-checks the no-pre-2010-index-data conclusion.
+
+### Where the book actually stands (post-STT, honest)
+- **SWEEP_E is the only clean survivor** of ~1,872 nominal cells (~40-55 effective independent trials):
+  DSR 0.996-1.00, PBO 0.00. S1-F, the certified flagship, newly carries **PBO=33%**. OVERSHOOT fails
+  DSR at ~0.00. CALENDAR fails at 0.58-0.70.
+- **Portfolio: BALANCED** — Sharpe 1.81, Calmar 1.765, CAGR 10.29% at MaxDD -5.83%. The ceiling-scaled
+  HIGH_CAGR reaches 30.44% at -24.71% but needs SWEEP at **11.9x documented size with no capacity check
+  ever run**. NEEDS RE-COSTING at the new STT (BOOK and SWEEP are futures-based).
+- **Option buying is CLOSED** from four independent angles, with the mechanism dated to Oct-2024.
+- **Scaling:** 1 lot until forward evidence. If scaling, 3-session hold + CPPI floor — NOT the
+  high-frequency arm and NOT naive monthly addition. **Frequency is not what makes a strategy scalable;
+  edge-to-drawdown ratio is** — a conclusion the STT hike independently confirms.
+
+### Still owed
+Capacity check on SWEEP/BOOK before any HIGH_CAGR sizing. Acquire SENSEX daily 1979+ (without it 2008,
+2000 and 1992 stay untestable). Re-cost THREE_PORTFOLIOS at new STT. EVENT_FED paper-track at zero size
+through 4-6 FOMC cycles (era sign-flip unresolved).
+
+### Corrections issued this run — six of my own numbers
+73% CAGR portfolio (contaminated by an excluded sleeve) · the 106%->73.1% withdrawal (never existed) ·
+SWING maxDD (neither prior number right) · the crash-data claim (wrong for 2 of 3 sleeves) ·
+A6 VWAP-continue (wrong-expiry defect, re-test running) · gold's cost advantage (reversed by the STT
+hike). Every one was surfaced by a control I had asked for, but they were my errors.
+
+---
+
+
 > **CORRECTION 2026-07-31:** an earlier claim that all three option-selling sleeves have no crash data is WRONG for two of three. Only OVERSHOOT (from 2021-06) lacks it; CALENDAR and LD_SELL span 2011-2026 with thin crash sampling. Detail in SESSION_JOURNAL.
 
 ## 2026-08-02 (DESK-100) — Financed/laddered long iron-fly KILLED (K-018, 32/32 cells); swing-level idea scoped

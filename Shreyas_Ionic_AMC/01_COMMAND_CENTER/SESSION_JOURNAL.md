@@ -1503,3 +1503,162 @@ If true, `COST_STANDARDS.md` (APPROVED, D-021) is stale and **every 2026 held-ou
 
 ### HONEST BOTTOM LINE ON THE >100% CAGR MANDATE
 Not achieved, and now bounded rather than merely unmet. After ~1,872 cells: the clean runnable book is **~10% CAGR at under 6% MaxDD, Sharpe 1.81**; the ceiling-scaled version reaches **30.4% at 24.7% MaxDD and requires 11.9x unverified capacity on SWEEP**. Five independent signal families all land at 2-5 index points of gross edge against a 5-6 point cost floor, and the RR-curve work shows the edge cannot be stretched by widening targets — on gold as well as NIFTY. **The wall is the finding.** What the firm gained: option buying closed with a dated mechanism, the VRP measured at t=32, SWEEP_E confirmed as the one clean survivor, five of my own numbers corrected, and five encoding artifacts caught before they reached a conclusion.
+
+---
+
+## 2026-08-03 (DESK-100) — STT HIKE CONFIRMED: the futures cost floor DOUBLES. Four survivors die. Gold reverses to cheapest venue. Lot-scaling plan answered.
+Session paused softly by the Principal mid-flight; 3 agents still running and banking to disk (see OPEN below).
+
+### 1. THE DOMINANT FINDING — Budget-2026 STT hike, verified against two independent sources
+Effective **1 April 2026**: futures STT on sale value **0.02% -> 0.05% (+150%)**; options STT on
+premium **0.10% -> 0.15%**; options exercise 0.125% -> 0.15%. Sources: HDFC Securities budget note,
+ClearTax, corroborated by ICICI Direct / HDFC Bank / 1Finance / Finnovate. Rationale stated as curbing
+F&O speculation; revenue target Rs63,700cr FY26 / Rs73,700cr FY27 vs ~Rs48,000cr collected to Jan-2026.
+
+**STT is not a line item in our futures cost — it IS the cost.** The decomposition reconciles exactly:
+the model's Oct-2024 step 4.47 -> 5.97 pts came from STT 0.0125% -> 0.020%, so dSTT 0.0075% = 1.50 pts
+implies 0.02% = 4.00 pts at a reference spot near 20,000, leaving a **non-STT residual of 1.97 pts**
+with the STT term scaling linearly in spot.
+
+| spot | RT old | **RT new** | delta | ratio |
+|---|---|---|---|---|
+| 20,000 | 6.47 | **12.47** | +6.00 | 1.93x |
+| 24,000 | 7.27 | **14.47** | +7.20 | **1.99x** |
+| 26,000 | 7.67 | **15.47** | +7.80 | 2.02x |
+
+**Break-even gross edge on a NIFTY futures round trip: 7.27 -> 14.47 index points.** The session's
+measured gross edges cluster at 2-5 pts — already under the old floor, now **3.6x under the new one**.
+
+**THE ASYMMETRY IS THE ACTIONABLE PART:**
+| vehicle | old | new | ratio |
+|---|---|---|---|
+| NIFTY futures, % notional | 0.0303% | **0.0603%** | **1.99x** |
+| NIFTY options, 100pt premium | 1.869 pts | 1.919 pts | **1.027x** |
+| MCX GOLDM, % notional | 0.0246% | 0.0246% | **1.00x** |
+Options escape because STT is on the PREMIUM, not the notional. MCX commodities pay CTT, not STT.
+
+**SELF-CORRECTION #6 THIS RUN:** I reported yesterday that gold carried no cost advantage (0.0246% vs
+0.0228%). From April 2026 **gold is 2.45x CHEAPER than NIFTY futures**, having been 1.23x more
+expensive. Gold is now the cheapest liquid intraday vehicle this book has. Caveat retained: gold's own
+best gross edge was 0.0149% against its 0.0246% cost, so the STANDALONE verdict is unchanged — only
+the venue ranking moved.
+
+**FOUR SURVIVORS DIE; every survivor has a large per-trade edge:**
+| cell | net old | net new | |
+|---|---|---|---|
+| Sweep prior-day reclaim 15m | +6.669 | **-0.531** | DIES |
+| **ICHIMOKU_TK 15min** | +2.442 | **-4.758** | DIES — was the one TV placebo survivor |
+| VORTEX 60min | +2.394 | **-4.806** | DIES — open placebo item now MOOT, closed as cost-killed |
+| 1DTE flow-imbalance FADE | +2.80 | **-4.40** | DIES |
+| THREE_SOLDIERS 3-session | +45.52 | +38.32 | lives (-16%), but ~60% BETA |
+| THREE_SOLDIERS 1-session | +18.52 | +11.32 | lives (**-39%**) |
+| WTI crude-crash short | +27.60 | +20.40 | lives |
+| Ratio calendar 1x1 rolled | +28.48 | +28.41 | lives |
+| S1-F 0DTE short straddle | +9.71 | **+9.655** | lives, essentially untouched |
+
+**RETROSPECTIVELY VALIDATES THREE FINDINGS FROM AN UNRELATED CAUSE:** (a) the hike is a tax on
+FREQUENCY and on SMALL EDGES — same conclusion the lot-scaling work reached about edge-to-drawdown
+ratio; (b) the SELLING book is the answer — options untouched while futures double, and the VRP at
+t=32.14 was already the strongest measurement in the book; (c) large targets are hurt far less than
+small ones (3.86% of a 1.5R target on a 1-ATR stop) — the problem with large targets was never cost,
+it was the hit rate collapsing at high RR.
+
+**TIMING:** effective 1 April 2026 while our held-out windows run to May/Jun 2026, so Jan-Mar used the
+correct rate and **April onward is UNDER-COSTED in every quoted futures figure** — small in trade
+count, uniformly optimistic in direction.
+
+**GOVERNANCE:** evidence pack only, in `STT_RECOST_20260803/`. COST_STANDARDS.md is APPROVED under
+D-021 and amendable only via evidence + Principal sign-off. **RECOMMENDED AMENDMENT AWAITING THE
+PRINCIPAL:** futures STT 0.05% with the STT term computed from CONTEMPORANEOUS SPOT rather than a
+fixed point value; options STT 0.15% of premium; an explicit MCX row noting CTT-not-STT. Until signed,
+all quoted futures results carry a pre-April-2026 cost basis.
+
+### 2. THE PRINCIPAL'S LOT-SCALING / COMPOUNDING PLAN — answered (`LOT_SCALING_20260801/`)
+His plan: 10-30 pts avg x 10-30 trades/mo = 300-1000 pts = Rs20,000+/mo on 1 lot, add 1-2 lots
+monthly, MDD-aware with a buffer.
+**Input reality check: 8 cells meet "10-30 pts AND 10-30 trades/month". ZERO reach 300 pts/month.**
+Best in-spec is SOLDIERS 1-session at 13.0/mo x +18.52 = **241 pts/mo = Rs15,650 on one lot, not
+Rs20,000+**. Bottom of his range is roughly right; the top does not exist in our book.
+5 sizing policies x 3 arms x 2,000 stationary-block-bootstrapped month orderings (block=3, so vol
+clustering is preserved — iid trade shuffling would flatter every policy by destroying exactly what
+causes wipeouts):
+| arm | policy | median ret | **P(ruin)** | **P(>25% DD)** |
+|---|---|---|---|---|
+| SOLDIERS 1-sess | FIXED 1 LOT | 214% | 0.0% | **0.0%** |
+| SOLDIERS 1-sess | naive monthly +1 | 6678% | 0.1% | 35.4% |
+| SOLDIERS 1-sess | **his MDD buffer @60%** | 7778% | **0.7%** | **50.0%** |
+| SOLDIERS 3-sess | **CPPI floor** | **7810%** | **0.0%** | **11.9%** |
+| **RANDOM LONG (beta)** | naive monthly +1 | **3801%** | **17.8%** | **91.8%** |
+| **RANDOM LONG (beta)** | margin-only | 4323% | **32.7%** | 92.3% |
+**(a) OVER HALF THE COMPOUNDING IS BETA** — a random long under the same scaling rule reaches a median
+3801% against the signal's 6678%, on a sample where NIFTY rose 186%. A bear decade inverts the larger
+half and there is no bear segment long enough to test it.
+**(b) THE WIPEOUT RISK LIVES IN THAT BETA** — P(ruin) 17.8% naive / 32.7% margin-only on the beta arm.
+Mechanism: monthly lot-adding is POSITIVE FEEDBACK — you add size after good months, so you are
+maximally sized entering the bad one. Sizing never changes the mean edge; it changes order-dependence.
+**(c) HIS BUFFER MANAGES RUIN, NOT THE CEILING** — cuts P(ruin) 2.7% -> 0.7% but P(>25% DD) is still
+50.0%. Only the CPPI floor respects the ceiling.
+**(d) COUNTER-INTUITIVE AND THE MOST USEFUL LINE HERE: the 3-session hold scales FAR better than the
+1-session hold even though 1-session matches his trades-per-month target.** P(>25%DD) 10.0% vs 35.4%
+naive; under CPPI, median 7810% at 11.9% breach vs 230% at 24.1% (on 1-session CPPI holds ZERO lots
+most of the time — the cushion cannot support one). **Frequency is not what makes a strategy scalable;
+edge-to-drawdown ratio is.** Chasing 10-30 trades/month works against the plan.
+**NOT REAL in that output:** the 6,000-8,000% figures are arithmetic, not forecast — MAX_LOTS=40 binds
+almost immediately (median lots 40), 40 lots is Rs6.24cr notional with NO capacity check ever run and
+slippage calibrated for far smaller clips, and over half the result is beta on a bull sample.
+**RECOMMENDATION:** 1 lot until forward evidence exists (214% median, 0.0% ceiling breach, -4.4%
+median DD — the only row with no tail). If scaling: 3-session hold + CPPI floor, sized against an
+equity-beta budget, treated as leveraged index exposure with a signal overlay.
+
+### 3. FIVE HEDGING FOLDERS FROM THE 2026-08-02 SESSION, read and incorporated
+- **PROTECTIVE_PUT_20260802**: plain 5%-OTM long put **-19.66 pts/rung at t=-0.69** (cost NOT
+  statistically distinguishable from zero) while delivering **+3,463 pts in the real Feb-Apr 2020
+  window**. The 1:1 debit spread is the SAFEST (capped both ways) but the WORST performer
+  (-43.17, t=-3.70, the only statistically significant drag) — capping the gain removes exactly the
+  outsized payoff that justifies the cost. Principal's "ratio" ask was correctly re-read as 1:1 and
+  rebuilt from the original 1x2.
+- **TAIL_PUT_ROLL_20260802**: passive EXPIRY hold **-18.1 pts/yr** vs ROLLOVER_3M **-119.3** and
+  SIGMA3 **-62.4**. **Rolling more often is 6.6x WORSE.** COVID cycle held to expiry: **+445.21 pts**.
+  Carries its own BUGFIX: the first pass used the all-expiries table, picked thin just-listed
+  far-dated weeklies and SILENTLY SKIPPED all of Jan-Jun 2020 plus a 2.5yr 2023-2025 stretch.
+- **PLEDGE_SAFE_20260802**: Rs50L G-sec + Rs50L equity MF pledged, margin via S1-F as a yield overlay.
+  Calm with REAL NIFTY500: CAGR +15.08%, MaxDD -6.96% vs baseline -9.81% (yield HELPS). COVID
+  yield-only **-20.17% FAILS** the 20% RISK_LIMITS bar; **yield + 50%-notional protective put -17.53%
+  PASSES**. Red-teamed FRAGILE with the flip condition met. Its own correction: the original -23.34%
+  headline reused an S1-F COVID backcast that ran every Thursday WITHOUT the frozen spec's F1/F2
+  vetoes — 76% of the crash-window scheduled days would have been vetoed live.
+- **IRONFLY_LADDER_20260802**: KILL. 32 cells, all negative (-3.20 to -7.28). Tighter wings make
+  buying WORSE; the vol-cheapness filter **fails placebo a 4th time**.
+- **PUTCAL_LADDER_20260802**: has PRE_REGISTRATION, cells.csv and a chart but **NO FINDINGS.md** — its
+  results are invisible to the firm. Agent tasked to write it up.
+
+**THE SYNTHESIS THIS ENABLES, and it is the highest-value open build:** selling is the edge (VRP
+t=32.14; realised short of breakeven on 95.3% of straddles; gamma/theta now 0.83) but a crash ruins it
+(20-day -37.01% = **3.70x the entire margin**; LD_SELL's real COVID cycles lost Rs42,545 with a worst
+trade at -50.6% of its margin WITH a 2x stop armed). A plain long put held to expiry costs ~-18 to
+-20 pts/yr at t=-0.69 and paid +3,463 in COVID. **PLEDGE_SAFE already demonstrated the hedge converting
+a FAILING COVID drawdown into a PASSING one.** And the STT hike makes an all-options book strictly
+better (1.027x) versus futures (1.99x).
+
+### OPEN — 3 AGENTS STILL RUNNING (banking to disk; read their folders next session)
+1. `SELL_PLUS_TAIL_20260803/` (Kabir) — the synthesis above: short-premium core x long-put tail
+   overlay, sweeping hedge ratio (0/25/50/75/100% notional) x moneyness (3/5/7/10% OTM) x tenor
+   (1M/3M/6M), re-costed at new STT, with net-hedge-positive discipline and the max survivable
+   short-premium notional under a COVID repeat.
+2. `GOLD_VENUE_20260803/` — gold re-opened as the now-cheapest venue. Time-of-day decomposition across
+   the 14.5h MCX session (London ~13:30 IST and NY ~18:30 IST overlaps), MCX-session gap behaviour,
+   compression metrics, vol-state gating, and the RR curve as a third independent test of the
+   negative-excess-slope result. Every cell at 1x and 2x the unapproved MCX cost.
+3. `OPEN_ITEMS_20260803/` — isolating how much of A6_vwap_proxy_continue's +4.153/t=2.576 was the
+   25.6% wrong-expiry `drop_duplicates` defect vs methodology (and fixing/annotating it at source in
+   INDICATOR_MINE_20260730); writing PUTCAL_LADDER's missing FINDINGS.md; independently spot-checking
+   the "no pre-2010 index data" conclusion.
+
+### STILL OWED (carried forward)
+- **COST_STANDARDS.md amendment needs the Principal's sign-off** (D-021). Highest-priority governance item.
+- Capacity check on SWEEP and BOOK before any HIGH_CAGR portfolio sizing (HIGH_CAGR needs SWEEP at
+  11.9x documented size, unverified).
+- Acquire SENSEX daily 1979+ — without it 2008, 2000 and 1992 stay untestable, and a COVID-class
+  20-day move is 3.70x margin on a naked strangle book.
+- Re-cost the THREE_PORTFOLIOS output at the new STT (BOOK and SWEEP sleeves are futures-based).
+- EVENT_FED paper-track at zero size through 4-6 FOMC cycles (era sign-flip unresolved).
