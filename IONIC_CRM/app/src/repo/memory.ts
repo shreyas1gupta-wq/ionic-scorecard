@@ -299,14 +299,15 @@ export function createMemoryRepository(seed: MemorySeed): MemoryRepositoryFactor
 
       async setRole(id, role) {
         requireAdmin(actor.employeeId);
-        // 0005 rule 1. Checked before existence for the same reason the trigger
-        // fires before the row is written: the answer must not depend on whether
-        // the target happens to exist.
-        if (id === actor.employeeId) {
-          throw new AuthorizationError('you cannot change your own role');
-        }
         const e = employeeById(id);
         if (!e) return notFound(id);
+        // Hand translation of employees_guard_self_role (0005), including its
+        // `new.role is distinct from old.role`: refusing a no-op would be a rule
+        // the database does not have, and a fake that is stricter than the store
+        // it stands in for is still a fake that lies.
+        if (id === actor.employeeId && e.role !== role) {
+          throw new AuthorizationError('you cannot change your own role');
+        }
         return replaceEmployee({ ...e, role });
       },
 

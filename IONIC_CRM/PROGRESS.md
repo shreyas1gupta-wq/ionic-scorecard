@@ -287,10 +287,48 @@ A test-fixture bug of mine, caught by the suite: my "rejects an upper-case hash"
 
 The encrypted `pg_dump` → `age` → private-repo leg and the access-event archival need a live database, plus `pg_dump` and `age` binaries that are not on this machine. The production entry point for both is a **Cloudflare Worker cron handler** — `wrangler.toml` already declares the two triggers — which needs the M11 production adapter. Writing a local script that cannot be run would be worse than recording the dependency.
 
+## M8 + M10 — built by parallel agents, then centrally verified
+
+**FINAL VERIFICATION, all in one run: 584 tests passing, `tsc` clean, `next build` clean, 11 routes + middleware, all routes smoke-tested over HTTP.**
+
+| Suite | Tests |
+|---|---|
+| unit (domain + auth + security) | 237 |
+| database schema | 45 |
+| repository contract | 174 |
+| service rules (tickets + admin + anchor-file) | 128 |
+
+**M8 admin** — 65 tests against **both** stores. Migration `0005_admin_guards.sql` adds four invariants the schema did not hold: no self-role change (row trigger; not expressible in RLS because `WITH CHECK` cannot see OLD), never hard-deleted, deactivation refused while non-terminal tickets remain assigned, and no manager cycle. Routes `/admin`, `/admin/access-review`, `/admin/audit` all render; the audit viewer shows the chain-verification state and head hash.
+
+**M10 rate limiting** — 29 tests. Fixed window, storage behind an interface mirroring Cloudflare KV's API, LRU-bounded rather than timer-swept (a Workers isolate is not guaranteed to run code outside a request, so `setInterval` can simply never fire). Keys by `CF-Connecting-IP` and deliberately **never** by the forgeable `Cf-Access-Jwt-Assertion` header. HSTS added — the one standard security header that was genuinely missing.
+
+### Three problems found by reviewing the agents' work rather than trusting it
+
+1. **The rate limiter would have taken the app down on a busy morning.** The agent set 120 reads/min sized as though a key were one person. It is not — a corporate network egresses through one NAT address, so "per IP" is "per firm": 50 people at 10 requests/min is 500 from one address against a ceiling of 120. Corrected to a coarse flood guard (2,000/400) with two new tests, one of which asserts the budget is sized for a whole office so nobody "tightens" it back. The genuine per-person layer does not exist yet and is recorded as outstanding — middleware cannot do it, because there is no verified identity at that point.
+2. **`tsc` was silently skipping `middleware.ts`** — root-level files matched none of the existing include globs, so it reported exit 0 while checking nothing. The agent caught this itself and flagged the fix as a scope deviation rather than making it quietly.
+3. **M8's tests had never run.** It reported so plainly, and `0005_admin_guards.sql` had never been executed. Both now verified centrally: the migration applies and all 45 pre-existing schema tests still pass alongside it.
+
+### The memory saga, finally understood — it was self-inflicted
+
+`node_modules` sitting inside OneDrive was **a major cause of the test out-of-memory failures**, not just untidiness. Restoring the junction moved free commit charge from **0.57 GB to 2.75 GB**, and the entire 584-test suite then ran in a single pass for the first time.
+
+**But the junction is incompatible with Next 16.** Both Turbopack (*"Symlink node_modules is invalid, it points out of the filesystem root"*) and the webpack fallback refuse it. So it had to be reverted: the build is the deliverable.
+
+**The two constraints cannot both be satisfied while the project lives inside OneDrive.** The real fix is not a junction — it is moving the working tree out of OneDrive entirely, which also resolves the "wrong repository / nothing committed" problem above. One action fixes three things: create a company-owned repo, clone it to a non-OneDrive path, and work there.
+
+### Still open, honestly
+
+- **`lastLoginAt` is null for everyone.** Nothing writes a `LOGIN` access event. M8 suggested "one line in the auth path fixes it" — **it does not**, and I am not implementing it on that basis: Cloudflare Access owns the session, so there is no login boundary in this app to hook. Both admin pages already show last *activity* as an explicitly-labelled fallback, which is the honest answer until a real session boundary exists.
+- **An admin can deactivate themselves**, and deactivating the last admin locks the firm out of the allow-list and the audit log. Not in M8's required rule set; recorded rather than silently added.
+- **`middleware` is deprecated in Next 16** in favour of `proxy` (the warning appears on every build). Not renamed: changing a security-critical filter on a guess about a new API's contract is worse than a deprecation warning. Needs the docs read first.
+- **A correction of my own:** I reported three routes 404-ing in a smoke test. That was wrong — my readiness probe only compiled `/tickets`, so I measured the others before Next had built them. On a warmed server all eleven return 200, and the content assertions I ran against those 404 bodies were meaningless. Re-run properly.
+
 ## NEXT STEP (exact)
 
-1. **M11**: production DB adapter, then wire the cron handler for the anchor + encrypted backup + archival, then the four DESIGN §9 checks. **Needs the Principal's Supabase and Cloudflare accounts.**
-2. **Restore drill** — a backup that has never been restored is not a backup.
+1. **Move the working tree out of OneDrive**, into a company-owned repo. Fixes the junction/Turbopack conflict, the sync memory drain, and the succession risk in one action.
+2. **Rotate the exposed GitHub token** and re-point the remote at a token-free URL.
+3. **M11**: production DB adapter, then the cron handler for anchor + encrypted backup + archival, then the four DESIGN §9 checks — **check 0 first**. Needs the Principal's Supabase and Cloudflare accounts.
+4. **Restore drill** — a backup that has never been restored is not a backup.
 3. **Principal reviews `REQUIREMENTS.md` + `DESIGN.md`** — the design decisions, not the code.
 4. Run the pre-build checks in DESIGN §9 — **check 0 first** (SEBI registration set; it determines the CSCRF bucket):
    - Supabase free project can select **ap-south-1 Mumbai** — 3 min. Load-bearing for the whole residency story.

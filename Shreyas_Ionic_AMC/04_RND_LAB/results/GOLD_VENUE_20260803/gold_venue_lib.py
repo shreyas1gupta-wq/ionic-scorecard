@@ -30,8 +30,10 @@ MCX's own 23:30 cutoff and therefore not reachable within the same session):
 from __future__ import annotations
 
 import datetime as dt
+import gc
 import glob
 import sys
+import time as _time
 from pathlib import Path
 
 import numpy as np
@@ -64,6 +66,30 @@ BUCKET_EDGES = [
     ("NY_OPEN",     dt.time(18, 0), dt.time(20, 0)),
     ("NY_LATE",     dt.time(20, 0), dt.time(23, 30)),
 ]
+
+
+def _retry_on_memory(fn, *, max_retries=8, base_wait=5):
+    """Run fn() with retries on MemoryError/ArrayMemoryError.
+
+    HIT LIVE 2026-08-03: a run of this exact streaming code OOM'd on a 1.71 MiB allocation
+    (`sess.index.time` for 223,743 rows) with the box reporting ~2GB free virtual memory at the
+    time -- i.e. the failure is not a hard ceiling, it is a fluctuating squeeze from OTHER
+    processes on this shared firm laptop (per the mandate: "jobs in this fleet have died mid-run
+    repeatedly today"). gc.collect() releases this process's own fragmented garbage first; the
+    backing-off sleep gives the other process(es) time to release memory before the next attempt.
+    Raises the last error if every retry is exhausted."""
+    last_err = None
+    for attempt in range(max_retries):
+        try:
+            return fn()
+        except MemoryError as e:
+            last_err = e
+            gc.collect()
+            wait = base_wait * (attempt + 1)
+            print(f"    [MemoryError, retry {attempt + 1}/{max_retries} in {wait}s] {e!r}",
+                  flush=True)
+            _time.sleep(wait)
+    raise last_err
 
 
 def time_bucket(ts: pd.Series) -> pd.Series:
@@ -127,19 +153,24 @@ def build_bars15_streaming() -> pd.DataFrame:
     files = sorted(glob.glob(str(DATA_DIR / "XAUUSD_1m_*.parquet")))
     parts = []
     for f in files:
-        d = pd.read_parquet(f, columns=["ts", "open", "high", "low", "close"])
-        d = d.drop_duplicates("ts").sort_values("ts")
-        loc = d["ts"].dt.tz_localize("America/New_York", ambiguous="NaT", nonexistent="NaT")
-        d["t_ist"] = loc.dt.tz_convert("Asia/Kolkata").dt.tz_localize(None)
-        d = d.dropna(subset=["t_ist"]).set_index("t_ist").sort_index()
-        tod = d.index.time
-        sess = d[(tod >= MCX_START) & (tod <= MCX_END)][["open", "high", "low", "close"]]
-        if sess.empty:
-            del d
-            continue
-        r15 = gl.resample_bars(sess, "15min")
-        parts.append(r15)
-        del d, sess
+        def _one_year(f=f):
+            d = pd.read_parquet(f, columns=["ts", "open", "high", "low", "close"])
+            d = d.drop_duplicates("ts").sort_values("ts")
+            loc = d["ts"].dt.tz_localize("America/New_York", ambiguous="NaT", nonexistent="NaT")
+            d["t_ist"] = loc.dt.tz_convert("Asia/Kolkata").dt.tz_localize(None)
+            d = d.dropna(subset=["t_ist"]).set_index("t_ist").sort_index()
+            tod = d.index.time
+            sess = d[(tod >= MCX_START) & (tod <= MCX_END)][["open", "high", "low", "close"]]
+            if sess.empty:
+                del d
+                return None
+            r15 = gl.resample_bars(sess, "15min")
+            del d, sess
+            return r15
+        r15 = _retry_on_memory(_one_year)
+        if r15 is not None:
+            parts.append(r15)
+        gc.collect()
     bars15 = pd.concat(parts).sort_index()
     return bars15
 
@@ -159,49 +190,55 @@ def compute_daily_stats() -> pd.DataFrame:
     function used, which silently would have taken hours."""
     files = sorted(glob.glob(str(DATA_DIR / "XAUUSD_1m_*.parquet")))
     daily_parts = []
-    carry_close = None
+    carry = {"close": None}   # dict (not a bare scalar) so the nested closure below can mutate it
     for f in files:
-        d = pd.read_parquet(f, columns=["ts", "open", "high", "low", "close"])
-        d = d.drop_duplicates("ts").sort_values("ts")
-        loc = d["ts"].dt.tz_localize("America/New_York", ambiguous="NaT", nonexistent="NaT")
-        d["t_ist"] = loc.dt.tz_convert("Asia/Kolkata").dt.tz_localize(None)
-        d = d.dropna(subset=["t_ist"]).set_index("t_ist").sort_index()[["open", "high", "low", "close"]]
-        if d.empty:
-            continue
+        def _one_year(f=f):
+            d = pd.read_parquet(f, columns=["ts", "open", "high", "low", "close"])
+            d = d.drop_duplicates("ts").sort_values("ts")
+            loc = d["ts"].dt.tz_localize("America/New_York", ambiguous="NaT", nonexistent="NaT")
+            d["t_ist"] = loc.dt.tz_convert("Asia/Kolkata").dt.tz_localize(None)
+            d = d.dropna(subset=["t_ist"]).set_index("t_ist").sort_index()[["open", "high", "low", "close"]]
+            if d.empty:
+                return None
 
-        tod = d.index.time
-        sess_mask = (tod >= MCX_START) & (tod <= MCX_END)
-        sess = d[sess_mask]
-        if sess.empty:
-            carry_close = float(d["close"].iloc[-1])
-            continue
-        dates = sess.index.date
-        g = sess.groupby(dates)
-        yr = pd.DataFrame({
-            "session_open": g["open"].first(), "session_high": g["high"].max(),
-            "session_low": g["low"].min(), "session_close": g["close"].last(),
-        })
-        or30_mask = sess.index.time <= dt.time(9, 30)
-        or60_mask = sess.index.time <= dt.time(10, 0)
-        g30 = sess[or30_mask].groupby(dates[or30_mask])
-        g60 = sess[or60_mask].groupby(dates[or60_mask])
-        yr = (yr.join(g30["high"].max().rename("or30_high"))
-                 .join(g30["low"].min().rename("or30_low"))
-                 .join(g60["high"].max().rename("or60_high"))
-                 .join(g60["low"].min().rename("or60_low")))
-        yr.index.name = "date"
-        yr = yr.sort_index()
+            tod = d.index.time
+            sess_mask = (tod >= MCX_START) & (tod <= MCX_END)
+            sess = d[sess_mask]
+            if sess.empty:
+                carry["close"] = float(d["close"].iloc[-1])
+                return None
+            dates = sess.index.date
+            g = sess.groupby(dates)
+            yr = pd.DataFrame({
+                "session_open": g["open"].first(), "session_high": g["high"].max(),
+                "session_low": g["low"].min(), "session_close": g["close"].last(),
+            })
+            or30_mask = sess.index.time <= dt.time(9, 30)
+            or60_mask = sess.index.time <= dt.time(10, 0)
+            g30 = sess[or30_mask].groupby(dates[or30_mask])
+            g60 = sess[or60_mask].groupby(dates[or60_mask])
+            yr = (yr.join(g30["high"].max().rename("or30_high"))
+                     .join(g30["low"].min().rename("or30_low"))
+                     .join(g60["high"].max().rename("or60_high"))
+                     .join(g60["low"].min().rename("or60_low")))
+            yr.index.name = "date"
+            yr = yr.sort_index()
 
-        day_starts = (pd.to_datetime(pd.Series(yr.index)) + pd.Timedelta(hours=9)).values
-        idx_vals = d.index.values
-        close_vals = d["close"].to_numpy()
-        pos = np.searchsorted(idx_vals, day_starts, side="left")
-        first_day_prior = carry_close if carry_close is not None else np.nan
-        prior_close = np.where(pos > 0, close_vals[np.clip(pos - 1, 0, None)], first_day_prior)
-        yr["prior_close"] = prior_close
-        daily_parts.append(yr)
-        carry_close = float(d["close"].iloc[-1])
-        del d, sess, g, g30, g60
+            day_starts = (pd.to_datetime(pd.Series(yr.index)) + pd.Timedelta(hours=9)).values
+            idx_vals = d.index.values
+            close_vals = d["close"].to_numpy()
+            pos = np.searchsorted(idx_vals, day_starts, side="left")
+            first_day_prior = carry["close"] if carry["close"] is not None else np.nan
+            prior_close = np.where(pos > 0, close_vals[np.clip(pos - 1, 0, None)], first_day_prior)
+            yr["prior_close"] = prior_close
+            carry["close"] = float(d["close"].iloc[-1])
+            del d, sess, g, g30, g60
+            return yr
+
+        yr = _retry_on_memory(_one_year)
+        if yr is not None:
+            daily_parts.append(yr)
+        gc.collect()
 
     daily = pd.concat(daily_parts).sort_index()
     daily.index.name = "date"
@@ -222,32 +259,37 @@ def compute_volstate_features_streaming() -> pd.DataFrame:
     files = sorted(glob.glob(str(DATA_DIR / "XAUUSD_1m_*.parquet")))
     parts = []
     for f in files:
-        d = pd.read_parquet(f, columns=["ts", "open", "high", "low", "close"])
-        d = d.drop_duplicates("ts").sort_values("ts")
-        loc = d["ts"].dt.tz_localize("America/New_York", ambiguous="NaT", nonexistent="NaT")
-        d["t_ist"] = loc.dt.tz_convert("Asia/Kolkata").dt.tz_localize(None)
-        d = d.dropna(subset=["t_ist"]).set_index("t_ist").sort_index()
-        tod_full = d.index.time
-        sess = d[(tod_full >= MCX_START) & (tod_full <= MCX_END)][["open", "high", "low", "close"]]
-        if sess.empty:
-            del d
-            continue
-        sess = sess.copy()
-        sess["logret"] = np.log(sess["close"]).diff()
-        sess["date"] = sess.index.date
-        t_tod = sess.index.time
-        m2h = (t_tod > dt.time(11, 0)) & (t_tod <= dt.time(13, 0))
-        m4h = (t_tod > dt.time(9, 0)) & (t_tod <= dt.time(13, 0))
-        maft = t_tod > dt.time(13, 0)
-        o60m = (t_tod > dt.time(9, 0)) & (t_tod <= dt.time(10, 0))
-        rv2h = sess[m2h].groupby("date")["logret"].std().rename("trailing_rv_2h")
-        rv4h = sess[m4h].groupby("date")["logret"].std().rename("trailing_rv_4h")
-        morn = sess[m4h].groupby("date").agg(m_hi=("high", "max"), m_lo=("low", "min"))
-        or60 = sess[o60m].groupby("date").agg(o60_hi=("high", "max"), o60_lo=("low", "min"))
-        aft = sess[maft].groupby("date").agg(a_hi=("high", "max"), a_lo=("low", "min"))
-        yr = rv2h.to_frame().join(rv4h).join(morn).join(or60).join(aft)
-        parts.append(yr)
-        del d, sess
+        def _one_year(f=f):
+            d = pd.read_parquet(f, columns=["ts", "open", "high", "low", "close"])
+            d = d.drop_duplicates("ts").sort_values("ts")
+            loc = d["ts"].dt.tz_localize("America/New_York", ambiguous="NaT", nonexistent="NaT")
+            d["t_ist"] = loc.dt.tz_convert("Asia/Kolkata").dt.tz_localize(None)
+            d = d.dropna(subset=["t_ist"]).set_index("t_ist").sort_index()
+            tod_full = d.index.time
+            sess = d[(tod_full >= MCX_START) & (tod_full <= MCX_END)][["open", "high", "low", "close"]]
+            if sess.empty:
+                del d
+                return None
+            sess = sess.copy()
+            sess["logret"] = np.log(sess["close"]).diff()
+            sess["date"] = sess.index.date
+            t_tod = sess.index.time
+            m2h = (t_tod > dt.time(11, 0)) & (t_tod <= dt.time(13, 0))
+            m4h = (t_tod > dt.time(9, 0)) & (t_tod <= dt.time(13, 0))
+            maft = t_tod > dt.time(13, 0)
+            o60m = (t_tod > dt.time(9, 0)) & (t_tod <= dt.time(10, 0))
+            rv2h = sess[m2h].groupby("date")["logret"].std().rename("trailing_rv_2h")
+            rv4h = sess[m4h].groupby("date")["logret"].std().rename("trailing_rv_4h")
+            morn = sess[m4h].groupby("date").agg(m_hi=("high", "max"), m_lo=("low", "min"))
+            or60 = sess[o60m].groupby("date").agg(o60_hi=("high", "max"), o60_lo=("low", "min"))
+            aft = sess[maft].groupby("date").agg(a_hi=("high", "max"), a_lo=("low", "min"))
+            yr = rv2h.to_frame().join(rv4h).join(morn).join(or60).join(aft)
+            del d, sess
+            return yr
+        yr = _retry_on_memory(_one_year)
+        if yr is not None:
+            parts.append(yr)
+        gc.collect()
     out = pd.concat(parts).sort_index()
     out.index.name = "date"
     return out
@@ -265,38 +307,54 @@ def compute_session_profile_streaming() -> pd.DataFrame:
     sums = {b: {"days": set(), "n_bars": 0, "sum_lr": 0.0, "sumsq_lr": 0.0, "n_lr": 0,
                 "rng_pct_sum": 0.0, "rng_pct_n": 0} for b, _, _ in BUCKET_EDGES}
     for f in files:
-        d = pd.read_parquet(f, columns=["ts", "open", "high", "low", "close"])
-        d = d.drop_duplicates("ts").sort_values("ts")
-        loc = d["ts"].dt.tz_localize("America/New_York", ambiguous="NaT", nonexistent="NaT")
-        d["t_ist"] = loc.dt.tz_convert("Asia/Kolkata").dt.tz_localize(None)
-        d = d.dropna(subset=["t_ist"]).set_index("t_ist").sort_index()
-        tod_full = d.index.time
-        sess = d[(tod_full >= MCX_START) & (tod_full <= MCX_END)][["open", "high", "low", "close"]]
-        if sess.empty:
-            del d
-            continue
-        sess = sess.copy()
-        sess["logret"] = np.log(sess["close"]).diff()
-        sess["bucket"] = time_bucket(pd.Series(sess.index, index=sess.index))
-        for bname, _, _ in BUCKET_EDGES:
-            bm = sess[sess["bucket"] == bname]
-            if bm.empty:
-                continue
-            dates_b = bm.index.date
-            s = sums[bname]
-            s["days"] |= set(dates_b)
-            s["n_bars"] += len(bm)
-            lr = bm["logret"].dropna()
-            s["sum_lr"] += float(lr.sum())
-            s["sumsq_lr"] += float((lr ** 2).sum())
-            s["n_lr"] += len(lr)
-            hi = bm.groupby(dates_b)["high"].max()
-            lo = bm.groupby(dates_b)["low"].min()
-            ob = bm.groupby(dates_b)["open"].first().replace(0, np.nan)
-            rng_pct = (hi - lo) / ob * 100
-            s["rng_pct_sum"] += float(rng_pct.sum(skipna=True))
-            s["rng_pct_n"] += int(rng_pct.notna().sum())
-        del d, sess
+        def _one_year(f=f):
+            # accumulate into a FRESH local dict, not the outer `sums`, so a retry after a
+            # partial failure (some buckets already added to a shared accumulator, then a later
+            # bucket in the same file OOMs) can never double-count -- only merged into `sums`
+            # once, after this whole year's pass has fully succeeded (see merge below).
+            local = {b: {"days": set(), "n_bars": 0, "sum_lr": 0.0, "sumsq_lr": 0.0, "n_lr": 0,
+                        "rng_pct_sum": 0.0, "rng_pct_n": 0} for b, _, _ in BUCKET_EDGES}
+            d = pd.read_parquet(f, columns=["ts", "open", "high", "low", "close"])
+            d = d.drop_duplicates("ts").sort_values("ts")
+            loc = d["ts"].dt.tz_localize("America/New_York", ambiguous="NaT", nonexistent="NaT")
+            d["t_ist"] = loc.dt.tz_convert("Asia/Kolkata").dt.tz_localize(None)
+            d = d.dropna(subset=["t_ist"]).set_index("t_ist").sort_index()
+            tod_full = d.index.time
+            sess = d[(tod_full >= MCX_START) & (tod_full <= MCX_END)][["open", "high", "low", "close"]]
+            if sess.empty:
+                del d
+                return local
+            sess = sess.copy()
+            sess["logret"] = np.log(sess["close"]).diff()
+            sess["bucket"] = time_bucket(pd.Series(sess.index, index=sess.index))
+            for bname, _, _ in BUCKET_EDGES:
+                bm = sess[sess["bucket"] == bname]
+                if bm.empty:
+                    continue
+                dates_b = bm.index.date
+                s = local[bname]
+                s["days"] |= set(dates_b)
+                s["n_bars"] += len(bm)
+                lr = bm["logret"].dropna()
+                s["sum_lr"] += float(lr.sum())
+                s["sumsq_lr"] += float((lr ** 2).sum())
+                s["n_lr"] += len(lr)
+                hi = bm.groupby(dates_b)["high"].max()
+                lo = bm.groupby(dates_b)["low"].min()
+                ob = bm.groupby(dates_b)["open"].first().replace(0, np.nan)
+                rng_pct = (hi - lo) / ob * 100
+                s["rng_pct_sum"] += float(rng_pct.sum(skipna=True))
+                s["rng_pct_n"] += int(rng_pct.notna().sum())
+            del d, sess
+            return local
+        local = _retry_on_memory(_one_year)
+        for bname in sums:
+            for k, v in local[bname].items():
+                if k == "days":
+                    sums[bname]["days"] |= v
+                else:
+                    sums[bname][k] += v
+        gc.collect()
     rows = []
     for bname, _, _ in BUCKET_EDGES:
         s = sums[bname]

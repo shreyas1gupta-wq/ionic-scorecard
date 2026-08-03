@@ -1,0 +1,17 @@
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3962
+- Network:       http://10.202.21.235:3962
+- Environments: .env.local
+✓ Ready in 1331ms
+
+ GET /tickets 200 in 1943ms (next.js: 901ms, proxy.ts: 172ms, application-code: 870ms)
+ GET /tickets 200 in 120ms (next.js: 9ms, proxy.ts: 8ms, application-code: 103ms)
+ GET /team 200 in 462ms (next.js: 90ms, proxy.ts: 6ms, application-code: 366ms)
+ GET /reports 200 in 1321ms (next.js: 691ms, proxy.ts: 5ms, application-code: 624ms)
+ GET /admin 200 in 1205ms (next.js: 826ms, proxy.ts: 6ms, application-code: 372ms)
+ GET /admin/access-review 404 in 1450ms (next.js: 1373ms, proxy.ts: 5ms, application-code: 72ms)
+ GET /admin/audit 404 in 606ms (next.js: 553ms, proxy.ts: 5ms, application-code: 48ms)
+ GET /reports/export?kind=people 404 in 603ms (next.js: 515ms, proxy.ts: 5ms, application-code: 82ms)
+ GET /tickets 200 in 117ms (next.js: 8ms, proxy.ts: 6ms, application-code: 103ms)
+ GET /admin/audit 404 in 103ms (next.js: 23ms, proxy.ts: 5ms, application-code: 76ms)
+[?25h

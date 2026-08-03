@@ -4,6 +4,56 @@ Newest entries at TOP.
 
 ---
 
+## 2026-08-03 (Vikram Shah, FM) — THREE_PORTFOLIOS re-costed at Budget-2026 STT; recommendation holds, economics don't
+Owed item from STT_RECOST_20260803 closed: re-costed all 5 sleeves' daily series and rebuilt all 3
+mandates (LOW_RISK/HIGH_CAGR/BALANCED) using the IDENTICAL walk-forward methodology as
+THREE_PORTFOLIOS_20260731/build_portfolios.py. HISTORICAL run reproduced PORTFOLIOS.md bit-for-bit
+(all weights to 4dp) as a fidelity check before trusting the FORWARD numbers.
+**Per-sleeve recost precision, stated per sleeve (no blind haircut):** SWEEP EXACT (real entry/exit
+spot per trade, sell-leg-dependent); LD_SELL EXACT (real `credit_pt` premium); BOOK's `midsmall`+
+`breakout` legs EXACT ZERO (equity cash, untouched by F&O STT — corrects the brief's "BOOK is
+futures-based" framing: only BOOK's `b1b` sub-component, a fixed-Rs50L-notional futures overlay, and
+`s1f` (options, small) actually move); CALENDAR/OVERSHOOT/BOOK's `s1f` used [INFERENCE] assumed
+premiums (150/60/110pt, reused from STT_RECOST_20260803/recost.py) since no premium column exists
+on-disk for those specific trade logs — flagged loudly, immaterial in magnitude.
+**Result:** BALANCED remains the recommended portfolio (still highest Calmar 1.034 vs 0.685/0.671,
+still highest Sharpe 1.10 vs 0.88/0.95 post-recost) — **no change in WHICH portfolio to run** — but
+its CAGR nearly halves (10.29%->6.60% at MaxDD -5.83%->-6.38%), a real commercial-attractiveness
+question for the CIO even though the ordinal call doesn't move. HIGH_CAGR's FITTED search
+independently reallocates AWAY from SWEEP (11.92x->5.02x documented size) and TOWARD every options
+sleeve + BOOK — confirming the futures-vs-options asymmetry at the portfolio level, not just
+per-sleeve — but its risk-adjusted profile still trails BALANCED, so recosting reinforces rather than
+reverses the "don't run HIGH_CAGR as designed" call (capacity ask shrinks from ~12x to ~5x, still
+unverified). CPPI drawdown-floor overlay RE-TESTED and its verdict FLIPS: historically it improved
+HIGH_CAGR's Calmar (1.232->1.699); post-recost it now HURTS Calmar on all three mandates — no longer
+recommended once the new STT is priced in. Two variants reported throughout: HISTORICAL (old rate
+throughout, correct for what actually happened — cutover-date tail is only 1.1-3.0% of each sleeve's
+days) and FORWARD (new rate throughout, correct for what we'd face from here) — never conflated.
+Files: `04_RND_LAB/results/PORTFOLIOS_RECOST_20260803/` (`recost_and_rebuild.py`,
+`PORTFOLIOS_RECOST.md`, `sleeve_delta_summary.json`, `sleeve_before_after.json`,
+`before_after.json`, `run_log.txt`).
+Next: Principal sign-off still owed on the COST_STANDARDS.md amendment itself (D-021) — this recost
+is downstream evidence, not the amendment. Capacity check on SWEEP (now ~5x not ~12x) before any
+HIGH_CAGR sizing, if HIGH_CAGR is ever revisited.
+
+## 2026-08-03 evening (DESK-100) — 750-UNIVERSE RESEARCH BUILD COMPLETE: 751/751 stocks, analyst Excel shipped
+The auto-resume cron (armed after the 21:20 limit reset) fired at 21:27 and finished the job:
+final 74 stocks researched by 4 Sonnet agents (frozen V1 method, zero failures, zero fabrications
+— every pf_qual_<SYM>.json banked to disk the moment its stock finished). **Coverage recount from
+disk: 751/751, 0 missing.** Session total across both workflow runs: 496 stocks researched fresh
+(422 afternoon + 74 evening), joining the 255 pre-existing.
+**FULL-UNIVERSE TALLY (analyst layer): 560 Hold / 191 Sell, 126 escalations queued for Principal
+adjudication** (escalations = genuine analytical tension per the narrow V1 bar, incl. quant-Hold
+names the analyst believes deserve Sell — the asymmetric-override rule holds the rec at Hold and
+routes the disagreement here). NOTE for adjudication: the final-74 chunk (universe tail, smallest
+caps) ran 59 Sell / 15 Hold — the quant <40 band is dense down there, as expected.
+Deliverable rebuilt: `09_PRODUCT/reports/ANALYST_RECOMMENDATIONS_750.xlsx` (751 rows × 43 cols,
+4 sheets: Analyst Full Detail / Field Guide / Research Reader / Portfolio Analytics).
+Files: 74 new pf_qual_*.json in STOCK_SCORECARD_750/results/; ANALYST_RECOMMENDATIONS_750.xlsx.
+Next: (1) Principal review of the 126 escalations (ESCALATIONS list can be extracted on request);
+(2) weekly V1 router (Thu 16:33 cron armed) now has a fully-covered universe to run incrementally
+on; (3) MF stays on its own calendar (NAV refresh Sep-1 armed, QFRA models Oct-end).
+
 ## 2026-08-03 (DESK-100) — 750-universe research completion LAUNCHED (522 stocks, 27 Sonnet agents) + firm cadence re-armed
 Principal order: "complete 750 stocks final... batch of 100 stocks using multiple agents for 10 10
 or 20 20 each basis our finalized method also complete the weekly autorun task and MF also same."
@@ -1682,5 +1732,6 @@ better (1.027x) versus futures (1.99x).
   11.9x documented size, unverified).
 - Acquire SENSEX daily 1979+ — without it 2008, 2000 and 1992 stay untestable, and a COVID-class
   20-day move is 3.70x margin on a naked strangle book.
-- Re-cost the THREE_PORTFOLIOS output at the new STT (BOOK and SWEEP sleeves are futures-based).
+- ~~Re-cost the THREE_PORTFOLIOS output at the new STT~~ DONE 2026-08-03 (Vikram) —
+  `04_RND_LAB/results/PORTFOLIOS_RECOST_20260803/`; BALANCED still recommended, CAGR nearly halves.
 - EVENT_FED paper-track at zero size through 4-6 FOMC cycles (era sign-flip unresolved).

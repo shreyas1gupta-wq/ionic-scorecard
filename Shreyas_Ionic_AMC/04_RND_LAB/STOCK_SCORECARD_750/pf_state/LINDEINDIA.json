@@ -1,0 +1,28 @@
+{
+ "symbol": "LINDEINDIA",
+ "version": "V1",
+ "coverage": "universe",
+ "last_full_research_date": "2026-08-03",
+ "based_on_earnings_date": null,
+ "quant": {
+  "final_3y_adj": 33.7,
+  "final_1y_adj": 35.9,
+  "ionic_score": null,
+  "quant_rec": "Sell"
+ },
+ "analyst": {
+  "rec": "Hold",
+  "growth_pct": 12,
+  "override_applied": true,
+  "summary": "[DATA/INFERENCE] Linde India is a high-quality, monopoly-like industrial-gas utility riding the steel/healthcare/electronics oxygen capex cycle, but it trades at ~111x P/E / 14.3x P/B after a Q4 FY26 profit miss (-59.9% QoQ), while an unresolved SEBI-to-Supreme-Court related-party-transaction dispute over project transfers with sister company PIPL keeps a governance cloud over the stock. No quant score exists yet, so the call defaults to Hold, but the valuation-versus-growth gap plus the live litigation are flagged for escalation."
+ },
+ "fm": {
+  "action": null,
+  "trim_to": null
+ },
+ "escalation": true,
+ "next_earnings_date": null,
+ "last_checked_date": "2026-08-03",
+ "delta_log": [],
+ "pf_qual_ref": "pf_qual_LINDEINDIA.json"
+}

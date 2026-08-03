@@ -1,0 +1,172 @@
+{
+  "SWEEP": {
+    "historical": {
+      "span": "2015-01-13..2026-05-14",
+      "years": 11.33,
+      "net_rs": 3335387,
+      "CAGR_pct": 13.82,
+      "maxDD_pct": -17.61,
+      "maxDD_rs": -380212,
+      "Calmar": 0.785,
+      "Sharpe": 1.76,
+      "PF": 1.43,
+      "months": 137,
+      "month_win_pct": 64.2,
+      "worst_month_pct": -10.64,
+      "worst_day_pct": -4.5,
+      "active_days": 1578
+    },
+    "forward": {
+      "span": "2015-01-13..2026-05-14",
+      "years": 11.33,
+      "net_rs": 1880896,
+      "CAGR_pct": 9.79,
+      "maxDD_pct": -24.49,
+      "maxDD_rs": -486017,
+      "Calmar": 0.4,
+      "Sharpe": 1.0,
+      "PF": 1.22,
+      "months": 137,
+      "month_win_pct": 56.9,
+      "worst_month_pct": -12.56,
+      "worst_day_pct": -4.84,
+      "active_days": 1578
+    }
+  },
+  "CALENDAR": {
+    "historical": {
+      "span": "2011-01-21..2026-07-07",
+      "years": 15.46,
+      "net_rs": 106551,
+      "CAGR_pct": 0.66,
+      "maxDD_pct": -1.65,
+      "maxDD_rs": -16487,
+      "Calmar": 0.398,
+      "Sharpe": 2.85,
+      "PF": 1.6,
+      "months": 187,
+      "month_win_pct": 57.2,
+      "worst_month_pct": -1.24,
+      "worst_day_pct": -1.24,
+      "active_days": 178
+    },
+    "forward": {
+      "span": "2011-01-21..2026-07-07",
+      "years": 15.46,
+      "net_rs": 105550,
+      "CAGR_pct": 0.65,
+      "maxDD_pct": -1.66,
+      "maxDD_rs": -16594,
+      "Calmar": 0.392,
+      "Sharpe": 2.82,
+      "PF": 1.6,
+      "months": 187,
+      "month_win_pct": 57.2,
+      "worst_month_pct": -1.24,
+      "worst_day_pct": -1.24,
+      "active_days": 178
+    }
+  },
+  "OVERSHOOT": {
+    "historical": {
+      "span": "2021-06-21..2026-05-27",
+      "years": 4.93,
+      "net_rs": 27396,
+      "CAGR_pct": 0.55,
+      "maxDD_pct": -1.76,
+      "maxDD_rs": -17677,
+      "Calmar": 0.313,
+      "Sharpe": 0.72,
+      "PF": 1.16,
+      "months": 60,
+      "month_win_pct": 53.3,
+      "worst_month_pct": -0.44,
+      "worst_day_pct": -0.52,
+      "active_days": 913
+    },
+    "forward": {
+      "span": "2021-06-21..2026-05-27",
+      "years": 4.93,
+      "net_rs": 25616,
+      "CAGR_pct": 0.51,
+      "maxDD_pct": -1.82,
+      "maxDD_rs": -18278,
+      "Calmar": 0.283,
+      "Sharpe": 0.68,
+      "PF": 1.15,
+      "months": 60,
+      "month_win_pct": 51.7,
+      "worst_month_pct": -0.44,
+      "worst_day_pct": -0.52,
+      "active_days": 913
+    }
+  },
+  "LD_SELL": {
+    "historical": {
+      "span": "2011-02-24..2026-06-17",
+      "years": 15.31,
+      "net_rs": 246161,
+      "CAGR_pct": 1.45,
+      "maxDD_pct": -5.92,
+      "maxDD_rs": -66342,
+      "Calmar": 0.245,
+      "Sharpe": 2.19,
+      "PF": 1.45,
+      "months": 185,
+      "month_win_pct": 68.6,
+      "worst_month_pct": -5.55,
+      "worst_day_pct": -3.28,
+      "active_days": 286
+    },
+    "forward": {
+      "span": "2011-02-24..2026-06-17",
+      "years": 15.31,
+      "net_rs": 245548,
+      "CAGR_pct": 1.44,
+      "maxDD_pct": -5.93,
+      "maxDD_rs": -66415,
+      "Calmar": 0.244,
+      "Sharpe": 2.18,
+      "PF": 1.45,
+      "months": 185,
+      "month_win_pct": 68.6,
+      "worst_month_pct": -5.56,
+      "worst_day_pct": -3.28,
+      "active_days": 286
+    }
+  },
+  "BOOK": {
+    "historical": {
+      "span": "2022-01-04..2025-12-31",
+      "years": 3.99,
+      "net_rs": 864398,
+      "CAGR_pct": 16.9,
+      "maxDD_pct": -19.24,
+      "maxDD_rs": -199405,
+      "Calmar": 0.879,
+      "Sharpe": 1.5,
+      "PF": 1.36,
+      "months": 48,
+      "month_win_pct": 62.5,
+      "worst_month_pct": -9.61,
+      "worst_day_pct": -6.94,
+      "active_days": 942
+    },
+    "forward": {
+      "span": "2022-01-04..2025-12-31",
+      "years": 3.99,
+      "net_rs": 567824,
+      "CAGR_pct": 11.93,
+      "maxDD_pct": -24.06,
+      "maxDD_rs": -248299,
+      "Calmar": 0.496,
+      "Sharpe": 0.99,
+      "PF": 1.22,
+      "months": 48,
+      "month_win_pct": 60.4,
+      "worst_month_pct": -10.66,
+      "worst_day_pct": -6.94,
+      "active_days": 942
+    }
+  }
+}

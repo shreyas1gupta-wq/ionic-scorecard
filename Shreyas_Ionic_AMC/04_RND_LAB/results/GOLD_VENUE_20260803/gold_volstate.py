@@ -38,30 +38,23 @@ import gold_venue_lib as gvl  # noqa: E402
 import gold_lib as gl  # noqa: E402
 
 t0 = time.time()
-print("[load] gold 1-min, ET->IST, MCX session filter (memory-light path)", flush=True)
-spot = gl.load_gold_ist()
-print(f"       session bars={len(spot):,}  ({time.time()-t0:.1f}s)", flush=True)
-
+# BUG FOUND 2026-08-03 (this is what run_log.txt's traceback caught -- gl.load_gold_ist()'s
+# all-years concat OOM'd under today's system-wide memory pressure, "Unable to allocate 5.61 MiB"
+# with free virtual memory measured at ~2GB at time of fix). gold_venue_scan.py was already
+# patched by a prior pass to stream one year file at a time instead of loading the full 5.9M-row
+# frame; this script was NOT -- fixed the same way here via gvl.compute_volstate_features_streaming(),
+# which reproduces the exact same rv2h/rv4h/morning/OR60/afternoon panel this file's original draft
+# computed off the full `spot` frame, just accumulated one year at a time.
+print("[load] MCX daily stats + per-day trailing/afternoon features, streamed one year at a time "
+      "(memory-light path)", flush=True)
 daily = gvl.compute_daily_stats()
 print(f"       daily table: {len(daily)} days  ({time.time()-t0:.1f}s)", flush=True)
 
-spot["date"] = spot.index.date
-spot["logret"] = np.log(spot["close"]).diff()
-t_tod = spot.index.time
-import datetime as dt
-m2h = (t_tod > dt.time(11, 0)) & (t_tod <= dt.time(13, 0))
-m4h = (t_tod > dt.time(9, 0)) & (t_tod <= dt.time(13, 0))
-maft = t_tod > dt.time(13, 0)
-
-rv2h = spot[m2h].groupby("date")["logret"].std().rename("trailing_rv_2h")
-rv4h = spot[m4h].groupby("date")["logret"].std().rename("trailing_rv_4h")
-morn = spot[m4h].groupby("date").agg(m_hi=("high", "max"), m_lo=("low", "min"))
-or60 = spot[(t_tod > dt.time(9, 0)) & (t_tod <= dt.time(10, 0))].groupby("date").agg(
-    o60_hi=("high", "max"), o60_lo=("low", "min"))
-aft = spot[maft].groupby("date").agg(a_hi=("high", "max"), a_lo=("low", "min"))
+feats = gvl.compute_volstate_features_streaming()
+print(f"       feature table: {len(feats)} days  ({time.time()-t0:.1f}s)", flush=True)
 
 panel = daily[["session_open", "typical_range_pct"]].copy()
-panel = panel.join(rv2h).join(rv4h).join(morn).join(or60).join(aft)
+panel = panel.join(feats)
 panel = panel.dropna(subset=["session_open", "typical_range_pct", "m_hi", "m_lo", "a_hi", "a_lo"])
 panel["atr_consumption"] = (panel["m_hi"] - panel["m_lo"]) / panel["session_open"] * 100 / panel["typical_range_pct"]
 panel["or60_width_norm"] = (panel["o60_hi"] - panel["o60_lo"]) / panel["session_open"] * 100 / panel["typical_range_pct"]

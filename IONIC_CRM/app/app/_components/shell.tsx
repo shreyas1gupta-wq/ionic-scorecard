@@ -26,6 +26,17 @@ export function Shell({
             <Link href="/reports" className="text-[var(--muted)] hover:text-[var(--text)]">
               Reports
             </Link>
+            {/*
+              Shown only to admins. This is presentation, not protection: the
+              admin pages check the role themselves and the database enforces it
+              regardless. Hiding the link stops the other 49 people wondering
+              what they are missing; it is not what keeps them out.
+            */}
+            {user.employee.role === 'ADMIN' && (
+              <Link href="/admin" className="text-[var(--muted)] hover:text-[var(--text)]">
+                Admin
+              </Link>
+            )}
             <Link href="/tickets/new" className="text-[var(--muted)] hover:text-[var(--text)]">
               Raise a ticket
             </Link>

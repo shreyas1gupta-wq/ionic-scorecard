@@ -1,0 +1,388 @@
+{
+  "HISTORICAL": {
+    "final_rows": {
+      "LOW_RISK": {
+        "span": "2022-01-04..2026-07-07",
+        "years": 4.5,
+        "net_rs": 5755913,
+        "CAGR_pct": 10.62,
+        "maxDD_pct": -6.45,
+        "maxDD_rs": -836727,
+        "Calmar": 1.646,
+        "Sharpe": 1.64,
+        "PF": 1.54,
+        "months": 55,
+        "month_win_pct": 61.8,
+        "worst_month_pct": -2.96,
+        "worst_day_pct": -1.74,
+        "active_days": 1088,
+        "worst_3mo_stretch_pct": -4.98,
+        "capital_deployed_pct": 88.0,
+        "capital_utilisation_pct": 28.7
+      },
+      "HIGH_CAGR": {
+        "span": "2022-01-04..2026-07-07",
+        "years": 4.5,
+        "net_rs": 23098978,
+        "CAGR_pct": 30.44,
+        "maxDD_pct": -24.71,
+        "maxDD_rs": -3976979,
+        "Calmar": 1.232,
+        "Sharpe": 1.51,
+        "PF": 1.52,
+        "months": 55,
+        "month_win_pct": 60.0,
+        "worst_month_pct": -12.65,
+        "worst_day_pct": -5.46,
+        "active_days": 1088,
+        "worst_3mo_stretch_pct": -22.52,
+        "capital_deployed_pct": 241.0,
+        "capital_utilisation_pct": 92.5
+      },
+      "BALANCED": {
+        "span": "2022-01-04..2026-07-07",
+        "years": 4.5,
+        "net_rs": 5541987,
+        "CAGR_pct": 10.29,
+        "maxDD_pct": -5.83,
+        "maxDD_rs": -586258,
+        "Calmar": 1.765,
+        "Sharpe": 1.81,
+        "PF": 1.57,
+        "months": 55,
+        "month_win_pct": 63.6,
+        "worst_month_pct": -2.56,
+        "worst_day_pct": -1.88,
+        "active_days": 1088,
+        "worst_3mo_stretch_pct": -4.01,
+        "capital_deployed_pct": 150.0,
+        "capital_utilisation_pct": 36.9
+      }
+    },
+    "chosen_weights": {
+      "LOW_RISK": {
+        "SWEEP": 0.25,
+        "CALENDAR": 0.2,
+        "OVERSHOOT": 0.08,
+        "LD_SELL": 0.1,
+        "BOOK": 0.25
+      },
+      "HIGH_CAGR": {
+        "SWEEP": 1.1921,
+        "CALENDAR": 0.0902,
+        "OVERSHOOT": 0.0274,
+        "LD_SELL": 0.3134,
+        "BOOK": 0.7867
+      },
+      "BALANCED": {
+        "SWEEP": 0.1786,
+        "CALENDAR": 0.525,
+        "OVERSHOOT": 0.225,
+        "LD_SELL": 0.3,
+        "BOOK": 0.2714
+      }
+    },
+    "chosen_label": {
+      "LOW_RISK": "NAIVE",
+      "HIGH_CAGR": "FITTED",
+      "BALANCED": "NAIVE"
+    },
+    "cppi": {
+      "LOW_RISK": {
+        "static": {
+          "span": "2022-01-04..2026-07-07",
+          "years": 4.5,
+          "net_rs": 5755913,
+          "CAGR_pct": 10.62,
+          "maxDD_pct": -6.45,
+          "maxDD_rs": -836727,
+          "Calmar": 1.646,
+          "Sharpe": 1.64,
+          "PF": 1.54,
+          "months": 55,
+          "month_win_pct": 61.8,
+          "worst_month_pct": -2.96,
+          "worst_day_pct": -1.74,
+          "active_days": 1088
+        },
+        "cppi": {
+          "span": "2022-01-04..2026-07-07",
+          "years": 4.5,
+          "net_rs": 4963130,
+          "CAGR_pct": 9.36,
+          "maxDD_pct": -6.31,
+          "maxDD_rs": -836727,
+          "Calmar": 1.484,
+          "Sharpe": 1.52,
+          "PF": 1.48,
+          "months": 55,
+          "month_win_pct": 60.0,
+          "worst_month_pct": -2.96,
+          "worst_day_pct": -1.74,
+          "active_days": 1088
+        }
+      },
+      "HIGH_CAGR": {
+        "static": {
+          "span": "2022-01-04..2026-07-07",
+          "years": 4.5,
+          "net_rs": 23098978,
+          "CAGR_pct": 30.44,
+          "maxDD_pct": -24.71,
+          "maxDD_rs": -3976979,
+          "Calmar": 1.232,
+          "Sharpe": 1.51,
+          "PF": 1.52,
+          "months": 55,
+          "month_win_pct": 60.0,
+          "worst_month_pct": -12.65,
+          "worst_day_pct": -5.46,
+          "active_days": 1088
+        },
+        "cppi": {
+          "span": "2022-01-04..2026-07-07",
+          "years": 4.5,
+          "net_rs": 16739732,
+          "CAGR_pct": 24.41,
+          "maxDD_pct": -14.36,
+          "maxDD_rs": -2631158,
+          "Calmar": 1.699,
+          "Sharpe": 1.32,
+          "PF": 1.48,
+          "months": 55,
+          "month_win_pct": 60.0,
+          "worst_month_pct": -9.37,
+          "worst_day_pct": -5.46,
+          "active_days": 1088
+        }
+      },
+      "BALANCED": {
+        "static": {
+          "span": "2022-01-04..2026-07-07",
+          "years": 4.5,
+          "net_rs": 5541987,
+          "CAGR_pct": 10.29,
+          "maxDD_pct": -5.83,
+          "maxDD_rs": -586258,
+          "Calmar": 1.765,
+          "Sharpe": 1.81,
+          "PF": 1.57,
+          "months": 55,
+          "month_win_pct": 63.6,
+          "worst_month_pct": -2.56,
+          "worst_day_pct": -1.88,
+          "active_days": 1088
+        },
+        "cppi": {
+          "span": "2022-01-04..2026-07-07",
+          "years": 4.5,
+          "net_rs": 5541987,
+          "CAGR_pct": 10.29,
+          "maxDD_pct": -5.83,
+          "maxDD_rs": -586258,
+          "Calmar": 1.765,
+          "Sharpe": 1.81,
+          "PF": 1.57,
+          "months": 55,
+          "month_win_pct": 63.6,
+          "worst_month_pct": -2.56,
+          "worst_day_pct": -1.88,
+          "active_days": 1088
+        }
+      }
+    }
+  },
+  "FORWARD": {
+    "final_rows": {
+      "LOW_RISK": {
+        "span": "2022-01-04..2026-07-07",
+        "years": 4.5,
+        "net_rs": 3058689,
+        "CAGR_pct": 6.1,
+        "maxDD_pct": -8.92,
+        "maxDD_rs": -1250702,
+        "Calmar": 0.685,
+        "Sharpe": 0.88,
+        "PF": 1.25,
+        "months": 55,
+        "month_win_pct": 54.5,
+        "worst_month_pct": -3.49,
+        "worst_day_pct": -1.74,
+        "active_days": 1088,
+        "worst_3mo_stretch_pct": -6.51,
+        "capital_deployed_pct": 88.0,
+        "capital_utilisation_pct": 28.7
+      },
+      "HIGH_CAGR": {
+        "span": "2022-01-04..2026-07-07",
+        "years": 4.5,
+        "net_rs": 9896458,
+        "CAGR_pct": 16.5,
+        "maxDD_pct": -24.61,
+        "maxDD_rs": -2758616,
+        "Calmar": 0.671,
+        "Sharpe": 0.95,
+        "PF": 1.27,
+        "months": 55,
+        "month_win_pct": 60.0,
+        "worst_month_pct": -11.31,
+        "worst_day_pct": -7.79,
+        "active_days": 1088,
+        "worst_3mo_stretch_pct": -17.66,
+        "capital_deployed_pct": 231.5,
+        "capital_utilisation_pct": 90.2
+      },
+      "BALANCED": {
+        "span": "2022-01-04..2026-07-07",
+        "years": 4.5,
+        "net_rs": 3335174,
+        "CAGR_pct": 6.6,
+        "maxDD_pct": -6.38,
+        "maxDD_rs": -836954,
+        "Calmar": 1.034,
+        "Sharpe": 1.1,
+        "PF": 1.31,
+        "months": 55,
+        "month_win_pct": 61.8,
+        "worst_month_pct": -3.0,
+        "worst_day_pct": -1.88,
+        "active_days": 1088,
+        "worst_3mo_stretch_pct": -5.17,
+        "capital_deployed_pct": 150.0,
+        "capital_utilisation_pct": 36.9
+      }
+    },
+    "chosen_weights": {
+      "LOW_RISK": {
+        "SWEEP": 0.25,
+        "CALENDAR": 0.2,
+        "OVERSHOOT": 0.08,
+        "LD_SELL": 0.1,
+        "BOOK": 0.25
+      },
+      "HIGH_CAGR": {
+        "SWEEP": 0.5019,
+        "CALENDAR": 0.1718,
+        "OVERSHOOT": 0.0811,
+        "LD_SELL": 0.4374,
+        "BOOK": 1.1225
+      },
+      "BALANCED": {
+        "SWEEP": 0.1791,
+        "CALENDAR": 0.525,
+        "OVERSHOOT": 0.225,
+        "LD_SELL": 0.3,
+        "BOOK": 0.2709
+      }
+    },
+    "chosen_label": {
+      "LOW_RISK": "NAIVE",
+      "HIGH_CAGR": "FITTED",
+      "BALANCED": "NAIVE"
+    },
+    "cppi": {
+      "LOW_RISK": {
+        "static": {
+          "span": "2022-01-04..2026-07-07",
+          "years": 4.5,
+          "net_rs": 3058689,
+          "CAGR_pct": 6.1,
+          "maxDD_pct": -8.92,
+          "maxDD_rs": -1250702,
+          "Calmar": 0.685,
+          "Sharpe": 0.88,
+          "PF": 1.25,
+          "months": 55,
+          "month_win_pct": 54.5,
+          "worst_month_pct": -3.49,
+          "worst_day_pct": -1.74,
+          "active_days": 1088
+        },
+        "cppi": {
+          "span": "2022-01-04..2026-07-07",
+          "years": 4.5,
+          "net_rs": 2349273,
+          "CAGR_pct": 4.8,
+          "maxDD_pct": -7.26,
+          "maxDD_rs": -959152,
+          "Calmar": 0.661,
+          "Sharpe": 0.79,
+          "PF": 1.24,
+          "months": 55,
+          "month_win_pct": 54.5,
+          "worst_month_pct": -3.49,
+          "worst_day_pct": -1.74,
+          "active_days": 1088
+        }
+      },
+      "HIGH_CAGR": {
+        "static": {
+          "span": "2022-01-04..2026-07-07",
+          "years": 4.5,
+          "net_rs": 9896458,
+          "CAGR_pct": 16.5,
+          "maxDD_pct": -24.61,
+          "maxDD_rs": -2758616,
+          "Calmar": 0.671,
+          "Sharpe": 0.95,
+          "PF": 1.27,
+          "months": 55,
+          "month_win_pct": 60.0,
+          "worst_month_pct": -11.31,
+          "worst_day_pct": -7.79,
+          "active_days": 1088
+        },
+        "cppi": {
+          "span": "2022-01-04..2026-07-07",
+          "years": 4.5,
+          "net_rs": 4593818,
+          "CAGR_pct": 8.76,
+          "maxDD_pct": -13.82,
+          "maxDD_rs": -1768910,
+          "Calmar": 0.633,
+          "Sharpe": 0.69,
+          "PF": 1.23,
+          "months": 55,
+          "month_win_pct": 58.2,
+          "worst_month_pct": -8.01,
+          "worst_day_pct": -7.79,
+          "active_days": 1088
+        }
+      },
+      "BALANCED": {
+        "static": {
+          "span": "2022-01-04..2026-07-07",
+          "years": 4.5,
+          "net_rs": 3335174,
+          "CAGR_pct": 6.6,
+          "maxDD_pct": -6.38,
+          "maxDD_rs": -836954,
+          "Calmar": 1.034,
+          "Sharpe": 1.1,
+          "PF": 1.31,
+          "months": 55,
+          "month_win_pct": 61.8,
+          "worst_month_pct": -3.0,
+          "worst_day_pct": -1.88,
+          "active_days": 1088
+        },
+        "cppi": {
+          "span": "2022-01-04..2026-07-07",
+          "years": 4.5,
+          "net_rs": 2463629,
+          "CAGR_pct": 5.01,
+          "maxDD_pct": -6.18,
+          "maxDD_rs": -815642,
+          "Calmar": 0.812,
+          "Sharpe": 0.91,
+          "PF": 1.27,
+          "months": 55,
+          "month_win_pct": 60.0,
+          "worst_month_pct": -3.0,
+          "worst_day_pct": -1.88,
+          "active_days": 1088
+        }
+      }
+    }
+  }
+}

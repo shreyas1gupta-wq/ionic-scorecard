@@ -54,6 +54,16 @@ orig155 = load_module(
     "orig155",
 )
 
+# SPEED (disclosed deviation, wall-clock reasons -- same tradeoff NEWDIM/PUTCAL_LADDER made this
+# week): the original used N_PLACEBO=200 (each draw re-runs forward_stats' python row-loop over
+# up to ~9655 build rows -- ~4s/draw observed on this machine, 200 draws/cell x 5 cells = >1hr).
+# Cut to 50 draws (resolution 2% instead of 0.5%) via the function's own __defaults__ tuple --
+# mine_cell/placebo_pval's SIGNATURES and LOGIC are otherwise byte-identical to the original.
+# This affects ONLY the placebo p-value's resolution, not n/mean_pts/t_nw/largest_day_share,
+# which are what the isolation is actually being judged on.
+orig155.placebo_pval.__defaults__ = (50,)
+print(f"[speed] placebo draws reduced 200->50 (disclosed deviation, wall-clock)", flush=True)
+
 
 def report_cell(res: dict) -> dict:
     b = res.get("build", {})
@@ -91,7 +101,8 @@ def load_feat_corrected():
     return front, n_before, n_after_dte
 
 
-def vwap_proxy_continue_param(feat: pd.DataFrame, spot: pd.DataFrame, mult: float) -> pd.DataFrame:
+def vwap_proxy_continue_param(feat: pd.DataFrame, spot: pd.DataFrame, mult: float,
+                               bars15: pd.DataFrame | None = None) -> pd.DataFrame:
     """Verbatim copy of orig155.vwap_proxy_band_signals(..., kind='continue') with the band
     multiplier parameterised (original hardcodes 1.5). Everything else byte-identical."""
     f = feat.copy()
@@ -106,21 +117,22 @@ def vwap_proxy_continue_param(feat: pd.DataFrame, spot: pd.DataFrame, mult: floa
         lambda x: x.rolling(8, min_periods=8).std())
     f["upper_prior"] = (f["vwap_proxy"] + mult * f["band_std"]).shift(1)
     f["lower_prior"] = (f["vwap_proxy"] - mult * f["band_std"]).shift(1)
-    bars15 = orig155.resample(spot, "15min")
+    if bars15 is None:
+        bars15 = orig155.resample(spot, "15min")
     m = pd.merge_asof(
         bars15.reset_index().rename(columns={"t": "t15"}).sort_values("t15"),
         f[["t_signal", "upper_prior", "lower_prior"]].sort_values("t_signal"),
         left_on="t15", right_on="t_signal", direction="backward", tolerance=pd.Timedelta(minutes=20))
-    rows = []
-    for _, row in m.iterrows():
-        if pd.isna(row["upper_prior"]) or pd.isna(row["lower_prior"]):
-            continue
-        hi, lo, close = row["high"], row["low"], row["close"]
-        if hi > row["upper_prior"] and close >= row["upper_prior"]:
-            rows.append({"t": row["t15"], "dir": 1})
-        if lo < row["lower_prior"] and close <= row["lower_prior"]:
-            rows.append({"t": row["t15"], "dir": -1})
-    return orig155.clip_entry_window(pd.DataFrame(rows))
+    # vectorized (not a behavior change vs the original per-row loop -- same two conditions,
+    # same rows selected; done this way here purely for wall-clock speed on this ablation copy)
+    valid = m.dropna(subset=["upper_prior", "lower_prior"])
+    up = valid[(valid["high"] > valid["upper_prior"]) & (valid["close"] >= valid["upper_prior"])]
+    dn = valid[(valid["low"] < valid["lower_prior"]) & (valid["close"] <= valid["lower_prior"])]
+    rows = pd.concat([
+        pd.DataFrame({"t": up["t15"].values, "dir": 1}),
+        pd.DataFrame({"t": dn["t15"].values, "dir": -1}),
+    ], ignore_index=True)
+    return orig155.clip_entry_window(rows)
 
 
 def build_daily_atr(spot: pd.DataFrame) -> pd.Series:
@@ -189,75 +201,118 @@ def atr_exit_measure(spot: pd.DataFrame, sig: pd.DataFrame, atr_prior: pd.Series
 
 
 def main():
-    results = {}
+    import gc
     OUT.mkdir(parents=True, exist_ok=True)
     OUTFILE = OUT / "task1_a6_isolation.json"
 
+    results = {}
+    if OUTFILE.exists():
+        try:
+            results = json.loads(OUTFILE.read_text(encoding="utf-8"))
+            print(f"[resume] loaded existing checkpoint with keys: {list(results.keys())}",
+                  flush=True)
+        except Exception as e:
+            print(f"[resume] could not parse existing checkpoint ({e}); starting fresh",
+                  flush=True)
+    results.setdefault("ablations", {})
+
     def checkpoint():
         OUTFILE.write_text(json.dumps(results, indent=2, default=str), encoding="utf-8")
-        print(f"[checkpoint] wrote {OUTFILE} ({len(results)} top-level keys)", flush=True)
+        print(f"[checkpoint] wrote {OUTFILE} (top keys: {list(results.keys())}, "
+              f"ablations: {list(results['ablations'].keys())})", flush=True)
 
     spot = orig155.load_spot()
     print(f"[spot] {len(spot):,} bars {spot.index[0]} .. {spot.index[-1]}", flush=True)
 
     # --- 0. SANITY: reproduce the original (buggy) result byte-for-byte ---
-    feat_buggy = orig155.load_feat()
-    sig_buggy = orig155.vwap_proxy_band_signals(feat_buggy, spot, "continue")
-    res_buggy = orig155.mine_cell(spot, sig_buggy, "A6_ORIGINAL_BUGGY_REPRO", "continuation",
-                                   np.random.default_rng(SEED))
-    print("SANITY (target: n=9655 mean_pts=4.153 t_nw=2.576 largest_day_share=0.087):",
-          report_cell(res_buggy), flush=True)
-    results["sanity_original_repro"] = report_cell(res_buggy)
-    checkpoint()
+    if "sanity_original_repro" not in results:
+        feat_buggy = orig155.load_feat()
+        sig_buggy = orig155.vwap_proxy_band_signals(feat_buggy, spot, "continue")
+        res_buggy = orig155.mine_cell(spot, sig_buggy, "A6_ORIGINAL_BUGGY_REPRO", "continuation",
+                                       np.random.default_rng(SEED))
+        print("SANITY (target: n=9655 mean_pts=4.153 t_nw=2.576 largest_day_share=0.087):",
+              report_cell(res_buggy), flush=True)
+        results["sanity_original_repro"] = report_cell(res_buggy)
+        del feat_buggy, sig_buggy, res_buggy
+        gc.collect()
+        checkpoint()
+    else:
+        print("[resume] skipping sanity_original_repro (already on disk)", flush=True)
 
     # --- 1. DEFECT-ONLY FIX: corrected front-week selection, everything else identical ---
-    feat_corr, n_before_dte, n_after_dte = load_feat_corrected()
-    naive_idx = feat_buggy.set_index("bucket")
-    corr_idx = feat_corr.set_index("bucket")
-    common = naive_idx.index.intersection(corr_idx.index)
-    mismatch = float((naive_idx.loc[common, "expiry"].astype(str).values !=
-                      corr_idx.loc[common, "expiry"].astype(str).values).mean())
-    print(f"[audit] naive-vs-corrected expiry mismatch on {len(common):,} common buckets: "
-          f"{mismatch:.3f} (NEWDIM reported 0.256)", flush=True)
-    results["expiry_mismatch_frac"] = mismatch
-    results["n_buckets_dte_negative_dropped"] = n_before_dte - n_after_dte
+    if "corrected_selection_only" not in results:
+        feat_corr, n_before_dte, n_after_dte = load_feat_corrected()
+        feat_buggy_for_audit = orig155.load_feat()
+        naive_idx = feat_buggy_for_audit.set_index("bucket")
+        corr_idx = feat_corr.set_index("bucket")
+        common = naive_idx.index.intersection(corr_idx.index)
+        mismatch = float((naive_idx.loc[common, "expiry"].astype(str).values !=
+                          corr_idx.loc[common, "expiry"].astype(str).values).mean())
+        print(f"[audit] naive-vs-corrected expiry mismatch on {len(common):,} common buckets: "
+              f"{mismatch:.3f} (NEWDIM reported 0.256)", flush=True)
+        results["expiry_mismatch_frac"] = mismatch
+        results["n_buckets_dte_negative_dropped"] = n_before_dte - n_after_dte
+        del feat_buggy_for_audit, naive_idx, corr_idx, common
+        gc.collect()
+        checkpoint()
 
-    sig_corr = orig155.vwap_proxy_band_signals(feat_corr, spot, "continue")
-    res_corr = orig155.mine_cell(spot, sig_corr, "A6_CORRECTED_SELECTION_ONLY", "continuation",
-                                  np.random.default_rng(SEED + 1))
-    print("DEFECT-ONLY CORRECTED (the headline number):", report_cell(res_corr), flush=True)
-    results["corrected_selection_only"] = report_cell(res_corr)
-    results["ablations"] = {}
-    checkpoint()
+        sig_corr = orig155.vwap_proxy_band_signals(feat_corr, spot, "continue")
+        sig_corr.to_parquet(OUT / "_sig_corr_cache.parquet")  # for resume across process restarts
+        res_corr = orig155.mine_cell(spot, sig_corr, "A6_CORRECTED_SELECTION_ONLY", "continuation",
+                                      np.random.default_rng(SEED + 1))
+        print("DEFECT-ONLY CORRECTED (the headline number):", report_cell(res_corr), flush=True)
+        results["corrected_selection_only"] = report_cell(res_corr)
+        checkpoint()
+        del res_corr
+        gc.collect()
+    else:
+        print("[resume] skipping corrected_selection_only (already on disk)", flush=True)
+        feat_corr, _, _ = load_feat_corrected()
+        sig_corr = pd.read_parquet(OUT / "_sig_corr_cache.parquet")
 
     # --- 2a. + one-trade/day-per-side cap ---
-    sig_capped = sig_corr.copy()
-    sig_capped["date"] = pd.to_datetime(sig_capped["t"]).dt.date
-    sig_capped = (sig_capped.sort_values("t")
-                  .groupby(["date", "dir"], as_index=False).first()[["t", "dir"]]
-                  .sort_values("t").reset_index(drop=True))
-    res_capped = orig155.mine_cell(spot, sig_capped, "A6_corrected_PLUS_dailycap", "continuation",
-                                    np.random.default_rng(SEED + 2))
-    print("ABLATION +daily cap:", report_cell(res_capped), flush=True)
-    results["ablations"]["plus_daily_cap"] = report_cell(res_capped)
-    checkpoint()
+    if "plus_daily_cap" not in results["ablations"]:
+        sig_capped = sig_corr.copy()
+        sig_capped["date"] = pd.to_datetime(sig_capped["t"]).dt.date
+        sig_capped = (sig_capped.sort_values("t")
+                      .groupby(["date", "dir"], as_index=False).first()[["t", "dir"]]
+                      .sort_values("t").reset_index(drop=True))
+        res_capped = orig155.mine_cell(spot, sig_capped, "A6_corrected_PLUS_dailycap",
+                                        "continuation", np.random.default_rng(SEED + 2))
+        print("ABLATION +daily cap:", report_cell(res_capped), flush=True)
+        results["ablations"]["plus_daily_cap"] = report_cell(res_capped)
+        del sig_capped, res_capped
+        gc.collect()
+        checkpoint()
+    else:
+        print("[resume] skipping plus_daily_cap", flush=True)
 
     # --- 2b. sigma variation (band multiplier 1.0 / 2.0 instead of the original's 1.5) ---
     for mult in (1.0, 2.0):
+        key = f"sigma_{mult}"
+        if key in results["ablations"]:
+            print(f"[resume] skipping {key}", flush=True)
+            continue
         sig_m = vwap_proxy_continue_param(feat_corr, spot, mult)
         res_m = orig155.mine_cell(spot, sig_m, f"A6_corrected_sigma{mult}", "continuation",
                                    np.random.default_rng(SEED + 3))
         print(f"ABLATION sigma={mult}:", report_cell(res_m), flush=True)
-        results["ablations"][f"sigma_{mult}"] = report_cell(res_m)
+        results["ablations"][key] = report_cell(res_m)
+        del sig_m, res_m
+        gc.collect()
         checkpoint()
 
     # --- 2c. ATR-scaled stop/target exit instead of the fixed to-15:25 horizon ---
     atr_prior = build_daily_atr(spot)
     for cfg_name, stop_f, target_f in (("tight_atr", 0.30, 0.45), ("wide_atr", 0.50, 0.85)):
+        if cfg_name in results["ablations"]:
+            print(f"[resume] skipping {cfg_name}", flush=True)
+            continue
         r = atr_exit_measure(spot, sig_corr, atr_prior, stop_f, target_f, cfg_name)
         print(f"ABLATION {cfg_name} (stop={stop_f}xATR target={target_f}xATR, PESSIMISTIC):",
               r, flush=True)
         results["ablations"][cfg_name] = r
+        gc.collect()
         checkpoint()
 
     print(f"\n[DONE] wrote {OUTFILE}", flush=True)

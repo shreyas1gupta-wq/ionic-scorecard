@@ -102,10 +102,11 @@ def get_spot_by_day():
     the whole run."""
     if "spot" not in _spot_cache:
         print("  [lazy-load] a cell cleared the cheap gate -- loading full 1-min spot for its "
-              "placebo/benchmark diagnostic (this is the allocation that OOM'd earlier today)",
+              "placebo/benchmark diagnostic (this is the allocation that OOM'd earlier today; "
+              "retrying on transient MemoryError, same discipline as the streaming functions)",
               flush=True)
         try:
-            sp = gl.load_gold_ist()
+            sp = gvl._retry_on_memory(gl.load_gold_ist)
             _spot_cache["spot"] = sp
             _spot_cache["by_day"] = gl.build_by_day(sp)
         except MemoryError as e:

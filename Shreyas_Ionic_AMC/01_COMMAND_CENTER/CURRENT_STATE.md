@@ -1,5 +1,16 @@
 # CURRENT STATE — read me first (updated every session end)
 
+## 750-SCORECARD MILESTONE — 2026-08-03 evening (DESK-100, parallel session)
+**The 750-universe analyst-research build is COMPLETE: 751/751 pf_qual files on disk** (560 Hold /
+191 Sell, 126 escalations → `09_PRODUCT/reports/ESCALATIONS_750_REVIEW.xlsx` for Principal
+adjudication). Deliverable: `09_PRODUCT/reports/ANALYST_RECOMMENDATIONS_750.xlsx` (751×43, 4 sheets).
+**pf_state initialized for the FULL universe (751 files)** — the Thursday weekly V1 router now runs
+incrementally over everything. Talaulikar deck upgrade in flight (19 former No-View names now have
+real scores; 5 remain outside the universe). **OPEN: technical-agent pass has never run (0/751 have
+chart scores) — blocked on choosing the per-symbol multi-year price source; do NOT launch it against
+an unverified path.** MF: NAV-refresh armed Sep-1; QFRA models stay Apr/Oct (next Oct-end). Full
+detail in SESSION_JOURNAL 2026-08-03 entries.
+
 ## >>> RESUME HERE — 2026-08-03, session paused softly by the Principal <<<
 **READ THIS BLOCK FIRST NEXT SESSION.**
 
@@ -45,18 +56,25 @@ They bank to disk continuously, so their outputs should be present even though t
 - **SWEEP_E is the only clean survivor** of ~1,872 nominal cells (~40-55 effective independent trials):
   DSR 0.996-1.00, PBO 0.00. S1-F, the certified flagship, newly carries **PBO=33%**. OVERSHOOT fails
   DSR at ~0.00. CALENDAR fails at 0.58-0.70.
-- **Portfolio: BALANCED** — Sharpe 1.81, Calmar 1.765, CAGR 10.29% at MaxDD -5.83%. The ceiling-scaled
-  HIGH_CAGR reaches 30.44% at -24.71% but needs SWEEP at **11.9x documented size with no capacity check
-  ever run**. NEEDS RE-COSTING at the new STT (BOOK and SWEEP are futures-based).
+- **Portfolio: BALANCED — RE-COSTED 2026-08-03 (Vikram), recommendation HOLDS.** Historical (old-rate)
+  Sharpe 1.81/Calmar 1.765/CAGR 10.29%/MaxDD -5.83%; **forward-costed (new STT throughout) Sharpe
+  1.10/Calmar 1.034/CAGR 6.60%/MaxDD -6.38%** — still the best risk-adjusted of the three, but CAGR
+  nearly halves. HIGH_CAGR's fitted weights independently moved AWAY from SWEEP (11.92x->5.02x
+  documented size) and toward every options sleeve + BOOK once recosted, confirming the futures-vs-
+  options asymmetry at the portfolio level — but HIGH_CAGR still trails BALANCED on Calmar/Sharpe, so
+  the "don't run HIGH_CAGR as designed" call is reinforced, not reversed (capacity ask shrinks to ~5x,
+  still unverified). CPPI drawdown-floor overlay re-tested: its Calmar benefit on HIGH_CAGR REVERSES
+  post-recost (1.232->1.699 historically vs 0.671->0.633 forward) — no longer recommended.
+  Full detail: `04_RND_LAB/results/PORTFOLIOS_RECOST_20260803/PORTFOLIOS_RECOST.md`.
 - **Option buying is CLOSED** from four independent angles, with the mechanism dated to Oct-2024.
 - **Scaling:** 1 lot until forward evidence. If scaling, 3-session hold + CPPI floor — NOT the
   high-frequency arm and NOT naive monthly addition. **Frequency is not what makes a strategy scalable;
   edge-to-drawdown ratio is** — a conclusion the STT hike independently confirms.
 
 ### Still owed
-Capacity check on SWEEP/BOOK before any HIGH_CAGR sizing. Acquire SENSEX daily 1979+ (without it 2008,
-2000 and 1992 stay untestable). Re-cost THREE_PORTFOLIOS at new STT. EVENT_FED paper-track at zero size
-through 4-6 FOMC cycles (era sign-flip unresolved).
+Capacity check on SWEEP (~5x post-recost, down from ~12x) before any HIGH_CAGR sizing. Acquire SENSEX
+daily 1979+ (without it 2008, 2000 and 1992 stay untestable). ~~Re-cost THREE_PORTFOLIOS at new STT~~
+DONE 2026-08-03. EVENT_FED paper-track at zero size through 4-6 FOMC cycles (era sign-flip unresolved).
 
 ### Corrections issued this run — six of my own numbers
 73% CAGR portfolio (contaminated by an excluded sleeve) · the 106%->73.1% withdrawal (never existed) ·
