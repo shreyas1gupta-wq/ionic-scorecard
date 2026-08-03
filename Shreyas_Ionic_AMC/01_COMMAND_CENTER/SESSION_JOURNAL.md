@@ -4,6 +4,26 @@ Newest entries at TOP.
 
 ---
 
+## 2026-08-04 00:08 (DESK-100) — EOD: option-capture task is stalling (NOTABLE, flagged to CURRENT_STATE)
+Scheduled EOD ran (late — cron is 17:03, fired at 00:08 when the REPL went idle). Data-freshness
+check on `AngelDailyOptionCapture` came back **AMBER/RED**, so journalling per the "only if notable"
+rule.
+**The log alone would have read GREEN** — there IS a post-close line dated 2026-08-03 (`23:00 trigger`
+/ `login OK` / `universe 210 stocks`), which is exactly the health test the EOD_ROUTINE spec
+prescribes. The files on disk say otherwise: **2026-08-03 produced only 2 parquet files** (vs 91 on
+08-02, 62 on 07-31). The 15:45 primary run wrote ZERO; the 23:00 backup wrote 360ONE only and then
+stalled for 68+ minutes. Coverage stands at **89/210 symbols**, with only 51 carrying the 2026-09-29
+expiry. Detail + next action in the CURRENT_STATE [EOD FLAG] block.
+**Two lessons worth keeping.** (1) `capture.log`'s "post-close line dated today" is NOT a sufficient
+health test — the task logs login and universe BEFORE doing any work, so a run that dies on symbol 1
+still leaves a healthy-looking line. EOD should assert on file counts written today, not on log
+lines. (2) The symbol directories' mtimes all read 2026-07-31 and initially led me to conclude four
+days of total outage; that was wrong — the capture overwrites parquet in place, so directory mtimes
+never move. **Check file mtimes, never directory mtimes**, on this dataset.
+No repair attempted (EOD is a health check, no agent spawns, and the fix is an ops call).
+Files: CURRENT_STATE.md (EOD FLAG block). Next: /pipeline-health or ops to fix the per-symbol loop
+exiting after the first symbol; consider hardening the EOD check to count files, not log lines.
+
 ## 2026-08-03 late (DESK-100) — PAC/CEO product-approval deck + ABXY aggressive-IPS showcase; Talaulikar No-View upgrade landed
 Principal ask: a deck for the Product Approval Committee and CEO explaining the model, the
 workflow and the pages, with page snapshots, plus a best-in-class ABXY sample on an

@@ -1,5 +1,27 @@
 # CURRENT STATE — read me first (updated every session end)
 
+## [EOD FLAG] AngelDailyOptionCapture is STALLING — 2026-08-04 00:08 (DESK-100 EOD run)
+**Status: AMBER/RED. Not a data-freshness nit — this task is the firm's only defense against Angel
+purging expired option contracts, so a silent stall is unrecoverable data loss.**
+Evidence (ground truth = files on disk, not the log):
+- Output `intraday_options_strategy/datasets/angel_capture_2026/{day,minute}/`. Files written per
+  date: **2026-07-31 → 62, 2026-08-02 → 91, 2026-08-03 → only 2.**
+- 2026-08-03 **15:45 primary trigger wrote ZERO files** despite `login OK` + `universe 210 stocks |
+  expiries ['2026-08-25','2026-09-29']` logged at 15:45:12. Nothing for the next 7 hours.
+- 2026-08-03 **23:00 backup trigger wrote 2 files** (360ONE day+minute, 23:02) then stalled — no
+  further lines or files in the following ~68 min. It dies after the FIRST symbol.
+- The 20:00 backup trigger did not log at all on 08-03.
+- **Coverage is 89/210 symbols (42%)**: 88 have the 2026-08-25 expiry, only **51 have 2026-09-29**.
+  121 F&O names have never been captured at all.
+- `capture.log` also carries a DNS failure to `apiconnect.angelone.in` (`getaddrinfo failed`) from an
+  earlier run, so the network path is intermittently unavailable.
+Note on diagnosis: symbol-directory mtimes read 2026-07-31 and are MISLEADING — the capture overwrites
+parquet files in place, so directory mtimes do not move. Check file mtimes, never directory mtimes.
+**NOT repaired by this EOD (health check only, no agent spawns, and a repair is an ops decision).**
+Next action: `/pipeline-health` or Manoj (ops) to find why the per-symbol loop exits after symbol 1;
+the 15:45 zero-file run and the 23:00 one-symbol run are probably the same root cause. Until fixed,
+treat any option-data backtest on Aug-2026 expiries as running on a 42%-complete universe.
+
 ## 750-SCORECARD MILESTONE — 2026-08-03 evening (DESK-100, parallel session)
 **The 750-universe analyst-research build is COMPLETE: 751/751 pf_qual files on disk** (560 Hold /
 191 Sell, 126 escalations → `09_PRODUCT/reports/ESCALATIONS_750_REVIEW.xlsx` for Principal
