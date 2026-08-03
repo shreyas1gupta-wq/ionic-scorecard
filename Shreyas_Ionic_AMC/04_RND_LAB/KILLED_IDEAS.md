@@ -98,3 +98,35 @@ holding, buy or sell, beyond NS-1's already-banked ~5pt gross/night ceiling).
 **Resurrection (either niche):** only a construction that changes WHICH nights are entered (a filter,
 not unconditional entry) — e.g., an ex-ante flag for scheduled-event eve (see Niche 4/K-pending below)
 — tested as a NEW pre-registered cell, not a re-run of the unconditional population.
+
+## K-018 — Financed/laddered long iron butterfly (ATM straddle + tight OTM strangle, weekly-rolled) (2026-08-02)
+**Killed by:** `IRONFLY_LADDER_20260802` (Principal-ordered full grid despite strong recent prior
+art — see below). 32 pre-registered cells: OTM distance {100,150,200,300}pts x roll-mode
+{layer,replace} x filter {unconditional, IV<50d-RV, IV<GARCH(1,1), IV<=own 25th pctile}. ALL 32
+fail. Tighter wings are cleanly, significantly NEGATIVE (d100 layer unconditional t=-5.23, d100
+replace unconditional t=-8.17) — financing the straddle with a TIGHT short strangle is not a
+cheaper way to buy convexity, it is a worse one, because the short legs cap away the one thing
+(a large move) that could offset the theta cost. The widest wing (d300) merely converges back to
+the already-known "fairly priced" naked-straddle result; its best cell (iv_lt_garch, +8.49 pts,
+t=1.11) fails its own 500x placebo (p=0.088) and misses the honest family-adjusted Bonferroni bar
+(t~=4.20 required at N=1,904 nominal, i.e. this grid's 32 + the ~1,872 already run this week per
+VALIDATION_DEBTS_20260731) by a wide margin. REPLACE mode (forced early exit before the rung's own
+expiry) is worse than LAYER mode at every single distance/filter combination — matches
+`OPTBUY_CONVEXITY_20260731`'s 50%-partial-hold finding that early exit does not dodge the theta
+bleed. This is the 4th distinct vol-cheapness gate to fail placebo on the general "time straddle
+buying by IV-vs-RV" question, after that arm's VIX<=25pct/VIX>=75pct/RV20<=25pct (all three also
+failed placebo, and two of them disagreed in SIGN with each other). Full detail, cells.csv,
+per-rung trade CSVs, validation battery: `results/IRONFLY_LADDER_20260802/FINDINGS.md`.
+**Resurrection:** only a construction where the financing leg does NOT cap the same structure's
+own gamma — e.g. financing via a genuinely uncorrelated instrument/vehicle rather than a tighter
+strangle on the identical underlying and expiry — OR if the post-Oct-2024 gamma/theta regime
+(currently 0.83-0.90, buyer-unfavorable) reverts to >=1.0 for a sustained, adequately-powered
+window. NO re-tests of tighter wings, different roll cadences, or additional vol-filter
+definitions on this same financed-strangle-on-the-same-underlying construction — the mechanism
+(capped convexity vs. an already-unfavorable theta regime), not the specific parameters, is what
+failed.
+**Adjacent, explicitly NOT killed here:** a swing-high/low PRICE-LEVEL entry trigger (raised same
+session, "identify key S/R via swing high/low, act when NIFTY reaches that point") was not built
+or tested as part of this grid — see FINDINGS.md's cross-reference section for the highly
+relevant `SWING_DELTA1_20260729` prior art (a directional version of almost exactly this signal
+reverses hard out-of-sample) and the recommended path if pursued as a separate intake.

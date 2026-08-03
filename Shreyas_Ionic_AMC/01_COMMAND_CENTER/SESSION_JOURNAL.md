@@ -3,6 +3,80 @@ Format per entry: date, account (DESK-20/DESK-100), summary, files touched, hand
 Newest entries at TOP.
 
 ---
+
+## 2026-08-02/03 (DESK-100) — PLEDGE_SAFE: Rs50L bond+Rs50L MF pledge-and-sell backtest, red-teamed, corrected; put-calendar family killed; protective-put hedge validated
+Principal ask: backtest pledging Rs 50L G-sec (8%) + Rs 50L equity MF (12% assumed) as broker
+collateral, running the margin through options to generate yield "in a very very safe way." Reused
+S1-F (frozen D-030 spec, 0DTE NIFTY ATM short straddle, real-fill t=3.92) UNCHANGED — its own spec
+explicitly flags pledged-collateral margin as "the legitimate lever... Principal decision, not part
+of this spec." Sized via RISK_LIMITS.md's pre-existing (not invented) 40%-of-book short-vol margin
+cap, dynamically rebased daily — verified 0 breaches across 1,812 days. **Calm 2021-2026 (real
+NIFTY500 for the MF leg, not the flat-12% assumption which this firm has already flagged as an
+anti-pattern elsewhere): combined MaxDD -6.96% vs -9.81% bond+MF-only baseline — yield overlay
+HELPS.** Built a COVID-era rerun reusing the existing S1-F covid_backcast — **red-teamed
+(`07_RISK_OFFICE/ADVERSARIAL_REVIEWS.md`, verdict FRAGILE)**: caught that the backcast never applies
+F1/F2 vetoes, and the two worst days behind the original -23.34% headline (03-19/03-26-2020) would
+both be vetoed live; also caught a real same-day sizing lookahead (book_now should be D-1-lagged).
+**Corrected rerun: yield-only COVID MaxDD -20.17% — still a real (if narrow) breach of
+RISK_LIMITS.md's own pre-existing COVID bar (<20%) and still worse than the passive baseline.**
+Built a 50%-notional rolling protective-put overlay (5% OTM NIFTY PE, ~30D, roll T-5) per Principal's
+mid-session follow-up explicitly allowing directional/hedge exposure — real 2016-2026 option data
+(includes actual COVID prices, no backcast needed): cost ~20-40pts/rung in calm times, **paid
++3,463pts in the actual Feb-Apr-2020 crash window**. **Yield + this hedge, corrected: COVID MaxDD
+-17.53% — PASSES the firm's 20% bar and beats the passive baseline**, for only ~0.5pt/yr CAGR cost
+in calm markets. **Recommended structure = yield overlay + partial protective put, not yield alone.**
+Side-thread (Principal mid-session: "check calendar/ratio structures too, in parallel"): PE
+calendar ladder (buy far/sell near, `PUTCAL_LADDER_20260802`) — 45D/15D **dead** both roll timings
+(T-5 t=-3.41 clearly, T-2 t=-1.87 indistinguishable from random-timing placebo); 90D/30D mildly
+positive (+5.4pts/rung, beats 63% of random draws) but t=0.69 — **underpowered, not proven, forward-
+test candidate only**. Put ratio spread (1x2, buy 3%OTM/sell 2x8%OTM) — cheaper than the pure hedge
+but did NOT help in the crash window (-19.9pts) and carries real (if not-yet-catastrophic-in-sample,
+n=3 breaches) uncapped tail risk beyond the short strikes — **not recommended** for a safety mandate.
+**Standing caveats disclosed, not resolved**: settlement/liquidity channel not modeled (cash P&L is
+a ledger entry, doesn't ask whether covering a bad day requires posting fresh cash/de-pledging); no
+GFC-class (2008) scenario testable, data starts 2015-2016; haircuts (10% G-sec/30% equity MF) are
+labeled assumptions, no single citable current NSE rate exists for either (scheme-specific) — verify
+against Angel's live pledge calculator before acting. Two background jobs (red-team agent, PE-
+calendar Bash job) were LOST mid-run to a process restart this session — resumed/relaunched
+successfully; a resume-from-cache pattern was added to the calendar script (checks for existing
+`trades_*.csv` before re-walking) that's reusable for future long-running result-caching. Full
+detail + all scripts/data: `04_RND_LAB/results/PLEDGE_SAFE_20260802/` (FINDINGS.md is the summary),
+`04_RND_LAB/results/PUTCAL_LADDER_20260802/`, `04_RND_LAB/results/PROTECTIVE_PUT_20260802/`. Nothing
+committed to git yet (not requested). **OPEN:** Principal decision on whether to proceed with the
+yield+hedge structure; the 3 disclosed caveats above are unresolved, not silently cleared.
+
+---
+## 2026-08-02 (DESK-100) — Financed/laddered long iron-fly backtested and KILLED (K-018); swing-level idea scoped against strong prior art
+Principal proposed a new option-buying variant: buy ATM straddle + sell tight OTM strangle
+(defined-risk long iron butterfly) at ~13 DTE, roll a new rung every ~7 days, tested unconditional
+vs IV-vs-realized-vol/GARCH/IV-percentile entry filters. **Prior-art check first** (recent
+commits `64a100d`/`4dc8c9a`, 2026-07-31, `OPTBUY_CONVEXITY_20260731`) showed the closest analog
+(naked DTE-ladder ATM straddle, vol-cheapness gated) already killed cleanly — all 3 vol gates
+failed placebo, gamma/theta on ATM straddles measured 0.83-0.90 post-Oct-2024 vs a fair 1.0.
+Principal chose to run the full grid anyway. Built fresh engine reusing OPTBUY_CONVEXITY's cache
+(dedup'd 4,447 exact-duplicate rows found in the shared option-chain cache, confined to
+2024-07-01..05, flagged to Kavya via spawn_task), added vollib-based ATM IV solve, 50d realized
+vol, and an expanding-window GARCH(1,1) forecast (new `arch` package installed). **Result: clean
+KILL, 32/32 cells.** Tighter wings (100-200pt) are significantly NEGATIVE (t as low as -8.17) —
+the short strangle caps the payoff on the one thing that could offset the theta cost, so financing
+this way is WORSE than the naked straddle, not better. Widest wing (300pt) just converges back to
+the already-known fairly-priced result; its best cell (+8.49 pts, t=1.11) fails its own placebo
+(p=0.088) and misses the honest family-adjusted Bonferroni bar (t~4.20 needed at ~1,904 nominal
+trials) by a wide margin. REPLACE (forced early exit) worse than LAYER (hold to own expiry) at
+every cell — matches the prior arm's partial-hold finding. Logged as **K-018** with resurrection
+condition. Mid-session the Principal separately proposed a swing-high/low support/resistance
+entry trigger — found the firm already has an exact prior test of this
+(`SWING_DELTA1_20260729` family D, prior-week sweep-then-reclaim): best build t_nw only 1.858,
+and EVERY long variant reverses hard in the 2026 held-out sample (Sharpe -2.34 to -4.40). Not a
+literal refutation (that was a directional futures bet, not an entry-timing filter for a
+vol-neutral structure) but strong caution, reported to Principal, not yet built as a new intake.
+**Files:** `04_RND_LAB/results/IRONFLY_LADDER_20260802/` (PRE_REGISTRATION.md, FINDINGS.md,
+cells.csv, scripts/, cache/, checkpoints/); `04_RND_LAB/KILLED_IDEAS.md` (K-018 appended).
+**Next:** if the swing-level idea is pursued, spec it as an entry-timing filter (not a directional
+bet) reusing SWING_DELTA1's existing prior-week swing-high/low definition, and count it against
+the now-large "levels" family (10+~30+124+284 prior cells) for Bonferroni purposes.
+
+---
 ## 2026-07-28 (later still) — Rapid-fire correction round: IPS self-gates on missing data, 6 more permanent page cuts (all sell/hold-only scope), a "page 26" mis-identification caught and fixed, index-fund placeholder-data bug found and fixed, LTCG-assumed tax convention, AMFI backfill dispatched
 Fast sequence of corrections after the IPS rebuild shipped. **`ips_summary.py` now self-gates**:
 renders ONLY when `ips["on_file"]` is True — a client with no bespoke IPS gets no page at all

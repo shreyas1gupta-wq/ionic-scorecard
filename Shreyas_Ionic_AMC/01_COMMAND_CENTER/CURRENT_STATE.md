@@ -2,6 +2,48 @@
 
 > **CORRECTION 2026-07-31:** an earlier claim that all three option-selling sleeves have no crash data is WRONG for two of three. Only OVERSHOOT (from 2021-06) lacks it; CALENDAR and LD_SELL span 2011-2026 with thin crash sampling. Detail in SESSION_JOURNAL.
 
+## 2026-08-02 (DESK-100) — Financed/laddered long iron-fly KILLED (K-018, 32/32 cells); swing-level idea scoped
+Principal's new option-buying variant (ATM straddle financed by a tight OTM short strangle,
+weekly-rolled ladder, 4 vol-timing filters) tested despite strong prior art already flagging the
+core mechanism as dead (`OPTBUY_CONVEXITY_20260731`, 2026-07-31). **Clean kill, all 32 cells**:
+tighter wings (100-200pt) significantly NEGATIVE (t to -8.17) — the short strangle caps the payoff
+on the one thing that could offset theta, so it's a worse buy, not a cheaper one. Widest wing
+(300pt) just re-converges to the already-known fairly-priced naked-straddle result; best cell
+(+8.49pts, t=1.11) fails its own placebo (p=0.088) and misses the honest Bonferroni bar
+(t~4.20 needed at ~1,904-trial family size) by a mile. This is the 4th distinct vol-cheapness gate
+to fail placebo on "time straddle-buying by IV vs RV" (after VIX-low/VIX-high/RV20-compression).
+Found and fixed a small, harmless shared-cache bug along the way (4,447 exact-duplicate option
+rows, 2024-07-01..05, flagged to Kavya). Full detail: `04_RND_LAB/results/IRONFLY_LADDER_20260802/
+FINDINGS.md`, `04_RND_LAB/KILLED_IDEAS.md` K-018. **Separately**, Principal proposed a
+support/resistance swing-high/low entry trigger — the firm already has an exact prior test
+(`SWING_DELTA1_20260729`), a directional version of which reverses hard out-of-sample (best build
+t_nw 1.858, held-out Sharpe -2.34 to -4.40 on every long variant). Reported as caution, not built.
+**OPEN:** whether Principal wants the swing-level idea spec'd as a NEW intake (entry-timing filter
+on the vol structure, not a directional bet, reusing SWING_DELTA1's existing level definition).
+
+## 2026-08-02/03 (DESK-100) — PLEDGE_SAFE: Rs50L bond+Rs50L MF pledge-and-sell backtest, red-team caught a real bug, corrected verdict = yield ALONE fails the firm's own COVID bar, yield+protective-put PASSES it
+Principal ask: pledge Rs50L G-sec (8%) + Rs50L equity MF as collateral, run options for yield "very
+very safely." Reused S1-F (frozen spec) unchanged, sized via RISK_LIMITS.md's existing 40%-of-book
+cap (0 breaches, 1,812 days verified). **Calm 2021-2026 (real NIFTY500 for the MF leg): combined
+MaxDD -6.96% vs -9.81% baseline — yield HELPS.** COVID rerun first came back -23.34% (fails
+RISK_LIMITS' own <20% COVID bar) — **red-team caught it was contaminated**: the reused covid_backcast
+never applies F1/F2 vetoes, and the 2 worst days behind that number would both be vetoed live; also
+caught a same-day sizing lookahead. **Corrected: yield-only COVID MaxDD -20.17% (still a real, narrow
+breach + still worse than baseline).** Built a 50%-notional rolling protective put (real 2016-2026
+option data, incl. actual COVID prices — paid +3,463pts in the real Feb-Apr-2020 window) per
+Principal's mid-session follow-up allowing directional hedges: **yield+hedge corrected COVID MaxDD
+-17.53% — PASSES the firm's bar and beats the passive baseline**, for ~0.5pt/yr CAGR cost in calm
+markets. **Recommended: yield overlay + partial protective put, NOT yield alone.** Side-thread: PE
+calendar ladder (buy-far/sell-near PE) confirmed DEAD at 45D/15D both roll timings; 90D/30D mildly
+positive but underpowered (t=0.69) — forward-test candidate only, not in the recommended structure.
+Put ratio spread: cheaper but doesn't help in a crash, real uncapped tail risk — not recommended.
+Two background jobs (red-team, calendar Bash job) were lost to a process restart mid-session and
+successfully resumed/relaunched — a resume-from-cache pattern (skip re-computing if `trades_*.csv`
+already exists) was added, reusable for future long jobs. **OPEN: Principal decision on the
+yield+hedge structure; 3 disclosed caveats unresolved (settlement/liquidity channel not modeled, no
+GFC-class scenario testable — data starts 2015/2016, haircuts are labeled assumptions not a live
+broker quote).** Full detail: SESSION_JOURNAL.md top entry + `04_RND_LAB/results/PLEDGE_SAFE_20260802/
+FINDINGS.md`. Nothing committed to git yet.
 
 ## 2026-07-30/31 (DESK-100) — >100% CAGR hunt part 2: buying refused a 3rd time, regime-ML answered, candle system exposed as BETA
 **HEADLINE: no single strategy reaches >100% CAGR at <25% MDD, and the reason is now measured four
