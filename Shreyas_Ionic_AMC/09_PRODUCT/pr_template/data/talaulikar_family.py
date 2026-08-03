@@ -6,8 +6,9 @@ Joint MF holdings.
 
 Source: NSDL CAS PDFs (st1.pdf Apr-2026, st2.pdf Mar-2026).
 Parsed via parse_cas.py -> talaulikar_holdings.csv.
-Scored universe coverage: 74/98 stocks.
-Unscored: BASF, JSLL, VMM, MCX, NAM-INDIA, BLS, SKYGOLD, V2RETAIL, ETHOSLTD, HFCL, SCI, GRINDWELL, IKS, RATEGAIN, AVL, GRWRHITECH, WELCORP, CARTRADE, AARTISURF, STLTECH, KWIL, IXIGO, SAMHI, TIMEX
+Scored universe coverage: 93/98 stocks (2026-08-03: full-750 research completion scored 19
+previously-No-View names -- see _SCORE_750 below).
+Unscored (genuinely outside the 751-stock universe): BASF, GRINDWELL, AARTISURF, KWIL, TIMEX
 """
 import os, re
 
@@ -479,12 +480,12 @@ _EQUITY = [
         sector='',
         value_inr=297630.9,
         ionic_score=None, score_3y=None, score_1y=None,
-        rec='No Recommendation',
-        growth_pct=None,
-        summary='Outside the current scored universe; pending one-time research scoring.',
-        negative_para="",
-        positive="",
-        reverse_dcf="",
+        rec='Hold',
+        growth_pct=28,
+        summary='Jeena Sikho Lifecare runs a fast-growing chain of Ayurvedic hospitals and clinics across India, and its most recent full year showed very strong growth in both revenue and profit as the network of centres expanded, with excellent returns on capital. The company continues to open new centres and launch new products. The stock is not cheaply priced relative to its book value, reflecting how much the market already likes this growth story. We rate it a Hold: a clear, broad-based growth story already reflected in a rich valuation.',
+        negative_para="Growth at this magnitude (70%+ revenue, nearly 180% profit) cannot mechanically continue as the base of 119 centres scales further, new-centre ramp-up economics typically mean each incremental centre contributes a smaller percentage lift to an ever-larger base, so a deceleration from the trailing rate should be expected and planned for rather than extrapolated. The stock's rich valuation on a book-value basis (around 15.8x) already assumes continued strong execution, and I could not independently verify the share-count/dilution trend behind the very high ROE this session, which is the specific check called for at this growth level.",
+        positive='Growth is real and geographically diversified across 119 centres in 23 states, not a one- or two-location fluke, with FY26 revenue up 71% and profit up 178% alongside improving working-capital metrics (debtor days down from 49 to 32), a sign of clear operating quality alongside the growth, not just top-line expansion. Return ratios (ROCE 64.1%, ROE 61.3%) are exceptional even by high-growth-healthcare standards, and continued network expansion (new hospital planned for October 2026, new client-support infrastructure, new product launches) suggests the growth pipeline remains active rather than already spent.',
+        reverse_dcf='ROE of 61.3% comfortably clears the 20% threshold associated with the exceptional-growth tier, and the business model (asset-light-ish healthcare-services rollout funded partly by improving working capital rather than heavy new equity) does not show obvious signs of dilution-funded growth from what is available, though I was unable to independently confirm the multi-year share-count trend this session, that check should be completed before treating the ROE/growth combination as fully verified. Provisionally, this looks like a clear high-quality compounder rather than a growth-by-dilution story, but the valuation already assumes the growth continues at a strong, if inevitably decelerating, pace.',
     ),
     dict(
         symbol='PERSISTENT',
@@ -552,12 +553,12 @@ _EQUITY = [
         sector='',
         value_inr=254240.91,
         ionic_score=None, score_3y=None, score_1y=None,
-        rec='No Recommendation',
-        growth_pct=None,
-        summary='Outside the current scored universe; pending one-time research scoring.',
-        negative_para="",
-        positive="",
-        reverse_dcf="",
+        rec='Hold',
+        growth_pct=18,
+        summary="Vishal Mega Mart is a fast-growing value-retail chain benefiting from the broader formalization of retail in India, with sales and profit both growing at a healthy clip as its store network matures. Returns on capital are still modest at this stage and the stock's valuation already reflects a lot of that growth, so we rate it a hold.",
+        negative_para='Return on equity remains modest (~10.4% three-year average) for a stock trading at ~62x earnings and ~7x book value, the valuation is pricing in a return-on-capital improvement that has not yet shown up in the numbers. Limited trading history since the December 2024 listing means the store-maturation curve and through-cycle unit economics are not yet fully proven, and zero dividend leaves shareholder return entirely dependent on continued execution.',
+        positive="clear structural tailwind (India's value-retail formalization) is showing up in real numbers, TTM sales growth ~20%, TTM profit growth ~30% (positive operating leverage), and Rs.1,299cr of free cash flow. As a newly listed, still-maturing store network, returns on capital have real room to improve as stores season past their initial ramp-up period.",
+        reverse_dcf='At ~62x earnings and ~7x book value against a ~10% ROE, the multiple requires meaningful ROE expansion (store-maturation-driven) on top of continued ~18-20% growth to be justified. This is a real but demanding growth-priced-for-perfection setup, rich relative to currently demonstrated capital returns, fair only if the maturation curve plays out as the market expects.',
     ),
     dict(
         symbol='TATASTEEL',
@@ -581,12 +582,12 @@ _EQUITY = [
         sector='',
         value_inr=237720.0,
         ionic_score=None, score_3y=None, score_1y=None,
-        rec='No Recommendation',
-        growth_pct=None,
-        summary='Outside the current scored universe; pending one-time research scoring.',
-        negative_para="",
-        positive="",
-        reverse_dcf="",
+        rec='Hold',
+        growth_pct=18,
+        summary="MCX is India's dominant commodity-derivatives exchange, controlling nearly all trading in metals and energy contracts, and just posted a very sharp jump in profit driven by strong trading volumes. As a market-infrastructure business with very high operating leverage, its earnings can swing significantly with trading activity and volatility in either direction, so the recent surge should not be assumed to be the new steady-state. We rate it a Hold: an excellent, near-monopoly franchise, richly valued and inherently volume-sensitive.",
+        negative_para="The same high operating leverage that produced a ~160% YoY profit jump this quarter works in reverse during quieter, lower-volatility trading periods, meaning current elevated returns (ROE in the low-to-mid 40s%) should be read as cyclically strong rather than a new permanent baseline; with ~95-100% share already achieved in most major segments (precious metals, energy, base metals), MCX's growth increasingly depends on overall market/volume expansion and new product launches rather than further share gains, since there is little share left to gain.",
+        positive='A near-monopoly position (95.9% overall market share, effectively 100% in precious metals) in a structurally growing Indian derivatives market, combined with a debt-free, ~64%-operating-margin business model, gives MCX clear, durable pricing power and operating leverage that converts incremental trading volume very efficiently into profit.',
+        reverse_dcf="At a market cap in the Rs 67,000-72,000 crore range and trailing PE in the 50s (per the quant sheet), the market is pricing sustained strong growth in Indian derivatives trading activity, plausible given the structural growth in market participation, but the current profit run-rate is inflated by a strong-volume/volatility quarter that will not repeat every period given the exchange's high operating leverage in both directions. Call: fair-to-rich; a excellent franchise, but current earnings should be cycle-adjusted downward for valuation purposes rather than extrapolated at the latest quarter's pace.",
     ),
     dict(
         symbol='POLYCAB',
@@ -666,12 +667,12 @@ _EQUITY = [
         sector='',
         value_inr=151492.5,
         ionic_score=None, score_3y=None, score_1y=None,
-        rec='No Recommendation',
-        growth_pct=None,
-        summary='Outside the current scored universe; pending one-time research scoring.',
-        negative_para="",
-        positive="",
-        reverse_dcf="",
+        rec='Hold',
+        growth_pct=19,
+        summary='Nippon Life India Asset Management delivered an excellent quarter - profit up 27%, AUM up 16%, and market share gains across overall, equity and SIP categories - continuing a clear, capital-light growth story. The business quality is very high, but the current valuation (about 48 times trailing earnings) is near the top of where Indian asset managers have historically traded, so we see this as a quality name priced for a lot of continued success rather than a name offering a margin of safety.',
+        negative_para='At ~48x trailing earnings, the valuation is near the top of the historical range for Indian AMC stocks, leaving little room for a slowdown in either AUM growth or market-share gains; asset management revenue is also inherently linked to overall equity-market levels and flows, and structural fee/TER-cap pressure from the regulator has been a multi-year industry theme that could keep yields from expanding even as AUM grows.',
+        positive='Best-in-class capital efficiency (ROE ~28%, ROCE ~36%, D/E ~0.02) with clear market-share gains across overall MF (+54bps YoY), equity (+34bps YoY) and SIP categories, an industry-leading unique investor base (24.1 million, 39% share), and a growing digital distribution mix that supports durable, low-cost customer acquisition.',
+        reverse_dcf='A ~48x trailing multiple prices in continued double-digit AUM growth plus ongoing market-share gains for several more years; the business quality (ROE, ROCE, capital-light model, share gains) supports being one of the higher-multiple names in the space, but the current price already captures most of that quality, making this closer to fully valued than cheap.',
     ),
     dict(
         symbol='JIOFIN',
@@ -755,12 +756,12 @@ _EQUITY = [
         sector='',
         value_inr=129692.46,
         ionic_score=None, score_3y=None, score_1y=None,
-        rec='No Recommendation',
-        growth_pct=None,
-        summary='Outside the current scored universe; pending one-time research scoring.',
-        negative_para="",
-        positive="",
-        reverse_dcf="",
+        rec='Hold',
+        growth_pct=18,
+        summary='BLS International is a leading global visa-outsourcing company with strong reported revenue and profit growth and high returns on capital, and it continues to expand through acquisitions and new geographies. However, its stock has fallen sharply and consistently over the past one to two years even as reported growth stayed strong, a real disconnect worth investigating further before treating the low headline valuation as a straightforward opportunity. We rate it a Hold, but flag this fundamentals-versus-price divergence for a closer look.',
+        negative_para='The stock has fallen roughly 37.6% over the past year and 34.9% over two years even as reported fundamentals stayed strong, a persistent, large divergence that the market is clearly pricing for a reason not fully visible in the headline growth/ROE numbers, and part of the reported growth appears increasingly driven by a pattern of serial digital-services acquisitions (most recently Atyati Technologies) rather than purely organic expansion, a mix that deserves more scrutiny than a single research pass could give it.',
+        positive='A top-two global position in visa outsourcing with a clear 17% ex-US market share, strong reported growth (36.7% revenue growth over the past year), high ROE (~33%), and continued expansion into new geographies (Japan) and digital services (Atyati acquisition) all point to a business still scaling successfully on paper.',
+        reverse_dcf="At a ~Rs 10,330 crore market cap and trailing PE of ~14x against ROE of ~28-33%, the stock looks statistically cheap for its growth, but a persistent, severe multi-period price decline alongside the market's own apparent skepticism (reflected in an unusually low value score) suggests the market may be pricing risks (execution/integration risk on serial acquisitions, quality of acquired-vs-organic growth, or a concern not identified in this pass) that a pure growth/ROE-based DCF would miss. Call: cannot confidently call this cheap without resolving the divergence; treat the low headline multiple with caution rather than as a clear bargain.",
     ),
     dict(
         symbol='SKYGOLD',
@@ -769,12 +770,12 @@ _EQUITY = [
         sector='',
         value_inr=124822.5,
         ionic_score=None, score_3y=None, score_1y=None,
-        rec='No Recommendation',
-        growth_pct=None,
-        summary='Outside the current scored universe; pending one-time research scoring.',
-        negative_para="",
-        positive="",
-        reverse_dcf="",
+        rec='Hold',
+        growth_pct=28,
+        summary='Sky Gold & Diamonds manufactures gold jewellery for large organized retailers on an outsourced, asset-light basis, and its recent growth has been very strong as retailers increasingly outsource manufacturing. The company recently disclosed a small fraud loss at one of its subsidiaries, discovered in mid-July 2026, which it says has not affected operations. Combined with a decline in promoter shareholding over the past three years and a stock price that has already run up substantially, this is worth watching closely even though the core growth story is real. We rate it a Hold, with the fraud disclosure and ownership trend flagged for closer attention.',
+        negative_para="A Rs 10.70 crore fraud loss at a subsidiary, discovered July 15, 2026 and disclosed the next day, is a clear, fresh internal-controls incident that deserves real scrutiny rather than being dismissed as immaterial simply because it is small relative to market cap, fraud discoveries often surface only the visible piece of a larger control weakness. This comes alongside a 21.8% decline in promoter shareholding over three years, rising borrowings (+38% YoY) to fund working capital, no dividend despite consistent profitability, and a stock already flagged 'Extended' on stage-timing, individually explainable, but as a cluster this warrants closer governance attention before treating the growth story at face value.",
+        positive='Revenue and profit growth (80.6% and 139% YoY respectively) reflect a clear, structurally-supported shift of jewellery manufacturing toward specialized B2B outsourced casters serving organized retail, not a small-base artifact, given the absolute scale involved (Rs 1,912 crore in a single quarter). Margins, while thin as is normal for this pass-through-heavy business model, are improving rather than deteriorating, and ROE (29.2%) and ROCE (27%) are strong for the sector.',
+        reverse_dcf='ROE of 29.2% clears the 20% threshold associated with the exceptional-growth tier, and rising borrowings appear tied to working-capital needs of a fast-growing, gold-inventory-heavy business rather than obvious equity dilution; however, I was not able to fully reconcile whether the 21.8% three-year decline in promoter holding reflects primary dilution or promoter share sales, which is exactly the kind of check this growth tier calls for and should be completed before treating the multiple as safely justified by clean, non-dilutive compounding.',
     ),
     dict(
         symbol='NYKAA',
@@ -797,12 +798,12 @@ _EQUITY = [
         sector='',
         value_inr=113230.5,
         ionic_score=None, score_3y=None, score_1y=None,
-        rec='No Recommendation',
-        growth_pct=None,
-        summary='Outside the current scored universe; pending one-time research scoring.',
-        negative_para="",
-        positive="",
-        reverse_dcf="",
+        rec='Hold',
+        growth_pct=26,
+        summary='V2 Retail is expanding value-fashion stores into smaller Indian cities at a very fast pace, and revenue and profit are both growing at extraordinary rates on paper. But the expansion is being funded by rapidly rising debt (more than doubled in two years) and increasingly stretched working capital, and the company actually burned cash operationally in its most recent quarter despite reporting a profit - a sign the growth is not yet self-funding. Promoter shareholding has also drifted down. This same retail format previously failed once already under a different brand name in the same corporate group. We rate this a Hold, but flag it for the desk given how much of the growth story depends on continued external financing rather than proven store-level economics.',
+        negative_para="Operating cash flow was negative in the most recent quarter despite reported profitability, working-capital days nearly tripled year-on-year, and borrowings have more than doubled in two years with a meaningfully growing interest burden - together these say the expansion is currently funded by debt and working-capital stretch, not by the business's own cash generation. Same-store-sales growth - the number that would confirm whether this is durable per-store demand or simply store-count arithmetic - was not available to verify. Promoter holding has declined from 54.28% to 51.43% over roughly two years. Perhaps most importantly, this same value-retail format previously failed once already under the 'Vishal' brand in 2011 under the same corporate lineage, which is a directly relevant historical data point on execution risk in this specific business model, not merely a generic retail-sector caution.",
+        positive='Very strong reported top-line and bottom-line growth (TTM sales +63%, profit +98%) reflects real, aggressive store-network expansion into underserved Tier-II/III markets, a clear long-run opportunity in Indian retail; the company has demonstrated an ability to scale rapidly and raise the capital (debt) needed to do so; management retains all profit for reinvestment rather than paying it out, consistent with a clear growth-phase capital allocation choice rather than one starving the business.',
+        reverse_dcf='At a PE in the high-40s/mid-50s on ROE of only ~10.9%, the valuation is not supported by current returns on capital - it is a pure bet that rapid store-count growth eventually converts into strong same-store economics and self-funding cash flow. Because my forward growth estimate sits in the hypergrowth band (>=25%), the framework requires flagging explicitly: ROE at ~10.9% is well short of the >=20% threshold that would make this a clean, self-funded compounder, and the recent trend (debt more than doubling, promoter stake declining from 54.3% to 51.4%) points toward continued reliance on external capital - debt and/or further dilution - to fund the next leg of growth, not growth funded from retained high returns. This is rich and speculative rather than cheap; the store-rollout opportunity is real, but the financing pattern is the risk to watch closely.',
     ),
     dict(
         symbol='ITC',
@@ -885,12 +886,12 @@ _EQUITY = [
         sector='',
         value_inr=103277.4,
         ionic_score=None, score_3y=None, score_1y=None,
-        rec='No Recommendation',
-        growth_pct=None,
-        summary='Outside the current scored universe; pending one-time research scoring.',
-        negative_para="",
-        positive="",
-        reverse_dcf="",
+        rec='Hold',
+        growth_pct=15,
+        summary="Ethos is India's leading luxury and premium watch retailer, expanding its boutique network briskly (now 103 stores) with strong revenue growth. However, profit has grown much more slowly than revenue in the last year, and return on equity remains under 10% even as the stock trades at a rich valuation. We rate this a Hold, with the store-expansion story needing to show through in the bottom line before the valuation is fully earned.",
+        negative_para="Profit growth has lagged revenue growth badly - essentially flat-to-negative over the last four quarters even as sales grew 27-33% - and current ROE of under 8% does not support a 75.5x earnings multiple or 5.3x price-to-book on its own; the stock is pricing a margin inflection that has not yet appeared in the results. A recent rights issue has diluted promoter holding further (now just over 50%, down from 64.67% three years ago), and an independent director's resignation landed the same day as the latest results - not confirmed as anything adverse, but a coincidence worth tracking rather than dismissing outright.",
+        positive='Ethos has built clear category leadership in a defensible, hard-to-replicate niche (exclusive luxury watch retail, ~35-40% share of that segment) and continues to expand its store footprint (103 boutiques and counting) while sustaining consistent 27-33% YoY revenue growth over the last four quarters - a real, verifiable growth trend rather than an acquisition or base-effect artifact. As newer stores mature, there is a credible path for consolidated margins and ROE to improve without needing any further deceleration in revenue growth.',
+        reverse_dcf='At ~75.5x earnings and ~5.3x book against ROE under 10%, the market is pricing continued strong revenue growth plus a margin inflection that store-level economics have not yet delivered - rich, and dependent on execution catching up to the store count rather than already-proven. Growth is below the 25% hypergrowth threshold on a profit basis (even though revenue growth alone would qualify), so no dilution/ROE-tier note applies - and note the ROE is currently well under the 20% this tier would require anyway.',
     ),
     dict(
         symbol='INDIGO',
@@ -972,12 +973,12 @@ _EQUITY = [
         sector='',
         value_inr=94796.51,
         ionic_score=None, score_3y=None, score_1y=None,
-        rec='No Recommendation',
-        growth_pct=None,
-        summary='Outside the current scored universe; pending one-time research scoring.',
-        negative_para="",
-        positive="",
-        reverse_dcf="",
+        rec='Hold',
+        growth_pct=15,
+        summary='HFCL is a leading Indian optical fiber cable maker and telecom infrastructure provider, benefiting from 5G rollout and fiberization capex plus new export orders. The most recent quarter showed a clear profit and margin improvement, but this follows several years of weak growth, and the balance sheet still shows real strain - negative free cash flow and slow-collecting receivables. We rate it a Hold: a promising recent inflection that needs more quarters to prove out before it changes the multi-year picture.',
+        negative_para="The company's five-year sales CAGR of just 2.27% is the honest starting point - this is a single strong quarter following years of stagnation, and the quant model's own growth-divergence flag is right to be skeptical of extrapolating it. More concerning for the balance sheet: FY26 free cash flow was negative Rs 723cr and debtor days sit at an elevated 163, meaning the recent profit improvement has not yet turned into cash, while interest coverage of roughly 3x leaves limited room for error if telecom capex spending or receivable collections slow down. At a rich ~54-109x earnings multiple (depending on measure), the stock already needs the recent quarter to be the start of a sustained trend, not a one-off.",
+        positive="The most recent quarter's step-up in both revenue and margin, combined with concrete export order wins (~Rs 1,000cr+ through January 2027), gives real evidence that HFCL is capturing its share of India's 5G/fiberization capex cycle and international OFC demand - a tangible improvement, not just a narrative, after a long stretch of near-flat growth.",
+        reverse_dcf="At a rich multiple against a 6.95% ROE and negative free cash flow, the market is pricing continuation of the just-emerging growth inflection (5G capex, export orders) into a durable multi-year re-rating - plausible given the sector tailwind and the concrete export order book, but unproven given HFCL's own 2.27% five-year growth history and a receivables/cash-flow profile that hasn't caught up to the improved P&L yet. This reads as an early-stage, unconfirmed turnaround priced somewhat ahead of itself.",
     ),
     dict(
         symbol='POONAWALLA',
@@ -1001,12 +1002,13 @@ _EQUITY = [
         sector='',
         value_inr=86776.8,
         ionic_score=None, score_3y=None, score_1y=None,
-        rec='No Recommendation',
-        growth_pct=None,
-        summary='Outside the current scored universe; pending one-time research scoring.',
-        negative_para="",
-        positive="",
-        reverse_dcf="",
+        rec='Sell',
+        growth_pct=4,
+        summary="Shipping Corporation of India, the country's largest PSU shipping company, posted unusually strong FY26 profits driven by elevated global freight rates tied to Red Sea rerouting and sanctions-driven trade disruptions, a cyclical tailwind rather than a structural improvement. The stock's low trailing P/E reflects cycle-peak earnings that are at real risk of normalizing lower, and working-capital and contingent-liability trends add further caution. We rate this a Sell.",
+        negative_para='Reported FY26 margins (~38% OPM) look tied to a cyclical peak in global freight rates (Red Sea disruption, sanctions-driven trade rerouting) rather than a durable improvement, and a ~10x trailing P/E is a classic shipping-cycle-peak signature that risks looking far less cheap once rates normalize. Working-capital days have nearly deteriorated 2.5x (~60 to ~146 days), contingent liabilities are sizeable (~Rs 4,305cr), and the effective tax rate is described as inconsistent, all worth discounting in the reported earnings quality. An ongoing government disinvestment/non-core-asset-separation process adds further event-driven uncertainty.',
+        positive="Scale and government backing as India's largest shipping company (Navratna status) give it access to a diversified, protected fleet across bulk, tanker, container and offshore segments, and elevated global freight rates have delivered strong recent cash generation that could fund fleet renewal if managed prudently.",
+        reverse_dcf="A ~10x trailing P/E looks cheap only if FY26's ~38% operating margin is treated as sustainable; freight-rate cycles have historically mean-reverted sharply once the disruptions driving them (here, Red Sea rerouting and sanctions-driven trade shifts) ease, so the reverse-DCF-implied 'cheapness' is more likely a cycle-peak-earnings illusion than a clear value opportunity, and normalized earnings power is probably well below the FY26 print.",
+        sell_reason_type="quality",
     ),
     dict(
         symbol='COFORGE',
@@ -1087,12 +1089,12 @@ _EQUITY = [
         sector='',
         value_inr=77770.9,
         ionic_score=None, score_3y=None, score_1y=None,
-        rec='No Recommendation',
-        growth_pct=None,
-        summary='Outside the current scored universe; pending one-time research scoring.',
-        negative_para="",
-        positive="",
-        reverse_dcf="",
+        rec='Hold',
+        growth_pct=17,
+        summary="IKS Health provides technology-enabled documentation and revenue-cycle services to US healthcare providers from an India-based delivery model, with excellent returns on capital (ROE ~32%) and a strong balance sheet. Growth has moderated from an earlier 45%+ pace to a still-solid ~20% over the last year, and the stock's ~44x earnings multiple already reflects a fair amount of optimism about growth continuing. We rate it a Hold: a high-quality business, but the fastest phase of growth already looks behind it, and the price is not obviously cheap for what's left.",
+        negative_para='Growth has decelerated meaningfully, from a 45.8% 3yr revenue CAGR to 19.9% over the past year, and at ~44x trailing earnings the market is still pricing in a good amount of continued strong growth, leaving limited room for error if the deceleration continues further. The business model (US healthcare documentation/RCM services) also carries a clear longer-term disruption risk from generative-AI automation of clinical documentation and coding workflows, a risk that could compress both volumes and pricing for outsourced human-plus-technology services over time even if it does not show up in near-term results.',
+        positive='Excellent, consistent capital efficiency (ROE 32%, ROCE 32%) with only moderate leverage, meaning returns are driven by the operating business rather than financial engineering; a structurally growing addressable market (US healthcare providers continuing to outsource documentation/RCM work to reduce administrative cost); and margin expansion alongside growth in the most recently reported full year (FY26 EBITDA +38% against revenue +20%), suggesting operating leverage rather than margin dilution as the company scales.',
+        reverse_dcf='At ~44x trailing earnings against a growth rate that has already decelerated to ~20%, the multiple is pricing in growth stabilizing well above trailing-year levels or meaningful further margin expansion, a plausible but not conservative assumption given the deceleration already visible in the 3yr-to-1yr growth-score gap. The business can likely clear a mid-to-high-teens growth path on its structural outsourcing tailwind, but the current multiple leaves the stock fair-to-full rather than cheap for that outcome.',
     ),
     dict(
         symbol='RATEGAIN',
@@ -1101,12 +1103,12 @@ _EQUITY = [
         sector='',
         value_inr=77132.8,
         ionic_score=None, score_3y=None, score_1y=None,
-        rec='No Recommendation',
-        growth_pct=None,
-        summary='Outside the current scored universe; pending one-time research scoring.',
-        negative_para="",
-        positive="",
-        reverse_dcf="",
+        rec='Hold',
+        growth_pct=12,
+        summary="RateGain Travel Technologies sells software to hotels and travel companies, and its recent big revenue jump is mostly the result of acquisitions being added to the business rather than organic growth, profit actually declined slightly even as reported revenue surged, and the company took on significant new debt to fund the deals. The core SaaS business is in a clear growth category, but the market is paying a rich multiple for growth that the profit numbers haven't yet confirmed.",
+        negative_para='Reported revenue growth of 69% is overwhelmingly acquisition-driven, not organic, and net profit actually declined slightly in FY26 despite the acquired revenue add, the deals have not yet demonstrated they add to the bottom line, while borrowings surged nearly 60-fold (Rs 16cr to Rs 949cr) to fund them, a real leverage and integration-risk combination at a 59x trailing multiple.',
+        positive='A clear SaaS franchise in the growing travel-technology distribution and revenue-management space, with acquisitions (Adara, DHISHA) that could add real long-term capability and cross-sell if integration succeeds.',
+        reverse_dcf='At 59x trailing earnings, the market is pricing continued high growth as if the acquisitions were already accretive, but FY26 profit actually fell, so on a like-for-like basis this multiple is rich against demonstrated (not headline) growth; fair value depends entirely on the acquired businesses starting to show through in profit, not just revenue, over the next few years.',
     ),
     dict(
         symbol='AVL',
@@ -1115,12 +1117,12 @@ _EQUITY = [
         sector='',
         value_inr=76067.0,
         ionic_score=None, score_3y=None, score_1y=None,
-        rec='No Recommendation',
-        growth_pct=None,
-        summary='Outside the current scored universe; pending one-time research scoring.',
-        negative_para="",
-        positive="",
-        reverse_dcf="",
+        rec='Hold',
+        growth_pct=20,
+        summary='Aditya Vision, a Patna-based consumer-electronics retail chain, continues to grow consistently at around 27-28% per quarter across at least the last two quarters reported, supported by ongoing store additions and strong underlying return ratios. This multi-quarter consistency is a healthier growth signal than a single strong print. Margins remain thin and stable, typical of consumer-electronics retail, and promoter shareholding has declined meaningfully over the past three years, plausibly reflecting capital raised to fund store expansion - a trend worth watching rather than a current red flag.',
+        negative_para='Consumer-electronics retail is structurally thin-margin (operating margin steady at just 9-10%) and intensely competitive against national retail chains and e-commerce platforms, capping how much profitability can scale even as revenue grows. Promoter shareholding has fallen from ~67.5% to 47.14% over three years - a substantial dilution trend, plausibly tied to funding store-expansion capital needs, but large enough to monitor for what it implies about ownership alignment and future capital-raising needs.',
+        positive='Growth has been consistent across multiple recent quarters (~27-28% YoY revenue growth reported in both the most recent and an earlier quarter this year), a healthier signal than a one-off spike, backed by strong return ratios (ROE 24.5%, ROCE 20.7%) and a long track record (10-year sales CAGR of 27%, profit CAGR of 59%) of successful regional retail execution and store-network expansion toward a 200+ store target.',
+        reverse_dcf="The stock's valuation reflects a successful, consistently-executing regional retail growth story; against a demonstrated multi-quarter ~27-28% growth pace and strong return ratios, this looks like a reasonably-priced growth compounder rather than an obvious bargain or an obviously overpriced name - the key swing factor is whether margins can hold as the chain scales past its current regional density into more competitive markets.",
     ),
     dict(
         symbol='GRWRHITECH',
@@ -1129,12 +1131,12 @@ _EQUITY = [
         sector='',
         value_inr=75981.0,
         ionic_score=None, score_3y=None, score_1y=None,
-        rec='No Recommendation',
-        growth_pct=None,
-        summary='Outside the current scored universe; pending one-time research scoring.',
-        negative_para="",
-        positive="",
-        reverse_dcf="",
+        rec='Hold',
+        growth_pct=14,
+        summary='Garware Hi-Tech Films makes specialty plastic films, including a fast-growing paint-protection-film business, but consolidated revenue growth is still nearly flat (1% trailing twelve months) as legacy commodity polyester-film weakness offsets the specialty growth. The stock has rallied over 100% in the past year on expectations that new capacity coming online will deliver a step-change in growth, a story that has not yet shown up in the numbers. At roughly 48x earnings on flat growth, we rate it a Hold with real valuation risk if the capacity ramp disappoints.',
+        negative_para="Consolidated revenue growth has been essentially flat (1% TTM) despite the specialty-mix shift, most likely because legacy BOPET/polyester film weakness (a structural, industry-wide oversupply issue) is offsetting clear PPF growth, and the stock's more-than-doubling over the past year has priced in management's 20-25% FY27 CAGR guidance well before that growth has shown up in delivered results, if the new capacity ramps more slowly than guided, or if BOPET weakness persists, the current ~48x multiple has substantial room to compress.",
+        positive='The paint-protection-film business is a clear, fast-growing, premium niche (25% YoY growth) riding rising auto-accessory premiumization, value-added products are now 87% of the portfolio, the balance sheet is almost debt-free, and two new production lines (PPF and TPU extrusion) coming online through 2026 offer real capacity-driven upside if they ramp as guided.',
+        reverse_dcf="A ~48x multiple on a business with just 1% trailing consolidated revenue growth is priced almost entirely for a future step-change from new capacity that has not yet appeared in the numbers; this is a legitimate but unproven story, so a forward estimate should credit real capacity-driven upside without simply adopting management's 20-25% guidance at face value, given the demonstrated gap between that guidance and delivered results so far.",
     ),
     dict(
         symbol='WELCORP',
@@ -1143,12 +1145,12 @@ _EQUITY = [
         sector='',
         value_inr=73471.5,
         ionic_score=None, score_3y=None, score_1y=None,
-        rec='No Recommendation',
-        growth_pct=None,
-        summary='Outside the current scored universe; pending one-time research scoring.',
-        negative_para="",
-        positive="",
-        reverse_dcf="",
+        rec='Hold',
+        growth_pct=16,
+        summary='Welspun Corp is a global leader in large-diameter steel pipes, with a record order book above Rs 25,750 crore and strong underlying growth (organic profit up roughly 41% year-on-year). However, the widely reported headline profit figure for the latest quarter, nearly triple the year-ago level, was substantially inflated by a one-time gain, and should not be mistaken for the sustainable growth rate. We rate it a Hold: a well-run, well-ordered global pipe manufacturer, fairly valued once the one-off is stripped out.',
+        negative_para="The headline Q1 FY27 profit figure (nearly 3x YoY) is materially inflated by a one-off/exceptional gain per multiple contemporaneous reports, and investors reading the reported number at face value would meaningfully overstate the business's sustainable earnings power; the true organic growth, while still strong (~41%), is a fraction of the reported headline. As a steel-linked, project-driven business, Welspun also remains exposed to global commodity-steel price swings and lumpy order execution timing.",
+        positive='A record order book above Rs 25,750 crore, record EBITDA, and strong organic profit growth (~41% YoY) reflect real operating momentum, reinforced by ongoing US capacity expansion tied to North American energy-infrastructure demand and diversification into adjacent businesses (Sintex-BAPL, ABG Shipyard assets, and increased ownership of WCPGL).',
+        reverse_dcf='At a ~Rs 44,613 crore market cap, trailing PE of ~19.5x against ROE ~19.4%/ROCE ~22.9% looks reasonable for a global pipe leader with a record order book, but only once the one-off-inflated headline profit is set aside in favor of the ~41% organic growth figure; using the unadjusted 3x headline as a growth base would make the stock look artificially cheap. On the organic run-rate, the multiple is a fair reflection of a well-ordered, well-diversifying global manufacturer. Call: fair value on adjusted earnings.',
     ),
     dict(
         symbol='IDFCFIRSTB',
@@ -1202,12 +1204,12 @@ _EQUITY = [
         sector='',
         value_inr=60065.8,
         ionic_score=None, score_3y=None, score_1y=None,
-        rec='No Recommendation',
-        growth_pct=None,
-        summary='Outside the current scored universe; pending one-time research scoring.',
-        negative_para="",
-        positive="",
-        reverse_dcf="",
+        rec='Hold',
+        growth_pct=18,
+        summary='CarTrade Tech runs a diversified online auto marketplace (CarWale, OLX India, and the Shriram Automall vehicle-auction platform) that is showing clear, broad-based margin improvement across segments even though consolidated return ratios look weak, largely because of a large IPO cash pile sitting on the balance sheet rather than any core profitability problem. At ~60x earnings, the valuation already reflects much of this operating-leverage story. We rate it a Hold.',
+        negative_para="Consolidated ROE (4.8%) and ROCE (5.4%) are low even after accounting for the cash-drag explanation, and a ~60x earnings multiple already prices in continued strong EBITDA growth across all three segments simultaneously, any slowdown in used-vehicle transaction volumes (interest-rate or NBFC-funding-cycle sensitive, given the Remarketing segment's ties to bank/NBFC repossession volumes) would be a real risk to the growth assumption embedded in the price.",
+        positive="Segment-level economics are improving across the board, Remarketing (Shriram Automall) EBITDA margin expanded 500bps to 28%, OLX revenue reportedly grew 76%, and the company has sustained 45%+ EBITDA growth for 16 consecutive quarters per management's own disclosure, a real, multi-year pattern of operating leverage in an asset-light online marketplace model.",
+        reverse_dcf='A ~60x multiple requires sustained high-teens-to-20%-plus revenue growth with continuing margin expansion for several years to be justified; the segment data (Remarketing margin expansion, OLX growth) supports this direction but not with certainty across all three segments simultaneously, and the low consolidated ROE (even if explained by cash drag) means the market is relying on segment-level improvement continuing rather than any demonstrated consolidated capital-efficiency track record yet.',
     ),
     dict(
         symbol='TMPV',
@@ -1334,12 +1336,12 @@ _EQUITY = [
         sector='',
         value_inr=25647.6,
         ionic_score=None, score_3y=None, score_1y=None,
-        rec='No Recommendation',
-        growth_pct=None,
-        summary='Outside the current scored universe; pending one-time research scoring.',
-        negative_para="",
-        positive="",
-        reverse_dcf="",
+        rec='Hold',
+        growth_pct=24,
+        summary="Sterlite Technologies has moved from a leveraged, loss-making turnaround story to a net-debt-free company hitting its margin targets early, backed by a rapidly growing order book that now includes a large, multi-year AI-data-centre supply contract. The scorecard's trailing valuation ratios look extreme because they are based on last year's thin earnings base; on the latest quarter's run-rate the picture is far more reasonable, though still not inexpensive and dependent on continued execution. We move this to Hold rather than Sell.",
+        negative_para='Even after the re-rating in the earnings base, the stock is not cheap on a normalised basis, and the growth is now concentrated in a smaller number of very large orders - the AI-data-centre award in particular carries customer-concentration and execution risk over its FY27-FY29 delivery window. The QIP that fixed the balance sheet also diluted existing shareholders, and the trailing 3-year revenue CAGR is still negative, a reminder of how far the business fell before this recovery began. Any slippage in data-centre capex spending or in converting the order book to billed revenue would remove much of the case for the recent re-rating.',
+        positive="The turnaround is now backed by hard numbers, not just narrative: Q1 FY27 revenue nearly doubled YoY, EBITDA margin hit the 20% FY27 target a year early, PAT swung to Rs 197cr, and the balance sheet went from net-debt to net-cash via a Rs 1,500cr QIP. The order book has roughly doubled in a single quarter to Rs 18,618cr, anchored by a ~$1.11bn multi-year AI-data-centre connectivity award - a new, large demand pool layered on top of STL's traditional telecom-fibre business, not merely a recovery to old levels.",
+        reverse_dcf='On the older trailing base (~Rs 56cr FY26 PAT) the ~475x quant PE looks impossible to justify. Rolling forward to the most recent four quarters (~Rs 240-250cr trailing PAT) puts the effective multiple closer to ~100-110x, which still requires several years of continued high growth (order book conversion, AI-data-centre ramp, margin holding near 20%) to justify on a reverse-DCF basis - plausible given the quantified Rs 18,618cr order book, but not a bargain. Judgment: fair-to-rich on the updated earnings base, down from clearly rich on the older base; the QIP dilution and single-award concentration are the main risks to monitor.',
     ),
     dict(
         symbol='KWIL',
@@ -1362,12 +1364,12 @@ _EQUITY = [
         sector='',
         value_inr=21346.16,
         ionic_score=None, score_3y=None, score_1y=None,
-        rec='No Recommendation',
-        growth_pct=None,
-        summary='Outside the current scored universe; pending one-time research scoring.',
-        negative_para="",
-        positive="",
-        reverse_dcf="",
+        rec='Hold',
+        growth_pct=20,
+        summary='ixigo (Le Travenues Technology) is a fast-growing Indian online travel platform with a large user base and strong revenue growth, but profit has grown more slowly than revenue, working-capital days have deteriorated notably, and a meaningful share of reported profit looks to come from interest income on IPO cash rather than core travel-booking operations. Returns on capital remain low (mid-single-digit ROE) against a rich ~118x earnings multiple. We rate this a Hold: clear growth, but profitability quality and valuation both warrant caution.',
+        negative_para='Profit has grown materially slower than revenue, with quarterly operating margins swinging from ~8% to negative, and a meaningful portion of reported profit appears to come from interest income on IPO cash rather than core operations, a one-off tailwind that should fade as that cash is deployed or drawn down. Working-capital days have deteriorated sharply (18 to ~102 days), unusual for an OTA business model that should typically benefit from favorable working capital, and returns on capital remain low (mid-single-digit ROE/ROCE) against a rich ~118x earnings multiple and ~4.3x book value.',
+        positive='clear, strong revenue growth (~34% YoY) in a large, structurally under-penetrated online-travel market, with a sizeable user base (~480 million reported annual active users) across trains, flights, buses and hotels, and a nearly debt-free balance sheet giving it flexibility to keep investing in growth.',
+        reverse_dcf="At ~118x trailing earnings with ROE only ~6-9% and a meaningful chunk of that profit non-operating (interest income), the multiple is effectively being paid against an even smaller true operating-profit base than headline numbers suggest, demanding sustained high-20s%-plus revenue growth with real margin expansion for years to justify today's price; given ROE is well under 20%, this does not qualify for the exceptional (>=25% growth, ROE>=20%) tier despite strong topline momentum, so I am setting a more moderate forward estimate that assumes growth moderates as the base scales and competition remains intense.",
     ),
     dict(
         symbol='TATATECH',
@@ -1421,12 +1423,13 @@ _EQUITY = [
         sector='',
         value_inr=11407.71,
         ionic_score=None, score_3y=None, score_1y=None,
-        rec='No Recommendation',
-        growth_pct=None,
-        summary='Outside the current scored universe; pending one-time research scoring.',
-        negative_para="",
-        positive="",
-        reverse_dcf="",
+        rec='Sell',
+        growth_pct=14,
+        summary="SAMHI Hotels owns a 31-hotel portfolio under global brands including Marriott, IHG, and Hyatt, benefiting from India's post-pandemic hospitality upcycle (organic revenue grew 10% in FY26). However, the company's reported profit has been dominated by large, one-off tax and deferred-tax-asset items in certain quarters, which makes the headline valuation (7.5-9.7 times earnings) look far cheaper than the underlying, normalized economics support, return on capital employed is a modest 8.9% once you look past the one-offs. Combined with elevated leverage and no dividend, we rate this a Sell.",
+        negative_para='A large share of reported FY26 and recent-quarter profit is attributable to one-off tax/deferred-tax-asset items rather than organic hotel operations, explicitly flagged in our research as an anomalous, one-off-driven profit spike, which makes the headline ~7.5-9.7x P/E and our own 86.8 value score misleading; the cleaner ROCE of just 8.9%, combined with elevated leverage, low flagged interest coverage, and no dividend, paints a much less attractive picture than the headline multiple suggests.',
+        positive="India's hospitality sector is in a clear structural upcycle with limited new room supply and strong post-pandemic travel demand, SAMHI's organic revenue grew a healthy 10% in FY26, and the portfolio carries strong global brand affiliations (Marriott, IHG, Hyatt) across 31 properties.",
+        reverse_dcf='The headline 7.5-9.7x P/E is a one-off-earnings artifact, not a clear bargain; normalizing for the tax/DTA-driven profit spikes, the effective multiple is materially higher, and against an 8.9% ROCE and elevated leverage, the price does not offer the margin of safety it appears to at first glance.',
+        sell_reason_type="quality",
     ),
     dict(
         symbol='SWIGGY',
@@ -1480,6 +1483,174 @@ _SCORE_EST = {
     "BSE": 48, "MUTHOOTFIN": 55, "POLYCAB": 52, "APOLLOHOSP": 50,
     "ICICIAMC": 50, "LLOYDSME": 45, "INDIGO": 48, "COFORGE": 52,
     "NYKAA": 42, "TRENT": 55, "MAHABANK": 40,
+}
+# ── Score assignments [DATA]: 2026-08-03 full-750 research completion. 19 stocks
+# previously "No View" now carry a REAL quant score (full750_scored.csv, final_score_3y/
+# final_score_1y) + real analyst research (pf_qual_<SYMBOL>.json, STOCK_SCORECARD_750).
+# Maps symbol -> (ionic_score, score_3y, score_1y, rec, client_case); client_case is the
+# pf_qual summary run through _scrub_client_text() (jargon/citation-scrubbed). rec comes
+# from the analyst's your_recommendation (Sell for SCI/SAMHI; STLTECH is a quant-Sell/
+# analyst-Hold rescue -> Hold; rest agree at Hold). Applied in the fixup loop BEFORE the
+# "ionic_score is None -> No View" fallback, same slot as _SCORE_EST above. Unlike
+# _SCORE_EST (a bare estimate, no rec), this tuple sets score + rec together atomically
+# (Talaulikar-build lesson: never let score and verdict be set as two separate steps).
+_SCORE_750 = {
+    "JSLL": (73.0, 62.3, 51.5, "Hold",
+             "Jeena Sikho Lifecare runs a fast-growing chain of Ayurvedic hospitals and clinics "
+             "across India, and its most recent full year showed very strong growth in both "
+             "revenue and profit as the network of centres expanded, with excellent returns on "
+             "capital. The company continues to open new centres and launch new products. The "
+             "stock is not cheaply priced relative to its book value, reflecting how much the "
+             "market already likes this growth story. We rate it a Hold: a clear, broad-based "
+             "growth story already reflected in a rich valuation."),
+    "VMM": (48.5, 45.5, 40.6, "Hold",
+            "Vishal Mega Mart is a fast-growing value-retail chain benefiting from the broader "
+            "formalization of retail in India, with sales and profit both growing at a healthy "
+            "clip as its store network matures. Returns on capital are still modest at this stage "
+            "and the stock's valuation already reflects a lot of that growth, so we rate it a "
+            "hold."),
+    "MCX": (67.9, 70.5, 51.5, "Hold",
+            "MCX is India's dominant commodity-derivatives exchange, controlling nearly all "
+            "trading in metals and energy contracts, and just posted a very sharp jump in profit "
+            "driven by strong trading volumes. As a market-infrastructure business with very high "
+            "operating leverage, its earnings can swing significantly with trading activity and "
+            "volatility in either direction, so the recent surge should not be assumed to be the "
+            "new steady-state. We rate it a Hold: an excellent, near-monopoly franchise, richly "
+            "valued and inherently volume-sensitive."),
+    "NAM-INDIA": (71.8, 67.9, 65.2, "Hold",
+                  "Nippon Life India Asset Management delivered an excellent quarter, profit up "
+                  "27%, AUM up 16%, and market share gains across overall, equity and SIP "
+                  "categories, continuing a clear, capital-light growth story. The business "
+                  "quality is very high, but the current valuation (about 48 times trailing "
+                  "earnings) is near the top of where Indian asset managers have historically "
+                  "traded, so we see this as a quality name priced for a lot of continued success "
+                  "rather than a name offering a margin of safety."),
+    "BLS": (68.7, 70.5, 53.4, "Hold",
+            "BLS International is a leading global visa-outsourcing company with strong reported "
+            "revenue and profit growth and high returns on capital, and it continues to expand "
+            "through acquisitions and new geographies. However, its stock has fallen sharply and "
+            "consistently over the past one to two years even as reported growth stayed strong, a "
+            "real disconnect worth investigating further before treating the low headline "
+            "valuation as a straightforward opportunity. We rate it a Hold, but flag this "
+            "fundamentals-versus-price divergence for a closer look."),
+    "SKYGOLD": (79.8, 62.3, 68.6, "Hold",
+                "Sky Gold & Diamonds manufactures gold jewellery for large organized retailers on "
+                "an outsourced, asset-light basis, and its recent growth has been very strong as "
+                "retailers increasingly outsource manufacturing. The company recently disclosed a "
+                "small fraud loss at one of its subsidiaries, discovered in mid-July 2026, which "
+                "it says has not affected operations. Combined with a decline in promoter "
+                "shareholding over the past three years and a stock price that has already run up "
+                "substantially, this is worth watching closely even though the core growth story "
+                "is real. We rate it a Hold, with the fraud disclosure and ownership trend flagged "
+                "for closer attention."),
+    "V2RETAIL": (64.8, 53.2, 44.6, "Hold",
+                 "V2 Retail is expanding value-fashion stores into smaller Indian cities at a very "
+                 "fast pace, and revenue and profit are both growing at extraordinary rates on "
+                 "paper. But the expansion is being funded by rapidly rising debt (more than "
+                 "doubled in two years) and increasingly stretched working capital, and the "
+                 "company actually burned cash operationally in its most recent quarter despite "
+                 "reporting a profit, a sign the growth is not yet self-funding. Promoter "
+                 "shareholding has also drifted down. This same retail format previously failed "
+                 "once already under a different brand name in the same corporate group. We rate "
+                 "this a Hold, but flag it for the desk given how much of the growth story depends "
+                 "on continued external financing rather than proven store-level economics."),
+    "ETHOSLTD": (48.9, 43.5, 44.4, "Hold",
+                 "Ethos is India's leading luxury and premium watch retailer, expanding its "
+                 "boutique network briskly (now 103 stores) with strong revenue growth. However, "
+                 "profit has grown much more slowly than revenue in the last year, and return on "
+                 "equity remains under 10% even as the stock trades at a rich valuation. We rate "
+                 "this a Hold, with the store-expansion story needing to show through in the "
+                 "bottom line before the valuation is fully earned."),
+    "HFCL": (62.4, 49.7, 69.0, "Hold",
+             "HFCL is a leading Indian optical fiber cable maker and telecom infrastructure "
+             "provider, benefiting from 5G rollout and fiberization capex plus new export orders. "
+             "The most recent quarter showed a clear profit and margin improvement, but this "
+             "follows several years of weak growth, and the balance sheet still shows real strain, "
+             "negative free cash flow and slow-collecting receivables. We rate it a Hold: a "
+             "promising recent inflection that needs more quarters to prove out before it changes "
+             "the multi-year picture."),
+    "SCI": (23.4, 46.8, 38.3, "Sell",
+            "Shipping Corporation of India, the country's largest PSU shipping company, posted "
+            "unusually strong FY26 profits driven by elevated global freight rates tied to Red Sea "
+            "rerouting and sanctions-driven trade disruptions, a cyclical tailwind rather than a "
+            "structural improvement. The stock's low trailing P/E reflects cycle-peak earnings "
+            "that are at real risk of normalizing lower, and working-capital and "
+            "contingent-liability trends add further caution. We rate this a Sell."),
+    "IKS": (71.2, 66.9, 65.0, "Hold",
+            "IKS Health provides technology-enabled documentation and revenue-cycle services to "
+            "US healthcare providers from an India-based delivery model, with excellent returns on "
+            "capital (ROE ~32%) and a strong balance sheet. Growth has moderated from an earlier "
+            "45%+ pace to a still-solid ~20% over the last year, and the stock's ~44x earnings "
+            "multiple already reflects a fair amount of optimism about growth continuing. We rate "
+            "it a Hold: a high-quality business, but the fastest phase of growth already looks "
+            "behind it, and the price is not obviously cheap for what's left."),
+    "RATEGAIN": (53.3, 49.2, 59.3, "Hold",
+                 "RateGain Travel Technologies sells software to hotels and travel companies, and "
+                 "its recent big revenue jump is mostly the result of acquisitions being added to "
+                 "the business rather than organic growth, profit actually declined slightly even "
+                 "as reported revenue surged, and the company took on significant new debt to fund "
+                 "the deals. The core SaaS business is in a clear growth category, but the market "
+                 "is paying a rich multiple for growth that the profit numbers haven't yet "
+                 "confirmed."),
+    "AVL": (68.8, 59.1, 58.4, "Hold",
+            "Aditya Vision, a Patna-based consumer-electronics retail chain, continues to grow "
+            "consistently at around 27-28% per quarter across at least the last two quarters "
+            "reported, supported by ongoing store additions and strong underlying return ratios. "
+            "This multi-quarter consistency is a healthier growth signal than a single strong "
+            "print. Margins remain thin and stable, typical of consumer-electronics retail, and "
+            "promoter shareholding has declined meaningfully over the past three years, plausibly "
+            "reflecting capital raised to fund store expansion, a trend worth watching rather than "
+            "a current red flag."),
+    "GRWRHITECH": (56.1, 54.4, 58.6, "Hold",
+                   "Garware Hi-Tech Films makes specialty plastic films, including a fast-growing "
+                   "paint-protection-film business, but consolidated revenue growth is still "
+                   "nearly flat (1% trailing twelve months) as legacy commodity polyester-film "
+                   "weakness offsets the specialty growth. The stock has rallied over 100% in the "
+                   "past year on expectations that new capacity coming online will deliver a "
+                   "step-change in growth, a story that has not yet shown up in the numbers. At "
+                   "roughly 48x earnings on flat growth, we rate it a Hold with real valuation "
+                   "risk if the capacity ramp disappoints."),
+    "WELCORP": (79.5, 73.2, 76.5, "Hold",
+                "Welspun Corp is a global leader in large-diameter steel pipes, with a record "
+                "order book above Rs 25,750 crore and strong underlying growth (organic profit up "
+                "roughly 41% year-on-year). However, the widely reported headline profit figure "
+                "for the latest quarter, nearly triple the year-ago level, was substantially "
+                "inflated by a one-time gain, and should not be mistaken for the sustainable "
+                "growth rate. We rate it a Hold: a well-run, well-ordered global pipe "
+                "manufacturer, fairly valued once the one-off is stripped out."),
+    "CARTRADE": (58.2, 55.0, 50.6, "Hold",
+                 "CarTrade Tech runs a diversified online auto marketplace (CarWale, OLX India, "
+                 "and the Shriram Automall vehicle-auction platform) that is showing clear, "
+                 "broad-based margin improvement across segments even though consolidated return "
+                 "ratios look weak, largely because of a large IPO cash pile sitting on the "
+                 "balance sheet rather than any core profitability problem. At ~60x earnings, the "
+                 "valuation already reflects much of this operating-leverage story. We rate it a "
+                 "Hold."),
+    "STLTECH": (55.5, 32.6, 49.9, "Hold",
+                "Sterlite Technologies has moved from a leveraged, loss-making turnaround story to "
+                "a net-debt-free company hitting its margin targets early, backed by a rapidly "
+                "growing order book that now includes a large, multi-year AI-data-centre supply "
+                "contract. The scorecard's trailing valuation ratios look extreme because they are "
+                "based on last year's thin earnings base; on the latest quarter's run-rate the "
+                "picture is far more reasonable, though still not inexpensive and dependent on "
+                "continued execution. We move this to Hold rather than Sell."),
+    "IXIGO": (57.7, 47.0, 48.7, "Hold",
+              "ixigo (Le Travenues Technology) is a fast-growing Indian online travel platform "
+              "with a large user base and strong revenue growth, but profit has grown more slowly "
+              "than revenue, working-capital days have deteriorated notably, and a meaningful "
+              "share of reported profit looks to come from interest income on IPO cash rather "
+              "than core travel-booking operations. Returns on capital remain low (mid-single-digit "
+              "ROE) against a rich ~118x earnings multiple. We rate this a Hold: clear growth, but "
+              "profitability quality and valuation both warrant caution."),
+    "SAMHI": (33.4, 39.1, 39.8, "Sell",
+              "SAMHI Hotels owns a 31-hotel portfolio under global brands including Marriott, IHG, "
+              "and Hyatt, benefiting from India's post-pandemic hospitality upcycle (organic "
+              "revenue grew 10% in FY26). However, the company's reported profit has been "
+              "dominated by large, one-off tax and deferred-tax-asset items in certain quarters, "
+              "which makes the headline valuation (7.5-9.7 times earnings) look far cheaper than "
+              "the underlying, normalized economics support, return on capital employed is a "
+              "modest 8.9% once you look past the one-offs. Combined with elevated leverage and no "
+              "dividend, we rate this a Sell."),
 }
 # ── Sector classification (NSE/AMFI industry groups, 2026-08-01 fix — all 98
 # stocks previously defaulted to "Diversified", making page 9 read as a false
@@ -1570,6 +1741,10 @@ for _e in _EQUITY:
         _e["ionic_score"] = _SCORE_EST[_sym]
         _e["score_3y"] = _SCORE_EST[_sym]
         _e["score_1y"] = _SCORE_EST[_sym]
+    # 2026-08-03 full-750 research completion: real quant+analyst score, sets score AND
+    # rec AND client_case together (never as separate steps -- Talaulikar-build lesson)
+    if _sym in _SCORE_750:
+        _e["ionic_score"], _e["score_3y"], _e["score_1y"], _e["rec"], _e["client_case"] = _SCORE_750[_sym]
     # Unscored stocks: keep ionic_score as None (never show 0)
     if _e.get("ionic_score") is None:
         _e["rec"] = "No View"
@@ -2529,7 +2704,12 @@ def build_ctx():
             "flags": [
                 "Source: NSDL CAS PDFs (st1.pdf Apr-2026, st2.pdf Mar-2026). Different valuation dates."
                 " Dr. Talaulikar valued Apr-2026, Mrs. Talaulikar valued Mar-2026.",
-                "24 stocks are outside the current scored universe and carry No View: BASF, JSLL, VMM, MCX, NAM-INDIA, BLS, SKYGOLD, V2RETAIL, ETHOSLTD, HFCL....",
+                "5 stocks are outside the current scored universe and carry No View: BASF, GRINDWELL, "
+                "AARTISURF, KWIL, TIMEX, all genuinely outside the 751-stock research universe.",
+                "19 stocks previously shown as No View, JSLL, VMM, MCX, NAM-INDIA, BLS, SKYGOLD, V2RETAIL, "
+                "ETHOSLTD, HFCL, SCI, IKS, RATEGAIN, AVL, GRWRHITECH, WELCORP, CARTRADE, STLTECH, IXIGO, "
+                "SAMHI, were scored in the 2026-08-03 full-750 research completion with real quant and "
+                "analyst scores.",
                 "No acquisition-cost data for equities (CAS shows market value only). Tax slide uses gross values.",
                 "24 of 37 fund schemes now carry a real fund-quality score/grade; 13 remain No View — "
                 "genuinely outside our framework's scope (hybrid/sectoral/index/liquid/debt) or not yet covered.",
