@@ -13,5 +13,9 @@
   "research_sources": [
     "quant row: full750_scored.csv (EIHOTEL)",
     "EIH Ltd - Screener - https://www.screener.in/company/EIHOTEL/consolidated/"
-  ]
+  ],
+  "chart_long_term_technical_pattern_score": 40,
+  "choppiness_flag": true,
+  "choppiness_penalty_applied": -8,
+  "technical_commentary": "EIH topped in May-2024 at Rs489 after a clean multi-year boom, but the roughly 20 months since have been genuinely directionless -- the stock has whipsawed in a ~Rs270-390 band without net progress either way, and the monthly MA stack shows no clean order (price, the 10-month and the 40-month average are all bunched within a few rupees of each other). Flagging choppiness_flag=true and folding in an 8-point penalty for this unresolved, range-bound distribution zone."
 }

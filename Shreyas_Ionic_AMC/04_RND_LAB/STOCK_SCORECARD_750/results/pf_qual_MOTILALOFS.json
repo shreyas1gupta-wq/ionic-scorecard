@@ -20,5 +20,9 @@
     "CRISIL expects 25% hit on discount brokers' PBT due to regulatory changes (full-service brokers <10% impact) - https://www.business-standard.com/amp/markets/news/crisil-expects-25-hit-on-discount-brokers-pbt-due-to-regulatory-changes-124100800985_1.html",
     "F&O volumes hit by Jane Street ban - https://www.business-standard.com/markets/news/f-o-volumes-hit-by-jan-street-ban-125070700907_1.html",
     "Motilal Oswal Financial Services shareholding pattern - promoter 67.54%, no pledge on MOFSL promoter holding found - https://www.pocketful.in/stocks/motilal-oswal-financial-services-ltd/shareholding"
-  ]
+  ],
+  "chart_long_term_technical_pattern_score": 74,
+  "choppiness_flag": false,
+  "choppiness_penalty_applied": 0,
+  "technical_commentary": "Data note: the raw parquet contains an unadjusted ~1:3.94 corporate action on 2024-01-01 (Rs1212 to Rs308 overnight) -- almost certainly a stock split/bonus not reflected in the 'Adj Close' field. All levels below are continuity-adjusted (pre-event prices rescaled by the observed ratio) for a genuine multi-year read. On that basis, Motilal Oswal broke out hard in 2023-2025 (Rs318 to a Rs1083 ATH in Oct-2025) and is now in only a mild -12% pullback, with the monthly MA stack still cleanly bullish (price > 10m > 20m > 40m) after a sharp Oct-2025-to-Mar-2026 correction and a V-shaped recovery back near its highs."
 }

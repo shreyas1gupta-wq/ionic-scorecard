@@ -323,6 +323,28 @@ The encrypted `pg_dump` → `age` → private-repo leg and the access-event arch
 - **`middleware` is deprecated in Next 16** in favour of `proxy` (the warning appears on every build). Not renamed: changing a security-critical filter on a guess about a new API's contract is worse than a deprecation warning. Needs the docs read first.
 - **A correction of my own:** I reported three routes 404-ing in a smoke test. That was wrong — my readiness probe only compiled `/tickets`, so I measured the others before Next had built them. On a warmed server all eleven return 200, and the content assertions I ran against those 404 bodies were meaningless. Re-run properly.
 
+## The daily anchor job — DONE. 10 tests
+
+`src/service/daily-anchor.ts`. It does two things, and only the second can catch anything: record today's head hash, and **verify the entire current chain against every anchor recorded on previous days**. Recording alone would just accumulate numbers nobody compares — the audit equivalent of taking backups and never restoring one.
+
+Two guards worth naming:
+- **The admin-actor trap.** `audit.list` returns nothing both when the log is genuinely empty *and* when the caller is not an admin. Anchoring the genesis hash in the second case would replace a real recorded head with a hash of nothing, and the file would then disagree with itself forever. The job refuses when the log reads empty but the anchors file says it should not be — and says a non-admin actor is the likely cause.
+- **No silent suffix verification.** Exceeding `MAX_CHAIN_ROWS` is reported as a problem, never truncated, because verifying part of a chain proves nothing while looking exactly like success.
+
+## Next 16 `middleware` → `proxy` — DONE, doc-verified
+
+Migrated after reading the actual migration doc rather than guessing. It is a rename plus a function-name change; `config`/`matcher` is unchanged; the one behavioural difference (Proxy defaults to the Node.js runtime) is inert here because the file uses nothing runtime-specific. `tsconfig`'s explicit `"middleware.ts"` include was updated to `"proxy.ts"` — miss that and typechecking passes while checking nothing. Build is clean and the deprecation warning is gone.
+
+## A design error of mine, caught before it shipped
+
+I started adding access-event archival (`listUnarchived` / `markArchived` / `pruneArchived`) to the `AccessLog` port. It typechecked, and it would have passed against the in-memory store.
+
+**It cannot work.** `0002_append_only.sql` revokes UPDATE and DELETE on `access_events` from `crm_app`, and every repository obtained via `withActor` runs as exactly that role. The methods would have failed in production with a permission error — and the in-memory implementation would have hidden that, because the contract test only proves the two agree, not that either is *possible*.
+
+The real fault was putting it in the wrong layer: **archival is an owner-level maintenance operation, not something an employee does**, so it has no business on an actor-bound port. It needs either a `SECURITY DEFINER` function (the pattern `app.append_audit` already uses for precisely this reason) or a separate owner-level connection used only by the scheduled job. Both are coupled to the production adapter.
+
+Reverted rather than shipped, with the reasoning left in `src/repo/types.ts` where the next person would otherwise repeat it. **The lesson generalises: a contract test proves two implementations agree, not that the operation is permitted.** Privileges are not part of that contract.
+
 ## NEXT STEP (exact)
 
 1. **Move the working tree out of OneDrive**, into a company-owned repo. Fixes the junction/Turbopack conflict, the sync memory drain, and the succession risk in one action.

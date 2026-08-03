@@ -13,5 +13,9 @@
   "research_sources": [
     "full750_scored.csv row: JSLL (revenue_cagr_3y 76.0%, revenue_growth_1y 70.8%, roe 35.3%, roce 44.3%, quality_score 96.7, growth_3y_score 98.0, final_score Hold both windows)",
     "Screener.in company page (Jeena Sikho Lifecare Ltd, consolidated financials, FY26 results, centre count, debtor days, ROCE/ROE): https://www.screener.in/company/JSLL/consolidated/"
-  ]
+  ],
+  "chart_long_term_technical_pattern_score": 60,
+  "choppiness_flag": false,
+  "choppiness_penalty_applied": 0,
+  "technical_commentary": "DATA NOTE: raw Close/Adj Close both show an apparent -80% one-month collapse in Jun-2025 (Rs2,132 to Rs426) that is in fact an un-adjusted ~1:5 stock split (confirmed via the single-day price ratio and volume jump on 2025-06-03) -- neither price column in this dataset back-adjusts for it, so all levels/MAs here are computed on a manually split-corrected series. On that corrected basis the stock rallied roughly 47x from listing (2022) to an all-time high near Rs850 (Sep-2025), and has since corrected 32% over ten months to Rs578, sitting just below its 10-month MA while the 20- and 40-month MAs remain bullish -- a real, extended, still-unresolved correction within a very strong uptrend."
 }

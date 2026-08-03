@@ -13,5 +13,9 @@
   "research_sources": [
     "full750_scored.csv row: SAMMAANCAP (quant sheet)",
     "Screener.in - Sammaan Capital Ltd consolidated financials and quarterly P&L - https://www.screener.in/company/SAMMAANCAP/consolidated/"
-  ]
+  ],
+  "chart_long_term_technical_pattern_score": 42,
+  "choppiness_flag": true,
+  "choppiness_penalty_applied": -10,
+  "technical_commentary": "Five-year chart is a wide, directionless trading range roughly between 85 and 240 with no sustained breakout in either direction - the 2021 high has never been retested and multiple rallies (2023, late 2025) have failed near similar levels. Moving averages are tangled (20m sits below 40m, an inversion versus a clean trend) and up/down months are close to a coin-flip (9/23), confirming the whipsaw character; a -10 choppiness penalty is folded into the score."
 }

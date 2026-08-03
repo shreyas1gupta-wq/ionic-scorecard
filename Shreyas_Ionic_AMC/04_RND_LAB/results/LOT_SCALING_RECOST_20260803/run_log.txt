@@ -1,0 +1,91 @@
+[load] 1-min -> 15-min
+       69,848 bars; SOLDIERS fires 8,172
+[trades] SOLDIERS hold26 (1-session) n= 1778  mean_old  +18.52  mean_new  +13.77  delta  -4.75  /mo  13.0  mean_spot 14,918
+[trades] SOLDIERS hold78 (3-session) n=  758  mean_old  +45.52  mean_new  +40.80  delta  -4.72  /mo   5.5  mean_spot 14,854
+[trades] RANDOM-LONG hold26 (BETA control) n= 2006  mean_old  +10.63  mean_new   +5.91  delta  -4.71  /mo  14.6  mean_spot 14,857
+
+====================================================================================================================================
+HISTORICAL PATH — single realised ordering, OLD vs NEW cost basis side by side
+====================================================================================================================================
+arm                                   policy              basis     end equity  total ret    maxDD   calmar  medLots  ruined  >25%DD
+SOLDIERS 1-session (in-spec: 13/mo)   P0_FIXED_1          OLD        3,140,530    214.1%    -3.0%    3.479        1       -       -
+SOLDIERS 1-session (in-spec: 13/mo)   P1_NAIVE_MONTHLY    OLD       78,518,452   7751.8%   -21.6%    2.157       40       -       -
+SOLDIERS 1-session (in-spec: 13/mo)   P2_MARGIN_ONLY      OLD       85,757,778   8475.8%   -25.7%    1.856       40       -     YES
+SOLDIERS 1-session (in-spec: 13/mo)   P3_MDD_BUFFER       OLD       80,411,473   7941.1%   -24.8%    1.886       40       -       -
+SOLDIERS 1-session (in-spec: 13/mo)   P4_CPPI_FLOOR       OLD        1,864,273     86.4%   -18.9%    0.296        0       -       -
+SOLDIERS 1-session (in-spec: 13/mo)   P0_FIXED_1          NEW        2,591,796    159.2%    -4.3%    2.001        1       -       -
+SOLDIERS 1-session (in-spec: 13/mo)   P1_NAIVE_MONTHLY    NEW       58,176,709   5717.7%   -27.8%    1.539       40       -     YES
+SOLDIERS 1-session (in-spec: 13/mo)   P2_MARGIN_ONLY      NEW       63,589,938   6259.0%   -37.4%    1.171       40       -     YES
+SOLDIERS 1-session (in-spec: 13/mo)   P3_MDD_BUFFER       NEW       54,206,875   5320.7%   -25.1%    1.670       40       -     YES
+SOLDIERS 1-session (in-spec: 13/mo)   P4_CPPI_FLOOR       NEW       11,827,724   1082.8%   -21.7%    1.114        5       -       -
+SOLDIERS 3-session (best pts/mo)      P0_FIXED_1          OLD        3,242,718    224.3%    -2.3%    4.771        1       -       -
+SOLDIERS 3-session (best pts/mo)      P1_NAIVE_MONTHLY    OLD       84,076,013   8307.6%    -9.2%    5.132       40       -       -
+SOLDIERS 3-session (best pts/mo)      P2_MARGIN_ONLY      OLD       89,756,122   8875.6%   -31.0%    1.556       40       -     YES
+SOLDIERS 3-session (best pts/mo)      P3_MDD_BUFFER       OLD       87,388,959   8638.9%   -17.6%    2.716       40       -       -
+SOLDIERS 3-session (best pts/mo)      P4_CPPI_FLOOR       OLD       85,687,323   8468.7%   -15.3%    3.118       40       -       -
+SOLDIERS 3-session (best pts/mo)      P0_FIXED_1          NEW        3,010,392    201.0%    -2.8%    3.635        1       -       -
+SOLDIERS 3-session (best pts/mo)      P1_NAIVE_MONTHLY    NEW       75,468,746   7446.9%   -11.5%    3.990       40       -       -
+SOLDIERS 3-session (best pts/mo)      P2_MARGIN_ONLY      NEW       80,349,678   7935.0%   -32.7%    1.433       40       -     YES
+SOLDIERS 3-session (best pts/mo)      P3_MDD_BUFFER       NEW       77,207,737   7620.8%   -15.4%    3.017       40       -       -
+SOLDIERS 3-session (best pts/mo)      P4_CPPI_FLOOR       NEW       74,510,300   7351.0%   -13.3%    3.456       40       -       -
+RANDOM-LONG (BETA control)            P0_FIXED_1          OLD        2,385,416    138.5%   -11.8%    0.673        1       -       -
+RANDOM-LONG (BETA control)            P1_NAIVE_MONTHLY    OLD       51,653,847   5065.4%   -70.0%    0.590       40       -     YES
+RANDOM-LONG (BETA control)            P2_MARGIN_ONLY      OLD          401,589    -59.8%   -77.5%   -0.099       25     YES     YES
+RANDOM-LONG (BETA control)            P3_MDD_BUFFER       OLD       34,730,441   3373.0%   -48.3%    0.755       10       -     YES
+RANDOM-LONG (BETA control)            P4_CPPI_FLOOR       OLD        1,686,971     68.7%   -23.3%    0.201        0       -       -
+RANDOM-LONG (BETA control)            P0_FIXED_1          NEW        1,770,656     77.1%   -15.4%    0.333        1       -       -
+RANDOM-LONG (BETA control)            P1_NAIVE_MONTHLY    NEW         -422,061   -142.2%  -108.5%   -0.922       18     YES     YES
+RANDOM-LONG (BETA control)            P2_MARGIN_ONLY      NEW          347,937    -65.2%   -76.9%   -0.115       22     YES     YES
+RANDOM-LONG (BETA control)            P3_MDD_BUFFER       NEW        4,446,409    344.6%   -52.6%    0.265        4       -     YES
+RANDOM-LONG (BETA control)            P4_CPPI_FLOOR       NEW        1,137,096     13.7%   -20.1%    0.056        0       -       -
+
+====================================================================================================================================
+SEQUENCING RISK — stationary block bootstrap on MONTHS (block=3, 2000 paths).
+  SAME draws replayed against OLD and NEW monthly point series per arm (paired, not resampled
+  twice) so the only thing that differs between OLD/NEW rows is the cost, not the resample.
+====================================================================================================================================
+arm                                   policy              basis    med ret    p5 ret  P(ruin)  P(>25%DD)  med maxDD medCalmar
+SOLDIERS 1-session (in-spec: 13/mo)   P0_FIXED_1          OLD      214.2%    159.2%     0.0%       0.0%      -4.4%     2.348
+SOLDIERS 1-session (in-spec: 13/mo)   P0_FIXED_1          NEW      159.0%    106.1%     0.0%       0.0%      -6.3%     1.359
+SOLDIERS 1-session (in-spec: 13/mo)   P1_NAIVE_MONTHLY    OLD     6659.2%   4677.9%     0.0%      35.6%     -20.2%     2.210
+SOLDIERS 1-session (in-spec: 13/mo)   P1_NAIVE_MONTHLY    NEW     4726.6%   2616.0%     1.7%      66.5%     -31.1%     1.296
+SOLDIERS 1-session (in-spec: 13/mo)   P2_MARGIN_ONLY      OLD     8011.8%   5444.9%     2.6%      63.4%     -32.6%     1.461
+SOLDIERS 1-session (in-spec: 13/mo)   P2_MARGIN_ONLY      NEW     5697.4%    -55.2%     8.8%      82.3%     -43.0%     0.984
+SOLDIERS 1-session (in-spec: 13/mo)   P3_MDD_BUFFER       OLD     7784.8%   5499.3%     0.5%      52.5%     -26.1%     1.774
+SOLDIERS 1-session (in-spec: 13/mo)   P3_MDD_BUFFER       NEW     5322.7%   2925.6%     1.7%      74.2%     -34.5%     1.200
+SOLDIERS 1-session (in-spec: 13/mo)   P4_CPPI_FLOOR       OLD      197.5%    -23.5%     0.0%      23.2%     -19.9%     0.427
+SOLDIERS 1-session (in-spec: 13/mo)   P4_CPPI_FLOOR       NEW       57.1%    -21.5%     0.0%      24.1%     -20.3%     0.177
+SOLDIERS 3-session (best pts/mo)      P0_FIXED_1          OLD      224.3%    176.6%     0.0%       0.0%      -3.0%     3.632
+SOLDIERS 3-session (best pts/mo)      P0_FIXED_1          NEW      201.2%    154.4%     0.0%       0.0%      -3.4%     2.944
+SOLDIERS 3-session (best pts/mo)      P1_NAIVE_MONTHLY    OLD     7288.6%   5630.2%     0.0%      10.0%     -12.4%     3.648
+SOLDIERS 3-session (best pts/mo)      P1_NAIVE_MONTHLY    NEW     6461.0%   4838.9%     0.1%      16.6%     -15.0%     2.947
+SOLDIERS 3-session (best pts/mo)      P2_MARGIN_ONLY      OLD     8540.5%   6717.0%     0.0%      28.4%     -16.7%     2.873
+SOLDIERS 3-session (best pts/mo)      P2_MARGIN_ONLY      NEW     7600.1%   5805.0%     0.1%      35.5%     -19.1%     2.383
+SOLDIERS 3-session (best pts/mo)      P3_MDD_BUFFER       OLD     8431.5%   6544.7%     0.0%      23.6%     -15.2%     3.138
+SOLDIERS 3-session (best pts/mo)      P3_MDD_BUFFER       NEW     7429.7%   5601.8%     0.0%      30.5%     -16.3%     2.822
+SOLDIERS 3-session (best pts/mo)      P4_CPPI_FLOOR       OLD     7884.4%      4.7%     0.0%      12.7%     -14.3%     3.266
+SOLDIERS 3-session (best pts/mo)      P4_CPPI_FLOOR       NEW     6647.0%     -4.6%     0.0%      15.7%     -15.5%     2.921
+RANDOM-LONG (BETA control)            P0_FIXED_1          OLD      137.2%     74.2%     0.0%       1.8%     -10.5%     0.744
+RANDOM-LONG (BETA control)            P0_FIXED_1          NEW       75.4%     12.2%     0.4%      18.1%     -15.9%     0.319
+RANDOM-LONG (BETA control)            P1_NAIVE_MONTHLY    OLD     3796.9%    -73.2%    18.7%      91.6%     -52.9%     0.711
+RANDOM-LONG (BETA control)            P1_NAIVE_MONTHLY    NEW      -50.0%    -97.7%    50.1%      99.2%     -68.6%    -0.065
+RANDOM-LONG (BETA control)            P2_MARGIN_ONLY      OLD     4267.9%   -216.3%    33.8%      92.5%     -57.9%     0.656
+RANDOM-LONG (BETA control)            P2_MARGIN_ONLY      NEW      -52.8%   -227.8%    59.8%      98.5%     -71.4%    -0.088
+RANDOM-LONG (BETA control)            P3_MDD_BUFFER       OLD     3127.3%    129.2%     3.6%      93.1%     -44.5%     0.802
+RANDOM-LONG (BETA control)            P3_MDD_BUFFER       NEW      309.3%    -50.9%     7.6%      98.6%     -48.1%     0.277
+RANDOM-LONG (BETA control)            P4_CPPI_FLOOR       OLD       21.2%    -23.1%     0.0%      24.6%     -21.6%     0.080
+RANDOM-LONG (BETA control)            P4_CPPI_FLOOR       NEW        2.0%    -19.2%     0.0%       6.7%     -18.2%     0.010
+
+====================================================================================================================================
+SUPPLEMENTARY — MAX_LOTS relaxed 40 -> 100,000 (capacity desk: 40 lots is 0.047% of ADV, not
+  a liquidity constraint). NEW cost basis only. Tests whether margin becomes the real cap.
+====================================================================================================================================
+arm                                   policy                   med ret  P(ruin)  P(>25%DD)  med maxDD  med maxLots
+SOLDIERS 1-session (in-spec: 13/mo)   P1_NAIVE_MONTHLY          6526%     2.2%      66.5%     -31.4%           86
+SOLDIERS 1-session (in-spec: 13/mo)   P4_CPPI_FLOOR               64%     0.0%      35.2%     -21.9%           13
+SOLDIERS 3-session (best pts/mo)      P1_NAIVE_MONTHLY         10290%     0.1%      16.2%     -15.1%          104
+SOLDIERS 3-session (best pts/mo)      P4_CPPI_FLOOR             6204%     0.0%      39.9%     -20.7%          654
+RANDOM-LONG (BETA control)            P1_NAIVE_MONTHLY           201%    47.9%      99.6%     -70.5%           35
+RANDOM-LONG (BETA control)            P4_CPPI_FLOOR                4%     0.0%       6.2%     -18.1%            3
+
+wrote historical_paths_recost.csv, bootstrap_paths_recost.csv, maxlots_relaxed_recost.csv, trades_*.csv, meta.json
