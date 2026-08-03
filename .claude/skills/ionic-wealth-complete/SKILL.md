@@ -238,6 +238,10 @@ Any two numbers on the same slide that a reader will assume are the same set MUS
 - `fund_actions.py`'s card grid and `tax_impact.py`'s fund table were both hand-fit for ~6-10 items and broke (illegible or overflowing) once a real client had 16-17 fund actions in one book. Fixed with adaptive column counts and capped+summarized rows (never silently drop items — show top-N + a disclosed "+N more" row).
 - **Rule:** stress-test any module rendering a variable-length list from `ctx` at 2-3x the current largest real client's count before shipping, not just against the size of the original demo book.
 
+**Automated QA gates have a real coverage gap — visual render-and-look is not optional**
+- `check_geometry.py`/`check_geometry2.py` inspect python-pptx's SHAPE geometry, not actual rendered pixels. A real overlap slipped through them completely: `tax_impact.py`'s row-height math budgeted the table's vertical space assuming NO header row (`deck.table()`'s `header=True` default silently consumes an extra ~0.33in that the calling module never accounted for). The bug was invisible to both automated gates and only surfaced when the fund-action count grew enough (17 fund actions) to push the real table bottom past a fixed callout box below it — caught only by converting the deck to PDF (`pptx_to_pdf.py`, PowerPoint COM backend) and visually inspecting a sample of slides.
+- **Rule, now standing:** before calling any client deck "done," convert to PDF and visually inspect a representative sample (cover, exec summary, a data-heavy table slide, a chart slide, a sell/scorecard card, the last slide) — not just run the 3 automated gates. The 3 gates catch text-content and declared-geometry problems; they do NOT catch every real visual layout defect.
+
 **Cross-module total consistency**
 - Two modules independently computing "the same" total (`tax_impact.py` vs `priority_actions.py` fund-actions total) used different rounding/summation order and disagreed by Rs 0.1L on an identical figure. **Rule:** any total shown on more than one slide must be computed via one shared path — never reimplemented per-module with its own rounding order.
 
@@ -548,8 +552,12 @@ Three backends tried in order (best-available wins):
 Force a backend: `--backend pptx|libre|png`. Default = auto-detect.
 
 ### Angel SmartAPI (data only, NO real trades ever)
-API key: 8crMtPbu, client: S59047501. Rate limit AB1021: use >=1.2s/req, retry passes.
+Credentials are NOT stored in this doc — ask the CEO/Ops desk for the current API key and
+client ID if your work needs live Angel data. Rate limit AB1021: use >=1.2s/req, retry passes.
 Angel purges expired option contracts from master — daily capture task handles this.
+**Not needed for NDPMS deck / portfolio-review work** — that pipeline runs on CAS statements
+and the scored universe; edge cases (a stock/fund with no data) go to screener.in/yfinance,
+never Angel SmartAPI.
 
 ### NSE data
 `nsearchives.nseindia.com` bhavcopy zips + corporate-board-meetings/event-calendar APIs succeed after cookie warm-up. Other `/api` endpoints (FII/DII, constituents) still 403 from corporate network.

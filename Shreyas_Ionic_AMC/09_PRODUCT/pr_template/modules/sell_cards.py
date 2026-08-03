@@ -55,7 +55,8 @@ def _card(deck, e, tier):
     deck.anchor(f"stock:{e['symbol']}", s, prio=2)
 
     # --- score strip ---
-    deck.txt(s, ML, 1.74, 2.0, 0.2, [("IONIC SCORE", SANS, 8.5, SLATE, True, False, 140)])
+    _score_label = "IONIC SCORE (ANALYST EST.)" if e.get("score_is_estimate") else "IONIC SCORE"
+    deck.txt(s, ML, 1.74, 3.2, 0.2, [(_score_label, SANS, 8.5, SLATE, True, False, 140)])
     _sc = e.get("ionic_score")
     _sc_txt = f"{_sc:.0f}" if _sc is not None else "-"
     _s3 = e.get("score_3y")
@@ -85,7 +86,9 @@ def _card(deck, e, tier):
     deck.score_band(s)
     # the flags-candidates sentence lives in the score_band italic — repeating it here
     # read as a copy-paste slip in the CEO sweep
-    deck.source(s, f"Analyst-confirmed Sell. Point-in-time as of {e['pit_date']}.")
+    est_note = (" Score is an analyst estimate (quant model returned no result for this name), "
+                "not a model-computed score." if e.get("score_is_estimate") else "")
+    deck.source(s, f"Analyst-confirmed Sell. Point-in-time as of {e['pit_date']}.{est_note}")
 
 
 def render(deck, ctx, tier):
