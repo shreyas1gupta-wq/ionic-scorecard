@@ -26,6 +26,7 @@ Usage
 """
 import os
 import re
+import sys
 import csv
 import json
 import argparse
@@ -33,6 +34,8 @@ import argparse
 HERE = os.path.dirname(os.path.abspath(__file__))
 RESULTS = os.path.abspath(os.path.join(HERE, "..", "..", "04_RND_LAB",
                                        "STOCK_SCORECARD_750", "results"))
+sys.path.insert(0, os.path.abspath(os.path.join(HERE, "..", "pr_template")))
+from lib.mf_mapping import validate_holdings, resolve_scheme_rename  # noqa: E402
 
 # the four personalization blocks every real deck carries (Principal 2026-07-26)
 PROFILE_TEMPLATE = {
@@ -113,6 +116,17 @@ def intake(holdings_path, profile_path, out_dir):
     profile = json.load(open(profile_path, encoding="utf-8")) if os.path.exists(profile_path) else dict(PROFILE_TEMPLATE)
     _, by_isin, by_name = _load_universe()
 
+    # row-bleed / CAS-corruption check (2026-08-02, Talaulikar build: a stock's name
+    # field had an entirely different holding's row content silently concatenated
+    # onto it during extraction). Flag, never silently trust or drop.
+    row_warnings = validate_holdings(raw)
+    if row_warnings:
+        print(f"intake: {len(row_warnings)} row(s) flagged by data-quality check (see "
+              f"row_warnings.json in {out_dir}) -- review before trusting these rows")
+        json.dump({str(i): w for i, w in row_warnings.items()},
+                  open(os.path.join(out_dir, "row_warnings.json"), "w", encoding="utf-8"),
+                  indent=2, ensure_ascii=False)
+
     equity, mf, exceptions = [], [], []
     for row in raw:
         typ = str(row.get("type") or "").strip().upper()
@@ -123,7 +137,11 @@ def intake(holdings_path, profile_path, out_dir):
             exceptions.append({**row, "reason": "value not numeric"})
             continue
         if typ == "MF":
-            mf.append({"name": row.get("name"), "value_inr": val, "units": row.get("units")})
+            # resolve known AMFI scheme renames so this and future clients' holdings
+            # match our fund-quality frameworks on the first pass (see lib/mf_mapping.py)
+            resolved_name = resolve_scheme_rename(row.get("name") or "")
+            mf.append({"name": resolved_name, "raw_name": row.get("name"),
+                       "value_inr": val, "units": row.get("units")})
         else:
             hit, how = _match_equity(row, by_isin, by_name)
             if hit is None:
