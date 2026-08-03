@@ -8,7 +8,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-
     "test": "node scripts/test-all.mjs",
     "test:unit": "vitest run src/domain src/auth",
     "test:db": "vitest run src/db",
@@ -16,7 +15,6 @@
     "test:service": "vitest run src/service",
     "test:all": "vitest run",
     "test:watch": "vitest",
-
     "typecheck": "tsc --noEmit",
     "check": "npm run typecheck && npm run test && npm run build"
   },
@@ -38,6 +36,7 @@
     "@electric-sql/pglite": "^0.5.4",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^24.3.0",
+    "@types/pg": "^8.20.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "postcss": "^8.5.25",
@@ -46,8 +45,10 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "^1.20.2",
     "jose": "^6.2.7",
     "next": "^16.2.12",
+    "pg": "^8.22.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   }

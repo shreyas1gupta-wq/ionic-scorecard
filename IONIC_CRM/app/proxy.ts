@@ -63,7 +63,21 @@ function kindOf(method: string): RequestKind {
 const store = new InMemoryRateLimitStore();
 const limiter = new RateLimiter(store);
 
-export async function middleware(request: NextRequest): Promise<NextResponse> {
+/**
+ * Named `proxy`, in `proxy.ts`.
+ *
+ * Next 16 deprecated the `middleware` file convention in favour of `proxy`
+ * (nextjs.org/docs/messages/middleware-to-proxy). Per the docs it is a rename of
+ * both the file and the exported function; the signature, the `config.matcher`
+ * mechanism and the return conventions are unchanged. The one behavioural
+ * difference — Proxy defaults to the Node.js runtime where Middleware defaulted
+ * to Edge — is inert here, because nothing below is runtime-specific.
+ *
+ * `tsconfig.json` lists this filename explicitly in `include`. Root-level files
+ * match none of the other globs, so without that entry `tsc` reports success
+ * while never checking this file at all.
+ */
+export async function proxy(request: NextRequest): Promise<NextResponse> {
   const kind = kindOf(request.method);
   const key = unauthenticatedRequestKey(request.headers);
 
@@ -113,6 +127,17 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
  * one later, not a response to anything that exists today.
  */
 export const config = {
+  /**
+   * Edge, explicitly.
+   *
+   * Next 16's `proxy` convention defaults to the Node.js runtime, and the
+   * Cloudflare adapter refuses it outright: *"Node.js middleware is not currently
+   * supported. Consider switching to Edge Middleware."* Nothing in this file needs
+   * Node — it touches only `NextRequest`, `NextResponse`, `Headers`, `Date.now()`
+   * and a `Map` — so declaring edge costs nothing and is what makes the app
+   * deployable at all.
+   */
+  runtime: 'edge',
   matcher: [
     '/((?!_next/static|_next/image|favicon\\.ico|.*\\.(?:png|jpg|jpeg|svg|gif|webp|ico|css|js|map|woff2?|ttf)$).*)',
   ],

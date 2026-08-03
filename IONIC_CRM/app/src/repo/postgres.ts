@@ -62,6 +62,54 @@ export interface SqlRunner {
   exec(sql: string): Promise<unknown>;
 }
 
+/** The runtime role every request must be running as. Owns nothing; see 0001. */
+export const RUNTIME_ROLE = 'crm_app';
+
+export class SessionIdentityError extends Error {
+  override readonly name = 'SessionIdentityError';
+}
+
+/**
+ * Prove the role switch and the identity actually took effect.
+ *
+ * THE FAILURE THIS EXISTS TO CATCH is the worst one available in this system, and
+ * it is silent. If `SET LOCAL ROLE crm_app` does not stick — a connection pooler
+ * in transaction mode splitting statements across backends, a driver path that
+ * never emitted a real `BEGIN`, a future refactor reordering these lines — then
+ * queries execute as the CONNECTING role with `app.employee_id` unset.
+ *
+ * And if that role happens to own the tables or be a superuser, Postgres exempts
+ * it from row-level security altogether. Nothing errors. Every query succeeds.
+ * Every employee sees every other employee's tickets. A smoke test passes
+ * cleanly, and the only symptom is that authorisation no longer exists.
+ *
+ * One extra round trip per request buys certainty about that. For a fifty-person
+ * internal tool that is not a close call.
+ */
+export async function assertSessionIdentity(tx: SqlRunner, actor: Actor): Promise<void> {
+  const r = await tx.query<{ who: string; emp: string | null }>(
+    `select current_user as who, current_setting('app.employee_id', true) as emp`,
+  );
+  const row = r.rows[0];
+  if (row === undefined) {
+    throw new SessionIdentityError('could not read the session identity back');
+  }
+  if (row.who !== RUNTIME_ROLE) {
+    throw new SessionIdentityError(
+      `refusing to run: session role is "${row.who}", expected "${RUNTIME_ROLE}". ` +
+        'Row-level security may not be in force — a connection pooler in transaction mode is the ' +
+        'usual cause. Check that CRM_DATABASE_URL points at the SESSION-mode pooler (port 5432).',
+    );
+  }
+  if (row.emp !== actor.employeeId) {
+    throw new SessionIdentityError(
+      'refusing to run: the session identity does not match the requesting actor. ' +
+        'Every row-level-security policy keys off this value, so proceeding could expose ' +
+        "another employee's data.",
+    );
+  }
+}
+
 export interface SqlClient {
   transaction<T>(fn: (tx: SqlRunner) => Promise<T>): Promise<T>;
   close?(): Promise<void>;
@@ -377,6 +425,7 @@ export function createPostgresRepository(client: SqlClient): RepositoryFactory {
         // connection — which would be a cross-user data leak, not a bug.
         await tx.query('select set_config($1, $2, true)', ['app.employee_id', actor.employeeId]);
         await tx.exec('set local role crm_app');
+        await assertSessionIdentity(tx, actor);
         return fn(buildRepository(tx, actor));
       });
     },

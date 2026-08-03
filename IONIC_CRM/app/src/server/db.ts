@@ -1,52 +1,46 @@
 /**
  * The server's repository factory.
  *
- * THREE MODES, and the default is deliberately the cheap one.
+ * TWO MODES.
  *
- *   memory  (default in development) — the in-memory repository. Starts
- *           instantly, uses almost no RAM, and is safe to build UI against
- *           because `src/repo/contract.test.ts` runs one suite of rules against
- *           both it and Postgres. If the two ever diverge, CI fails.
+ *   development — the in-memory repository. Starts instantly, uses almost no RAM,
+ *           and is safe to build UI against because `src/repo/contract.test.ts`
+ *           runs one suite of rules against both it and a real Postgres. If the
+ *           two ever diverge, that suite fails.
  *
- *   pglite  (opt-in via CRM_DEV_STORE=pglite) — a real Postgres compiled to
- *           WebAssembly, persisted to `.pgdata/`, running the SAME migrations
- *           and the SAME row-level-security policies as production. This is what
- *           you use when changing a policy or a migration, because the in-memory
- *           store cannot prove anything about SQL. It costs roughly a gigabyte of
- *           RAM and a few seconds of startup.
+ *   production  — Postgres over Supabase's session-mode pooler (`pg-client.ts`).
  *
- *   production — not wired yet. That is milestone M11 and needs the Principal's
- *           Supabase project. `getRepositories()` throws something specific and
- *           actionable rather than leaving a silent placeholder.
+ * NO PGLITE MODE HERE, DELIBERATELY. An earlier version offered a
+ * `CRM_DEV_STORE=pglite` mode that ran a Postgres compiled to WebAssembly inside
+ * the dev server. It was removed for two reasons, the second decisive:
  *
- * WHY MEMORY IS THE DEFAULT: this was measured, not assumed. The development
- * machine had 2.3 GB free of 15.6 GB, and loading PGlite inside the Turbopack dev
- * server exhausted V8's allocator outright ("Fatal process out of memory: Zone").
- * Making the UI's day-to-day loop depend on a gigabyte of spare RAM would be a
- * bad trade when a contract-verified fake costs nothing.
+ *   1. It needed roughly a gigabyte of spare RAM, which this machine does not
+ *      reliably have — it exhausted V8's allocator outright.
+ *   2. Next.js traces dynamic imports, so merely *mentioning* PGlite in this file
+ *      pulled the entire WASM Postgres into the production Worker bundle. The
+ *      Cloudflare Workers free plan caps a Worker at 3 MiB compressed; a test
+ *      database has no business being deployed at all, let alone spending that
+ *      budget.
+ *
+ * PGlite still runs every migration and every RLS policy — in the TEST suite,
+ * which is where it belongs. `npm run test:db` and `npm run test:repo` are what
+ * verify a policy change.
  *
  * THE HONEST LIMITATION: the in-memory store enforces the authorisation rules in
- * TypeScript, so it cannot catch a mistake in an RLS policy. Only `pglite` mode
- * and the test suite can. Change a policy → run the tests, and run dev in pglite
- * mode at least once before shipping it.
+ * TypeScript, so it cannot catch a mistake in an RLS policy. Only the test suite
+ * can. Change a policy → run the tests.
  */
 
-import { migrate, type SqlRunner } from '../db/migrate';
 import { createMemoryRepository } from '../repo/memory';
-import { createPostgresRepository, type SqlClient } from '../repo/postgres';
+import { createPostgresRepository } from '../repo/postgres';
+import { createPgClient } from './pg-client';
 import type { RepositoryFactory } from '../repo/types';
 
 export class NotConfiguredError extends Error {
   override readonly name = 'NotConfiguredError';
 }
 
-export type DevStore = 'memory' | 'pglite';
-
-export function devStoreFromEnv(env: NodeJS.ProcessEnv = process.env): DevStore {
-  return env.CRM_DEV_STORE?.trim().toLowerCase() === 'pglite' ? 'pglite' : 'memory';
-}
-
-/** The development team. Shared by both dev stores so they behave alike. */
+/** The development team. */
 const DEV_TEAM = [
   { workEmail: 'admin@ionic.in', displayName: 'Admin User', role: 'ADMIN' as const },
   { workEmail: 'manager@ionic.in', displayName: 'Priya Manager', role: 'MANAGER' as const },
@@ -161,54 +155,31 @@ async function createMemoryDevFactory(): Promise<RepositoryFactory> {
   return factory;
 }
 
-async function createPgliteDevFactory(): Promise<RepositoryFactory> {
-  // Imported lazily so `memory` mode never pays the cost of loading a Postgres
-  // WASM binary it is not going to use.
-  const { PGlite } = await import('@electric-sql/pglite');
-  const { fileURLToPath } = await import('node:url');
-  const { dirname, join } = await import('node:path');
-
-  const here = dirname(fileURLToPath(import.meta.url));
-  const migrationsDir = join(here, '..', '..', 'db', 'migrations');
-  const dataDir = join(here, '..', '..', '.pgdata');
-
-  const db = await PGlite.create({ dataDir });
-  await migrate(db as unknown as SqlRunner, migrationsDir);
-
-  // Guarded on the table being empty rather than a flag file, so deleting
-  // `.pgdata/` is all it takes to start over.
-  const existing = await db.query<{ n: number }>('select count(*)::int as n from employees');
-  if ((existing.rows[0]?.n ?? 0) === 0) {
-    const byEmail = new Map<string, string>();
-    for (const e of DEV_TEAM) {
-      const managerId = 'managerEmail' in e ? byEmail.get(e.managerEmail) ?? null : null;
-      const r = await db.query<{ id: string }>(
-        `insert into employees (work_email, display_name, role, manager_id)
-         values ($1, $2, $3, $4) returning id`,
-        [e.workEmail, e.displayName, e.role, managerId],
-      );
-      byEmail.set(e.workEmail, r.rows[0]!.id);
-    }
-    for (const name of DEV_CATEGORIES) {
-      await db.query('insert into categories (name) values ($1)', [name]);
-    }
-    for (const [date, label] of DEV_HOLIDAYS) {
-      await db.query('insert into holidays (holiday_date, name) values ($1, $2)', [date, label]);
-    }
+/**
+ * Production: a real Postgres over Supabase's session-mode pooler.
+ *
+ * `createPgClient` refuses a transaction-mode connection string at construction —
+ * that mode connects fine and silently breaks row-level security, so it is caught
+ * here as a boot failure rather than discovered as a data leak.
+ */
+function createProductionFactory(): RepositoryFactory {
+  const url = process.env.CRM_DATABASE_URL?.trim();
+  if (!url) {
+    throw new NotConfiguredError(
+      'CRM_DATABASE_URL is not set. Set it as a Worker secret:\n' +
+        '  npx wrangler secret put CRM_DATABASE_URL\n' +
+        'Use the Supabase SESSION-mode pooler (port 5432), not 6543. ' +
+        'See IONIC_CRM/SETUP_ACCOUNTS.md.',
+    );
   }
-
-  return createPostgresRepository(db as unknown as SqlClient);
+  return createPostgresRepository(createPgClient(url));
 }
 
 export function getRepositories(): Promise<RepositoryFactory> {
   if (process.env.NODE_ENV === 'production') {
-    throw new NotConfiguredError(
-      'No production database adapter is configured yet (milestone M11). ' +
-        'This needs a Supabase project in ap-south-1 and CRM_DATABASE_URL set as a ' +
-        'Worker secret. See IONIC_CRM/PLAN.md M11 and DESIGN.md §9.',
-    );
+    cache.factory ??= Promise.resolve(createProductionFactory());
+    return cache.factory;
   }
-  cache.factory ??=
-    devStoreFromEnv() === 'pglite' ? createPgliteDevFactory() : createMemoryDevFactory();
+  cache.factory ??= createMemoryDevFactory();
   return cache.factory;
 }

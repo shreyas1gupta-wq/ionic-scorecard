@@ -34,7 +34,25 @@ const SEP = Buffer.from([0x1f]);
 export const GENESIS_HASH: Buffer = Buffer.alloc(32, 0);
 
 export interface AuditRowInput {
-  readonly seq: number | bigint;
+  /**
+   * A plain number, not a bigint.
+   *
+   * Postgres `bigserial` can exceed `Number.MAX_SAFE_INTEGER` in principle, and an
+   * earlier version used `bigint` for that reason. It was changed for two
+   * reasons, the second one forced:
+   *
+   *   1. Nine quadrillion audit entries is not a scenario for a fifty-person
+   *      ticket tool. The precision was theoretical.
+   *   2. Next's file tracer (`@vercel/nft`, used by the webpack build and by the
+   *      Cloudflare adapter) statically evaluates expressions and **crashes** on
+   *      mixed bigint arithmetic: `TypeError: Cannot mix BigInt and other types`.
+   *      That made the app impossible to package for deployment at all.
+   *
+   * The hash is unaffected: it serialises `String(seq)`, which is identical for a
+   * number and a bigint holding the same integer, so chains written before this
+   * change still verify.
+   */
+  readonly seq: number;
   /**
    * Canonical ISO-8601 UTC with exactly 6 fractional digits: `2026-08-03T09:15:00.123456Z`.
    *
@@ -190,22 +208,22 @@ export function verifyChain(rows: readonly AuditRow[], opts: VerifyOptions = {})
   const requireConsecutive = opts.requireConsecutive ?? true;
   const failures: ChainFailure[] = [];
   let prev = GENESIS_HASH;
-  let prevSeq: bigint | null = null;
+  let prevSeq: number | null = null;
   let head: string | null = null;
 
   for (let i = 0; i < rows.length; i++) {
     const row = rows[i]!;
-    const seq = BigInt(row.seq);
+    const seq = Number(row.seq);
 
     if (prevSeq !== null) {
       if (seq <= prevSeq) {
-        failures.push({ kind: 'SEQ_NOT_ASCENDING', at: i, found: seq.toString() });
-      } else if (requireConsecutive && seq !== prevSeq + 1n) {
+        failures.push({ kind: 'SEQ_NOT_ASCENDING', at: i, found: String(seq) });
+      } else if (requireConsecutive && seq !== prevSeq + 1) {
         failures.push({
           kind: 'SEQ_GAP',
           at: i,
-          expected: (prevSeq + 1n).toString(),
-          found: seq.toString(),
+          expected: String(prevSeq + 1),
+          found: String(seq),
         });
       }
     }
@@ -239,7 +257,7 @@ export function verifyChain(rows: readonly AuditRow[], opts: VerifyOptions = {})
   // An anchor whose row is absent means rows were truncated from the end — which a
   // forward walk alone would report as a perfectly valid, merely shorter, chain.
   if (opts.expectedAnchors) {
-    const present = new Set(rows.map((r) => BigInt(r.seq).toString()));
+    const present = new Set(rows.map((r) => String(Number(r.seq))));
     for (const seq of opts.expectedAnchors.keys()) {
       if (!present.has(seq)) failures.push({ kind: 'ANCHOR_MISSING', seq });
     }
