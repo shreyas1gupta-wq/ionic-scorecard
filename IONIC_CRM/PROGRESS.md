@@ -345,9 +345,38 @@ The real fault was putting it in the wrong layer: **archival is an owner-level m
 
 Reverted rather than shipped, with the reasoning left in `src/repo/types.ts` where the next person would otherwise repeat it. **The lesson generalises: a contract test proves two implementations agree, not that the operation is permitted.** Privileges are not part of that contract.
 
+## M11 deployment attempt — 4 blockers cleared, 1 hard wall. 613 tests still pass
+
+Principal chose to deploy. Production DB adapter built (`src/server/pg-client.ts`): `pg` over Supabase's **session-mode** pooler (port 5432), a client per request, and `assertSessionModeUrl` **refuses port 6543 at construction** — transaction-mode pooling silently discards `SET LOCAL ROLE`, which disables row-level security with no error at all. Plus `assertSessionIdentity` in `postgres.ts`: every transaction now proves `current_user = crm_app` and the identity GUC matches before running a single query. One extra round trip against silent total authorisation loss is not a close call.
+
+**Four real blockers found by building, not by reasoning:**
+
+1. **PGlite was being traced into the production bundle** — the whole WASM Postgres. Next follows dynamic imports, so merely *mentioning* it in `src/server/db.ts` pulled it in. The `CRM_DEV_STORE=pglite` mode is gone; PGlite lives in the test suite, which is where it belongs.
+2. **`BigInt` crashed Next's file tracer** — `TypeError: Cannot mix BigInt and other types` inside `@vercel/nft`, which made the app impossible to package at all. `hash-chain.ts` now uses `number`. Safe: the hash serialises `String(seq)`, identical either way, so existing chains still verify. Nine quadrillion audit rows was never this tool's problem.
+3. **The `proxy` rename had been silently reverted** by a later concurrent agent writing from a stale view of the file. My report that the deprecation warning was gone was therefore wrong. Caught by noticing the warning reappear in a build.
+4. **Next 16 + Cloudflare cannot have middleware at all.** Verified from both tools: OpenNext says *"Node.js middleware is not currently supported"*; Next says *"Proxy always runs on Node.js runtime"*. Mutually exclusive, no configuration satisfies both. Removed — reasoning and the (better) replacement in `src/security/NO_MIDDLEWARE.md`. The per-employee limiter, which was always the meaningful control, is untouched.
+
+### The hard wall: this laptop cannot build the deployment bundle
+
+Measured, not inferred:
+
+```
+AllowDevelopmentWithoutDevLicense = not set   (Developer Mode OFF)
+elevated admin                    = False
+creating a symlink                → "Administrator privilege required"
+```
+
+`@opennextjs/cloudflare` symlinks traced dependencies. Enabling Developer Mode writes to HKLM and needs admin. **No code change can fix this**, and the same machine also ran out of commit charge mid-build repeatedly.
+
+**So deployment now genuinely depends on the repository** — not for tidiness, but because the build has to happen on Linux CI. `deploy/github-actions-deploy.yml` is written and ready; it needs a repo to live in and two Cloudflare secrets.
+
+### Still unresolved: whether hosting is free
+
+I could not measure the compressed Worker size, because the build never completed. The research estimate stands at **$5/month** for Workers Paid (the free plan caps a Worker at 3 MiB compressed and 10 ms CPU per request). My earlier "no monthly cost" claim remains **unverified either way** — the first successful CI build will settle it.
+
 ## NEXT STEP (exact)
 
-1. **Move the working tree out of OneDrive**, into a company-owned repo. Fixes the junction/Turbopack conflict, the sync memory drain, and the succession risk in one action.
+1. **A repo is now the blocker for deployment**, because the laptop cannot build. Move the tree out of OneDrive into a company-owned repo — this also fixes the sync memory drain and the succession risk.
 2. **Rotate the exposed GitHub token** and re-point the remote at a token-free URL.
 3. **M11**: production DB adapter, then the cron handler for anchor + encrypted backup + archival, then the four DESIGN §9 checks — **check 0 first**. Needs the Principal's Supabase and Cloudflare accounts.
 4. **Restore drill** — a backup that has never been restored is not a backup.

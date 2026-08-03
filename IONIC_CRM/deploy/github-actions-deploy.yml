@@ -1,0 +1,103 @@
+# Build and deploy Ionic CRM to Cloudflare Workers.
+#
+# ============================================================================
+# WHY THIS EXISTS: THE DEPLOYMENT BUNDLE CANNOT BE BUILT ON THE WORK LAPTOP.
+#
+# Verified empirically, not assumed. `@opennextjs/cloudflare` creates symlinks
+# while tracing dependencies, and on that machine:
+#
+#   AllowDevelopmentWithoutDevLicense = not set     (Developer Mode OFF)
+#   elevated admin                    = False
+#   creating a symlink                → "Administrator privilege required"
+#
+# Enabling Developer Mode writes to HKLM, which needs admin. So the build fails
+# with `EPERM: operation not permitted, symlink` and no configuration change can
+# fix it. Linux CI has no such restriction — and also has the memory the laptop
+# does not (that machine repeatedly ran out of commit charge mid-build).
+#
+# This is therefore not a nicety. CI is the only way this app gets deployed
+# without an IT request.
+# ============================================================================
+#
+# WHERE TO PUT THIS FILE — it must live at `.github/workflows/deploy.yml`
+# relative to the REPOSITORY ROOT, and `working-directory` below must point at
+# the folder containing package.json:
+#
+#   If the repo root is the NIFTY 500 folder →  working-directory: IONIC_CRM/app
+#   If you create a fresh repo from IONIC_CRM →  working-directory: app
+#   If you create a fresh repo from app/     →  remove working-directory
+#
+# TWO REPOSITORY SECRETS are needed (Settings → Secrets and variables → Actions):
+#   CLOUDFLARE_API_TOKEN   — Cloudflare dashboard → My Profile → API Tokens →
+#                            Create Token → template "Edit Cloudflare Workers"
+#   CLOUDFLARE_ACCOUNT_ID  — shown in the Workers section of the dashboard
+#
+# The DATABASE URL AND ACCESS SETTINGS ARE **NOT** GitHub secrets. They are
+# Worker secrets, set once from your own machine and stored encrypted by
+# Cloudflare, so they never pass through GitHub or this file:
+#   npx wrangler secret put CRM_DATABASE_URL
+#   npx wrangler secret put CRM_ACCESS_TEAM_DOMAIN
+#   npx wrangler secret put CRM_ACCESS_AUD
+
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  # Lets you deploy from the Actions tab without pushing a commit.
+  workflow_dispatch:
+
+# One deploy at a time. Without this, two quick pushes race and whichever build
+# finishes second wins — which may not be the newer commit.
+concurrency:
+  group: deploy-ionic-crm
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: IONIC_CRM/app
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # Matches the version the app was developed and tested against.
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: IONIC_CRM/app/package-lock.json
+
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      # The full suite in ONE process. The four-way split in `npm test` exists
+      # only to work around the laptop's memory ceiling; a CI runner has room,
+      # and one process is faster.
+      - name: Test
+        run: npm run test:all
+
+      # Deploy is gated on the tests above: a red build must not reach anyone.
+      - name: Build the Worker
+        run: npx opennextjs-cloudflare build
+
+      - name: Deploy
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      # Migrations are NOT run here, deliberately. They need the database owner
+      # role, whereas the app connects as `crm_app`, which owns nothing. Putting
+      # owner credentials into CI would hand every future workflow the ability to
+      # drop the schema. Run them once from your own machine instead:
+      #   psql "$CRM_OWNER_DATABASE_URL" -f db/migrations/0001_schema.sql   (…and 0002–0005)
+      - name: Reminder
+        run: |
+          echo "Deployed. If a migration was added, apply it manually as the DB owner —"
+          echo "CI deliberately holds no owner credentials. See db/migrations/."

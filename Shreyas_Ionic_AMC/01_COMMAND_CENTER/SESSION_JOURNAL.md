@@ -4,6 +4,48 @@ Newest entries at TOP.
 
 ---
 
+## 2026-08-03 late (DESK-100) — PAC/CEO product-approval deck + ABXY aggressive-IPS showcase; Talaulikar No-View upgrade landed
+Principal ask: a deck for the Product Approval Committee and CEO explaining the model, the
+workflow and the pages, with page snapshots, plus a best-in-class ABXY sample on an
+AGGRESSIVE IPS using the final template.
+
+**Built two new deliverables.**
+1. `pr_template/data/abxy_showcase.py` + `build_abxy_showcase.py` — the house demo book on a
+   deliberately aggressive mandate (85% equity target, 55% mid-and-small ceiling, 10% single-name
+   / 30% single-AMC caps, 18% foreign target, 10y horizon). Wraps azby_family rather than editing
+   it (azby is the schema reference every client file is copied from). **Also sets `is_demo=True`,
+   which azby never did** — so the synthetic book now carries the "[ILLUSTRATIVE, synthetic demo
+   client]" labelling every module already supported but was silently skipping. A committee
+   showcase on fabricated holdings must be labelled as such.
+2. `09_PRODUCT/scripts/build_pac_showcase.py` -> `09_PRODUCT/reports/IONIC_NDPMS_PRODUCT_APPROVAL_DECK.pptx`
+   (28 slides, house style via slidekit). Sections: the ask / the model (pillars, gates, Ionic
+   Score, fund frameworks, coverage) / workflow (weekly router, cadence, decision rights) /
+   quality control (the 4-gate stack + a page of real defects we found and closed) / the
+   deliverable (14 REAL rendered ABXY pages as snapshots) / compliance, honest limitations, and a
+   sign-off block. Snapshot pages are located by searching the PDF for TITLE-SIZE text, never by
+   page number, so it survives module reordering.
+
+**Talaulikar:** the previous session's stopped agent had in fact landed its `_SCORE_750` edits —
+verified, rebuilt clean at **101 slides, all 3 gates 0 findings**, No View down 24 -> 5 (the
+remaining 5 are genuinely outside the 751 universe).
+
+**Systemic finding, partially fixed.** Raw engine field names leak into CLIENT-VISIBLE prose in
+the research corpus (`quality_score` 160x, `value_score` 124x, `final_score_1y` 113x, ~1,000
+occurrences across ~40 tokens). Talaulikar is unaffected (its data layer scrubs); AZBY-style data
+layers that read pf_qual text directly surface them. I fixed the 29 occurrences the showcase
+actually exposed (`ret_*`, `unified_quarterly_pit`, meaning-preserving, verified before/after) and
+deliberately did NOT mass-rewrite the rest — `research_sources` keeps its raw names correctly (it
+is the audit trail), and mangling ~1,000 analyst sentences mechanically is a bigger call than a
+late-night pass should make. **OPEN for the Principal: decide between a render-layer field-name
+translation in `pr_template/lib/` (safer, protects every future client) or a supervised corpus
+rewrite.**
+
+Files: data/abxy_showcase.py, build_abxy_showcase.py, scripts/build_pac_showcase.py (new);
+data/talaulikar_family.py, 24 pf_qual_*.json (prose only) modified; reports/
+IONIC_NDPMS_PRODUCT_APPROVAL_DECK.pptx+pdf, pr_template/out/ABXY_Showcase_HNI_DEEP.pptx+pdf.
+Next: Principal review of the PAC deck; the field-name decision above; TER placeholder on fund
+scorecards is still the top disclosed product gap.
+
 ## 2026-08-03 (Vikram Shah, FM) — THREE_PORTFOLIOS re-costed at Budget-2026 STT; recommendation holds, economics don't
 Owed item from STT_RECOST_20260803 closed: re-costed all 5 sleeves' daily series and rebuilt all 3
 mandates (LOW_RISK/HIGH_CAGR/BALANCED) using the IDENTICAL walk-forward methodology as
