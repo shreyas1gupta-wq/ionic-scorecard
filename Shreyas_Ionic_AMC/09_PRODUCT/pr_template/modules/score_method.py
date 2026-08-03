@@ -146,6 +146,8 @@ def render(deck, ctx, tier):
     for i, (band, arrow, rec) in enumerate(cells):
         _threshold_cell(deck, s, ML + i * (tw + gap2), ty, tw, band, arrow, rec, rec)
     deck.source(s, "Ionic scoring methodology (proprietary, held by the desk) · a 40-50 score alone is a "
-                   "watch signal; Trim needs a concentration or risk flag · every call reviewed by the desk.")
+                   "watch signal; Trim needs a concentration or risk flag · every call reviewed by the desk. "
+                   "A directed liquidity Trim (client cash need, any score band) is a separate, explicitly "
+                   "labelled case — not this score-band rule.")
     deck.score_band(s)
     return 1

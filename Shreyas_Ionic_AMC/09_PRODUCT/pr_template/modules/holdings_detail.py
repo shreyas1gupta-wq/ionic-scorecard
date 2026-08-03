@@ -53,9 +53,9 @@ def render(deck, ctx, tier):
                 ("b", e["symbol"]),
                 _sector(e.get("sector")),
                 f"{e['weight_pct']:.2f}",
-                ("bar", e["ionic_score"]),
-                f"{e['score_3y']:.0f}",
-                f"{e['score_1y']:.0f}",
+                ("bar", e.get("ionic_score")),
+                f"{e['score_3y']:.0f}" if e.get("score_3y") is not None else "-",
+                f"{e['score_1y']:.0f}" if e.get("score_1y") is not None else "-",
                 ("pill", e["rec"]),
             ])
         deck.table(s, ML, 1.95, UW, cols, rows, rowh=0.24, fs=8.5, hfs=7.5)

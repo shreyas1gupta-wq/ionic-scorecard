@@ -10,9 +10,9 @@ VERB = {"SWITCH": ("Switch", AMBER, AMBERBG), "EXIT": ("Exit", SELL, SELLBG),
         "REDEEM": ("Switch", AMBER, AMBERBG), "TRIM": ("Trim", AMBER, AMBERBG)}
 
 LABELS = {
-    "hni":    ("Fund actions", "Every action is structural, never a performance sale"),
+    "hni":    ("Fund actions", "What we would change in the fund book, and exactly why"),
     "std":    ("Fund actions", "What we would change in the fund book, and exactly why"),
-    "simple": ("Changes to your funds", "A few structural fixes, none is about last year's return"),
+    "simple": ("Changes to your funds", "What we would change, and exactly why"),
 }
 
 
@@ -24,21 +24,29 @@ def _short(name, n=30):
 def render(deck, ctx, tier):
     reg = tier.get("register", "std")
     acts = [f for f in ctx["funds"] if f["action"] not in ("HOLD", "Hold")]
+    n_perf_flag = sum(1 for f in acts if f.get("qfra") is not None and f["qfra"] < 40)
+    n_other = len(acts) - n_perf_flag
     eyebrow, title = LABELS.get(reg, LABELS["std"])
     s = deck.content(3, "Funds", eyebrow, title)
     deck.anchor("mod:fund_actions", s, prio=5)
-    deck.txt(s, ML, 1.62, UW, 0.40,
-             [("No fund here is sold on performance alone. Each action is structural: mandate, cost, scale "
-               "or consistency. Where a scheme mostly re-buys index names you already hold directly, the "
-               "cleaner replacement is a low-cost index sleeve (Nifty 50 / Nifty 500 class) rather than "
-               "paying an active fee twice.", SERIF, 10, SLATE, False, True)], ls=1.04)
+    if n_perf_flag:
+        opening = (f"{n_other} of these {len(acts)} actions are structural or a liquidity need, not a quality "
+                   f"call. {n_perf_flag} scheme(s) are also independently flagged by our own fund-quality "
+                   "framework. Where a scheme mostly re-buys index names you already hold directly, the "
+                   "cleaner replacement is a low-cost index sleeve rather than paying an active fee twice.")
+    else:
+        opening = ("No fund here is sold on performance alone. Each action is structural or a directed "
+                   "liquidity need: mandate, cost, scale, consistency, or a client cash requirement. Where a "
+                   "scheme mostly re-buys index names you already hold directly, the cleaner replacement is "
+                   "a low-cost index sleeve (Nifty 50 / Nifty 500 class) rather than paying an active fee twice.")
+    deck.txt(s, ML, 1.62, UW, 0.40, [(opening, SERIF, 10, SLATE, False, True)], ls=1.04)
 
     # 2 or 3 columns of cards, adapting to fund count (2026-07-29 fix: a real client can have
     # more than ~4 non-Hold funds -- e.g. a liquid/debt/arbitrage-to-cash sweep -- and the old
     # fixed-2-column grid shrank card_h toward zero, clipping every card's reason text however
     # short. 3 columns keeps rows (and card_h) bounded once there are more than 6 cards.
     n = len(acts)
-    ncols = 3 if n > 6 else 2
+    ncols = 4 if n > 12 else (3 if n > 6 else 2)
     col_w = (UW - 0.3 * (ncols - 1)) / ncols
     rows_per_col = -(-n // ncols)  # ceil division
     card_h = min(1.62, (6.4 - 2.1) / max(rows_per_col, 1) - 0.12)
@@ -50,6 +58,17 @@ def render(deck, ctx, tier):
         verb, vc, vbg = VERB.get(f["action"], (f["verdict"], AMBER, AMBERBG))
         deck.rect(s, x, y, col_w, card_h, fill=PANEL, line=vc, lw=1.0, round_=0.05)
         deck.rect(s, x, y, 0.06, card_h, fill=vc)
+        narrow = ncols >= 4  # a 4-col card is too tight to fit pill + name on one line
+        if narrow:
+            # tight card: pill, name, reason only — no separate flags line (usually just
+            # "structural" anyway, redundant with the reason text) and no exemplar line.
+            deck.pill(s, x + 0.18, y + 0.10, verb, w=0.95)
+            deck.txt(s, x + 0.18, y + 0.36, col_w - 0.34, 0.20,
+                     [(_short(f["name"], 26), "Bahnschrift", 9.5, INK, True)])
+            clip_len = 60
+            deck.txt(s, x + 0.18, y + 0.58, col_w - 0.34, card_h - 0.62,
+                     [(clip_clause(f["structural_reason"], clip_len), SERIF, 8.5, INK, False)], ls=1.0)
+            continue
         deck.pill(s, x + 0.18, y + 0.14, verb, w=1.35, kind=f["verdict"])
         deck.txt(s, x + 1.62, y + 0.13, col_w - 1.75, 0.26, [(_short(f["name"], 32), "Bahnschrift", 11, INK, True)])
         # translate raw SENTINEL codes to plain words (2026-07-28: was leaking CLOSET_INDEX/

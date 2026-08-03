@@ -31,7 +31,7 @@ def render(deck, ctx, tier):
 
     # ---- KPI band ----
     deck.kpi_strip(s, [
-        (f"₹{grand/1e7:.2f} Cr", "Total portfolio value" if reg == "simple" else "Total AUM"),
+        (f"Rs {grand/1e7:.2f} Cr", "Total portfolio value" if reg == "simple" else "Total AUM"),
         (str(n_st), "Direct equity names"),
         (str(n_fd), "Mutual-fund schemes"),
         (f"{top10:.0f}%", "In the top 10 holdings", None, (SELL if top10 >= 50 else INK)),
@@ -41,7 +41,7 @@ def render(deck, ctx, tier):
     # ---- donut (left) ----
     dpath = CH.donut([("Direct equity", eq), ("Mutual funds", mf), ("Cash", cash)],
                      "azby_snapshot_donut", colors=[CNAVY, CGOLD, CNT3],
-                     center_top=f"₹{grand/1e7:.1f} Cr", center_bot="Your portfolio" if reg == "simple" else "Total AUM")
+                     center_top=f"Rs {grand/1e7:.1f} Cr", center_bot="Your portfolio" if reg == "simple" else "Total AUM")
     deck.pic(s, dpath, ML, 3.05, 4.35, 3.35, valign="middle", halign="center")
 
     # ---- read (right) ----

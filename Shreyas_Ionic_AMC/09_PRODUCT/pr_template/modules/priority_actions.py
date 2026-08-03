@@ -28,23 +28,31 @@ def _mix(act_counts):
     return ", ".join(parts)
 
 
-def _rows(reg, n_sell, k, act_counts):
+def _rows(reg, n_sell, k, act_counts, n_quality_sell, n_liquidity_sell, trim_reason):
     n_exit = act_counts.get("EXIT", 0)
     n_move = k - n_exit
+    sell_desc_hni = (f"{n_sell} names sold, {n_quality_sell} score below the gate; "
+                      f"{n_liquidity_sell} are directed liquidity exits, not a quality call."
+                      if n_liquidity_sell else
+                      f"{n_sell} names scored below the gate, staged in slices at <=10% ADV.")
     if reg == "simple":
         # 'cheaper or Direct versions' read as a same-fund plan change (Principal
         # 2026-07-26) — a Switch replaces the FUND; destinations happen to be Direct
         fund_sub = f"Tidy the fund list, replace {n_move} weak funds with stronger, cheaper ones"
         fund_sub += ", drop the tiny one." if n_exit else "."
+        sell_sub = (f"Sell the {n_sell} weakest-scoring stocks; {n_liquidity_sell} more are sold just for "
+                    "cash, not because they're weak."
+                    if n_liquidity_sell else
+                    f"Sell the {n_sell} weakest-scoring stocks, a little at a time.")
         return [
-            ("Sell the weak names", f"Sell the {n_sell} weakest-scoring stocks, a little at a time.", "First"),
-            ("Right-size the biggest names", "Gently reduce any single stock that is too large a share of your money.", "Soon"),
+            ("Sell the weak names", sell_sub, "First"),
+            ("Free up cash", trim_reason, "Soon"),
             ("Fix the funds", fund_sub, "A few days"),
             ("Keep the cash ready", "The freed money sits safely in a liquid fund; where it goes next is decided with you, separately.", "Together"),
         ]
     return [
-        ("Sell programme", f"{n_sell} names scored below the gate, staged in slices at <=10% ADV.", "Wave 1"),
-        ("Trim concentration", "Positions above the 8% single-name guideline eased or exited, into strength.", "This cycle"),
+        ("Sell programme", sell_desc_hni, "Wave 1"),
+        ("Trim / liquidity", trim_reason, "This cycle"),
         ("Fund actions", f"{_mix(act_counts)}; every destination is a Direct-plan or passive vehicle.", "T+2–T+3"),
         ("Park net proceeds", "Held in liquid / overnight funds pending your goals and IPS discussion; no redeployment is assumed or recommended here.", "On authorisation"),
     ]
@@ -98,6 +106,16 @@ def render(deck, ctx, tier):
     # total digit-for-digit (independent rounding printed 82.1 here vs 82.2 there)
     fund_sum = round(sum(round(f["value_inr"] / 1e5, 1) for f in fund_acts), 1) * 1e5
     n_sell = t["n_sell"]
+    n_liquidity_sell = sum(1 for e in equity if e["rec"] == "Sell" and e.get("sell_reason_type") == "liquidity")
+    n_quality_sell = n_sell - n_liquidity_sell
+    trim_names = [e for e in equity if e["rec"] == "Trim"]
+    if trim_names and any((e["weight_pct"] or 0) > cap for e in trim_names):
+        trim_reason = "Positions above the 8% single-name guideline eased toward the cap, into strength."
+    elif trim_names:
+        trim_reason = (f"{trim_names[0]['name'].title()} trimmed for a directed cash need, not a "
+                        "concentration or quality concern — no position in this book is above the 8% cap.")
+    else:
+        trim_reason = "No position in this book exceeds the 8% single-name guideline; nothing to trim."
 
     s = deck.content(SECTION_NO, SECTION, L["eyebrow"], L["title"])
 
@@ -108,7 +126,7 @@ def render(deck, ctx, tier):
     ], y=1.8)
 
     amounts = [sell_sum, trim_cash, fund_sum, net]
-    rows = _rows(reg, n_sell, k, act_counts)
+    rows = _rows(reg, n_sell, k, act_counts, n_quality_sell, n_liquidity_sell, trim_reason)
     # v7 device (p.29): every action row carries a REF back to the page that justifies it
     refs = ["tbl:sell_list", "mod:concentration", "mod:fund_actions", "mod:tax_impact"]
     ry0, rowh = 2.98, 0.78

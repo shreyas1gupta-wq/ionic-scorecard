@@ -67,22 +67,28 @@ def render(deck, ctx, tier):
         deck.score_band(s)
         n_slides += 1
 
-    # PAGE 2: data-quality flags, one callout each — own slide, own room to breathe
+    # PAGE 2+: data-quality flags, one callout each, paginated (2026-08-02 fix: a real
+    # client's 13 authored flags silently dropped to 4 past a fixed footer valve —
+    # a genuine data-quality note going missing is worse than one more slide).
     if flags:
-        s = deck.content(SECTION_NO, SECTION, eyebrow, "Other data-quality flags from this statement")
-        deck.scope_tag(s, "Flagged rather than silently resolved — each needs RM or client confirmation.")
-        y = 2.0
-        for i, f in enumerate(flags):
-            body = clip_clause(f, 300)
-            h = deck.callout_h(UW, body, min_h=0.6, max_h=1.15)
-            # deck.source() below is fixed at y=6.66 -- the valve must clear THAT, not the
-            # slide's bottom edge (2026-07-27: 6.9 let the last flag's box overlap the source line)
-            if y + h > 6.6:
-                break  # safety valve: never spill past the footer, even if flags grows later
-            deck.callout(s, ML, y, UW, h, f"Flag {i + 1}", body, "warn")
-            y += h + 0.14
-        deck.source(s, "Confirm each item with the RM/client before it affects any execution decision.")
-        deck.score_band(s)
-        n_slides += 1
+        i = 0
+        page = 0
+        while i < len(flags):
+            page += 1
+            suffix = f" ({page} of {-(-len(flags) // 4)})" if len(flags) > 4 else ""
+            s = deck.content(SECTION_NO, SECTION, eyebrow, f"Other data-quality flags from this statement{suffix}")
+            deck.scope_tag(s, "Flagged rather than silently resolved — each needs RM or client confirmation.")
+            y = 2.0
+            while i < len(flags):
+                body = clip_clause(flags[i], 300)
+                h = deck.callout_h(UW, body, min_h=0.6, max_h=1.15)
+                if y + h > 6.6 and y > 2.0:
+                    break  # this page is full; start a new one (never silently drop a flag)
+                deck.callout(s, ML, y, UW, h, f"Flag {i + 1}", body, "warn")
+                y += h + 0.14
+                i += 1
+            deck.source(s, "Confirm each item with the RM/client before it affects any execution decision.")
+            deck.score_band(s)
+            n_slides += 1
 
     return n_slides

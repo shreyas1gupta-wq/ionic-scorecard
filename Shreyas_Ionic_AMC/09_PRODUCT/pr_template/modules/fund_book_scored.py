@@ -89,6 +89,7 @@ def render(deck, ctx, tier):
             deck.txt(s, ML, 6.02, UW, 0.5, [(read, SERIF, 9.5, INK, False, True)], ls=1.05)
         demo_tag = " Illustrative synthetic funds." if demo else ""
         deck.source(s, "Ionic fund-quality framework · Direct-plan NAV vs each scheme's own SEBI category "
-                       f"benchmark (TRI) · structural watch-outs flagged per scheme.{demo_tag}")
+                       "benchmark (TRI) · structural watch-outs flagged per scheme · the letter grade weighs "
+                       f"more than the score alone, two schemes on the same score can carry different grades.{demo_tag}")
         deck.score_band(s)
     return n_pages

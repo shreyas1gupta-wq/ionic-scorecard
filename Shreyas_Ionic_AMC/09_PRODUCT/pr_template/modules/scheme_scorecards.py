@@ -143,9 +143,10 @@ def _card(deck, f, tier, idx):
     else:
         metrics = ter_clause
     deck.txt(s, ML, 3.02, UW, 0.24, [(metrics, SANS, 9, INK, False)])
-    caption = (f"Measured against {f.get('bench_label', 'its SEBI category benchmark')} "
+    bench = f.get("bench_label") or "its SEBI category benchmark"
+    caption = (f"Measured against {bench} "
                f"· all risk stats on the common 3-year window" if risk_available else
-               f"Measured against {f.get('bench_label', 'its SEBI category benchmark')} "
+               f"Measured against {bench} "
                f"· full risk-stat battery not yet available for this scheme")
     deck.txt(s, ML, 3.34, UW, 0.16, [(caption, SANS, 7.5, SLATE, False, True)])
     _flags(deck, s, ML, 3.56, f.get("flags") or [])

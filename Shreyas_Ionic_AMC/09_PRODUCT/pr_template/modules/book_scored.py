@@ -85,7 +85,11 @@ def render(deck, ctx, tier):
     more = len(eq) - min(MAXROWS, len(eq))
     extra = " Rows link to each name's page there." if (linked and more > 0) else ""
     demo_tag = " Illustrative synthetic book." if ctx.get("is_demo", False) else ""
-    deck.source(s, (f"All {len(eq)} holdings are scored; the remaining {more} sit in the annexure.{extra} " if more > 0 else "")
+    n_scored = sum(1 for e in eq if e.get("ionic_score") is not None)
+    scope_note = (f"{n_scored} of {len(eq)} holdings carry a score; the remaining {len(eq) - n_scored} are "
+                  f"outside our current scored universe (shown as No View, never a fabricated number). "
+                  if n_scored < len(eq) else f"All {len(eq)} holdings are scored. ")
+    deck.source(s, (f"{scope_note}The remaining {more} rows sit in the annexure.{extra} " if more > 0 else scope_note)
                    + "Ionic Score: two-horizon composite with safety gates, reviewed by the desk."
                    + demo_tag)
     deck.score_band(s)

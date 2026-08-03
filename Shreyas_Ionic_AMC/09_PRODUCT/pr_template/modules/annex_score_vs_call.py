@@ -19,11 +19,17 @@ def _band(e):
 
 
 def _override(e):
-    # firm bars (2026-07-26): a Sell on a >40 scorer IS the exceptional case (90% bar) —
-    # the old >=50 cut hid HINDCOPPER (Sell at 48) and left the register empty
-    if e["rec"] == "Sell" and e["ionic_score"] > 40:
+    # a directed-liquidity Sell (client cash need) is not an analyst judgment override --
+    # bundling it in here would inflate the apparent override rate with cases that were
+    # never a score-vs-call disagreement in the first place (2026-08-02 fix)
+    if e.get("sell_reason_type") == "liquidity":
+        return None
+    sc = e.get("ionic_score")
+    if sc is None:
+        return None
+    if e["rec"] == "Sell" and sc > 40:
         return "down"
-    if e["rec"] == "Hold" and e["ionic_score"] < 40:
+    if e["rec"] == "Hold" and sc < 40:
         return "up"
     return None
 
@@ -38,11 +44,12 @@ def render(deck, ctx, tier):
     s = deck.content(5, "Annexure", eyebrow, title)
     deck.scope_tag(s, f"All {len(eq)} direct equity holdings · quant score vs final analyst call · as of {as_of}")
 
-    scores = [e["ionic_score"] for e in eq]
-    bands = [_band(e) for e in eq]
-    sizes = [e["value_inr"] for e in eq]
-    ovr = [_override(e) for e in eq]
-    labs = [e["symbol"] for e in eq]
+    scored = [e for e in eq if e.get("ionic_score") is not None]
+    scores = [e["ionic_score"] for e in scored]
+    bands = [_band(e) for e in scored]
+    sizes = [e["value_inr"] for e in scored]
+    ovr = [_override(e) for e in scored]
+    labs = [e["symbol"] for e in scored]
     png = CB.score_vs_call(scores, bands, sizes, ovr, labs, "annexb_svc")
     deck.pic(s, png, ML, 1.95, 7.15, 4.35, valign="top", halign="left")
     deck.txt(s, ML, 6.32, 7.15, 0.2,
@@ -56,10 +63,11 @@ def render(deck, ctx, tier):
     dns = [e for e in eq if _override(e) == "down"]
     cols = [("Stock", 0.34, "l"), ("Score", 0.18, "r"), ("Call", 0.26, "c"), ("Quant said", 0.22, "c")]
     rows = []
-    for e in sorted(ups + dns, key=lambda x: x["ionic_score"]):
-        rows.append([e["symbol"], f"{e['ionic_score']:.0f}",
+    for e in sorted(ups + dns, key=lambda x: x.get("ionic_score") or 0):
+        sc = e.get("ionic_score") or 0
+        rows.append([e["symbol"], f"{sc:.0f}",
                      ("pill", e["rec"], e["rec"]),
-                     ("c", "Sell zone" if e["ionic_score"] < 40 else "Pass", SELL if e["ionic_score"] < 40 else HOLD, False)])
+                     ("c", "Sell zone" if sc < 40 else "Pass", SELL if sc < 40 else HOLD, False)])
     deck.txt(s, tx, 1.86, tw, 0.22, [("WHERE ANALYSTS OVERRULED THE MODEL", "Bahnschrift", 9, AMBER, True, False, 80)])
     # every ringed point on the chart gets its register row — the table and the claim
     # must reconcile 1:1 (critique 2026-07-25); callout position follows the table end

@@ -55,7 +55,7 @@ def render(deck, ctx, tier):
             exceptional = (e.get("ionic_score") or 0) >= 40
             # case must lean WITH the call: overlay (analyst-authored) first, else the
             # negative para (opens with the concern), never the trigger (can read bullish)
-            case = e.get("client_case") or clip_clause(e.get("negative") or e.get("binding_trigger", ""), 118)
+            case = clip_clause(e.get("client_case") or e.get("negative") or e.get("binding_trigger", ""), 118)
             rows.append([
                 ("b", e["name"]),
                 ("c", f"{e['weight_pct']:.1f}", INK),

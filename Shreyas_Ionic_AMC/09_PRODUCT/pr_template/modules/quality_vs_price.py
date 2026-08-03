@@ -17,6 +17,8 @@ def render(deck, ctx, tier):
     eq = ctx["equity"]
     asof = ctx["client"]["as_of"]
     rows = [e for e in eq if e.get("pe") is not None and e.get("roe") is not None and e["roe"] != 0]
+    if not rows:
+        return 0
 
     title = ("Every holding on quality against valuation"
              if reg != "simple" else "Good businesses, and what you pay for them")

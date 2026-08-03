@@ -211,6 +211,51 @@ Any two numbers on the same slide that a reader will assume are the same set MUS
 - Tax rows: character from holding_years (>=1y = LTCG; REDEEM = "Mixed, lot-by-lot") — the old `action in ("Switch","Exit")` check never matched UPPERCASE codes
 - CoPilot CTA is OUT — no product names client-side
 
+### Talaulikar-build lessons (2026-08-02) — bugs fixed, do not regress
+
+**MF / fund name mapping**
+- **Never fuzzy-match a fund name to a framework's fund list.** A naive string-similarity pass matched "Kotak Midcap Fund" to "Kotak Multicap Fund" (wrong category) and "ICICI Prudential Liquid Fund" to "ICICI Pru Large & Mid Cap Fund" (nonsensical — liquid vs equity). Always dispatch a Sonnet agent, one fund at a time, reasoning about real scheme identity (same AMC + same mandate) with web search to disambiguate — see `[[feedback-mf-mapping-no-fuzzy]]` memory. "Not found" beats a wrong guess, always.
+- **AMC abbreviation table needed.** "ICICI Prudential" == "ICICI Pru" (same AMC — reconcile), but "Aditya Birla Sun Life Flexi Cap" != "Axis Flexi Cap" (different AMC — do NOT reconcile despite similar-sounding "Flexi Cap" suffix). Build and maintain a canonical AMC-alias table so this stops being solved fresh per client.
+- **Scheme-rename table needed.** Several AMFI schemes changed names and our mapping missed them on first pass: ICICI Pru Bluechip Fund → ICICI Prudential Large Cap Fund; Kotak Emerging Equity Fund → Kotak Midcap Fund; Bandhan Core Equity Fund (formerly IDFC Core Equity Fund) → Bandhan Large & Mid Cap Fund; DSP Equity Opportunities Fund → DSP Large & Mid Cap Fund. Maintain a living rename lookup so the next client's holdings match on the first pass, not after a manual audit finds the gap.
+- **Category-label mismatch between our schema and QFRA's.** Our fund `category` field ("mid") doesn't always match QFRA's own category value ("largemid") for the same real scheme — check both label sets before concluding a fund is "not covered."
+
+**CAS parsing / data corruption**
+- **Row-bleed defect found and fixed:** one stock's `name` field was silently concatenated with an entirely different holding's row content (`POLYCAB INDIA LIMITED` had `NIPPON LIFE INDIA ASSET ... NAM-INDIA.NSE ...` glued onto the front) — a real double-mapping bug in the CAS extraction path. **Add a validation pass on every new client's parsed CSV**: any equity/fund `name` field over ~80 chars, or containing more than one ISIN-looking token, is a red flag — fix before it enters `data/<client>.py`.
+
+**Score / verdict field completeness**
+- **Setting `rec`/`verdict` and setting `qfra`/`merit` (the actual score+grade) are two separate steps** — it's easy to update one and leave the other blank, producing a Sell/Hold pill with no number behind it on the fund-book-scored table. Any override block that changes a call must set both together, never one alone.
+- **Never default a categorical field to one hardcoded value for the whole book.** `mcap_band` silently defaulted to `"Small"` for every stock and `sector` defaulted to blank/"Diversified" for every stock — both went undetected until the mcap/sector slides visibly showed 100% in one bucket. Always compute per-holding from a real classification, never a blanket default.
+- **Never render a raw 0 for "unscored."** Distinguish `None` (genuinely outside the scored universe → show blank/"-") from a real score of 0 — audit every module that does `f"{score:.0f}"` for a missing None-guard.
+
+**Ground-truth vs. derived-state confusion**
+- **Never treat an earlier in-session variable dump as "the base data."** A dump taken mid-session already reflected a prior fixup-loop's mutation; trusting it as ground truth nearly caused reverting three real equity Sells back to Hold. Before removing what looks like a redundant override, always grep the ORIGINAL dict literal in the source file — never rely on a cached mental model or an earlier printout from the same conversation.
+
+**Stale / hardcoded narrative text**
+- **Any hardcoded client-specific-sounding sentence is a landmine.** Found and fixed 6+ in one rebuild: a fabricated ">11% concentration breach" that didn't exist in the real book (`exec_summary.py`), a false "All 98 holdings are scored" claim (`book_scored.py`), an overbroad "never a performance sale" claim (`fund_actions.py`), a hardcoded "positions above the 8% cap" trim narrative when nothing was above the cap (`priority_actions.py`), stale data-quality flags still saying "No Recommendation" / "all shown as No View" after both had changed, and a self-contradictory "retirement gap...can close" sentence sitting next to a 100%-funded number (`annex_goal_mapping.py`).
+- **Rule going forward:** every hardcoded narrative sentence in a module must be re-derived from `ctx` at build time. A module docstring or inline comment should flag anything that can't be (rare) as "CLIENT-SPECIFIC — reverify every build." Grep for `>`, "all", "none", "every" + a number across `modules/*.py` before shipping any deck with materially changed data.
+
+**Template scale limits**
+- `fund_actions.py`'s card grid and `tax_impact.py`'s fund table were both hand-fit for ~6-10 items and broke (illegible or overflowing) once a real client had 16-17 fund actions in one book. Fixed with adaptive column counts and capped+summarized rows (never silently drop items — show top-N + a disclosed "+N more" row).
+- **Rule:** stress-test any module rendering a variable-length list from `ctx` at 2-3x the current largest real client's count before shipping, not just against the size of the original demo book.
+
+**Cross-module total consistency**
+- Two modules independently computing "the same" total (`tax_impact.py` vs `priority_actions.py` fund-actions total) used different rounding/summation order and disagreed by Rs 0.1L on an identical figure. **Rule:** any total shown on more than one slide must be computed via one shared path — never reimplemented per-module with its own rounding order.
+
+**QFRA-1 vs QFRA-2 discipline**
+- These are different engines (QFRA-1 = short-term capture-ratio, 6 categories; QFRA-2 = long-term curated 40-fund list, 8 categories) — never back-solve one framework's score from the other's raw metrics without validating against known real overlap cases first. A tested back-solve formula inverted the real grade on 2 of 8 validation funds (looked fine short-term, scored D/C on the real long-term framework) — using it uncaught would have shown the client a plausible-looking WRONG number. When a back-solve doesn't validate, disclose the honest coverage gap instead of guessing.
+- When only QFRA-1 covers a fund (no QFRA-2 curated entry), the defensible fallback score is a REAL percentile rank on the framework's own primary ranking metric (`HC_total_cap_6M`) computed from the actual dataset — a genuine statistic, not an invented formula.
+
+**Directed/portfolio-reason vs. quality-reason conflation**
+- A Sell/Trim driven by a client's cash need (directed liquidity) is a fundamentally different fact than one driven by the scoring framework — conflating the two silently breaks several narratives at once (an inflated "analyst override" register, a false "never a performance sale" claim, a wrong sell-count description). **Fix:** tag it explicitly in the data (`sell_reason_type = "quality" | "liquidity"`) the moment a directed override is applied, so every downstream module reads one authoritative field instead of re-deriving the distinction from score thresholds (tried, and it's error-prone — genuine analytical overrides and liquidity-directed sells can land on the same score band).
+
+**House-style consistency**
+- Currency-symbol drift (₹ vs the house "Rs") survived undetected in a few modules. Add a house-style grep (currency symbol, internal jargon words, "No Recommendation" vs "No View") to the standard pre-ship pass, not just the 3 automated QA gates.
+
+**Process / workflow**
+- Parallel read-only audit agents — one per deck section, each cross-checking rendered PPTX text against `ctx` and module source — surfaced real, citable bugs efficiently and should be the standard pre-ship review pattern for any client rebuild with material data changes, not just the 3 automated QA gates.
+- **Freeze the target before auditing.** One audit agent caught the source files changing mid-audit (slide count flickering 95→92→95) and had to pin a frozen snapshot to get reliable results. Don't dispatch audit agents against files still being actively edited — copy the target PPTX + data file to a frozen snapshot first.
+- Under real time pressure ("2 min", "30 sec max"), the fix is not to skip verification — it's to keep the CHEAPEST verification (grep the raw source literal) even while moving fast. A rushed assumption about "base state" during a compressed window is exactly when a regression slips through.
+
 ### Slidekit primitives (prevent regressions)
 - `clip_sentences`: whole sentences, decimal-safe
 - `clip_clause`: sentence/semicolon-only periods, paren-balanced

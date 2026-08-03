@@ -75,10 +75,15 @@ def render(deck, ctx, tier):
                 f"ongoing savings close the rest. A shortfall is fixed with contributions or patience, "
                 f"never by taking extra risk.")
     else:
+        retirement_pct = rows[len(GOALS) - 1][3][1]
+        retirement_full = retirement_pct == "100%"
+        retirement_clause = (f"retirement is also fully covered by today's corpus."
+                              if retirement_full else
+                              f"retirement is ~{retirement_pct} funded, a gap that ongoing savings and "
+                              f"the {GOALS[-1][2]}-year horizon can close.")
         body = (f"Funded-today discounts each goal at the holdings-derived {MU:.0f}% return and fills "
                 f"goals nearest-first. {'Education and the home are fully covered by' if near_covered else near_clause.capitalize()} "
-                f"today's corpus; retirement is ~{rows[len(GOALS)-1][3][1]} funded, a gap that ongoing "
-                f"savings and the {GOALS[-1][2]}-year horizon can close. A goal short of 100% calls for "
+                f"today's corpus; {retirement_clause} A goal short of 100% calls for "
                 f"contributions or time, never for stretching the risk profile.")
     deck.callout(s, tx, 4.05, tw, 2.30, "How to read funded-today", body, kind="human")
 

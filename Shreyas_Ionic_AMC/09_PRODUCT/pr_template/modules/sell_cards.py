@@ -56,10 +56,15 @@ def _card(deck, e, tier):
 
     # --- score strip ---
     deck.txt(s, ML, 1.74, 2.0, 0.2, [("IONIC SCORE", SANS, 8.5, SLATE, True, False, 140)])
-    deck.txt(s, ML, 1.95, 1.3, 0.4, [(f"{e['ionic_score']:.0f}", SANS, 24, INK, False)])
-    deck.score_bar(s, ML + 1.35, 2.06, e["ionic_score"], w=1.9)
+    _sc = e.get("ionic_score")
+    _sc_txt = f"{_sc:.0f}" if _sc is not None else "-"
+    _s3 = e.get("score_3y")
+    _s1 = e.get("score_1y")
+    _sub = f"3Y {_s3:.0f}  ·  1Y {_s1:.0f}" if _s3 is not None and _s1 is not None else "Pending"
+    deck.txt(s, ML, 1.95, 1.3, 0.4, [(_sc_txt, SANS, 24, INK, False)])
+    deck.score_bar(s, ML + 1.35, 2.06, _sc, w=1.9)
     deck.txt(s, ML + 3.7, 1.95, 3.0, 0.3,
-             [(f"3Y {e['score_3y']:.0f}  ·  1Y {e['score_1y']:.0f}  ·  {e['weight_pct']:.2f}% of book",
+             [(f"{_sub}  ·  {e['weight_pct']:.2f}% of book",
                SANS, 10, SLATE, False)])
     deck.pill(s, RX - 1.4, 1.9, "Sell", w=1.4, kind="Sell")
 
