@@ -8,7 +8,9 @@
 Quantamental 0-100 scoring + Sell/Hold recommendation engine for stock holdings review. **NDPMS context: recommendation vocabulary is Sell or Hold ONLY, never Buy** — this reviews existing holdings, it does not solicit new positions. Two live use cases so far: (1) a 25-random-stock sample of the Nifty-750 universe (methodology validation), (2) a real 59-stock client portfolio pulled from NSDL CAS statements (priority production use).
 
 ## Dual-horizon scoring
-Every stock gets TWO independent composite scores — 3-Year (fundamentals-tilted, 63/37 split before regime tilt) and 1-Year (technical-tilted, 40/60 split) — never blended into one number. DCF is excluded from the current build (see below); base weights renormalized across the other 7 pillars:
+Every stock gets TWO independent composite scores — 3-Year (fundamentals-tilted) and 1-Year (technical-tilted) — never blended into one number. DCF is excluded from the current build (see below); base weights renormalized across the other 7 pillars:
+
+> **Documentation correction, 2026-08-04 (weights UNCHANGED, only the descriptive split was wrong).** This line previously claimed a "63/37 split" for 3Y and "40/60" for 1Y. Against the SHIPPED weights below, the fundamentals block (Quality+Growth+Value) versus the market block (Stage+Sector&Macro+Ownership+Accumulation) is actually **3Y = 58/42** and **1Y = 48/52**. The old 63/37 reconciles exactly to the PRE-DCF-removal spec (Q+G+V+DCF = 63.0 at the un-renormalized weights), i.e. it was never updated when DCF was dropped and the remainder renormalized. The 1Y "40/60" does not reconcile to either the shipped or the pre-removal weights (pre-removal was 50.6/49.4) and appears to have been an aspiration rather than a computed figure. **Quote 58/42 and 48/52.** No pillar weight was altered by this correction.
 
 | Pillar | 3Y weight | 1Y weight |
 |---|---|---|

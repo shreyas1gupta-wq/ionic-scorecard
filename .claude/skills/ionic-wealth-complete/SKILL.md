@@ -387,21 +387,77 @@ Current call: Primary = Value/Cyclical Rotation (mild), Secondary = India Domest
 ### QFRA-1 (Short-term capture framework)
 Source: `MF Dashboard.xlsx` via `mf_capture_recomm.compute_category`.
 Method: 6-month down-capture ratio vs the fund's own SEBI category benchmark. FN=6M down-capture, HC=6M total capture.
-Category cutoffs: Large/Multi = 90%, Mid = 80%.
-A fund that takes LESS of the benchmark's falls than the cutoff passes.
+**Category cutoffs (live workbook `<cat>2!LO1` values — all six, do not guess the missing ones):
+large 0.90 · mid 0.80 · multi 0.90 · flexi 1.00 · small 1.00 · largemid 1.00.**
+A fund that takes LESS of the benchmark's falls than the cutoff passes. BUY = top-3 on HC ranked over
+ALL funds in the category (excluded funds still consume ranks — deliberate). Full method: `/qfra1-rerun`.
 
-### QFRA-2 (Long-term SIP framework)
-Source: `QFRA2_current.csv` (40 curated funds only).
-Method: Long-term scoring framework, proprietary to the Ionic MF desk.
-Coverage: focused + value/contra categories that QFRA-1's dashboard has no sheet for.
+### QFRA-2 (Long-term selection engine)
+Source: `QFRA2_current.csv`. Engine: the frozen QFRA 2.0 model (`Mf_qfra2/mr_x_framework/src/final_model.py`).
+**What it is:** a *selection* engine. Per category it ranks the eligible funds and publishes the **top-2
+(from a top-5 shortlist)** most likely to beat the category TRI over 3–5 years. Verdicts are **`ACTIVE`**
+or **`INDEX CORE (+ satellites)`** — **there is NO Sell verdict.** Re-run 6-monthly.
 
-### Dual-framework fund Sell rule
-**A fund Sell goes to the client ONLY when BOTH frameworks independently say Sell.**
-- A BUY/high-score on EITHER side VETOES the Sell
-- One says Sell + the other Hold = default HOLD
-- Both Hold = Hold
-- Structural actions (Redeem-to-Direct, mandate switch) are exempt — they're plan facts, not performance calls
-- Coverage gap: QFRA-2 covers focused + value/contra not in QFRA-1; single-framework Sells there need explicit FM sign-off
+**Coverage — read this before declaring a gap (verified 2026-08-04):** `QFRA2_current.csv` holds
+**8 categories × top-5 = 40 ROWS**. That is a publication slice, **NOT** the coverage universe.
+The engine actually ranks **99 Direct-plan funds** (post-3y-gate): large 8 · largemid 5 · mid 8 ·
+flexi 6 · multi 5 · small 6 · focused 30 · value 31. Before writing "no QFRA-2 coverage" for a held
+fund, check `Mf_qfra2/data/verified_navs_<cat>.csv` **and** resolve renames via
+`pr_template/lib/mf_mapping.py` `SCHEME_RENAMES` (e.g. ICICI Pru Bluechip → ICICI Pru Large Cap;
+Kotak Emerging Equity → Kotak Midcap). Treating absence from the 40 rows as absence of coverage is
+what put 6 substituted scores into a shipped client deck.
+
+**Two traps in the score:**
+1. **QFRA Score is a within-category RANK percentile, not an absolute quality score.** 80/100 = rank 2
+   of 5 (Large & Mid); 88/100 = rank 4 of 33 (Focused). Never compare scores across categories, and
+   never read a number as "how good is this fund" in absolute terms.
+2. **Deployment scope (CEO):** 6 categories — Large (index-core), Large & Mid, Mid (momentum sleeve),
+   Flexi, Multi, Small. **Focused and Value/Contra are EXCLUDED from deployment** (the engine still
+   publishes them; Value's final-2 are closed Sundaram series with no continuous NAV). **Index-core
+   routing is Large Cap and Mid Cap** — Large & Mid Cap is `ACTIVE`, High conviction.
+
+Grade = **CALIBRE** (7 pillars: Conviction · Alpha · Leadership · Integrity · Benchmark · Resilience ·
+Edge), Grade A–D. "MERIT" is the superseded working name — the CSV column is still `merit_grade`, a code
+artefact only. **Client-facing word is "grade", never CALIBRE or MERIT** (both are internal jargon;
+tellscan flags them).
+
+### Fund Sell rule — "ORIGINATE AND VETO" (Principal ruling 2026-08-04; supersedes the old dual-framework wording)
+
+Implemented in `09_PRODUCT/scripts/fund_ctx_adapter.py:merge_calls()`.
+
+| Leg | Role |
+|---|---|
+| **QFRA-1** | **ORIGINATES.** The only framework with a Sell verdict, and the only one with a replayed backtest. |
+| **QFRA-2** | **VETOES ONLY.** A **CALIBRE A or B grade blocks the Sell** → Hold. C/D do not veto. It can NEVER originate a Sell. |
+
+- A QFRA-1 Sell + a QFRA-2 **A/B** grade = **Hold**, and the disagreement is raised as a
+  **CONTRADICTION** that must appear in the FM review pack. It is never resolved silently.
+  `build_fund_entries()` returns a **3-tuple** `(entries, gaps, contradictions)` for exactly this.
+- A QFRA-1 Sell + **no** QFRA-2 coverage = Sell, but flagged `SINGLE-FRAMEWORK SELL` → FM sign-off
+  (this covers everything in Focused/Value, which have no QFRA-1 sheet).
+- Structural actions (Redeem-to-Direct, mandate switch, liquid/debt/index consolidation) are exempt —
+  plan facts, not performance calls; they need no framework Sell at all.
+- **No client Buy is ever issued.** Vocabulary is Sell / Trim / Hold.
+- **RETIRED 2026-08-04:** the old QFRA-2 sell proxy `loser_flags > 0 OR qfra_score < 40`. It fired on
+  the engine's OWN rank-2 A-grade High-conviction pick (Franklin India Equity Advantage), because
+  SENTINEL is a shortlist-refinement screen, not a verdict on a holding — and `qfra_score < 40` sold a
+  fixed fraction of every category by construction. Never reinstate either leg.
+- **Never write "both non-Hold"** — that phrasing is literally satisfied by one side BUY + the other Sell.
+
+**Two honesty caveats you must carry into any client wording (measured 2026-08-04):**
+- **The legs are NOT independent.** QFRA-1's ranking metric (6M total capture = up-capture ÷
+  down-capture) *is* QFRA-2's `_cap6`, which carries **w=0.30** in QFRA-2's final blend; 3y
+  down-capture adds more. The capture family is **40.5–47.5% of the QFRA-2 score** — a range, because
+  the down-capture leg's share floats with whether a live factor cache is present. Agreement is
+  partly one signal agreeing with itself. Say "both of our fund frameworks are at Sell", **never**
+  "two independent frameworks agree".
+- **QFRA-1's backtest is strong on BUY and weak on SELL.** 906 formations, 2012–2024, all six category
+  sheets: BUY median **+2.59%**, hit **66%** (robust to trimming) — but SELL hit **49.3%** pooled at
+  Apr/Oct, and **below 50% in all six anchor pairs**, median −0.57%, plain mean −0.13%. Smallcap is the
+  exception (median −1.05%, trimmed −1.72%, hit 44% — rarely right, very right when it is). So a
+  QFRA-1 Sell must stand on **the analyst's stated reason**, with the capture statistic as support.
+  Never tell anyone "the backtest says sell". Evidence:
+  `04_RND_LAB/STOCK_SCORECARD_750/results/anchor_pair_study/ANCHOR_PAIR_STUDY.md` §extension.
 
 ### Fund benchmarks (every fund vs its OWN SEBI category benchmark)
 Large = Nifty 100 TRI, LargeMid = Nifty 250 TRI, Mid = Nifty Midcap 150 TRI, Flexi = Nifty 500 TRI, Multi = Multicap 50:25:25, Small = Smallcap 250 TRI, Hybrid = N50 Hybrid Composite 65:35 TRI.

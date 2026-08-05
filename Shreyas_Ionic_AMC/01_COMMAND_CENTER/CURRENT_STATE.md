@@ -1,5 +1,58 @@
 # CURRENT STATE — read me first (updated every session end)
 
+## URGENT FLAG #3 (2026-08-05 EOD, DESK-20) — ANGEL OPTION CAPTURE HAS WRITTEN NOTHING SINCE 2026-08-03; the per-symbol loop dies SILENTLY. DESK-100 to fix (owner per CLAUDE.md).
+**[DATA] Evidence, from file mtimes not directory mtimes** (the capture overwrites parquet in place, so
+directory mtimes never move and will lie to you):
+- Newest write anywhere in `intraday_options_strategy/datasets/angel_capture_2026/`: **2026-08-03 23:02**,
+  and only **2 files** (360ONE day+minute, 2026-08-25). Total 365 parquet files vs ~840 expected for a
+  210-stock x 2-expiry x 2-granularity universe, i.e. **~43% coverage**.
+- `capture.log` run-by-run: Aug-02 22:23 reached `[30/210] done, 1891 instruments`; **Aug-03 15:45,
+  Aug-03 23:00 and Aug-04 15:45 each logged `login OK` + `universe 210 stocks` and then NOTHING** — no
+  progress line, no `=== run complete ===`. Aug-03 23:00 wrote exactly one symbol (360ONE, the
+  alphabetically first) before dying. Aug-04 wrote nothing at all.
+- **Aug-05 11:43 run: `FATAL ... NameResolutionError: Failed to resolve 'apiconnect.angelone.in'
+  (getaddrinfo failed)`** — a separate, environmental DNS/network failure (off-network or DNS down),
+  not the same bug. Note 11:43 is not a scheduled trigger (15:45/20:00/23:00 IST), so this was a
+  wake-up catch-up run.
+
+**[INFERENCE] ROOT CAUSE of the silent deaths — `AppData\Local\angel_capture\daily_capture.py:140-165`.**
+The per-symbol loop body has **no try/except**, so any exception from `candles()` (:151, :156) or
+`save_merge()` (:161, :163) kills the whole run. And progress is only logged at `si % 10 == 0` (:164),
+so **a death anywhere in symbols 1-9 produces zero log output** — which is exactly what Aug-03/04 look
+like. The absence of the `=== run complete ===` line (:171) confirms the process died mid-loop rather
+than completing with no work to do.
+
+**NEXT ACTION (DESK-100, ~15 min, do NOT skip the verify):** two additive changes to
+`daily_capture.py`, neither altering happy-path behaviour —
+1. wrap the per-symbol body (:145-163) in `try/except Exception as ex: log(f"[{si}/{len(stocks)}] {nm}
+   FAILED: {ex!r}"); continue` so one bad symbol cannot kill the run;
+2. make early symbols visible: `if si <= 3 or si % 10 == 0:` on :164, so a death in symbols 1-9 is
+   diagnosable instead of silent.
+Then force one run and confirm a `=== run complete ===` line appears. **NOT PATCHED BY DESK-20 on
+purpose:** this is DESK-100's owned scheduled job (CLAUDE.md ENVIRONMENT), today's DNS failure means the
+change could not be verified on a live run, and shipping an unverified edit to a scheduled capture script
+risks turning a partial failure into a total one. Diagnosis + exact patch handed over instead.
+**Data impact:** Aug-04 and Aug-05 option captures are LOST unless backfilled; Angel purges expired
+contracts from its master, so the 2026-08-25 expiry window is the one at risk. Assess backfill before
+2026-08-25.
+
+## 2026-08-04/05 (DESK-20) — QFRA-2 frozen-model reconciliation; 7 skill defects fixed; fuzzy purged; sell rule rebuilt; PAC deck research banked but DECK NOT BUILT
+**SOFT SAVE at the Principal's instruction ("soft save and we will continue next session"). RESUME FROM
+`03_RESEARCH_DESK/qfra2_pac_prep/RESUME_HERE.md` — it has the full checkpoint, the six agents' findings,
+and the exact next steps. NOTHING IS COMMITTED (branch `claude/sweet-austin-283067`, still on `994a9d6`).**
+Headlines: our skills' **"QFRA-2 covers 40 curated funds" was a misreading** — that CSV is 8 categories x
+top-5 = 40 ROWS; the engine ranks **99 Direct-plan funds**, and the cost of the error is 6 substituted
+fund scores in the shipped Talaulikar deck (3 Focused funds plus 2 resolvable by renames already in our
+own `SCHEME_RENAMES`). **QFRA-2 has no Sell verdict at all**, so the old "both frameworks at Sell" rule was
+unsatisfiable; sell logic rebuilt to "originate and veto" per Principal ruling (A+B+C) with a
+**contradiction gate** that surfaces a QFRA-1 Sell against a CALIBRE A/B grade instead of resolving it
+silently. **Fuzzy matching purged** from `fund_ctx_adapter.py` (standing order 2026-08-01 — this path had
+been missed); `test_fund_matching.py` passes 20/20 + 8/8 + 40/40. Cadence evidence completed:
+**month-END anchors beat month-START on Apr/Oct (hit 66.0% vs 53.3%)**, and the presented measure is the
+**10% trimmed mean, which is pre-registered** (the Principal's own 2026-07-26 framing). **Most important
+open item: the marketed +0.48%/yr is the RAW book; the deployed held book realized +0.09%/yr at 3Y** —
+this needs to sit beside the headline in every QFRA-2 deliverable.
+
 ## 2026-07-28 (DESK-100) — Full audit found a CONFIRMED false-content bug already shipped; IPS page rebuilt v2 "best of both worlds"; PDF now on-request only
 Two rounds today. **Round 1 (audit):** Principal asked for an 18%-cap on growth projection, the
 biased MDD-scenario page removed, and a full redundant/safe/needs-changes audit + Haiku-vs-

@@ -37,6 +37,38 @@ Supports all 6 categories; `--verify` diffs the recomputation against the sheet'
 - **NAVs auto-refresh MONTHLY (1st, 08:10)** via `Shreyas_Ionic_AMC/05_DATA_OFFICE/scripts/mf_nav_refresh.py --digest` (AMFI NAVAll; month-end history accrues forever). Wired in OPERATING_CALENDAR §automatable; DESK-100 re-arms the cron each session. Verified current 2026-07-26 (13,958 schemes).
 - **Model runs at APR-END + OCT-END (Principal 2026-07-26, per the anchor-pair study; changed from Dec/Jun; next run = Oct-end 2026).** Full-set saves go through `05_DATA_OFFICE/scripts/save_mf_recommendations.py` (all categories BUY/SELL/HOLD + QFRA-2 join + young-fund flags + coverage-aware anchor walk-back → `03_RESEARCH_DESK/MF_RECOMMENDATIONS/saved_<date>/`). One-time out-of-cycle save 2026-07-26 (Principal): anchors large=2025-05-31, rest=2025-01-31 — the workbook's newer large rows are mostly empty (1/30 ratable, plus a '13O' typo cell; parser now NaN-tolerant); a TRUE June-end set needs month-end NAV backfill Feb-2025→Jun-2026. Stocks re-score WEEKLY (Thu, else Fri, else Mon) via run_weekly_v1.py — separate cadence. Anchor-pair backtest (906 formations, 2012-2024, all 6 categories, median + 10% trimmed mean): Jun/Dec statistically tied with the best pair (Apr/Oct), clearly beats Jan/Jul — study: `04_RND_LAB/STOCK_SCORECARD_750/results/anchor_pair_study/ANCHOR_PAIR_STUDY.md`. Verified independently 2026-07-25: smallcap 29/29, flexi 36/37 (known workbook blank-gate bug).
 - **Dual-framework rule (wording tightened 2026-07-26):** a client fund Sell requires BOTH frameworks independently at Sell; a BUY on either side VETOES the Sell; any disagreement defaults Hold. (The old "both non-Hold" phrasing was literally satisfied by BUY+Sell — never use it.) Focused/value have no sheet here -> qfra2-only Sells need FM sign-off.
+- **THIS is the only engine that can ORIGINATE a fund Sell — now the formal rule (Principal ruling
+  2026-08-04, "originate and veto", built in `09_PRODUCT/scripts/fund_ctx_adapter.py:merge_calls()`).**
+  QFRA-2 has no Sell verdict at all (`ACTIVE` / `INDEX CORE (+ satellites)` only); it is a top-2
+  *selection* engine. Its old adapter sell proxy (`loser_flags>0 OR qfra_score<40`) is **RETIRED** — it
+  fired on QFRA-2's own rank-2 A-grade High-conviction pick. QFRA-2 now **vetoes only: a CALIBRE A or B
+  grade blocks a QFRA-1 Sell -> Hold**, and the disagreement is surfaced as a CONTRADICTION for the FM
+  pack, never resolved silently. A QFRA-1 Sell with no QFRA-2 coverage still sells but needs FM sign-off.
+- **[DATA] HOW GOOD IS THE SELL LEG? Measured 2026-08-04 on the anchor-pair replay (906 formations,
+  2012-2024, all 6 category sheets) — and it is MUCH weaker than the BUY leg. Do not overstate it.**
+
+  | Apr/Oct pooled | median | plain mean | 10% trim | hit rate |
+  |---|---|---|---|---|
+  | BUY cohort | **+2.59%** | +2.62% | +2.59% | **66.0%** |
+  | SELL cohort | −0.57% | −0.13% | −0.22% | **49.3%** |
+
+  `sell_hit` (share of formations where the sold cohort went on to UNDERPERFORM) is **below 50% in all
+  six anchor pairs** (44.7-49.3%), and on three of six the sold cohort's mean excess was **positive**.
+  Apr/Oct is the best of the six on the sell leg, so the cadence helps — but the leg is near a coin flip.
+  **Smallcap is the exception:** Apr/Oct SELL median **-1.05%**, plain mean **-0.92%**, trimmed **-1.72%**,
+  hit 44% — negative on all three central measures, i.e. fires rarely-right but very-right.
+  **Consequence for client work:** a Sell here must stand on the ANALYST'S STATED REASON with the capture
+  statistic as support. Never write or say "the backtest says sell". The §method quadrant-3 asymmetry
+  being evidence-backed is about WHICH bucket fires — it is not evidence that the sell has edge.
+  Tables: `04_RND_LAB/STOCK_SCORECARD_750/results/anchor_pair_study/ANCHOR_PAIR_STUDY.md` §extension.
+- **The two legs are NOT independent (verified 2026-08-04).** This framework's ranking metric — HC, the 6M
+  total capture ratio — IS QFRA-2's `_cap6` (`final_model.py:107`), which carries **w=0.30** in QFRA-2's
+  final blend; trailing-3y down-capture adds more. Capture family = **40.5%-47.5% of the QFRA Score**
+  (a RANGE, not a point: the down-capture leg's share floats with whether a live factor-return cache is
+  present, which changes how many terms the base averages over. Quote the range, never a flat "~40%").
+  Different estimator (we compound daily returns, QFRA-2 takes means) and different benchmark basis
+  (we are on the PRI Indices sheet — see the TRI issue below — QFRA-2 is on TRI), but the same construct.
+  Never describe agreement between the two as independent confirmation to a client.
 - **[DATA] KNOWN ISSUE, SCHEDULED (audit 2026-07-26, Principal-timed 2026-07-27): the Dashboard's Indices sheet is PRI, not TRI** (NIFTY 500 = 21,580.9 on 2025-01-31 = price index; TRI ~33k). SEBI mandates TRI; QFRA-2 uses TRI. Effect: CJ 12M excess flattered by ~1.2-1.5%/yr, SELLs systematically suppressed, and the dual-framework legs sit on inconsistent bases. **Principal: this NAV request was for a different (price-only) purpose — do not conflate with FACTOR_NAVS.xlsx, which is correctly PRICE/PRI by design and needs no change. The TRI conversion is scoped to THIS Indices sheet only, and is queued for next week** (see `01_COMMAND_CENTER/NEXT_WEEK_QUEUE.md`) — must still land before the Oct-end 2026 run: rebuild the Indices sheet from official TRI series (factor-indices skill's NSE-official layer, or niftyindices from HOME NETWORK), D-009 spot-check, re-verify LO1 + QZ on a TRI recompute. Until fixed, treat SELL sets as understated.
 
 ## Out-of-cycle recompute runbook (state as of 2026-07-26)

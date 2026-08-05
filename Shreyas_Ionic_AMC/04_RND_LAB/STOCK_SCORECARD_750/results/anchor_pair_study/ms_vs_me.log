@@ -1,0 +1,55 @@
+formations by convention:
+conv
+month-END  (30-Apr / 31-Oct)    906
+month-START (1-Apr / 1-Oct)     906
+
+What trading day does the window really close on? (Apr anchors, flexi, first 4 years)
+                        conv     anchor    win_end
+month-END  (30-Apr / 31-Oct) 2012-04-30 2012-04-30
+month-END  (30-Apr / 31-Oct) 2013-04-30 2013-04-30
+month-END  (30-Apr / 31-Oct) 2014-04-30 2014-04-30
+month-END  (30-Apr / 31-Oct) 2015-04-30 2015-04-30
+month-END  (30-Apr / 31-Oct) 2016-04-30 2016-04-29
+month-END  (30-Apr / 31-Oct) 2017-04-30 2017-04-28
+month-END  (30-Apr / 31-Oct) 2018-04-30 2018-04-30
+month-END  (30-Apr / 31-Oct) 2019-04-30 2019-04-30
+
+==============================================================================
+MONTH-END  (30-APR / 31-OCT)
+==============================================================================
+   pair   n  med  trim  mean   hit
+Apr/Oct 150 2.59  2.59  2.62 66.00
+Jun/Dec 150 2.22  2.34  2.65 66.00
+Mar/Sep 150 1.82  2.10  2.08 54.67
+Feb/Aug 150 2.34  2.04  1.99 58.00
+May/Nov 150 1.94  1.98  1.94 58.00
+Jan/Jul 156 1.31  1.77  2.20 57.69
+
+==============================================================================
+MONTH-START (1-APR / 1-OCT)
+==============================================================================
+   pair   n  med  trim  mean   hit
+May/Nov 150 2.70  2.64  2.66 64.00
+Jun/Dec 150 2.48  2.15  2.11 59.33
+Mar/Sep 150 2.19  2.15  2.19 59.33
+Jan/Jul 156 2.19  2.06  2.26 61.54
+Apr/Oct 150 1.92  2.00  2.04 53.33
+Feb/Aug 150 1.53  1.72  2.18 56.67
+
+==============================================================================
+HEAD TO HEAD, same pair, both conventions (presented measure = 10% trim)
+==============================================================================
+                                trim                                                      med                                                      hit                            
+conv    month-END  (30-Apr / 31-Oct) month-START (1-Apr / 1-Oct) month-END  (30-Apr / 31-Oct) month-START (1-Apr / 1-Oct) month-END  (30-Apr / 31-Oct) month-START (1-Apr / 1-Oct)
+pair                                                                                                                                                                              
+Apr/Oct                         2.59                        2.00                         2.59                        1.92                        66.00                       53.33
+Feb/Aug                         2.04                        1.72                         2.34                        1.53                        58.00                       56.67
+Jan/Jul                         1.77                        2.06                         1.31                        2.19                        57.69                       61.54
+Jun/Dec                         2.34                        2.15                         2.22                        2.48                        66.00                       59.33
+Mar/Sep                         2.10                        2.15                         1.82                        2.19                        54.67                       59.33
+May/Nov                         1.98                        2.64                         1.94                        2.70                        58.00                       64.00
+
+APR/OCT VERDICT:  month-END trim +2.59% (med +2.59%, hit 66.0%)   vs   month-START trim +2.00% (med +1.92%, hit 53.3%)
+month-END advantage on the presented measure: +0.59pp
+
+wrote C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\.claude\worktrees\sweet-austin-283067\Shreyas_Ionic_AMC\04_RND_LAB\STOCK_SCORECARD_750\results\anchor_pair_study\ANCHOR_MS_VS_ME.csv

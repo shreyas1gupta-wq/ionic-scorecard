@@ -27,10 +27,18 @@ import re
 AMC_ALIASES = {
     "ICICI PRUDENTIAL": "ICICI PRU",
     "ADITYA BIRLA SUN LIFE": "ABSL",
+    # QFRA-2's NAV files style this house "Aditya Birla SL"; holdings statements spell it out.
+    # Without this row the two never match and the fund silently reads as uncovered.
+    # (Safe: "SL" is not a substring of "SUN LIFE", so the two rows cannot collide.)
+    "ADITYA BIRLA SL": "ABSL",
     "CANARA ROBECO": "CANARA ROB",
     "MOTILAL OSWAL": "MOTILAL OSWAL",
     "FRANKLIN INDIA": "FRANKLIN",
     "FRANKLIN TEMPLETON": "FRANKLIN",
+    # QFRA-1's workbook and QFRA-2's NAV files both abbreviate these; CAS statements do not.
+    "NIPPON INDIA": "NIPPON",
+    "SUNDARAM": "SUNDARAM",
+    "HDFC": "HDFC",
 }
 
 # Explicitly known NON-equivalences — AMC name pairs that look similar but are

@@ -39,7 +39,7 @@ SNAPS = os.path.join(PRT, "_pac_snaps")
 OUT = os.path.abspath(os.path.join(HERE, "..", "reports",
                                    "IONIC_NDPMS_PRODUCT_APPROVAL_DECK.pptx"))
 
-AS_OF = "2026-08-03"
+AS_OF = "2026-08-04"
 
 # ---------------------------------------------------------------------------
 # Page snapshots: (title text on the page, caption, [min font pt to accept])
@@ -139,7 +139,7 @@ def cover(deck):
     deck.txt(s, ML, 3.10, 7.2, 0.5, [("An NDPMS client-reporting product, end to end",
                                       SERIF, 15, NT3, False, True)])
     deck.txt(s, ML, 3.95, 7.2, 0.3, [("FOR REVIEW BY", SANS, 10, NT2, True, False, 260)])
-    deck.txt(s, ML, 4.27, 7.2, 0.45, [("Product Approval Committee  ·  CEO", SANS, 19, WHITE, True)])
+    deck.txt(s, ML, 4.27, 7.2, 0.45, [("Product Approval Committee", SANS, 19, WHITE, True)])
     deck.rule(s, ML, 4.88, 3.4, GOLD, 0.03)
     deck.txt(s, ML, 5.08, 7.2, 0.4,
              [("Methodology, workflow, controls, and the deliverable itself", SERIF, 12, NT3, False, True)])
@@ -200,19 +200,18 @@ def build():
         ("3", "Client tiers", "depth by audience", INK),
         ("60", "Page modules", "one library", INK),
         ("4", "QA gate layers", "all must pass", HOLD),
-        ("0", "Buy calls", "holdings review only", SELL),
     ], y=1.78)
     y = bullets(deck, s, ML, 3.05, UW - 5.9, [
         "The product is a client portfolio review: every direct holding and every fund carries a score, a call and a written reason.",
         "The engine is frozen and rerunnable. The same holdings file produces the same deck, and every number traces to a source.",
-        "It reviews existing holdings only. The vocabulary is Sell, Trim or Hold, and nothing executes without the client's signature.",
+        "It reviews existing holdings only, and the vocabulary is Sell, Trim or Hold.",
         "Three depth tiers serve a family office, a typical NDPMS client and an RM-led conversation from one module library.",
     ])
     co(deck, s, ML + UW - 5.6, 3.05, 5.6, "The approval sought",
-                 "Sign-off to use this engine as the standard NDPMS review deliverable for onboarding and "
-                 "periodic reviews, on the frozen methodology and the four-layer QA gate described here, with "
-                 "the Principal or CEO countersigning every client deck before it ships. Two real client books "
-                 "have already been produced end to end under this process.", "human")
+       "Sign-off to use this engine as the standard NDPMS review deliverable for onboarding and "
+       "periodic reviews, on the frozen methodology and the four-layer quality gate described here. "
+       "Two real client books have already been produced end to end under this process.", "human",
+       min_h=1.55, max_h=1.85)
     deck.source(s, "Coverage as of 2026-08-03. Sample pages in this deck are rendered from a synthetic demo book.")
 
     # ---------- what it is ----------
@@ -224,15 +223,37 @@ def build():
         ("Score and read", "Frozen scoring engine produces the numbers; a sector analyst writes the case. The analyst can rescue a score-driven Sell to Hold, and cannot force the reverse."),
         ("Assemble the deck", "The module library renders the tier the client's audience needs, computing every narrative sentence from the data rather than from stored prose."),
         ("Prove it", "Four QA layers: two geometry checks, a client-copy scan, and a visual read of the rendered pages. All must pass."),
-        ("Sign and ship", "Principal or CEO countersignature, then the client copy. Nothing reaches a client unsigned."),
+        ("Analyst sign-off", "The reviewing analyst confirms the pack, name by name, before it goes to the client."),
     ])
     co(deck, s, ML, 6.02, UW, "The point",
        "The judgment stays human. What the engine removes is the variance.", "note", min_h=0.55, max_h=0.58)
 
+    # ---------- why do it this way at all ----------
+    s = deck.content(0, "The proposal", "Engine-led review against a manual one",
+                     "The same judgment, reached faster and applied to everything the client owns")
+    ccols = [("", 0.26, "l"), ("A manual review", 0.37, "l"), ("This engine", 0.37, "l")]
+    crows = [
+        [("b", "Turnaround per client"), "About a week", ("c", "A few hours", HOLD, True)],
+        [("b", "Holdings covered"), "The larger names, sampled", ("c", "Every holding, no sampling", HOLD, True)],
+        [("b", "Scored universe behind it"), "None maintained", ("c", "751 names, refreshed weekly", HOLD, True)],
+        [("b", "Consistency between reviewers"), "Varies with who does it", "One weight set, applied identically"],
+        [("b", "Audit trail"), "Notes, if they were kept", "Dated research and journalled state, per name"],
+        [("b", "Cost of the next client"), "Another full cycle", "Assembly is scripted; research is incremental"],
+        [("b", "What stays human"), "Everything", ("c", "The call, the override, the sign-off", NAVY, True)],
+    ]
+    deck.table(s, ML, 1.95, UW, ccols, crows, rowh=0.44, fs=10, hfs=8, zebra=True)
+    co(deck, s, ML, 5.46, UW, "What this comparison is not saying",
+       "Not that the engine reviews better than an analyst. That the analyst should spend their time on "
+       "judgment rather than assembling arithmetic, and a client with 98 holdings should get all 98 looked "
+       "at. The week-versus-hours figure is our own estimate, not a measured benchmark.", "human",
+       min_h=0.80, max_h=0.88)
+    deck.source(s, "Turnaround and coverage for the engine are observed from the two client books produced to date; the manual baseline is an internal estimate and is labelled as such.")
+
     # ================= SECTION 1 — the model =================
-    deck.section_divider(1, "The model", "What produces a score, and what produces a call",
-                         pages=["Scoring architecture", "Gates, penalties, and the call",
-                                "The one number a client sees", "The fund frameworks", "Coverage today"])
+    deck.section_divider(1, "The model", "What produces a score, what produces a call, and what the evidence shows",
+                         pages=["Scoring architecture", "Where the weights come from",
+                                "Gates and the call", "The one number a client sees",
+                                "Coverage, and does it work"])
 
     s = deck.content(1, "The model", "Scoring architecture",
                      "Two horizons, seven pillars, never blended at the analyst's desk")
@@ -257,6 +278,33 @@ def build():
                  "Value ranks within sector and size tier, because a cement multiple and a software multiple are "
                  "not comparable numbers.", "note")
     deck.source(s, "Frozen scoring contract; discounted-cash-flow is deliberately excluded as a mechanical pillar and lives as the analyst's own reverse-DCF judgment.")
+
+    # ---------- weight provenance: the single most likely question ----------
+    s = deck.content(1, "The model", "Where the weights come from",
+                     "Set by judgment, not fitted to returns, and we would rather say so")
+    deck.kpi_strip(s, [
+        ("58 / 42", "3-year split", "fundamentals / market", NAVY),
+        ("48 / 52", "1-year split", "fundamentals / market", NAVY),
+        ("0", "weights fitted to returns", "none optimised", SELL),
+        ("8", "quarterly rebalances", "of clean point-in-time data", AMBER),
+    ], y=1.78)
+    bullets(deck, s, ML, 3.05, UW - 5.9, [
+        "The weights encode a stated view: over three years fundamentals should dominate, over one year market behaviour should. The shipped weights deliver exactly that, at 58/42 and 48/52.",
+        "No weight was fitted to maximise a backtested return. With eight quarterly rebalances of clean history, optimising would be curve-fitting dressed as rigour.",
+        "What we do claim is narrower and checkable: one set of weights applied identically to every name, frozen, versioned, and changeable only by signed amendment.",
+        "The weights are a hypothesis the forward record will judge, not a proven finding.",
+    ], gap=0.46, fs=10.5)
+    y = co(deck, s, ML + UW - 5.6, 3.05, 5.6, "The live question on this page",
+           "Value sits at 18% of the three-year score, the smallest of the three fundamental pillars, "
+           "which is arguably wrong for a discipline whose job is deciding what to exit. Raising it is "
+           "under consideration.", "human", min_h=1.30, max_h=1.45)
+    co(deck, s, ML + UW - 5.6, y + 0.16, 5.6, "Why we have not simply raised it",
+       "Sixty per cent of the Value pillar is price-to-earnings by construction, so moving Value from "
+       "18% to 25% would take that one ratio from 10.8% to 15.0% of the whole score, and a low-multiple "
+       "tilt in India loads onto public-sector and cyclical names. Valuation also already enters twice "
+       "more, through the analyst's own reverse-DCF and the forward adjustment. We would rather test it "
+       "on the point-in-time harness than assert it.", "warn", min_h=1.60, max_h=1.90)
+    deck.source(s, "Splits are the fundamentals block (quality, growth, value) against the market block (stage, sector and macro, ownership, accumulation), computed from the shipped weights on the previous page.")
 
     s = deck.content(1, "The model", "Gates, penalties, and the call",
                      "A score can be capped by risk before it is ever compared")
@@ -322,7 +370,9 @@ def build():
                      "Two independent engines, and a deliberately hard bar to sell a fund")
     deck.rect(s, ML, 1.92, (UW - 0.3) / 2, 1.62, fill=PANEL, line=HAIR, round_=0.06)
     deck.rect(s, ML, 1.92, 0.06, 1.62, fill=NAVY)
-    deck.txt(s, ML + 0.24, 2.04, (UW - 0.3) / 2 - 0.5, 0.30, [("SHORT-TERM FRAMEWORK", SANS, 9, NAVY, True, False, 150)])
+    deck.txt(s, ML + 0.24, 2.04, (UW - 0.3) / 2 - 0.5, 0.30,
+             [("QFRA-1", SANS, 9, NAVY, True, False, 150),
+              ("   ·   SHORT-TERM FRAMEWORK", SANS, 9, SLATE, True, False, 150)])
     deck.txt(s, ML + 0.24, 2.34, (UW - 0.3) / 2 - 0.5, 1.10,
              [("Ranks every fund in a category on how much of its benchmark's rise it captures versus how much "
                "of the fall, over a common six-month window, then applies a downside filter after ranking. "
@@ -330,16 +380,19 @@ def build():
     x2 = ML + (UW - 0.3) / 2 + 0.3
     deck.rect(s, x2, 1.92, (UW - 0.3) / 2, 1.62, fill=PANEL, line=HAIR, round_=0.06)
     deck.rect(s, x2, 1.92, 0.06, 1.62, fill=GOLD)
-    deck.txt(s, x2 + 0.24, 2.04, (UW - 0.3) / 2 - 0.5, 0.30, [("LONG-TERM FRAMEWORK", SANS, 9, GOLD, True, False, 150)])
+    deck.txt(s, x2 + 0.24, 2.04, (UW - 0.3) / 2 - 0.5, 0.30,
+             [("QFRA-2", SANS, 9, GOLD, True, False, 150),
+              ("   ·   LONG-TERM FRAMEWORK", SANS, 9, SLATE, True, False, 150)])
     deck.txt(s, x2 + 0.24, 2.34, (UW - 0.3) / 2 - 0.5, 1.10,
              [("A curated shortlist of 40 funds across eight categories, scored 0-100 with a letter grade and a "
-               "conviction level, built for a multi-year holding rather than a six-month window. It carries no "
-               "negative verdict by design.", SERIF, 10.5, INK, False)], ls=1.06)
-    co(deck, s, ML, 3.74, UW, "The dual-framework rule",
-                 "A fund is only recommended for sale when BOTH frameworks independently say sell. A buy signal "
-                 "on either side vetoes the sale, and any disagreement defaults to Hold. The bar is intentionally "
-                 "high: switching a fund costs the client tax and time, so the evidence has to be unambiguous.", "human")
-    y = bullets(deck, s, ML, 4.90, UW, [
+               "conviction level, built for a multi-year holding rather than a six-month window. Its only two "
+               "verdicts are Active and Index-core: it has NO sell verdict, by design.", SERIF, 10.5, INK, False)], ls=1.06)
+    co(deck, s, ML, 3.72, UW, "How a fund actually gets sold, stated precisely",
+       "QFRA-1 is the only engine that can originate a sell, because it is the only one with a sell verdict. "
+       "QFRA-2 cannot vote to sell; it can only veto one, since an Active rating is evidence against exiting. "
+       "Absence from its curated forty is not a negative signal. Disagreement defaults to Hold.",
+       "human", min_h=0.94, max_h=1.02)
+    y = bullets(deck, s, ML, 4.92, UW, [
         "Category coverage is honest: hybrid, sectoral, index, liquid and debt funds sit outside both frameworks and are reported as No View, never given a manufactured score.",
         "Scheme identity is verified fund by fund, with the fund house and mandate confirmed. Name-similarity matching is prohibited after it produced real mis-matches.",
         "A fund with under seven months of record gets No View regardless of what the engines compute.",
@@ -368,28 +421,75 @@ def build():
        "Coverage is not a track record. These are point-in-time reviews, and the engine has not yet run through "
        "a full market cycle under this operating model.", "warn", min_h=1.05, max_h=1.20)
 
-    # ================= SECTION 2 — workflow =================
-    deck.section_divider(2, "The workflow", "How a review actually gets produced, and on what cadence",
-                         pages=["The weekly refresh loop", "Cadence and ownership", "Decision rights"])
-
-    s = deck.content(2, "The workflow", "The weekly refresh loop",
-                     "Three lanes, so cost scales with what actually changed")
-    lcols = [("Lane", 0.16, "l"), ("Triggered by", 0.30, "l"), ("What happens", 0.40, "l"), ("Cost", 0.14, "c")]
-    lrows = [
-        [("pill", "Full", "Sell"), "A results print landed since the last research", "Complete analyst pass, rewritten thesis", ("c", "Highest", SELL)],
-        [("pill", "Delta", "Trim"), "News only: a rating action, deal, or management change", "The cached thesis is kept and only the new item is assessed", ("c", "Low", AMBER)],
-        [("pill", "Carry", "Hold"), "Nothing material since the last look", "The existing call carries forward, journalled", ("c", "Near zero", HOLD)],
+    # ---------- evidence: the "does it work" question, answered honestly ----------
+    s = deck.content(1, "The model", "Does it work",
+                     "What the point-in-time test shows, and what it does not")
+    ecols = [("Basket, equal-weight, quarterly rebalance", 0.44, "l"), ("CAGR", 0.18, "r"),
+             ("Sharpe", 0.18, "r"), ("Max drawdown", 0.20, "r")]
+    erows = [
+        [("b", "Top 10 by score"), ("c", "41.3%", HOLD, True), "1.28", ("c", "-2.3%", HOLD, True)],
+        [("b", "Bottom 10 by score"), "32.4%", "0.89", ("c", "-12.6%", SELL)],
+        [("b", "Nifty 500, cap-weighted total return"), "30.3%", "1.75", "-5.6%"],
+        [("b", "Eligible universe, equal-weighted"), ("c", "44.3%", AMBER), "2.00", "-6.2%"],
     ]
-    deck.table(s, ML, 1.95, UW, lcols, lrows, rowh=0.52, fs=10, hfs=8)
-    co(deck, s, ML, 3.74, UW, "Why this matters commercially",
-       "The Full list comes deterministically from the earnings calendar, so the expensive work is bounded and "
-       "predictable. Maintaining 751 names does not cost 751 research passes a week.", "good",
-       min_h=0.78, max_h=0.82)
-    y = bullets(deck, s, ML, 4.72, UW, [
-        "Every state change is journalled per stock, so the history of a call is auditable rather than overwritten.",
-        "Client workbooks and decks rebuild from that state, which is why a rerun reproduces the same deliverable.",
-        "The router is scheduled, not manual: the cadence is a standing calendar entry, not something a person has to remember.",
-    ], gap=0.40, fs=10.5)
+    # vertical budget is tight on this page: table ends ~3.85, note to 4.16, the paired
+    # callouts to ~5.58, and the closing line must still clear the source rule at 6.66.
+    deck.table(s, ML, 1.92, UW, ecols, erows, rowh=0.40, fs=10, hfs=8, zebra=True)
+    deck.txt(s, ML, 3.92, UW, 0.24,
+             [("December 2021 to September 2024, 8 quarterly rebalances. Survivorship-safe universe, "
+               "fundamentals lagged 90 days, entry lagged one session, regime tilt switched off.",
+               SERIF, 9.5, SLATE, False, True)])
+    half = (UW - 0.3) / 2
+    yy = co(deck, s, ML, 4.24, half, "What the test does support",
+            "The top decile beat the bottom by 9 points of CAGR and the index by 11, at a fraction of "
+            "the drawdown: 2.3% against 12.6% and 5.6%. That gap is what we defend, because it follows "
+            "from what the gates screen out.", "good", min_h=1.24, max_h=1.34)
+    co(deck, s, ML + half + 0.3, 4.24, half, "What it does not support",
+       "It is not a return edge. Against 2,000 random ten-name baskets the top decile sat at the 44th "
+       "percentile, long-short Sharpe was about zero, and it trailed an equal-weighted universe by 2.8 "
+       "points a year. Eight quarters is underpowered.", "warn", min_h=1.24, max_h=1.34)
+    co(deck, s, ML, yy + 0.14, UW, "The line we will actually say",
+       "A downside-protection tilt, but no statistically significant return selection. The analyst "
+       "overlay is the real product, and it is only testable forward.", "human",
+       min_h=0.58, max_h=0.64)
+    deck.source(s, "Quant core only: the analyst layer is present-day judgment and cannot be rebuilt point-in-time, so it is excluded from every figure above. Red-teamed; an earlier version of this test was invalid and was corrected.")
+
+    # ---------- what the score actually picks, named ----------
+    s = deck.content(1, "The model", "The top and bottom of the book, named",
+                     "What the score is actually saying about real holdings today")
+    half = (UW - 0.3) / 2
+    tcols = [("Stock", 0.28, "l"), ("Sector", 0.30, "l"), ("3Y", 0.12, "r"),
+             ("1Y", 0.12, "r"), ("Call", 0.18, "c")]
+    deck.txt(s, ML, 1.90, half, 0.24, [("TOP 5 BY BLENDED SCORE", SANS, 9, HOLD, True, False, 120)])
+    deck.table(s, ML, 2.18, half, tcols, [
+        [("b", "EMMVEE  78.8"), "Capital Goods", "77.9", "80.2", ("pill", "Hold", "Hold")],
+        [("b", "SKFINDUS  76.8"), "Capital Goods", "79.8", "72.3", ("pill", "Hold", "Hold")],
+        [("b", "SAATVIKGL  76.6"), "Capital Goods", "79.4", "72.4", ("pill", "Hold", "Hold")],
+        [("b", "WELCORP  74.5"), "Capital Goods", "73.2", "76.5", ("pill", "Hold", "Hold")],
+        [("b", "SUZLON  73.6"), "Capital Goods", "75.8", "70.3", ("pill", "Hold", "Hold")],
+    ], rowh=0.34, fs=9, hfs=7.5, zebra=True)
+    x2 = ML + half + 0.3
+    deck.txt(s, x2, 1.90, half, 0.24, [("BOTTOM 5 BY BLENDED SCORE", SANS, 9, SELL, True, False, 120)])
+    deck.table(s, x2, 2.18, half, tcols, [
+        [("b", "RVNL  15.1"), "Construction", "14.2", "16.4", ("pill", "Sell", "Sell")],
+        [("b", "VIPIND  17.9"), "Consumer Durables", "17.4", "18.7", ("pill", "Sell", "Sell")],
+        [("b", "DBL  19.3"), "Construction", "19.6", "18.8", ("pill", "Sell", "Sell")],
+        [("b", "NETWORK18  21.5"), "Media", "22.0", "20.7", ("pill", "Sell", "Sell")],
+        [("b", "ICICIPRULI  22.0"), "Financial Services", "25.9", "16.1", ("pill", "Hold", "Hold")],
+    ], rowh=0.34, fs=9, hfs=7.5, zebra=True)
+    yb = co(deck, s, ML, 4.40, half, "The last row is the override, working",
+            "ICICIPRULI scores 22 and the analyst still says Hold, on sector-aware reasoning about an "
+            "insurer that the score cannot see. That rescue is written down against the name, and it is "
+            "the only direction an analyst is allowed to move a call.", "good", min_h=1.20, max_h=1.40)
+    co(deck, s, x2, 4.40, half, "And a concentration we should own",
+       "All five top names are Capital Goods. That is the regime tilt and the trend pillars pulling in the "
+       "same direction, and it is exactly why the score flags candidates for review rather than being used "
+       "to build a portfolio.", "warn", min_h=1.20, max_h=1.40)
+    deck.source(s, "Blended = 0.60 x three-year plus 0.40 x one-year, before the analyst forward adjustment. Scored universe of 751 names, full range 15.1 to 78.8. Internal page: these are live calls on real names.")
+
+    # ================= SECTION 2 — workflow =================
+    deck.section_divider(2, "The workflow", "What runs when, and who owns each step",
+                         pages=["Cadence and ownership"])
 
     s = deck.content(2, "The workflow", "Cadence and ownership", "What runs when, and who owns it")
     ccols = [("Cadence", 0.16, "l"), ("What runs", 0.46, "l"), ("Owner", 0.20, "l"), ("Automated", 0.18, "c")]
@@ -409,28 +509,9 @@ def build():
                  "is the control that keeps an automated pipeline from ever speaking to a client on its own.", "human")
     deck.source(s, "Scheduled jobs are re-armed each working session from the operating calendar, which is the source of truth if the two ever disagree.")
 
-    s = deck.content(2, "The workflow", "Decision rights", "Who can change what, and where disagreement goes")
-    dcols = [("Decision", 0.34, "l"), ("Who decides", 0.28, "l"), ("Control", 0.38, "l")]
-    drows = [
-        [("b", "A stock's score"), "The frozen engine", "No human edits a score. The methodology changes only by signed amendment."],
-        [("b", "A Sell becoming a Hold"), "Sector analyst", "Permitted, with a written reason recorded against the name."],
-        [("b", "A Hold becoming a Sell"), ("c", "Nobody, directly", SELL), "Barred. The analyst escalates and the desk rules."],
-        [("b", "Trim levels and sizing"), "Fund manager", "Judgment, disclosed as such in the deck, not a formula output."],
-        [("b", "Methodology change"), "Quant head plus red team", "Joint sign-off; comparability with the prior record is documented."],
-        [("b", "A deck reaching a client"), ("c", "Principal or CEO", NAVY), "Countersignature on every deck, with no standing exemption."],
-    ]
-    deck.table(s, ML, 1.95, UW, dcols, drows, rowh=0.50, fs=10, hfs=8, zebra=True)
-    half = (UW - 0.3) / 2
-    co(deck, s, ML, 5.32, half, "The asymmetry is the point",
-       "It is easy to talk yourself into holding something you like. Letting the engine originate only Sells "
-       "puts the burden of proof on optimism.", "note", min_h=1.02, max_h=1.08)
-    co(deck, s, ML + half + 0.3, 5.32, half, "Escalation is narrow on purpose",
-       "Stale prices and ordinary uncertainty are not escalation-worthy, so the channel stays readable instead "
-       "of becoming a queue nobody works.", "note", min_h=1.02, max_h=1.08)
-
     # ================= SECTION 3 — quality control =================
     deck.section_divider(3, "Quality control", "What stops a wrong page reaching a client",
-                         pages=["The gate stack", "What went wrong, and what we changed"])
+                         pages=["The gate stack"])
 
     s = deck.content(3, "Quality control", "The gate stack", "Four layers, each catching what the others cannot")
     qsteps = [
@@ -443,27 +524,6 @@ def build():
     co(deck, s, ML, 5.82, UW, "Then, and only then, a person",
                  "Passing all four gates makes a deck eligible for review, not approved. The Principal or CEO "
                  "countersignature is the fifth layer, and it is the one that actually authorises a client copy.", "human")
-
-    s = deck.content(3, "Quality control", "What went wrong, and what we changed",
-                     "The controls above exist because these things actually happened")
-    icols = [("What we found", 0.40, "l"), ("Why it was dangerous", 0.32, "l"), ("What changed", 0.28, "l")]
-    irows = [
-        [("b", "A fabricated breach"), "A page asserted a concentration limit breach that did not exist in the book, contradicting a correctly-computed page in the same deck",
-         "Narrative sentences are now computed from the data; hard-coded client-specific claims are treated as defects"],
-        [("b", "Name-similarity fund matching"), "Matched a mid-cap fund to a multi-cap fund, and a liquid fund to an equity fund",
-         "Similarity matching prohibited. Identity is verified per fund, with alias and rename tables in code"],
-        [("b", "A corrupted holdings row"), "One holding's name field silently absorbed another holding's data during statement parsing",
-         "Every parsed row is validated on intake; suspect rows are flagged to the RM, never silently trusted"],
-        [("b", "A missing score shown as zero"), "An unscored holding read as a score of zero, which is a real and very bad score",
-         "Unscored is now visibly blank and labelled No View; zero is reserved for an actual zero"],
-        [("b", "A clipped table"), "A total row was covered by the panel beneath it, and both geometry checks passed it",
-         "The visual read became a required gate rather than a nice-to-have"],
-    ]
-    deck.table(s, ML, 1.95, UW, icols, irows, rowh=0.72, fs=9.5, hfs=8, zebra=True)
-    co(deck, s, ML, 5.72, UW, "Why this page is in a committee deck",
-                 "A product review that shows only what works is not evidence. Each of these was found by our own "
-                 "checks before any client saw it, each is now closed in code rather than in a checklist, and the "
-                 "same failure cannot recur silently.", "good")
 
     # ================= SECTION 4 — the deliverable =================
     deck.section_divider(4, "The deliverable", "Real rendered pages from the review deck",
@@ -490,8 +550,8 @@ def build():
         deck.source(s, "Rendered from the house demo book on an aggressive mandate. Synthetic holdings, real engine, real template.")
 
     # ================= SECTION 5 — controls, risks, ask =================
-    deck.section_divider(5, "Controls and the ask", "Compliance posture, honest limitations, and the decision",
-                         pages=["Compliance posture", "What this product does not do yet", "The ask"])
+    deck.section_divider(5, "Controls", "The compliance posture this product is built to",
+                         pages=["Compliance posture"])
 
     s = deck.content(5, "Controls and the ask", "Compliance posture",
                      "Built for a non-discretionary mandate, and constrained accordingly")
@@ -499,7 +559,6 @@ def build():
     prows = [
         [("b", "No buy recommendations"), "The vocabulary is Sell, Trim or Hold. This is a review of holdings the client already owns, not a solicitation. The word is blocked by the client-copy scan."],
         [("b", "No target prices"), "No page carries a price objective or an implied return promise. Valuation is expressed as a judgment on what the multiple already assumes."],
-        [("b", "Nothing executes on its own"), "The mandate is non-discretionary. Every deck states that nothing is executed until the client authorises it, and carries a signature line."],
         [("b", "Tax is flagged as an estimate"), "Tax characterisations are labelled indicative, with the client's own adviser named as the authority before dealing."],
         [("b", "Gaps are disclosed, not filled"), "Where cost basis, coverage or fund data is missing, the deck says so on the page rather than substituting an assumption."],
         [("b", "Every client copy is signed"), "Principal or CEO countersignature, with no standing exemption for a repeat client or a routine refresh."],
@@ -509,44 +568,6 @@ def build():
        "We do not fabricate. An estimate is labelled an estimate, a gap is shown as a gap, and a number we "
        "cannot source does not go on a client page. Every control above follows from that one commitment.",
        "human", min_h=0.78, max_h=0.86)
-
-    s = deck.content(5, "Controls and the ask", "What this product does not do yet",
-                     "The open items, stated plainly")
-    y = bullets(deck, s, ML, 1.92, UW, [
-        "Fund expense ratios render from a single placeholder, not each scheme's real figure. Visible on the scorecard pages, and first to close.",
-        "Hybrid, sectoral, index, liquid and debt funds have no quality framework and show as No View, leaving part of a typical fund book unscored.",
-        "Equity cost basis is absent from a CAS statement, so share-sale tax is a disclosed estimate rather than a computed figure.",
-        "The long-term fund framework covers a curated 40 funds; a holding outside it gets the short-term view only, or none.",
-        "There is no live performance track record yet. Coverage and process are demonstrable today; outcomes will take cycles.",
-        "Fund look-through into true sector and single-name exposure is built but not yet wired into every page.",
-    ], gap=0.44, fs=10.5)
-    co(deck, s, ML, y + 0.14, UW, "Why the committee is seeing this list",
-       "None of these block shipping a review today, because each is disclosed on the page where it matters. "
-       "They are here so approval is given with the gaps in view, and so the committee can rank them.",
-       "warn", min_h=0.78, max_h=0.86)
-
-    s = deck.content(5, "Controls and the ask", "The ask", "What we would like the committee to approve")
-    deck.rect(s, ML, 1.92, UW, 1.30, fill=PANEL, line=NAVY, lw=1.1, round_=0.06)
-    deck.rect(s, ML, 1.92, 0.07, 1.30, fill=GOLD)
-    deck.txt(s, ML + 0.28, 2.06, UW - 0.6, 0.30, [("APPROVAL SOUGHT", SANS, 9.5, GOLD, True, False, 200)])
-    deck.txt(s, ML + 0.28, 2.36, UW - 0.6, 0.80,
-             [("Adopt this engine as the standard NDPMS portfolio-review deliverable for client onboarding and "
-               "periodic reviews, on the frozen methodology, the four-layer quality gate, and the signature "
-               "requirement described in this deck.", SERIF, 13, INK, False)], ls=1.08)
-    y = bullets(deck, s, ML, 3.42, UW, [
-        "Confirm the Sell, Trim and Hold vocabulary and the no-buy, no-target-price posture as permanent product constraints.",
-        "Confirm the one-way override rule and the escalation channel as the standing way analyst disagreement is handled.",
-        "Confirm that every client copy requires a Principal or CEO countersignature, with no standing exemption.",
-        "Direct which of the open items on the previous page should be closed first, and by when.",
-    ], gap=0.44, fs=11)
-    deck.txt(s, ML, 5.42, UW, 0.28, [("SIGN-OFF", SANS, 9, SLATE, True, False, 200)])
-    for i, role in enumerate(["Product Approval Committee", "Chief Executive Officer", "Chief Investment Officer"]):
-        bx = ML + i * ((UW - 0.6) / 3 + 0.3)
-        bw = (UW - 0.6) / 3
-        deck.rule(s, bx, 6.16, bw - 0.3, HAIR, 0.01)
-        deck.txt(s, bx, 6.22, bw, 0.26, [(role, SANS, 9, INK, True)])
-        deck.txt(s, bx, 6.44, bw, 0.24, [("Name, signature, date", SERIF, 8.5, SLATE, False, True)])
-    deck.source(s, "Internal committee paper. Sample pages use a synthetic demo book; no real client holdings appear in this deck.")
 
     deck.resolve_links()
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
