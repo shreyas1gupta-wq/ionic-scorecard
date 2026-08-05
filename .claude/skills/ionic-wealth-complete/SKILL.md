@@ -5,6 +5,30 @@ description: The ONE comprehensive operating manual for Ionic Wealth's client pr
 
 # Ionic Wealth — Complete Operating Manual (v2, 2026-07-31)
 
+## STANDING RULE — ESCALATE TO A HUMAN RATHER THAN GUESS (Principal, 2026-08-05)
+**Applies to every decision in this manual, not just the fund frameworks.** His words: *"keep this
+rule for everything — if large escalations and AI cannot solve and need human, feel free to ask at
+the last with your view and counter view and situation explained clearly."*
+
+When a call cannot be resolved on the evidence available — conflicting signals, a material holding
+with missing or stale data, an override that contradicts the score, a threshold the data cannot
+support — **do not pick a side silently and do not split the difference.** Escalate, and escalate in
+this shape:
+
+1. **The situation**, stated plainly: what is being decided, for which holding, and how much of the
+   book it affects.
+2. **Our view**, with the evidence behind it.
+3. **The counter-view**, argued honestly rather than strawmanned — the strongest case against us.
+4. **What would settle it**: the specific datum, threshold or ruling needed.
+
+Escalate **at the end**, once everything resolvable has been resolved, so the human is handed one
+clear question rather than a running commentary. A page or a call that reaches a client must never
+depend on a coin-flip we made quietly.
+
+Discretion is **one-directional** wherever it appears in this manual: an analyst or AI overlay may
+veto or soften an action, never manufacture one. That asymmetry is what keeps judgment from becoming
+a licence to invent.
+
 Everything a team member needs to produce client deliverables. This is the SINGLE source of truth. The GitHub repo has all code, data, and scripts referenced below.
 
 > **Repo:** https://github.com/shreyas1gupta-wq/ionic-scorecard (private)

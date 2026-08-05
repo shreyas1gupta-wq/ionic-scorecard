@@ -54,10 +54,13 @@ REQUIRED = [
 
 SECTOR_START, SECTOR_END = "Abrasives", "Trading"      # inclusive span of the 44 sector columns
 
-# Categories whose ACE "Equity" figure is GROSS exposure, much of it hedged. Feeding these into an
-# IPS equity-band check as if they were equity RISK misstates the book: arbitrage shows a median
-# 70.5% equity and is economically debt-like. Flagged for the FM (2026-08-05); until a net-exposure
-# rule is agreed these are reported as gross with the caveat attached, never silently netted.
+# Categories whose ACE "Equity" figure is GROSS exposure, much of it hedged: arbitrage shows a
+# median 70.5% equity and is economically debt-like.
+#
+# PRINCIPAL RULING 2026-08-05: COUNT GROSS. Equity percentages are taken as ACE reports them, with
+# no netting. And no per-row flag on the page - the disclosure is a FOOTNOTE (his words: "no flag
+# please you can write a footnote"). This set therefore drives the footnote text only; it must not
+# be used to adjust, net or exclude any number.
 GROSS_EQUITY_CAVEAT = {
     "Arbitrage Fund", "Equity Savings", "Balanced Advantage",
     "Dynamic Asset Allocation", "Multi Asset Allocation",
@@ -187,15 +190,32 @@ def stale_rows(df, block, asof=None):
 
 
 def equity_lookthrough(df):
-    """Per-row equity %, with the gross-exposure caveat surfaced rather than buried.
+    """Per-row equity %, counted GROSS as ACE reports it (Principal ruling 2026-08-05).
 
-    Returns a frame with `equity_pct` and `equity_is_gross`. A hybrid's real equity sleeve is what
-    fixes the FM's comment #2: our previous code classified funds by CATEGORY and counted every
-    hybrid as 0% equity, understating a book's true equity by roughly 73% of any aggressive-hybrid
-    holding's weight.
+    This is what fixes FM comment #2: our previous code classified funds by CATEGORY and counted
+    every hybrid as 0% equity, understating a book's true equity by roughly 73% of any
+    aggressive-hybrid holding's weight.
+
+    `equity_is_gross` marks the hedged categories. It exists ONLY so a page can decide whether the
+    footnote is needed - the Principal asked for a footnote rather than a per-row flag. Do not use
+    it to net, adjust or exclude an equity figure.
     """
     out = df.copy()
     out["equity_pct"] = pd.to_numeric(out["Equity"], errors="coerce")
     out["equity_is_gross"] = out["Category"].astype(str).str.strip().isin(GROSS_EQUITY_CAVEAT)
     return out[["Scheme Name", "ISIN Code", "Category", "Asset Type",
                 "equity_pct", "equity_is_gross"]]
+
+
+def gross_equity_footnote(df):
+    """The footnote text for any page carrying look-through equity, or None if not needed.
+
+    Names the affected categories present in THIS book rather than reciting all of them, so the
+    footnote stays true to the page it sits on."""
+    cats = sorted(set(df["Category"].astype(str).str.strip()) & GROSS_EQUITY_CAVEAT)
+    if not cats:
+        return None
+    return ("Equity exposure is counted gross, as disclosed by the fund. "
+            + ", ".join(cats)
+            + " hold part of that exposure hedged, so their contribution to equity risk is lower "
+              "than the figure shown.")
