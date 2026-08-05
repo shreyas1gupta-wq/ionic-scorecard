@@ -96,11 +96,19 @@ def check(path):
                         texts.append((t, eb, rb))
         for a in range(len(texts)):
             ta, ea, ra = texts[a]
-            # 2: spill past slide bounds / into the footer band
-            if ea[2] > SW - 0.02 or ea[3] > 7.10:
-                if "portfolio review" not in ta.lower():
-                    F.append({"slide": i, "kind": "spill-bounds", "text": ta[:55],
-                              "eff": [round(v, 2) for v in ea]})
+            # 2: spill past slide bounds / into the footer band.
+            #
+            # The exemption here used to be the literal string "portfolio review", which coupled
+            # this gate to one product's footer text. Renaming the footer for the QFRA-2 deck made
+            # the gate emit 18 phantom spill-bounds findings on a deck with no defect - and the
+            # danger is the reverse: someone "fixes" the non-defect by moving real chrome.
+            # Exempt by ROLE instead: page chrome is deliberately PLACED in the footer band, so its
+            # RAW top already sits at or below the band line. Content that spills INTO the band
+            # starts above it and grows down, which is the case we actually want to catch.
+            in_footer_band_by_design = ra[1] >= 7.10
+            if (ea[2] > SW - 0.02 or ea[3] > 7.10) and not in_footer_band_by_design:
+                F.append({"slide": i, "kind": "spill-bounds", "text": ta[:55],
+                          "eff": [round(v, 2) for v in ea]})
             # 4: severe in-box vertical overflow (clipping)
             if (ea[3] - ra[3]) > 0.22 and len(ta) > 40:
                 F.append({"slide": i, "kind": "clip-risk", "text": ta[:55],

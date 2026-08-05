@@ -121,6 +121,10 @@ class Deck:
         self.BLANK = self.prs.slide_layouts[6]
         self.logo_path = logo_path if (logo_path and os.path.exists(logo_path)) else None
         self.folio = 0
+        # Footer product label. Defaults to the NDPMS review so every existing deck is
+        # unchanged; set it on the Deck for any other product built on this engine (the
+        # QFRA-2 committee deck was shipping "Portfolio Review" in its footer otherwise).
+        self.footer_label = "Portfolio Review"
         self._anchors = {}    # key -> (prio, slide, folio)
         self._links = []      # (shape, key)
         self._pagerefs = []   # (run, key)
@@ -300,7 +304,7 @@ class Deck:
         self.txt(s, CW / 2 - 1.7, 0.14, 3.4, 0.2, [("Private & Confidential", SANS, 7.5, (NT2 if dark else SLATE), False)], align=PP_ALIGN.CENTER)
 
     def footer(self, s, dark=False):
-        self.txt(s, RX - 2.4, 7.14, 2.4, 0.2, [(f"Portfolio Review  ·  {self.folio:02d}", SANS, 7.5, (NT2 if dark else SLATE), False)], align=PP_ALIGN.RIGHT)
+        self.txt(s, RX - 2.4, 7.14, 2.4, 0.2, [(f"{self.footer_label}  ·  {self.folio:02d}", SANS, 7.5, (NT2 if dark else SLATE), False)], align=PP_ALIGN.RIGHT)
 
     def source(self, s, text):
         self.txt(s, ML, 6.66, UW, 0.24, [(text, SANS, 7, SLATE, False)])

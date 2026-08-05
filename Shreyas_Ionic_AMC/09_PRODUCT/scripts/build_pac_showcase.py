@@ -143,7 +143,10 @@ def cover(deck):
     deck.rule(s, ML, 4.88, 3.4, GOLD, 0.03)
     deck.txt(s, ML, 5.08, 7.2, 0.4,
              [("Methodology, workflow, controls, and the deliverable itself", SERIF, 12, NT3, False, True)])
-    deck.txt(s, ML, 6.62, 7.4, 0.5,
+    # 6.62 + 0.5 put the effective bottom at 7.12, two hundredths into the footer band. It was
+    # invisible until check_geometry2's exemption stopped keying on the words "portfolio review",
+    # which this very line happens to contain.
+    deck.txt(s, ML, 6.54, 7.4, 0.5,
              [("INTERNAL   ·   ", SANS, 8.5, GOLD, True, False, 120),
               (f"Prepared by the Portfolio Review desk   ·   As of {AS_OF}   ·   "
                "Sample pages use a synthetic demo book, never a real client's holdings",
