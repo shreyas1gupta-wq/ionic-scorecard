@@ -3,6 +3,86 @@ Format per entry: date, account (DESK-20/DESK-100), summary, files touched, hand
 Newest entries at TOP.
 
 ---
+## 2026-08-06 (later, Tanvi Desai, Product) — 5 Principal rulings applied to NDPMS deck modules, both decks rebuilt + gated, divider bug hardened
+Applied the Principal's five same-day rulings on top of the FM-comments build below. **#1 core/
+satellite:** new `modules/core_satellite.py` (Portfolio X-ray) — Core=index/large/mid/flexi/multi/
+hybrid/debt/gold, Satellite=sectoral-thematic/small/international/factor/contra, midcap->Core,
+~70/30 shown as a plain guidance marker (no pass/fail pill). **#4 freshness ack:** `check_freshness.py`
+now BLOCKS (exit 1) without `--ack "<name>: <reason>"`, unconditionally (even at 0 findings); logs
+every ack to `check_freshness_ack_log.jsonl` + `check_freshness_last_ack.json`; `disclaimer.py` cites
+the latest ack on the last page. **#5 seven IPS aspects:** new `modules/ips_seven_aspects.py` —
+assumed values for ABXY (tagged `[ASSUMED, illustrative]`), degrades to "On file with the advisor"
+for any real ctx with no `seven_aspects` on file (added to `data/azby_family.py`'s `_IPS` dict only).
+**#6 full look-through allocation:** `lib/lookthrough.py.full_lookthrough_mix()` (NEW) — direct
+equity + fund look-through equity/debt/others, reconciling to 100% (old 3-segment strip silently
+dropped each fund's "Others" slice); `snapshot.py` now renders 4 segments + the gross-equity
+footnote (shortened to category names, not fund names, after it overflowed the source-line box).
+**#24 correlation replaces overlap:** new `modules/scheme_correlation.py` (main Fund Book section,
+real Pearson correlation from each fund's own NAV history — `nav_history` added to
+`data/azby_family.py`'s synthetic funds) takes `scheme_overlap_full.py`'s old slot; overlap itself
+moved to the Annexure, off by default everywhere, disclosure rewritten to state plainly that
+holdings-level overlap is not computable from data on file (ACE = sector %, not a security list),
+not just "not built yet". **Divider bug:** `slidekit.section_divider()`'s `pages=` had no
+type-guard — a bare string would iterate character-by-character (the QFRA-2 script's fix was
+caller-side only). Added a str->list guard in the primitive itself; confirmed via direct text-run
+inspection AND a rendered visual read that the NDPMS/ABXY pipeline was never actually hitting this
+(`engine.py`'s `_toc_for()` always builds a proper list) — so this is hardening, not a fix of a
+visible defect in this deck. **#9 extension** (stock-level look-through via fund factsheets) logged
+as a next step, not built, in a `lib/lookthrough.py` comment.
+**Gates, both decks:** ABXY_Showcase (all 3 tiers) check_geometry 0/0/0, check_geometry2 = only the
+pre-existing disclaimer footer spill (1 finding, all 3 tiers, task-approved exception), tellscan 24
+findings/HNI_DEEP (22 SYNTHETIC_DEMO_LEAK all correct is_demo self-disclosure incl. 4 from today's
+new pages, 2 pre-existing unrelated artifacts, 0 new jargon/Buy-language), check_method 0 findings
+(churn 21.9%, informational). check_freshness: blocks with no `--ack` (verified), passes + logs with
+one (verified against the real ACE file at `C:\Users\Shreyas.1Gupta\Downloads\10. V2
+Data_31th July_2026.xlsx` — 1 finding, filename/content month mismatch, pre-existing/expected).
+IONIC_NDPMS_PRODUCT_APPROVAL_DECK: rebuilt from the refreshed ABXY PDF (all 14 SNAP_SPECS titles
+still resolved — no collision with the new page titles), geometry 0/0, tellscan 5 (3 QFRA + 2 demo-
+disclosure, same as yesterday's baseline, internal deck). Visual PDF read (LibreOffice headless
+backend, a stuck POWERPNT.EXE killed first as warned): cover, all 3 new pages, snapshot, all 5
+section dividers, and the disclaimer/ack citation on ABXY HNI_DEEP; cover + 2 snapshot pages on the
+PAC deck. No defects found beyond the 2 geometry bugs already caught and fixed pre-visual-read
+(snapshot.py source-line overflow, scheme_correlation.py callout clip — both from hardcoded/
+under-estimated box heights, fixed by shortening text and/or switching to `callout_h()`).
+**Files touched:** `pr_template/slidekit.py`, `check_freshness.py` (+2 new log files),
+`lib/lookthrough.py`, `engine.py`, `tiers.py`, `modules/snapshot.py`, `modules/disclaimer.py`,
+`modules/scheme_overlap_full.py`, `data/azby_family.py`; NEW `modules/core_satellite.py`,
+`modules/ips_seven_aspects.py`, `modules/scheme_correlation.py`. Rebuilt: `out/ABXY_Showcase_
+{HNI_DEEP,STANDARD,RM_SIMPLE}.pptx` + `HNI_DEEP.pdf`, `reports/IONIC_NDPMS_PRODUCT_APPROVAL_DECK
+{.pptx,.pdf}`. **NOT committed to git** (not requested) — working-tree changes only, alongside the
+other already-uncommitted changes in this worktree that I did not touch.
+**OPEN / handed back:** whether core/satellite should also apply a sector-thematic lens to direct
+equity (today: mcap-band only, Large/Mid->Core, Small->Satellite, [INFERENCE] since the ruling's
+category list is fund-shaped and the book holds no midcap-*category fund* to apply "keep midcap in
+core" to literally) — flagging this reading rather than assuming it silently. #9 stock-level
+look-through (fund factsheets) not sourced. Real-client wiring of `seven_aspects`/`nav_history`
+(both currently ABXY-only fields) is the natural next step once a real client needs #5/#24.
+
+---
+## 2026-08-06 (Tanvi Desai, Product) — FM review comments: 12 unblocked items built, both decks rebuilt, all 5 QA gates run
+Full context and gate results in CURRENT_STATE.md's top entry (same date) — not duplicated here.
+**Files touched:** `09_PRODUCT/pr_template/lib/lookthrough.py` (NEW), `lib/mf_sell_gates.py` (NEW),
+`modules/mf_methodology.py` (NEW), `modules/funds_debt.py` (NEW), `modules/snapshot.py`,
+`modules/concentration_risk.py`, `modules/sector_exposure.py`, `modules/fund_book_scored.py`,
+`modules/fund_actions.py` (clip_len scaling fix), `data/azby_family.py`, `engine.py`, `tiers.py`,
+`modules/contents_legend.py`, `slidekit.py` (`fmt_dual_pct` helper), plus the sec_no swap in
+`book_scored.py`/`sell_list.py`/`hold_rationale.py`/`score_method.py`/`equity_book.py`/
+`funds_equity.py`/`funds_hybrid.py`/`scheme_overlap_full.py`. Rebuilt: `out/ABXY_Showcase_HNI_DEEP
+{.pptx,.pdf}`, `out/ABXY_Showcase_{STANDARD,RM_SIMPLE}.pptx` (smoke-tested only), `reports/
+IONIC_NDPMS_PRODUCT_APPROVAL_DECK{.pptx,.pdf}`. Checkpoint (now closed out):
+`09_PRODUCT/PROGRESS_FM_REVIEW_BUILD_2026-08-05.md`.
+**NOT committed to git** — left as working-tree changes; this worktree also has OTHER
+uncommitted, unrelated changes in flight (`05_DATA_OFFICE/DATA_CATALOG.md`, `ADVERSARIAL_REVIEWS.md`,
+`QFRA2_PRODUCT_APPROVAL_DECK.pptx`, `NSE_RESULTS_PULL_REPORT.md` and others) that I did not touch
+and did not bundle into any commit.
+**OPEN / handed back:** B1-B10 and C1-C5 in FM_REVIEW_REPLY (core/satellite split, tail measure,
+RAR risk-free convention, debt house-view, IPS 7-aspects doc, avoid-list file, staleness
+thresholds) are still the FM's/Principal's calls, not built, per the spec's own "deliberately not
+invented" list — Layer-2's curve parameters and discretion-band edges likewise. Real-client wiring
+of the new ACE-shaped fields (real `acemf.py` join by ISIN into `fund_ctx_adapter.py`) is the
+natural next step once a client's funds need #2/#9/#10/#22 for real, not just on the demo book.
+
+---
 ## 2026-07-28 (later still) — Rapid-fire correction round: IPS self-gates on missing data, 6 more permanent page cuts (all sell/hold-only scope), a "page 26" mis-identification caught and fixed, index-fund placeholder-data bug found and fixed, LTCG-assumed tax convention, AMFI backfill dispatched
 Fast sequence of corrections after the IPS rebuild shipped. **`ips_summary.py` now self-gates**:
 renders ONLY when `ips["on_file"]` is True — a client with no bespoke IPS gets no page at all
@@ -1282,3 +1362,10 @@ Principal ordered the build ("we have nifty much data 1min and 1day build anc ba
 **EOD (cron, 2026-08-05) — NOTABLE, see URGENT FLAG #3 in CURRENT_STATE.** Angel option capture has written **nothing since 2026-08-03 23:02** (2 files that night; 365 parquet vs ~840 expected). Aug-03 15:45, Aug-03 23:00 and Aug-04 15:45 each logged `login OK` + universe then died with no progress line and no `run complete`. Cause: `daily_capture.py:140-165` has no try/except on the per-symbol body and only logs every 10th symbol, so a death in symbols 1-9 is completely silent. Separately, Aug-05 11:43 failed on DNS (`getaddrinfo` on apiconnect.angelone.in) — environmental. Exact 2-line patch filed for DESK-100 (the owner); **not applied by me** because today's DNS failure made verification impossible and an unverified edit to a scheduled capture script could turn a partial failure into a total one. **Data impact: Aug-04/05 captures are lost unless backfilled, and Angel purges expired contracts — the 2026-08-25 expiry window is the one at risk.** Lesson re-confirmed: check FILE mtimes, never directory mtimes, since the capture overwrites parquet in place.
 
 **PENDING:** the QFRA-2 PAC deck itself is NOT built (all six research inputs are ready). One ask I could not pin down from the deck text and deliberately did not guess: what "pg 4 client aligned -> alpha focused" refers to. Also owed: the 8x17 history heat-strip, and putting held-book alpha beside the +0.48% headline everywhere.
+
+## 2026-08-07 (DESK-20, Fable) — Five signals FINAL + thin-history scoring fix (Principal-reported bug)
+- Equity book page FINAL: 5 traffic-light dots per holding (Quality/Growth/Value/Technical/Sector & Flows), even quartiles 75/50/25, Set A words (Top 25%/Upper/Lower/Bottom 25%), both footnotes removed, coverage facts moved to scope tag, 11 rows. Bands/words/colours live in pr_template/lib/five_signals.py (single source of truth; composite signals re-ranked vs universe so quartiles are literally quarters). Growth dot blends analyst fwd estimate 50/50 via frozen growth-leg thresholds. Cash 6th signal built then REMOVED on Principal ruling (kept as lib fn). Gates clean.
+- BUG (Principal): recently-listed names over-score. Mechanism confirmed = skip-and-renormalise weighted_mean (score_n100_quant.py) hands missing fundamental pillars' weight to surviving price pillars. Diag: 67 thin names, mean 37% weight re-allocated, worst +13.3 (TMCV). Fix: fix_thin_coverage_v2.py -> results/full750_scored_v2.csv (EXACT engine replication verified 0.0000): neutral-fill 50, withdraw <=3/7 pillars (8 names: SKFINDUS TMCV ENRIN ICICIAMC IGIL SANOFICONR AGL HEXT), growth artefacts inf/>200% neutralised (6 incl JIOFIN), thin flag 231, 1 Hold->Sell flip (ONESOURCE). v2 SIDE-BY-SIDE with v1 — adoption = Principal call, engine itself untouched.
+- One-time earnings: flags from screener P&L — one_time_income_risk (OI>25% PBT, non-fin) 140 names; pat_sales_divergence (PAT+50%/Sales<10%) 30 names. Deeper fix (adjusted ROE ex-exceptionals) needs engine change — proposed, not done.
+- 750 Excel v8: build_scores_excel.py rebuilt -> reports/NIFTY750_SCORECARD_20260807.xlsx: five signals colour-banded via same lib, fwd growth joined for ALL 751 (752 pf_qual jsons exist), v1+v2 scores/calls side by side, new flags. Staged in show\.
+- OPEN: adopt v2? (his call); score_method page still explains 3 buckets vs page's 5; L&T SELL vs 4 non-red dots adjudication; ownership data stale (caps 2023-12) — refresh would clear most of the 231 thin flags.
