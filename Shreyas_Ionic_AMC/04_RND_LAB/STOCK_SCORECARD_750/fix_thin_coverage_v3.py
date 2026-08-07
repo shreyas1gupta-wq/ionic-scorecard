@@ -89,6 +89,22 @@ TDPM = 21
 WINDOWS = (12, 9, 6, 3)          # months; a thin name uses the longest window it can support
 SELL_BAR, TRIM_CEIL = 40.0, 50.0
 
+# ---- GATES (Principal, 2026-08-07) -----------------------------------------------------------------
+# LIQUIDITY caps at 50, not 40. Thin trading is an execution problem, not evidence the business is bad,
+# so it should keep a name out of the top half without branding it a Sell.
+LIQ_CAP = 50.0
+# D/E EXEMPTION, widened. "d/e >2.5 not applicable in many cases like infra solar bank etc." Exempted
+# by ECONOMIC MODEL, not by keyword: businesses financed with project or regulated debt as the normal
+# way of operating. Note where "solar" actually lands -- generation sits in Power (exempt), while solar
+# EQUIPMENT makers (EMMVEE, WEBELSOLAR, UTLSOLAR) are Capital Goods, where high leverage is NOT
+# structural and the gate should still bite. Exempting on the word "solar" would have let the wrong
+# half through.
+# Interest coverage still applies to EVERY name including these: leverage may be normal, but being
+# unable to service it never is. That is the honest form of the exemption.
+DE_EXEMPT_SECTORS = ("financial services", "power", "realty", "telecommunication", "construction")
+# Measured: 50 names breach D/E>2.5, of which 33 are already-exempt Financial Services; widening adds
+# Power (4), Realty (1), Telecom (1), Construction (0).
+
 # ---- FORWARD ADJUSTMENT (frozen Ionic Score design; implemented here for the first time) -----------
 # `ionic_score_v3` previously returned only the BASE blend (0.60x3Y + 0.40x1Y). The frozen model adds a
 # forward adjustment on top of that base, and it was simply missing -- so every "Ionic Score" this
@@ -99,6 +115,13 @@ SELL_BAR, TRIM_CEIL = 40.0, 50.0
 # research files); there is no forward REVENUE estimate anywhere in the stack, so the revenue leg uses
 # trailing 1-year revenue growth (99.1% coverage, median 12.35%). [INFERENCE, disclosed] -- if the desk
 # starts capturing an expected-revenue figure, swap it in here and nothing else changes.
+# GROWTH LEG DISABLED (Principal, 2026-08-07: "lets not add forward growth leg then"), on the back of
+# the PIT decile test: banding growth into +/-15 and adding it to the composite cut the 1Y decile
+# spread from +5.50% to +0.13% and was the worst arm at every horizon tested. Note what the FROZEN
+# client pipeline (compute_client_scores.py v6.2) actually did: growth_leg took the analyst's expected
+# figure ALONE -- 100% expected EPS growth, no revenue leg at any weight. The 60:40 was new here, and
+# it is now moot. The bands stay defined for the Excel's disclosure column only.
+GROWTH_LEG_ENABLED = False
 FWD_EPS_W, FWD_REV_W = 0.60, 0.40
 GROWTH_LEG = ((25.0, 15.0), (20.0, 10.0), (15.0, 5.0), (10.0, 0.0), (5.0, -5.0), (-1e9, -15.0))
 # The revenue leg is WINSORISED at the top band's floor before blending. Measured reason: expected EPS
@@ -137,13 +160,56 @@ def comp(row, base, tilt_c, tilt_n, neutral=None):
     return num / den if den > 0 else np.nan
 
 
-def gate(row, c):
+def _num(x):
+    v = pd.to_numeric(x, errors="coerce")
+    return None if pd.isna(v) else float(v)
+
+
+def de_exempt(sector):
+    return any(k in str(sector or "").lower() for k in DE_EXEMPT_SECTORS)
+
+
+def bs_flag_v3(row):
+    """Balance-sheet gate with the widened D/E exemption. Two DIFFERENT exemptions, because the two
+    sector groups fail the tests for different reasons:
+
+    FINANCIALS -- exempt from the WHOLE gate, D/E and interest coverage alike. The frozen doc says only
+    the D/E trigger, and I initially implemented it that way; the data showed why the engine's blanket
+    exemption was right. Interest expense is a lender's cost of FUNDS, not debt service, and an insurer
+    barely has any: applying the coverage test flagged NIACL RED at coverage -399 with ZERO debt,
+    CANHLIFE at -11.8, NIVABUPA at -3.7, plus BAJAJFINSV and four capital-market firms at 2.0-2.9x,
+    which is simply what their model looks like. Eleven healthy names penalised by a ratio that does not
+    describe them. The documentation is the imprecise thing here, not the code.
+
+    CAPITAL-INTENSIVE (power, realty, telecom, construction) -- exempt from the D/E TRIGGER ONLY.
+    Project and regulated debt is the normal way these businesses are financed, so a high ratio says
+    little. Coverage still applies to every one of them, and it should: leverage may be normal, being
+    unable to service it never is."""
+    de = _num(row.get("debt_equity"))
+    ic = _num(row.get("interest_coverage"))
+    sec = str(row.get("sector") or "").lower()
+    if "financial services" in sec or any(k in sec for k in ("bank", "insurance", "nbfc")):
+        return "N/A-financial-sector"
+    if de is not None and de_exempt(sec):
+        de = None
+    if (de is not None and de > 2.5) or (ic is not None and ic < 1.5):
+        return "RED"
+    if (de is not None and de > 1.5) or (ic is not None and ic < 3):
+        return "AMBER"
+    return "GREEN"
+
+
+def gate(row, c, use_v3_flags=False):
     if pd.isna(c):
         return c
-    if row.get("bs_flag") == "RED" or row.get("liquidity_flag") == "RED":
-        return min(c, 40.0)
-    if row.get("bs_flag") == "AMBER":
-        return c * 0.85
+    bs = bs_flag_v3(row) if use_v3_flags else row.get("bs_flag")
+    if bs == "RED":
+        c = min(c, 40.0)
+    elif bs == "AMBER":
+        c = c * 0.85
+    # liquidity caps at 50, applied independently -- a name can be both illiquid and levered
+    if row.get("liquidity_flag") == "RED":
+        c = min(c, LIQ_CAP if use_v3_flags else 40.0)
     return c
 
 
@@ -181,6 +247,8 @@ def growth_leg(exp_eps, rev_growth, roe):
     if not legs:
         return 0.0, np.nan
     g = sum(v * w for v, w in zip(legs, wts)) / sum(wts)     # renormalised if a leg is absent
+    if not GROWTH_LEG_ENABLED:
+        return 0.0, g            # figure still returned for the Excel's disclosure column
     pts = GROWTH_LEG[-1][1]
     for lo, p in GROWTH_LEG:
         if g >= lo:
@@ -310,8 +378,12 @@ def main():
 
     c3 = d2.apply(lambda r: comp(r, BASE_W_3Y, TILT_CYC_3Y, TILT_NOT_3Y, NEUTRAL), axis=1)
     c1 = d2.apply(lambda r: comp(r, BASE_W_1Y, TILT_CYC_1Y, TILT_NOT_1Y, NEUTRAL), axis=1)
-    f3 = (d2.apply(lambda r: gate(r, c3.loc[r.name]), axis=1) + res3).clip(SCORE_FLOOR, SCORE_CEIL)
-    f1 = (d2.apply(lambda r: gate(r, c1.loc[r.name]), axis=1) + res1).clip(SCORE_FLOOR, SCORE_CEIL)
+    # use_v3_flags=True here ONLY. The replication check above must reproduce v1 exactly, so it keeps
+    # the stored bs_flag and the 40 liquidity cap; the scoring pass gets the widened D/E exemption and
+    # the 50 liquidity cap.
+    f3 = (d2.apply(lambda r: gate(r, c3.loc[r.name], True), axis=1) + res3).clip(SCORE_FLOOR, SCORE_CEIL)
+    f1 = (d2.apply(lambda r: gate(r, c1.loc[r.name], True), axis=1) + res1).clip(SCORE_FLOOR, SCORE_CEIL)
+    d["bs_flag_v3"] = d2.apply(bs_flag_v3, axis=1)
     d["final_score_3y_v3"] = f3.round(2)
     d["final_score_1y_v3"] = f1.round(2)
 
@@ -355,11 +427,21 @@ def main():
     # overriding a valuation the model had already looked at and priced as reasonable. The analyst view
     # is not discarded: it still costs the name 6 points through the conviction leg, and it surfaces as
     # an explicit Trim rather than being silently dropped.
+    # THE LADDER (Principal, 2026-08-07), and Gate A's reach is bounded by the score:
+    #     below 40      Sell
+    #     40 - 50       analyst Sell -> Trim; otherwise Trim only if concentrated
+    #     above 50      HOLD, full stop -- an analyst Sell has NO effect here
+    # The ceiling on Gate A is the substantive change. It was selling names at any score, including
+    # BAJAJ-AUTO at 67 on a valuation argument the Value pillar had already weighed and rejected. Above
+    # 50 the score is saying the evidence is broadly good, and a single dissenting view should not
+    # outrank all seven pillars. Between 40 and 50 the evidence is genuinely mixed, so the analyst gets
+    # to move it to Trim. The view is never silently dropped: it still costs 6 points via the
+    # conviction leg, which can itself carry a borderline name under 50 or under 40 on its own merits.
     an_sell = pd.Series(a_rec, index=d.index) == "Sell"
     d["recommendation_v3"] = np.where(
         ionic < SELL_BAR, "Sell",
-        np.where(an_sell, "Trim (analyst view, score above the Sell bar)",
-                 np.where(ionic <= TRIM_CEIL, "Hold (Trim if concentrated)", "Hold")))
+        np.where(ionic > TRIM_CEIL, "Hold",
+                 np.where(an_sell, "Trim (analyst view)", "Hold (Trim if concentrated)")))
 
     # The conversions, measured against the FINAL Ionic score -- not against the base.
     # A first version compared `base >= 40` with a Sell verdict and reported 117 analyst-forced Sells.
@@ -369,7 +451,8 @@ def main():
     # count is 23, not 117.
     d["analyst_conversion"] = np.where(
         (base < SELL_BAR) & (d["recommendation_v3"] != "Sell"), "Sell->Hold (analyst)",
-        np.where(an_sell & (ionic >= SELL_BAR), "Analyst Sell -> Trim (40 bar)", ""))
+        np.where(an_sell & (ionic >= SELL_BAR) & (ionic <= TRIM_CEIL), "Analyst Sell -> Trim",
+                 np.where(an_sell & (ionic > TRIM_CEIL), "Analyst Sell OVERRULED (score > 50)", "")))
     d["thin_history_flag"] = np.where(d["history_class"] == "<1y", "<1y",
                                       np.where(d["pillars_observed"] < 7, "Y", ""))
 
@@ -378,8 +461,8 @@ def main():
     ionic_raw = base + pd.Series(adj, index=d.index)
     rec_uncapped = np.where(
         ionic_raw < SELL_BAR, "Sell",
-        np.where(an_sell, "Trim (analyst view, score above the Sell bar)",
-                 np.where(ionic_raw <= TRIM_CEIL, "Hold (Trim if concentrated)", "Hold")))
+        np.where(ionic_raw > TRIM_CEIL, "Hold",
+                 np.where(an_sell, "Trim (analyst view)", "Hold (Trim if concentrated)")))
     n_moved = int((rec_uncapped != d["recommendation_v3"].to_numpy()).sum())
     print(f"cap check: [{SCORE_FLOOR:.0f},{SCORE_CEIL:.0f}] moved {n_moved} recommendations "
           f"(expected 0); floored {int((ionic_raw < SCORE_FLOOR).sum())}, "
@@ -435,9 +518,13 @@ def main():
         "## Analyst-AI conversions", "",
         f"- **{int((d['analyst_conversion'] == 'Sell->Hold (analyst)').sum())}** names the quant would "
         f"have sold are held on analyst conviction (the Sell->Hold path the Principal asked to keep)",
-        f"- **{int((d['analyst_conversion'] == 'Analyst Sell -> Trim (40 bar)').sum())}** analyst Sells "
-        f"on names scoring at or above 40 are downgraded to TRIM by the absolute 40 bar. Sell rate "
-        f"{(d['recommendation_v3'] == 'Sell').mean() * 100:.0f}% (the frozen note expects ~33%).", "",
+        f"- **{int((d['analyst_conversion'] == 'Analyst Sell -> Trim').sum())}** analyst Sells scoring "
+        f"40-50 become TRIM; **{int((d['analyst_conversion'] == 'Analyst Sell OVERRULED (score > 50)').sum())}** "
+        f"scoring above 50 are OVERRULED entirely. Sell rate "
+        f"{(d['recommendation_v3'] == 'Sell').mean() * 100:.0f}% (the frozen note expects ~33%).",
+        f"- gates: liquidity now caps at {LIQ_CAP:.0f}; D/E exemption widened to "
+        f"{', '.join(DE_EXEMPT_SECTORS)} -- names whose balance-sheet flag improved: "
+        f"**{int((d['bs_flag_v3'] != d['bs_flag']).sum())}**", "",
         "## Recommendation change", "",
         "| | v1 (either horizon <40) | v3 (Ionic + analyst gate) |", "|---|---|---|",
         f"| Sell | {int(old_sell.sum())} | {int(new_sell.sum())} |",
