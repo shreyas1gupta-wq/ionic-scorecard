@@ -42,6 +42,7 @@ Everything lands in *_v3 columns beside v1. The engine is not touched; adoption 
 """
 import json
 import os
+import re
 
 import numpy as np
 import pandas as pd
@@ -62,6 +63,7 @@ ROOT = _root(HERE)
 RES = os.path.join(ROOT, "Shreyas_Ionic_AMC", "04_RND_LAB", "STOCK_SCORECARD_750", "results")
 PRICES = os.path.join(ROOT, "ALPHA_RANKER", "data", "prices")
 SRC = os.path.join(RES, "full750_scored.csv")
+PL_PATH = os.path.join(ROOT, "datasets", "screener_deep", "screener_annual_pl.parquet")
 EQ = os.path.join(RES, "EARNINGS_QUALITY.csv")
 OUT = os.path.join(RES, "full750_scored_v3.csv")
 NOTE = os.path.join(RES, "THIN_COVERAGE_FIX_V3_NOTE.md")
@@ -129,15 +131,24 @@ DE_EXEMPT_SECTORS = ("financial services", "power", "realty", "telecommunication
 # analyst skill that this harness cannot observe. Worth revisiting the day a forward estimate is
 # captured with a timestamp.
 GROWTH_LEG_ENABLED = True
-FWD_EPS_W, FWD_REV_W = 0.60, 0.40
+FWD_EPS_W, FWD_REV_W = 1.00, 0.00      # see FWD_REV_CLIP note: 60:40 needs an EXPECTED revenue field
 GROWTH_LEG = ((25.0, 15.0), (20.0, 10.0), (15.0, 5.0), (10.0, 0.0), (5.0, -5.0), (-1e9, -15.0))
-# The revenue leg is WINSORISED at the top band's floor before blending. Measured reason: expected EPS
-# growth is a disciplined analyst estimate (median 13, max 30), while trailing revenue growth has a fat
-# right tail (p90 40, MAX 2510 -- base effects on newly listed names). Blended raw, those outliers alone
-# pushed 96 names into the +15/+20 tier against 12 on the EPS estimate alone: a name that posted 200%
-# revenue off a small base was buying a large forward BONUS on top of a Growth pillar that had already
-# rewarded the same growth. Since the bands stop discriminating above 25 anyway, clipping there costs no
-# information and removes the double-count. After clipping: 11 names in the top tier.
+# REVENUE LEG OFF -- the growth leg is 100% the analyst's EXPECTED figure, exactly as the frozen client
+# pipeline (compute_client_scores.py v6.2) always did it.
+#
+# WHY THE 60:40 COULD NOT BE IMPLEMENTED HONESTLY. The Principal's ruling was 60 expected-EPS growth :
+# 40 expected-REVENUE growth. No expected-revenue figure exists anywhere in the stack, so this used
+# TRAILING 1-year revenue as a stand-in. That substitution inverts the leg for exactly the names it
+# matters most to. BDL: the analyst expects +15% EPS, trailing revenue was -27% on FY26 delivery
+# delays, and 0.60x15 + 0.40x(-27) = -1.8% -> the MAXIMUM -15 penalty on a name the analyst is positive
+# about. In v1 the same name scored +5. Systemic, not isolated: of the 93 names taking -15, SEVENTY-FIVE
+# had negative trailing revenue and TWENTY carried an analyst estimate of 10% or better (ZENTEC +23%,
+# BDL and EMBDL +15%). VOLTAS landed at 4.8% and took -15 instead of -5 for missing the cut-off by
+# 0.2pp. Trailing and expected point in opposite directions for turnarounds and lumpy-order businesses,
+# and the trailing leg was winning.
+#
+# Restoring the true 60:40 needs `expected_next_3y_revenue_growth_pct` captured in the research files --
+# one extra field per name. Until then the honest weighting is the one v1 used.
 FWD_REV_CLIP = 25.0
 CONV_ANALYST_SELL = -6.0
 CONV_ANALYST_RESCUE = 6.0        # analyst Holds a name the quant would Sell
@@ -220,6 +231,56 @@ def gate(row, c, use_v3_flags=False):
     return c
 
 
+def march_to_march_growth(symbols):
+    """{sym: (fy_1y_growth_pct, fy_3y_cagr_pct)} from FULL-YEAR March columns only.
+    Principal, 2026-08-07: "always look march to march basis or analyst instead of trailing".
+
+    Why this is not cosmetic. The engine takes growth from a TTM window: 666 names land on ttm(Mar
+    2026), but 76 land on ttm(Jun 2026) -- a window spanning Apr-Jun 2026 plus the preceding three
+    quarters. The Growth pillar is a CROSS-SECTIONAL PERCENTILE, so those 76 are being ranked against
+    the other 666 over a DIFFERENT period. That is not a freshness trade-off, it is an invalid
+    comparison: COHANCE reads -13.0% on the engine's window against +89.4% March-to-March, FACT +30.4%
+    against -19.8%, JIOFIN +119.3% against +72.0%. Forty names differ by more than 5pp, twelve by more
+    than 20pp.
+
+    Cost, stated plainly: the June-TTM names give up one quarter of freshness. That is the right trade
+    when the number's whole job is to be comparable with 750 others.
+    """
+    out = {}
+    if not os.path.exists(PL_PATH):
+        return out
+    pl = pd.read_parquet(PL_PATH)
+    yre = re.compile(r"^Mar (\d{4})$")           # full years only; "Mar 2025  10m" is a stub period
+    yrs = sorted([c for c in pl.columns if yre.match(str(c).strip())],
+                 key=lambda c: int(yre.match(str(c).strip()).group(1)))
+    if not yrs:
+        return out
+    sales = pl[pl["metric"] == "Sales+"].drop_duplicates(subset=["symbol"]).set_index("symbol")
+    fin = pl[pl["metric"] == "Financing Profit"].drop_duplicates(subset=["symbol"]).set_index("symbol")
+    for sym in symbols:
+        src = sales if sym in sales.index else (fin if sym in fin.index else None)
+        if src is None:                          # lenders carry Financing Profit, not Sales+
+            continue
+        s = pd.to_numeric(src.loc[sym, yrs], errors="coerce").dropna()
+        if len(s) < 2:
+            continue
+        g1 = ((s.iloc[-1] / s.iloc[-2] - 1) * 100) if s.iloc[-2] > 0 else np.nan
+        g3 = (((s.iloc[-1] / s.iloc[-4]) ** (1 / 3) - 1) * 100) \
+            if len(s) >= 4 and s.iloc[-4] > 0 else np.nan
+        out[sym] = (g1, g3)
+    return out
+
+
+def pctile(series):
+    """Winsorised 2/98 percentile rank, matching the engine's `pctile_universe`."""
+    s = pd.to_numeric(series, errors="coerce")
+    valid = s.dropna()
+    if len(valid) == 0:
+        return s
+    lo, hi = np.nanpercentile(valid, [2, 98])
+    return s.clip(lo, hi).rank(pct=True) * 100
+
+
 def load_analyst():
     """{SYMBOL: (recommendation, expected_growth_pct, escalation_flag)} from the research files."""
     out = {}
@@ -247,9 +308,9 @@ def load_analyst():
 def growth_leg(exp_eps, rev_growth, roe):
     """Bonus/penalty points from EXPECTED growth, weighted 60 EPS : 40 revenue, then banded."""
     legs, wts = [], []
-    if exp_eps is not None and exp_eps == exp_eps:
+    if exp_eps is not None and exp_eps == exp_eps and FWD_EPS_W > 0:
         legs.append(exp_eps); wts.append(FWD_EPS_W)
-    if rev_growth is not None and rev_growth == rev_growth:
+    if rev_growth is not None and rev_growth == rev_growth and FWD_REV_W > 0:
         legs.append(min(rev_growth, FWD_REV_CLIP)); wts.append(FWD_REV_W)
     if not legs:
         return 0.0, np.nan
@@ -327,6 +388,24 @@ def main():
     d2.loc[art3, "growth_3y_score"] = np.nan
     d2.loc[art1, "growth_1y_score"] = np.nan
 
+    # ---- MARCH-TO-MARCH growth, replacing the TTM windows ------------------------------------------
+    m2m = march_to_march_growth(d["symbol"].astype(str).tolist())
+    fy1 = d["symbol"].astype(str).map(lambda s: m2m.get(s, (np.nan, np.nan))[0])
+    fy3 = d["symbol"].astype(str).map(lambda s: m2m.get(s, (np.nan, np.nan))[1])
+    # keep the engine's figure only where no full-year pair exists at all
+    d["rev_growth_1y_m2m"] = fy1.fillna(pd.to_numeric(d["revenue_growth_1y"], errors="coerce"))
+    d["rev_cagr_3y_m2m"] = fy3.fillna(pd.to_numeric(d["revenue_cagr_3y"], errors="coerce"))
+    d["growth_source_v3"] = np.where(fy1.notna(), "March-to-March", "engine TTM (no FY pair)")
+    # artefacts again, on the new figures
+    a3m = np.isinf(d["rev_cagr_3y_m2m"]) | (d["rev_cagr_3y_m2m"] > ARTEFACT)
+    a1m = np.isinf(d["rev_growth_1y_m2m"]) | (d["rev_growth_1y_m2m"] > ARTEFACT)
+    d.loc[a3m, "rev_cagr_3y_m2m"] = np.nan
+    d.loc[a1m, "rev_growth_1y_m2m"] = np.nan
+    d["growth_artifact_flag"] = np.where(a3m | a1m | art3 | art1, "Y", "")
+    # re-percentile the growth pillars on the comparable figures
+    d2["growth_3y_score"] = pctile(d["rev_cagr_3y_m2m"])
+    d2["growth_1y_score"] = pctile(d["rev_growth_1y_m2m"])
+
     # ---- history class -----------------------------------------------------------------------------
     ret12 = pd.to_numeric(d["ret_12m"], errors="coerce")
     ret24 = pd.to_numeric(d["ret_24m"], errors="coerce")
@@ -385,11 +464,33 @@ def main():
 
     c3 = d2.apply(lambda r: comp(r, BASE_W_3Y, TILT_CYC_3Y, TILT_NOT_3Y, NEUTRAL), axis=1)
     c1 = d2.apply(lambda r: comp(r, BASE_W_1Y, TILT_CYC_1Y, TILT_NOT_1Y, NEUTRAL), axis=1)
+    # PENALTY/BOOST recomputed, not inherited. The residual trick (final - gate(composite)) captured
+    # v1's red-flag battery, which was built on the TTM growth figures. Two of the four flags read
+    # revenue growth directly, so switching to March-to-March changes them -- carrying the old residual
+    # forward would pair new pillars with stale penalties.
+    de_v = pd.to_numeric(d2["debt_equity"], errors="coerce")
+    ic_v = pd.to_numeric(d2["interest_coverage"], errors="coerce")
+    g1_v = pd.to_numeric(d["rev_growth_1y_m2m"], errors="coerce")
+    g3_v = pd.to_numeric(d["rev_cagr_3y_m2m"], errors="coerce")
+    is_fin_v = d2.apply(lambda r: bs_flag_v3(r) == "N/A-financial-sector", axis=1)
+    rf = ((ic_v < 1.5).fillna(False).astype(int)
+          + ((~is_fin_v) & (de_v > 2.5)).fillna(False).astype(int)
+          + (g1_v < 0).fillna(False).astype(int)
+          + ((g3_v - g1_v) > 15).fillna(False).astype(int))
+    pen_v3 = -np.minimum(10, 2.0 ** rf - 1)
+    boo_v3 = np.where((rf == 0) & (pd.to_numeric(d2["quality_score"], errors="coerce") > 60)
+                      & (pd.to_numeric(d2["value_score"], errors="coerce") > 60), 3, 0)
+    d["redflag_count_v3"] = rf
+    d["penalty_v3"] = pen_v3
+    d["boost_v3"] = boo_v3
+
     # use_v3_flags=True here ONLY. The replication check above must reproduce v1 exactly, so it keeps
     # the stored bs_flag and the 40 liquidity cap; the scoring pass gets the widened D/E exemption and
     # the 50 liquidity cap.
-    f3 = (d2.apply(lambda r: gate(r, c3.loc[r.name], True), axis=1) + res3).clip(SCORE_FLOOR, SCORE_CEIL)
-    f1 = (d2.apply(lambda r: gate(r, c1.loc[r.name], True), axis=1) + res1).clip(SCORE_FLOOR, SCORE_CEIL)
+    f3 = (d2.apply(lambda r: gate(r, c3.loc[r.name], True), axis=1)
+          + pen_v3 + boo_v3).clip(SCORE_FLOOR, SCORE_CEIL)
+    f1 = (d2.apply(lambda r: gate(r, c1.loc[r.name], True), axis=1)
+          + pen_v3 + boo_v3).clip(SCORE_FLOOR, SCORE_CEIL)
     d["bs_flag_v3"] = d2.apply(bs_flag_v3, axis=1)
     d["final_score_3y_v3"] = f3.round(2)
     d["final_score_1y_v3"] = f1.round(2)
@@ -512,7 +613,8 @@ def main():
         f"- growth artefacts neutralised: **{int((art3 | art1).sum())}** "
         f"({', '.join(d.loc[art3 | art1, 'symbol'].head(8))})", "",
         "## Forward adjustment (implemented for the first time — it was missing)", "",
-        f"- growth leg, 60 expected EPS : 40 revenue, banded: mean "
+        f"- growth leg, banded on the analyst's expected EPS growth ALONE "
+        f"({FWD_EPS_W:.0%} EPS / {FWD_REV_W:.0%} revenue, matching v1): mean "
         f"**{np.nanmean(d['fwd_growth_points']):+.2f}** pts",
         f"- conviction leg: analyst Sell **{int((d['conviction_points'] == CONV_ANALYST_SELL).sum())}** "
         f"at {CONV_ANALYST_SELL:+.0f}, analyst rescue of a quant-Sell "
