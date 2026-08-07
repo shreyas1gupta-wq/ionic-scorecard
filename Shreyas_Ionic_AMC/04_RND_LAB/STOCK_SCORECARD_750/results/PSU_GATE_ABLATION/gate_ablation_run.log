@@ -1,0 +1,50 @@
+loading PIT panels and prices (shared across all 4 variants, ~6 min) ...
+  loaded in 410s  prices: 752 symbols, 2021-07-16 to 2026-07-16
+  formations: 35  (2022-08-31 .. 2025-06-30)
+
+================================================================================
+running V0_full_model  cfg={'red_cap': True, 'amber_mult': True, 'penalty': True, 'boost': True}
+  [V0_full_model] 2023-05-31 (10/35)  n=417  elapsed=81s
+  [V0_full_model] 2024-03-31 (20/35)  n=437  elapsed=141s
+  [V0_full_model] 2025-01-31 (30/35)  n=448  elapsed=202s
+  [V0_full_model] 2025-06-30 (35/35)  n=447  elapsed=231s
+
+[V0_full_model] D10-D1(trim5)=+7.60pp  IC=+0.0478  hit=85.7%  worst=-8.77pp  red%=6.61  amber%=7.33
+
+================================================================================
+running V1_no_penalty_boost  cfg={'red_cap': True, 'amber_mult': True, 'penalty': False, 'boost': False}
+  [V1_no_penalty_boost] 2023-05-31 (10/35)  n=417  elapsed=36s
+  [V1_no_penalty_boost] 2024-03-31 (20/35)  n=437  elapsed=86s
+  [V1_no_penalty_boost] 2025-01-31 (30/35)  n=448  elapsed=145s
+  [V1_no_penalty_boost] 2025-06-30 (35/35)  n=447  elapsed=170s
+
+[V1_no_penalty_boost] D10-D1(trim5)=+7.85pp  IC=+0.0449  hit=82.9%  worst=-3.29pp  red%=6.61  amber%=7.33
+
+================================================================================
+running V2_no_amber  cfg={'red_cap': True, 'amber_mult': False, 'penalty': True, 'boost': True}
+  [V2_no_amber] 2023-05-31 (10/35)  n=417  elapsed=55s
+  [V2_no_amber] 2024-03-31 (20/35)  n=437  elapsed=108s
+  [V2_no_amber] 2025-01-31 (30/35)  n=448  elapsed=156s
+  [V2_no_amber] 2025-06-30 (35/35)  n=447  elapsed=177s
+
+[V2_no_amber] D10-D1(trim5)=+10.16pp  IC=+0.0489  hit=97.1%  worst=-4.21pp  red%=6.61  amber%=7.33
+
+================================================================================
+running V3_no_red_cap  cfg={'red_cap': False, 'amber_mult': True, 'penalty': True, 'boost': True}
+  [V3_no_red_cap] 2023-05-31 (10/35)  n=417  elapsed=50s
+  [V3_no_red_cap] 2024-03-31 (20/35)  n=437  elapsed=107s
+  [V3_no_red_cap] 2025-01-31 (30/35)  n=448  elapsed=163s
+  [V3_no_red_cap] 2025-06-30 (35/35)  n=447  elapsed=190s
+
+[V3_no_red_cap] D10-D1(trim5)=+7.37pp  IC=+0.0452  hit=88.6%  worst=-5.30pp  red%=6.61  amber%=7.33
+
+
+================================================================================
+=== FINAL: all 4 variants, same 35 formations ===
+            variant  d1_trim5  d10_trim5  spread_trim5_pp  spearman_ic  hit_rate_pct  worst_formation_spread_pp  pct_red_flagged  pct_amber_flagged
+      V0_full_model     16.01      23.61             7.60       0.0478          85.7                      -8.77             6.61               7.33
+V1_no_penalty_boost     15.45      23.30             7.85       0.0449          82.9                      -3.29             6.61               7.33
+        V2_no_amber     14.20      24.36            10.16       0.0489          97.1                      -4.21             6.61               7.33
+      V3_no_red_cap     16.27      23.64             7.37       0.0452          88.6                      -5.30             6.61               7.33
+
+wrote C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\.claude\worktrees\sweet-austin-283067\Shreyas_Ionic_AMC\04_RND_LAB\STOCK_SCORECARD_750\results\PSU_GATE_ABLATION\ablation_summary.csv

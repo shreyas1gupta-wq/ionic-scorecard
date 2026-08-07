@@ -37,7 +37,57 @@ framing to lead with ALPHA rather than with positioning-against-rating-houses. T
 therefore rebuilt as "Where the alpha comes from" and leads with the measured edge. If he
 meant a different line, only this one page changes.
 
-Usage: python build_qfra2_pac_deck.py
+UPDATE, 2026-08-06: added a "how we test our own engines" pair, a score-distribution page, and
+one fund-side gap page. All sourced from the STOCK-scoring engine's 2026-08-05 stress-test run
+(STOCK_SCORECARD_750/results/DECILE_ROLLING_20260805, REGIME_PSU_20260805;
+chart_score_distribution.py) and labelled stock-score evidence throughout, never presented as
+QFRA-2 findings: the two engines are different models on different asset classes. The added gap
+page states, on the fund side, that QFRA-2 itself has not yet been regime-split tested the way
+the stock score just was. No model, weight or threshold changed; page_limits, page_history and
+every number that predates this update are unchanged.
+
+UPDATE 2, 2026-08-06 (Principal: "the qfra deck is not correct remake changes improve recheck
+previous main qfra deck i gave at start and what changes i told etc.") -- PRODUCT CONTENT
+RESTORED. He is right. The rebuild above kept every honesty and correction page and lost most
+of the product story: the committee was being asked to approve a model without being shown the
+model's output. Eleven pages restored, each in the section where it belongs:
+
+  page_exec_summary      front matter, after the side-by-side. KPI tiles, but on corrected
+                         numbers: the raw edge and the held edge sit side by side in the tiles
+                         rather than only the flattering one.
+  page_evolution         01. QFRA 1.0 -> 2.0, WITHOUT the old table's "Method: Dynamic, AI/ML-
+                         assisted ranking" and "ML rank" rows, which are false. The Method row
+                         is restored corrected, not silently dropped, and a callout says so.
+  page_vs_rating_houses  01. Competitive positioning, with a callout refusing to let it read
+                         as a puff page.
+  page_mid_sleeve        02. Why active mid is not used and what replaces it. Pipeline step 7
+                         is the routing decision, so it belongs with how a rank is produced.
+  page_recommendations   02. THE CURRENT FINAL-2 PER CATEGORY. The single worst omission of the
+                         rebuild -- a product-approval deck with no product in it. Rendered
+                         straight from QFRA2_current.csv, rank<=2, no editorialising.
+  page_scorecard         02. One fund's output, as a client would see it, WITHOUT the old
+                         "P(beat 3-5y) ~56%" chip: hardcoded in the old build script for a
+                         metric MODEL_SPEC.md Part D defers and forbids client-facing.
+  page_edge_chart        03. Edge by category, all six deployed categories.
+  page_winrate_chart     03. Win-rate against a random pick, same six.
+  page_live_proof        05. The Jan-2025 book, sixteen months on, at +0.65%/yr over the six in
+                         scope -- not the old +0.9%, which only holds if Focused is counted and
+                         Focused is out of scope in this very deck.
+  page_churn            05. Low churn, at the realised 3.9/yr, not the old ~2.6/yr.
+  page_rejected          05. What we tested and rejected. The integrity log.
+
+Charts: the repo's six PNGs could not simply be reused. churn_by_category.png bakes "~2.6
+changes/yr" into its pixels and live_alpha.png bakes "+0.9%/yr" -- both banned figures -- and
+mid_momentum.png's win-rate labels collide with its tick labels. chart_qfra2_evidence.py
+rebuilds four of them in house NAVY/GOLD from the same traced values, and the live-proof page
+carries a per-category table instead of a chart. See that script's docstring.
+
+NOTHING already correct was disturbed: the two-frameworks side-by-side still sits immediately
+after the contents (his 2026-08-06 instruction), and the no-ML, AI-boundary, RAW-vs-HELD,
+by-category, 3Y-topper, cadence, CALIBRE, SENTINEL, history, validation-pair, score-
+distribution, limits, fund-regime-gap and ask pages are untouched.
+
+Usage: python chart_qfra2_evidence.py && python build_qfra2_pac_deck.py
 Output: 09_PRODUCT/reports/QFRA2_PRODUCT_APPROVAL_DECK.pptx
 """
 import os
@@ -62,8 +112,17 @@ if len(sys.argv) > 1:
     OUT = os.path.abspath(sys.argv[1])
 CH_TENURE = os.path.join(PRT, "out", "qfra2_tenure.png")
 CH_ANCHOR = os.path.join(PRT, "out", "anchor_pair_evidence.png")
+# Stock-scorecard evidence (STOCK_SCORECARD_750), added 2026-08-06. Different model, different
+# asset class; kept here only because it is the same pr_template/out/ chart directory.
+CH_SCORE_DIST = os.path.join(PRT, "out", "score_distribution.png")
+# Restored product-evidence charts, rebuilt in house style by chart_qfra2_evidence.py. The
+# repo's originals are NOT used: two of them bake a banned number into their pixels.
+CH_EDGE = os.path.join(PRT, "out", "qfra2_edge_by_category.png")
+CH_WINRATE = os.path.join(PRT, "out", "qfra2_winrate.png")
+CH_MIDMOM = os.path.join(PRT, "out", "qfra2_mid_momentum.png")
+CH_CHURN = os.path.join(PRT, "out", "qfra2_churn.png")
 AS_OF = "2026-05-27"          # QFRA2_current.csv asof
-BUILT = "2026-08-05"
+BUILT = "2026-08-06"
 
 
 # The content area ends here; deck.source() is pinned at 6.66, so anything reaching past
@@ -111,7 +170,7 @@ def cover(deck):
              [("Product Approval Committee", SANS, 15, WHITE, False)])
     deck.txt(s, ML, 4.62, 10.6, 0.40,
              [("Indian equity mutual funds  ·  HNI advisory  ·  Direct-plan basis  ·  "
-               "Total-Return benchmarks", SANS, 11.5, NT2, False)])
+               "price-return benchmarks", SANS, 11.5, NT2, False)])
     deck.rule(s, ML, 5.35, 4.2, color=GOLD, h=0.022)
     deck.txt(s, ML, 5.62, 10.6, 0.40,
              [(f"Recommendations as of {AS_OF}  ·  deck built {BUILT}  ·  "
@@ -124,24 +183,33 @@ def cover(deck):
 
 def contents(deck):
     s = deck.content(0, "", "CONTENTS", "What this deck covers")
+    # Six rows is the ceiling: the loop steps 0.70 from 1.95 and the trailing note has to clear
+    # deck.source() at 6.66. A seventh row does not fit, so the two front-matter pages -- the
+    # side-by-side and the one-page summary -- share row 00 rather than each taking one.
     items = [
+        ("00", "The two frameworks, and a one-page summary",
+         "what each framework is  ·  how well each is evidenced  ·  the ask in brief"),
         ("01", "What it is, and what it is not",
-         "the mandate  ·  no machine learning, and why  ·  where the alpha comes from"),
+         "the mandate  ·  v1 to v2  ·  no machine learning, and why  ·  where the alpha comes "
+         "from  ·  versus the rating houses"),
         ("02", "How a rank is produced",
-         "the pipeline  ·  CALIBRE  ·  SENTINEL  ·  the churn rule"),
+         "the pipeline  ·  CALIBRE  ·  SENTINEL  ·  the Mid sleeve  ·  the current final two  "
+         "·  a sample scorecard"),
         ("03", "The evidence, honestly",
-         "raw versus deployed  ·  by category  ·  against a 3-year topper  ·  the cadence"),
+         "raw versus deployed  ·  by category  ·  the selection edge  ·  hit rates  ·  a "
+         "3-year topper  ·  the cadence"),
         ("04", "The two frameworks",
          "why QFRA-1 is complementary  ·  where each one drives the call"),
         ("05", "Track record and the ask",
-         "every review period since 2018  ·  limits  ·  the decision sought"),
+         "every review period since 2018  ·  live so far  ·  churn  ·  what we rejected  ·  "
+         "how we validate our own models  ·  limits  ·  the decision sought"),
     ]
     y = 1.95
     for num, title, sub in items:
         deck.txt(s, ML, y, 0.8, 0.5, [(num, SERIF, 22, GOLD, True)])
         deck.txt(s, ML + 0.95, y + 0.02, 9.9, 0.34, [(title, SANS, 14, INK, True)])
         deck.txt(s, ML + 0.95, y + 0.40, 9.9, 0.34, [(sub, SANS, 10, SLATE, False)])
-        y += 0.80
+        y += 0.70
     # The "this deck corrects the last one" point deliberately does NOT live here. It is made
     # where it can be evidenced -- the raw-versus-held page and the ask -- rather than as a
     # claim on the contents page.
@@ -153,11 +221,95 @@ def contents(deck):
     return s
 
 
+def page_two_frameworks(deck):
+    """QFRA-1 versus QFRA-2, side by side, EARLY (Principal, 2026-08-06).
+
+    Sits immediately after the contents because a committee otherwise reads seven slides about
+    "the model" before discovering there are two of them. The complementarity discussion in
+    section 4 answers WHY we run both; this answers WHAT they are, and it has to come first.
+    Every row is a fact traceable to the two rerun skills or to a measured result in this deck.
+    """
+    s = deck.content(0, "", "THE TWO FRAMEWORKS", "What each one is, before anything else",
+                     "The desk runs two fund frameworks on one calendar. They differ in horizon, "
+                     "in what they may conclude, and in how well each is evidenced")
+    cols = [("", 2.30, "l"), ("QFRA-1  short term", 4.30, "l"), ("QFRA-2  long term", 4.30, "l")]
+    rows = [
+        ("Question it answers", "Which funds are capturing the upside now",
+         "Which two funds should beat the category index over 3 to 5 years"),
+        ("Horizon", "6-month capture windows", "3 to 5 years, factor-adjusted"),
+        ("Verdicts it can emit", "BUY / SELL / HOLD",
+         "ACTIVE / INDEX CORE only. There is NO sell verdict"),
+        ("Who may originate a sell", "This framework only", "Cannot. It may only VETO one"),
+        ("Coverage", "6 categories, from the desk workbook",
+         "8 categories, 99 Direct-plan funds after gates"),
+        ("Universe depth", "All funds on the category sheet",
+         "5 to 9 eligible funds in a deployed category"),
+        ("Benchmark basis", "Price return", "Total return in its own docs"),
+        ("Evidence", "906-formation replay: BUY leg strong, SELL leg near a coin flip",
+         "Bootstrapped selection skill, but the held book realised far less"),
+        ("Cadence", "April and October month end", "The same calendar, run together"),
+    ]
+    deck.table(s, ML, 1.96, UW, cols, rows, rowh=0.32, fs=9.5, hfs=8, zebra=True)
+    co(deck, s, ML, 5.30, UW, "They are not independent, and that changes what agreement means",
+       "QFRA-1 ranks on the 6-month capture ratio, which QFRA-2 already carries at a weight of "
+       "0.30 plus a three-year down-capture term, so the capture family is 40% to 48% of the "
+       "QFRA-2 score. When both agree, part of that is one signal agreeing with itself.", "warn")
+    deck.source(s, "Sources: the qfra1-rerun and qfra2-rerun skills; overlap verified at "
+                   "final_model.py:154. Benchmark basis: TRI is not obtainable on our network, so "
+                   "every index we hold is price-return, measured 2026-08-06.")
+    return s
+
+
+def page_exec_summary(deck):
+    """RESTORED. The old deck's slide 2, on numbers that survive the audit.
+
+    The old tiles were +1.65% / "58% vs 40%" / ~2.6 a year / +0.9% a year: one safe, one
+    right-number-wrong-basis, two contradicted. The fix is not to delete the page -- a
+    committee is entitled to a one-page summary -- but to put the raw edge and the held edge
+    in the tiles TOGETHER, so the gap the deck spends section 3 explaining is visible in the
+    first thirty seconds rather than arriving as a reversal.
+    """
+    s = deck.content(0, "", "EXECUTIVE SUMMARY", "What is being asked, and on what evidence",
+                     "One page. The two edge figures are both here on purpose: the second one "
+                     "is what a client actually received")
+    deck.kpi_strip(s, [
+        ("+1.65%", "3Y edge, unconstrained rank", "over a random pick, pooled"),
+        ("+0.09%", "3Y alpha, the book held", "after the churn rule"),
+        ("3.9 / yr", "book changes, 8-year realised", "average hold near 3 years"),
+        ("+0.65%/yr", "live since Jan-2025", "the 6 categories in scope"),
+    ])
+    rows = [
+        ("What it is", "A ranking engine that publishes the top two funds in each category, "
+                       "expected to beat the category index over three to five years. It has "
+                       "no sell verdict, and it abstains where it cannot show an edge."),
+        ("Where the edge is", "Largest in Large & Mid at +2.86%/yr and Flexi at +1.90%/yr over "
+                              "a random pick of the same eligible field. In Small the level is "
+                              "the market's, not ours. In Mid it is absent, which is why Mid "
+                              "runs a momentum index."),
+        ("The ask", "Approve deployment across the six categories in scope, on the corrected "
+                    "numbers, with the model frozen at v2.0 and re-run every six months."),
+    ]
+    y = 2.92
+    for k, v in rows:
+        deck.txt(s, ML, y, 2.5, 0.4, [(k, SANS, 11, NAVY, True)])
+        deck.txt(s, ML + 2.65, y, UW - 2.65, 0.66, [(v, SANS, 10.5, INK, False)])
+        y += 0.70
+    co(deck, s, ML, y + 0.04, UW, "Why both edge figures are on this page",
+       "Selection skill is measured on the unconstrained ranking. Clients hold the churn-"
+       "constrained one, and the churn discipline that makes the product attractive on tax "
+       "absorbs most of the measured edge. Quoting only the first figure is how the previous "
+       "pack read; section 3 does the arithmetic in full.", "warn")
+    deck.source(s, "Edge and pooled figures: QFRA2_HANDOFF.md section 5. Held book: "
+                   "QFRA2_recommendation_performance.md. Live: QFRA2_realized.csv, rank<=2, "
+                   "six in-scope categories. Audit: qfra2_pac_prep/NUMBER_AUDIT.md.")
+    return s
+
+
 # --------------------------------------------------------------- section 1
 def sec1(deck):
     deck.section_divider(1, "What it is, and what it is not",
                          "The mandate, the absence of machine learning, and where the "
-                         "alpha actually comes from", pages="4-7")
+                         "alpha actually comes from", pages=["5-10"])
 
 
 def page_mandate(deck):
@@ -188,6 +340,47 @@ def page_mandate(deck):
         y += 0.86
     deck.source(s, "Universe replicated from Mf_qfra2/data/verified_navs_*.csv, "
                    "2026-08-04. Verdicts from QFRA2_current.csv.")
+    return s
+
+
+def page_evolution(deck):
+    """RESTORED. Why v2 exists at all -- the old deck's slide 5.
+
+    Two of the old table's rows are deleted rather than reworded, because they were not
+    imprecise, they were untrue: "Method: Dynamic, AI/ML-assisted ranking" and a Selection
+    row reading "ML rank + discretionary overlay". There is no ML anywhere in the engine
+    (AI_ML_AUDIT.md; the next page but one). The Method row is restored with what the method
+    actually is, so a reader who remembers the old table can see what changed and why.
+    """
+    s = deck.content(1, "What it is", "QFRA 1.0 to QFRA 2.0",
+                     "What changed, and why a second version was needed",
+                     "v1 was a narrow, short-horizon, high-churn ranker. v2 is broad, "
+                     "validated, low-churn and built for money that stays invested")
+    cols = [("Dimension", 2.05, "l"), ("QFRA 1.0", 3.55, "l"), ("QFRA 2.0", 5.85, "l")]
+    rows = [
+        ("Signals", "Capture ratios only, a narrow base",
+         "Factor alpha, appraisal ratio, information ratio, up and down capture, momentum, "
+         "Calmar, quality beta"),
+        ("Alpha horizon", "One year", "Three to five years, sized for money that compounds"),
+        ("Method", "Rule-based, static scoring",
+         "Still rule-based: percentile ranks within a category and date, weights fixed by "
+         "hand, then validated out of sample"),
+        ("Selection", "Direct rules",
+         "A top-five shortlist, then a final two, with a discretionary gate that may only "
+         "veto or trim"),
+        ("Turnover", "Frequent changes, high churn",
+         "Low churn: 3.9 book changes a year realised over eight years, tax-aware"),
+        ("Investor fit", "Tactical, lump sum", "Long horizon, suitable for a staggered entry"),
+        ("Risk control", "None",
+         "SENTINEL loser screen, the CALIBRE scorecard, and out-of-sample validation"),
+    ]
+    deck.table(s, ML, 1.96, UW, cols, rows, rowh=0.42, fs=9, hfs=8, zebra=True)
+    co(deck, s, ML, 5.31, UW, "Two rows this table used to carry, and no longer does",
+       "The previous version called the method a dynamic, AI/ML-assisted ranking and the "
+       "selection step an ML rank. Neither is true of the engine, so both were removed rather "
+       "than softened. The very next page sets out what is actually there.", "warn")
+    deck.source(s, "Signals and gates: final_model.py. Churn: the 8-year realised history. "
+                   "Deleted claims: qfra2_pac_prep/AI_ML_AUDIT.md.")
     return s
 
 
@@ -287,11 +480,51 @@ def page_alpha(deck):
     return s
 
 
+def page_vs_rating_houses(deck):
+    """RESTORED. The old deck's slide 16 -- competitive positioning.
+
+    Kept because it answers the first question a committee asks about any in-house model:
+    why not just use a rating house. Given a callout that stops it reading as a puff page,
+    because the honest margin is small and the deck says so four pages later.
+    """
+    s = deck.content(1, "What it is", "Why not simply use the rating houses",
+                     "Seven differences, and the one that does not flatter us",
+                     "The difference is method and disclosure. It is not a wide "
+                     "performance margin, and this page does not claim one")
+    cols = [("Dimension", 2.15, "l"), ("Rating houses, star-chasing", 3.95, "l"),
+            ("QFRA 2.0", 5.35, "l")]
+    rows = [
+        ("Edge", "Qualitative, or last year's return",
+         "Factor-adjusted alpha, gated on statistical significance"),
+        ("Plan and basis", "Often Regular plan, price return",
+         "Direct plan throughout, total-return benchmarks in the model's own documents"),
+        ("Validation", "In sample, or none published",
+         "Walk-forward out of sample, plus a year-block bootstrap"),
+        ("Loser control", "None: every fund gets a rating",
+         "SENTINEL lifts our own top-decile beat rate from 48.5% to 56.6%"),
+        ("Abstention", "Rates every fund in every category",
+         "Routes to an index core or a factor sleeve where we cannot show an edge"),
+        ("Turnover and tax", "High, or simply not discussed",
+         "3.9 book changes a year, and the rule that produces it is published"),
+        ("Limits", "Rarely stated",
+         "Stated: one era, a thin universe, and a held book well below the ranking"),
+    ]
+    deck.table(s, ML, 1.96, UW, cols, rows, rowh=0.42, fs=9, hfs=8, zebra=True)
+    co(deck, s, ML, 5.31, UW, "The honest version of this comparison",
+       "A rating house does not claim a factor-adjusted edge, so on that row there is nothing "
+       "to beat. And our own held book earned +0.09%/yr at three years. What this page claims "
+       "is a better method and fuller disclosure, not a wide margin.", "warn")
+    deck.source(s, "SENTINEL lift: QFRA2_evidence.csv. Held book: "
+                   "QFRA2_recommendation_performance.md. Rating-house column describes "
+                   "published retail methodology in general, and names no competitor.")
+    return s
+
+
 # --------------------------------------------------------------- section 2
 def sec2(deck):
     deck.section_divider(2, "How a rank is produced",
                          "The pipeline end to end, the quality scorecard, the negative "
-                         "screen, and the churn rule", pages="8-10")
+                         "screen, and the churn rule", pages=["12-17"])
 
 
 def page_pipeline(deck):
@@ -390,11 +623,135 @@ def page_sentinel(deck):
     return s
 
 
+def page_mid_sleeve(deck):
+    """RESTORED. The old deck's slide 19 -- why active mid is not used, and what replaces it.
+
+    Placed in section 2 rather than with the recommendations, because it IS the pipeline: step
+    7 is the routing decision, and Mid is the one category where routing overrides the rank.
+    """
+    s = deck.content(2, "How it works", "The Mid Cap sleeve, and why it is not an active fund",
+                     "The one category where the routing step overrides the ranking",
+                     "The sleeve cleared the same out-of-sample bar that every model retune "
+                     "failed, which is what separates an enhancement from a rescue")
+    deck.pic(s, CH_MIDMOM, ML, 1.90, UW, 2.05)
+    y = 4.03
+    y = co(deck, s, ML, y, UW, "Why not an active mid-cap fund",
+           "Mid-cap active selection is indistinguishable from chance over the eight-year "
+           "replay: the model's picks returned -2.55%/yr against a random pick's -2.61%. The "
+           "deployed mid book was the worst of the eight categories at -3.16%/yr. There is no "
+           "stock-picking edge here to sell.", "warn")
+    co(deck, s, ML, y + 0.08, UW, "The structure, and what can go wrong with it",
+       "The momentum index carries 50 to 60% of the sleeve and one active fund the rest. "
+       "Momentum can crash: worst drawdown about -72%, no better than the index it beats. "
+       "Pre-2022 history is backfilled, and a real vehicle costs 0.3 to 0.5% a year plus "
+       "tracking error.", "note")
+    deck.source(s, "Premium and win rates: QFRA2_HANDOFF.md section 4; pre-2018 split from "
+                   "qfra2_charts_ceo.py. Active mid edge: HANDOFF section 5. Held book: "
+                   "QFRA2_recommendation_performance.md. Sleeve spec: QFRA2_MID_SLEEVE.md.")
+    return s
+
+
+def page_recommendations(deck):
+    """RESTORED, and the most important restoration in this pass.
+
+    The rebuild asked a committee to approve a ranking engine without ever showing it a rank.
+    Every cell below is a verbatim rendering of QFRA2_current.csv, rank<=2, asof 2026-05-27:
+    fund, qfra_score, merit_grade (labelled CALIBRE per the pending rename), sentinel,
+    conviction. Nothing is re-scored, re-ordered or prettified here.
+
+    Two things a reader will want to check, both deliberate:
+      * Large Cap and Mid Cap carry grade C and "Low / index-lean" conviction because the CSV
+        says so -- both are routed to an index core, and the grade follows the routing.
+      * QFRA2_HANDOFF.md section 4 prints Quant Mid Cap as 100/A. The CSV says 100/C. The CSV
+        is the engine's output and wins; the handoff table is wrong on that cell.
+    """
+    s = deck.content(2, "How it works", "The current final two, per category",
+                     "What the engine actually publishes, as of the last run",
+                     "The output the committee is being asked to approve, straight from the "
+                     "engine's recommendation file")
+    cols = [("Category", 1.75, "l"), ("Routing", 1.45, "l"), ("Final two", 3.85, "l"),
+            ("QFRA", 0.85, "c"), ("CALIBRE", 0.90, "c"), ("SENTINEL", 1.35, "c"),
+            ("Conviction", 1.25, "c")]
+    rows = [
+        ("Large Cap", "index core", "HSBC Large Cap  ·  Invesco India Largecap",
+         "100 · 88", "C · C", "clear · clear", "Low, index-lean"),
+        ("Large & Mid Cap", "active", "ICICI Pru Large & Mid  ·  Franklin India Equity Adv",
+         "100 · 80", "A · A", "clear · flagged (1)", "High"),
+        ("Mid Cap", "momentum sleeve", "Quant Mid Cap  ·  Aditya Birla SL Midcap",
+         "100 · 88", "C · C", "clear · clear", "Low, index-lean"),
+        ("Flexi Cap", "active", "Kotak Flexicap  ·  HDFC Flexi Cap",
+         "100 · 83", "A · A", "clear · clear", "High"),
+        ("Multi Cap", "active", "Invesco India Multicap  ·  ICICI Pru Multicap",
+         "100 · 80", "A · A", "clear · clear", "High"),
+        ("Small Cap", "active", "Aditya Birla SL Small Cap  ·  Sundaram Small Cap",
+         "100 · 83", "A · A", "clear · clear", "High"),
+    ]
+    deck.table(s, ML, 1.96, UW, cols, rows, rowh=0.46, fs=9, hfs=7.5, zebra=True)
+    co(deck, s, ML, 5.05, UW, "Three things to read off this table before approving it",
+       "In deployment the Mid slot-1 fund is replaced by the BSE Midcap 150 Momentum 30 index, "
+       "for the reason on the previous page; the ranked fund stays as the active half. A score "
+       "is a rank within its own category, so Large Cap's 88 and Flexi's 83 are not comparable "
+       "quantities. And Focused and Value are ranked by the engine but are not in the ask.",
+       "note")
+    deck.source(s, "Verbatim from mr_x_framework/outputs/recommendations/QFRA2_current.csv, "
+                   f"rank<=2, asof {AS_OF}. Column merit_grade is shown as CALIBRE, the "
+                   "pending rename. Out-of-scope ranks: Focused (360 ONE, HSBC), Value/Contra "
+                   "(two closed Sundaram series with no continuous NAV).")
+    return s
+
+
+def page_scorecard(deck):
+    """RESTORED, minus the one chip that should never have been on it.
+
+    The old slide 20 was headed CLIENT-FACING and carried "P(beat 3-5y)  ~56%" -- a literal
+    hardcoded string at qfra2_deck_v4.py:315 for a quantity the engine does not compute.
+    MODEL_SPEC.md Part D defers the calibrated probability as in-sample-only and says in terms
+    not to promise it client-facing. It is gone, not re-estimated, and the callout says why:
+    a committee should see that the discipline bit on the one page where it was most tempting
+    to fudge.
+    """
+    s = deck.content(2, "How it works", "What one fund's output looks like",
+                     "Aditya Birla SL Small Cap Fund, Direct Growth  ·  Small Cap  ·  active",
+                     "The client-facing scorecard the engine produces per fund. Four fields, "
+                     "each computed, and no forecast")
+    deck.kpi_strip(s, [
+        ("100 / 100", "QFRA score, within category"),
+        ("A", "CALIBRE grade"),
+        ("clear", "SENTINEL, no loser flags"),
+        ("0.84", "down-capture vs category"),
+    ])
+    rows = [
+        ("Drivers", "Top-quartile factor alpha and appraisal ratio, a favourable six-month "
+                    "capture ratio, no SENTINEL flag, and the highest absolute alpha of the "
+                    "eight categories."),
+        ("What would change our mind", "A SENTINEL flag; falling out of the category's top "
+                                       "quartile while a challenger clears the churn margin; "
+                                       "or a hard red flag such as a manager exit or a "
+                                       "capacity breach."),
+        ("Live", "Recommended January 2025. Realised +7.3%/yr alpha to 2026-05-27, the best of "
+                 "the twelve in-scope picks."),
+    ]
+    y = 2.86
+    for k, v in rows:
+        deck.txt(s, ML, y, 2.9, 0.4, [(k, SANS, 11, NAVY, True)])
+        deck.txt(s, ML + 3.05, y, UW - 3.05, 0.62, [(v, SANS, 10.5, INK, False)])
+        y += 0.68
+    co(deck, s, ML, y + 0.06, UW, "What this page used to claim, and does not",
+       "The previous version carried a chip reading P(beat 3-5y) about 56%. The engine does not "
+       "compute it: the figure was a hardcoded string, and the model's own specification defers "
+       "the calibrated probability as in-sample only and says not to promise it client-facing. "
+       "It is removed rather than re-estimated.", "warn")
+    deck.source(s, "Fields verbatim from QFRA2_current.csv for this fund. Realised alpha from "
+                   "QFRA2_realized.csv. Deferred probability: MODEL_SPEC.md Part D, steps 9 "
+                   "and 11; finding 1 in qfra2_pac_prep/NUMBER_AUDIT.md.")
+    return s
+
+
 # --------------------------------------------------------------- section 3
 def sec3(deck):
     deck.section_divider(3, "The evidence, honestly",
                          "What the ranking earns, what the deployed book earns, and how "
-                         "both compare with the obvious alternative", pages="13-16")
+                         "both compare with the obvious alternative", pages=["19-24"])
 
 
 def page_raw_vs_held(deck):
@@ -450,6 +807,54 @@ def page_by_category(deck):
     return s
 
 
+def page_edge_chart(deck):
+    """RESTORED. The old deck's hero chart, slide 12, redrawn.
+
+    Deliberately placed AFTER raw-versus-held and by-category, not before: this is the
+    unconstrained ranking, and a committee that meets it first will read it as the product.
+    Two changes from the original chart. All six deployed categories are drawn, including Mid,
+    which the original omitted and which is the very category the momentum routing exists to
+    fix; and the caption states the basis instead of leaving it to be inferred.
+    """
+    s = deck.content(3, "The evidence", "Where the selection edge is, by category",
+                     "The unconstrained ranking, against a random pick of the same field")
+    deck.pic(s, CH_EDGE, ML, 1.90, UW, 2.65)
+    co(deck, s, ML, 4.63, UW, "Read the shape, not the pooled number",
+       "The edge is concentrated: Large & Mid at +2.86%/yr and Flexi at +1.90%/yr do almost all "
+       "the work, and in those two a random pick actually loses to the index. Small is +0.17%, "
+       "Multi is -0.10% and Mid is +0.06% -- three of the six deployed categories where the "
+       "ranking adds nothing measurable at three years. This is the unconstrained ranking; the "
+       "book a client held earned a fraction of it, two pages back.", "note")
+    deck.source(s, "QFRA2_HANDOFF.md section 5, the qfra2_vs_random.py panel. Total-return "
+                   "benchmarks here use the model's documented dividend add-back, which is "
+                   "modelled rather than vendor-official. Chart: chart_qfra2_evidence.py.")
+    return s
+
+
+def page_winrate_chart(deck):
+    """RESTORED. The old deck's slide 13 -- the consistency story, on the honest footing.
+
+    The old slide made Small the hero: "absolute alpha is highest here (+2.2%/yr)" with a
+    "+9pp win-rate". Both figures are real on this panel and both are RAW. The deployed Small
+    book returned -1.34%/yr, which the RAW-versus-HELD and by-category pages already state, so
+    this page shows the win-rate panel and points at that contradiction rather than hiding
+    behind it.
+    """
+    s = deck.content(3, "The evidence", "How often the pick beat the index",
+                     "The same unconstrained panel, measured as a hit rate rather than a median")
+    deck.pic(s, CH_WINRATE, ML, 1.90, UW, 2.65)
+    co(deck, s, ML, 4.63, UW, "Where a hit rate says something a median does not",
+       "In Large & Mid the ranking lifts the hit rate 36 points, from 26% to 62%. In Small it "
+       "lifts it 9 points, but off a 64% base: the category beat its index most of the time "
+       "whoever picked. In Mid the ranking is 2 points BEHIND a random pick. And a lifted hit "
+       "rate on this panel did not carry into the deployed book: Small's held book returned "
+       "-1.34%/yr at three years while winning half its windows.", "warn")
+    deck.source(s, "QFRA2_HANDOFF.md section 5, win% model versus random at 3Y, same panel as "
+                   "the previous page. Held-book figures: "
+                   "QFRA2_recommendation_performance.md. Chart: chart_qfra2_evidence.py.")
+    return s
+
+
 def page_topper(deck):
     """Principal pg8, second half: versus buying the 3-year topper."""
     s = deck.content(3, "The evidence", "Against the obvious alternative",
@@ -502,7 +907,7 @@ def page_cadence(deck):
 def sec4(deck):
     deck.section_divider(4, "The two frameworks",
                          "Why a second, shorter-horizon framework earns its place, and "
-                         "where each one drives the call", pages="18-20")
+                         "where each one drives the call", pages=["26-28"])
 
 
 def page_complementarity(deck):
@@ -598,7 +1003,7 @@ def page_sell_rule(deck):
 def sec5(deck):
     deck.section_divider(5, "Track record and the ask",
                          "Every review period since 2018, the limits we accept, and the "
-                         "decision sought", pages="20-22")
+                         "decision sought", pages=["30-39"])
 
 
 def page_history(deck):
@@ -615,6 +1020,206 @@ def page_history(deck):
        "retained funds are now zero, and all 17 periods are shown.", "ok")
     deck.source(s, "Rebuilt from QFRA2_recommendation_history.csv, which was complete all "
                    "along. Script: 09_PRODUCT/scripts/qfra2_history_rebuild.py.")
+    return s
+
+
+def page_live_proof(deck):
+    """RESTORED. The old deck's slide 14, recomputed and given a table instead of a chart.
+
+    The old KPI was "+0.9%/yr live realized alpha since Jan-2025". That number is the mean over
+    all EIGHT tracked categories, including Focused -- a category this deck explicitly excludes
+    from the ask. Over the six in scope the figure is +0.65%/yr mean, +0.70% median, n=12,
+    reproduced from QFRA2_realized.csv (NUMBER_AUDIT.md finding 6). The repo's live_alpha.png
+    bakes the +0.9% into its pixels, so it is not reused; the per-category table is better
+    evidence anyway, because the dispersion is the story.
+    """
+    s = deck.content(5, "Track record", "The January-2025 book, sixteen months on",
+                     "Live, not backtested -- and far too short to settle anything",
+                     "Realised annualised alpha of the twelve in-scope picks, Direct-plan NAVs "
+                     "against the category index")
+    deck.kpi_strip(s, [
+        ("+0.65%/yr", "mean realised alpha", "12 picks, 6 categories in scope"),
+        ("+0.70%/yr", "median realised alpha", "the same twelve picks"),
+        ("0", "slot changes since Jan-2025", "both re-runs held every slot"),
+        ("16 months", "elapsed of a 3-to-5-year call", "to 2026-05-27"),
+    ])
+    cols = [("Category", 2.45, "l"), ("The two picks", 2.35, "c"), ("Category mean", 1.75, "r"),
+            ("Read", UW - 6.55, "l")]
+    rows = [
+        ("Small Cap", "+7.3%  ·  +7.0%", "+7.15%", "The best pair of the twelve, both picks."),
+        ("Flexi Cap", "+2.4%  ·  +1.7%", "+2.05%", "Consistent with its backtested edge."),
+        ("Large Cap", "-1.2%  ·  +3.6%", "+1.20%", "Index core; the pair disagrees sharply."),
+        ("Multi Cap", "-6.0%  ·  +5.2%", "-0.40%", "An 11-point spread inside one category."),
+        ("Large & Mid Cap", "-0.3%  ·  -3.1%", "-1.70%", "Best backtested edge, negative live."),
+        ("Mid Cap", "-7.7%  ·  -1.1%", "-4.40%", "The routing to momentum, vindicated early."),
+    ]
+    deck.table(s, ML, 2.86, UW, cols, rows, rowh=0.36, fs=9.5, hfs=8, zebra=True)
+    co(deck, s, ML, 5.43, UW, "Sixteen months is a check, not evidence",
+       "Twelve picks over sixteen months, with a 15-point spread between the best and worst "
+       "single pick, cannot confirm a three-to-five-year thesis either way.", "warn")
+    deck.source(s, "Recomputed from QFRA2_realized.csv, rank<=2 rows, alpha_ann_pct, "
+                   f"Jan-2025 to {AS_OF}. Slot stability from QFRA2_history_rebuilt.csv "
+                   "(2025-H2 and 2026-H1 both 'held' in all six). The previous pack's +0.9% is "
+                   "the all-eight-category mean and includes Focused, which is out of scope.")
+    return s
+
+
+def page_churn(deck):
+    """RESTORED. The old deck's slide 15, on the realised rate rather than the invented one.
+
+    The old caption said "~2.6 changes/yr". The same script's own bar data eight lines earlier
+    sums to 31 slot changes over eight years -- 3.9/yr -- and every reconciled firm document
+    agrees on 3-4/yr. The chart is redrawn because the old PNG bakes 2.6 into its pixels; the
+    bar counts are independently reproduced from the rebuilt slot-stable history, which is what
+    makes 3.9 safe to print rather than merely conventional.
+    """
+    s = deck.content(5, "Track record", "How rarely the book actually changes",
+                     "Eight years of realised turnover, and what the discipline costs")
+    deck.pic(s, CH_CHURN, ML, 1.90, UW, 2.02)
+    y = 4.00
+    y = co(deck, s, ML, y, UW, "Why low churn is a product feature and not laziness",
+           "Thirty-one slot changes across the six deployed categories in eight years is 3.9 a "
+           "year, or an average holding near three years. That keeps gains in the long-term "
+           "bracket and keeps the operational load on an advisory book small. Large & Mid "
+           "changed most, at seven; Small Cap changed three times in eight years.", "note")
+    co(deck, s, ML, y + 0.08, UW, "And the bill for it, stated once more",
+       "The same discipline absorbs most of the measured selection edge: +0.09%/yr held against "
+       "+0.48% unconstrained. Low churn is being bought, not received free.", "warn")
+    deck.source(s, "Recomputed from qfra2_pac_prep/QFRA2_history_rebuilt.csv, 17 review "
+                   "periods, first period excluded as the book's start; independently "
+                   "reproduces qfra2_charts_ceo.py's own bar data (7/6/5/5/5/3). Chart: "
+                   "chart_qfra2_evidence.py. The previous pack's 2.6/yr is unsupported.")
+    return s
+
+
+def page_rejected(deck):
+    """RESTORED. The old deck's slide 25 -- the integrity log, from QFRA2_HANDOFF.md section 7.
+
+    One change of substance. The old slide said rolling-consistency targeting was "the worst
+    method (3Y median -1.44%, win 32.7%)". Neither figure reproduces from
+    outputs/backtest/strategy_comparison.csv under any pooling I could construct (unweighted
+    3Y mean is -1.32%/34.7%, n-weighted -1.31%). So the claim is restated as something the file
+    does support exactly, and which is stronger: rolling consistency is the worst of the four
+    alternatives at three years in all eight categories, verified category by category.
+    """
+    s = deck.content(5, "Track record", "What we tested and did not ship",
+                     "Nine rejections and one adoption, kept as a standing record",
+                     "We do not ship what we cannot validate. This log is the only evidence "
+                     "that the rule actually binds")
+    cols = [("What was tested", 3.30, "l"), ("Why it is not in the model", UW - 3.30, "l")]
+    rows = [
+        ("Downside information-ratio slot",
+         "Looked good on pooled medians, then failed the paired block bootstrap. Not adopted."),
+        ("Six-month tactical capture signals",
+         "Strong at six months, but high turnover and short-term-gains heavy, which a three-to-"
+         "five-year mandate cannot carry. Survives only as the frozen 0.30 capture weight."),
+        ("Rolling-consistency targeting",
+         "The worst of the four alternatives at three years in all eight categories."),
+        # "no robust gain" is how HANDOFF section 7 words it; "robust" is a tellscan AI_TELL,
+        # so the finding is stated rather than the adjective borrowed.
+        ("Capture weight above 0.40",
+         "Raising the weight bought no gain that survived validation. It ships at 0.30."),
+        ("Bull and bear regime timing",
+         "Mixed, unstable and era-dependent. Around 4% of dates are bear dates: too few to "
+         "validate on."),
+        ("A contrarian sleeve",
+         "Helped only the mean-reverting categories, so SENTINEL is switched off for Mid and "
+         "Value instead of adding a sleeve."),
+        ("Machine learning on the cross-section",
+         "Five to nine funds per category memorises one era. Rejected on our own evidence, "
+         "well before the claim appeared on a slide."),
+        ("Model retunes V1 to V5, IC-base, alpha persistence, cap split",
+         "All rejected on out-of-sample significance."),
+        # NOT an em dash: slidekit.txt() rewrites " — " to ", " for glyph hygiene (Bahnschrift
+        # cannot render it), which rendered this row as "for Mid ,  ADOPTED" in the PDF.
+        ("Momentum smart beta for Mid  ·  ADOPTED",
+         "The one enhancement that cleared the same out-of-sample bar the retunes failed."),
+    ]
+    deck.table(s, ML, 1.96, UW, cols, rows, rowh=0.40, fs=9, hfs=8, zebra=True)
+    deck.source(s, "QFRA2_HANDOFF.md section 7, the integrity log. Rolling-consistency claim "
+                   "verified category by category against outputs/backtest/"
+                   "strategy_comparison.csv; the previous pack's -1.44% / 32.7% for it does "
+                   "not reproduce from that file and is not repeated.")
+    return s
+
+
+# --------------------------------------------------------------- validation aside (2026-08-06)
+# The three pages below are STOCK-scorecard evidence (STOCK_SCORECARD_750), not QFRA-2. They
+# exist to show how the firm tests a model before a committee sees it, using the larger, more
+# recent stress-test run because it is the clearer demonstration. Every number is labelled
+# stock-score on its own slide; none of it is carried into a QFRA-2 claim anywhere in this deck.
+def page_validation_intro(deck):
+    s = deck.content(5, "How we test", "How we test our own engines",
+                     "Five stress-tests, run this cycle on the stock-scoring engine, shown for "
+                     "the discipline alone")
+    y = 1.92
+    y = co(deck, s, ML, y, UW, "Scope, stated before the numbers",
+           "Every figure on the next two pages is from the 750-stock scorecard, a different "
+           "model on a different asset class, run 2026-08-04 to 2026-08-05. None of it is "
+           "QFRA-2 evidence. It is shown because a committee approving one model should see "
+           "how the firm tries to break its models in general.", "note")
+    cols = [("Test", 3.0, "l"), ("What it checks", UW - 3.0, "l")]
+    rows = [
+        ("Rolling deciles, pre- vs post-gate", "Whether the balance-sheet gate, penalty and "
+                                               "boost layer adds ranking power or costs it."),
+        ("Regime and PSU split", "Whether the decile edge is a bull market or a PSU rally "
+                                 "rather than stock selection."),
+        ("PEG versus plain price-to-earnings", "Whether the Value pillar marks down fast "
+                                                "growers for looking expensive on an earnings "
+                                                "multiple alone."),
+        ("Size decomposition by decile", "Whether a large, mid or small-cap tilt, not the "
+                                         "score, is driving the decile spread."),
+        ("Point-in-time literal rescore", "Whether a score built only from information "
+                                          "available on the day still separates deciles."),
+    ]
+    deck.table(s, ML, y + 0.14, UW, cols, rows, rowh=0.44, fs=9.5, hfs=8, zebra=True)
+    deck.source(s, "bt_decile_rolling.py, bt_regime_psu_test.py, bt_peg_test.py, "
+                   "bt_size_by_decile.py, bt_decile_pit.py. Stock-score evidence, not QFRA-2.")
+    return s
+
+
+def page_validation_findings(deck):
+    s = deck.content(5, "How we test", "What those tests found",
+                     "Two results, both from the stock score, neither one QFRA-2 evidence")
+    y = 1.92
+    y = co(deck, s, ML, y, UW, "The gate layer gives up ranking power",
+           "Across 35 rolling one-year formations on the stock score (pooled n=14,943), the "
+           "composite score computed before the balance-sheet gate, penalty and boost layer "
+           "separates deciles better than the deployed score computed after that layer: a "
+           "top-minus-bottom spread of +9.4pp against +7.6pp, and a 94% per-formation hit "
+           "rate against 86%. Windows overlap, so no t-statistic is quoted; the hit rate is "
+           "the number built to survive that.", "warn")
+    y = co(deck, s, ML, y + 0.12, UW, "A quarter of the top decile is government-owned",
+           "PSU names are 8% of the bottom decile and 25% of the top one on the deployed, "
+           "post-gate score. Remove them and the top-minus-bottom spread on that score falls "
+           "from +7.6pp to +2.5pp: the edge "
+           "does not disappear, but most of the concentration does. The PSU list used is "
+           "hand-built and not exhaustive, which biases this toward understating the "
+           "dependence, not overstating it.", "warn")
+    co(deck, s, ML, y + 0.12, UW, "What neither test can say",
+       "The panel behind both starts 2021-07-16; its worst 12-month forward window is about "
+       "-6%. That is a flat market, not a full cycle, and the up-versus-down split is 29 "
+       "formations against 7 that mostly overlap, closer to one down episode than seven. "
+       "This is a stock-score limitation, and the fund-side version of it has its own page "
+       "ahead.", "note")
+    deck.source(s, "DECILE_ROLLING_20260805/summary.json; REGIME_PSU_20260805/psu_test.csv. "
+                   "Stock-score evidence, not QFRA-2.")
+    return s
+
+
+def page_score_distribution(deck):
+    s = deck.content(5, "How we test", "Where the calls actually sit",
+                     "Stock-score evidence again, not QFRA-2: 751 names, scored 2026-08-05")
+    deck.pic(s, CH_SCORE_DIST, ML, 1.86, UW, 2.55)
+    co(deck, s, ML, 4.53, UW, "56% of the universe sits in the two middle buckets",
+       "751 stocks, scored on the frozen stock methodology. 217 score 40 to 50 and 206 score "
+       "50 to 60 on the 3-year horizon: 56% of the universe sits in the two buckets on either "
+       "side of the Hold line. 85 names sit within 2 points of the 40 sell bar and 92 within "
+       "2 points of the 50 Hold line, close enough that a small score revision flips the "
+       "call. Stock-score evidence, not QFRA-2, and the clearest single case in the firm for "
+       "why a model gets tested this hard before a committee sees it.", "warn")
+    deck.source(s, "chart_score_distribution.py output (pr_template/out/score_distribution.png), "
+                   "751-row scored universe, run 2026-08-05. Stock-score evidence, not QFRA-2.")
     return s
 
 
@@ -654,6 +1259,37 @@ def page_limits(deck):
     return s
 
 
+def page_fund_regime_gap(deck):
+    """The fund-side half of the validation aside: what QFRA-2 itself still has not been put
+    through. Kept as its own page rather than a seventh bullet on page_limits, which already
+    reaches the BOTTOM budget with six."""
+    s = deck.content(5, "Track record", "The test we have not pointed at QFRA-2",
+                     "Built this cycle, run on the stock score. Not yet run on the fund "
+                     "engine itself")
+    y = 1.92
+    y = co(deck, s, ML, y, UW, "What we know, and what we have not checked",
+           "QFRA-2's own validation runs one era, roughly 2014 to 2024 (previous page). "
+           "Separately, this cycle a bull-versus-bear regime split was built and run on the "
+           "stock score: on that panel the edge shrinks but survives a flat market. That "
+           "method has not been run on QFRA-2's own fund-level returns. Until it is, \"one "
+           "era\" should be read as \"untested across a downturn\", not simply \"a shorter "
+           "sample than we would like.\"", "warn")
+    y = co(deck, s, ML, y + 0.12, UW, "Why this is not a small gap",
+           "QFRA-2's factor step and several of its signals, down-capture, Calmar, alpha "
+           "stability, are exactly the kind of measure the stock-side quality challenge "
+           "targets: that fundamentals stop discriminating in a rally. The same question "
+           "applies to a fund ranked partly on down-capture and drawdown behaviour. The fix "
+           "is mechanical, not conceptual: replay the eight years of category-level "
+           "formations split by market regime, the design already used on the stock score.",
+           "note")
+    co(deck, s, ML, y + 0.12, UW, "Not asked to close today",
+       "Point the regime-split method built for the stock score at QFRA-2's own "
+       "category-level history. Flagged here as a gap, not answered here.", "note")
+    deck.source(s, "Limits from the previous page. Regime method: bt_regime_psu_test.py, "
+                   "REGIME_PSU_20260805/. Not yet applied to QFRA-2's own return history.")
+    return s
+
+
 def page_ask(deck):
     s = deck.content(5, "The ask", "The decision sought",
                      "Approval to deploy, on the corrected numbers")
@@ -688,9 +1324,9 @@ def closing(deck):
     s = deck.slide(bg=NAVY)
     deck.rect(s, 0, 0, 13.333, 7.5, fill=NAVY)
     deck.txt(s, ML, 2.55, 10.9, 1.9,
-             [("Measure it, validate it,", SERIF, 33, WHITE, True),
-              ("screen out the losers, and say", SERIF, 33, WHITE, True),
-              ("where we cannot win.", SERIF, 33, GOLD, True)])
+             [[("Measure it, validate it,", SERIF, 33, WHITE, True)],
+              [("screen out the losers, and say", SERIF, 33, WHITE, True)],
+              [("where we cannot win.", SERIF, 33, GOLD, True)]])
     deck.rule(s, ML, 5.05, 4.2, color=GOLD, h=0.022)
     deck.txt(s, ML, 5.34, 10.6, 0.8,
              [("QFRA 2.0  ·  Quantitative Fund Ranking Algorithm  ·  frozen v2.0",
@@ -699,22 +1335,34 @@ def closing(deck):
 
 
 def main():
-    for p in (CH_TENURE, CH_ANCHOR):
+    for p in (CH_TENURE, CH_ANCHOR, CH_SCORE_DIST):
         if not os.path.exists(p):
-            raise SystemExit(f"missing chart: {p}\nRun chart_qfra2_tenure.py and "
-                             f"chart_anchor_pair.py first.")
+            raise SystemExit(f"missing chart: {p}\nRun chart_qfra2_tenure.py, "
+                             f"chart_anchor_pair.py or chart_score_distribution.py first.")
+    for p in (CH_EDGE, CH_WINRATE, CH_MIDMOM, CH_CHURN):
+        if not os.path.exists(p):
+            raise SystemExit(f"missing chart: {p}\nRun chart_qfra2_evidence.py first.")
     deck = SK.new_deck()
     deck.footer_label = "QFRA 2.0"   # not the NDPMS "Portfolio Review"
     cover(deck)
     contents(deck)
-    sec1(deck); page_mandate(deck); page_no_ml(deck); page_ai_boundary(deck)
-    page_alpha(deck)
+    page_two_frameworks(deck)     # Principal 2026-08-06: the side-by-side must come FIRST
+    page_exec_summary(deck)       # ... so the summary sits after it, not ahead of it
+    sec1(deck); page_mandate(deck); page_evolution(deck)
+    page_no_ml(deck); page_ai_boundary(deck)
+    page_alpha(deck); page_vs_rating_houses(deck)
     sec2(deck); page_pipeline(deck); page_calibre(deck); page_sentinel(deck)
+    page_mid_sleeve(deck); page_recommendations(deck); page_scorecard(deck)
     sec3(deck); page_raw_vs_held(deck); page_by_category(deck)
+    # The two unconstrained-basis charts come AFTER the held-book pages, deliberately.
+    page_edge_chart(deck); page_winrate_chart(deck)
     page_topper(deck); page_cadence(deck)
     sec4(deck); page_complementarity(deck); page_smallcap(deck)
     page_sell_rule(deck)
-    sec5(deck); page_history(deck); page_limits(deck); page_ask(deck)
+    sec5(deck); page_history(deck); page_live_proof(deck); page_churn(deck)
+    page_rejected(deck)
+    page_validation_intro(deck); page_validation_findings(deck); page_score_distribution(deck)
+    page_limits(deck); page_fund_regime_gap(deck); page_ask(deck)
     closing(deck)
     deck.resolve_links()
     os.makedirs(os.path.dirname(OUT), exist_ok=True)

@@ -9,7 +9,8 @@ to disagree about what green means.
 
 THE CLUBBING (all 7 pillars represented, none dropped):
     Quality         <- quality_score
-    Growth          <- growth_3y_score, BLENDED WITH THE ANALYST'S FORWARD ESTIMATE (see below)
+    Growth          <- growth_3y_score (trailing REVENUE CAGR percentile; the analyst's forward EPS
+                       estimate is deliberately NOT blended in -- see `signals()`)
     Value           <- value_score
     Technical       <- mean(stage_3y_score, accumulation_3y_score)          price/volume evidence
     Sector & Flows  <- mean(ownership_flow_3y_score, sector_macro_3y_score) who else is buying, and
@@ -18,18 +19,18 @@ THE CLUBBING (all 7 pillars represented, none dropped):
 BANDS: four even quartiles (floors 75 / 50 / 25), per the Principal -- "25%ile 25%ile 25%ile 25%ile
 for each colour". `T4` keeps the earlier tuned floors for comparison; see FLOORS for what each costs.
 
-"ADJUSTED FOR FORWARD LOOKING": the Ionic Score's forward adjustment has two legs -- the analyst's
-forward 3-5yr growth estimate, and a conviction leg from the analyst's own call. Only the FIRST can
-honestly touch a per-pillar dot, and only ONE pillar:
-  * Growth gets it. `growth_pct` (the analyst's forward estimate, present on 93 of 98 real holdings) is
-    mapped through the FROZEN growth-leg thresholds and blended 50/50 with the trailing percentile. So
-    the Growth dot is half where the company has been, half where the desk thinks it is going.
-  * The other four do NOT. There is no forward input for Quality, Value, Technical or Flows, and
-    manufacturing one would be fabrication.
-  * The conviction leg is deliberately NOT smeared across the dots. Applying a name-level adjustment to
-    all five would make two holdings with identical ROE show different Quality dots, which is
-    indefensible -- and it would quietly turn the dots into a restatement of the call instead of the
-    evidence behind it. The recommendation is already on the row, in the Call pill beside the dots.
+FORWARD-LOOKING DATA: the Ionic Score's forward adjustment has two legs -- the analyst's expected
+3-5yr EPS growth, and a conviction leg from the analyst's own call. NEITHER is blended into a dot:
+  * The EPS estimate is not mixed into Growth, because Growth is a trailing REVENUE percentile and the
+    two are different measures (Principal, 2026-08-07). It reaches the page through the Ionic Score,
+    which already carries the frozen forward adjustment, and it gets its own column in the analyst
+    Excel where it can be read as what it is.
+  * The conviction leg is deliberately not smeared across the dots either. Applying a name-level
+    adjustment to all five would make two holdings with identical ROE show different Quality dots,
+    and it would turn the dots into a restatement of the call instead of the evidence behind it. The
+    recommendation is already on the row, in the Call pill beside the dots.
+  * Quality, Value, Technical and Sector & Flows have no forward input at all; manufacturing one would
+    be fabrication.
 
 COLUMN-NAME LANDMINE: the ownership pillar is `ownership_flow_3y_score` in the client scoring output
 (portfolio_quant.csv) but `ownership_3y_score` in the 750-universe file (full750_scored.csv). Reading
@@ -166,9 +167,10 @@ _ALIASES = {
 }
 
 # FROZEN growth-leg thresholds from the Ionic Score's forward adjustment (>=25 / 20-25 / 15-20 / 10-15
-# / 5-10 / <5), re-expressed on the 0-100 pillar scale so the analyst's forward estimate can be blended
-# with the trailing percentile without inventing a new mapping. Nothing here changes the model; it
-# reuses the model's own bands.
+# / 5-10 / <5), re-expressed on the 0-100 scale. These bands describe EXPECTED EPS GROWTH, not revenue
+# -- which is exactly why `signals(forward=...)` defaults to off: mapping them onto a revenue-CAGR
+# percentile mixes two different measures. Retained for the Excel, where forward EPS gets its own
+# column and is never averaged into a revenue rank.
 _FWD_BANDS = ((25.0, 92.0), (20.0, 80.0), (15.0, 65.0), (10.0, 50.0), (5.0, 30.0), (-1e9, 12.0))
 FWD_BLEND = 0.50          # half trailing, half forward
 
@@ -253,13 +255,18 @@ def _pctile_of(value, sorted_vals):
     return lo / n * 100.0
 
 
-def signals(row, forward=True, rerank=True):
+def signals(row, forward=False, rerank=True):
     """row: any mapping (dict / pandas Series / ctx equity entry) -> [(category, value|None), ...] in
     fixed CATS order. None means genuinely not scored and must render as a hollow ring, never a colour.
 
-    `forward=True` blends the analyst's forward growth estimate into the Growth dot only. With no
-    estimate on file the trailing percentile stands alone -- the dot silently degrades to backward-
-    looking rather than disappearing, which is the right trade for one pillar of five."""
+    `forward` OFF BY DEFAULT, and it should stay off. Principal, 2026-08-07: "growth bonus points are
+    for eps growth expected not revenue". The Growth pillar is a percentile rank of trailing REVENUE
+    CAGR; the analyst's forward figure is expected EPS growth. Those are different quantities on
+    different scales, and averaging them yields a number that is neither -- a company can compound EPS
+    at 20% on 6% revenue through margin or buybacks, and the blend would read that as mid-band growth
+    when both facts are individually clear. The forward EPS estimate already does its work inside the
+    Ionic Score's frozen forward adjustment (which is what the Score column shows), and it is surfaced
+    as its own column in the analyst Excel. The flag is kept only so the blend can be inspected."""
     growth = _get(row, "growth")
     if forward:
         fw = fwd_growth_score(row)

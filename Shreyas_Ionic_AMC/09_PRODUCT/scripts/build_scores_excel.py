@@ -42,7 +42,7 @@ def _nifty_root(p):
 
 ROOT = _nifty_root(HERE)
 RES = os.path.join(ROOT, "Shreyas_Ionic_AMC", "04_RND_LAB", "STOCK_SCORECARD_750", "results")
-SRC_V2 = os.path.join(RES, "full750_scored_v2.csv")
+SRC_V3 = os.path.join(RES, "full750_scored_v3.csv")
 SRC_V1 = os.path.join(RES, "full750_scored.csv")
 OUT = os.path.join(ROOT, "Shreyas_Ionic_AMC", "09_PRODUCT", "reports",
                    "NIFTY750_SCORECARD_20260807.xlsx")
@@ -71,48 +71,61 @@ def load_forward():
     return fwd
 
 
-src = SRC_V2 if os.path.exists(SRC_V2) else SRC_V1
+src = SRC_V3 if os.path.exists(SRC_V3) else SRC_V1
 df = pd.read_csv(src)
 df["roe"] = df["roe"] * 100
 df["roce"] = df["roce"] * 100
 FWD = load_forward()
-df["fwd_growth_pct"] = df["symbol"].astype(str).str.upper().map(FWD)
-has_v2 = "final_score_3y_v2" in df.columns
+df["fwd_eps_growth_pct"] = df["symbol"].astype(str).str.upper().map(FWD)
+has_v3 = "final_score_3y_v3" in df.columns
 
-# five signals per row, via the deck's own lib (forward-blended Growth where an estimate exists)
-_sig_rows = []
-for _, r in df.iterrows():
+# Five signals per row, via the deck's own lib. The forward EPS estimate is NOT blended into Growth --
+# Growth is a trailing revenue-CAGR percentile and the estimate is expected EPS growth (Principal,
+# 2026-08-07). It appears as its own column instead, where it reads as what it is.
+# Signals read the *_v3 (imputed) pillars where v3 produced them, so a dot never says "not scored" on a
+# name whose score used a substituted value.
+_PILL_V3 = [c[:-3] for c in df.columns if c.endswith("_v3") and c[:-3].endswith("_score")]
+
+
+def _sig_row(r):
     rec = dict(r)
-    if pd.notna(r.get("fwd_growth_pct")):
-        rec["growth_pct"] = float(r["fwd_growth_pct"])
-    _sig_rows.append({c: v for c, v in F.signals(rec)})
+    for p in _PILL_V3:
+        v = r.get(f"{p}_v3")
+        if pd.notna(v):
+            rec[p] = v
+    return {c: v for c, v in F.signals(rec)}
+
+
+_sig_rows = [_sig_row(r) for _, r in df.iterrows()]
 for cat in F.CATS:
     df[f"sig::{cat}"] = [F.word(sr[cat]) for sr in _sig_rows]
 
-# rank by the corrected score where it exists; withdrawn names sink to the bottom
-sort_col = "final_score_3y_v2" if has_v2 else "final_score_3y"
+sort_col = "ionic_score_v3" if has_v3 else "final_score_3y"
 df = df.sort_values(sort_col, ascending=False, na_position="last").reset_index(drop=True)
 
-COLS = [
-    ("symbol", "Symbol", None), ("sector", "Sector", None),
-    ("recommendation_overall", "Call v1", None),
-]
-if has_v2:
-    COLS += [("recommendation_v2", "Call v2", None)]
-COLS += [("final_score_3y", "Score 3Y", 1)]
-if has_v2:
-    COLS += [("final_score_3y_v2", "Score 3Y v2", 1)]
-COLS += [("final_score_1y", "Score 1Y", 1)]
-if has_v2:
-    COLS += [("final_score_1y_v2", "Score 1Y v2", 1)]
+COLS = [("symbol", "Symbol", None), ("sector", "Sector", None)]
+if has_v3:
+    COLS += [("recommendation_v3", "Call (v3)", None), ("ionic_score_v3", "Ionic Score", 1),
+             ("recommendation_overall", "Call v1", None)]
+else:
+    COLS += [("recommendation_overall", "Call v1", None)]
+COLS += [("final_score_3y", "Score 3Y v1", 1)]
+if has_v3:
+    COLS += [("final_score_3y_v3", "Score 3Y v3", 1)]
+COLS += [("final_score_1y", "Score 1Y v1", 1)]
+if has_v3:
+    COLS += [("final_score_1y_v3", "Score 1Y v3", 1)]
 COLS += [(f"sig::{c}", c, None) for c in F.CATS]
-COLS += [
-    ("fwd_growth_pct", "Fwd Grw % (analyst)", 0),
-    ("coverage_3y", "Cov 3Y %", 0),
-]
-if has_v2:
-    COLS += [("thin_history_flag", "Thin Hist", None), ("growth_artifact_flag", "Grw Artefact", None),
-             ("one_time_income_risk", "1-time Inc", None), ("pat_sales_divergence", "PAT/Sales Div", None)]
+COLS += [("fwd_eps_growth_pct", "Fwd EPS Grw % (analyst)", 0)]
+if has_v3:
+    COLS += [("history_class", "History", None), ("pillars_observed", "Pillars /7", 0),
+             ("imputation_applied", "Imputation used", None),
+             ("listing_return_pctile", "Listing-ret pctile", 0),
+             ("growth_artifact_flag", "Grw Artefact", None),
+             ("oi_driven_growth", "OI-driven grw", None), ("oi_level_high", "OI>25% PBT", None),
+             ("oi_spike", "OI spike", None), ("oi_pct_of_pbt", "OI % of PBT", 0)]
+else:
+    COLS += [("coverage_3y", "Cov 3Y %", 0)]
 COLS += [
     ("quality_score", "Quality raw", 1), ("growth_3y_score", "Growth 3Y raw", 1),
     ("value_score", "Value raw", 1), ("stage_3y_score", "Stage 3Y raw", 1),
@@ -134,10 +147,14 @@ wb = Workbook(); ws = wb.active; ws.title = "All Scores (750)"
 ws["A1"] = "IONIC — Nifty-750 Quant Scorecard (v8, five signals + v2 thin-history fix)"
 ws["A1"].font = Font(name="Georgia", size=15, bold=True, color=NAVY)
 n = len(df)
-n_wd = int((df.get("thin_history_flag", pd.Series(dtype=str)) == "WITHDRAWN").sum()) if has_v2 else 0
-ws["A2"] = (f"As of {AS_OF}  |  {n} names  |  Signals = the client-deck five (quartile bands vs this "
-            f"universe; Growth blends the analyst's forward estimate where one exists)  |  v2 = "
-            f"thin-history corrected score ({n_wd} withdrawn at <=3 of 7 pillars)  |  "
+n_sell = int((df.get("recommendation_v3", pd.Series(dtype=str)) == "Sell").sum()) if has_v3 else 0
+n_trim = int((df.get("recommendation_v3", pd.Series(dtype=str))
+              == "Hold (Trim if concentrated)").sum()) if has_v3 else 0
+ws["A2"] = (f"As of {AS_OF}  |  {n} names  |  Signals = the client-deck five, quartile bands against "
+            f"this universe  |  Call on the BLENDED score: Sell below 40 ({n_sell}), 40-50 is the "
+            f"Trim band ({n_trim}), above 50 Hold  |  v3 = thin-history corrected (1y-sibling and "
+            f"listing-price substitution, no withdrawals)  |  Fwd EPS growth is the analyst's "
+            f"estimate and is NOT blended into the Growth signal  |  "
             f"INTERNAL RESEARCH — not investment advice.")
 ws["A2"].font = Font(name="Bahnschrift", size=9, italic=True, color="666666")
 HDR_ROW = 4
@@ -172,31 +189,35 @@ for i, row in df.iterrows():
                 cell.font = Font(name="Bahnschrift", size=9, bold=True, color=ink)
             else:
                 cell.font = Font(name="Bahnschrift", size=9, color="999999")
-        elif col in ("final_score_3y", "final_score_1y", "final_score_3y_v2",
-                     "final_score_1y_v2", "recommendation_overall", "recommendation_v2"):
+        elif col in ("ionic_score_v3", "final_score_3y", "final_score_1y", "final_score_3y_v3",
+                     "final_score_1y_v3", "recommendation_overall", "recommendation_v3"):
             cell.font = Font(name="Bahnschrift", size=9, bold=True)
-    for col, ci in (("recommendation_overall", 3), ("recommendation_v2", 4)):
-        if col in df.columns and ci <= len(COLS) and COLS[ci - 1][0] == col:
-            call = str(row.get(col, ""))
-            cc = ws.cell(r, ci)
-            cc.alignment = Alignment(horizontal="center")
-            if call == "Sell":
-                cc.fill = PatternFill("solid", fgColor=RED)
-            elif call == "Hold":
-                cc.fill = PatternFill("solid", fgColor=GREEN)
-            elif call.startswith("No Rec"):
-                cc.fill = PatternFill("solid", fgColor=GREY)
-    if has_v2:
-        th = str(row.get("thin_history_flag", ""))
-        if th:
-            jj = next((k + 1 for k, (c0, _, _) in enumerate(COLS) if c0 == "thin_history_flag"), None)
-            if jj:
-                ws.cell(r, jj).fill = PatternFill("solid", fgColor=RED if th == "WITHDRAWN" else MED)
+    # colour the call cells by looking their column up, rather than by a hardcoded index -- the column
+    # order shifts with has_v3 and a fixed index would silently paint the wrong column
+    for col in ("recommendation_v3", "recommendation_overall"):
+        ci = next((k + 1 for k, (c0, _, _) in enumerate(COLS) if c0 == col), None)
+        if ci is None:
+            continue
+        call = str(row.get(col, ""))
+        cc = ws.cell(r, ci)
+        cc.alignment = Alignment(horizontal="center")
+        if call == "Sell":
+            cc.fill = PatternFill("solid", fgColor=RED)
+        elif call.startswith("Hold (Trim"):
+            cc.fill = PatternFill("solid", fgColor=MED)
+        elif call == "Hold":
+            cc.fill = PatternFill("solid", fgColor=GREEN)
+    if has_v3:
+        hc = str(row.get("history_class", ""))
+        ci = next((k + 1 for k, (c0, _, _) in enumerate(COLS) if c0 == "history_class"), None)
+        if ci and hc in ("<1y", "1-2y"):
+            ws.cell(r, ci).fill = PatternFill("solid", fgColor=RED if hc == "<1y" else MED)
 
 ws.freeze_panes = "C5"
 ws.auto_filter.ref = f"A{HDR_ROW}:{get_column_letter(len(COLS))}{HDR_ROW + n}"
-widths = {"Symbol": 12, "Sector": 22, "Call v1": 8, "Call v2": 13, "Sector & Flows": 12,
-          "Fwd Grw % (analyst)": 9, "Latest Qtr": 11}
+widths = {"Symbol": 12, "Sector": 22, "Call v1": 8, "Call (v3)": 22, "Sector & Flows": 12,
+          "Fwd EPS Grw % (analyst)": 10, "Imputation used": 26, "Latest Qtr": 11,
+          "Listing-ret pctile": 9, "History": 8}
 for j, (_, label, _) in enumerate(COLS, 1):
     ws.column_dimensions[get_column_letter(j)].width = widths.get(label, 9.5)
 ws.row_dimensions[HDR_ROW].height = 28
@@ -204,6 +225,8 @@ ws.row_dimensions[HDR_ROW].height = 28
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 wb.save(OUT)
 print("source:", os.path.basename(src))
-print("rows:", n, "cols:", len(COLS), "fwd estimates joined:",
-      int(df["fwd_growth_pct"].notna().sum()))
+print("rows:", n, "cols:", len(COLS), "fwd EPS estimates joined:",
+      int(df["fwd_eps_growth_pct"].notna().sum()))
+if has_v3:
+    print(f"calls: Sell {n_sell} | Trim band {n_trim} | Hold {n - n_sell - n_trim}")
 print("SAVED:", OUT)
