@@ -56,10 +56,15 @@ hard("no non-Hold above 50", int(((rec != "Hold") & (ion > 50)).sum()) == 0,
      f"{int(((rec != 'Hold') & (ion > 50)).sum())} violations")
 hard("every name below 40 is a Sell", int(((ion < 40) & (rec != "Sell")).sum()) == 0,
      f"{int(((ion < 40) & (rec != 'Sell')).sum())} violations")
-hard("analyst Trim only in 40-50", int(((rec == "Trim (analyst view)")
-                                        & ~ion.between(40, 50)).sum()) == 0)
-hard("analyst Trim implies an analyst Sell",
-     int(((rec == "Trim (analyst view)") & (an != "Sell")).sum()) == 0)
+hard("only two calls exist at universe level", set(rec.unique()) <= {"Sell", "Hold"},
+     f"values {sorted(rec.unique())}")
+te = d["trim_eligible_v3"].astype(str).fillna("")
+hard("no Sell is marked trim-eligible", int(((rec == "Sell") & (te != "")).sum()) == 0)
+hard("40-50 band eligibility set exactly on the band",
+     int((ion.between(40, 50) & ~te.str.contains("40-50")).sum()) == 0
+     and int((~ion.between(40, 50) & te.str.contains("40-50")).sum()) == 0)
+hard("analyst-view eligibility implies an analyst Sell",
+     int((te.str.contains("analyst") & (an != "Sell")).sum()) == 0)
 
 # ---- score caps -------------------------------------------------------------------------------------
 hard("scores within [5,95]", bool(ion.min() >= 5 - 1e-9 and ion.max() <= 95 + 1e-9),
@@ -83,17 +88,16 @@ hard("growth leg only ever on the frozen bands",
      f"values {sorted(gp.dropna().unique())}")
 
 # ---- the revenue rescue -------------------------------------------------------------------------------
-resc = d.get("revenue_rescue", pd.Series([""] * len(d))).astype(str) == "Y"
-m2m1 = pd.to_numeric(d["rev_growth_1y_m2m"], errors="coerce")
-m2m3 = pd.to_numeric(d["rev_cagr_3y_m2m"], errors="coerce")
-best_rev = pd.concat([m2m1, m2m3], axis=1).max(axis=1)
-hard("rescued names never below -5 on the growth leg",
-     int((resc & (gp < -5)).sum()) == 0)
-hard("rescue only where revenue >15% and expected EPS <10%",
-     int((resc & ~((best_rev > 15) & (gin < 10))).sum()) == 0)
-hard("no name still at -15 that qualified for the rescue",
-     int(((gp == -15) & (best_rev > 15) & (gin < 10)).sum()) == 0,
-     f"{int(((gp == -15) & (best_rev > 15) & (gin < 10)).sum())} missed")
+rescol = d.get("revenue_rescue", pd.Series([""] * len(d))).astype(str)
+resc = rescol == "Y"
+erev = pd.to_numeric(d.get("expected_rev_growth_pct", pd.Series([np.nan] * len(d))), errors="coerce")
+hard("rescued names never below -5 on the growth leg", int((resc & (gp < -5)).sum()) == 0)
+hard("rescue only fires on FORWARD revenue >15% and expected EPS <10%",
+     int((resc & ~((erev > 15) & (gin < 10))).sum()) == 0)
+hard("rescue never fires on trailing revenue",
+     int((resc & erev.isna()).sum()) == 0,
+     "the whole point of the forward-only correction")
+soft_dormant = int((rescol == "no fwd revenue data").sum())
 
 # ---- gates ---------------------------------------------------------------------------------------------
 FIN = d["sector"].astype(str).str.lower().str.contains("financial|bank|insurance|nbfc")
@@ -115,7 +119,11 @@ soft("Sell rate", f"{(rec == 'Sell').mean()*100:.0f}% (frozen note expects ~33%)
 soft("double-count risk", f"growth-leg and conviction-leg correlation "
                           f"{gp.corr(cp, method='spearman'):+.2f}; "
                           f"{int(((gp <= -5) & (cp == -6)).sum())} names charged by both")
-soft("rescues applied", f"{int(resc.sum())} names floored at -5 by the revenue rescue")
+soft("revenue rescue", f"{int(resc.sum())} applied; {soft_dormant} names eligible on EPS but "
+                       f"DORMANT — expected_next_3y_revenue_growth_pct not yet in the research files")
+soft("trim-eligible Holds", f"{int((te != '').sum())} "
+                            f"({int(te.str.contains('40-50').sum())} on the score band, "
+                            f"{int(te.str.contains('analyst').sum())} on the analyst view)")
 soft("analyst rescues suppressed", f"{int(((cp > 0) & (adj <= 0)).sum())} of {int((cp > 0).sum())} "
                                    f"blocked by the low-growth cap")
 soft("names at the -20 clamp", f"{int((adj <= -20).sum())}")

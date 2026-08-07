@@ -162,12 +162,25 @@ EXCEPTIONAL_ROE = 0.20
 LOW_GROWTH_CAP = 10.0            # expected growth below this -> net adjustment may not be positive
 
 # REVENUE-RESCUE (Principal, 2026-08-07): "if revenue >15% but eps<10% instead of penalty -15 give
-# penalty max capped at 5". A company compounding its top line at 15%+ while the analyst expects modest
-# EPS is a MARGIN or DILUTION story, not a dying business -- the harshest penalty band is meant for
-# companies that are not growing at all, and applying it here confuses "earnings are not converting"
-# with "there is no growth". Revenue qualifies on EITHER the 1-year or the 3-year figure, so one soft
-# year does not disqualify a consistent compounder.
-REV_RESCUE_MIN = 15.0            # trailing revenue growth (1y or 3y CAGR, March-to-March)
+# penalty max capped at 5", and on the second pass: "keep future [since eps can be dragged if rnd]
+# instead of trailing".
+#
+# A company compounding its top line at 15%+ while the analyst expects modest EPS is a MARGIN,
+# R&D-spend or DILUTION story, not a dying business. The harshest band is meant for companies that are
+# not growing at all, and applying it here confuses "earnings are not converting yet" with "there is no
+# growth".
+#
+# THE REVENUE FIGURE MUST BE FORWARD, and that is the whole point of the correction: a business
+# spending heavily on R&D or capex shows depressed EPS *and* can show a soft trailing year while its
+# expected revenue is strong. Using trailing revenue would fire the rescue on the wrong names, which is
+# the same mistake that broke the 60:40 growth leg. So this reads
+# `expected_next_3y_revenue_growth_pct` from the research files.
+#
+# THAT FIELD DOES NOT EXIST YET. The rescue is therefore DORMANT -- it fires on zero names -- rather
+# than silently falling back to trailing. Adding one field per research file activates it with no code
+# change. Left visible in `revenue_rescue` (which will read "no fwd revenue data") instead of quietly
+# doing nothing, so the gap cannot be forgotten.
+REV_RESCUE_MIN = 15.0            # EXPECTED forward revenue growth
 REV_RESCUE_EPS_MAX = 10.0        # expected EPS growth below this
 REV_RESCUE_FLOOR = -5.0          # the worst the growth leg may be when the rescue applies
 # Principal, 2026-08-07: "no score can be below 5, or above 95 these are cap". Both bounds sit far
@@ -309,13 +322,19 @@ def load_analyst():
         except (OSError, ValueError):
             continue
         g = j.get("expected_next_3y_growth_pct")
+        # the forward REVENUE estimate the rescue needs. Not yet produced by the research pass;
+        # several key spellings accepted so the field activates the moment any of them lands.
+        rv = next((j.get(k) for k in ("expected_next_3y_revenue_growth_pct",
+                                      "expected_revenue_growth_pct",
+                                      "expected_next_3y_revenue_pct") if j.get(k) is not None), None)
         out[sym] = (str(j.get("your_recommendation") or "").strip(),
                     float(g) if isinstance(g, (int, float)) else np.nan,
-                    bool(j.get("escalation_flag")))
+                    bool(j.get("escalation_flag")),
+                    float(rv) if isinstance(rv, (int, float)) else np.nan)
     return out
 
 
-def growth_leg(exp_eps, rev_growth, roe, rev_1y=None, rev_3y=None):
+def growth_leg(exp_eps, rev_growth, roe, exp_rev=None):
     """Bonus/penalty points from EXPECTED growth, weighted 60 EPS : 40 revenue, then banded."""
     legs, wts = [], []
     if exp_eps is not None and exp_eps == exp_eps and FWD_EPS_W > 0:
@@ -334,13 +353,14 @@ def growth_leg(exp_eps, rev_growth, roe, rev_1y=None, rev_3y=None):
             break
     if EXCEPTIONAL_ENABLED and g >= 25.0 and roe is not None and roe == roe and roe >= EXCEPTIONAL_ROE:
         pts = 20.0
-    # revenue rescue: real top-line growth floors the penalty at -5
-    rescued = False
+    # revenue rescue: strong EXPECTED top-line growth floors the penalty at -5
+    rescued = ""
     if pts < REV_RESCUE_FLOOR and exp_eps is not None and exp_eps == exp_eps \
             and exp_eps < REV_RESCUE_EPS_MAX:
-        best_rev = max((v for v in (rev_1y, rev_3y) if v is not None and v == v), default=None)
-        if best_rev is not None and best_rev > REV_RESCUE_MIN:
-            pts, rescued = REV_RESCUE_FLOOR, True
+        if exp_rev is None or exp_rev != exp_rev:
+            rescued = "no fwd revenue data"      # eligible on EPS, cannot test revenue -- disclosed
+        elif exp_rev > REV_RESCUE_MIN:
+            pts, rescued = REV_RESCUE_FLOOR, "Y"
     return pts, g, rescued
 
 
@@ -519,14 +539,12 @@ def main():
     an = load_analyst()
     rev1y = pd.to_numeric(d["revenue_growth_1y"], errors="coerce")
     roe = pd.to_numeric(d["roe"], errors="coerce")
-    m2m1 = pd.to_numeric(d["rev_growth_1y_m2m"], errors="coerce")
-    m2m3 = pd.to_numeric(d["rev_cagr_3y_m2m"], errors="coerce")
-    g_pts, c_pts, adj, exp_g, a_rec, resc = [], [], [], [], [], []
+    g_pts, c_pts, adj, exp_g, a_rec, resc, exp_rv = [], [], [], [], [], [], []
     for i, sym in enumerate(d["symbol"].astype(str).str.upper()):
-        rec, eps, _esc = an.get(sym, ("", np.nan, False))
-        gp, g, was_rescued = growth_leg(eps, rev1y.iloc[i], roe.iloc[i],
-                                        m2m1.iloc[i], m2m3.iloc[i])
-        resc.append("Y" if was_rescued else "")
+        rec, eps, _esc, erev = an.get(sym, ("", np.nan, False, np.nan))
+        gp, g, was_rescued = growth_leg(eps, rev1y.iloc[i], roe.iloc[i], erev)
+        resc.append(was_rescued)
+        exp_rv.append(erev)
         quant_would_sell = base.iloc[i] < SELL_BAR
         if rec == "Sell":
             cp = CONV_ANALYST_SELL
@@ -541,6 +559,7 @@ def main():
         g_pts.append(gp); c_pts.append(cp); adj.append(a); exp_g.append(g); a_rec.append(rec)
 
     d["revenue_rescue"] = resc
+    d["expected_rev_growth_pct"] = exp_rv        # the forward field the rescue needs; NaN until captured
     d["fwd_growth_input_pct"] = np.round(exp_g, 1)
     d["fwd_growth_points"] = g_pts
     d["conviction_points"] = c_pts
@@ -557,21 +576,36 @@ def main():
     # overriding a valuation the model had already looked at and priced as reasonable. The analyst view
     # is not discarded: it still costs the name 6 points through the conviction leg, and it surfaces as
     # an explicit Trim rather than being silently dropped.
-    # THE LADDER (Principal, 2026-08-07), and Gate A's reach is bounded by the score:
+    # THE LADDER (Principal, 2026-08-07). Only TWO calls exist at universe level:
     #     below 40      Sell
-    #     40 - 50       analyst Sell -> Trim; otherwise Trim only if concentrated
-    #     above 50      HOLD, full stop -- an analyst Sell has NO effect here
-    # The ceiling on Gate A is the substantive change. It was selling names at any score, including
-    # BAJAJ-AUTO at 67 on a valuation argument the Value pillar had already weighed and rejected. Above
-    # 50 the score is saying the evidence is broadly good, and a single dissenting view should not
-    # outrank all seven pillars. Between 40 and 50 the evidence is genuinely mixed, so the analyst gets
-    # to move it to Trim. The view is never silently dropped: it still costs 6 points via the
-    # conviction leg, which can itself carry a borderline name under 50 or under 40 on its own merits.
+    #     40 and above  Hold
+    # 40-50 IS NOT A TRIM BAND. His correction: "40-50 does not ment trim, it was basis allowed to be
+    # trimmed as per concentration and analyst not a fixed rule." So the band confers ELIGIBILITY to
+    # trim, not a trim instruction -- and eligibility cannot be resolved in a universe file at all,
+    # because trimming is a function of POSITION WEIGHT, which only exists inside a client book. Naming
+    # a universe row "Trim" would be asserting a portfolio decision from data that contains no
+    # portfolio. The eligibility and its reason are recorded separately for the book-level pass.
+    #
+    # Gate A is bounded by the score: an analyst Sell at or above 40 does not sell the name. It was
+    # selling BAJAJ-AUTO at 67 on a valuation argument the Value pillar had already weighed. The view
+    # is not discarded -- it costs 6 points through the conviction leg and marks the name trim-eligible.
     an_sell = pd.Series(a_rec, index=d.index) == "Sell"
-    d["recommendation_v3"] = np.where(
-        ionic < SELL_BAR, "Sell",
-        np.where(ionic > TRIM_CEIL, "Hold",
-                 np.where(an_sell, "Trim (analyst view)", "Hold (Trim if concentrated)")))
+    d["recommendation_v3"] = np.where(ionic < SELL_BAR, "Sell", "Hold")
+
+    in_band = (ionic >= SELL_BAR) & (ionic <= TRIM_CEIL)
+    hold = ionic >= SELL_BAR
+    reasons = []
+    for i in d.index:
+        if not hold.loc[i]:
+            reasons.append("")
+            continue
+        r = []
+        if in_band.loc[i]:
+            r.append("score 40-50 (trim if weight >2.5%)")
+        if an_sell.loc[i]:
+            r.append("analyst view")
+        reasons.append(" + ".join(r))
+    d["trim_eligible_v3"] = reasons
 
     # The conversions, measured against the FINAL Ionic score -- not against the base.
     # A first version compared `base >= 40` with a Sell verdict and reported 117 analyst-forced Sells.
@@ -589,10 +623,7 @@ def main():
     # The cap must not quietly move a call. Tested by isolating the CAP alone: recompute the call from
     # the uncapped Ionic score with everything else (forward adjustment, analyst gate) held identical.
     ionic_raw = base + pd.Series(adj, index=d.index)
-    rec_uncapped = np.where(
-        ionic_raw < SELL_BAR, "Sell",
-        np.where(ionic_raw > TRIM_CEIL, "Hold",
-                 np.where(an_sell, "Trim (analyst view)", "Hold (Trim if concentrated)")))
+    rec_uncapped = np.where(ionic_raw < SELL_BAR, "Sell", "Hold")
     n_moved = int((rec_uncapped != d["recommendation_v3"].to_numpy()).sum())
     print(f"cap check: [{SCORE_FLOOR:.0f},{SCORE_CEIL:.0f}] moved {n_moved} recommendations "
           f"(expected 0); floored {int((ionic_raw < SCORE_FLOOR).sum())}, "
@@ -649,9 +680,9 @@ def main():
         "## Analyst-AI conversions", "",
         f"- **{int((d['analyst_conversion'] == 'Sell->Hold (analyst)').sum())}** names the quant would "
         f"have sold are held on analyst conviction (the Sell->Hold path the Principal asked to keep)",
-        f"- **{int((d['analyst_conversion'] == 'Analyst Sell -> Trim').sum())}** analyst Sells scoring "
-        f"40-50 become TRIM; **{int((d['analyst_conversion'] == 'Analyst Sell OVERRULED (score > 50)').sum())}** "
-        f"scoring above 50 are OVERRULED entirely. Sell rate "
+        f"- **{int((d['trim_eligible_v3'].astype(str).str.contains('analyst')).sum())}** Holds are "
+        f"trim-ELIGIBLE on the analyst's view, **{int((d['trim_eligible_v3'].astype(str).str.contains('40-50')).sum())}** "
+        f"on the 40-50 score band (weight decides, at book level). Sell rate "
         f"{(d['recommendation_v3'] == 'Sell').mean() * 100:.0f}% (the frozen note expects ~33%).",
         f"- gates: liquidity now caps at {LIQ_CAP:.0f}; D/E exemption widened to "
         f"{', '.join(DE_EXEMPT_SECTORS)} -- names whose balance-sheet flag improved: "
@@ -662,8 +693,8 @@ def main():
         f"| Hold / Trim band | {int((~old_sell).sum())} | "
         f"{int((d['recommendation_v3'] != 'Sell').sum())} |",
         "",
-        f"- of the v3 Holds, in the 40-50 Trim band: "
-        f"**{int((d['recommendation_v3'] == 'Hold (Trim if concentrated)').sum())}**", "",
+        f"- of the v3 Holds, trim-eligible for any reason: "
+        f"**{int((d['trim_eligible_v3'].astype(str) != '').sum())}**", "",
         "## Largest score corrections (3Y, v3 minus v1)", "",
         "| symbol | history | pillars | v1 | v3 | change | imputation |", "|---|---|---|---|---|---|---|",
     ]
