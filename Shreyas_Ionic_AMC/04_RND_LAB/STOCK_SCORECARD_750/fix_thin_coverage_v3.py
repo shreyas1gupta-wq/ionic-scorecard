@@ -348,12 +348,17 @@ def main():
     ionic = (base + pd.Series(adj, index=d.index)).clip(SCORE_FLOOR, SCORE_CEIL)
     d["ionic_score_v3"] = ionic.round(2)
 
-    # Gate A: an analyst Sell is a Sell whatever the number says. Otherwise the score decides, and no
-    # name above 40 is ever a Sell. Gate B: 40-50 is the Trim band, concentration-gated at book level
-    # (there are no portfolio weights in a universe file, so it is flagged rather than resolved here).
+    # THE 40 BAR IS ABSOLUTE (Principal, 2026-08-07: "no sell for >40 value strictly ... we can show
+    # trim at max"). An analyst Sell on a name scoring at or above 40 is DOWNGRADED TO TRIM, not
+    # honoured as a Sell. The frozen Gate A let the analyst sell at any score; that produced 23 Sells
+    # above the bar, 9 of them on names whose own Value pillar read Upper or Top 25% -- the analyst
+    # overriding a valuation the model had already looked at and priced as reasonable. The analyst view
+    # is not discarded: it still costs the name 6 points through the conviction leg, and it surfaces as
+    # an explicit Trim rather than being silently dropped.
+    an_sell = pd.Series(a_rec, index=d.index) == "Sell"
     d["recommendation_v3"] = np.where(
-        pd.Series(a_rec, index=d.index) == "Sell", "Sell",
-        np.where(ionic < SELL_BAR, "Sell",
+        ionic < SELL_BAR, "Sell",
+        np.where(an_sell, "Trim (analyst view, score above the Sell bar)",
                  np.where(ionic <= TRIM_CEIL, "Hold (Trim if concentrated)", "Hold")))
 
     # The conversions, measured against the FINAL Ionic score -- not against the base.
@@ -364,7 +369,7 @@ def main():
     # count is 23, not 117.
     d["analyst_conversion"] = np.where(
         (base < SELL_BAR) & (d["recommendation_v3"] != "Sell"), "Sell->Hold (analyst)",
-        np.where((ionic >= SELL_BAR) & (d["recommendation_v3"] == "Sell"), "Hold->Sell (Gate A)", ""))
+        np.where(an_sell & (ionic >= SELL_BAR), "Analyst Sell -> Trim (40 bar)", ""))
     d["thin_history_flag"] = np.where(d["history_class"] == "<1y", "<1y",
                                       np.where(d["pillars_observed"] < 7, "Y", ""))
 
@@ -372,8 +377,8 @@ def main():
     # the uncapped Ionic score with everything else (forward adjustment, analyst gate) held identical.
     ionic_raw = base + pd.Series(adj, index=d.index)
     rec_uncapped = np.where(
-        pd.Series(a_rec, index=d.index) == "Sell", "Sell",
-        np.where(ionic_raw < SELL_BAR, "Sell",
+        ionic_raw < SELL_BAR, "Sell",
+        np.where(an_sell, "Trim (analyst view, score above the Sell bar)",
                  np.where(ionic_raw <= TRIM_CEIL, "Hold (Trim if concentrated)", "Hold")))
     n_moved = int((rec_uncapped != d["recommendation_v3"].to_numpy()).sum())
     print(f"cap check: [{SCORE_FLOOR:.0f},{SCORE_CEIL:.0f}] moved {n_moved} recommendations "
@@ -430,10 +435,9 @@ def main():
         "## Analyst-AI conversions", "",
         f"- **{int((d['analyst_conversion'] == 'Sell->Hold (analyst)').sum())}** names the quant would "
         f"have sold are held on analyst conviction (the Sell->Hold path the Principal asked to keep)",
-        f"- **{int((d['analyst_conversion'] == 'Hold->Sell (Gate A)').sum())}** names whose FINAL Ionic "
-        f"clears 40 are sold anyway on the analyst's call. THIS CONFLICTS with the standing rule that "
-        f"no name above 40 is a Sell -- Gate A is the only route to it, and it needs a ruling. Score-"
-        f"only Sell rate is {(ionic < SELL_BAR).mean() * 100:.0f}% (the frozen note expects ~33%).", "",
+        f"- **{int((d['analyst_conversion'] == 'Analyst Sell -> Trim (40 bar)').sum())}** analyst Sells "
+        f"on names scoring at or above 40 are downgraded to TRIM by the absolute 40 bar. Sell rate "
+        f"{(d['recommendation_v3'] == 'Sell').mean() * 100:.0f}% (the frozen note expects ~33%).", "",
         "## Recommendation change", "",
         "| | v1 (either horizon <40) | v3 (Ionic + analyst gate) |", "|---|---|---|",
         f"| Sell | {int(old_sell.sum())} | {int(new_sell.sum())} |",

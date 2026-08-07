@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """contents_legend (F, core), Contents & how-to-read.
-Section list in the reading order (Understanding -> X-ray -> Equity -> Funds ->
-Recommendations -> Annexure) + a one-time vocabulary strip (Sell/Trim/Hold; review,
+Section list in the reading order (Understanding -> X-ray -> Funds -> Equity ->
+Recommendations -> Annexure -- restructured FM #11, 2026-08-06: portfolio statistics, then
+MF, then direct equity) + a one-time vocabulary strip (Sell/Trim/Hold; review,
 not a solicitation) + the Ionic-Score positioning legend + a per-build tag naming the
 annexure modules attached this cycle. Language/density adapt to tier['register']; the
 section set and the vocabulary are identical across registers."""
@@ -15,10 +16,12 @@ _SECTIONS = [
                               "What you asked us to do"),
     ("01", "Portfolio X-ray", "Where the book stands today",
                               "A quick look at what you own now"),
-    ("02", "The Equity Book", "Every direct holding, scored and read",
-                              "Each share you hold, with our view"),
-    ("03", "The Fund Book",   "Your funds, upside, downside, consistency",
+    # restructure (FM #11, 2026-08-06): MF before direct equity -- portfolio statistics,
+    # then MF, then direct equity.
+    ("02", "The Fund Book",   "Your funds, upside, downside, consistency",
                               "Your mutual funds, checked properly"),
+    ("03", "The Equity Book", "Every direct holding, scored and read",
+                              "Each share you hold, with our view"),
     ("04", "Recommendations", "The plan, the cost, the tax and the sequence",
                               "What we suggest, and what it costs"),
     ("05", "Annexure",        "Supporting detail, on request",

@@ -19,18 +19,73 @@ Also covers the non-MF sources, because the Angel option capture silently wrote 
 days in Aug-2026 while its directory mtimes kept moving (it overwrites parquet in place), and no
 gate noticed. Directory mtimes are never trusted here; only file mtimes and in-file dates.
 
+PRINCIPAL RULING 2026-08-06 (#4): this stops being a report a human might read and becomes a
+BLOCKING PRE-BUILD STEP. His words: "it should be shown to human analyst before proceeding for
+deck creation to acknowledge and say okay." So an explicit `--ack "<name>: <reason>"` is required
+for the process to exit 0 -- with no ack, exit code is 1 REGARDLESS of whether any source is
+actually stale, because the point is that a human looked at the numbers, not that the numbers were
+clean. Every acknowledgement is appended to `check_freshness_ack_log.jsonl` with what was shown,
+who signed it and when, so a deck can cite it and an audit can reconstruct it. An unattended/cron
+build that never passes `--ack` therefore always fails closed -- it cannot self-acknowledge by
+omission. The one thing code cannot stop is a script hardcoding a fake ack string; that is a
+process discipline (never bake `--ack` into a scheduled job), not something this gate can enforce
+by itself, and is called out again in the CLI help text for exactly that reason.
+
 Usage
-  python check_freshness.py                       # all configured sources
-  python check_freshness.py --ace <extract.xlsx>  # add row-level ACE checks
-  python check_freshness.py --isins a,b,c         # restrict row checks to a client's holdings
-Exit code 1 if any source is STALE at its threshold, so it can gate a build.
+  python check_freshness.py --ack "Tanvi Desai: reviewed, no client-blocking staleness"
+  python check_freshness.py --ace <extract.xlsx> --ack "..."   # add row-level ACE checks
+  python check_freshness.py --isins a,b,c --ack "..."          # restrict to a client's holdings
+  python check_freshness.py                                    # report only -- exits 1, no ack
+Exit code 0 only when --ack is supplied (whatever the findings); 1 otherwise. This can still be
+run without --ack purely to read the report; it just cannot clear a build gate that way.
 """
 import argparse
 import datetime as dt
+import json
 import os
 import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "lib"))
+
+ACK_LOG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "check_freshness_ack_log.jsonl")
+LAST_ACK = os.path.join(os.path.dirname(os.path.abspath(__file__)), "check_freshness_last_ack.json")
+
+
+def record_ack(ack, findings, ace_path=None):
+    """Append the acknowledgement + the exact findings it was given against to the audit log, and
+    write a 'latest' pointer a deck module can cite. Never called when ack is empty -- the caller
+    gates that."""
+    name, _, reason = ack.partition(":")
+    rec = {
+        "ts": dt.datetime.now().isoformat(timespec="seconds"),
+        "ack_raw": ack,
+        "name": name.strip(),
+        "reason": reason.strip() or None,
+        "findings_n": len(findings),
+        "findings": findings,
+        "ace_path": ace_path,
+    }
+    with open(ACK_LOG, "a", encoding="utf-8") as f:
+        f.write(json.dumps(rec) + "\n")
+    with open(LAST_ACK, "w", encoding="utf-8") as f:
+        json.dump(rec, f, indent=2)
+    return rec
+
+
+def latest_ack_text():
+    """One-line citation for a deck page: who acknowledged data freshness, and when. None if no
+    acknowledgement has ever been recorded (never fabricate one)."""
+    if not os.path.exists(LAST_ACK):
+        return None
+    try:
+        rec = json.load(open(LAST_ACK, encoding="utf-8"))
+    except Exception:
+        return None
+    when = rec["ts"][:16].replace("T", " ")
+    who = rec.get("name") or "unknown"
+    n = rec.get("findings_n", 0)
+    tail = f"{n} open finding(s) at the time" if n else "no open findings at the time"
+    return f"Data freshness reviewed and acknowledged by {who} on {when} ({tail})."
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 
@@ -216,6 +271,22 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--ace", help="path to the ACE MF Advisory-V2 extract")
     ap.add_argument("--isins", help="comma-separated ISINs to restrict row-level checks to")
+    ap.add_argument("--ack", help='human acknowledgement, format "<name>: <reason>". Required for '
+                     "this gate to exit 0. NEVER hardcode a fixed --ack string into a scheduled/"
+                     "cron build -- that recreates the silent self-acknowledgement this gate exists "
+                     "to prevent. A human runs this, reads the report, then re-runs with --ack.")
     a = ap.parse_args()
     f = check(a.ace, a.isins.split(",") if a.isins else None)
-    sys.exit(1 if f else 0)
+    if not a.ack or not a.ack.strip():
+        print()
+        print("BUILD BLOCKED: no --ack given. A human must review the report above and re-run with")
+        print('  --ack "<your name>: <why it is ok to proceed>"')
+        print("before a deck build may use this data. This is unconditional -- it applies even when")
+        print("the report above shows 0 findings, because the requirement is that a human looked,")
+        print("not that the data happened to be clean.")
+        sys.exit(1)
+    rec = record_ack(a.ack.strip(), f, ace_path=a.ace)
+    print()
+    print(f"ACKNOWLEDGED by {rec['name'] or '(unnamed)'} at {rec['ts']} "
+          f"-> logged to {os.path.basename(ACK_LOG)}")
+    sys.exit(0)

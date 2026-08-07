@@ -58,7 +58,7 @@ def render(deck, ctx, tier):
     read_len = 60 if reg == "simple" else 68
     core_show, watch_show = core[:n_each], watch[:n_each]
 
-    s = deck.content(2, "Equity", "What stays, and why", L["title"])
+    s = deck.content(3, "The Equity Book", "What stays, and why", L["title"])
     deck.scope_tag(s, f"Direct equity only · as of {as_of}")
 
     lead = ("The keeps, split by how strongly we hold them. Each shows its score and a one-line read."

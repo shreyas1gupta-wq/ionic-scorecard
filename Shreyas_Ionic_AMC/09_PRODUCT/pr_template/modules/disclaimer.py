@@ -4,6 +4,14 @@ centered wordmark + gold rule + confidentiality line, so the deck ends designed,
 from pptx.enum.text import PP_ALIGN
 from slidekit import NAVY, NT3, GOLD, WHITE, SERIF, SANS, ML, UW, CW
 
+try:
+    # FM #4 (2026-08-06 ruling): the freshness gate's acknowledgement is on record and citable --
+    # never fabricated if no ack has ever been logged (latest_ack_text() returns None then).
+    from check_freshness import latest_ack_text
+except Exception:
+    def latest_ack_text():
+        return None
+
 _BASE = ("This document is a review of existing holdings prepared for the named client under a "
         "Non-Discretionary Portfolio Management mandate. Recommendations are Sell / Trim / Hold on "
         "current positions only and are not a solicitation or an offer to buy any security. Nothing "
@@ -37,4 +45,7 @@ def render(deck, ctx, tier):
 
     deck.txt(s, ML, 6.9, UW, 0.3, [("Ionic Wealth by Angel One  ·  Portfolio Review  ·  Private & Confidential",
                                     SANS, 8, NT3, False)])
+    ack = latest_ack_text()
+    if ack:
+        deck.txt(s, ML, 4.55, UW, 0.24, [(ack, SANS, 7.5, NT3, False, False, 20)], align=PP_ALIGN.CENTER)
     return 1

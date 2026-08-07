@@ -101,7 +101,7 @@ def render(deck, ctx, tier):
     reg = tier["register"]
     L = LABELS.get(reg, LABELS["std"])
     simple = reg == "simple"
-    s = deck.content(2, "Equity", "How we score every stock", L["title"])
+    s = deck.content(3, "The Equity Book", "How we score every stock", L["title"])
 
     # 1) recipe strip -------------------------------------------------------
     _recipe(deck, s, 1.82)

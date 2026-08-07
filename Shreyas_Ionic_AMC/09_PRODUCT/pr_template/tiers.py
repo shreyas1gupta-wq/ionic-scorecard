@@ -9,7 +9,11 @@ TIERS = {
         "chart_density": "rich",
         "show_horizon_legs": True,
         "optional_on": {            # every annexure module on
-            "before_after", "scheme_overlap_full",
+            "before_after",
+            # scheme_overlap_full -> scheme_correlation (Principal ruling 2026-08-06, FM #24):
+            # correlation replaces overlap in the default build; overlap stays in the library,
+            # off by default, available on request (engine.py Annexure block).
+            "scheme_correlation",
             "quality_vs_price", "growth_projection",
             "spotlight_holdings", "holdings_detail", "sell_cards",
             "scheme_scorecards", "appendix",
@@ -35,8 +39,8 @@ TIERS = {
             # Principal cuts 2026-07-28 (permanent, ALL tiers): deployment, opportunity_set,
             # annex_mcap_migration, annex_liquidity_ladder, annex_returns_quilt — all sell-biased
             # or redeployment-implying pages; this deck is Sell/Hold analysis only.
-            # scheme_overlap_full RESTORED 2026-07-28 (the earlier same-day cut was a page-26
-            # mis-identification; the Principal meant fund_category_rules).
+            # scheme_overlap_full: no longer listed here as of 2026-08-06 -- see the
+            # scheme_correlation note above; it moved to the Annexure and off by default.
         },
         "spotlight_count": 3,
     },
@@ -59,11 +63,20 @@ TIERS = {
         # RM-LITE redesign (Principal 2026-07-26): keep only the story beats — plan,
         # what you own, strong/weak picture, sells, funds, cost/tax, next steps.
         # Empty sections auto-drop their dividers (engine). Target ≤19 slides.
-        "skip_core": {"contents_legend", "mandate_method", "allocation_house_view",
+        "skip_core": {"contents_legend", "mandate_method",
                       "group_concentration", "sector_exposure", "mcap_positioning",
                       "score_method", "book_scored", "hold_rationale", "funds_equity",
                       "funds_hybrid", "fund_category_rules", "house_view_fit",
-                      "fund_quality_alloc", "fund_overlap"},
+                      "fund_quality_alloc", "fund_overlap",
+                      # new modules (2026-08-06): keep RM-LITE to story beats only, same
+                      # treatment as the other methodology-heavy modules just above.
+                      "mf_methodology", "funds_debt",
+                      # core_satellite: same treatment as its Portfolio X-ray siblings
+                      # sector_exposure/mcap_positioning just above -- a construction
+                      # breakdown, not a core RM-LITE story beat. ips_seven_aspects is
+                      # deliberately NOT skipped: it is plain-language client circumstance,
+                      # exactly the register RM-LITE is for.
+                      "core_satellite"},
     },
 }
 

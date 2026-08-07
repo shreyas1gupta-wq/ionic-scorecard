@@ -42,7 +42,7 @@ def render(deck, ctx, tier):
     for p in range(pages):
         chunk = sells[p * PER:(p + 1) * PER]
         title = L["title"] + (f"  ({p + 1} of {pages})" if pages > 1 else "")
-        s = deck.content(2, "Equity", "What we would sell", title)
+        s = deck.content(3, "The Equity Book", "What we would sell", title)
         if p == 0:
             deck.anchor("tbl:sell_list", s, prio=5)
             deck.pill(s, 11.05, 1.42, f"Sell ×{len(sells)}", w=1.36, kind="Sell")

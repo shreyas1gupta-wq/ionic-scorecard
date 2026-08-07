@@ -120,3 +120,139 @@ defensive.
   score decides priority among sells rather than manufacturing them.
 - **House view on duration and credit** (FM #10) and the **client's seven IPS aspects** (FM #12) —
   both awaiting documents.
+
+---
+
+## BUILT 2026-08-06 (FM #17/#20/#1, Vikram Shah) — Layer 2-4, hybrid blended benchmark, core/satellite
+
+Principal ruled the same day: #17 "create it and show me best way logically we cannot backtest";
+#20 hybrid "you create method basis adjusted bm and best possible"; #1 core/satellite confirmed
+70/30 flexible **with midcap moved into core** (correcting an earlier proposal). #15 (risk-free
+6.5%, ideal 3y window) and #16 (leave a clean tail-risk interface, no hardcoded number) both apply
+directly to this build. This section is the as-built record; the layer descriptions above are the
+architecture that was agreed *before* coding and are left unedited.
+
+### Code
+| File | What it is |
+|---|---|
+| `pr_template/lib/mf_sell_score.py` | Layer 2 (5-axis saturating score), Layer 3 (discretion, one-directional, enforced by raising `ValueError` on any attempt to raise a band, not just documented), Layer 4 (`build_escalation()` — situation/our view/counter-view/what-would-settle-it). `score_all(ctx)` runs it over every un-gated fund. |
+| `pr_template/lib/mf_sell_gates.py` (extended) | Added the Layer-1 gate row this file's own docstring had left open: `load_restrictions()` (Excel-or-nil, FM #18/#23), `check_avoid_list()` (analyst-callback-or-nil, FM #18/#23), `apply_manual_override_gate()`, and `refine_priority_with_score()` — a one-directional (softens only) opt-in link to the new score. `apply_to()` gained two optional kwargs with nil defaults; every existing caller (`data/azby_family.py`) is unaffected — verified by re-running its build and the pre-existing `scripts/test_fund_matching.py`. |
+| `pr_template/lib/hybrid_benchmark.py` | Per-fund blended benchmark (#20) — see below. |
+| `pr_template/lib/core_satellite.py` | Fund-sleeve core/satellite classifier + 70/30 guidance readout (#1). |
+| `pr_template/lib/test_mf_sell_score.py`, `test_hybrid_benchmark.py`, `test_core_satellite.py` | Plain assert-based unit tests (house convention, see `scripts/test_fund_matching.py`) — 60+ checks, all passing. `Run: python test_<name>.py` from `pr_template/lib/`. |
+| `09_PRODUCT/scripts/mf_sell_score_sensitivity.py` | The sensitivity sweep — see table below. Writes `pr_template/out/mf_sell_score_sensitivity.csv`. |
+
+### Layer 2 — five axes, combined by MAX (not sum/mean), plus a tax damper
+The spec above rejects a linear weighted sum at the *methodology* level (a good score paying for a
+disqualifying one). A plain average of five saturating axis-scores would reintroduce exactly that
+compensation one level down — so the axes combine by **MAX**: the single most concerning axis
+decides the score, generalising the risk-adjusted-return row's own "floor becomes a gate" rule to
+every axis. Tax position is **not** a sixth max-axis (it isn't evidence the fund is bad, it's a
+cost-of-acting modifier) — it damps the combined result instead.
+
+| Axis | Curve | Parameter(s) | Justifying sentence |
+|---|---|---|---|
+| Performance vs blended benchmark | Sigmoid | `PERF_GAP_MIDPOINT_PP=8.0`, `PERF_GAP_STEEPNESS=0.30` | Midpoint placed at the middle of the spec's own illustrative "10% mild / 20% decisive" range — **documented default**, not derived; no house number exists yet. |
+| Risk-adjusted return (Sortino) | Sigmoid, floor-becomes-gate | `SORTINO_FLOOR=0.0`, `SORTINO_COMFORTABLE=0.5` | Floor is principled: a Sortino ≤ 0 means the fund did worse than doing nothing (the risk-free rate, #15) on its own downside-risk terms. Comfortable=0.5 is a market **convention** [OPINION], not house-derived. |
+| IPS gap | Piecewise flat-then-quadratic, attributed to the equity-oriented side only | `IPS_GAP_SATURATE_PP=10.0` | One quadratic through the spec's own two anchors ("1pp outside is minor, 10pp is a breach") reproduces both in a single formula. No IPS on file → axis = 0 (ruling #18/#23's nil-restriction pattern applied consistently). |
+| Concentration | Convex, two segments + saturating tail | `CONC_CONCERN_PP=10`, `CONC_EXTREME_PP=20`, scores 15/70 at those anchors | Anchors **are** the existing house guidance (5-10% acceptable / >10% concern / >20% extreme) verbatim — not invented. The curve *between* the anchors is this module's own interpolation, and is the part open to argument. |
+| Persistent underperformance | Fraction of horizons behind (≥2 needed) | `PERSISTENCE_MIN_HORIZONS=2` | One data point cannot demonstrate a pattern by definition. [INFERENCE flagged in code]: ACE's 1Y/3Y/5Y trailing figures from one snapshot are not truly independent windows — weaker than rolling history, still real, not fabricated. **Field this axis needs (`fund['horizon_vs_bench']`) does not exist in any ctx-builder yet** — axis reports a gap on every fund today. |
+| Tax position (damper, not an axis) | Asymmetric multiplier, floored | `TAX_DAMPING_LTCG=0.92`, `_STCG=0.70`, `_UNKNOWN=1.00`, `_FLOOR=15.0` | "LTCG mildly reduces, STCG strongly reduces, never to zero" (FM #19) taken literally: two damping strengths plus a numeric floor. Honesty note in the code: at today's other defaults the floor cannot actually bind (45×0.70=31.5>15) — it's a backstop for future tuning, proven live in the tests under a perturbed config, not an active constraint today. |
+| Tail risk (FM #16) | — | `TAIL_SAFETY_FACTOR=None` | **Deliberately inert.** Guarded import of `lib.tail_risk.es90()`; absence or an unset safety factor both degrade to "axis unavailable," never a guessed ES90 or multiple. |
+
+Discretion band: `DISCRETION_LOW=45.0`, `SELL_THRESHOLD=70.0` — **the single most consequential,
+least-justified pair of numbers in the file**, placed so a single axis's own sigmoid midpoint
+(score 50) falls inside the band rather than on an edge. No backtest exists to fit them; this is
+exactly what the sensitivity table below is for.
+
+### Sensitivity table (the substitute for a backtest)
+Run against the ABXY demo book (`data/azby_family.py`, 11 funds — **[INFERENCE] synthetic, not a
+real client**; shape/direction is informative, re-run once a real book flows through this).
+Baseline: 0 sell, 0 discretion, 10 hold, 1 gated (debt grandfather), 0 escalations. Every one of
+the 19 numeric `mf_sell_score` parameters and both `core_satellite` parameters, swept ±20%:
+
+**Result: 0 of 11 funds changed band under every single ±20% perturbation, on both modules.**
+This is a real, checked result, not an assumption — full CSV at
+`pr_template/out/mf_sell_score_sensitivity.csv`. It is *not* evidence the model is insensitive by
+construction: the closest fund (LIC MF Multi Cap, concentration-driven, raw score 19.5) sits 27.1
+points of headroom below `DISCRETION_LOW=45` — nothing in this particular book is concentrated,
+Sortino-poor, or IPS-breaching enough to be *close* to the boundary, so ±20% on any one lever
+can't reach it. Confirmed separately: scaling the concentration-axis anchors alone by **3x** does
+flip a fund into the discretion band — the mechanism works, this book is just calm. A genuinely
+useful, unplanned finding surfaced by the same run: **look-through equity is 88.5%** (funds'
+own equity sleeves counted in) **against a direct-only figure of 60%**, and the client's IPS
+Equity band caps at 85% — the book reads compliant on the naive number and breaches on the honest
+one, which is the entire reason FM #2's look-through fix mattered. `TAIL_SAFETY_FACTOR` and the
+hybrid performance axis showed 0 sensitivity for a different reason: both are wired but **inert**
+today, pending the two interfaces below — their true sensitivity is unknown until those land.
+
+### Hybrid blended benchmark (#20)
+`hybrid_benchmark.blended_return(fund, start, end)` = `equity_pct% × NIFTY 500 TRI + debt_pct% ×
+NIFTY Composite Debt Index + others_pct% × risk-free (6.5%, #15)`. Equity leg is one broad index,
+not cap-specific, because ACE's hybrid disclosure gives an equity/debt/others split, not a
+cap-wise breakdown of the sleeve — Nifty 500 TRI matches this codebase's own existing "Flexi"
+convention. Debt leg and the "others" proxy are **reused, not invented**: "NIFTY Composite Debt
+Index" is the exact name already inside today's fixed "NIFTY 50 Hybrid Composite 65:35" (see
+`data/azby_family.py`'s `BENCH` dict); the risk-free proxy for "others" reuses #15's own number
+rather than inventing a second figure.
+
+**Degradation path, exactly as ruled:** `record_snapshot()` appends one row per fund per ACE month
+to `05_DATA_OFFICE/mf_mix_history.csv` (append-only, idempotent — verified in tests). `trailing_mix()`
+reports `"current-mix"` (the Principal's own words) until **≥6 months** exist (`MIN_MONTHS_FOR_TRAILING_AVG`
+— two points barely differ from one and would misleadingly claim a stabilised average), then flips
+to `"trailing-Nmo-average"` and keeps improving monthly toward the full 36. **Verified today: on a
+fresh store the basis reads `current-mix`; after 6 synthetic months it correctly flips and the
+average is arithmetically exact** (test asserts the literal mean).
+
+Borrowed and re-pointed at the new blended benchmark rather than a fixed category one:
+`down_capture_vs_blended()` (QFRA-2 concept), `total_capture_6m()` (QFRA-1 concept),
+`suitability_vs_ips()` (does this fund's *own* mix fit the IPS Equity band — different from the
+score's book-level IPS-gap axis, no second threshold invented). All three, plus `blended_return()`
+itself, depend on exactly **one** pending primitive and degrade to an explicit gap reason without
+it — never a guessed number:
+
+> `lib.benchmark_returns.get_series(index_key: str, start_date, end_date) -> list[float] | None`
+> — periodic (monthly) % returns for one named index (`"NIFTY 500 TRI"`, `"NIFTY Composite Debt
+> Index"`), month-aligned. This is the entire ask of that workstream.
+
+### Tail risk (#16) — interface only, confirmed inert
+`mf_sell_score._axis_tail()` guarded-imports `lib.tail_risk` and calls `es90(fund, window_years=3)`
+if it exists; `TAIL_SAFETY_FACTOR=None` in CONFIG blocks the axis from ever scoring even once ES90
+values appear, until someone deliberately sets a validated factor. Verified today: with no
+`lib/tail_risk.py` on disk, the axis returns `None` with reason `"tail-risk module not yet
+available"` on every fund, every run — confirmed via the sensitivity sweep (0 contribution) and
+unit tests. No file named `lib/tail_risk.py` or `lib/benchmark_returns.py` was created by this
+build, on purpose — both are owned by separate in-flight workstreams; creating a stub risked a
+collision with their actual work landing.
+
+### Core / satellite (#1)
+`core_satellite.py`. Core = index, large, mid **(corrected into core today, was wrongly proposed
+satellite earlier)**, largemid, flexi, multi, hybrid, debt (all sub-labels), gold, plus ELSS/
+dividend-yield/focused/value (style tilts on a broad mandate, not named by the ruling but placed
+by the stated default rule, listed explicitly in code for audit). Satellite = keyword match
+(sector/thematic/small/international/factor/contra/mnc) against category or name. Target 70/30,
+`BAND_PP=10` **guidance, not a breach test** (his own words: "broad direction/idea") —
+`within_guidance_band` is a plain readout, never a red/green gate. On the ABXY demo book, fund
+sleeve alone: **98.8% core vs the 70% target** (gap +28.8pp, outside the guidance band) — thin
+satellite allocation, for what it's worth on a synthetic book.
+
+**Collision found while building this, resolved rather than left dangling:** the literal ruling
+names fund categories only, so `lib/core_satellite.py`'s primary classifier was built fund-sleeve-
+only. But `modules/core_satellite.py` — a slide renderer, built the same day by a **different,
+concurrent pass** (Product/Tanvi) — independently answered the "does direct equity count too?"
+question, the other way: yes (gold by name → core, `mcap_band=='Small'` → satellite, else core).
+Rather than ship two silently-diverging answers to the same ruling on the same day,
+`lib/core_satellite.py` now mirrors that exact rule as `classify_equity()`, and `book_split()`
+takes an optional `equity=` argument so a caller can get either the fund-only split (the literal
+ruling) or the whole-book split (matching the renderer's scope) from one function — tested both
+ways. **Also found and NOT silently fixed** (different file, possibly still in flight):
+`modules/core_satellite.py`'s own `_CORE_FUND_CATS` set has no `"mid"` entry at all — it lands
+midcap at Core only via its catch-all default, the same *outcome* as this file's explicit
+membership but a more fragile *mechanism* (one future edit to its satellite-keyword list could
+silently flip it). Flagged for a reconciliation pass, not edited here.
+
+### Left as documented defaults (no principle available, not a fitted number)
+`SORTINO_COMFORTABLE`, `DISCRETION_LOW`/`SELL_THRESHOLD`, `PERF_GAP_MIDPOINT_PP`/`_STEEPNESS`, the
+concentration curve's *shape between* the anchors, `TAX_DAMPING_*` magnitudes, `BAND_PP` for
+core/satellite, and `MIN_MONTHS_FOR_TRAILING_AVG`. Every one lives in a `CONFIG` dict at the top of
+its module with the sentence above next to it in code; none is hidden inside a formula.

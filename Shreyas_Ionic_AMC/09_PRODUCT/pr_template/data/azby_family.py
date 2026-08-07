@@ -22,8 +22,13 @@ build_ctx() -> dict  is THE data contract every module renderer reads. Schema (t
   deployment : {proceeds_inr,tax_leak_inr,net_inr,sleeves[(name,amt_inr,rationale)],sequence[list]}
   overlap  : {fund_direct[(stock,direct_pct,via_funds_pct,n_funds)], headline_pct, headline_bps}
 """
-import os, re, csv, json, glob
+import os, re, csv, json, glob, sys
 import numpy as np
+
+_PRT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if _PRT not in sys.path:
+    sys.path.insert(0, _PRT)
+from lib import mf_sell_gates  # Layer-1 debt-grandfather gate + churn/priority (FM #19/#21/#25)
 
 
 def _tax_character(f):
@@ -133,6 +138,13 @@ def _equity(grand_inr):
             "pe": _fnum(row.get("pe_current")), "roe": (_fnum(row.get("roe")) or 0) * 100,
             "mcap_band": _mcap_band(row.get("market_cap_approx")),
             "rec": rec, "reason_category": _reason_category(q) if rec == "Sell" else "",
+            # check_method.py's sell-bar gate (commit a032743): a quality Sell scoring >=40 needs
+            # an explicit, evidenced exceptional override. sell_list.py already renders this exact
+            # condition (ionic_score>=40) as its "EXCEPTIONAL" chip -- this carries the same fact,
+            # plus the analyst's own evidence, into ctx so the gate sees what the page already
+            # shows. Never a blanket True: empty/None whenever the condition doesn't hold.
+            "exceptional_override": (q.get("negative_para") or q.get("summary") or "")[:160].strip()
+                                     if (rec == "Sell" and ionic >= 40) else None,
             "binding_trigger": (q.get("summary", "")[:130]) if rec == "Sell" else "",
             "analyst_read": (q.get("summary", "") or "").split(". ")[0][:150],
             "growth_pct": q.get("expected_next_3y_growth_pct"),
@@ -181,6 +193,92 @@ def _metrics_from_nav(nav, bench):
                 worst_1y=round(worst, 1), sortino=round(sortino, 2), calmar=round(calmar, 2),
                 cagr3y=round(cagr, 1), info_ratio=round(ir, 2), alpha_ann=round(alpha_ann, 1), r2=round(r2, 3))
 
+# ---- ACE-MF-shaped synthetic fields (2026-08-06, FM comments #2/#9/#10/#22) ----
+# ABXY's funds are entirely fictional (no real ISIN), so they cannot be joined to the real ACE
+# extract row for row. These fields use the SAME names/semantics `lib/acemf.py` produces for a
+# real client (equity_gross_pct, sector_alloc, ytm_pct, mod_duration_yrs, rating_alloc) so wiring
+# a real client through the ACE loader later is a drop-in, not a rename. Where a real published
+# figure exists it is used (hybrid equity-gross medians below, cited); everything else is a
+# seeded, deterministic illustrative value -- never a hand-typed magic number repeated flat
+# across funds (the "never default a categorical field to one hardcoded value" lesson).
+_SECTOR_POOL = ["Financial Services", "Information Technology", "Energy", "Healthcare",
+                "Consumer Goods", "Automobile", "Industrials", "Materials"]
+
+# Hybrid sub-category equity-gross medians, ACE MF Advisory V2 (30-Jun-2026 block), Direct-plan
+# hybrid rows -- 05_DATA_OFFICE/ACEMF_VERIFICATION_2026-08-05.md. Matched by keyword since this
+# book's own `category` field ("hybrid") is coarser than ACE's sub-category label.
+_ACE_HYBRID_EQUITY_MEDIAN = [("Balanced Advantage", 70.1), ("Multi-Asset", 66.5), ("Multi Asset", 66.5)]
+
+# Debt-sell inputs (FM #22): YTM / modified duration / rating buckets for the two DEBT-category
+# funds added below. LIC MF Short Term Debt's YTM is deliberately None -- ACE's real Direct-debt
+# coverage is only 2,529 of 4,486 rows (56%); this demo carries one fund WITH and one WITHOUT so
+# the "show the gap, never a blank that reads as zero" rule has something real to render.
+_ACE_DEBT_INPUTS = {
+    "HDFC Corporate Bond Fund (Direct)": {"ytm_pct": 7.42, "mod_duration_yrs": 4.1,
+                                          "rating_alloc": {"AAA": 82.0, "AA+": 10.0, "SOV": 8.0}},
+    "LIC MF Short Term Debt Fund": {"ytm_pct": None, "mod_duration_yrs": 1.6,
+                                    "rating_alloc": {"AAA": 64.0, "AA": 24.0, "Unrated": 12.0}},
+}
+
+# Purchase dates (FM #19/#21): case-by-case from the holding statement, per the Principal --
+# present here for the two new debt funds only, to exercise both the pre-Apr-2023 grandfather
+# gate and the STCG-low-priority rule; every OTHER fund in this book has no purchase_date on
+# file, which is the graceful-degradation path (proceed on holding_years alone, no date claim).
+_PURCHASE_DATE = {
+    "HDFC Corporate Bond Fund (Direct)": "2021-03-15",   # pre-1-Apr-2023: grandfathered
+    "LIC MF Short Term Debt Fund": "2026-02-01",          # <1y before as_of: STCG
+}
+
+
+def _ace_equity_gross_pct(name, cat, seed):
+    """Per-fund GROSS equity % in the ACE sense (Principal ruling: gross, no netting). None only
+    when there is truly no equity-sleeve figure on file; a real 0.0 for a debt fund is data,
+    not a gap, and must be told apart from None downstream (lib/lookthrough.py does)."""
+    rng = np.random.default_rng(seed + 500)
+    if cat in ("equity", "passive"):
+        return round(float(rng.uniform(95.0, 99.0)), 1)
+    if cat == "hybrid":
+        med = 70.1  # Balanced Advantage median -- the modal hybrid sub-category if unmatched
+        for kw, m in _ACE_HYBRID_EQUITY_MEDIAN:
+            if kw.lower() in name.lower():
+                med = m; break
+        return round(med + float(rng.uniform(-2.0, 2.0)), 1)
+    if cat == "debt":
+        return 0.0
+    return None
+
+
+def _ace_sector_alloc(equity_pct, seed):
+    """Illustrative per-fund sector split (ACE's real block carries 44 named sectors/fund) that
+    sums to the fund's own equity_gross_pct. None when there is no equity sleeve to allocate,
+    so combined_sector_exposure() correctly reads that as zero-contribution, not a coverage gap."""
+    if not equity_pct or equity_pct <= 0.5:
+        return None
+    rng = np.random.default_rng(seed + 700)
+    w = rng.dirichlet(np.ones(len(_SECTOR_POOL)))
+    return {sec: round(equity_pct * float(x), 1) for sec, x in zip(_SECTOR_POOL, w) if x > 0.03}
+
+
+def _ace_fields(name, cat, seed):
+    eqp = _ace_equity_gross_pct(name, cat, seed)
+    rng = np.random.default_rng(seed + 900)
+    if eqp is None:
+        debt = others = None
+    elif cat == "debt":
+        others = round(float(rng.uniform(2.0, 5.0)), 1)
+        debt = round(100.0 - others, 1)
+    else:
+        others = round(float(rng.uniform(1.0, 3.0)), 1)
+        debt = round(max(0.0, 100.0 - eqp - others), 1)
+    debt_inputs = _ACE_DEBT_INPUTS.get(name, {"ytm_pct": None, "mod_duration_yrs": None, "rating_alloc": None})
+    return {
+        "equity_gross_pct": eqp, "debt_pct": debt, "others_pct": others,
+        "sector_alloc": _ace_sector_alloc(eqp, seed),
+        "purchase_date": _PURCHASE_DATE.get(name),
+        **debt_inputs,
+    }
+
+
 def _funds(grand_inr):
     D = 1000
     rmkt = _bench_rets(D, seed=99)                 # broad-market factor (NIFTY 500 class)
@@ -197,6 +295,7 @@ def _funds(grand_inr):
         "NIFTY Smallcap 250 TRI":          rmkt * 1.18,
         "NIFTY 50 TRI":                    rmkt * 0.97,
         "NIFTY 50 Hybrid Composite 65:35": rmkt * 0.65 + rbond,
+        "NIFTY Composite Debt Index":      rbond,
     }
     BENCH_NAV = {k: list(100 * np.cumprod(1 + v)) for k, v in BENCH.items()}
     EQNAV = BENCH_NAV["NIFTY 500 TRI"]
@@ -254,6 +353,19 @@ def _funds(grand_inr):
         # vs own hybrid BM: the proven cushion core — clearly ahead with a strong down-capture
         ("HDFC Balanced Advantage (Direct)", "HDFC", "hybrid", "NIFTY 50 Hybrid Composite 65:35", "Direct", 3.5, 23, 0.98, 0.88, 1.0, 0.035, 66,
          [], "Hold", "HOLD", "-", ""),
+        # --- debt sleeve added 2026-08-06 (FM #22 debt-sell-inputs, #21 grandfather gate) ---
+        # bought 2021-03-15 (see _PURCHASE_DATE): pre-1-Apr-2023, so lib/mf_sell_gates.apply()
+        # forces this fund's pre-gate Trim back to Hold with a gate_note -- the concrete case
+        # that exercises the debt-grandfather rule rather than leaving it untested code.
+        ("HDFC Corporate Bond Fund (Direct)", "HDFC", "debt", "NIFTY Composite Debt Index", "Direct", 1.2, 31, 1.0, 1.0, 0.3, 0.015, 60,
+         [], "Trim", "TRIM",
+         "-", "Sub-scale allocation inside a larger corporate-bond sleeve; considered for consolidation."),
+        # bought 2026-02-01 (see _PURCHASE_DATE): under a year before as_of, so this is an STCG
+        # sell -- the gate does NOT apply (post-1-Apr-2023) but mf_sell_gates still marks it a
+        # LOW-priority Switch, never suppressed. Also this book's YTM-coverage-gap case (#22).
+        ("LIC MF Short Term Debt Fund", "LIC MF", "debt", "NIFTY Composite Debt Index", "Regular", 1.0, 32, 1.0, 1.05, -0.4, 0.018, 48,
+         ["REG_PLAN_DRAG"], "Switch", "SWITCH",
+         "a Direct-plan short-duration debt fund", "Regular-plan cost drag versus an equivalent Direct-plan short-duration fund; a plan switch, not a credit call."),
     ]
     # illustrative holding age (years) — drives the tax-inertia rule (Principal 2026-07-25):
     # units >5y (stronger >10y) switch only on structural grounds; stocks exempt (risk dominates tax)
@@ -268,7 +380,7 @@ def _funds(grand_inr):
         # (Principal 2026-07-26: never one common index), on the same 3y window for all
         # funds (an MDD/worst-year comparison is only fair on a common window — a fund
         # launched before a crash otherwise 'loses' on inception luck).
-        gen = BENCH[bench_label] if cat in ("hybrid", "passive") else rmkt
+        gen = BENCH[bench_label] if cat in ("hybrid", "passive", "debt") else rmkt
         nav = _make_fund_nav(gen, ub, db, alpha, idio, seed=seed)
         bnav = BENCH_NAV[bench_label]
         m = _metrics_from_nav(nav, bnav)
@@ -286,7 +398,20 @@ def _funds(grand_inr):
                         action=action, flags=flags, hit3y=hit3y, alpha_t=round(m["info_ratio"] * 1.3, 2),
                         exemplar=exemplar, structural_reason=structural,
                         ter=(0.95 if plan == "Regular" else 0.55) if cat != "passive" else 0.20,
-                        holding_years=_HOLD_YRS.get(name, 2.0), **m))
+                        holding_years=_HOLD_YRS.get(name, 2.0),
+                        # ACE-MF-shaped fields (#2/#9/#10/#22) + purchase-date input (#19/#21) --
+                        # credit_or_governance_event is never set True here: this book has no
+                        # such event on file, so the debt-grandfather gate is left free to fire.
+                        credit_or_governance_event=False,
+                        # monthly-resampled NAV (FM #24, 2026-08-06): the same daily series that
+                        # already drives every up/down-capture and alpha number above, resampled
+                        # ~21 trading days apart. A real client's equivalent is month-end NAV from
+                        # the fund NAV store / ACE, keyed by ISIN -- this is that field's synthetic
+                        # stand-in, not a separate invented number, so scheme_correlation.py
+                        # computes a genuinely derived correlation even on this demo book rather
+                        # than a hand-tuned illustrative one.
+                        nav_history=[round(float(x), 4) for x in nav[::21]],
+                        **_ace_fields(name, cat, seed), **m))
     return out
 
 def build_ctx():
@@ -305,6 +430,11 @@ def build_ctx():
         e["weight_pct"] = round(e["weight_pct"] * escale, 2)
     for e in eq:
         e["value_inr"] = round(grand * e["weight_pct"] / 100)
+    AS_OF = "2026-07-25"
+    # Layer-1 MF sell-method gates (FM #19/#21/#25) MUST run before tax/cost/deployment below are
+    # built from `funds` -- a gate-forced Hold has to be excluded from proceeds/tax the same way
+    # any other Hold is, never sold in one dict and held in another.
+    fund_churn = mf_sell_gates.apply_to(eq, funds, AS_OF)
     eq_val = sum(e["value_inr"] for e in eq); mf_val = sum(f["value_inr"] for f in funds)
     cash_val = grand - eq_val - mf_val
     n_sell = sum(1 for e in eq if e["rec"] == "Sell"); n_trim = sum(1 for e in eq if e["rec"] == "Trim")
@@ -316,7 +446,7 @@ def build_ctx():
     ctx = {
         "client": {"name": "ABXY Family", "code": "ABXY-NDPMS-DEMO", "account_type": "NDPMS (Non-Discretionary)",
                    "profile": "Aggressive", "horizon": "Long term (7yr+)", "construction": "Core–satellite",
-                   "aum_inr": grand, "as_of": "2026-07-25"},
+                   "aum_inr": grand, "as_of": AS_OF},
         # IPS schema v2 (2026-07-28, "best of both worlds" — Principal reference deck +
         # our existing rail-bar visual style): richer parameter coverage (portfolio/equity/
         # fixed-income/commodities level, each with a real min-target-max or max-only band),
@@ -344,11 +474,39 @@ def build_ctx():
                 # commodities
                 "gold_band_pct": (0, 5, 10), "silver_band_pct": (0, 2, 5),
                 "constraints": ["No single stock above the single-scheme cap of the book", "Min 15% of equity in foreign/global by target",
-                                "No unrated / F&O / leveraged positions", "ESG: no tobacco primary-producer adds"]},
+                                "No unrated / F&O / leveraged positions", "ESG: no tobacco primary-producer adds"],
+                # Seven IPS aspects (FM #5, Principal ruling 2026-08-06): "for abxy family assume
+                # something best we can show" -- ABXY is the DEMO book (is_demo=True elsewhere in
+                # this ctx), so an assumed value here is legitimate PROVIDED the page discloses it
+                # as illustrative, never as fact on file. modules/ips_seven_aspects.py is what
+                # applies that disclosure; a real client ctx simply has no "seven_aspects" key
+                # until an advisor actually records one, and the module renders "on file with the
+                # advisor" for every row in that case rather than inheriting these assumptions.
+                "seven_aspects": {
+                    "return": "Long-term capital growth ahead of inflation, pursued through the "
+                              "equity-heavy mandate rather than a stated numeric return target.",
+                    "risk": "Aggressive tolerance -- the mandate explicitly rides through interim "
+                            "drawdowns rather than de-risking on a fall (no drawdown-triggered "
+                            "de-risking is already a standing constraint on this account).",
+                    "liability": "No near-term liability is funded from this account. Assumed to "
+                                 "be discretionary long-term capital, not earmarked against a "
+                                 "specific debt or payment.",
+                    "liquidity": "Low liquidity need assumed. Cash is held at 2-8% of the book by "
+                                 "band, sized for rebalancing and opportunistic deployment, not "
+                                 "for near-term withdrawals.",
+                    "timelines": "Ten-year investment horizon under this mandate; no interim "
+                                 "milestone or drawdown date is assumed.",
+                    "tax": "Assumed taxed at the top individual slab with standard equity LTCG/"
+                          "STCG treatment; no exemption, loss carry-forward or NRI/trust status "
+                          "is assumed.",
+                    "unique": "One constraint is actually on file: no tobacco primary-producer "
+                             "additions (ESG). No other family, governance or values-based "
+                             "restriction is assumed.",
+                }},
         "house_view": {"stance": {"Domestic equity": "Incrementally positive", "Foreign equity": "~15% target, under-owned",
                                   "Gold & silver": "Positive, 75:25", "Momentum": "On hold", "Low-vol / value": "Favoured"},
                        "alloc_gap": {"Large": 8.5, "Mid": 3.0, "Small": -1.5, "Foreign": -12.0, "Gold": -4.0, "Debt/Hybrid": 6.0}},
-        "equity": eq, "funds": funds,
+        "equity": eq, "funds": funds, "fund_churn": fund_churn,
         "totals": {"eq_pct": round(eq_val / grand * 100, 1), "mf_pct": round(mf_val / grand * 100, 1),
                    "cash_pct": round(cash_val / grand * 100, 1), "grand_inr": grand,
                    "top10_pct": round(top10, 1), "n_stocks": len(eq), "n_funds": len(funds),

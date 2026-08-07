@@ -27,7 +27,7 @@ def render(deck, ctx, tier):
     n_perf_flag = sum(1 for f in acts if f.get("qfra") is not None and f["qfra"] < 40)
     n_other = len(acts) - n_perf_flag
     eyebrow, title = LABELS.get(reg, LABELS["std"])
-    s = deck.content(3, "Funds", eyebrow, title)
+    s = deck.content(2, "The Fund Book", eyebrow, title)
     deck.anchor("mod:fund_actions", s, prio=5)
     if n_perf_flag:
         opening = (f"{n_other} of these {len(acts)} actions are structural or a liquidity need, not a quality "
@@ -79,9 +79,15 @@ def render(deck, ctx, tier):
         deck.txt(s, x + 0.18, y + 0.46, col_w - 0.3, 0.2, [(flags, "Bahnschrift", 7.5, vc, True, False, 30)])
         # clipped to the card's real capacity (2026-07-27: a real client's structural_reason
         # ran to ~300 chars and silently overflowed this fixed-height card; 2026-07-29: budget
-        # now scales with column count -- a narrower 3-column card fits far fewer characters
-        # per line than a 2-column one, so a flat 175-char clip still overflowed at 3 columns)
-        clip_len = 175 if ncols == 2 else 100
+        # scaled with column count -- but that alone still overflowed once a 5th/6th action
+        # fund pushed rows_per_col from 2 to 3, shrinking card_h while clip_len stayed flat,
+        # so the exemplar line below collided with wrapped reason text (found 2026-08-06,
+        # adding a debt-fund action). Fix: scale clip_len with the card's ACTUAL available
+        # text height, not just its column count. Rates below reproduce the original 175/100
+        # exactly at the card_h=1.62 this module was tuned against.
+        avail_h = max(0.15, card_h - 0.9)
+        rate = 243 if ncols == 2 else 139
+        clip_len = max(45, int(rate * avail_h))
         deck.txt(s, x + 0.18, y + 0.68, col_w - 0.34, card_h - 0.9,
                  [(clip_clause(f["structural_reason"], clip_len), SERIF, 9.5, INK, False)], ls=1.04)
         if f.get("exemplar") and f["exemplar"] != "-":

@@ -1,8 +1,15 @@
 # -*- coding: utf-8 -*-
 """Annexure, Scheme overlap & redundancy (F17): an illustrative fund-vs-fund overlap heatmap
-(placeholder until the PIT look-through feed is wired), with the OVERLAP formula note (CH.heatmap).
-Capped to the top 10 funds by weight (2026-07-29, permanent) -- an uncapped matrix stops being
-readable well before a 30-fund book."""
+(placeholder until a security-level look-through feed exists), with the OVERLAP formula note
+(CH.heatmap). Capped to the top 10 funds by weight (2026-07-29, permanent) -- an uncapped matrix
+stops being readable well before a 30-fund book.
+
+MOVED to the Annexure 2026-08-06 (Principal ruling #24: "yes replace add overlap ni annexure if
+needed") -- scheme_correlation.py, computed from real NAV history, is now the main Fund Book page;
+this stays available on request. Disclosure strengthened the same day: our data source (ACE)
+carries each fund's SECTOR PERCENTAGES, never a security list, so a real holdings-overlap number
+is not computable from data on file today, not merely unbuilt yet -- the copy below says so
+plainly rather than implying it is a matter of more engineering time."""
 import charts as CH
 from slidekit import ML, UW, RX
 
@@ -59,28 +66,38 @@ def render(deck, ctx, tier):
     M = [[_ov(funds[i], funds[j], i, j) for j in range(n)] for i in range(n)]
     png = CH.heatmap(labels, labels, M, "annex_overlap", fmt="{:.0f}", vmax=100)
 
-    title = ("Where funds re-buy the same exposure"
-             if reg != "simple" else "Funds that own many of the same shares")
-    s = deck.content(3, "The Fund Book", "Scheme overlap & redundancy", title)
+    title = ("Where funds might re-buy the same exposure, illustrated"
+             if reg != "simple" else "Funds that may own similar shares")
+    s = deck.content(5, "Annexure", "Scheme overlap & redundancy", title)
     if capped:
-        deck.scope_tag(s, f"Top {TOP_N} of {len(all_funds)} funds by weight · MF sleeve only")
+        deck.scope_tag(s, f"[ILLUSTRATIVE] Top {TOP_N} of {len(all_funds)} funds by weight · MF sleeve only")
     else:
-        deck.scope_tag(s, f"All {n} funds · MF sleeve only")
+        deck.scope_tag(s, f"[ILLUSTRATIVE] All {n} funds · MF sleeve only")
     deck.pic(s, png, ML, 1.9, 7.4, 4.5, valign="top", halign="left")
 
     rx = ML + 7.65
     rw = RX - rx
     if reg == "simple":
-        b1 = ("Darker squares mean two funds own many of the same shares. A lot of overlap means you "
-              "are paying two fees for one bet.")
+        b1 = ("Darker squares mean two funds may own many of the same shares. A lot of overlap "
+              "would mean paying two fees for one bet -- but these numbers are illustrative, not "
+              "measured. See the fund correlation page in the Fund Book for a real read.")
     else:
-        b1 = ("Each cell is the weighted common holding between two schemes: OVERLAP(A,B) = Σ min(w-A, "
-              "w-B). Darker = more duplication · you pay two active fees for one underlying exposure.")
-    deck.callout(s, rx, 2.0, rw, 2.0, "How to read it", b1, "note")
-    deck.callout(s, rx, 4.1, rw, 1.95, "Illustrative, not final",
-                 "These values are illustrative. The exact map needs each fund's point-in-time "
-                 "look-through holdings, which we build from the funds' published portfolio "
-                 "disclosures.", "warn")
-    deck.source(s, "Illustrative overlap placeholder · full pairwise look-through pending the "
-                   "funds' published portfolio disclosures. MF sleeve only.")
+        b1 = ("Each cell is an ILLUSTRATIVE weighted common-holding proxy between two schemes: "
+              "OVERLAP(A,B) = Σ min(w-A, w-B), estimated from category and AMC, not from actual "
+              "positions. Darker = more estimated duplication. See scheme_correlation (Fund Book) "
+              "for the real, NAV-based read.")
+    cy = 2.0
+    h1 = deck.callout_h(rw, b1, min_h=1.3, max_h=1.75) + 0.30  # +pad: check_geometry2's own
+    deck.callout(s, rx, cy, rw, h1, "How to read it", b1, "note")               # text estimate
+    cy += h1 + 0.15                                                             # runs hotter than
+    b2 = ("The fund data available to us carries only each fund's SECTOR "      # callout_h's for
+          "percentages, never a security list -- not a gap more time closes, "  # this narrow a
+          "a structural limit of what is disclosed to us. Every value on this " # column; padded
+          "page is illustrative, never a measured figure.")                     # rather than
+    h2 = min(6.50 - cy, deck.callout_h(rw, b2, min_h=1.3, max_h=6.50 - cy) + 0.30)  # re-derive it
+    deck.callout(s, rx, cy, rw, h2, "Why this page cannot be real", b2, "warn")
+    deck.source(s, "[ILLUSTRATIVE] Estimated from fund category and AMC, not from actual holdings "
+                   "-- a real pairwise look-through needs a security-level portfolio feed no "
+                   "current source provides. MF sleeve only. Kept in the Annexure on request; "
+                   "the Fund Book's main correlation page is the measured alternative.")
     return 1
