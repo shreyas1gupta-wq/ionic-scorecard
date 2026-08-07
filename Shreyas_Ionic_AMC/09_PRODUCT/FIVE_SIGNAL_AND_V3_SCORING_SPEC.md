@@ -1,9 +1,46 @@
-# Five-Signal Holdings Page + v3 Scoring — method spec
-**Status:** page LIVE · v3 scoring BUILT, NOT ADOPTED (sits beside v1)
+# Five-Signal Holdings Page + v3 Scoring — FROZEN SPEC
+**Status:** page LIVE · v3 scoring **FROZEN 2026-08-07**, sits beside v1 (engine untouched)
 **Date:** 2026-08-07 · **Desk:** DESK-20 · **Rulings:** Principal, 2026-08-06/07
-**Commits:** `57c65a2` (page + v2) → `3802d7a` (v3) → `50a4163` (60:40 growth, caps, re-rank)
+**Freeze audit:** `results/V3_FREEZE_AUDIT.md` — **19 of 19 hard invariants pass**
 
 Internal book. Principal-facing version was delivered in chat as tables.
+
+---
+
+## FROZEN RULES — the scoring ladder
+
+```
+Ionic = clamp( base + forward_adjustment , 5 , 95 )
+   base               = 0.60 x final_3y + 0.40 x final_1y
+   forward_adjustment = growth_leg + conviction_leg, clamped +/-20
+                        then: expected growth <10%  -> net adj <= 0
+                              analyst Sell          -> net adj <= 0
+
+growth_leg      banded on the ANALYST'S EXPECTED EPS GROWTH ALONE (100% EPS, 0% revenue - as v1)
+                <5% -15 | 5-10% -5 | 10-15% 0 | 15-20% +5 | 20-25% +10 | >=25% +15
+                REVENUE RESCUE: revenue growth >15% (1y OR 3y, March-to-March) AND expected EPS <10%
+                                -> the -15 penalty is floored at -5
+                +20 EXCEPTIONAL tier DORMANT (needs a dilution field; would be two-of-three otherwise)
+
+conviction_leg  analyst Sell -6 | analyst rescues a quant Sell +6 | agreement 0
+
+THE CALL
+   below 40      Sell
+   40 - 50       analyst Sell -> Trim; otherwise Trim only if concentrated (>2.5% weight)
+   above 50      HOLD, full stop - an analyst Sell is OVERRULED
+
+GATES (inside the score)
+   balance sheet   D/E >2.5 or int-cover <1.5 -> RED, caps at 40
+                   D/E >1.5 or int-cover <3   -> AMBER, x0.85
+                   FINANCIALS exempt from the WHOLE gate (interest expense is their cost of funds;
+                     applying coverage flagged NIACL RED at -399x with zero debt)
+                   POWER / REALTY / TELECOM / CONSTRUCTION exempt from the D/E trigger only;
+                     coverage still applies to them
+   liquidity       below the size-tier turnover bar -> caps at 50 (was 40)
+
+GROWTH DATA      March-to-March full fiscal years, never a TTM window (716 of 751 names;
+                 35 keep the engine figure where no full-year pair exists)
+```
 
 ---
 
@@ -236,6 +273,24 @@ Superseded, kept as decision records only (do **not** run — written against th
 `chart_signal_options.py`, `chart_dot_formats.py`.
 
 ---
+
+## 6b. KNOWN CHALLENGES at freeze — none blocking, all disclosed
+
+| # | Challenge | Size | Status |
+|---|---|---|---|
+| C1 | **Double-count.** The growth leg and conviction leg correlate +0.24 — an analyst who says Sell usually also forecasts weak growth (median expected 9.1% vs 13.5% for Holds). **95 names are charged by both.** One opinion, two penalties. | 95 names, up to −20 | Fix specced (suppress −6 when growth leg ≤ −5); NOT applied |
+| C2 | **Sell rate 26% vs the frozen ~33% expectation.** The Gate A ceiling, the widened D/E exemption and the EPS-only leg each reduce Sells, and they compound. The frozen note calls a low rate the signature of override leakage. | universe-wide | Watch on the next real book |
+| C3 | **The forward adjustment is unvalidated.** The PIT test cut the 1Y decile spread from +5.50% to +0.13% with the growth leg on. It used TRAILING growth as a proxy, so it tests the *mechanism*, not analyst foresight — but the mechanism carries no ranking power on its own. | whole leg | Kept on Principal ruling (v1 consistency); revisit when a timestamped estimate exists |
+| C4 | **No expected-REVENUE field**, so a true 60:40 cannot be built. One extra field per research file would unblock it. | blocks the ruling | Data gap |
+| C5 | **Ownership feed caps at 2023-12** universe-wide. Largest single coverage win available. | 20.8% of names | Data gap |
+| C6 | **`compute_client_scores.py` (the CLIENT pipeline) has NOT been updated** — old gates, no March-to-March, no rescue, no 40/50 ladder. Adopt v3 and the deck will disagree with the universe. | every client book | Must be done before adoption |
+| C7 | **LT's score is stale.** `pf_mech_flags` recorded analyst Hold (+6 rescue → 45.5); the current research file says Sell. Recomputed it is 33.5, a clean Sell — the "borderline" was an artefact. | 1 name, 4.27% weight | Re-run the mech layer |
+| C8 | **Deck reads v1 sources**, Excel reads v3. On the Talaulikar book that is 5 of 11 printed rows, 24 of 93 holdings. | per book | Resolved by adopting v3 |
+| C9 | `score_method.py` explains **3** buckets while the page shows **5**. | 1 slide | Not started |
+| C10 | **Rescue edge cases.** SPARC qualifies on a 98.8% 3Y CAGR off a tiny base; ITI qualifies on a 3Y CAGR of +16% despite the latest year being **−39.6%**. The "1y OR 3y" reading is mine, not the Principal's words. | 2 of 3 rescues | Flagged for ruling |
+| C11 | **35 names still on the engine's TTM window** — no full-year pair exists in the screener data. | 5% of names | Accepted |
+| C12 | **Listing-price technical is untestable** in the PIT harness (`score_asof` needs 260 sessions, so sub-1-year names never enter). It rests on the 515-name recovery test only. | 38 names | Accepted |
+| C13 | **Exceptional +20 tier dormant** — requires share dilution <2%, which is not in the dataset. Enabling it on two-of-three fired on 27 names. | — | Blocked on data |
 
 ## 7. Open decisions
 

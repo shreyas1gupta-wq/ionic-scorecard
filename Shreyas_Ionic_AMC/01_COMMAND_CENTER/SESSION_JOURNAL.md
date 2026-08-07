@@ -1369,3 +1369,13 @@ Principal ordered the build ("we have nifty much data 1min and 1day build anc ba
 - One-time earnings: flags from screener P&L — one_time_income_risk (OI>25% PBT, non-fin) 140 names; pat_sales_divergence (PAT+50%/Sales<10%) 30 names. Deeper fix (adjusted ROE ex-exceptionals) needs engine change — proposed, not done.
 - 750 Excel v8: build_scores_excel.py rebuilt -> reports/NIFTY750_SCORECARD_20260807.xlsx: five signals colour-banded via same lib, fwd growth joined for ALL 751 (752 pf_qual jsons exist), v1+v2 scores/calls side by side, new flags. Staged in show\.
 - OPEN: adopt v2? (his call); score_method page still explains 3 buckets vs page's 5; L&T SELL vs 4 non-red dots adjudication; ownership data stale (caps 2023-12) — refresh would clear most of the 231 thin flags.
+
+## 2026-08-07 (DESK-20) — v3 scoring FROZEN; five-signal page final
+- FROZEN SPEC: `09_PRODUCT/FIVE_SIGNAL_AND_V3_SCORING_SPEC.md`. Freeze audit `results/V3_FREEZE_AUDIT.md` = 19/19 hard invariants PASS.
+- Ladder: <40 Sell | 40-50 analyst-Sell->Trim else conc-Trim | >50 Hold (Gate A overruled). 0 Sells >=40, 0 non-Hold >50.
+- Growth leg = analyst expected EPS ALONE (60:40 rejected: no expected-revenue field exists; trailing substitute inverted the leg -- BDL -15 on a +15% analyst view, 75 of 93 -15s had negative trailing revenue). Revenue rescue: rev>15% (1y or 3y M2M) AND expected EPS<10% floors the penalty at -5 (3 names).
+- Growth DATA switched TTM -> March-to-March full years (716/751). 76 names had been on a Jun-2026 TTM window and were being percentile-ranked against Mar-2026 names -- invalid cross-section (COHANCE -13% vs +89%). Penalty/boost recomputed, not inherited.
+- Gates: liquidity caps at 50; D/E exemption widened to power/realty/telecom/construction; financials stay FULLY exempt (applying coverage flagged NIACL RED at -399x with zero debt -- reverted).
+- Scores capped [5,95]. Calls: Sell 198 | Trim 167 | Hold 386.
+- PIT backtest `results/BT_V1_VS_V3_DECILES.md` (2016-2025, q/1Y/3Y): v1 > v3-mech > v3-fwd at every horizon; growth leg cut the 1Y spread +5.50->+0.13. Leg kept on Principal ruling for v1 consistency; the evidence against stands and is logged as C3.
+- 13 challenges logged C1-C13 in the spec. Blocking-before-adoption: C6 (client pipeline not updated), C7 (LT stale), C8 (deck reads v1).

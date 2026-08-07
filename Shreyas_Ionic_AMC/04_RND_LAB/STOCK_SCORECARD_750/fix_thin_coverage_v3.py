@@ -160,6 +160,16 @@ ADJ_CLAMP = 20.0
 EXCEPTIONAL_ENABLED = False
 EXCEPTIONAL_ROE = 0.20
 LOW_GROWTH_CAP = 10.0            # expected growth below this -> net adjustment may not be positive
+
+# REVENUE-RESCUE (Principal, 2026-08-07): "if revenue >15% but eps<10% instead of penalty -15 give
+# penalty max capped at 5". A company compounding its top line at 15%+ while the analyst expects modest
+# EPS is a MARGIN or DILUTION story, not a dying business -- the harshest penalty band is meant for
+# companies that are not growing at all, and applying it here confuses "earnings are not converting"
+# with "there is no growth". Revenue qualifies on EITHER the 1-year or the 3-year figure, so one soft
+# year does not disqualify a consistent compounder.
+REV_RESCUE_MIN = 15.0            # trailing revenue growth (1y or 3y CAGR, March-to-March)
+REV_RESCUE_EPS_MAX = 10.0        # expected EPS growth below this
+REV_RESCUE_FLOOR = -5.0          # the worst the growth leg may be when the rescue applies
 # Principal, 2026-08-07: "no score can be below 5, or above 95 these are cap". Both bounds sit far
 # outside the 40 Sell bar and the 40-50 Trim band, so NO recommendation changes -- verified below.
 SCORE_FLOOR, SCORE_CEIL = 5.0, 95.0
@@ -305,7 +315,7 @@ def load_analyst():
     return out
 
 
-def growth_leg(exp_eps, rev_growth, roe):
+def growth_leg(exp_eps, rev_growth, roe, rev_1y=None, rev_3y=None):
     """Bonus/penalty points from EXPECTED growth, weighted 60 EPS : 40 revenue, then banded."""
     legs, wts = [], []
     if exp_eps is not None and exp_eps == exp_eps and FWD_EPS_W > 0:
@@ -313,10 +323,10 @@ def growth_leg(exp_eps, rev_growth, roe):
     if rev_growth is not None and rev_growth == rev_growth and FWD_REV_W > 0:
         legs.append(min(rev_growth, FWD_REV_CLIP)); wts.append(FWD_REV_W)
     if not legs:
-        return 0.0, np.nan
+        return 0.0, np.nan, False
     g = sum(v * w for v, w in zip(legs, wts)) / sum(wts)     # renormalised if a leg is absent
     if not GROWTH_LEG_ENABLED:
-        return 0.0, g            # figure still returned for the Excel's disclosure column
+        return 0.0, g, False     # figure still returned for the Excel's disclosure column
     pts = GROWTH_LEG[-1][1]
     for lo, p in GROWTH_LEG:
         if g >= lo:
@@ -324,7 +334,14 @@ def growth_leg(exp_eps, rev_growth, roe):
             break
     if EXCEPTIONAL_ENABLED and g >= 25.0 and roe is not None and roe == roe and roe >= EXCEPTIONAL_ROE:
         pts = 20.0
-    return pts, g
+    # revenue rescue: real top-line growth floors the penalty at -5
+    rescued = False
+    if pts < REV_RESCUE_FLOOR and exp_eps is not None and exp_eps == exp_eps \
+            and exp_eps < REV_RESCUE_EPS_MAX:
+        best_rev = max((v for v in (rev_1y, rev_3y) if v is not None and v == v), default=None)
+        if best_rev is not None and best_rev > REV_RESCUE_MIN:
+            pts, rescued = REV_RESCUE_FLOOR, True
+    return pts, g, rescued
 
 
 def window_returns(symbols):
@@ -502,10 +519,14 @@ def main():
     an = load_analyst()
     rev1y = pd.to_numeric(d["revenue_growth_1y"], errors="coerce")
     roe = pd.to_numeric(d["roe"], errors="coerce")
-    g_pts, c_pts, adj, exp_g, a_rec = [], [], [], [], []
+    m2m1 = pd.to_numeric(d["rev_growth_1y_m2m"], errors="coerce")
+    m2m3 = pd.to_numeric(d["rev_cagr_3y_m2m"], errors="coerce")
+    g_pts, c_pts, adj, exp_g, a_rec, resc = [], [], [], [], [], []
     for i, sym in enumerate(d["symbol"].astype(str).str.upper()):
         rec, eps, _esc = an.get(sym, ("", np.nan, False))
-        gp, g = growth_leg(eps, rev1y.iloc[i], roe.iloc[i])
+        gp, g, was_rescued = growth_leg(eps, rev1y.iloc[i], roe.iloc[i],
+                                        m2m1.iloc[i], m2m3.iloc[i])
+        resc.append("Y" if was_rescued else "")
         quant_would_sell = base.iloc[i] < SELL_BAR
         if rec == "Sell":
             cp = CONV_ANALYST_SELL
@@ -519,6 +540,7 @@ def main():
             a = min(a, 0.0)
         g_pts.append(gp); c_pts.append(cp); adj.append(a); exp_g.append(g); a_rec.append(rec)
 
+    d["revenue_rescue"] = resc
     d["fwd_growth_input_pct"] = np.round(exp_g, 1)
     d["fwd_growth_points"] = g_pts
     d["conviction_points"] = c_pts

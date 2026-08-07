@@ -36,6 +36,71 @@ risks turning a partial failure into a total one. Diagnosis + exact patch handed
 contracts from its master, so the 2026-08-25 expiry window is the one at risk. Assess backfill before
 2026-08-25.
 
+## 2026-08-06 (later, Tanvi Desai, Product) — 5 Principal rulings applied on top of the FM-comments build below; both decks rebuilt + gated again; divider primitive hardened
+Full detail: SESSION_JOURNAL.md "2026-08-06 (later, Tanvi Desai, Product)" entry (top). Headline:
+**#1** new `core_satellite.py` — guidance read (no pass/fail pill), midcap->Core. **#4**
+`check_freshness.py` now blocks any build without `--ack "<name>: <reason>"`, unconditionally, and
+logs every ack to a file `disclaimer.py` now cites on the last page. **#5** new
+`ips_seven_aspects.py` — assumed values for ABXY (tagged), "on file with the advisor" for any real
+client with none on file. **#6** `lib/lookthrough.py.full_lookthrough_mix()` fixes a real leak (the
+old 3-segment allocation strip silently dropped every fund's "Others" slice); `snapshot.py` now
+shows 4 segments reconciling to 100%. **#24** new `scheme_correlation.py` (real NAV-history
+correlation) replaces `scheme_overlap_full.py` as the Fund Book's default page; overlap moved to
+the Annexure, off by default, its disclosure rewritten to say plainly why it can't be a real number
+today (ACE = sector %, not a security list). **Divider bug:** confirmed real in the primitive
+(`slidekit.section_divider`'s `pages=` had no type-guard) but NOT currently visible in this
+pipeline (engine.py always passes a list) — hardened anyway. **Gates:** ABXY (3 tiers) 0/0/0 except
+the pre-existing disclaimer-footer spill; tellscan 22 demo-disclosure + 2 pre-existing, 0 new
+jargon; check_method 0; check_freshness verified both block-without-ack and pass-with-ack (against
+the real ACE file). PAC deck rebuilt from the refreshed ABXY PDF, unaffected (title-search still
+resolves all 14 snapshots), same 0/0/5-internal baseline as yesterday. Visual PDF read on both
+decks caught and fixed 2 real geometry bugs pre-existing my own edits introduced (a source-line
+overflow and a callout clip, both from box heights that didn't account for the new longer text) —
+none from the shipped rulings' data/logic itself. **OPEN:** whether direct-equity core/satellite
+should ever use a sector/thematic lens (today: market-cap band only, an [INFERENCE] since the
+ruling's category list is fund-shaped); FM #9 stock-level look-through via fund factsheets (noted
+as next step, not built); `seven_aspects`/`nav_history` are ABXY-only fields pending real-client
+wiring. Not committed to git (not requested).
+
+## 2026-08-06 (Tanvi Desai, Product) — FM's 25 comments: 12 unblocked items BUILT, both decks rebuilt, 5 QA gates run
+Implemented per `09_PRODUCT/FM_REVIEW_REPLY_2026-08-05.md` + `MF_SELL_METHOD_SPEC_2026-08-05.md` +
+`05_DATA_OFFICE/ACEMF_VERIFICATION_2026-08-05.md`. **Built:** #11 three-part restructure (Portfolio
+stats -> Fund Book -> Equity Book, section numbers/dividers/contents_legend all renumbered); #6
+look-through asset-allocation strip on snapshot; #7 allocation_house_view retired (unwired, file kept);
+#12 new `mf_methodology.py`; #2 look-through equity (gross, footnote not flag); #10 combined sector
+exposure (`sector_exposure.py` rewritten, caveat removed); #9 concentration incl. funds at
+scheme/AMC/look-through-sector (`concentration_risk.py` rewritten); #22 new `funds_debt.py`
+(YTM/duration/expense/rating, honest "Not disclosed" gap); #19/#21 purchase-date graceful
+degradation + debt pre-Apr-2023 hard gate + STCG-low-priority, in new `lib/mf_sell_gates.py`; #25
+churn/priority split in `fund_book_scored.py` (subhead rows + Priority column, only above 20%
+churn). New shared `lib/lookthrough.py` (also fixed a real pre-existing bug: `ips_summary.py`'s
+category-bucket look-through never matched azby's own `category="equity"` funds, understating
+true equity on the IPS page too). ABXY demo data extended with ACE-shaped fields + 2 new debt
+funds (one gated, one STCG) since it has no real ISINs to join to the real ACE file — synthetic
+but ACE-field-compatible for a future real-client drop-in. **Also closed** a pre-existing
+check_method.py gap (HINDCOPPER quality Sell >=40 score had no `exceptional_override` evidence
+flag even though sell_list.py already visually tags it EXCEPTIONAL).
+**Gates, both decks:** check_geometry/check_geometry2 = 0/0 (both ABXY_Showcase_HNI_DEEP.pptx and
+IONIC_NDPMS_PRODUCT_APPROVAL_DECK.pptx) except ONE pre-existing, unrelated check_geometry2 hit on
+disclaimer.py's footer (slide 65, untouched file, visually confirmed harmless on the PDF read).
+check_method.py 0 findings. tellscan.py: PAC deck (internal) 5 findings, all permitted
+framework-name/demo-disclosure hits; ABXY (client-facing demo) 21 findings, ALL the
+SYNTHETIC_DEMO_LEAK bucket firing on CORRECT is_demo self-disclosure text (pre-existing house
+pattern across ~15 modules, structurally unavoidable for any is_demo build) plus 2 pre-existing
+analyst-prose artifacts in annexure modules never touched this session — none are new
+client-facing jargon/Buy-language defects. check_freshness.py: ACE MF file ok when `--ace` passed
+explicitly (block-level staleness matches the verification doc); 2 findings are the pre-existing
+Angel-capture staleness (URGENT FLAG #3, DESK-100's) and the ACE filename/content date mismatch
+the loader is DESIGNED to catch, not a new problem. **Visual PDF read caught 3 real bugs the
+automated gates missed**: a snapshot.py label-collision on two narrow allocation-bar segments, a
+fund_book_scored.py 3-flag row overlapping into the Verdict column once the Priority column ate
+its width, and funds_debt.py displaying expense ratio x100 too high (0.55 -> wrongly "55.00%") —
+all fixed and re-verified. **Not done / deliberately scoped out:** did not add a visual Priority
+column to the EQUITY sell table (`sell_list.py`) since azby's schema has no per-stock purchase
+date, so every row would show "High" identically — the ctx-level `sell_priority` field is set
+(check_method.py passes) but the visual column would be decorative, not informative, on this
+book. Full detail + every file path: SESSION_JOURNAL.md 2026-08-06 entry.
+
 ## 2026-08-04/05 (DESK-20) — QFRA-2 frozen-model reconciliation; 7 skill defects fixed; fuzzy purged; sell rule rebuilt; PAC deck research banked but DECK NOT BUILT
 **SOFT SAVE at the Principal's instruction ("soft save and we will continue next session"). RESUME FROM
 `03_RESEARCH_DESK/qfra2_pac_prep/RESUME_HERE.md` — it has the full checkpoint, the six agents' findings,
