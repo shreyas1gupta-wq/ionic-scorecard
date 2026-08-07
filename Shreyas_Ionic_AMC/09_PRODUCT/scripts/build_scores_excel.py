@@ -160,7 +160,11 @@ n_sell = int((df.get("recommendation_v3", pd.Series(dtype=str)) == "Sell").sum()
 # Trim is an ELIGIBILITY, not a call: 40-50 permits a trim if the weight warrants it, and an analyst
 # Sell above the bar permits one too, but neither IS a trim. The universe file has no position weights,
 # so it can only flag eligibility -- the decision belongs to the book-level pass.
-n_trim = int((df.get("trim_eligible_v3", pd.Series(dtype=str)).astype(str) != "").sum()) if has_v3 else 0
+# fillna BEFORE astype: an empty string round-trips through CSV as NaN, and .astype(str) turns NaN into
+# the four-character string "nan", which is not empty -- counting every one of the 751 names as
+# trim-eligible and driving the Hold count negative.
+n_trim = int((df.get("trim_eligible_v3", pd.Series(dtype=str)).fillna("").astype(str).str.strip()
+              != "").sum()) if has_v3 else 0
 ws["A2"] = (f"As of {AS_OF}  |  {n} names  |  Signals = the client-deck five, quartile bands against "
             f"this universe  |  Call: Sell below 40 ({n_sell}), Hold at or above 40. {n_trim} Holds "
             f"are TRIM-ELIGIBLE (score 40-50 needs weight >2.5%, or an analyst Sell) -- eligibility, "
@@ -241,5 +245,7 @@ print("source:", os.path.basename(src))
 print("rows:", n, "cols:", len(COLS), "fwd EPS estimates joined:",
       int(df["fwd_eps_growth_pct"].notna().sum()))
 if has_v3:
-    print(f"calls: Sell {n_sell} | Trim band {n_trim} | Hold {n - n_sell - n_trim}")
+    # Holds and trim-eligibles OVERLAP by design: every trim-eligible name is a Hold. Reporting them
+    # as three disjoint buckets was what produced "Hold -198".
+    print(f"calls: Sell {n_sell} | Hold {n - n_sell}  (of which {n_trim} trim-eligible)")
 print("SAVED:", OUT)
