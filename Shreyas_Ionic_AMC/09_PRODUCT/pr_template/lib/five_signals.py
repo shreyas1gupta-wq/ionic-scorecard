@@ -9,8 +9,7 @@ to disagree about what green means.
 
 THE CLUBBING (all 7 pillars represented, none dropped):
     Quality         <- quality_score
-    Growth          <- growth_3y_score (trailing REVENUE CAGR percentile; the analyst's forward EPS
-                       estimate is deliberately NOT blended in -- see `signals()`)
+    Growth          <- 60% analyst's expected EPS growth + 40% trailing revenue-CAGR percentile
     Value           <- value_score
     Technical       <- mean(stage_3y_score, accumulation_3y_score)          price/volume evidence
     Sector & Flows  <- mean(ownership_flow_3y_score, sector_macro_3y_score) who else is buying, and
@@ -19,18 +18,24 @@ THE CLUBBING (all 7 pillars represented, none dropped):
 BANDS: four even quartiles (floors 75 / 50 / 25), per the Principal -- "25%ile 25%ile 25%ile 25%ile
 for each colour". `T4` keeps the earlier tuned floors for comparison; see FLOORS for what each costs.
 
-FORWARD-LOOKING DATA: the Ionic Score's forward adjustment has two legs -- the analyst's expected
-3-5yr EPS growth, and a conviction leg from the analyst's own call. NEITHER is blended into a dot:
-  * The EPS estimate is not mixed into Growth, because Growth is a trailing REVENUE percentile and the
-    two are different measures (Principal, 2026-08-07). It reaches the page through the Ionic Score,
-    which already carries the frozen forward adjustment, and it gets its own column in the analyst
-    Excel where it can be read as what it is.
-  * The conviction leg is deliberately not smeared across the dots either. Applying a name-level
-    adjustment to all five would make two holdings with identical ROE show different Quality dots,
-    and it would turn the dots into a restatement of the call instead of the evidence behind it. The
-    recommendation is already on the row, in the Call pill beside the dots.
+FORWARD-LOOKING DATA. The Ionic Score's forward adjustment has two legs -- the analyst's expected 3-5yr
+EPS growth, and a conviction leg from the analyst's own call. They are treated differently, on purpose:
+  * The EPS ESTIMATE IS blended into Growth, 60% EPS to 40% trailing revenue (Principal, 2026-08-07).
+    The two legs deliberately measure different things: a company can compound EPS at 20% on 6% revenue
+    through margin, deleveraging or buybacks, and this dot will read that as strong growth. That is the
+    intended reading -- "Growth" is the growth DIMENSION, weighted toward what actually reaches the
+    holder, not a single accounting line. The EPS figure is a raw percentage and the revenue figure is a
+    percentile rank, so the estimate is mapped through the frozen growth-leg bands first; averaging the
+    two unmapped would be arithmetic on different units.
+  * The conviction leg is NOT smeared across the dots. Applying a name-level adjustment to all five
+    would make two holdings with identical ROE show different Quality dots, and it would turn the dots
+    into a restatement of the call instead of the evidence behind it. The recommendation is already on
+    the row, in the Call pill beside the dots.
   * Quality, Value, Technical and Sector & Flows have no forward input at all; manufacturing one would
     be fabrication.
+
+SCORE CAPS: composite scores are clamped to [5, 95] (Principal, 2026-08-07). Pillar percentiles are NOT
+capped -- they are ranks, where 100 honestly means "first of 751".
 
 COLUMN-NAME LANDMINE: the ownership pillar is `ownership_flow_3y_score` in the client scoring output
 (portfolio_quant.csv) but `ownership_3y_score` in the 750-universe file (full750_scored.csv). Reading
@@ -38,6 +43,7 @@ only one name renders "no data" on every real client deck while looking perfect 
 -- a silent gap, not an error. `_ALIASES` reads either.
 """
 import csv
+import json
 import os
 
 # House palette. Every value is EXACTLY a slidekit colour except DOTGREEN2, which is a tint of HOLD
@@ -167,12 +173,34 @@ _ALIASES = {
 }
 
 # FROZEN growth-leg thresholds from the Ionic Score's forward adjustment (>=25 / 20-25 / 15-20 / 10-15
-# / 5-10 / <5), re-expressed on the 0-100 scale. These bands describe EXPECTED EPS GROWTH, not revenue
-# -- which is exactly why `signals(forward=...)` defaults to off: mapping them onto a revenue-CAGR
-# percentile mixes two different measures. Retained for the Excel, where forward EPS gets its own
-# column and is never averaged into a revenue rank.
+# / 5-10 / <5), re-expressed on the 0-100 scale so the analyst's forward figure can sit on the same
+# axis as the trailing percentile. Nothing new is invented; these are the model's own bands.
+#
+# THE TWO LEGS MEASURE DIFFERENT THINGS, and that is a deliberate, Principal-ruled choice rather than an
+# oversight: the trailing leg is a percentile rank of REVENUE CAGR, the forward leg is expected EPS
+# growth. A company can compound EPS at 20% on 6% revenue through margin or buybacks, and this dot will
+# read that as strong growth. That is the intended reading -- "Growth" here is the growth DIMENSION,
+# evidenced by where revenue has been and where the desk expects earnings to go, not a single metric.
 _FWD_BANDS = ((25.0, 92.0), (20.0, 80.0), (15.0, 65.0), (10.0, 50.0), (5.0, 30.0), (-1e9, 12.0))
-FWD_BLEND = 0.50          # half trailing, half forward
+# Principal, 2026-08-07: "let's take 60 growth in eps : 40 growth in revenue as final". EPS LEADS.
+# Named per-leg rather than as one blend fraction: a single `FWD_BLEND = 0.40` is ambiguous about which
+# side the 0.40 belongs to, and the first pass got it backwards (40% on EPS instead of 60%).
+EPS_WEIGHT = 0.60         # analyst's expected EPS growth, mapped through _FWD_BANDS
+REV_WEIGHT = 0.40         # trailing revenue-CAGR percentile (the frozen growth pillar)
+assert abs(EPS_WEIGHT + REV_WEIGHT - 1.0) < 1e-9
+
+# Score caps (Principal, 2026-08-07): no score below 5 or above 95. A 0 or a 100 claims a certainty the
+# framework does not have -- there is always a worse company and always a better one, and a name pinned
+# at the extreme cannot be distinguished from the next one out. Applied to composite scores, NOT to the
+# pillar percentiles, which are ranks and where 100 simply means "first of 751".
+SCORE_FLOOR, SCORE_CEIL = 5.0, 95.0
+
+
+def cap_score(v):
+    """Clamp a composite score into [SCORE_FLOOR, SCORE_CEIL]; passes NaN/None through untouched."""
+    if v is None or v != v:
+        return v
+    return min(max(float(v), SCORE_FLOOR), SCORE_CEIL)
 
 
 def _num(x):
@@ -208,7 +236,19 @@ def fwd_growth_score(row):
     return _FWD_BANDS[-1][1]
 
 
-_COMPOSITE_DIST = None          # {"Technical": sorted[...], "Flows & Sector": sorted[...]}
+def _blend_growth(row):
+    """Growth = 60% expected EPS growth (mapped through the frozen bands) + 40% trailing revenue rank.
+    Whichever leg exists if the other does not; None if neither does."""
+    rev = _get(row, "growth")
+    eps = fwd_growth_score(row)
+    if eps is None:
+        return rev
+    if rev is None:
+        return eps
+    return EPS_WEIGHT * eps + REV_WEIGHT * rev
+
+
+_COMPOSITE_DIST = None   # {"Technical": [...], "Sector & Flows": [...], "Growth": [...]}, all sorted
 
 
 def _composite_dist():
@@ -227,15 +267,12 @@ def _composite_dist():
     global _COMPOSITE_DIST
     if _COMPOSITE_DIST is not None:
         return _COMPOSITE_DIST
-    tech, flow = [], []
+    acc = {c: [] for c in CATS}
     for _sym, rec in load_universe().items():
-        t = _avg(rec, "stage", "accum")
-        f = _avg(rec, "ownership", "sector")
-        if t is not None:
-            tech.append(t)
-        if f is not None:
-            flow.append(f)
-    _COMPOSITE_DIST = {"Technical": sorted(tech), "Sector & Flows": sorted(flow)}
+        for cat, v in _raw_signals(rec):
+            if v is not None:
+                acc[cat].append(v)
+    _COMPOSITE_DIST = {c: sorted(v) for c, v in acc.items()}
     return _COMPOSITE_DIST
 
 
@@ -255,40 +292,45 @@ def _pctile_of(value, sorted_vals):
     return lo / n * 100.0
 
 
-def signals(row, forward=False, rerank=True):
+def signals(row, forward=True, rerank=True):
     """row: any mapping (dict / pandas Series / ctx equity entry) -> [(category, value|None), ...] in
     fixed CATS order. None means genuinely not scored and must render as a hollow ring, never a colour.
 
-    `forward` OFF BY DEFAULT, and it should stay off. Principal, 2026-08-07: "growth bonus points are
-    for eps growth expected not revenue". The Growth pillar is a percentile rank of trailing REVENUE
-    CAGR; the analyst's forward figure is expected EPS growth. Those are different quantities on
-    different scales, and averaging them yields a number that is neither -- a company can compound EPS
-    at 20% on 6% revenue through margin or buybacks, and the blend would read that as mid-band growth
-    when both facts are individually clear. The forward EPS estimate already does its work inside the
-    Ionic Score's frozen forward adjustment (which is what the Score column shows), and it is surfaced
-    as its own column in the analyst Excel. The flag is kept only so the blend can be inspected."""
-    growth = _get(row, "growth")
-    if forward:
-        fw = fwd_growth_score(row)
-        if fw is not None:
-            growth = fw if growth is None else (1 - FWD_BLEND) * growth + FWD_BLEND * fw
-    tech = _avg(row, "stage", "accum")
-    flow = _avg(row, "ownership", "sector")
-    if rerank:
-        dist = _composite_dist()
-        tech = _pctile_of(tech, dist["Technical"])
-        flow = _pctile_of(flow, dist["Sector & Flows"])
+    `forward=True` makes the Growth dot 60% the analyst's expected EPS growth and 40% the trailing
+    revenue percentile (Principal, 2026-08-07). Read as: mostly where the desk expects earnings to go,
+    partly where revenue has actually been. With no EPS estimate on file the trailing rank stands alone
+    -- the dot degrades to backward-looking rather than disappearing, which is the right trade for one
+    signal of five. See `_FWD_BANDS` for why the EPS leg must be mapped before it can be averaged."""
+    raw = dict(_raw_signals(row, forward=forward))
+    if not rerank:
+        return [(c, raw.get(c)) for c in CATS]
+    # RE-RANK EVERY SIGNAL against the universe, not just the obviously-composite ones.
+    # The legend labels the bands "Top 25% / Upper / Lower / Bottom 25%", which is only true if each
+    # column is uniformly distributed -- and NONE of the five is, because every one is a blend:
+    # Quality is the mean of two ranks, Value a weighted mix of four, Growth 60/40 EPS-and-revenue,
+    # Technical and Sector & Flows the mean of two each. A blend of ranks is not itself a rank; it
+    # clusters mid-scale. Measured before this fix: Value came out 32/32/19/13 and blended Growth
+    # 12/37/40/11 instead of four quarters. Re-ranking each signal against the universe's own
+    # distribution of that same signal restores the quarters and makes the legend literally true.
+    dist = _composite_dist()
+    return [(c, _pctile_of(raw.get(c), dist.get(c, []))) for c in CATS]
+
+
+def _raw_signals(row, forward=True):
+    """The five signals BEFORE universe re-ranking. Split out so `_composite_dist()` can build the
+    distribution from exactly the same construction `signals()` ranks against -- if these two ever
+    diverged, every name would be ranked against a quantity that is not its own."""
     out = {
         "Quality": _get(row, "quality"),
-        "Growth": growth,
+        "Growth": _blend_growth(row) if forward else _get(row, "growth"),
         "Value": _get(row, "value"),
         "Cash": cash_signal(row),          # not in CATS -- kept for internal/analyst use
-        "Technical": tech,
-        "Sector & Flows": flow,
+        "Technical": _avg(row, "stage", "accum"),
+        "Sector & Flows": _avg(row, "ownership", "sector"),
         "Safety": safety_signal(row),      # not in CATS -- kept for internal/analyst use
     }
     # CATS is the single place that decides which signals appear and in what order, so adding or
-    # dropping a column is a one-line change here rather than an edit in three files.
+    # dropping a column is a one-line change there rather than an edit in three files.
     return [(c, out.get(c)) for c in CATS]
 
 
@@ -397,6 +439,27 @@ def load_universe():
                         _UNIV.setdefault(sym, {}).update(got)
         except (OSError, csv.Error):
             continue
+
+    # Forward EPS estimates, from the per-name research files. Needed here and not only in the Excel:
+    # the blended Growth signal is re-ranked against the UNIVERSE, so the universe rows must carry the
+    # same EPS leg the client rows do. Without this the client book would be ranked against a
+    # revenue-only distribution while its own values are blended -- comparing two different quantities,
+    # which is exactly the failure the re-ranking exists to prevent.
+    qual_dir = os.path.join(root, "Shreyas_Ionic_AMC", "04_RND_LAB", "STOCK_SCORECARD_750", "results")
+    try:
+        for fn in os.listdir(qual_dir):
+            if not (fn.startswith("pf_qual_") and fn.endswith(".json")):
+                continue
+            sym = fn[len("pf_qual_"):-len(".json")].strip().upper()
+            try:
+                with open(os.path.join(qual_dir, fn), "r", encoding="utf-8") as fh:
+                    v = _num(json.load(fh).get("expected_next_3y_growth_pct"))
+            except (OSError, ValueError, TypeError):
+                continue
+            if v is not None:
+                _UNIV.setdefault(sym, {})["growth_pct"] = v
+    except OSError:
+        pass
     return _UNIV
 
 

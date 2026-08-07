@@ -87,6 +87,9 @@ AS_OF = pd.Timestamp("2026-07-20")
 TDPM = 21
 WINDOWS = (12, 9, 6, 3)          # months; a thin name uses the longest window it can support
 SELL_BAR, TRIM_CEIL = 40.0, 50.0
+# Principal, 2026-08-07: "no score can be below 5, or above 95 these are cap". Both bounds sit far
+# outside the 40 Sell bar and the 40-50 Trim band, so NO recommendation changes -- verified below.
+SCORE_FLOOR, SCORE_CEIL = 5.0, 95.0
 
 
 def comp(row, base, tilt_c, tilt_n, neutral=None):
@@ -231,19 +234,33 @@ def main():
 
     c3 = d2.apply(lambda r: comp(r, BASE_W_3Y, TILT_CYC_3Y, TILT_NOT_3Y, NEUTRAL), axis=1)
     c1 = d2.apply(lambda r: comp(r, BASE_W_1Y, TILT_CYC_1Y, TILT_NOT_1Y, NEUTRAL), axis=1)
-    f3 = (d2.apply(lambda r: gate(r, c3.loc[r.name]), axis=1) + res3).clip(0, 100)
-    f1 = (d2.apply(lambda r: gate(r, c1.loc[r.name]), axis=1) + res1).clip(0, 100)
+    f3 = (d2.apply(lambda r: gate(r, c3.loc[r.name]), axis=1) + res3).clip(SCORE_FLOOR, SCORE_CEIL)
+    f1 = (d2.apply(lambda r: gate(r, c1.loc[r.name]), axis=1) + res1).clip(SCORE_FLOOR, SCORE_CEIL)
     d["final_score_3y_v3"] = f3.round(2)
     d["final_score_1y_v3"] = f1.round(2)
 
     # ---- call on the BLENDED score: no Sell above 40, 40-50 is the Trim band -----------------------
-    blend = (0.60 * f3 + 0.40 * f1)
+    # Both legs are already inside [5, 95], so their weighted mean is too; the clip is belt-and-braces
+    # against a future weight change and costs nothing.
+    blend = (0.60 * f3 + 0.40 * f1).clip(SCORE_FLOOR, SCORE_CEIL)
     d["ionic_score_v3"] = blend.round(2)
     d["recommendation_v3"] = np.where(blend < SELL_BAR, "Sell",
                                       np.where(blend <= TRIM_CEIL, "Hold (Trim if concentrated)",
                                                "Hold"))
     d["thin_history_flag"] = np.where(d["history_class"] == "<1y", "<1y",
                                       np.where(d["pillars_observed"] < 7, "Y", ""))
+
+    # The cap must not quietly move a call. Verified rather than asserted: recompute the calls from the
+    # UNCAPPED blend and require an exact match.
+    raw_blend = 0.60 * (d2.apply(lambda r: gate(r, c3.loc[r.name]), axis=1) + res3) \
+        + 0.40 * (d2.apply(lambda r: gate(r, c1.loc[r.name]), axis=1) + res1)
+    rec_uncapped = np.where(raw_blend < SELL_BAR, "Sell",
+                            np.where(raw_blend <= TRIM_CEIL, "Hold (Trim if concentrated)", "Hold"))
+    n_moved = int((rec_uncapped != d["recommendation_v3"].to_numpy()).sum())
+    print(f"cap check: [{SCORE_FLOOR:.0f},{SCORE_CEIL:.0f}] moved {n_moved} recommendations "
+          f"(expected 0); floored {int((raw_blend < SCORE_FLOOR).sum())}, "
+          f"ceiled {int((raw_blend > SCORE_CEIL).sum())}")
+    assert n_moved == 0, "score cap changed a recommendation -- investigate before shipping"
 
     # ---- earnings-quality flags -------------------------------------------------------------------
     if os.path.exists(EQ):

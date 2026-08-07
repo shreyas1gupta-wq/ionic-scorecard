@@ -83,7 +83,8 @@ has_v3 = "final_score_3y_v3" in df.columns
 # Growth is a trailing revenue-CAGR percentile and the estimate is expected EPS growth (Principal,
 # 2026-08-07). It appears as its own column instead, where it reads as what it is.
 # Signals read the *_v3 (imputed) pillars where v3 produced them, so a dot never says "not scored" on a
-# name whose score used a substituted value.
+# name whose score used a substituted value. `growth_pct` carries the analyst's expected EPS growth into
+# the Growth signal, which weights it 60 against 40 on trailing revenue (Principal, 2026-08-07).
 _PILL_V3 = [c[:-3] for c in df.columns if c.endswith("_v3") and c[:-3].endswith("_score")]
 
 
@@ -93,6 +94,8 @@ def _sig_row(r):
         v = r.get(f"{p}_v3")
         if pd.notna(v):
             rec[p] = v
+    if pd.notna(r.get("fwd_eps_growth_pct")):
+        rec["growth_pct"] = float(r["fwd_eps_growth_pct"])
     return {c: v for c, v in F.signals(rec)}
 
 
@@ -153,8 +156,8 @@ n_trim = int((df.get("recommendation_v3", pd.Series(dtype=str))
 ws["A2"] = (f"As of {AS_OF}  |  {n} names  |  Signals = the client-deck five, quartile bands against "
             f"this universe  |  Call on the BLENDED score: Sell below 40 ({n_sell}), 40-50 is the "
             f"Trim band ({n_trim}), above 50 Hold  |  v3 = thin-history corrected (1y-sibling and "
-            f"listing-price substitution, no withdrawals)  |  Fwd EPS growth is the analyst's "
-            f"estimate and is NOT blended into the Growth signal  |  "
+            f"listing-price substitution, no withdrawals)  |  Growth signal = 60% analyst expected EPS "
+            f"growth + 40% trailing revenue rank  |  Scores capped at 5 and 95  |  "
             f"INTERNAL RESEARCH — not investment advice.")
 ws["A2"].font = Font(name="Bahnschrift", size=9, italic=True, color="666666")
 HDR_ROW = 4
