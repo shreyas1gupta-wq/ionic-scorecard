@@ -115,13 +115,20 @@ DE_EXEMPT_SECTORS = ("financial services", "power", "realty", "telecommunication
 # research files); there is no forward REVENUE estimate anywhere in the stack, so the revenue leg uses
 # trailing 1-year revenue growth (99.1% coverage, median 12.35%). [INFERENCE, disclosed] -- if the desk
 # starts capturing an expected-revenue figure, swap it in here and nothing else changes.
-# GROWTH LEG DISABLED (Principal, 2026-08-07: "lets not add forward growth leg then"), on the back of
-# the PIT decile test: banding growth into +/-15 and adding it to the composite cut the 1Y decile
-# spread from +5.50% to +0.13% and was the worst arm at every horizon tested. Note what the FROZEN
-# client pipeline (compute_client_scores.py v6.2) actually did: growth_leg took the analyst's expected
-# figure ALONE -- 100% expected EPS growth, no revenue leg at any weight. The 60:40 was new here, and
-# it is now moot. The bands stay defined for the Excel's disclosure column only.
-GROWTH_LEG_ENABLED = False
+# GROWTH LEG ON (Principal, 2026-08-07: "if v1 was adding then add it in our aswell"), after evidence
+# established that v1 really was applying it -- 30 of 59 holdings on the shipped Talaulikar deck carried
+# an adjustment between -11 and +15, and the deck's scores reconcile to pf_mech_flags 59/59. Dropping
+# it would have made v3 scores incomparable with every deck already delivered.
+#
+# THE EVIDENCE AGAINST IT STILL STANDS AND IS NOT SETTLED. The PIT decile test cut the 1Y spread from
+# +5.50% to +0.13% with the leg on, and it was the worst arm at all three horizons. But that test had to
+# PROXY the analyst's forward estimate with TRAILING growth, because analyst opinion has no
+# point-in-time history -- so it tests the mechanism (banding a growth number into +/-15 and adding it),
+# not the analyst's actual foresight. Those are different claims. What it does establish is that the
+# banding mechanism carries no ranking power on its own; if the leg earns its place, it does so through
+# analyst skill that this harness cannot observe. Worth revisiting the day a forward estimate is
+# captured with a timestamp.
+GROWTH_LEG_ENABLED = True
 FWD_EPS_W, FWD_REV_W = 0.60, 0.40
 GROWTH_LEG = ((25.0, 15.0), (20.0, 10.0), (15.0, 5.0), (10.0, 0.0), (5.0, -5.0), (-1e9, -15.0))
 # The revenue leg is WINSORISED at the top band's floor before blending. Measured reason: expected EPS
