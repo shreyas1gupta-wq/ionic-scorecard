@@ -121,6 +121,11 @@ if has_v3:
 COLS += [(f"sig::{c}", c, None) for c in F.CATS]
 COLS += [("fwd_eps_growth_pct", "Fwd EPS Grw % (analyst)", 0)]
 if has_v3:
+    COLS += [("analyst_call", "Analyst call", None), ("base_score_v3", "Base score", 1),
+             ("fwd_growth_input_pct", "Fwd grw 60:40 %", 1),
+             ("fwd_growth_points", "Grw pts", 0), ("conviction_points", "Conv pts", 0),
+             ("forward_adjustment", "Fwd adj", 0),
+             ("analyst_conversion", "Analyst conversion", None)]
     COLS += [("history_class", "History", None), ("pillars_observed", "Pillars /7", 0),
              ("imputation_applied", "Imputation used", None),
              ("listing_return_pctile", "Listing-ret pctile", 0),
@@ -156,8 +161,9 @@ n_trim = int((df.get("recommendation_v3", pd.Series(dtype=str))
 ws["A2"] = (f"As of {AS_OF}  |  {n} names  |  Signals = the client-deck five, quartile bands against "
             f"this universe  |  Call on the BLENDED score: Sell below 40 ({n_sell}), 40-50 is the "
             f"Trim band ({n_trim}), above 50 Hold  |  v3 = thin-history corrected (1y-sibling and "
-            f"listing-price substitution, no withdrawals)  |  Growth signal = 60% analyst expected EPS "
-            f"growth + 40% trailing revenue rank  |  Scores capped at 5 and 95  |  "
+            f"listing-price substitution, no withdrawals)  |  Ionic = base blend + forward adjustment "
+            f"(growth leg banded on 60% expected EPS : 40% revenue, plus the analyst conviction leg), "
+            f"capped at 5 and 95  |  Signals are trailing pillar ranks, no forward data  |  "
             f"INTERNAL RESEARCH — not investment advice.")
 ws["A2"].font = Font(name="Bahnschrift", size=9, italic=True, color="666666")
 HDR_ROW = 4

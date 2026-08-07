@@ -9,7 +9,8 @@ to disagree about what green means.
 
 THE CLUBBING (all 7 pillars represented, none dropped):
     Quality         <- quality_score
-    Growth          <- 60% analyst's expected EPS growth + 40% trailing revenue-CAGR percentile
+    Growth          <- growth_3y_score, the trailing revenue-CAGR percentile. UNCHANGED from the
+                       original design (Principal, 2026-08-07: "keep the previous one we had at start")
     Value           <- value_score
     Technical       <- mean(stage_3y_score, accumulation_3y_score)          price/volume evidence
     Sector & Flows  <- mean(ownership_flow_3y_score, sector_macro_3y_score) who else is buying, and
@@ -18,21 +19,20 @@ THE CLUBBING (all 7 pillars represented, none dropped):
 BANDS: four even quartiles (floors 75 / 50 / 25), per the Principal -- "25%ile 25%ile 25%ile 25%ile
 for each colour". `T4` keeps the earlier tuned floors for comparison; see FLOORS for what each costs.
 
-FORWARD-LOOKING DATA. The Ionic Score's forward adjustment has two legs -- the analyst's expected 3-5yr
-EPS growth, and a conviction leg from the analyst's own call. They are treated differently, on purpose:
-  * The EPS ESTIMATE IS blended into Growth, 60% EPS to 40% trailing revenue (Principal, 2026-08-07).
-    The two legs deliberately measure different things: a company can compound EPS at 20% on 6% revenue
-    through margin, deleveraging or buybacks, and this dot will read that as strong growth. That is the
-    intended reading -- "Growth" is the growth DIMENSION, weighted toward what actually reaches the
-    holder, not a single accounting line. The EPS figure is a raw percentage and the revenue figure is a
-    percentile rank, so the estimate is mapped through the frozen growth-leg bands first; averaging the
-    two unmapped would be arithmetic on different units.
-  * The conviction leg is NOT smeared across the dots. Applying a name-level adjustment to all five
-    would make two holdings with identical ROE show different Quality dots, and it would turn the dots
-    into a restatement of the call instead of the evidence behind it. The recommendation is already on
-    the row, in the Call pill beside the dots.
-  * Quality, Value, Technical and Sector & Flows have no forward input at all; manufacturing one would
-    be fabrication.
+NO FORWARD DATA REACHES A DOT. Principal, 2026-08-07: the 60:40 EPS-to-revenue weighting he specified
+belongs to the Ionic Score's forward ADJUSTMENT (the bonus/penalty points banded <5% / 5-10% / ... ),
+NOT to this Growth signal. The signal is the trailing revenue-CAGR percentile it always was. The
+forward adjustment lives in `fix_thin_coverage_v3.py`, where it belongs, and reaches the page only
+through the Ionic Score column.
+
+I had briefly blended the estimate into the dot at 50/50 and then at 60/40; both were wrong, for two
+separate reasons worth recording so they are not repeated:
+  * the estimate is expected EPS growth while the pillar is a trailing REVENUE rank -- different
+    quantities, and averaging them yields a number that is neither; and
+  * it was never what the 60:40 ruling referred to in the first place.
+The conviction leg is likewise NOT smeared across the dots: a name-level adjustment applied to all five
+would make two holdings with identical ROE show different Quality dots, and would turn the dots into a
+restatement of the call rather than the evidence behind it. The call is already on the row, in the pill.
 
 SCORE CAPS: composite scores are clamped to [5, 95] (Principal, 2026-08-07). Pillar percentiles are NOT
 capped -- they are ranks, where 100 honestly means "first of 751".
@@ -251,7 +251,7 @@ def _blend_growth(row):
 _COMPOSITE_DIST = None   # {"Technical": [...], "Sector & Flows": [...], "Growth": [...]}, all sorted
 
 
-def _composite_dist():
+def _composite_dist(forward=False):
     """Universe distributions of the two COMPOSITE signals, for re-ranking.
 
     Why this exists: Quality, Growth and Value are single percentile ranks, so they are uniform and
@@ -264,16 +264,23 @@ def _composite_dist():
     restores uniformity and makes "a quarter of the universe in each colour" literally true instead of
     approximately true. It changes no pillar weight and no underlying score -- it only fixes the fact
     that an average of two ranks is not itself a rank."""
+    # Keyed by `forward`. The distribution MUST be built the same way the values are, or every name is
+    # ranked against a quantity that is not its own. That happened: the cache was built with the
+    # default forward=True while signals() computed forward=False, and the Growth column came out
+    # 267/250/123/104 -- a barbell, the opposite of quartiles -- because trailing-revenue values were
+    # being ranked against an EPS-blended distribution.
     global _COMPOSITE_DIST
-    if _COMPOSITE_DIST is not None:
-        return _COMPOSITE_DIST
+    if _COMPOSITE_DIST is None:
+        _COMPOSITE_DIST = {}
+    if forward in _COMPOSITE_DIST:
+        return _COMPOSITE_DIST[forward]
     acc = {c: [] for c in CATS}
     for _sym, rec in load_universe().items():
-        for cat, v in _raw_signals(rec):
+        for cat, v in _raw_signals(rec, forward=forward):
             if v is not None:
                 acc[cat].append(v)
-    _COMPOSITE_DIST = {c: sorted(v) for c, v in acc.items()}
-    return _COMPOSITE_DIST
+    _COMPOSITE_DIST[forward] = {c: sorted(v) for c, v in acc.items()}
+    return _COMPOSITE_DIST[forward]
 
 
 def _pctile_of(value, sorted_vals):
@@ -292,7 +299,7 @@ def _pctile_of(value, sorted_vals):
     return lo / n * 100.0
 
 
-def signals(row, forward=True, rerank=True):
+def signals(row, forward=False, rerank=True):
     """row: any mapping (dict / pandas Series / ctx equity entry) -> [(category, value|None), ...] in
     fixed CATS order. None means genuinely not scored and must render as a hollow ring, never a colour.
 
@@ -312,7 +319,7 @@ def signals(row, forward=True, rerank=True):
     # clusters mid-scale. Measured before this fix: Value came out 32/32/19/13 and blended Growth
     # 12/37/40/11 instead of four quarters. Re-ranking each signal against the universe's own
     # distribution of that same signal restores the quarters and makes the legend literally true.
-    dist = _composite_dist()
+    dist = _composite_dist(forward=forward)
     return [(c, _pctile_of(raw.get(c), dist.get(c, []))) for c in CATS]
 
 

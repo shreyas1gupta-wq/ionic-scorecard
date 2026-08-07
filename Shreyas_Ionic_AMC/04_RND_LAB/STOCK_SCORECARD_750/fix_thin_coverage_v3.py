@@ -40,6 +40,7 @@ Principal rulings, 2026-08-07, and what the backtests said about each:
 
 Everything lands in *_v3 columns beside v1. The engine is not touched; adoption is the Principal's call.
 """
+import json
 import os
 
 import numpy as np
@@ -87,6 +88,37 @@ AS_OF = pd.Timestamp("2026-07-20")
 TDPM = 21
 WINDOWS = (12, 9, 6, 3)          # months; a thin name uses the longest window it can support
 SELL_BAR, TRIM_CEIL = 40.0, 50.0
+
+# ---- FORWARD ADJUSTMENT (frozen Ionic Score design; implemented here for the first time) -----------
+# `ionic_score_v3` previously returned only the BASE blend (0.60x3Y + 0.40x1Y). The frozen model adds a
+# forward adjustment on top of that base, and it was simply missing -- so every "Ionic Score" this
+# pipeline produced was the base masquerading as the finished number.
+#
+# GROWTH LEG. Principal, 2026-08-07: the bonus/penalty points are banded on EXPECTED growth, weighted
+# 60 EPS : 40 revenue. The analyst supplies one forward figure (expected 3-5y EPS growth, on all 752
+# research files); there is no forward REVENUE estimate anywhere in the stack, so the revenue leg uses
+# trailing 1-year revenue growth (99.1% coverage, median 12.35%). [INFERENCE, disclosed] -- if the desk
+# starts capturing an expected-revenue figure, swap it in here and nothing else changes.
+FWD_EPS_W, FWD_REV_W = 0.60, 0.40
+GROWTH_LEG = ((25.0, 15.0), (20.0, 10.0), (15.0, 5.0), (10.0, 0.0), (5.0, -5.0), (-1e9, -15.0))
+# The revenue leg is WINSORISED at the top band's floor before blending. Measured reason: expected EPS
+# growth is a disciplined analyst estimate (median 13, max 30), while trailing revenue growth has a fat
+# right tail (p90 40, MAX 2510 -- base effects on newly listed names). Blended raw, those outliers alone
+# pushed 96 names into the +15/+20 tier against 12 on the EPS estimate alone: a name that posted 200%
+# revenue off a small base was buying a large forward BONUS on top of a Growth pillar that had already
+# rewarded the same growth. Since the bands stop discriminating above 25 anyway, clipping there costs no
+# information and removes the double-count. After clipping: 11 names in the top tier.
+FWD_REV_CLIP = 25.0
+CONV_ANALYST_SELL = -6.0
+CONV_ANALYST_RESCUE = 6.0        # analyst Holds a name the quant would Sell
+ADJ_CLAMP = 20.0
+# The exceptional +20 requires >=25% growth AND ROE>=20% AND dilution <2%. DILUTION IS NOT IN THE
+# DATASET, so the test can only ever be two-of-three -- which over-grants: it fired on 27 names. Rather
+# than silently approximate a frozen rule, the tier is DORMANT until a dilution field exists, and the
+# growth leg tops out at +15. Set EXCEPTIONAL_ENABLED once dilution is captured.
+EXCEPTIONAL_ENABLED = False
+EXCEPTIONAL_ROE = 0.20
+LOW_GROWTH_CAP = 10.0            # expected growth below this -> net adjustment may not be positive
 # Principal, 2026-08-07: "no score can be below 5, or above 95 these are cap". Both bounds sit far
 # outside the 40 Sell bar and the 40-50 Trim band, so NO recommendation changes -- verified below.
 SCORE_FLOOR, SCORE_CEIL = 5.0, 95.0
@@ -113,6 +145,50 @@ def gate(row, c):
     if row.get("bs_flag") == "AMBER":
         return c * 0.85
     return c
+
+
+def load_analyst():
+    """{SYMBOL: (recommendation, expected_growth_pct, escalation_flag)} from the research files."""
+    out = {}
+    qd = os.path.join(RES)
+    try:
+        names = os.listdir(qd)
+    except OSError:
+        return out
+    for fn in names:
+        if not (fn.startswith("pf_qual_") and fn.endswith(".json")):
+            continue
+        sym = fn[len("pf_qual_"):-len(".json")].strip().upper()
+        try:
+            with open(os.path.join(qd, fn), "r", encoding="utf-8") as fh:
+                j = json.load(fh)
+        except (OSError, ValueError):
+            continue
+        g = j.get("expected_next_3y_growth_pct")
+        out[sym] = (str(j.get("your_recommendation") or "").strip(),
+                    float(g) if isinstance(g, (int, float)) else np.nan,
+                    bool(j.get("escalation_flag")))
+    return out
+
+
+def growth_leg(exp_eps, rev_growth, roe):
+    """Bonus/penalty points from EXPECTED growth, weighted 60 EPS : 40 revenue, then banded."""
+    legs, wts = [], []
+    if exp_eps is not None and exp_eps == exp_eps:
+        legs.append(exp_eps); wts.append(FWD_EPS_W)
+    if rev_growth is not None and rev_growth == rev_growth:
+        legs.append(min(rev_growth, FWD_REV_CLIP)); wts.append(FWD_REV_W)
+    if not legs:
+        return 0.0, np.nan
+    g = sum(v * w for v, w in zip(legs, wts)) / sum(wts)     # renormalised if a leg is absent
+    pts = GROWTH_LEG[-1][1]
+    for lo, p in GROWTH_LEG:
+        if g >= lo:
+            pts = p
+            break
+    if EXCEPTIONAL_ENABLED and g >= 25.0 and roe is not None and roe == roe and roe >= EXCEPTIONAL_ROE:
+        pts = 20.0
+    return pts, g
 
 
 def window_returns(symbols):
@@ -239,27 +315,70 @@ def main():
     d["final_score_3y_v3"] = f3.round(2)
     d["final_score_1y_v3"] = f1.round(2)
 
-    # ---- call on the BLENDED score: no Sell above 40, 40-50 is the Trim band -----------------------
-    # Both legs are already inside [5, 95], so their weighted mean is too; the clip is belt-and-braces
-    # against a future weight change and costs nothing.
-    blend = (0.60 * f3 + 0.40 * f1).clip(SCORE_FLOOR, SCORE_CEIL)
-    d["ionic_score_v3"] = blend.round(2)
-    d["recommendation_v3"] = np.where(blend < SELL_BAR, "Sell",
-                                      np.where(blend <= TRIM_CEIL, "Hold (Trim if concentrated)",
-                                               "Hold"))
+    # ---- base blend, then the FORWARD ADJUSTMENT, then the call ------------------------------------
+    base = 0.60 * f3 + 0.40 * f1
+    d["base_score_v3"] = base.round(2)
+
+    an = load_analyst()
+    rev1y = pd.to_numeric(d["revenue_growth_1y"], errors="coerce")
+    roe = pd.to_numeric(d["roe"], errors="coerce")
+    g_pts, c_pts, adj, exp_g, a_rec = [], [], [], [], []
+    for i, sym in enumerate(d["symbol"].astype(str).str.upper()):
+        rec, eps, _esc = an.get(sym, ("", np.nan, False))
+        gp, g = growth_leg(eps, rev1y.iloc[i], roe.iloc[i])
+        quant_would_sell = base.iloc[i] < SELL_BAR
+        if rec == "Sell":
+            cp = CONV_ANALYST_SELL
+        elif rec == "Hold" and quant_would_sell:
+            cp = CONV_ANALYST_RESCUE          # the analyst-AI Sell->Hold conversion path
+        else:
+            cp = 0.0
+        a = max(-ADJ_CLAMP, min(ADJ_CLAMP, gp + cp))
+        # the two frozen caps: weak expected growth, or an analyst Sell, cannot produce a NET UPLIFT
+        if (g == g and g < LOW_GROWTH_CAP) or rec == "Sell":
+            a = min(a, 0.0)
+        g_pts.append(gp); c_pts.append(cp); adj.append(a); exp_g.append(g); a_rec.append(rec)
+
+    d["fwd_growth_input_pct"] = np.round(exp_g, 1)
+    d["fwd_growth_points"] = g_pts
+    d["conviction_points"] = c_pts
+    d["forward_adjustment"] = adj
+    d["analyst_call"] = a_rec
+
+    ionic = (base + pd.Series(adj, index=d.index)).clip(SCORE_FLOOR, SCORE_CEIL)
+    d["ionic_score_v3"] = ionic.round(2)
+
+    # Gate A: an analyst Sell is a Sell whatever the number says. Otherwise the score decides, and no
+    # name above 40 is ever a Sell. Gate B: 40-50 is the Trim band, concentration-gated at book level
+    # (there are no portfolio weights in a universe file, so it is flagged rather than resolved here).
+    d["recommendation_v3"] = np.where(
+        pd.Series(a_rec, index=d.index) == "Sell", "Sell",
+        np.where(ionic < SELL_BAR, "Sell",
+                 np.where(ionic <= TRIM_CEIL, "Hold (Trim if concentrated)", "Hold")))
+
+    # The conversions, measured against the FINAL Ionic score -- not against the base.
+    # A first version compared `base >= 40` with a Sell verdict and reported 117 analyst-forced Sells.
+    # That was wrong: most of those names fell below 40 through the forward adjustment itself (the -6
+    # conviction penalty plus a weak growth leg), which is the score working, not an override. Only a
+    # name whose FINAL Ionic still clears the bar is genuinely being sold by Gate A alone. The honest
+    # count is 23, not 117.
+    d["analyst_conversion"] = np.where(
+        (base < SELL_BAR) & (d["recommendation_v3"] != "Sell"), "Sell->Hold (analyst)",
+        np.where((ionic >= SELL_BAR) & (d["recommendation_v3"] == "Sell"), "Hold->Sell (Gate A)", ""))
     d["thin_history_flag"] = np.where(d["history_class"] == "<1y", "<1y",
                                       np.where(d["pillars_observed"] < 7, "Y", ""))
 
-    # The cap must not quietly move a call. Verified rather than asserted: recompute the calls from the
-    # UNCAPPED blend and require an exact match.
-    raw_blend = 0.60 * (d2.apply(lambda r: gate(r, c3.loc[r.name]), axis=1) + res3) \
-        + 0.40 * (d2.apply(lambda r: gate(r, c1.loc[r.name]), axis=1) + res1)
-    rec_uncapped = np.where(raw_blend < SELL_BAR, "Sell",
-                            np.where(raw_blend <= TRIM_CEIL, "Hold (Trim if concentrated)", "Hold"))
+    # The cap must not quietly move a call. Tested by isolating the CAP alone: recompute the call from
+    # the uncapped Ionic score with everything else (forward adjustment, analyst gate) held identical.
+    ionic_raw = base + pd.Series(adj, index=d.index)
+    rec_uncapped = np.where(
+        pd.Series(a_rec, index=d.index) == "Sell", "Sell",
+        np.where(ionic_raw < SELL_BAR, "Sell",
+                 np.where(ionic_raw <= TRIM_CEIL, "Hold (Trim if concentrated)", "Hold")))
     n_moved = int((rec_uncapped != d["recommendation_v3"].to_numpy()).sum())
     print(f"cap check: [{SCORE_FLOOR:.0f},{SCORE_CEIL:.0f}] moved {n_moved} recommendations "
-          f"(expected 0); floored {int((raw_blend < SCORE_FLOOR).sum())}, "
-          f"ceiled {int((raw_blend > SCORE_CEIL).sum())}")
+          f"(expected 0); floored {int((ionic_raw < SCORE_FLOOR).sum())}, "
+          f"ceiled {int((ionic_raw > SCORE_CEIL).sum())}")
     assert n_moved == 0, "score cap changed a recommendation -- investigate before shipping"
 
     # ---- earnings-quality flags -------------------------------------------------------------------
@@ -297,14 +416,30 @@ def main():
         f"- <1y names given a listing-price technical: **{int(d['listing_return_pctile'].notna().sum())}**",
         f"- growth artefacts neutralised: **{int((art3 | art1).sum())}** "
         f"({', '.join(d.loc[art3 | art1, 'symbol'].head(8))})", "",
+        "## Forward adjustment (implemented for the first time — it was missing)", "",
+        f"- growth leg, 60 expected EPS : 40 revenue, banded: mean "
+        f"**{np.nanmean(d['fwd_growth_points']):+.2f}** pts",
+        f"- conviction leg: analyst Sell **{int((d['conviction_points'] == CONV_ANALYST_SELL).sum())}** "
+        f"at {CONV_ANALYST_SELL:+.0f}, analyst rescue of a quant-Sell "
+        f"**{int((d['conviction_points'] == CONV_ANALYST_RESCUE).sum())}** at "
+        f"{CONV_ANALYST_RESCUE:+.0f}",
+        f"- net adjustment: mean **{np.nanmean(d['forward_adjustment']):+.2f}**, range "
+        f"{np.nanmin(d['forward_adjustment']):+.0f} to {np.nanmax(d['forward_adjustment']):+.0f}",
+        f"- base vs Ionic: median {d['base_score_v3'].median():.1f} -> "
+        f"{d['ionic_score_v3'].median():.1f}", "",
+        "## Analyst-AI conversions", "",
+        f"- **{int((d['analyst_conversion'] == 'Sell->Hold (analyst)').sum())}** names the quant would "
+        f"have sold are held on analyst conviction (the Sell->Hold path the Principal asked to keep)",
+        f"- **{int((d['analyst_conversion'] == 'Hold->Sell (Gate A)').sum())}** names whose FINAL Ionic "
+        f"clears 40 are sold anyway on the analyst's call. THIS CONFLICTS with the standing rule that "
+        f"no name above 40 is a Sell -- Gate A is the only route to it, and it needs a ruling. Score-"
+        f"only Sell rate is {(ionic < SELL_BAR).mean() * 100:.0f}% (the frozen note expects ~33%).", "",
         "## Recommendation change", "",
-        f"| | v1 (either horizon <40) | v3 (blended) |", "|---|---|---|",
+        "| | v1 (either horizon <40) | v3 (Ionic + analyst gate) |", "|---|---|---|",
         f"| Sell | {int(old_sell.sum())} | {int(new_sell.sum())} |",
         f"| Hold / Trim band | {int((~old_sell).sum())} | "
         f"{int((d['recommendation_v3'] != 'Sell').sum())} |",
         "",
-        f"- names v1 called Sell that are NOT Sell under the blended rule: "
-        f"**{int((old_sell & ~new_sell).sum())}**",
         f"- of the v3 Holds, in the 40-50 Trim band: "
         f"**{int((d['recommendation_v3'] == 'Hold (Trim if concentrated)').sum())}**", "",
         "## Largest score corrections (3Y, v3 minus v1)", "",
