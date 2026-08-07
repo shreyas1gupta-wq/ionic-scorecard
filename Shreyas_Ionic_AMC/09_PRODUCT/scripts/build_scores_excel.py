@@ -108,10 +108,14 @@ df = df.sort_values(sort_col, ascending=False, na_position="last").reset_index(d
 
 COLS = [("symbol", "Symbol", None), ("sector", "Sector", None)]
 if has_v3:
-    COLS += [("recommendation_v3", "Call (v3)", None), ("ionic_score_v3", "Ionic Score", 1),
-             ("recommendation_overall", "Call v1", None)]
+    # ONE column named "Call". The v1 call is deliberately NOT shown beside it: two adjacent columns
+    # both labelled "Call" and giving opposite answers is a trap, and it caught the Principal twice --
+    # HOMEFIRST reads Hold on v3 (64.1) and Sell on v1 (39.6), and the eye lands on whichever is
+    # nearer. v3 is frozen, so it is the call; the v1 SCORE stays for comparison, the v1 verdict does
+    # not. 62 names disagree between the two, so this is not a cosmetic choice.
+    COLS += [("recommendation_v3", "Call", None), ("ionic_score_v3", "Ionic Score", 1)]
 else:
-    COLS += [("recommendation_overall", "Call v1", None)]
+    COLS += [("recommendation_overall", "Call", None)]
 COLS += [("final_score_3y", "Score 3Y v1", 1)]
 if has_v3:
     COLS += [("final_score_3y_v3", "Score 3Y v3", 1)]
@@ -211,7 +215,7 @@ for i, row in df.iterrows():
             cell.font = Font(name="Bahnschrift", size=9, bold=True)
     # colour the call cells by looking their column up, rather than by a hardcoded index -- the column
     # order shifts with has_v3 and a fixed index would silently paint the wrong column
-    for col in ("recommendation_v3", "recommendation_overall"):
+    for col in ("recommendation_v3",):
         ci = next((k + 1 for k, (c0, _, _) in enumerate(COLS) if c0 == col), None)
         if ci is None:
             continue
@@ -232,7 +236,7 @@ for i, row in df.iterrows():
 
 ws.freeze_panes = "C5"
 ws.auto_filter.ref = f"A{HDR_ROW}:{get_column_letter(len(COLS))}{HDR_ROW + n}"
-widths = {"Symbol": 12, "Sector": 22, "Call v1": 8, "Call (v3)": 22, "Sector & Flows": 12,
+widths = {"Symbol": 12, "Sector": 22, "Call": 9, "Sector & Flows": 12,
           "Fwd EPS Grw % (analyst)": 10, "Imputation used": 26, "Latest Qtr": 11,
           "Listing-ret pctile": 9, "History": 8}
 for j, (_, label, _) in enumerate(COLS, 1):
