@@ -28,6 +28,11 @@ MAXROWS = 11
 # This was 10 while source() still sat at 6.66; with both bottom footnotes removed the 11th row fits,
 # so the freed space goes back to showing one more holding rather than to blank paper.
 MAXROWS_SIG = 11
+# RM-LITE shows fewer, larger rows. The tier's whole premise is bigger type and fewer things per page,
+# so cramming the same 11 rows in would defeat it -- 8 rows at a taller pitch, with the same dots.
+MAXROWS_SIG_SIMPLE = 8
+ROWH_SIMPLE = 0.36
+DOT_SIMPLE = 0.19
 
 _F = None
 
@@ -97,7 +102,13 @@ def render(deck, ctx, tier):
     # and concludes 88 are missing. Both now ride in the scope tag at the TOP of the page, which is one
     # line, already exists, and is not a footnote.
     n_scored_all = sum(1 for e in eq if e.get("ionic_score") is not None)
-    shown = min(MAXROWS_SIG if _sig() is not None else MAXROWS, len(eq))
+    # must match the row cap the table will actually use, including the RM-LITE one -- the scope tag
+    # read "largest 11 of 98" over a page printing 8 rows until this accounted for the simple tier
+    if _sig() is not None:
+        _cap = MAXROWS_SIG_SIMPLE if reg == "simple" else MAXROWS_SIG
+    else:
+        _cap = MAXROWS
+    shown = min(_cap, len(eq))
     # Keep these SHORT. scope_tag's budget is ~118 characters and it handles overflow by dropping MIDDLE
     # ' · ' segments, keeping the first and the tail -- so the verbose first version silently deleted the
     # "10 of 98 shown" segment, the single most important thing here, while looking perfectly fine.
@@ -121,18 +132,20 @@ def render(deck, ctx, tier):
     # table — largest positions first, then five colour-banded signals per name
     rows_src = sorted(eq, key=lambda e: -(e.get("weight_pct") or 0))
     F = _sig()
-    ROWH = 0.28
+    simple = reg == "simple"
+    ROWH = ROWH_SIMPLE if simple else 0.28
     n_sig = 0
     nrows = MAXROWS
     if F is not None:
         # Join the pillar scores in by symbol. If nothing matches -- a demo book of invented names, or
         # a scoring run that has not happened -- fall back to the prose read rather than printing five
         # grey "No data" chips per row, which would read as a broken page instead of a missing input.
-        n_sig, _n_tot = F.enrich(rows_src[:MAXROWS_SIG])
+        cap = MAXROWS_SIG_SIMPLE if simple else MAXROWS_SIG
+        n_sig, _n_tot = F.enrich(rows_src[:cap])
         if n_sig == 0:
             F = None
         else:
-            nrows = MAXROWS_SIG
+            nrows = cap
     if F is not None:
         # A dot needs a fraction of the width a word did, so the signal columns shrink and the freed
         # space goes back to the Holding name. What sets the floor now is the HEADER, not the dot:
@@ -159,7 +172,8 @@ def render(deck, ctx, tier):
         if F is not None:
             for _cat, v in F.signals(e):
                 fill = F.dot(v)
-                row.append(("dot", None if fill is None else F.to_rgb(fill)))
+                row.append(("dot", None if fill is None else F.to_rgb(fill),
+                            DOT_SIMPLE if simple else 0.15))
         else:
             row.append(clip_clause(e.get("analyst_read", ""), 58))
         rows.append(row)
@@ -174,15 +188,17 @@ def render(deck, ctx, tier):
     # which is exactly why the RELATIVE set is the default: "Top 25% / Upper / Lower / Bottom 25%" says
     # in the label what the removed sentence used to say in prose, so nothing is lost with it gone.
     if F is not None:
-        DIA, PITCH, lx = 0.15, 1.42, ML
+        DIA = DOT_SIMPLE if simple else 0.15
+        PITCH, lx = (1.58 if simple else 1.42), ML
+        LFS = 9 if simple else 8
         for lab, fill in F.legend():
             deck.oval(s, lx, ty + 0.10, DIA, F.to_rgb(fill))
             deck.txt(s, lx + DIA + 0.08, ty + 0.04, PITCH - DIA - 0.16, 0.26,
-                     [(lab, SANS, 8, INK, False)], anchor=MSO_ANCHOR.MIDDLE, wrap=False)
+                     [(lab, SANS, LFS, INK, False)], anchor=MSO_ANCHOR.MIDDLE, wrap=False)
             lx += PITCH
         deck.oval(s, lx, ty + 0.10, DIA, None, line=SLATE, lw=0.9)
-        deck.txt(s, lx + DIA + 0.08, ty + 0.04, 1.0, 0.26,
-                 [(F.NO_DATA_WORD, SANS, 8, SLATE, False)], anchor=MSO_ANCHOR.MIDDLE, wrap=False)
+        deck.txt(s, lx + DIA + 0.08, ty + 0.04, 1.1, 0.26,
+                 [(F.NO_DATA_WORD, SANS, LFS, SLATE, False)], anchor=MSO_ANCHOR.MIDDLE, wrap=False)
         ty += 0.36
 
     # each row clicks through to the name's rationale page in the annexure (resolved at save)

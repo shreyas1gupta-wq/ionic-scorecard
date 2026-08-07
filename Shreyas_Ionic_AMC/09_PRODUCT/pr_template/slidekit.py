@@ -37,6 +37,9 @@ RX = CW - MR; UW = RX - ML
 # hollow intensifiers never reach a client slide, wherever they sit in the sentence
 # (mid-word matches like 'ingenuine' are protected by the leading whitespace requirement)
 _TELL_RE = re.compile(r"\s+(?:genuinely|genuine|truly)(?=[\s,.;:…)]|$)")
+# any snake_case identifier: lower-case word, then one or more _word groups. Deliberately excludes
+# leading/trailing underscores and CamelCase so it only catches things that look like data fields.
+_SNAKE_FIELD_RE = re.compile(r"\b[a-z][a-z0-9]*(?:_[a-z0-9]+)+\b")
 # internal epistemic tags (D-035 keeps them in research FILES; they never render client-side)
 _TAG_RE = re.compile(r"\[\s*(?:OPINION|INFERENCE|DATA|ESTIMATE)\b[^\]]*\]\s*")
 
@@ -279,6 +282,13 @@ class Deck:
                           .replace("quant snapshot", "screening snapshot")
                           .replace("data snapshot", "screening snapshot")
                           .replace("fcf_yield", "FCF yield"))
+                    # CATCH-ALL for raw field names. The named replacements above are whack-a-mole:
+                    # `fcf_yield` was listed, `available_date` was not, and it reached a client slide
+                    # in two analyst paragraphs and every ABXY deck. Analyst prose is written by 752
+                    # separate research passes and cannot be policed name by name. English prose never
+                    # contains word_word, so converting any snake_case token to spaced words is safe
+                    # and closes the whole class rather than one instance of it.
+                    t = _SNAKE_FIELD_RE.sub(lambda m: m.group(0).replace("_", " "), t)
                     t = re.sub(r"\s*\(\d+\s*rows?\b[^)]{0,60}\)", "", t)
                     # glyphs Bahnschrift lacks (render as tofu in charts/PDF): never ship
                     t = (t.replace(" → ", " to ").replace("→", "to")

@@ -63,9 +63,14 @@ TIERS = {
         # RM-LITE redesign (Principal 2026-07-26): keep only the story beats — plan,
         # what you own, strong/weak picture, sells, funds, cost/tax, next steps.
         # Empty sections auto-drop their dividers (engine). Target ≤19 slides.
+        # book_scored is BACK IN for RM-LITE (Principal, 2026-08-07). It was skipped on 2026-07-26 for
+        # being methodology-heavy -- a dense table of scores and clipped prose. That is no longer what
+        # it is: the page is now five colour-coded dots per holding, which reads faster than the
+        # scatter beside it and is better suited to a newer investor, not worse. The original reason
+        # for excluding it no longer describes the page.
         "skip_core": {"contents_legend", "mandate_method",
                       "group_concentration", "sector_exposure", "mcap_positioning",
-                      "score_method", "book_scored", "hold_rationale", "funds_equity",
+                      "score_method", "hold_rationale", "funds_equity",
                       "funds_hybrid", "fund_category_rules", "house_view_fit",
                       "fund_quality_alloc", "fund_overlap",
                       # new modules (2026-08-06): keep RM-LITE to story beats only, same
