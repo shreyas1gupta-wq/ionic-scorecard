@@ -269,8 +269,14 @@ Re-running the backtests (only needed if a rule changes):
 | `04_RND_LAB/STOCK_SCORECARD_750/earnings_quality_decomp.py` | profit bridge |
 | `.../results/*.md` | all evidence notes |
 
-Superseded, kept as decision records only (do **not** run — written against the pre-final API):
-`chart_signal_options.py`, `chart_dot_formats.py`.
+**Removed at freeze** (2026-08-07): `chart_signal_options.py` and `chart_dot_formats.py` were one-off
+design-option renders used to choose the band words and the dot format; `fix_thin_coverage_v2.py` was
+the interim corrector v3 replaced. All three were written against the pre-final API and would fail if
+run. The decisions they informed are recorded above and in `SESSION_JOURNAL.md`.
+
+**Not superseded, despite the name:** `results/full750_scored.csv` is the v1 *engine output* and the
+INPUT the v3 corrector reads. It is also the file `lib/five_signals.py` joins the universe from.
+Deleting it as a "v1 duplicate" breaks the entire scoring chain.
 
 ---
 

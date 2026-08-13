@@ -1345,16 +1345,32 @@ cd Shreyas_Ionic_AMC/04_RND_LAB/STOCK_SCORECARD_750
 | `09_PRODUCT/FIVE_SIGNAL_AND_V3_SCORING_SPEC.md` | the frozen spec + all 13 logged challenges |
 | `STOCK_SCORECARD_750/results/*.md` | every backtest and diagnostic note behind the rules |
 
-**Superseded — decision records only, do NOT run** (written against a pre-final API):
-`scripts/chart_signal_options.py`, `scripts/chart_dot_formats.py`.
+**Removed at freeze** — `chart_signal_options.py`, `chart_dot_formats.py` (one-off design-option
+renders) and `fix_thin_coverage_v2.py` (the interim corrector). If a doc or journal entry mentions
+them, that is history, not a missing file.
+
+**`results/full750_scored.csv` is NOT a superseded v1 duplicate.** It is the engine output, the input
+`fix_thin_coverage_v3.py` reads, and the file `lib/five_signals.py` joins the universe from. Both it
+and `full750_scored_v3.csv` must be present.
 
 ---
 
-## IF YOU ARE NEW: THE FIVE THINGS MOST LIKELY TO BURN YOU
+## IF YOU ARE NEW: THE SIX THINGS MOST LIKELY TO BURN YOU
 
-1. **`check_method.py` takes a data module, not a .pptx.** The error looks like a broken gate.
-2. **`NaN` is truthy and `str(NaN)` is `"nan"`.** `fillna("")` before `astype(str)`, always.
-3. **Two gate rules are inverted on demo decks** — `SYNTHETIC_DEMO_LEAK` is *correct* on ABXY.
-4. **The gates cannot see the page.** Export the slides and read them, every time.
-5. **Never restate a threshold.** Bands live in `five_signals.py`; scoring rules in
+1. **A deck can build perfectly and still be wrong.** Nothing in this pipeline raises an error when
+   *data* is missing — a failed universe join renders every signal dot as a hollow grey "not scored"
+   ring on an otherwise flawless page, exit code 0, no warning. **After your first build, confirm the
+   dots have colour.** One command:
+   ```
+   python -c "import sys; sys.path.insert(0,'lib'); import five_signals as F; print(len(F.load_universe()))"
+   ```
+   Run it from `pr_template/`. It must print a number in the hundreds. `0` means the join failed and
+   every dot on the page is meaningless. (This exact bug shipped once: the repo-root walk matched a
+   folder named literally `NIFTY 500`, so it worked on the Principal's machine and silently returned
+   nothing from a normal `git clone`. Fixed — but the *class* of failure is the thing to remember.)
+2. **`check_method.py` takes a data module, not a .pptx.** The error looks like a broken gate.
+3. **`NaN` is truthy and `str(NaN)` is `"nan"`.** `fillna("")` before `astype(str)`, always.
+4. **Two gate rules are inverted on demo decks** — `SYNTHETIC_DEMO_LEAK` is *correct* on ABXY.
+5. **The gates cannot see the page.** Export the slides and read them, every time.
+6. **Never restate a threshold.** Bands live in `five_signals.py`; scoring rules in
    `fix_thin_coverage_v3.py`. A duplicated number drifts within the hour.

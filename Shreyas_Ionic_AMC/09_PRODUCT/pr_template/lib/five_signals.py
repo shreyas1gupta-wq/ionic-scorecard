@@ -408,16 +408,25 @@ _UNIV = None
 
 
 def _nifty_root():
-    """Walk up to the 'NIFTY 500' directory. Resolving relative to __file__ alone lands inside a git
-    worktree, where results/ does not exist -- the same trap check_freshness.py hit on 2026-08-05 and
-    reported three live data sources as MISSING."""
+    """Walk up to the repo root -- the directory that CONTAINS `Shreyas_Ionic_AMC`.
+
+    This used to match on a directory literally named "NIFTY 500", which is only true on the Principal's
+    machine. A fresh `git clone` produces a folder named after the repo (`ionic-scorecard`), so the walk
+    found nothing, `load_universe()` returned {}, and every signal dot rendered as a hollow "not scored"
+    ring -- on a deck that otherwise built cleanly, with no error anywhere. Caught 2026-08-07 by
+    exporting the tracked files to a temp directory and building from there.
+
+    Anchoring on the folder that contains `Shreyas_Ionic_AMC` is the real invariant: it holds under any
+    clone name, inside a git worktree, and on the Principal's own tree. The legacy name is kept as a
+    fallback for the case where this file is used outside the firm layout."""
     p = os.path.abspath(__file__)
     while True:
         p, tail = os.path.split(p)
         if not tail:
             return None
-        if tail == "NIFTY 500":
-            return os.path.join(p, tail)
+        cand = os.path.join(p, tail)
+        if os.path.isdir(os.path.join(cand, "Shreyas_Ionic_AMC")) or tail == "NIFTY 500":
+            return cand
 
 
 def load_universe():

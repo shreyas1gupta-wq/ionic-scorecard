@@ -55,8 +55,9 @@ def _root(p):
         p, tail = os.path.split(p)
         if not tail:
             raise RuntimeError("NIFTY 500 root not found")
-        if tail == "NIFTY 500":
-            return os.path.join(p, tail)
+        cand = os.path.join(p, tail)
+        if os.path.isdir(os.path.join(cand, "Shreyas_Ionic_AMC")) or tail == "NIFTY 500":
+            return cand
 
 
 ROOT = _root(HERE)

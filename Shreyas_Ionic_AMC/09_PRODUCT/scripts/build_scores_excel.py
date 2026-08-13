@@ -9,11 +9,13 @@ What changed from the 2026-07-21 version:
     one source of truth, so research and client pages can never disagree about what green means.
   * Forward data: the analyst's expected 3-5y growth (N100 research run + portfolio pf_qual files)
     joins in; where present it blends into the Growth signal exactly as on the deck page.
-  * v2 corrected scores sit BESIDE v1 (thin-history fix, results/THIN_COVERAGE_FIX_NOTE.md):
-    neutral-fill for missing pillars, withdrawal at <=3 of 7 pillars, growth-artefact neutralisation.
+  * v3 corrected scores sit BESIDE v1 (thin-history fix, results/THIN_COVERAGE_FIX_NOTE.md):
+    1y-sibling substitution, neutral-50 fill, growth-artefact neutralisation, March-to-March growth.
   * New flags: Thin history / growth artefact / one-time-income risk / PAT-Sales divergence.
 
-Reads results/full750_scored_v2.csv (falls back to v1 with the v2 columns simply absent).
+Reads results/full750_scored_v3.csv for the corrected scores and results/full750_scored.csv for the
+v1 comparison column. v1 is the ENGINE OUTPUT and the input the v3 corrector reads -- it is not a
+superseded duplicate, and deleting it breaks the whole chain.
 Internal research tool; not investment advice.
 """
 import glob
@@ -36,8 +38,9 @@ def _nifty_root(p):
         p, tail = os.path.split(p)
         if not tail:
             raise RuntimeError("NIFTY 500 root not found")
-        if tail == "NIFTY 500":
-            return os.path.join(p, tail)
+        cand = os.path.join(p, tail)
+        if os.path.isdir(os.path.join(cand, "Shreyas_Ionic_AMC")) or tail == "NIFTY 500":
+            return cand
 
 
 ROOT = _nifty_root(HERE)

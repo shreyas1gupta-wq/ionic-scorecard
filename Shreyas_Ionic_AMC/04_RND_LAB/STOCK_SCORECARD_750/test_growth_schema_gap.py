@@ -26,8 +26,9 @@ def _root(p):
         p, tail = os.path.split(p)
         if not tail:
             raise RuntimeError("root not found")
-        if tail == "NIFTY 500":
-            return os.path.join(p, tail)
+        cand = os.path.join(p, tail)
+        if os.path.isdir(os.path.join(cand, "Shreyas_Ionic_AMC")) or tail == "NIFTY 500":
+            return cand
 
 
 RES = os.path.join(_root(HERE), "Shreyas_Ionic_AMC", "04_RND_LAB", "STOCK_SCORECARD_750", "results")
