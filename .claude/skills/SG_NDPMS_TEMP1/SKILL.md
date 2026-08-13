@@ -1355,6 +1355,36 @@ and `full750_scored_v3.csv` must be present.
 
 ---
 
+## KEEPING THIS FILE AND THE DATA CURRENT ON GITHUB
+
+`Shreyas_Ionic_AMC/99_OPS/sync_handover.py` commits and pushes the **handover manifest** — this skill,
+`README.md`, `HOW_WE_SCORE_STOCKS.md`, the frozen spec, the stock scores, fund grades, the ISIN master,
+and the command-centre state files. A `Stop` hook in `.claude/settings.json` runs it at the end of every
+turn, so editing this file here updates GitHub with no one remembering to. It is a no-op when none of
+those paths changed.
+
+```bash
+python Shreyas_Ionic_AMC/99_OPS/sync_handover.py --dry-run
+```
+
+Source code is **not** auto-synced — that stays a deliberate commit, because an auto-commit of every
+dirty file would push half-written code the moment a turn ended.
+
+**Read the delivery warning it prints.** Pushing is not the same as being readable by a recipient. This
+repo's default branch (`main`) is a one-file stub whose history is unrelated to the real trunk, so it
+can never fast-forward and a plain `git clone` gets nothing. Until that is resolved, hand people the
+branch explicitly:
+
+```bash
+git clone -b <branch> <url>
+```
+
+That gap is exactly how a handover on 2026-08-13 produced a deck with all 24 score cells reading
+"pending" and 55 hollow signal rings, while 11 of its 12 names sat in the committed universe file with
+real scores.
+
+---
+
 ## IF YOU ARE NEW: THE SIX THINGS MOST LIKELY TO BURN YOU
 
 1. **A deck can build perfectly and still be wrong.** Nothing in this pipeline raises an error when
