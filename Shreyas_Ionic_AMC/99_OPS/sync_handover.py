@@ -57,8 +57,23 @@ MANIFEST = [
     "Shreyas_Ionic_AMC/01_COMMAND_CENTER/SESSION_JOURNAL.md",
 ]
 
-# A clone with no -b lands on the remote's default branch. Ours is `main`, which is a 1-file stub.
-CLONE_LANDS_ON = "main"
+def clone_lands_on(wt):
+    """The branch a plain `git clone` checks out = the remote's default (origin/HEAD).
+
+    Detected, never hardcoded. On 2026-08-13 that was `main`, a 1-file stub with an unrelated history;
+    master was then merged and is intended to become the default. Reading it live means this warning
+    stops firing by itself the moment the default is switched, instead of lying in either direction.
+    """
+    rc, out, _ = git("symbolic-ref", "--quiet", "refs/remotes/origin/HEAD", cwd=wt)
+    if rc == 0 and out:
+        return out.rsplit("/", 1)[-1]
+    # origin/HEAD is not always set locally; ask the remote directly.
+    rc, out, _ = git("ls-remote", "--symref", "origin", "HEAD", cwd=wt)
+    if rc == 0:
+        for line in out.splitlines():
+            if line.startswith("ref:"):
+                return line.split()[1].rsplit("/", 1)[-1]
+    return None
 
 
 def _root(p):
@@ -72,6 +87,20 @@ def _root(p):
         cand = os.path.join(p, tail)
         if os.path.isdir(os.path.join(cand, "Shreyas_Ionic_AMC")) or tail == "NIFTY 500":
             found = cand
+
+
+def _path_of(porcelain_line):
+    """Path out of a `git status --porcelain` line.
+
+    The status field is exactly TWO characters, then whitespace, then the path -- but the amount of
+    whitespace varies by state, so slicing a fixed [3:] eats the first character of the filename for
+    some of them (it printed "hreyas_Ionic_AMC/..." once). Renames arrive as "old -> new"; the new name
+    is the one that matters. Quoted when the path has odd characters.
+    """
+    rest = porcelain_line[2:].lstrip()
+    if " -> " in rest:
+        rest = rest.split(" -> ", 1)[1]
+    return rest.strip().strip('"')
 
 
 def git(*args, cwd, check=False):
@@ -105,11 +134,11 @@ def main():
     absent = [p for p in MANIFEST if p not in present]
 
     _, dirty_raw, _ = git("status", "--porcelain", "--", *present, cwd=wt)
-    dirty = [l[3:].strip().strip('"') for l in dirty_raw.splitlines() if l.strip()]
+    dirty = [_path_of(l) for l in dirty_raw.splitlines() if l.strip()]
 
     # anything tracked and dirty OUTSIDE the manifest -- reported, never committed here
     _, all_raw, _ = git("status", "--porcelain", cwd=wt)
-    all_dirty = [l[3:].strip().strip('"') for l in all_raw.splitlines() if l.strip()]
+    all_dirty = [_path_of(l) for l in all_raw.splitlines() if l.strip()]
     outside = [f for f in all_dirty if not any(
         f == p or f.startswith(p) for p in MANIFEST)]
 
@@ -175,21 +204,46 @@ def main():
 
     # --- the part that decides whether any of this reaches a recipient --------------------------------
     git("fetch", "-q", "origin", cwd=wt)
-    rc, _, _ = git("rev-parse", "--verify", f"origin/{CLONE_LANDS_ON}", cwd=wt)
-    if rc == 0 and branch != CLONE_LANDS_ON:
-        _, base, _ = git("merge-base", "HEAD", f"origin/{CLONE_LANDS_ON}", cwd=wt)
-        _, cnt, _ = git("rev-list", "--count", f"origin/{CLONE_LANDS_ON}", cwd=wt)
-        _, ntree, _ = git("ls-tree", "-r", "--name-only", f"origin/{CLONE_LANDS_ON}", cwd=wt)
-        nfiles = len([x for x in ntree.splitlines() if x.strip()])
-        print()
-        print(f"DELIVERY WARNING")
-        print(f"   A plain `git clone` lands on origin/{CLONE_LANDS_ON}, which holds {nfiles} file(s).")
-        print(f"   You just pushed to origin/{branch}, a DIFFERENT branch.")
-        if not base:
-            print(f"   origin/{CLONE_LANDS_ON} shares NO history with this branch, so it cannot be")
-            print(f"   fast-forwarded -- it is a separate lineage, not an older version.")
-        print(f"   Until that is resolved, a recipient who clones normally gets none of this.")
-        print(f"   Give them:  git clone -b {branch} <url>")
+    default = clone_lands_on(wt)
+    if not default:
+        print("\nNOTE: could not determine the remote's default branch; delivery not verified.")
+        return 0
+
+    rc, _, _ = git("rev-parse", "--verify", f"origin/{default}", cwd=wt)
+    if rc != 0:
+        return 0
+
+    _, ntree, _ = git("ls-tree", "-r", "--name-only", f"origin/{default}", cwd=wt)
+    nfiles = len([x for x in ntree.splitlines() if x.strip()])
+    # Does the default branch actually CONTAIN the manifest? That, not the branch name, is what decides
+    # whether a recipient can work. Checking presence beats assuming a merge propagated.
+    missing = [p for p in present
+               if git("cat-file", "-e", f"origin/{default}:{p.rstrip('/')}", cwd=wt)[0] != 0]
+
+    print()
+    if branch == default:
+        print(f"DELIVERY OK — you are on the default branch ({default}); a plain clone gets this.")
+        return 0
+
+    _, ahead, _ = git("rev-list", "--count", f"origin/{default}..HEAD", cwd=wt)
+    if not missing and ahead in ("", "0"):
+        print(f"DELIVERY OK — origin/{default} ({nfiles} files) is the default and already carries "
+              f"the whole manifest.")
+        return 0
+
+    print("DELIVERY WARNING")
+    print(f"   A plain `git clone` lands on origin/{default} ({nfiles} files); you pushed to "
+          f"origin/{branch}.")
+    if missing:
+        print(f"   origin/{default} is MISSING {len(missing)} manifest path(s), so a recipient who "
+              f"clones normally cannot build:")
+        for p in missing[:6]:
+            print(f"      {p}")
+        if len(missing) > 6:
+            print(f"      ... and {len(missing) - 6} more")
+    elif ahead not in ("", "0"):
+        print(f"   origin/{default} has the manifest but is {ahead} commit(s) behind this branch.")
+    print(f"   Merge this branch into {default}, or hand over:  git clone -b {branch} <url>")
     return 0
 
 
