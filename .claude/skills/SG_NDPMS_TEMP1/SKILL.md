@@ -1,6 +1,6 @@
 ---
 name: SG_NDPMS_TEMP1
-description: Operating manual for the Ionic Wealth NDPMS client product suite — portfolio-review deck (pr_template), the five-signal holdings page, Stock Scorecard 750 + the frozen v3 scoring layer, MF quality frameworks (QFRA-1/QFRA-2), client intake, the whole-pipeline QA audit, all Principal rulings, environment, and the agent roster. Read the PREREQUISITES block first — the code is on GitHub but the scored data is NOT, and a deck cannot be built without it. v3, 2026-08-07.
+description: Operating manual for the Ionic Wealth NDPMS client product suite — portfolio-review deck (pr_template), the five-signal holdings page, Stock Scorecard 750 + the frozen v3 scoring layer, MF quality frameworks (QFRA-1/QFRA-2), client intake, the whole-pipeline QA audit, all Principal rulings, environment, and the agent roster. The repo carries the finished stock scores and fund grades, so you consume them rather than re-run them; see PREREQUISITES. New readers start with 09_PRODUCT/HOW_WE_SCORE_STOCKS.md. v3, 2026-08-07.
 ---
 
 # Ionic Wealth — Complete Operating Manual (v3, 2026-08-07)
@@ -45,30 +45,36 @@ Discretion is **one-directional** wherever it appears in this manual: an analyst
 veto or soften an action, never manufacture one. That asymmetry is what keeps judgment from becoming
 a licence to invent.
 
-## PREREQUISITES — READ THIS BEFORE YOU TRY TO BUILD ANYTHING
+## PREREQUISITES — WHAT IS IN THE REPO AND WHAT IS NOT
 
-**The repo has the code. It does NOT have the data.** Verified against `.gitignore` and `git ls-files`
-on 2026-08-07. Cloning the repo and reading this manual is **not sufficient to produce a deck** — the
-build will fail on the first data read. You must obtain the data files separately from the Principal.
+**You get the code AND the finished scores. You do not get the working data behind them.** That split is
+deliberate (Principal, 2026-08-07): you should be **consuming** scores, not regenerating them. Verified
+against `.gitignore` and `git ls-files`.
 
-| | on GitHub? | what it is |
+| | in the repo? | what it is |
 |---|---|---|
 | `pr_template/` — engine, slidekit, all modules, `lib/five_signals.py` | **YES** | the deck code |
 | `09_PRODUCT/scripts/` — builders, audits, `pptx_slide_png.py` | **YES** | the tooling |
 | `results/pf_qual_*.json` — **752 files** | **YES** | the analyst research per stock |
 | `data/<client>.py` — client context files | **YES** | see the PII warning below |
-| **`results/full750_scored.csv`** | **NO** — `*.csv` is gitignored | **every quant score** |
-| **`results/full750_scored_v3.csv`** | **NO** | the frozen v3 scores |
-| **`results/portfolio_quant.csv`** | **NO** | per-client pillar scores |
-| **`results/EARNINGS_QUALITY.csv`** | **NO** | the profit-bridge flags |
-| **`datasets/screener_deep/*.parquet`** | **NO** — `datasets/` + `*.parquet` ignored | financials, ~28GB tree |
-| **`ALPHA_RANKER/data/prices/`** | **NO** | price panels (all backtests need these) |
-| **QFRA-2 engine + NAV data** | **NO** — a **separate repo** | all mutual-fund work |
+| **`results/full750_scored_v3.csv`** ← **USE THIS ONE** | **YES** | the frozen v3 stock scores |
+| `results/full750_scored.csv` | **YES** | v1 scores, for comparison only |
+| `results/portfolio_quant.csv` | **YES** | per-client pillar scores |
+| `results/EARNINGS_QUALITY.csv` | **YES** | profit-bridge earnings flags |
+| **`MF_RECOMMENDATIONS/**/QFRA1_all_categories.csv`** | **YES** | QFRA-1 fund grades |
+| **`MF_RECOMMENDATIONS/**/QFRA2_verdicts.csv`, `QFRA2_current_asof_*.csv`** | **YES** | QFRA-2 fund verdicts |
+| `datasets/screener_deep/*.parquet` | **no** | raw financials — working data |
+| `ALPHA_RANKER/data/prices/` | **no** | price panels — working data |
+| MF working files (`fund_daily.csv`, `bench.csv`, `codes.csv`) | **no** | NAV working data |
+| QFRA-2 **engine code** | **no** — a **separate repo** | only needed to RE-RUN the fund ranking |
 
-**This bites immediately.** `data/azby_family.py` — the *demo* deck, the one you would reasonably try
-first — reads `portfolio_quant.csv` at line 103. So a fresh clone cannot even build the showcase, let
-alone a client book. Ask for, at minimum: `full750_scored_v3.csv`, `portfolio_quant.csv`,
-`EARNINGS_QUALITY.csv`, and `datasets/screener_deep/screener_annual_pl.parquet`.
+**What this means in practice.** You can build decks, read every stock score and every fund grade, and
+run the whole QA suite. You **cannot** re-run the scoring chain (`fix_thin_coverage_v3.py` needs the
+screener parquets and the price panel) or any backtest. If you need to regenerate rather than consume,
+ask the Principal for the working data.
+
+**Start here, in this order:** read `09_PRODUCT/HOW_WE_SCORE_STOCKS.md` for the scoring workflow in
+plain language, then PART 1A below for the deck page, then build the ABXY demo deck to see it end to end.
 
 **⚠ CLIENT PII IS IN THIS REPO.** `data/talaulikar_family.py` is a **real client's** holdings, weights
 and analyst commentary, and it **is tracked**. The `.gitignore` PII guard covers `pr_kordes/` and
