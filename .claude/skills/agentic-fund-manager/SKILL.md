@@ -1,4 +1,4 @@
-﻿---
+---
 name: agentic-fund-manager
 description: Run the Ionic Wealth NDPMS client-portfolio review — convert the scored stock universe + a client's holdings into Sell/Trim/Hold recommendations with trim targets, concentration/mcap/sector analysis, and the two-sheet Ionic Wealth client workbook (Before-vs-After). Use for /agentic-fund-manager <client holdings>, "review this client portfolio", "generate client recommendations", or any NDPMS portfolio-feedback ask.
 ---

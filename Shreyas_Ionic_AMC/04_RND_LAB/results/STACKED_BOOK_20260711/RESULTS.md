@@ -1,4 +1,4 @@
-﻿# STACKED BOOK — the four-alpha frontier (2022-2025, banked ledgers, Rs 1cr, pledge-based capital reuse)
+# STACKED BOOK — the four-alpha frontier (2022-2025, banked ledgers, Rs 1cr, pledge-based capital reuse)
 | Config | CAGR | maxDD | Sharpe | Note |
 |---|---|---|---|---|
 | v1 naive (equity-heavy) | +16.9% | -19.2% | 1.46 | diversification wasted |

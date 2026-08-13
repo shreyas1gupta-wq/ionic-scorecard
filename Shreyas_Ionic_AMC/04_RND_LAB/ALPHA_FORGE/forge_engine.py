@@ -1,4 +1,4 @@
-﻿"""ALPHA FORGE engine (campaign frozen @ cb3e776). 10 sleeves -> daily return series on unit capital,
+"""ALPHA FORGE engine (campaign frozen @ cb3e776). 10 sleeves -> daily return series on unit capital,
 screen (2024-07..2026-06) + validate (2016-01..2024-06) stats -> ledger + per-sleeve series parquet.
 """
 import datetime as dt

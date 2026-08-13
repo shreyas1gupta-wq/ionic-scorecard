@@ -1,4 +1,4 @@
-﻿# OPERATING CALENDAR â€” the firm's master rhythm (ONE page)
+# OPERATING CALENDAR â€” the firm's master rhythm (ONE page)
 **Owner: CEO (Meher). This is the single source of truth for firm cadence.** It CONSOLIDATES what was scattered across ORG_STRUCTURE Â§cadences, RESEARCH_SOP Â§operating cadence, 99_OPS/EOD_ROUTINE.md, 08_BOARD_ROOM/BOARD_CHARTER.md, 00_GOVERNANCE/SELF_IMPROVEMENT.md â€” those files remain the DETAIL; this is the schedule. If they ever disagree, this file wins for *timing*; they win for *procedure*.
 
 Conventions: **[AUTO]** = wireable as a scheduled Claude prompt (main desk = DESK-100 wires these into Windows Task Scheduler / Claude cron; one-line prompt text given). **[SESSION]** = run by whoever opens a desk that day. **[MEET]** = a written meeting (no agent spawns unless a decision needs a specialist â€” token law D-023). Minutes/artifacts destination is stated per slot. IST throughout. Book equity = paper â‚¹1cr (D-026).

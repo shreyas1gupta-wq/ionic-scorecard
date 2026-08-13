@@ -1,4 +1,4 @@
-﻿---
+---
 name: mf-nav-refresh
 description: Pull the latest official AMFI NAVs for all Indian mutual funds (13,900+ schemes) into datasets/mf_nav/ — nav_latest.parquet cross-section + permanent month-end history — with auto-pruning so storage never grows. Use for /mf-nav-refresh, "refresh NAVs", before any qfra1/qfra2 run, or on the monthly data cadence.
 ---

@@ -1,4 +1,4 @@
-﻿# DATA CATALOG â€” single source of truth (Data Officer: Kavya Reddy)
+# DATA CATALOG â€” single source of truth (Data Officer: Kavya Reddy)
 Rule: if it's not in here with path+range+bugs, it doesn't exist for research. Counts marked [books] are per DESK-20's journal/RESUME_TOMORROW (not re-verified by DESK-100); unmarked = verified on disk 2026-07-03.
 
 ## 1. Options (single-stock + index)

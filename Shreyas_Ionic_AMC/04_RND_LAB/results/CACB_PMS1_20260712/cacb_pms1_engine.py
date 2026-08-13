@@ -1,4 +1,4 @@
-﻿"""CA/CB/PMS1 engine (frozen @ a752ec3). Three portfolio constructions, shared loaders.
+"""CA/CB/PMS1 engine (frozen @ a752ec3). Three portfolio constructions, shared loaders.
 """
 import datetime as dt
 import numpy as np, pandas as pd

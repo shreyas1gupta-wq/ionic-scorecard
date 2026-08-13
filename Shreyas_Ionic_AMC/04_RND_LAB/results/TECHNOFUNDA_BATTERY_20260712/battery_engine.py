@@ -1,4 +1,4 @@
-﻿"""TECHNOFUNDA BATTERY engine (frozen @ 9da01a6). Episode-level, PIT fundamentals.
+"""TECHNOFUNDA BATTERY engine (frozen @ 9da01a6). Episode-level, PIT fundamentals.
 P1a/b/c, P2, P3, P4, P5a/b, P6, M1-M4 event setups. Per-setup same-exit placebo x200.
 """
 import datetime as dt

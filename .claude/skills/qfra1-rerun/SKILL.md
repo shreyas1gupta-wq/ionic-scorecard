@@ -1,4 +1,4 @@
-﻿---
+---
 name: qfra1-rerun
 description: Re-run the firm's SHORT-TERM / higher-churn mutual-fund recommendation method (the "capture-ratio overlay") — rank ALL funds in the category by 6M total capture ratio, apply the downside-capture filter after ranking, top-3 surviving ranks BUY; SELL on negative trailing-12M excess in quadrant 4 (the catch-all bucket — RULED correct, see §method). Use when the user asks to refresh/verify the MF Dashboard recommendations, run the short-term MF screen, or reconcile a category's Buy/Sell/Hold calls. Complements /qfra2-rerun (the long-term SIP engine).
 ---
