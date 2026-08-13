@@ -45,13 +45,23 @@ TIMEOUT = 20
 
 
 def local_version():
+    """Read the local VERSION.json.
+
+    Opened as utf-8-SIG, not utf-8. A BOM is easy to acquire on Windows -- PowerShell's
+    `Out-File -Encoding utf8` writes one, and this repo had 11 tracked files carrying one -- and plain
+    utf-8 makes `json.load` raise on the BOM. That surfaced as the far more alarming "this copy has no
+    VERSION.json, treat it as stale and re-clone", i.e. a false alarm telling the recipient to throw
+    away a perfectly current skill. utf-8-sig reads both forms.
+    """
     p = os.path.join(HERE, "VERSION.json")
     if not os.path.exists(p):
         return None
     try:
-        with open(p, encoding="utf-8") as fh:
+        with open(p, encoding="utf-8-sig") as fh:
             return json.load(fh)
-    except (OSError, ValueError):
+    except (OSError, ValueError) as e:
+        print(f"[warn] VERSION.json exists but could not be parsed ({type(e).__name__}: {e}). "
+              f"Treating as unversioned.")
         return None
 
 
@@ -85,7 +95,7 @@ def remote_via_http():
     url = REPO_RAW + REL_VERSION
     try:
         with urllib.request.urlopen(url, timeout=TIMEOUT) as r:      # noqa: S310
-            return json.loads(r.read().decode("utf-8")), "https raw"
+            return json.loads(r.read().decode("utf-8-sig")), "https raw"
     except (urllib.error.URLError, ValueError, OSError) as e:
         return None, f"raw fetch failed ({type(e).__name__}) — expected on a private repo"
 
