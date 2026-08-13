@@ -167,7 +167,7 @@ def qfra2_lookup(scheme_name, df=None):
     The engine actually ranks 99 Direct-plan funds (large 8 · largemid 5 · mid 8 · flexi 6 · multi 5 ·
     small 6 · focused 30 · value 31). A None from this function therefore means "not in the published
     top-5", NOT "not covered" — the fund may well have a real engine score one rank below the cut.
-    Believing the old docstring put 6 substituted scores into a shipped client deck (Talaulikar):
+    Believing the old docstring put 6 substituted scores into a shipped client deck (Client A):
     3 Focused funds and 3 that only needed a rename resolved (ICICI Pru Bluechip -> ICICI Pru Large
     Cap; Kotak Emerging Equity -> Kotak Midcap). Before recording a gap: check
     Mf_qfra2/data/verified_navs_<cat>.csv and resolve renames via pr_template/lib/mf_mapping.py.

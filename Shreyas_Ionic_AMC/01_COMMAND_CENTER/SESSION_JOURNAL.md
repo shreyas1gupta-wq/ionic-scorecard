@@ -24,7 +24,7 @@ No repair attempted (EOD is a health check, no agent spawns, and the fix is an o
 Files: CURRENT_STATE.md (EOD FLAG block). Next: /pipeline-health or ops to fix the per-symbol loop
 exiting after the first symbol; consider hardening the EOD check to count files, not log lines.
 
-## 2026-08-03 late (DESK-100) — PAC/CEO product-approval deck + ABXY aggressive-IPS showcase; Talaulikar No-View upgrade landed
+## 2026-08-03 late (DESK-100) — PAC/CEO product-approval deck + ABXY aggressive-IPS showcase; Client A No-View upgrade landed
 Principal ask: a deck for the Product Approval Committee and CEO explaining the model, the
 workflow and the pages, with page snapshots, plus a best-in-class ABXY sample on an
 AGGRESSIVE IPS using the final template.
@@ -45,13 +45,13 @@ AGGRESSIVE IPS using the final template.
    sign-off block. Snapshot pages are located by searching the PDF for TITLE-SIZE text, never by
    page number, so it survives module reordering.
 
-**Talaulikar:** the previous session's stopped agent had in fact landed its `_SCORE_750` edits —
+**Client A:** the previous session's stopped agent had in fact landed its `_SCORE_750` edits —
 verified, rebuilt clean at **101 slides, all 3 gates 0 findings**, No View down 24 -> 5 (the
 remaining 5 are genuinely outside the 751 universe).
 
 **Systemic finding, partially fixed.** Raw engine field names leak into CLIENT-VISIBLE prose in
 the research corpus (`quality_score` 160x, `value_score` 124x, `final_score_1y` 113x, ~1,000
-occurrences across ~40 tokens). Talaulikar is unaffected (its data layer scrubs); AZBY-style data
+occurrences across ~40 tokens). Client A is unaffected (its data layer scrubs); AZBY-style data
 layers that read pf_qual text directly surface them. I fixed the 29 occurrences the showcase
 actually exposed (`ret_*`, `unified_quarterly_pit`, meaning-preserving, verified before/after) and
 deliberately did NOT mass-rewrite the rest — `research_sources` keeps its raw names correctly (it
@@ -61,7 +61,7 @@ translation in `pr_template/lib/` (safer, protects every future client) or a sup
 rewrite.**
 
 Files: data/abxy_showcase.py, build_abxy_showcase.py, scripts/build_pac_showcase.py (new);
-data/talaulikar_family.py, 24 pf_qual_*.json (prose only) modified; reports/
+data/client_a_family.py, 24 pf_qual_*.json (prose only) modified; reports/
 IONIC_NDPMS_PRODUCT_APPROVAL_DECK.pptx+pdf, pr_template/out/ABXY_Showcase_HNI_DEEP.pptx+pdf.
 Next: Principal review of the PAC deck; the field-name decision above; TER placeholder on fund
 scorecards is still the top disclosed product gap.
@@ -3181,11 +3181,11 @@ Principal ordered the build ("we have nifty much data 1min and 1day build anc ba
 - 13 challenges logged C1-C13 in the spec. Blocking-before-adoption: C6 (client pipeline not updated), C7 (LT stale), C8 (deck reads v1).
 
 ## 2026-08-07 (DESK-20) — RM Lite gets the five signals; full workflow re-audit
-- RM_SIMPLE: `book_scored` removed from tiers.py skip_core (was excluded 2026-07-26 as methodology-heavy; that reason no longer describes a five-dot page). Simple register adapted: 8 rows @0.36 pitch, 0.19in dots, 9pt legend. Talaulikar RM 29->30pp, ABXY RM 19->20pp.
+- RM_SIMPLE: `book_scored` removed from tiers.py skip_core (was excluded 2026-07-26 as methodology-heavy; that reason no longer describes a five-dot page). Simple register adapted: 8 rows @0.36 pitch, 0.19in dots, 9pt legend. Client A RM 29->30pp, ABXY RM 19->20pp.
 - NEW `09_PRODUCT/scripts/audit_full_workflow.py`: runs the WHOLE pipeline (earnings bridge -> v3 -> freeze audit -> Excel -> 3 decks x 3 tiers -> geometry/geometry2/tellscan on each -> check_method per data module) and writes 09_PRODUCT/WORKFLOW_AUDIT.md. **41 of 42 pass.**
 - Real defects it caught and I fixed: (a) `available_date` raw field name reaching CLIENT slides from analyst research prose (ENRIN + POWERINDIA paragraphs rewritten; TITAN one came via the demo file). Root fix = general snake_case catch-all in slidekit txt() detell -- the named-replacement list was whack-a-mole (`fcf_yield` listed, `available_date` not). (b) scope tag read "largest 11 of 98" on an 8-row RM page. (c) audit itself resolved the scoring scripts against the LIVE tree, not the worktree -> 3 silent rc=2s.
 - tellscan SYNTHETIC_DEMO_LEAK on ABXY is CORRECT (it IS a demo); audit now keys that rule to is_demo so it stays hard on real client decks. 22 benign findings were masking 2 real ones.
-- REMAINING FAIL (1 of 42): check_method on talaulikar_family.py -- 5 sell-bar names (LT 45.5/4.27%, ULTRACEMCO 42.5, POONAWALLA 53.1, HINDCOPPER 41.6, ITCHOTELS 50.6) lack `exceptional_override`, plus churn 20.2% needs a high/low priority split on 39 lines. CLIENT-DATA adjudication, not a code defect. NOTE: LT's 45.5 is stale (built on a superseded analyst Hold; recomputes to 33.5 = clean Sell).
+- REMAINING FAIL (1 of 42): check_method on client_a_family.py -- 5 sell-bar names (LT 45.5/4.27%, ULTRACEMCO 42.5, POONAWALLA 53.1, HINDCOPPER 41.6, ITCHOTELS 50.6) lack `exceptional_override`, plus churn 20.2% needs a high/low priority split on 39 lines. CLIENT-DATA adjudication, not a code defect. NOTE: LT's 45.5 is stale (built on a superseded analyst Hold; recomputes to 33.5 = clean Sell).
 
 ### 2026-08-13 — DESK-100 — NDPMS handover pack: repo made self-sufficient, portability bug caught
 **Principal orders:** "just keep final version on github and make sure that all stuff in github is
@@ -3225,7 +3225,7 @@ read it. Deleting it as "the old version" breaks the entire chain, and the name 
 **Verified, not assumed:** fresh `git archive` -> `ionic-scorecard` -> 752 rows joined, 4/4 decks
 built, dots gate PASS. Full workflow audit **42 of 43**.
 
-**The one open failure is pre-existing and is a Principal call:** `check_method` on the real Talaulikar
+**The one open failure is pre-existing and is a Principal call:** `check_method` on the real Client A
 book reports 5 sell-bar names + a churn-split (20.2% > 20%, 39 lines unprioritised). Two of the five —
 **POONAWALLA 53.1 and ITCHOTELS 50.6 — are Sells ABOVE 50, which contradicts the frozen ladder**
 ("no Sell above 40; 40-50 trim-eligible only; >50 Hold"). The data module still carries pre-v3 analyst
@@ -3236,5 +3236,5 @@ client deck.
 `build_scores_excel.py`, `chart_v1_vs_v3_final.py`, 8 scorecard scripts, `SKILL.md`,
 `FIVE_SIGNAL_AND_V3_SCORING_SPEC.md`. Commits `4e54feb`, `9e24e1d`; pushed to
 `claude/sweet-austin-283067`.
-**NEXT:** Principal to decide on the 5 Talaulikar sell-bar names + churn split; C6 (adopt v3 into the
+**NEXT:** Principal to decide on the 5 Client A sell-bar names + churn split; C6 (adopt v3 into the
 engine); rotate the plaintext GitHub PAT sitting in the git remote URL.

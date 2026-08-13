@@ -8,7 +8,7 @@ readers start at `09_PRODUCT/HOW_WE_SCORE_STOCKS.md`. Workflow audit 42/43.
   class of failure (STEP 4b of the workflow audit).
 - DO NOT DELETE `results/full750_scored.csv` as a "v1 duplicate" — it is the engine output and
   the v3 corrector's input; 15 scripts read it.
-- OPEN, Principal call: 5 sell-bar names on the real Talaulikar book, of which POONAWALLA (53.1)
+- OPEN, Principal call: 5 sell-bar names on the real Client A book, of which POONAWALLA (53.1)
   and ITCHOTELS (50.6) are Sells above 50 and contradict the frozen ladder; plus a 20.2% churn
   split across 39 unprioritised lines. Root cause is C6 — v3 is not yet adopted into
   `compute_client_scores.py`.
@@ -44,7 +44,7 @@ treat any option-data backtest on Aug-2026 expiries as running on a 42%-complete
 191 Sell, 126 escalations → `09_PRODUCT/reports/ESCALATIONS_750_REVIEW.xlsx` for Principal
 adjudication). Deliverable: `09_PRODUCT/reports/ANALYST_RECOMMENDATIONS_750.xlsx` (751×43, 4 sheets).
 **pf_state initialized for the FULL universe (751 files)** — the Thursday weekly V1 router now runs
-incrementally over everything. Talaulikar deck upgrade in flight (19 former No-View names now have
+incrementally over everything. Client A deck upgrade in flight (19 former No-View names now have
 real scores; 5 remain outside the universe). **OPEN: technical-agent pass has never run (0/751 have
 chart scores) — blocked on choosing the per-symbol multi-year price source; do NOT launch it against
 an unverified path.** MF: NAV-refresh armed Sep-1; QFRA models stay Apr/Oct (next Oct-end). Full
@@ -355,7 +355,7 @@ book. Full detail + every file path: SESSION_JOURNAL.md 2026-08-06 entry.
 and the exact next steps. NOTHING IS COMMITTED (branch `claude/sweet-austin-283067`, still on `994a9d6`).**
 Headlines: our skills' **"QFRA-2 covers 40 curated funds" was a misreading** — that CSV is 8 categories x
 top-5 = 40 ROWS; the engine ranks **99 Direct-plan funds**, and the cost of the error is 6 substituted
-fund scores in the shipped Talaulikar deck (3 Focused funds plus 2 resolvable by renames already in our
+fund scores in the shipped Client A deck (3 Focused funds plus 2 resolvable by renames already in our
 own `SCHEME_RENAMES`). **QFRA-2 has no Sell verdict at all**, so the old "both frameworks at Sell" rule was
 unsatisfiable; sell logic rebuilt to "originate and veto" per Principal ruling (A+B+C) with a
 **contradiction gate** that surfaces a QFRA-1 Sell against a CALIBRE A/B grade instead of resolving it

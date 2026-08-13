@@ -181,7 +181,7 @@ def intake(holdings_path, profile_path, out_dir):
     profile = json.load(open(profile_path, encoding="utf-8")) if os.path.exists(profile_path) else dict(PROFILE_TEMPLATE)
     _, by_isin, by_name = _load_universe()
 
-    # row-bleed / CAS-corruption check (2026-08-02, Talaulikar build: a stock's name
+    # row-bleed / CAS-corruption check (2026-08-02, Client A build: a stock's name
     # field had an entirely different holding's row content silently concatenated
     # onto it during extraction). Flag, never silently trust or drop.
     row_warnings = validate_holdings(raw)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """mf_mapping.py — shared MF/fund identity-resolution helpers, extracted from real
-mapping mistakes made on the Talaulikar NDPMS build (2026-08-02). See the
-`ionic-wealth-complete` skill's "Talaulikar-build lessons" section for the full
+mapping mistakes made on the Client A NDPMS build (2026-08-02). See the
+`ionic-wealth-complete` skill's "Client A-build lessons" section for the full
 incident writeups; this module is the reusable code side of that lesson set.
 
 HARD RULE (do not violate): this module NEVER auto-accepts a fund match by string

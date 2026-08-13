@@ -62,7 +62,7 @@ BENIGN = {
 # catch "illustrative / synthetic / demo" wording sitting on a REAL client's data. On the ABXY showcase
 # that wording is mandatory and correct -- the deck IS a demo, and 22 such labels are the deck doing its
 # job. Treating them as failures buried the two findings on that deck that were real.
-DECKS = [("build_talaulikar.py", "Talaulikar", "data/talaulikar_family.py", False),
+DECKS = [("build_client_a.py", "Client A", "data/client_a_family.py", False),
          ("build_abxy_showcase.py", "ABXY_Showcase", "data/azby_family.py", True),
          ("build_azby.py", "ABXY_Family", "data/azby_family.py", True)]
 TIERS = ["HNI_DEEP", "STANDARD", "RM_SIMPLE"]

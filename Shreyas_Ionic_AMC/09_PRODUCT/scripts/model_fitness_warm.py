@@ -20,7 +20,7 @@ express (trim targets, which rationale leads), and DIAGNOSING a gate finding cor
 suppressing it. The rubric below weights exactly those.
 
 [DATA]      Deterministic wall-clock, measured on this machine 2026-08-13 against the real 59-name
-            Talaulikar book: HNI_DEEP 103 slides in 6.7s, RM_SIMPLE 30 slides in 2.8s, five gates
+            Client A book: HNI_DEEP 103 slides in 6.7s, RM_SIMPLE 30 slides in 2.8s, five gates
             23.5s total. The whole non-model pipeline is ~30 seconds.
 [DATA]      Provider prices (claude-api skill 2026-06-24; DeepSeek/OpenAI fetched 2026-08-13).
 [DATA]      Pro $20 limits: ~45 messages / 5-hour rolling window, ~40-80 active Sonnet hours/week,

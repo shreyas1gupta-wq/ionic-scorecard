@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-"""talaulikar_family.py — REAL client ctx (Talaulikar family, CAS Jul 2026).
-Dr. Amol Gurudatta Talaulikar (3 demat accounts: Sajag, ICICI, Nuvama)
-Mrs. Sonal Amol Talaulikar (1 demat account: Sajag)
+"""client_a_family.py — REAL client ctx (Client A family, CAS Jul 2026).
+Dr. Amol Gurudatta Client A (3 demat accounts: Sajag, ICICI, Nuvama)
+Mrs. Sonal Amol Client A (1 demat account: Sajag)
 Joint MF holdings.
 
 Source: NSDL CAS PDFs (st1.pdf Apr-2026, st2.pdf Mar-2026).
-Parsed via parse_cas.py -> talaulikar_holdings.csv.
+Parsed via parse_cas.py -> client_a_holdings.csv.
 Scored universe coverage: 93/98 stocks (2026-08-03: full-750 research completion scored 19
 previously-No-View names -- see _SCORE_750 below).
 Unscored (genuinely outside the 751-stock universe): BASF, GRINDWELL, AARTISURF, KWIL, TIMEX
@@ -1493,7 +1493,7 @@ _SCORE_EST = {
 # analyst-Hold rescue -> Hold; rest agree at Hold). Applied in the fixup loop BEFORE the
 # "ionic_score is None -> No View" fallback, same slot as _SCORE_EST above. Unlike
 # _SCORE_EST (a bare estimate, no rec), this tuple sets score + rec together atomically
-# (Talaulikar-build lesson: never let score and verdict be set as two separate steps).
+# (Client A-build lesson: never let score and verdict be set as two separate steps).
 _SCORE_750 = {
     "JSLL": (73.0, 62.3, 51.5, "Hold",
              "Jeena Sikho Lifecare runs a fast-growing chain of Ayurvedic hospitals and clinics "
@@ -1707,10 +1707,10 @@ _SECTOR = {
 
 # ── Mrs. T directed liquidity exits (Principal order 2026-07-31) ──
 _MRS_T_LIQ = {
-    "BAJFINANCE": ("Trim", "Directed liquidity exit from Mrs. Talaulikar's account; high-quality name (score 66), partial exit for cash needs."),
-    "TMCV": ("Sell", "Directed liquidity exit from Mrs. Talaulikar's account; a real Hold-quality name (score 70), sold for cash needs, not a quality concern."),
-    "TMPV": ("Sell", "Directed liquidity exit from Mrs. Talaulikar's account; a real Hold-quality name (score 48), sold for cash needs, not a quality concern."),
-    "TATATECH": ("Sell", "Directed liquidity exit from Mrs. Talaulikar's account; a real Hold-quality name (score 42), sold for cash needs, not a quality concern."),
+    "BAJFINANCE": ("Trim", "Directed liquidity exit from Mrs. Client A's account; high-quality name (score 66), partial exit for cash needs."),
+    "TMCV": ("Sell", "Directed liquidity exit from Mrs. Client A's account; a real Hold-quality name (score 70), sold for cash needs, not a quality concern."),
+    "TMPV": ("Sell", "Directed liquidity exit from Mrs. Client A's account; a real Hold-quality name (score 48), sold for cash needs, not a quality concern."),
+    "TATATECH": ("Sell", "Directed liquidity exit from Mrs. Client A's account; a real Hold-quality name (score 42), sold for cash needs, not a quality concern."),
 }
 
 # ── Mcap band lookup (SEBI classification as of Jul-2026) ──
@@ -1742,7 +1742,7 @@ for _e in _EQUITY:
         _e["score_3y"] = _SCORE_EST[_sym]
         _e["score_1y"] = _SCORE_EST[_sym]
     # 2026-08-03 full-750 research completion: real quant+analyst score, sets score AND
-    # rec AND client_case together (never as separate steps -- Talaulikar-build lesson)
+    # rec AND client_case together (never as separate steps -- Client A-build lesson)
     if _sym in _SCORE_750:
         _e["ionic_score"], _e["score_3y"], _e["score_1y"], _e["rec"], _e["client_case"] = _SCORE_750[_sym]
     # Unscored stocks: keep ionic_score as None (never show 0)
@@ -2609,8 +2609,8 @@ def build_ctx():
     ctx = {
         "is_demo": False,
         "client": {
-            "name": "Dr. & Mrs. Talaulikar",
-            "code": "TALAULIKAR-NDPMS-01",
+            "name": "Client A",
+            "code": "CLIENT-A-NDPMS-01",
             "account_type": "NDPMS (Non-Discretionary)",
             "profile": "Not yet on file",
             "horizon": "Not yet on file",
@@ -2703,7 +2703,7 @@ def build_ctx():
             "no_view": [],
             "flags": [
                 "Source: NSDL CAS PDFs (st1.pdf Apr-2026, st2.pdf Mar-2026). Different valuation dates."
-                " Dr. Talaulikar valued Apr-2026, Mrs. Talaulikar valued Mar-2026.",
+                " Dr. Client A valued Apr-2026, Mrs. Client A valued Mar-2026.",
                 "5 stocks are outside the current scored universe and carry No View: BASF, GRINDWELL, "
                 "AARTISURF, KWIL, TIMEX, all genuinely outside the 751-stock research universe.",
                 "19 stocks previously shown as No View, JSLL, VMM, MCX, NAM-INDIA, BLS, SKYGOLD, V2RETAIL, "
@@ -2720,7 +2720,7 @@ def build_ctx():
                 "Tata Power Rev +8% PAT +11% (margin compressed), Asian Paints Rev +18% PAT +40% "
                 "(strongest quarter in two years — Sell thesis rests on structural competitive/valuation "
                 "grounds, not near-term earnings).",
-                "Mrs. Talaulikar liquidity directive: ~Rs 60-70L directed exit from her account "
+                "Mrs. Client A liquidity directive: ~Rs 60-70L directed exit from her account "
                 "(equities + MFs). BAJFINANCE trimmed for cash (real Hold-quality name); small existing "
                 "Sells and loss-making MF schemes redeemed for tax-loss harvest + cash.",
                 "Scores for 15 stocks [INFERENCE]: estimated from analyst research where quant model "
@@ -2744,6 +2744,6 @@ def build_ctx():
 if __name__ == "__main__":
     c = build_ctx()
     t = c["totals"]
-    print(f"Talaulikar Family: Rs {t['grand_inr']/1e7:.2f} Cr | {t['n_stocks']} stocks "
+    print(f"Client A Family: Rs {t['grand_inr']/1e7:.2f} Cr | {t['n_stocks']} stocks "
           f"({t['n_sell']} Sell/{t['n_hold']} Hold) | {t['n_funds']} funds | "
           f"eq {t['eq_pct']}% mf {t['mf_pct']}%")

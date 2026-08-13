@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
-"""build_talaulikar.py — render the Talaulikar family NDPMS review deck.
-Usage: python build_talaulikar.py [TIER ...] (default: HNI_DEEP)
+"""build_client_a.py — render the Client A family NDPMS review deck.
+Usage: python build_client_a.py [TIER ...] (default: HNI_DEEP)
 """
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data.talaulikar_family import build_ctx
+from data.client_a_family import build_ctx
 import engine
 import tiers as T
 
 for _base in ("RM_SIMPLE", "STANDARD", "HNI_DEEP"):
     _t = dict(T.TIERS[_base])
     _t["skip_core"] = set(_t.get("skip_core", set())) | {"cost"}
-    T.TIERS[f"TALAULIKAR_{_base}"] = _t
+    T.TIERS[f"CLIENT_A_{_base}"] = _t
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "out")
 os.makedirs(OUT, exist_ok=True)
@@ -21,8 +21,8 @@ def main(tiers_):
     ctx = build_ctx()
     sfx = os.environ.get("PR_SUFFIX", "")
     for tier in tiers_:
-        deck, manifest = engine.build(ctx, f"TALAULIKAR_{tier}")
-        path = os.path.join(OUT, f"Talaulikar_{tier}{sfx}.pptx")
+        deck, manifest = engine.build(ctx, f"CLIENT_A_{tier}")
+        path = os.path.join(OUT, f"Client A_{tier}{sfx}.pptx")
         for attempt in range(3):
             try:
                 deck.save(path)

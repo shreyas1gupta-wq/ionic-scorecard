@@ -122,7 +122,7 @@ DE_EXEMPT_SECTORS = ("financial services", "power", "realty", "telecommunication
 # trailing 1-year revenue growth (99.1% coverage, median 12.35%). [INFERENCE, disclosed] -- if the desk
 # starts capturing an expected-revenue figure, swap it in here and nothing else changes.
 # GROWTH LEG ON (Principal, 2026-08-07: "if v1 was adding then add it in our aswell"), after evidence
-# established that v1 really was applying it -- 30 of 59 holdings on the shipped Talaulikar deck carried
+# established that v1 really was applying it -- 30 of 59 holdings on the shipped Client A deck carried
 # an adjustment between -11 and +15, and the deck's scores reconcile to pf_mech_flags 59/59. Dropping
 # it would have made v3 scores incomparable with every deck already delivered.
 #

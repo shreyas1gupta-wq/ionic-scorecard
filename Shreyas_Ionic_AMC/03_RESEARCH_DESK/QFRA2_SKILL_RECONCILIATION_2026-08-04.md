@@ -113,9 +113,9 @@ should say which one it used.
 
 ---
 
-## 3. This already reached a client deliverable (Talaulikar NDPMS deck)
+## 3. This already reached a client deliverable (Client A NDPMS deck)
 
-[DATA] `pr_template/data/talaulikar_family.py` `_QFRA2_SCORES` holds **24 entries from three different
+[DATA] `pr_template/data/client_a_family.py` `_QFRA2_SCORES` holds **24 entries from three different
 provenances in one client-facing field** (`qfra` + `merit`, rendered as "fund score /100" + grade):
 8 real engine scores · 3 web-researched desk estimates · 13 QFRA-1 percentile ranks.
 
@@ -138,7 +138,7 @@ Large Cap, Canara Robeco Multicap, Invesco Small Cap, Tata Small Cap, HDFC Small
 that would have resolved them was built in this same project and the fund-scoring path never consulted it
 against the QFRA-2 universe.
 
-**Second defect:** `score_is_estimate` is wired for **equities only** (`talaulikar_family.py:1739` →
+**Second defect:** `score_is_estimate` is wired for **equities only** (`client_a_family.py:1739` →
 `modules/sell_cards.py:58,90`). There is no fund-side equivalent, so the deck does **not** disclose which
 fund scores are engine output vs estimate. Three provenances render identically.
 
@@ -174,8 +174,8 @@ fund scores are engine output vs estimate. Three provenances render identically.
 | # | Action | Cost | Blocker |
 |---|---|---|---|
 | 1 | Fix `ionic-wealth-complete` Part 3 + `qfra2-rerun` for defects §2.1–§2.6 | small | none |
-| 2 | Extract real engine scores for the 6 Talaulikar funds in §3, replace the substitutes, add a fund-side `score_is_estimate` + provenance label | medium | needs a **read-only** engine run; snapshot `QFRA2_current.csv` first (handoff §9), network required for the TRI build |
-| 3 | Re-issue the Talaulikar deck's fund pages after #2 | medium | Principal sign-off — it is a shipped client artifact |
+| 2 | Extract real engine scores for the 6 Client A funds in §3, replace the substitutes, add a fund-side `score_is_estimate` + provenance label | medium | needs a **read-only** engine run; snapshot `QFRA2_current.csv` first (handoff §9), network required for the TRI build |
+| 3 | Re-issue the Client A deck's fund pages after #2 | medium | Principal sign-off — it is a shipped client artifact |
 | 4 | Replace the "both frameworks agree" rule with one that is satisfiable and states the 40% shared-signal overlap | small | CEO+CIO joint (D-025: it is a standard) |
 | 5 | Correct the handoff (§1a "40-60 funds", "<3y watchlist") and `MODEL_CARD.md` (§4.1–4.3, 4.6) | small | model owner's call; these are docs, not the frozen model |
 | 6 | Put HELD-book alpha next to the +0.48% headline in every QFRA-2 deliverable | small | [OPINION] non-negotiable for honesty; the PAC deck and QFRA2 committee deck both currently quote the raw figure alone |
@@ -280,7 +280,7 @@ bottom 40%. The Sell *rate* is an artefact of category size and of whether SENTI
 have SENTINEL OFF by design, so leg 1 can essentially never fire there**), and carries no information
 about whether the fund beats its benchmark.
 
-**Did this reach a client?** [DATA] **No.** Every fund Sell in the Talaulikar deck is sourced from either
+**Did this reach a client?** [DATA] **No.** Every fund Sell in the Client A deck is sourced from either
 (a) liquid/debt/sectoral out-of-scope, (b) a directed liquidity call, or (c) QFRA-1 — e.g. HDFC Small Cap:
 "Ranks 19th of 29 in its category on capture ratio — our short-term framework independently flags this
 fund for exit." No Sell cites the long-term leg. But the rule **is** live in code on `client_intake.py`'s

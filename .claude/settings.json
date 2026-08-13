@@ -2,19 +2,25 @@
   "$comment": [
     "Shreyas_Ionic_AMC project settings. Checked in, so both desk accounts share it.",
     "",
-    "The Stop hook keeps the HANDOVER MANIFEST current on GitHub without anyone remembering to.",
-    "It runs 99_OPS/sync_handover.py at the end of each turn: that script commits and pushes ONLY",
-    "the skill, the explainer docs, the frozen spec, the finished score/fund/ISIN data and the",
-    "command-centre state files. It is a no-op when none of those changed, so ordinary coding turns",
-    "cost nothing. Source code is deliberately NOT auto-synced -- an auto-commit of every dirty file",
-    "would push half-written code the moment a turn ended.",
+    "!! AUTO-SYNC DISABLED 2026-08-13 21:20 IST — DO NOT RE-ENABLE UNTIL THE REPO IS PRIVATE !!",
     "",
-    "It exists because on 2026-08-13 the skill was handed over after a long editing session and the",
-    "recipient's clone saw none of the material: the default branch is a 1-file stub with an",
-    "unrelated history. The script prints that delivery warning on every run rather than reporting a",
-    "misleading success."
+    "The Stop hook below pushed the handover manifest to origin at the end of every turn. It has been",
+    "commented out (moved to disabled_hooks) because the destination repository was found to be",
+    "PUBLIC, not private:",
+    "    GET api.github.com/repos/shreyas1gupta-wq/ionic-scorecard -> 200, private: false",
+    "and the manifest it pushes includes a REAL CLIENT'S named portfolio",
+    "(pr_template/data/client_a_family.py, 578 KB, 'Client A',",
+    "'CLIENT-A-NDPMS-01', with holdings, rupee weights and analyst commentary).",
+    "An automated push to a public repo is a disclosure on a timer, so the timer is off.",
+    "",
+    "My earlier claim that the repo was private was WRONG. It was inferred from a 403 on",
+    "raw.githubusercontent.com, which is CDN rate-limiting and says nothing about visibility. The",
+    "authoritative check is the GitHub API `private` field, which reads false.",
+    "",
+    "TO RE-ENABLE: make the repository private (or purge the client file and its history), rotate the",
+    "credentials listed in the security note, then move the block back under \"hooks\"."
   ],
-  "hooks": {
+  "disabled_hooks": {
     "Stop": [
       {
         "hooks": [

@@ -1,21 +1,25 @@
 {
   "skill": "Ionic_Portfolio_Review",
-  "version": "v4.0",
-  "sequence": 4,
-  "released": "2026-08-13 20:11 IST",
+  "version": "v4.1",
+  "sequence": 5,
+  "released": "2026-08-13 21:29 IST",
   "author": "Shreyas Gupta",
   "delivery_branch": "master",
   "repo": "https://github.com/shreyas1gupta-wq/ionic-scorecard",
-  "supersedes": ["SG_NDPMS_TEMP1 (v3)", "ionic-wealth-complete (v2, v1)"],
+  "repo_visibility": "PUBLIC as of 2026-08-13 — verified via GitHub API private:false. v4.0 wrongly stated private.",
+  "supersedes": ["Ionic_Portfolio_Review v4.0", "SG_NDPMS_TEMP1 (v3)", "ionic-wealth-complete (v2, v1)"],
   "changes": [
-    "Renamed from SG_NDPMS_TEMP1 to Ionic_Portfolio_Review; old name retired, not aliased.",
-    "Self-update: check_version.py compares this copy against the delivery branch and can replace itself.",
-    "Repo-root walk fixed - it required a folder literally named 'NIFTY 500', so a clean clone joined ZERO universe rows and every signal dot rendered hollow on a deck that built with exit 0.",
-    "New gate check_dots.py: reads the built .pptx and asserts the five-signal dots carry colour. No other gate can see an empty universe join.",
-    "client_intake.py was matching against portfolio_quant.csv (59 rows, ONE client's book) instead of the 751-name universe, and its ISIN lookup was always empty so every equity fell through to banned name-prefix matching.",
-    "New 05_DATA_OFFICE/data/isin_master.csv - 2,404 NSE equities, the only exact join key from a client CAS to the scored universe. Joins 750 of 751 scored symbols.",
-    "Stripped UTF-8 BOMs from 11 tracked files; three other SKILL.md files had silently broken frontmatter as a result.",
-    "Corrected the claim that the scores are not in the repo - they are, and acting on the old text means redoing finished work."
+    "CORRECTION: v4.0 claimed the repository is private. It is PUBLIC (GitHub API private:false, HTTP 200 anonymously). The claim was inferred from a 403 on raw.githubusercontent.com, which is CDN rate-limiting and carries no visibility information. Assume everything committed is world-readable, including git history.",
+    "CLIENT PII SCRUBBED: a real client's surname and account code were present in 79 places across 20 tracked files, in TWO FILENAMES, and in a commit subject. Replaced with the placeholder Client A / CLIENT-A-NDPMS-01; data/talaulikar_family.py -> data/client_a_family.py and build_talaulikar.py -> build_client_a.py via git mv. GIT HISTORY STILL CONTAINS THE NAME until someone rewrites it.",
+    "PII rule rewritten from descriptive to prohibitive: never commit a real client identity; tracked data modules carry a placeholder, the real name lives in a gitignored local override, and grep your staged diff for the surname before committing.",
+    "Credentials section now states the committed HuggingFace token must be treated as LEAKED (public repo), alongside the plaintext GitHub PAT in the local remote URL.",
+    "Auto-sync Stop hook DISABLED in .claude/settings.json — it pushed the handover manifest to a public repo every turn, which is a disclosure on a timer. Re-enable only after the repo is private.",
+    "check_version.py now reads utf-8-sig: a BOM in VERSION.json made json.load raise, which surfaced as the false alarm 'no VERSION.json, treat as stale and re-clone'."
+  ],
+  "known_open_risks": [
+    "Git history still contains the client name (3 commits touch the data file; one commit subject carries the surname). Needs a filter-repo rewrite + force-push — Principal's call.",
+    "Built decks in pr_template/out/ carry the real name in slide text AND filenames (8 files, 37 occurrences). Gitignored so not public, but shareable by accident.",
+    "The scored universe cannot be independently verified from this repo alone: the raw inputs (screener parquets, price panels) are deliberately gitignored. Do not present these scores as reviewed institutional research without a named sign-off."
   ],
   "verify": "python check_version.py",
   "notes": "sequence is the field compared for staleness; version is for humans."

@@ -1,14 +1,14 @@
 ---
 name: Ionic_Portfolio_Review
-description: Operating manual for the Ionic Wealth NDPMS portfolio-review product: the deck engine (pr_template), the five-signal holdings page, Stock Scorecard 750 + the frozen v3 scoring layer, the MF quality frameworks (QFRA-1/QFRA-2), client intake by ISIN, the whole-pipeline QA audit, and every Principal ruling that governs a client-facing slide. The repo already carries the finished stock scores and fund grades, so you CONSUME them rather than re-run them. Start at 09_PRODUCT/HOW_WE_SCORE_STOCKS.md. Self-updating: run check_version.py to see whether this copy is current. Made by Shreyas Gupta on 13 August 2026, 8:11 pm IST. v4.0
+description: Operating manual for the Ionic Wealth NDPMS portfolio-review product: the deck engine (pr_template), the five-signal holdings page, Stock Scorecard 750 + the frozen v3 scoring layer, the MF quality frameworks (QFRA-1/QFRA-2), client intake by ISIN, the whole-pipeline QA audit, and every Principal ruling that governs a client-facing slide. The repo already carries the finished stock scores and fund grades, so you CONSUME them rather than re-run them. Start at 09_PRODUCT/HOW_WE_SCORE_STOCKS.md. Self-updating: run check_version.py to see whether this copy is current. Made by Shreyas Gupta on 13 August 2026, 8:11 pm IST. v4.1
 ---
 
-<!-- SKILL: Ionic_Portfolio_Review | VERSION: v4.0 | SEQUENCE: 4 -->
-<!-- Made by Shreyas Gupta on 13 August 2026, 8:11 pm IST. v4.0 -->
+<!-- SKILL: Ionic_Portfolio_Review | VERSION: v4.1 | SEQUENCE: 5 -->
+<!-- Made by Shreyas Gupta on 13 August 2026, 8:11 pm IST. v4.1 -->
 
 # Ionic Portfolio Review
 
-> ### Version v4.0 — Made by Shreyas Gupta on 13 August 2026, 8:11 pm IST. v4.0
+> ### Version v4.1 — Made by Shreyas Gupta on 13 August 2026, 8:11 pm IST. v4.1
 >
 > **Before you rely on anything below, check that this copy is current.** From this skill's folder:
 >
@@ -25,24 +25,18 @@ description: Operating manual for the Ionic Wealth NDPMS portfolio-review produc
 > in the repo — the opposite of the truth — and nothing told the reader it was out of date. The version
 > check is the fix.
 >
-> **One limitation, tested and real:** the repository is **private**, so the HTTPS fallback cannot read
-> it. A copy of this skill sitting on its own, with no clone anywhere, will report `unknown` rather
-> than CURRENT or STALE — it has no way to see the delivery branch. Run the check from inside a clone
-> and it works (verified: reports `[git origin/master]`). This is a property of a private repo, not a
-> bug, and it is the strongest practical argument for working inside the clone rather than keeping a
-> loose copy.
+> **CORRECTION (v4.1) — THIS REPOSITORY IS PUBLIC.** v4.0 of this file told you it was private.
+> That was wrong, and wrong in the dangerous direction. Verified:
 >
-> **You may not need a copy at all.** Claude Code discovers skills from `.claude/skills/` in whatever
-> folder you open, and this skill lives *inside* the repo. Work in a clone and `git pull` is the whole
-> update mechanism:
->
-> ```bash
-> git clone -b master https://github.com/shreyas1gupta-wq/ionic-scorecard.git
-> cd ionic-scorecard && claude
+> ```
+> GET api.github.com/repos/shreyas1gupta-wq/ionic-scorecard  ->  200, private: false
 > ```
 >
-> If you also keep a personal copy in `~/.claude/skills/`, delete it — both can be live at once and the
-> stale one may win.
+> The earlier claim was inferred from a 403 on `raw.githubusercontent.com`, which is CDN rate-limiting
+> and says nothing about visibility. The authoritative signal is the API's `private` field. Practical
+> consequences you must assume until told otherwise: **anything committed here is world-readable**, the
+> HTTPS self-update path is rate-limited rather than blocked, and git **history** is readable even after
+> a file is changed at HEAD.
 
 # Ionic Wealth â€” Complete Operating Manual (v3, 2026-08-07)
 
@@ -118,10 +112,28 @@ ask the Principal for the working data.
 **Start here, in this order:** read `09_PRODUCT/HOW_WE_SCORE_STOCKS.md` for the scoring workflow in
 plain language, then PART 1A below for the deck page, then build the ABXY demo deck to see it end to end.
 
-**âš  CLIENT PII IS IN THIS REPO.** `data/talaulikar_family.py` is a **real client's** holdings, weights
-and analyst commentary, and it **is tracked**. The `.gitignore` PII guard covers `pr_kordes/` and
-`*Kordes*` but not this file. Do not widen access to the repo without checking with the Principal
-first, and do not add another real client file without extending that guard.
+**NEVER COMMIT A REAL CLIENT'S IDENTITY. THIS RULE WAS LEARNED THE HARD WAY.**
+
+On 2026-08-13 a real client's surname and account code were found in this repository — in 79 places
+across 20 tracked files, in **two filenames** (visible in the directory listing without opening
+anything), and in a **commit subject line**. The repository is public. The name has been scrubbed to a
+placeholder (`Client A` / `CLIENT-A-NDPMS-01`, in `data/client_a_family.py`), but *git history still
+contains it* until someone rewrites history.
+
+The rule going forward:
+
+- **Tracked client data files carry a PLACEHOLDER identity only** — `Client A`, `Client B`. Never a real
+  name, account code, folio, PAN, email or phone, and never a real name in a *filename* either.
+- **The real identity lives in a gitignored local override**, not in the tracked module. If you need a
+  deck with the client's real name on it, put the name in an untracked file the build reads at render
+  time; do not edit it into the tracked data module.
+- **Holdings and rupee weights are still sensitive even when pseudonymised** — a portfolio of a given
+  size and composition can be re-identified by anyone who knows the client. Treat a pseudonymised book
+  as confidential, not as public data.
+- **Before any commit that touches `data/`**, grep your diff for the client's real name. `git diff
+  --cached | grep -i <surname>` takes two seconds and would have prevented this entirely.
+- Built decks in `out/` and `reports/` carry the real name in slide text *and* filenames. They are
+  gitignored, so they are not public — but they are shareable by accident. Check before sending.
 
 **âš  THE GIT REMOTE URL CONTAINS A PLAINTEXT PERSONAL ACCESS TOKEN.** `git remote -v` prints it. Anyone
 with the working copy has push access to the repo. Rotate the token before sharing a clone or a
@@ -256,7 +268,7 @@ Actual slide counts as at 2026-08-07 (real client book / demo showcase):
 | **RM_SIMPLE** | RM-led / newer investor | **30 / 20** | Plain language, bigger type | Story beats + the five-signal page |
 
 A real client book runs longer than the demo because `sell_cards` and `scheme_scorecards` paginate per
-name (Talaulikar: 21 sell cards, 19 scheme scorecards). Do not treat the demo count as the target.
+name (Client A: 21 sell cards, 19 scheme scorecards). Do not treat the demo count as the target.
 
 ### How to build a deck
 
@@ -435,7 +447,7 @@ red flags read revenue growth directly.
 `MAXROWS` references had to move together, including one that placed an extra invisible hotspot over
 the legend and one that undercounted the annexure overflow by one.
 
-### Talaulikar-build lessons (2026-08-02) â€” bugs fixed, do not regress
+### Client A-build lessons (2026-08-02) â€” bugs fixed, do not regress
 
 **MF / fund name mapping â€” now codified in `09_PRODUCT/pr_template/lib/mf_mapping.py`**
 - **Never fuzzy-match a fund name to a framework's fund list.** A naive string-similarity pass matched "Kotak Midcap Fund" to "Kotak Multicap Fund" (wrong category) and "ICICI Prudential Liquid Fund" to "ICICI Pru Large & Mid Cap Fund" (nonsensical â€” liquid vs equity). Always dispatch a Sonnet agent, one fund at a time, reasoning about real scheme identity (same AMC + same mandate) with web search to disambiguate â€” see `[[feedback-mf-mapping-no-fuzzy]]` memory. "Not found" beats a wrong guess, always. `lib/mf_mapping.py`'s docstring states this rule as a hard constraint the module itself must never violate.
@@ -843,7 +855,7 @@ scored **+5**. Of 93 names then taking âˆ’15, **75 had negative trailing rev
 estimate of 10%+**. One field per research file (`expected_next_3y_revenue_growth_pct`) unblocks it.
 
 **Where the adjustment lived in v1:** in `compute_client_scores.py` (the CLIENT pipeline, frozen v6.2),
-never in the universe file. 30 of 59 holdings on the shipped Talaulikar deck carried one, between âˆ’11
+never in the universe file. 30 of 59 holdings on the shipped Client A deck carried one, between âˆ’11
 and +15, and the deck's scores reconcile to `pf_mech_flags.json` 59/59. v1's `growth_leg(g)` took the
 analyst's expected figure **alone** â€” 100% EPS, no revenue leg at any weight.
 

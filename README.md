@@ -132,7 +132,7 @@ the input the v3 corrector reads. Both files must stay.
   correct behaviour, not a defect — but check it is not *every* name (see below).
 - **Never restate a threshold** in your own code or copy. Bands live in `five_signals.py`, scoring
   rules in `fix_thin_coverage_v3.py`. A duplicated number drifts within the hour.
-- **No client PII in commits.** `pr_template/data/talaulikar_family.py` holds a real client's book.
+- **No client PII in commits.** `pr_template/data/client_a_family.py` holds a real client's book.
 
 ---
 
