@@ -42,13 +42,16 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 
 def _root(p):
+    found = None
     while True:
         p, tail = os.path.split(p)
         if not tail:
+            if found:
+                return found
             raise RuntimeError("NIFTY 500 root not found")
         cand = os.path.join(p, tail)
         if os.path.isdir(os.path.join(cand, "Shreyas_Ionic_AMC")) or tail == "NIFTY 500":
-            return cand
+            found = cand          # keep walking: take the OUTERMOST match, not the first
 
 
 ROOT = _root(HERE)

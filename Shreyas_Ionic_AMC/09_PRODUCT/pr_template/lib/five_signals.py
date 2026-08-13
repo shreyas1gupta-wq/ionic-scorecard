@@ -420,13 +420,16 @@ def _nifty_root():
     clone name, inside a git worktree, and on the Principal's own tree. The legacy name is kept as a
     fallback for the case where this file is used outside the firm layout."""
     p = os.path.abspath(__file__)
+    found = None
     while True:
         p, tail = os.path.split(p)
         if not tail:
+            if found:
+                return found
             return None
         cand = os.path.join(p, tail)
         if os.path.isdir(os.path.join(cand, "Shreyas_Ionic_AMC")) or tail == "NIFTY 500":
-            return cand
+            found = cand          # keep walking: take the OUTERMOST match, not the first
 
 
 def load_universe():

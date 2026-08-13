@@ -7,6 +7,8 @@ Runs the whole pipeline end to end and reports a single table, so nothing passes
     STEP 2  the 750 Excel
     STEP 3  every deck x every tier
     STEP 4  gates on each built deck: check_geometry, check_geometry2, tellscan
+    STEP 4b signal dots carry colour -- catches a failed universe join, which is invisible to every
+            other gate because the page renders perfectly with no data in it
     STEP 5  check_method on each data module (it takes a DATA FILE, not a pptx -- a mistake worth
             encoding here so it is not repeated)
 
@@ -23,13 +25,16 @@ PRT = os.path.abspath(os.path.join(HERE, "..", "pr_template"))
 
 
 def _root(p):
+    found = None
     while True:
         p, tail = os.path.split(p)
         if not tail:
+            if found:
+                return found
             raise RuntimeError("root not found")
         cand = os.path.join(p, tail)
         if os.path.isdir(os.path.join(cand, "Shreyas_Ionic_AMC")) or tail == "NIFTY 500":
-            return cand
+            found = cand          # keep walking: take the OUTERMOST match, not the first
 
 
 ROOT = _root(HERE)
@@ -128,6 +133,16 @@ for script, name, datamod, is_demo in DECKS:
             real = max(nfind - benign, 0)
             note("4 gate", f"{name} {tier} {gate}", real == 0,
                  f"{nfind} findings, {benign} known-benign, {real} real")
+
+print("STEP 4b  signal dots carry colour (the gate the others cannot do)")
+# check_dots is deck-wide, not per-tier: it scans every .pptx in out/ once. It exists because a failed
+# universe join is INVISIBLE to every other gate -- geometry, tellscan and check_method all pass on a
+# page whose 60 signal dots are hollow grey rings, because the page is structurally perfect and the
+# data is simply absent. Caught for real on 2026-08-07 in a clean export.
+rc, out = run([os.path.join(PRT, "check_dots.py")], PRT)
+verdict = next((l for l in out.splitlines() if l.startswith(("PASS", "FAIL"))), out.strip()[-90:])
+note("4b dots", "check_dots.py (all decks)", rc == 0, verdict)
+print(f"   rc={rc}  {verdict}")
 
 print("STEP 5  check_method on each data module")
 for datamod in sorted({d[2] for d in DECKS}):  # noqa: B007 — one run per distinct data module
