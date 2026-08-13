@@ -1,7 +1,19 @@
-﻿---
+---
 name: SG_NDPMS_TEMP1
 description: Operating manual for the Ionic Wealth NDPMS client product suite â€” portfolio-review deck (pr_template), the five-signal holdings page, Stock Scorecard 750 + the frozen v3 scoring layer, MF quality frameworks (QFRA-1/QFRA-2), client intake, the whole-pipeline QA audit, all Principal rulings, environment, and the agent roster. The repo carries the finished stock scores and fund grades, so you consume them rather than re-run them; see PREREQUISITES. New readers start with 09_PRODUCT/HOW_WE_SCORE_STOCKS.md. v3, 2026-08-07.
 ---
+
+<!-- SKILL_REVISION: 2026-08-13 -->
+
+> **Is this copy current?** This file lives in the repo at
+> `.claude/skills/SG_NDPMS_TEMP1/SKILL.md` and that copy is the only authoritative one. If you were
+> emailed a `SKILL.md`, **delete it** - a copy sent before 2026-08-13 states that the stock scores
+> are not in the repository, which is wrong and will send you to redo work that is already done.
+> Work inside a clone of the repo and Claude Code picks this skill up automatically; `git pull` is
+> the update mechanism. To see when it last changed:
+> ```bash
+> git log -1 --format='%ad  %s' -- .claude/skills/SG_NDPMS_TEMP1/SKILL.md
+> ```
 
 # Ionic Wealth â€” Complete Operating Manual (v3, 2026-08-07)
 

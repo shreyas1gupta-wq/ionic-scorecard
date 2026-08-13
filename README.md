@@ -10,6 +10,36 @@ scores and fund grades are committed to this repo.
 
 ---
 
+## 0. Were you emailed a `SKILL.md`? Delete it.
+
+The operating manual lives **in this repository**, at
+`.claude/skills/SG_NDPMS_TEMP1/SKILL.md`, and that copy is the only authoritative one.
+
+**Do not install a copy that was sent to you.** Any copy sent before **2026-08-13** says the stock
+scores are not in this repository. That is wrong — they are committed here — and believing it means
+re-running a scoring chain whose raw inputs you do not have, for numbers that already exist.
+
+You do not need to install anything. Claude Code discovers skills from `.claude/skills/` in whatever
+folder you open, so **working inside this clone gives you the current manual automatically**:
+
+```bash
+git clone https://github.com/shreyas1gupta-wq/ionic-scorecard.git
+cd ionic-scorecard
+claude                 # the SG_NDPMS_TEMP1 skill is now available, and current
+```
+
+`git pull` is the update mechanism. Nobody has to send you a file again. To see when the manual last
+changed:
+
+```bash
+git log -1 --format='%ad  %s' -- .claude/skills/SG_NDPMS_TEMP1/SKILL.md
+```
+
+If you already dropped an emailed copy into a personal `~/.claude/skills/` folder, remove it — a
+personal copy and this one can both be live at once, and the stale one may win.
+
+---
+
 ## 1. Setup, once
 
 ```bash
