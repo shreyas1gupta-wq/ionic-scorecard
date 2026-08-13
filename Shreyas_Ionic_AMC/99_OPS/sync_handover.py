@@ -204,10 +204,20 @@ def main():
 
     # --- the part that decides whether any of this reaches a recipient --------------------------------
     git("fetch", "-q", "origin", cwd=wt)
-    default = clone_lands_on(wt)
-    if not default:
-        print("\nNOTE: could not determine the remote's default branch; delivery not verified.")
-        return 0
+    remote_default = clone_lands_on(wt)
+
+    # The branch we DELIVER to. Normally this is just the remote default, but on 2026-08-13 the default
+    # was still `main` (1 file, unrelated history) while `master` had been made the real handover branch
+    # and the GitHub default had not yet been switched -- that switch is a web-UI action, not a git one.
+    # So: deliver to DELIVERY_BRANCH, and say separately whether a plain clone actually lands there.
+    # Once the default is master this override is simply redundant, not wrong.
+    DELIVERY_BRANCH = "master"
+    default = DELIVERY_BRANCH
+    if remote_default and remote_default != DELIVERY_BRANCH:
+        print(f"\nNOTE: a plain `git clone` still lands on origin/{remote_default}, not "
+              f"{DELIVERY_BRANCH}.")
+        print(f"      Switch the default branch to {DELIVERY_BRANCH} in GitHub > Settings > Branches, "
+              f"or hand over `git clone -b {DELIVERY_BRANCH} <url>`.")
 
     rc, _, _ = git("rev-parse", "--verify", f"origin/{default}", cwd=wt)
     if rc != 0:
@@ -231,7 +241,26 @@ def main():
               f"the whole manifest.")
         return 0
 
+    # If the default branch is an ANCESTOR of this branch, pushing to it is a pure fast-forward: it
+    # cannot lose a commit and cannot conflict. That is the only case safe to automate -- anything else
+    # needs a real merge, which can conflict on research data and must not happen unattended.
+    ff_ok = git("merge-base", "--is-ancestor", f"origin/{default}", "HEAD", cwd=wt)[0] == 0
+    if ff_ok and ahead not in ("", "0") and not a.no_push and not a.dry_run:
+        rc, out, err = git("push", "origin", f"HEAD:{default}", cwd=wt)
+        if rc == 0:
+            print(f"DELIVERY OK — fast-forwarded origin/{default} by {ahead} commit(s); "
+                  f"a plain clone now gets this.")
+            return 0
+        print(f"fast-forward of origin/{default} FAILED: {err or out}")
+    elif ff_ok and (a.dry_run or a.no_push):
+        print(f"DELIVERY — origin/{default} is {ahead} commit(s) behind and could be fast-forwarded "
+              f"(not done: {'--dry-run' if a.dry_run else '--no-push'}).")
+        return 0
+
     print("DELIVERY WARNING")
+    if not ff_ok:
+        print(f"   origin/{default} has diverged from this branch, so it cannot be fast-forwarded "
+              f"safely. A real merge is needed -- do it deliberately, not from a hook.")
     print(f"   A plain `git clone` lands on origin/{default} ({nfiles} files); you pushed to "
           f"origin/{branch}.")
     if missing:
