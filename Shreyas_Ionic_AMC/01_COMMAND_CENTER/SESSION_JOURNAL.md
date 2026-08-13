@@ -1386,3 +1386,55 @@ Principal ordered the build ("we have nifty much data 1min and 1day build anc ba
 - Real defects it caught and I fixed: (a) `available_date` raw field name reaching CLIENT slides from analyst research prose (ENRIN + POWERINDIA paragraphs rewritten; TITAN one came via the demo file). Root fix = general snake_case catch-all in slidekit txt() detell -- the named-replacement list was whack-a-mole (`fcf_yield` listed, `available_date` not). (b) scope tag read "largest 11 of 98" on an 8-row RM page. (c) audit itself resolved the scoring scripts against the LIVE tree, not the worktree -> 3 silent rc=2s.
 - tellscan SYNTHETIC_DEMO_LEAK on ABXY is CORRECT (it IS a demo); audit now keys that rule to is_demo so it stays hard on real client decks. 22 benign findings were masking 2 real ones.
 - REMAINING FAIL (1 of 42): check_method on talaulikar_family.py -- 5 sell-bar names (LT 45.5/4.27%, ULTRACEMCO 42.5, POONAWALLA 53.1, HINDCOPPER 41.6, ITCHOTELS 50.6) lack `exceptional_override`, plus churn 20.2% needs a high/low priority split on 39 lines. CLIENT-DATA adjudication, not a code defect. NOTE: LT's 45.5 is stale (built on a superseded analyst Hold; recomputes to 33.5 = clean Sell).
+
+### 2026-08-13 — DESK-100 — NDPMS handover pack: repo made self-sufficient, portability bug caught
+**Principal orders:** "just keep final version on github and make sure that all stuff in github is
+enough for deck creation at ease and give final in sync skill and text" / "explainer give in chat
+which i copy paste in chat of her and skill i give her directly".
+
+**The find that mattered.** Testing the handover the only honest way — `git archive HEAD` to a temp
+directory named `ionic-scorecard`, then building from there — the deck built **perfectly**: 4/4
+tier+book combos, exit 0, no warning, no `[ERR ]`. And the universe join returned **zero rows**. Every
+one of the 60 five-signal dots would have rendered as a hollow grey "not scored" ring on a page that
+looked finished. Cause: `_nifty_root()` walked up matching a directory named literally `NIFTY 500`,
+which exists only on this laptop; a `git clone` produces a folder named after the repo, so the walk
+fell off the top and returned `None`. **12 files carried the same walk.** She would have opened her
+first deck, seen a grey page, and had nothing to grep for.
+
+First fix (innermost ancestor containing `Shreyas_Ionic_AMC`) fixed clones and BROKE worktrees — the
+worktree dir contains `Shreyas_Ionic_AMC` but `datasets/` and `ALPHA_RANKER/` live only in the live
+tree, so `earnings_quality_decomp.py` raised FileNotFoundError and the freeze audit fell to 20/21.
+Final rule: take the **OUTERMOST** match. Worktree -> live tree (has the data); clone -> single match,
+unchanged; and it restores what matching the literal name did on purpose.
+
+**New gate — `pr_template/check_dots.py`**, wired into `audit_full_workflow.py` as STEP 4b. Reads the
+built .pptx and asserts the signal dots carry colour, allowing a minority of legitimately-hollow rings.
+No existing gate could see this: geometry, tellscan and check_method all PASS on a structurally perfect
+page with no data in it. Detection note: `add_shape(MSO_SHAPE.OVAL)` reports `shape_type` as
+`AUTO_SHAPE` — the oval identity is in `auto_shape_type`, and matching the wrong one reports
+"no dots on the page".
+
+**Freeze cleanup:** removed `fix_thin_coverage_v2.py`, `chart_signal_options.py`,
+`chart_dot_formats.py` (interim corrector + one-off design-option renders, all pre-final API) and
+repointed the two live docs at them. **Recorded loudly, in SKILL.md and the spec, that
+`results/full750_scored.csv` is NOT a superseded v1 duplicate** — it is the engine output, the input
+`fix_thin_coverage_v3.py` reads, and the file `five_signals.py` joins the universe from; 15 scripts
+read it. Deleting it as "the old version" breaks the entire chain, and the name invites exactly that.
+`build_scores_excel.py`'s docstring claimed it reads `_v2`; it reads `_v3`.
+
+**Verified, not assumed:** fresh `git archive` -> `ionic-scorecard` -> 752 rows joined, 4/4 decks
+built, dots gate PASS. Full workflow audit **42 of 43**.
+
+**The one open failure is pre-existing and is a Principal call:** `check_method` on the real Talaulikar
+book reports 5 sell-bar names + a churn-split (20.2% > 20%, 39 lines unprioritised). Two of the five —
+**POONAWALLA 53.1 and ITCHOTELS 50.6 — are Sells ABOVE 50, which contradicts the frozen ladder**
+("no Sell above 40; 40-50 trim-eligible only; >50 Hold"). The data module still carries pre-v3 analyst
+calls. This is open item C6 (v3 not yet adopted into `compute_client_scores.py`) showing up on a real
+client deck.
+
+**Files:** `lib/five_signals.py`, `check_dots.py` (new), `audit_full_workflow.py`,
+`build_scores_excel.py`, `chart_v1_vs_v3_final.py`, 8 scorecard scripts, `SKILL.md`,
+`FIVE_SIGNAL_AND_V3_SCORING_SPEC.md`. Commits `4e54feb`, `9e24e1d`; pushed to
+`claude/sweet-austin-283067`.
+**NEXT:** Principal to decide on the 5 Talaulikar sell-bar names + churn split; C6 (adopt v3 into the
+engine); rotate the plaintext GitHub PAT sitting in the git remote URL.

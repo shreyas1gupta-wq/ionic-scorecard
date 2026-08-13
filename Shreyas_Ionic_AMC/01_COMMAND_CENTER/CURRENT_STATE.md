@@ -1,3 +1,20 @@
+## HANDOVER STATE (2026-08-13, DESK-100)
+The NDPMS pack is handover-ready and pushed. Repo carries the finished stock scores and fund
+grades, so a recipient consumes them rather than re-running. Skill = `SG_NDPMS_TEMP1`; new
+readers start at `09_PRODUCT/HOW_WE_SCORE_STOCKS.md`. Workflow audit 42/43.
+- FIXED: the repo-root walk required a folder named `NIFTY 500`, so a clean clone joined ZERO
+  universe rows and every signal dot rendered hollow on a deck that built with exit 0. Now takes
+  the outermost ancestor containing `Shreyas_Ionic_AMC`. New gate `check_dots.py` catches the
+  class of failure (STEP 4b of the workflow audit).
+- DO NOT DELETE `results/full750_scored.csv` as a "v1 duplicate" — it is the engine output and
+  the v3 corrector's input; 15 scripts read it.
+- OPEN, Principal call: 5 sell-bar names on the real Talaulikar book, of which POONAWALLA (53.1)
+  and ITCHOTELS (50.6) are Sells above 50 and contradict the frozen ladder; plus a 20.2% churn
+  split across 39 unprioritised lines. Root cause is C6 — v3 is not yet adopted into
+  `compute_client_scores.py`.
+
+---
+
 # CURRENT STATE — read me first (updated every session end)
 
 ## URGENT FLAG #3 (2026-08-05 EOD, DESK-20) — ANGEL OPTION CAPTURE HAS WRITTEN NOTHING SINCE 2026-08-03; the per-symbol loop dies SILENTLY. DESK-100 to fix (owner per CLAUDE.md).
