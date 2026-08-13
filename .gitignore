@@ -65,6 +65,12 @@ desktop.ini
 ~$*
 
 Shreyas_Ionic_AMC/05_DATA_OFFICE/data/
+# ...except the ISIN master. It is the ONLY exact join key between a client's holdings file (CAS
+# statements carry ISINs, not our symbols) and the scored universe. Without it shipped, client_intake
+# falls back to name-prefix guessing -- the banned fuzzy match -- and a fresh model book comes back
+# entirely unmatched with every score blank. It is 2,404 rows of public NSE reference data, no PII.
+!Shreyas_Ionic_AMC/05_DATA_OFFICE/data/
+!Shreyas_Ionic_AMC/05_DATA_OFFICE/data/isin_master.csv
 
 # --- Client PII guard (D-039-era PR decks; QA-flagged 2026-07-21) ---
 # Client-specific portfolio-review artifacts must never be committed (name + folio PII)
