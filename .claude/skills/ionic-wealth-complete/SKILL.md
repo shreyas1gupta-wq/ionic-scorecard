@@ -1,9 +1,22 @@
 ---
 name: ionic-wealth-complete
-description: The ONE comprehensive operating manual for Ionic Wealth's client product suite — NDPMS portfolio-review deck (pr_template), Stock Scorecard 750 (quantamental scoring), MF quality frameworks (QFRA-1/QFRA-2), client intake, QA gates, all Principal rulings, environment, and the full agent roster. Give this file to any team member; nothing else needed besides the GitHub repo.
+description: The ONE comprehensive operating manual for Ionic Wealth's client product suite — NDPMS portfolio-review deck (pr_template), the five-signal holdings page, Stock Scorecard 750 + the frozen v3 scoring layer, MF quality frameworks (QFRA-1/QFRA-2), client intake, the whole-pipeline QA audit, all Principal rulings, environment, and the full agent roster. Give this file to any team member; nothing else needed besides the GitHub repo. v3, 2026-08-07.
 ---
 
-# Ionic Wealth — Complete Operating Manual (v2, 2026-07-31)
+# Ionic Wealth — Complete Operating Manual (v3, 2026-08-07)
+
+> **What changed in v3** — read this before anything else if you knew v2:
+> 1. The equity holdings page no longer carries a prose one-liner. It shows **five colour-coded
+>    traffic-light dots** per holding. See **PART 1A**.
+> 2. The scoring model has a **frozen v3 correction layer** sitting beside the engine
+>    (`fix_thin_coverage_v3.py`). It fixes a real bug that inflated recently-listed companies by up to
+>    13 points. See **PART 2A**.
+> 3. The recommendation ladder changed: **no name at or above 40 is ever a Sell**, and 40-50 confers
+>    *eligibility* to trim rather than a Trim instruction. See **PART 2A §ladder**.
+> 4. There is now a **one-command whole-pipeline audit**: `scripts/audit_full_workflow.py`. Run it
+>    before you hand anything to anyone. See **PART 1B**.
+> 5. `check_method.py` takes a **data module**, not a .pptx. Two gate rules are **inverted on demo
+>    decks**. Both cost me time; PART 1B says exactly how.
 
 ## STANDING RULE — ESCALATE TO A HUMAN RATHER THAN GUESS (Principal, 2026-08-05)
 **Applies to every decision in this manual, not just the fund frameworks.** His words: *"keep this
@@ -61,14 +74,23 @@ STEP 4  Build the deck
    ↓    set PYTHONIOENCODING=utf-8 && set PYTHONUNBUFFERED=1
    ↓    "C:\...\python.exe" build_<client>.py HNI_DEEP
    ↓
-STEP 5  QA gates (ALL mandatory, in order)
-   ↓    a) check_geometry.py + check_geometry2.py = 0 findings
-   ↓    b) tellscan.py = 0 real findings
-   ↓    c) Visual check of changed slides
-   ↓    d) Cross-panel number consistency
+STEP 5  QA gates (ALL mandatory) — just run the whole-pipeline audit:
+   ↓    python ../scripts/audit_full_workflow.py
+   ↓    It runs every gate on every deck x every tier and writes WORKFLOW_AUDIT.md.
+   ↓    Then do the ONE thing it cannot do: LOOK at the changed slides (PART 1B).
    ↓
 STEP 6  Principal sign-off → publish to 09_PRODUCT/reports/
 ```
+
+**The scoring chain that must run BEFORE step 2**, in this order (each writes what the next reads):
+```
+earnings_quality_decomp.py   → results/EARNINGS_QUALITY.csv    (profit-bridge flags)
+fix_thin_coverage_v3.py      → results/full750_scored_v3.csv   (the frozen correction layer)
+audit_v3_freeze.py           → results/V3_FREEZE_AUDIT.md      (21 invariants; must be 21/21)
+```
+All three live in `04_RND_LAB/STOCK_SCORECARD_750/`. `fix_thin_coverage_v3.py` **aborts** if it cannot
+reproduce the engine's own composites exactly — that assertion is the guard against it drifting from
+the engine it corrects. If it aborts, stop; do not edit the assertion.
 
 ### What if the scored universe is missing for a stock?
 The intake script flags unmatched stocks in `exceptions.csv`. For each:
@@ -113,11 +135,16 @@ pr_template/
 
 ### Tiers (what depth to build)
 
+Actual slide counts as at 2026-08-07 (real client book / demo showcase):
+
 | Tier | Audience | Slides | Register | Notes |
 |---|---|---|---|---|
-| **HNI_DEEP** | Family office / sophisticated HNI | ~75-82 | Technical, full methodology | All annexure modules ON |
-| **STANDARD** | Typical NDPMS client | ~38-40 | Professional, accessible | Selected annexure modules |
-| **RM_SIMPLE** | RM-led / newer investor | ~19-23 | Plain language, bigger type | Core story beats only |
+| **HNI_DEEP** | Family office / sophisticated HNI | **103 / 67** | Technical, full methodology | All annexure modules ON |
+| **STANDARD** | Typical NDPMS client | **48 / 38** | Professional, accessible | Selected annexure modules |
+| **RM_SIMPLE** | RM-led / newer investor | **30 / 20** | Plain language, bigger type | Story beats + the five-signal page |
+
+A real client book runs longer than the demo because `sell_cards` and `scheme_scorecards` paginate per
+name (Talaulikar: 21 sell cards, 19 scheme scorecards). Do not treat the demo count as the target.
 
 ### How to build a deck
 
@@ -157,12 +184,19 @@ set PYTHONUNBUFFERED=1
 ```
 Output: `out/<ClientName>_HNI_DEEP.pptx`
 
-**Step 4: QA gates (ALL mandatory, in order)**
-1. **Visual inspection**: Open the PPTX and visually check changed slides
-2. **Geometry check**: `python check_geometry.py out/<deck>.pptx` AND `python check_geometry2.py out/<deck>.pptx` — must be 0 findings
-3. **Tell scan**: `python tellscan.py out/<deck>.pptx` — must be 0 real findings (small false-positive rate on ordinary English words like "genuine" is expected)
-4. **Cross-panel consistency**: Any two numbers on the same slide that a reader assumes are the same set MUST reconcile
-5. **Principal sign-off** before any client artifact ships
+**Step 4: QA gates (ALL mandatory)**
+```bash
+%PYTHON% ../scripts/audit_full_workflow.py        # everything, every tier -> WORKFLOW_AUDIT.md
+%PYTHON% ../scripts/pptx_slide_png.py out/<deck>.pptx 25,26    # then LOOK at what changed
+```
+The audit covers geometry ×2, tellscan, check_method per data module, and the scoring chain. What it
+cannot do is **see** the page — do that yourself, always, on every slide you touched. See **PART 1B**
+for the four ways these gates mislead (`check_method` takes a data module; `SYNTHETIC_DEMO_LEAK` is
+inverted on demos; `'genuine'` and the disclaimer colophon are standing false positives).
+
+Also still yours to check by eye, because no gate does it:
+**cross-panel consistency** — any two numbers on the same slide that a reader assumes are the same set
+MUST reconcile or be explicitly scoped. Then **Principal sign-off** before anything ships.
 
 **Step 5: PDF (ON REQUEST ONLY)**
 ```bash
@@ -178,16 +212,25 @@ Copy to `Shreyas_Ionic_AMC/09_PRODUCT/reports/` with client-facing filename: `ND
 **Section 0 — Understanding:**
 cover, contents_legend, ips_summary (renders only if IPS on file), exec_summary, since_last_review (renders only if meeting_history exists), mandate_method
 
+**NOTE — sections 2 and 3 were SWAPPED on 2026-08-06** (FM comment #11): the **Fund Book is now
+section 2** and the **Equity Book section 3**. `sec_no` is a hardcoded literal in each module, so a
+renumber means editing ~10 module files plus `engine.py`'s MODULES/DIVIDER_TOC/titles and
+`contents_legend.py`'s `_SECTIONS`. Do not renumber casually.
+
 **Section 1 — Portfolio X-ray:**
-snapshot, allocation_house_view, concentration_risk, sector_exposure, mcap_positioning
-(CUT: group_concentration — denominator bug fixed but not wired)
+snapshot (incl. look-through allocation), core_satellite, concentration_risk, sector_exposure,
+mcap_positioning, ips_seven_aspects
+(CUT: group_concentration — denominator bug fixed but not wired · allocation_house_view — retired
+2026-08-06 per FM #7, file kept unwired, not deleted)
 
-**Section 2 — The Equity Book:**
-score_method, book_scored, equity_book, sell_list, hold_rationale
-
-**Section 3 — The Fund Book:**
-fund_book_scored, funds_equity, funds_hybrid, scheme_overlap_full (top 10 funds by weight), fund_actions
+**Section 2 — The Fund Book:**
+fund_book_scored, mf_methodology, funds_equity, funds_hybrid, funds_debt, scheme_correlation,
+scheme_overlap_full (annexure), fund_actions
 (CUT: fund_category_rules, fund_quality_alloc, fund_overlap)
+
+**Section 3 — The Equity Book:**
+score_method, **book_scored** ← the five-signal dots page (PART 1A), equity_book, sell_list,
+hold_rationale
 
 **Section 4 — Recommendations:**
 house_view_fit, tax_impact, priority_actions, growth_projection (mu/sigma from real holdings, not constant)
@@ -234,6 +277,51 @@ Any two numbers on the same slide that a reader will assume are the same set MUS
 - Commodity-cycle reversal suffix (sell_cards): applies to sector "Metals & Mining" ONLY — conglomerates/utilities in Oil&Gas/Power must not get "metal price" language
 - Tax rows: character from holding_years (>=1y = LTCG; REDEEM = "Mixed, lot-by-lot") — the old `action in ("Switch","Exit")` check never matched UPPERCASE codes
 - CoPilot CTA is OUT — no product names client-side
+
+### Five-signal / v3 build lessons (2026-08-07) — bugs fixed, do not regress
+
+**`NaN` is TRUTHY, and `.astype(str)` turns it into `"nan"`.** This cost me three separate bugs in one
+day, in three different files. `float('nan') or ""` returns **NaN**, not `""`. And an empty string
+round-trips through CSV as NaN, so `df[col].astype(str) != ""` counts every blank row as populated —
+it reported all 751 names as trim-eligible and printed `Hold −198`. Always `fillna("")` **before**
+`astype(str)`, and use `pd.isna()` rather than truthiness.
+
+**Never write the same threshold twice.** Bands, floors, words and colours live only in
+`lib/five_signals.py`. When I duplicated the band logic into a chart script, the two drifted within an
+hour.
+
+**A distribution and the values ranked against it must be built the same way.** `_composite_dist()`
+was cached with `forward=True` while `signals()` computed `forward=False` — every name ranked against a
+quantity that was not its own, producing a 267/250/123/104 barbell where quartiles belonged.
+
+**Duplicate basenames break name-imports.** `lib/core_satellite.py` and `modules/core_satellite.py`
+both exist, and the engine puts both directories on `sys.path` — so `import core_satellite` resolves by
+path order and can import *itself*. Load by absolute path via `importlib.util.spec_from_file_location`.
+Same pattern used by `book_scored.py` for `lib/five_signals.py`.
+
+**Field-name scrubbing must be a rule, not a list.** The render-time detell named fields one at a time
+(`fcf_yield` was listed, `available_date` was not) — and `available_date` reached client slides in two
+analyst paragraphs and every ABXY deck. Analyst prose comes from 752 independent research passes and
+cannot be policed name by name. `slidekit.txt()` now converts **any** snake_case token to spaced words,
+because English prose never contains `word_word`. Closes the class, not the instance.
+
+**Matplotlib `Circle` is an ellipse unless the aspect is equal.** Patches take radii in **data** units;
+in a non-square axes a "circle" came out 20:1 flat. Size markers in **points** (`ax.plot(..., 'o',
+markersize=...)`), which is immune to the data aspect.
+
+**Vertical budgets are tight; measure before adding.** `source()` is a shared 0.24in band at 6.66 and
+`score_band()` sits at 6.90 — roughly two lines at 7pt. A subtitle placed 0.36 data-units above a title
+printed *on* it, because 1 unit was 0.34in and an 11pt line is taller than that. Text overflow passes
+the eye and fails `check_geometry`; trust the gate.
+
+**Recompute derived state, do not carry a residual.** Penalty/boost was being recovered as
+`final − gate(composite)`. That captured v1's red-flag battery, which read the *old* TTM growth figures
+— so switching to March-to-March would have paired new pillars with stale penalties. Two of the four
+red flags read revenue growth directly.
+
+**Count what you print.** The scope tag read "largest 11 of 98" over an 8-row RM page; three separate
+`MAXROWS` references had to move together, including one that placed an extra invisible hotspot over
+the legend and one that undercounted the annexure overflow by one.
 
 ### Talaulikar-build lessons (2026-08-02) — bugs fixed, do not regress
 
@@ -310,6 +398,133 @@ Raw snake_case field names
 
 ---
 
+## PART 1A: THE FIVE-SIGNAL HOLDINGS PAGE (`book_scored.py`) — NEW in v3
+
+The equity holdings page used to print a clipped one-line analyst read per holding. It now prints
+**five traffic-light dots**. Everything about them lives in **`pr_template/lib/five_signals.py`** —
+the clubbing, the band floors, the words, the colours, the universe join. **Never restate a threshold
+anywhere else.** Three copies of a number is three chances to disagree about what green means.
+
+### The seven pillars clubbed into five
+
+| Signal | Built from | 3Y wt | 1Y wt |
+|---|---|---|---|
+| Quality | `quality_score` (ROE/ROCE, sector-neutral) | 20% | 16% |
+| Growth | `growth_3y_score` — **trailing revenue CAGR only** | 20% | 16% |
+| Value | `value_score` (P/E univ + P/E sector·tier + P/B + FCF yield) | 18% | 16% |
+| Technical | mean(`stage_3y`, `accumulation_3y`) | 22% | 31% |
+| Sector & Flows | mean(`ownership_flow_3y`, `sector_macro_3y`) | 20% | 21% |
+
+Frozen pillar weights, regrouped. Both columns sum to 100. All seven pillars are represented; none is
+dropped. **No forward data reaches a dot** — the analyst's expected-EPS figure belongs to the score's
+forward adjustment (PART 2A), not to the Growth dot. Mixing them was tried twice and was wrong both
+times: the estimate is EPS, the pillar is revenue, and averaging them yields a number that is neither.
+
+### Bands, words, colours
+
+| Floor | Word | Dot |
+|---|---|---|
+| ≥75 | Top 25% | dark green `#1E9E6A` |
+| ≥50 | Upper | light green `#76C7A6` |
+| ≥25 | Lower | yellow `#F2A93C` |
+| <25 | Bottom 25% | red `#E0402F` |
+| — | Not scored | hollow grey ring |
+
+Three of four are exact slidekit colours; the light green is a tint of HOLD because the palette has no
+mid-green. The words are deliberately **relative** ("Top 25%", not "Strong"): the page carries no
+explanatory footnote, so the label is the only thing stopping a reader hearing an absolute grade. A
+percentile says "better than most of the 750", never "good outright" — in an expensive market the
+greenest Value dot is still expensive.
+
+### EVERY signal is re-ranked against the universe — do not remove this
+
+The legend claims quartiles, which is only true if each column is uniform. **None of the five is**,
+because every one is a blend: Quality is the mean of 2 ranks, Value a weighted mix of 4, Technical and
+Sector & Flows the mean of 2 each. A blend of ranks is not itself a rank — it clusters mid-scale.
+Measured before the fix, Value came out **32/32/19/13**. After re-ranking each signal against the
+universe's own distribution of that same signal, all five sit at **24-26% per band** and the legend is
+literally true.
+
+`_composite_dist()` is **keyed by the `forward` flag**. If the distribution is built one way and the
+values another, every name is ranked against a quantity that is not its own — that happened once and
+produced a 267/250/123/104 barbell.
+
+### The join, and the two traps in it
+
+Deck data files (`data/*.py`) carry `ionic_score` but **no per-pillar scores** — they were written when
+the page was one prose line. `five_signals.enrich()` joins the pillars in by symbol at build time from
+the scoring output. Without it the page ships as a wall of hollow rings: technically honest, useless,
+and it looks finished.
+
+1. **Column-name landmine.** The ownership pillar is `ownership_flow_3y_score` in the client output
+   (`portfolio_quant.csv`) but `ownership_3y_score` in the universe file (`full750_scored.csv`).
+   Reading one name renders "not scored" on every real client deck while looking perfect on the
+   universe file. `_ALIASES` reads either.
+2. **Worktree trap.** `_nifty_root()` walks up to the `NIFTY 500` directory. Resolving paths relative
+   to `__file__` alone lands inside a git worktree where `results/` does not exist, and live data
+   silently reports as MISSING.
+
+### Tier behaviour
+
+| tier | rows | dot | notes |
+|---|---|---|---|
+| HNI_DEEP / STANDARD | 11 | 0.15in | full page |
+| RM_SIMPLE | **8** | **0.19in** | taller pitch, 9pt legend |
+
+`book_scored` **is** in RM_SIMPLE (changed 2026-08-07). It had been excluded on 2026-07-26 as
+methodology-heavy; that no longer describes a page of five dots, which reads faster than the scatter
+beside it. If you change the row cap, the **scope tag count must change with it** — it read "largest 11
+of 98" over an 8-row page until that was wired.
+
+### Known limitation, state it if asked
+
+A dot carries no label, so colour is the whole message. Light green (~0.52 luminance) and yellow
+(~0.50) are nearly identical, and red (~0.24) is *darker* than both — so a **mono print** or a
+**red-green deficiency (~8% of men)** collapses the ramp. No tuning fixes that while keeping true
+traffic-light hues. `DOT_SIZE_RAMP` (graduated diameter) survives both and is built, off by default.
+
+---
+
+## PART 1B: THE QA GATES — what each one actually does, and how they lie
+
+**Run `python ../scripts/audit_full_workflow.py` from `pr_template/`.** It executes the scoring chain,
+the Excel, 3 decks × 3 tiers, all three geometry/tell gates on each, and `check_method` per data
+module, then writes `09_PRODUCT/WORKFLOW_AUDIT.md`. Current state: **41 of 42 pass**; the single
+failure is client-data adjudication, not code.
+
+| gate | takes | catches |
+|---|---|---|
+| `check_geometry.py` | a **.pptx** | overlap, off-slide, text taller than its box |
+| `check_geometry2.py` | a **.pptx** | spill past the right/bottom bounds |
+| `tellscan.py` | a **.pptx** | AI tells, internal jargon, raw field names, demo-label leaks |
+| `check_method.py` | **a data module** (`data/x.py`) | sell-bar/override, churn split, STCG priority, debt grandfathering |
+| `check_freshness.py` | — | stale data sources; needs `--ack "<name>: <reason>"` |
+| `audit_v3_freeze.py` | — | 21 scoring invariants |
+| `pptx_slide_png.py <deck> <n>` | a **.pptx** + slide nums | **exports slides to PNG so you can LOOK** |
+
+### Four ways these gates mislead — all learned the hard way
+
+1. **`check_method.py` takes a DATA MODULE, not a .pptx.** Hand it a deck and it dies with
+   `AttributeError: 'NoneType' object has no attribute 'loader'`, which reads like a broken gate.
+2. **`SYNTHETIC_DEMO_LEAK` is INVERTED on demo decks.** The rule exists to catch "illustrative /
+   synthetic / demo" wording on a *real* client's data. On the ABXY showcase that wording is mandatory
+   — 22 correct labels were being counted as failures and **masking the 2 findings that were real**.
+   The audit keys this to `is_demo`: hard on client decks, benign on demos.
+3. **`'genuine'` is a standing false positive.** "Genuine deleveraging" is ordinary English.
+4. **The disclaimer colophon always trips `check_geometry2`.** It sits at 6.90-7.20 by design on a dark
+   terminal page; the gate exempts by y-position, not by role.
+
+### The gates cannot see the page. You must.
+
+Every automated gate reads XML. None of them can see a chip whose label overflows once PowerPoint lays
+out the text, a colour that vanishes against its background, or two shapes that collide only at render.
+**Export the changed slides and read them.** Real bugs found this way *after* all gates passed 0:
+a legend printed through the source line; a subtitle printed on top of its own title; dots rendered as
+flat 20:1 ellipses. `pptx_slide_png.py` exists because this box has no poppler, so the "visual check"
+step had no way to run for months.
+
+---
+
 ## PART 2: STOCK SCORECARD 750 (Quantamental Scoring)
 
 ### What it is
@@ -323,7 +538,7 @@ A 0-100 quantamental scoring engine for stock holdings. Dual-horizon (3-Year fun
 | Pillar | 3Y Weight | 1Y Weight | Formula |
 |---|---|---|---|
 | Quality | 20% | 16% | mean(pctile(ROE, sector-neutral), pctile(ROCE, sector-neutral)) |
-| Growth | 20% | 16% | 3Y: 3yr revenue CAGR; 1Y: 1yr/TTM revenue growth — universe-wide pctile |
+| Growth | 20% | 16% | 3Y: 3yr revenue CAGR; 1Y: 1yr revenue growth — universe-wide pctile. **v3: MARCH-TO-MARCH full fiscal years, never a TTM window** — see PART 2A |
 | Value | 18% | 16% | 0.25*pctile(-PE,univ) + 0.35*pctile(-PE,sector*tier) + 0.20*pctile(-PB,sector*tier) + 0.20*pctile(FCFyield,sector*tier) |
 | Stage/Technical | 14% | 26% | Mechanical: mean(pctile(return,univ), pctile(return,sector)) gated by DMA; 1Y has +/-5pt RSI nudge. If technical-agent ran: replaces 3Y mechanical score |
 | Sector & Macro | 11% | 13% | pctile(sector-mean return) + regime-cyclicality fit adjustment |
@@ -333,6 +548,11 @@ A 0-100 quantamental scoring engine for stock holdings. Dual-horizon (3-Year fun
 All inputs winsorized 2%/98% before percentile ranking.
 
 ### Overlay gates (multiplicative, after weighted composite)
+> **v3 SUPERSEDES BOTH OF THESE — see PART 2A §Gates in v3.** The liquidity cap is now **50**, the D/E
+> exemption is widened to power/realty/telecom/construction, and **financials are exempt from the WHOLE
+> balance-sheet gate**, not just the D/E trigger. The wording below is the v1 engine's behaviour, kept
+> because the engine still runs it.
+
 - **Balance-Sheet Safety**: D/E>2.5 OR IntCov<1.5 = RED, caps at 40. D/E>1.5 OR IntCov<3 = AMBER, x0.85. **Financial sectors EXEMPT** from D/E trigger (leverage is their business model).
 - **Liquidity**: median 60d turnover below size-tier bar (5cr/1cr/25L for Large/Mid/Small) = RED, caps at 40.
 
@@ -341,8 +561,13 @@ Penalty = -min(10, 2^(redflag_count)-1). Red flags: IntCov<1.5, D/E>2.5 (non-fin
 Boost = +3 if zero flags AND Quality+Value both >60th pctile. Full +10 reserved for qualitative confirmation.
 
 ### Recommendation logic
-Per horizon: gate RED = Sell. Score missing = No Recommendation. Score >=40 = Hold, <40 = Sell.
-**Overall = Sell if EITHER horizon says Sell** (conservative).
+> **v3 SUPERSEDES THE "EITHER HORIZON" RULE.** It called Sell on **88 of its 246 Sells** where the
+> BLENDED score was above 40 — BANKBARODA at 54.1, HINDALCO 52.5, JSWSTEEL 51.8, AXISBANK 47.4. The
+> call is now taken on the **blended composite only**, and **no name at or above 40 is ever a Sell**.
+> See PART 2A §THE LADDER. Sells fell 246 → 198.
+
+Per horizon (v1 engine, still what `full750_scored.csv` contains): gate RED = Sell. Score missing = No
+Recommendation. Score >=40 = Hold, <40 = Sell. Overall = Sell if EITHER horizon says Sell.
 Analyst's `your_recommendation` OVERRIDES quant when research exists.
 
 ### Ionic Score (client-facing, one number)
@@ -354,15 +579,24 @@ Forward adjustment:
 - `ionic_score = clamp(base + adj, 0, 100)`
 
 ### Client recommendation logic (two-gate, with portfolio weights)
-- **Gate A (quality):** analyst Sell = Sell. Else ionic_score <40 = Sell.
-- **Gate B (concentration):** ionic_score 40-50 AND weight >2.5% = Trim.
+**As at v3 (2026-08-07) — this is the live rule:**
+- **Gate A (quality/analyst), BOUNDED BY THE SCORE:** below 40 → Sell. At 40-50 an analyst Sell →
+  **Trim**. Above 50 an analyst Sell is **OVERRULED** — Hold, full stop.
+- **Gate B (concentration):** ionic_score 40-50 AND weight >2.5% → **eligible** to Trim.
+- **40-50 is eligibility, not an instruction.** Trimming depends on position weight, which exists only
+  inside a client book — a universe row can never say "Trim". `recommendation_v3` has two values,
+  Sell and Hold; the reason lives in `trim_eligible_v3`.
 - Concentration guidance: 5-10% = okay if growth strong; >10% = "little bad", Trim expected; >20% = extreme, strong Trim.
 - Trim targets set by FM judgment, not formula.
 
 ### Asymmetric override bars
-- Sell on a >40 scorer: needs 90%+ exceptional case (amber EXCEPTIONAL tag)
-- Hold on a <40 scorer: needs 60%+ documented case
-- Default below 40 is Sell. The 750 universe runs ~33% quant Sells — a book far below that = override leakage.
+- Sell on a >40 scorer: **no longer possible above 50** (v3 ladder). At 40-50 it becomes a Trim and
+  still needs the documented case + `exceptional_override` set, or `check_method` fails the build.
+- Hold on a <40 scorer: needs 60%+ documented case. This is the **analyst Sell→Hold rescue** and it is
+  deliberately preserved — 14 names are held on analyst conviction in the current run.
+- Default below 40 is Sell. The 750 universe runs ~33% quant Sells — **a book far below that = override
+  leakage.** v3 currently runs **26%**, which is below that bar: the Gate A ceiling, the widened D/E
+  exemption and the EPS-only growth leg each reduce Sells and they compound. Watch it on every book.
 
 ### Research pipeline (Sonnet, one agent per stock)
 Each stock gets ~3min deep research: business model, earnings-quality check, sector-cycle context, reverse-DCF valuation judgment, forward growth estimate. Persona-routed by sector. Escalation only for genuine analytical disagreement (price staleness is expected, NEVER escalated).
@@ -406,6 +640,197 @@ Current call: Primary = Value/Cyclical Rotation (mild), Secondary = India Domest
 
 ---
 
+## PART 2A: THE FROZEN v3 SCORING LAYER — NEW in v3, read before touching any score
+
+`fix_thin_coverage_v3.py` sits **on top of** the engine and writes `full750_scored_v3.csv` beside v1.
+**The engine itself is untouched.** Adoption into the engine is a Principal call and has not happened.
+
+### The bug it fixes
+
+`weighted_mean()` in `score_n100_quant.py` **skips a missing pillar and renormalises over the
+survivors** — so the missing pillar's weight is *handed* to whatever remains. For a company listed
+months ago the survivors are precisely the price pillars, and a post-listing run-up makes those strong;
+the fundamental pillars that would temper it are the missing ones. Measured: **67 thin names
+re-allocating a mean 37% of the composite**, worst inflation **+13.3 points** (TMCV). AGL scored a
+**58.8 Hold off one pillar of seven**.
+
+It is not only new listings. **106 names** (mostly banks) lack `growth_3y` because the screener carries
+`Financing Profit` instead of `Sales+`. HOMEFIRST scored **39.6 — fractionally under the Sell bar —
+with ROCE, interest coverage and 3Y revenue CAGR all blank**; the analyst caught it by hand and said so
+in the research file. v3 scores it **64.1**.
+
+### The fix, in the order it runs
+
+```
+0  REPLICATION CHECK   reproduce the engine's own composites; assert max|diff| < 0.05. Currently
+                       0.0000. ABORTS if it fails — every number downstream would be fiction.
+1  GROWTH ARTEFACTS    revenue CAGR that is infinite or >200% is a base-year artefact, not growth
+                       → pillar set missing  (6 names, incl. JIOFIN)
+2  HISTORY CLASS       ret_24m present → full (667) | ret_12m only → 1-2y (45) | neither → <1y (39)
+3  IMPUTATION, in priority order
+     a) 1-YEAR SIBLING   stage_3y←stage_1y, growth_3y←growth_1y, ownership/accumulation likewise
+     b) LISTING-PRICE    <1y names: technical = return since listing, ranked against the universe
+                         over the SAME window (longest of 12/9/6/3 months the name supports)
+     c) NEUTRAL 50       anything still unobservable
+                         → 137 names touched, 38 via listing price
+4  MARCH-TO-MARCH      growth from full fiscal-year columns, never a TTM window (716 of 751)
+5  PENALTY/BOOST        RECOMPUTED, not inherited — two of four red flags read revenue growth
+6  GATES                balance sheet + liquidity (below)
+7  CAP                  clamp to [5, 95], asserted to move ZERO recommendations
+8  FORWARD ADJUSTMENT   growth leg + conviction leg (below)
+9  THE CALL             ladder (below)
+```
+
+### Why each imputation rule, with the backtest that chose it
+
+Tested on **515 fully-covered names** whose true score is known, deleting exactly the pillars thin
+names really lack:
+
+| scheme | bias | MAE | rank corr | verdict |
+|---|---|---|---|---|
+| skip-and-renormalise (the bug) | +2.95 | 10.08 | 0.601 | — |
+| value 50 / growth 25 / quality 25 | **+3.07** | **11.83** | **0.445** | **REJECTED — worse than the bug** |
+| neutral-fill 50 | +1.84 | 6.95 | 0.601 | used for the residual |
+| **1-year sibling** | **+0.05** | **2.72** | **0.932** | **adopted — biggest win** |
+| **listing-price technical** | +1.84 | 6.17 | **0.701** at 3 months | **adopted** |
+
+The 50/25/25 redistribution loses because it concentrates freed weight on value, and value is
+*uncorrelated* with the pillars that went missing — it amplifies noise instead of adding information.
+Under genuine uncertainty, shrinking to the middle beats betting the weight on one surviving pillar.
+**Do not re-propose it.** The schema-gap case (banks) was tested separately and substitution still wins
+(MAE 4.97→3.38, corr 0.843→0.898; the two growth pillars correlate 0.645).
+
+### March-to-March, not TTM
+
+666 names sat on `ttm(Mar 2026)` but **76 on `ttm(Jun 2026)`**. Because the Growth pillar is a
+**cross-sectional percentile**, those 76 were ranked against the rest **over a different period** — not
+a freshness trade-off but an invalid comparison. COHANCE read −13.0% on the engine's window against
+**+89.4%** March-to-March; FACT +30.4% against −19.8%. Forty names differed by >5pp, twelve by >20pp.
+
+### The forward adjustment
+
+```
+growth_leg   banded on the ANALYST'S EXPECTED EPS GROWTH ALONE (100% EPS, 0% revenue — as v1)
+             <5% −15 | 5-10% −5 | 10-15% 0 | 15-20% +5 | 20-25% +10 | ≥25% +15
+             REVENUE RESCUE: expected FORWARD revenue >15% AND expected EPS <10% → floor the −15 at −5
+                             DORMANT: expected_next_3y_revenue_growth_pct is not captured yet, so it
+                             fires on 0 names. It reads the field; adding it activates the rule.
+             +20 EXCEPTIONAL tier DORMANT — needs share dilution <2%, absent from the dataset. Enabled
+                             two-of-three it fired on 27 names, which over-grants.
+conviction   analyst Sell −6 | analyst rescues a quant Sell +6 | agreement 0
+clamp ±20, then: expected growth <10% → net adj ≤ 0 ; analyst Sell → net adj ≤ 0
+Ionic = clamp(base + adjustment, 5, 95)   where base = 0.60×3Y + 0.40×1Y
+```
+
+**Why the 60:40 EPS-to-revenue weighting is NOT implemented.** The Principal specified it, twice. It
+cannot be built honestly: there is **no expected-revenue figure anywhere in the stack**, so it was
+substituted with *trailing* revenue — which inverts the leg for exactly the names it matters to. BDL:
+the analyst expects **+15% EPS**, trailing revenue was **−27%** on FY26 delivery delays, and the blend
+gave **−1.8% → the maximum −15 penalty** on a company the analyst is positive about. In v1 the same name
+scored **+5**. Of 93 names then taking −15, **75 had negative trailing revenue and 20 carried an analyst
+estimate of 10%+**. One field per research file (`expected_next_3y_revenue_growth_pct`) unblocks it.
+
+**Where the adjustment lived in v1:** in `compute_client_scores.py` (the CLIENT pipeline, frozen v6.2),
+never in the universe file. 30 of 59 holdings on the shipped Talaulikar deck carried one, between −11
+and +15, and the deck's scores reconcile to `pf_mech_flags.json` 59/59. v1's `growth_leg(g)` took the
+analyst's expected figure **alone** — 100% EPS, no revenue leg at any weight.
+
+### THE LADDER — the 40 bar is absolute
+
+```
+below 40      Sell
+40 and above  Hold        ← an analyst Sell does NOT sell a name here
+    40 - 50   trim-ELIGIBLE (weight >2.5% decides, at book level) and/or on the analyst's view
+    above 50  analyst Sell is OVERRULED entirely
+```
+
+**40-50 is not a Trim band.** It confers *eligibility*, not an instruction — and eligibility cannot be
+resolved in a universe file at all, because trimming depends on **position weight**, which only exists
+inside a client book. Naming a universe row "Trim" asserts a portfolio decision from data containing no
+portfolio. `recommendation_v3` therefore has exactly **two values: Sell and Hold**; the reason sits in
+`trim_eligible_v3`.
+
+Gate A's ceiling is the substantive change. It had been selling **BAJAJ-AUTO at 67** on a valuation
+argument the **Value pillar had already weighed and priced as reasonable** — of the 23 such Sells, 9 sat
+in Upper or Top-25% Value. The analyst view is not discarded: it still costs 6 points via the conviction
+leg and marks the name trim-eligible.
+
+### Gates in v3
+
+| gate | rule |
+|---|---|
+| Balance sheet | D/E >2.5 or int-cover <1.5 → RED, caps at 40 · D/E >1.5 or int-cover <3 → AMBER, ×0.85 |
+| **Financials** | exempt from the **WHOLE** gate, D/E *and* coverage |
+| Power / Realty / Telecom / Construction | exempt from the **D/E trigger only**; coverage still applies |
+| Liquidity | below the size-tier turnover bar → caps at **50** (was 40) |
+
+**Do not apply interest coverage to financials.** The frozen doc says "exempt from the D/E trigger",
+which reads as coverage-still-applies. It is wrong, and the code was right: interest expense is a
+lender's **cost of funds**, not debt service, and an insurer barely has any. Applying it flagged
+**NIACL RED at coverage −399 with ZERO debt**, CANHLIFE −11.8, NIVABUPA −3.7, plus five capital-market
+firms at 2.0-2.9× — eleven healthy names penalised by a ratio that does not describe them.
+
+On sectors: solar **generation** sits in Power (exempt); solar **equipment** makers (EMMVEE, WEBELSOLAR,
+UTLSOLAR) are Capital Goods, where leverage is not structural and the gate should bite. Exempting on the
+word "solar" lets the wrong half through.
+
+### Earnings quality — the profit bridge
+
+The old rule (PAT +50% while Sales <10%) is **wrong and has been removed**. Operating leverage produces
+that pattern routinely: of the 29 names it flagged, **17 (59%) were margin-driven**, not one-offs.
+Replaced with a decomposition of the year-on-year PBT change:
+
+```
+volume effect = (Sales₁ − Sales₀) × OPM₀     revenue genuinely grew
+margin effect =  Sales₁ × (OPM₁ − OPM₀)      LEGITIMATE operating leverage
+other income  =  OI₁ − OI₀                   NON-OPERATING — the one to watch
+finance/dep   = −(ΔInterest) − (ΔDepreciation)
+```
+
+The bridge **closes to 0.6%** (median residual ₹1.0cr against a ₹169.5cr median PBT change) across 662
+names — proof it is complete, not approximate. Flags: `oi_driven_growth` (>50% of the PBT increase from
+other income) 75 · `oi_level_high` (OI >25% of PBT) 140 · `oi_spike` (>2× its own 3y median and >15% of
+PBT) 81. Financials exempt — treasury income *is* their operating business.
+
+A worked check on the bridge's accuracy: it computed **₹1,196cr** of other income for BAJAJ-AUTO; the
+analyst, working independently, wrote **₹1,195cr**. It did *not* fire a flag — 19.1% of PBT sits under
+the 25% threshold and margin contributed more. That is threshold behaviour, not a bug, and it is
+precisely why the analyst layer exists.
+
+### Does v3 predict better? Honestly: not established
+
+PIT decile test, 2016-2025, quarterly formation, three horizons
+(`results/BT_V1_VS_V3_DECILES.md`). At **1Y**:
+
+| arm | rank IC | hit rate | D10−D1 |
+|---|---|---|---|
+| v1 | +0.026 | 59% | **+5.50%** |
+| v3-mechanical | +0.022 | 56% | +3.36% |
+| v3 + forward growth leg | −0.007 | 56% | **+0.13%** |
+
+Ordering is **v1 > v3-mech > v3-fwd at every horizon**, and nothing is monotone in a single quarter
+(0/32). Three conclusions, in order of confidence: **(1)** the forward growth leg carries no ranking
+power — it cuts the 1Y spread to nil; **(2)** the mechanical fixes cost a little discrimination in
+exchange for not rewarding missing data, which is the right trade; **(3)** the base model's edge is weak
+but positive at 1Y and lives at the tails.
+
+Two things the harness **cannot** test, and no claim should be made about either: the **conviction leg**
+(no point-in-time history of analyst opinion; proxying it with the score is circular) and the
+**listing-price technical** (`score_asof` needs 260 sessions, so sub-1-year names never enter the
+universe). v3-fwd proxied the forward leg with *trailing* growth, so it tests the *mechanism*, not
+analyst foresight.
+
+### 13 logged challenges — read `09_PRODUCT/FIVE_SIGNAL_AND_V3_SCORING_SPEC.md` §6b
+
+Three block adoption: **C6** `compute_client_scores.py` has none of the v3 rules, so adopting v3 makes
+every deck disagree with the universe · **C7** LT's 45.5 is stale (built on a superseded analyst Hold;
+recomputes to 33.5, a clean Sell) · **C8** the deck reads v1 sources while the Excel reads v3.
+Methodological: **C1** the growth and conviction legs correlate +0.24 and **95 names are charged by
+both** for what is substantially one opinion (analyst Sells forecast 9.1% median growth vs 13.5% for
+Holds) · **C2** Sell rate 26% against the frozen ~33% expectation.
+
+---
+
 ## PART 3: MF QUALITY FRAMEWORKS (QFRA-1 / QFRA-2)
 
 ### QFRA-1 (Short-term capture framework)
@@ -417,6 +842,14 @@ A fund that takes LESS of the benchmark's falls than the cutoff passes. BUY = to
 ALL funds in the category (excluded funds still consume ranks — deliberate). Full method: `/qfra1-rerun`.
 
 ### QFRA-2 (Long-term selection engine)
+
+> **⚠ QFRA-2 IS NOT IN THIS REPO.** Verified 2026-08-07: neither `QFRA2_current.csv` nor
+> `Mf_qfra2/mr_x_framework/src/final_model.py` exists anywhere under the `NIFTY 500` tree. The QFRA-2
+> engine, its NAV files and `Mf_qfra2/data/verified_navs_<cat>.csv` live in a **separate QFRA-2
+> repository** — ask the Principal or the MF desk for access before starting any fund work. Everything
+> below describes that engine correctly; you simply cannot run it from this checkout alone.
+> This is the one place the manual's "nothing else needed besides the GitHub repo" claim does not hold.
+
 Source: `QFRA2_current.csv`. Engine: the frozen QFRA 2.0 model (`Mf_qfra2/mr_x_framework/src/final_model.py`).
 **What it is:** a *selection* engine. Per category it ranks the eligible funds and publishes the **top-2
 (from a top-5 shortlist)** most likely to beat the category TRI over 3–5 years. Verdicts are **`ACTIVE`**
@@ -803,10 +1236,34 @@ set PYTHONUNBUFFERED=1
 cd Shreyas_Ionic_AMC/09_PRODUCT/pr_template
 %PYTHON% build_<client>.py HNI_DEEP
 
-# Run QA gates
+# ONE COMMAND for every gate on every deck x every tier  -> 09_PRODUCT/WORKFLOW_AUDIT.md
+%PYTHON% ../scripts/audit_full_workflow.py
+
+# then LOOK at the slides you changed (no gate can see the page)
+%PYTHON% ../scripts/pptx_slide_png.py out/<deck>.pptx 25,26      # or 25-28
+
+# individual gates, if you need one in isolation
 %PYTHON% check_geometry.py out/<deck>.pptx
 %PYTHON% check_geometry2.py out/<deck>.pptx
 %PYTHON% tellscan.py out/<deck>.pptx
+%PYTHON% check_method.py data/<client>.py         # A DATA MODULE, not a .pptx
+%PYTHON% check_freshness.py --ack "<source>: <reason>"
+
+# THE SCORING CHAIN — run in this order, before any client build
+cd Shreyas_Ionic_AMC/04_RND_LAB/STOCK_SCORECARD_750
+%PYTHON% earnings_quality_decomp.py       # -> results/EARNINGS_QUALITY.csv
+%PYTHON% fix_thin_coverage_v3.py          # -> results/full750_scored_v3.csv  (ABORTS if it cannot
+                                          #    reproduce the engine — do not edit that assertion)
+%PYTHON% audit_v3_freeze.py               # 21 invariants; must be 21/21
+
+# the 750 research Excel (five signals + v3 scores + forward data + earnings flags)
+%PYTHON% 09_PRODUCT/scripts/build_scores_excel.py
+
+# re-run a backtest ONLY if a scoring rule changed
+%PYTHON% bt_v1_vs_v3_deciles.py           # PIT decile test, quarterly/1Y/3Y
+%PYTHON% test_imputation_schemes.py       # which missing-pillar scheme wins
+%PYTHON% test_listing_price_signal.py     # does return-since-listing beat neutral-fill
+%PYTHON% test_growth_schema_gap.py        # the banks case (growth_3y absent by schema)
 
 # Convert to PDF (on request only)
 %PYTHON% ../scripts/pptx_to_pdf.py out/<deck>.pptx
@@ -823,3 +1280,35 @@ cd Shreyas_Ionic_AMC/09_PRODUCT/pr_template
 # Portfolio analytics
 %PYTHON% 09_PRODUCT/scripts/compute_portfolio_analytics.py
 ```
+
+---
+
+## WHERE THINGS LIVE (v3 additions)
+
+| File | Role |
+|---|---|
+| `pr_template/lib/five_signals.py` | **single source of truth** for the five signals — clubbing, floors, words, colours, re-ranking, universe join |
+| `pr_template/modules/book_scored.py` | the five-signal holdings page |
+| `pr_template/slidekit.py` | `dot` + `chip` table cell types; `oval(line=)`; the snake_case detell catch-all |
+| `scripts/audit_full_workflow.py` | whole-pipeline audit → `WORKFLOW_AUDIT.md` |
+| `scripts/pptx_slide_png.py` | slide → PNG (the only way to run the visual gate on this box) |
+| `scripts/build_scores_excel.py` | the 750 research Excel |
+| `STOCK_SCORECARD_750/fix_thin_coverage_v3.py` | the frozen v3 correction layer |
+| `STOCK_SCORECARD_750/earnings_quality_decomp.py` | profit-bridge earnings quality |
+| `STOCK_SCORECARD_750/audit_v3_freeze.py` | 21 scoring invariants |
+| `09_PRODUCT/FIVE_SIGNAL_AND_V3_SCORING_SPEC.md` | the frozen spec + all 13 logged challenges |
+| `STOCK_SCORECARD_750/results/*.md` | every backtest and diagnostic note behind the rules |
+
+**Superseded — decision records only, do NOT run** (written against a pre-final API):
+`scripts/chart_signal_options.py`, `scripts/chart_dot_formats.py`.
+
+---
+
+## IF YOU ARE NEW: THE FIVE THINGS MOST LIKELY TO BURN YOU
+
+1. **`check_method.py` takes a data module, not a .pptx.** The error looks like a broken gate.
+2. **`NaN` is truthy and `str(NaN)` is `"nan"`.** `fillna("")` before `astype(str)`, always.
+3. **Two gate rules are inverted on demo decks** — `SYNTHETIC_DEMO_LEAK` is *correct* on ABXY.
+4. **The gates cannot see the page.** Export the slides and read them, every time.
+5. **Never restate a threshold.** Bands live in `five_signals.py`; scoring rules in
+   `fix_thin_coverage_v3.py`. A duplicated number drifts within the hour.
