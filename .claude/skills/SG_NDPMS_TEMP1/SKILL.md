@@ -1404,3 +1404,5 @@ real scores.
 5. **The gates cannot see the page.** Export the slides and read them, every time.
 6. **Never restate a threshold.** Bands live in `five_signals.py`; scoring rules in
    `fix_thin_coverage_v3.py`. A duplicated number drifts within the hour.
+
+<!-- sync test 2026-08-13 18:13 -->
