@@ -1,0 +1,22 @@
+{
+  "skill": "Ionic_Portfolio_Review",
+  "version": "v4.0",
+  "sequence": 4,
+  "released": "2026-08-13 20:11 IST",
+  "author": "Shreyas Gupta",
+  "delivery_branch": "master",
+  "repo": "https://github.com/shreyas1gupta-wq/ionic-scorecard",
+  "supersedes": ["SG_NDPMS_TEMP1 (v3)", "ionic-wealth-complete (v2, v1)"],
+  "changes": [
+    "Renamed from SG_NDPMS_TEMP1 to Ionic_Portfolio_Review; old name retired, not aliased.",
+    "Self-update: check_version.py compares this copy against the delivery branch and can replace itself.",
+    "Repo-root walk fixed - it required a folder literally named 'NIFTY 500', so a clean clone joined ZERO universe rows and every signal dot rendered hollow on a deck that built with exit 0.",
+    "New gate check_dots.py: reads the built .pptx and asserts the five-signal dots carry colour. No other gate can see an empty universe join.",
+    "client_intake.py was matching against portfolio_quant.csv (59 rows, ONE client's book) instead of the 751-name universe, and its ISIN lookup was always empty so every equity fell through to banned name-prefix matching.",
+    "New 05_DATA_OFFICE/data/isin_master.csv - 2,404 NSE equities, the only exact join key from a client CAS to the scored universe. Joins 750 of 751 scored symbols.",
+    "Stripped UTF-8 BOMs from 11 tracked files; three other SKILL.md files had silently broken frontmatter as a result.",
+    "Corrected the claim that the scores are not in the repo - they are, and acting on the old text means redoing finished work."
+  ],
+  "verify": "python check_version.py",
+  "notes": "sequence is the field compared for staleness; version is for humans."
+}

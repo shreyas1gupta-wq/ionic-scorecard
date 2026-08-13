@@ -40,7 +40,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # deck that looks finished and is wrong.
 MANIFEST = [
     # the operating manual itself
-    ".claude/skills/SG_NDPMS_TEMP1/",
+    ".claude/skills/Ionic_Portfolio_Review/",
     # the entry point and the plain-language explainer
     "README.md",
     "Shreyas_Ionic_AMC/09_PRODUCT/HOW_WE_SCORE_STOCKS.md",

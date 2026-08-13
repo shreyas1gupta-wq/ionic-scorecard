@@ -1,7 +1,7 @@
 # How we score a stock — the workflow, explained
 
 **For:** anyone joining the NDPMS desk. No prior knowledge of the codebase assumed.
-**Companion to:** the `SG_NDPMS_TEMP1` skill (the reference manual) and
+**Companion to:** the `Ionic_Portfolio_Review` skill (the reference manual) and
 `FIVE_SIGNAL_AND_V3_SCORING_SPEC.md` (the frozen spec). This file explains *why*; those explain *what*.
 **As at:** 2026-08-07.
 

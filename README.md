@@ -13,7 +13,7 @@ scores and fund grades are committed to this repo.
 ## 0. Were you emailed a `SKILL.md`? Delete it.
 
 The operating manual lives **in this repository**, at
-`.claude/skills/SG_NDPMS_TEMP1/SKILL.md`, and that copy is the only authoritative one.
+`.claude/skills/Ionic_Portfolio_Review/SKILL.md`, and that copy is the only authoritative one.
 
 **Do not install a copy that was sent to you.** Any copy sent before **2026-08-13** says the stock
 scores are not in this repository. That is wrong — they are committed here — and believing it means
@@ -25,14 +25,14 @@ folder you open, so **working inside this clone gives you the current manual aut
 ```bash
 git clone https://github.com/shreyas1gupta-wq/ionic-scorecard.git
 cd ionic-scorecard
-claude                 # the SG_NDPMS_TEMP1 skill is now available, and current
+claude                 # the Ionic_Portfolio_Review skill is now available, and current
 ```
 
 `git pull` is the update mechanism. Nobody has to send you a file again. To see when the manual last
 changed:
 
 ```bash
-git log -1 --format='%ad  %s' -- .claude/skills/SG_NDPMS_TEMP1/SKILL.md
+git log -1 --format='%ad  %s' -- .claude/skills/Ionic_Portfolio_Review/SKILL.md
 ```
 
 If you already dropped an emailed copy into a personal `~/.claude/skills/` folder, remove it — a
@@ -118,7 +118,7 @@ holdings CSV/XLSX  ->  client_intake.py  ->  data/<client>.py  ->  build_<client
 | **How the scoring works, in plain language** | `09_PRODUCT/HOW_WE_SCORE_STOCKS.md` ← **start here** |
 | **The frozen scoring spec + logged challenges** | `09_PRODUCT/FIVE_SIGNAL_AND_V3_SCORING_SPEC.md` |
 | **Scoring correction layer (v3)** | `04_RND_LAB/STOCK_SCORECARD_750/fix_thin_coverage_v3.py` |
-| **Full operating manual** | `.claude/skills/SG_NDPMS_TEMP1/SKILL.md` |
+| **Full operating manual** | `.claude/skills/Ionic_Portfolio_Review/SKILL.md` |
 
 `results/full750_scored.csv` (no `_v3`) is **not** an obsolete duplicate — it is the engine output and
 the input the v3 corrector reads. Both files must stay.

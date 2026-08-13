@@ -1,6 +1,6 @@
 ## HANDOVER STATE (2026-08-13, DESK-100)
 The NDPMS pack is handover-ready and pushed. Repo carries the finished stock scores and fund
-grades, so a recipient consumes them rather than re-running. Skill = `SG_NDPMS_TEMP1`; new
+grades, so a recipient consumes them rather than re-running. Skill = `Ionic_Portfolio_Review`; new
 readers start at `09_PRODUCT/HOW_WE_SCORE_STOCKS.md`. Workflow audit 42/43.
 - FIXED: the repo-root walk required a folder named `NIFTY 500`, so a clean clone joined ZERO
   universe rows and every signal dot rendered hollow on a deck that built with exit 0. Now takes

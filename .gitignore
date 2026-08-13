@@ -41,7 +41,7 @@ scrip_master.json
 
 # --- FINAL SCORE + GRADE OUTPUTS: DELIBERATELY IN GIT (Principal, 2026-08-07) ---
 # `*.csv` above excludes everything by default, which is right for working files but wrong for the
-# finished scores. Anyone handed the SG_NDPMS_TEMP1 skill must get the stock scores and the MF grades
+# finished scores. Anyone handed the Ionic_Portfolio_Review skill must get the stock scores and the MF grades
 # WITHOUT re-running the pipeline -- that was the whole point of the handover. These are outputs, not
 # inputs: small (~1.6 MB total), regenerated on the Apr/Oct cadence, and useless to recompute by hand.
 # Negations must be listed file by file; a blanket `!*.csv` would drag every working file back in.
