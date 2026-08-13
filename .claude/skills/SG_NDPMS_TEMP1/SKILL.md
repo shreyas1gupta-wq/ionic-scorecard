@@ -1,6 +1,6 @@
 ---
-name: ionic-wealth-complete
-description: The ONE comprehensive operating manual for Ionic Wealth's client product suite — NDPMS portfolio-review deck (pr_template), the five-signal holdings page, Stock Scorecard 750 + the frozen v3 scoring layer, MF quality frameworks (QFRA-1/QFRA-2), client intake, the whole-pipeline QA audit, all Principal rulings, environment, and the full agent roster. Give this file to any team member; nothing else needed besides the GitHub repo. v3, 2026-08-07.
+name: SG_NDPMS_TEMP1
+description: Operating manual for the Ionic Wealth NDPMS client product suite — portfolio-review deck (pr_template), the five-signal holdings page, Stock Scorecard 750 + the frozen v3 scoring layer, MF quality frameworks (QFRA-1/QFRA-2), client intake, the whole-pipeline QA audit, all Principal rulings, environment, and the agent roster. Read the PREREQUISITES block first — the code is on GitHub but the scored data is NOT, and a deck cannot be built without it. v3, 2026-08-07.
 ---
 
 # Ionic Wealth — Complete Operating Manual (v3, 2026-08-07)
@@ -17,6 +17,9 @@ description: The ONE comprehensive operating manual for Ionic Wealth's client pr
 >    before you hand anything to anyone. See **PART 1B**.
 > 5. `check_method.py` takes a **data module**, not a .pptx. Two gate rules are **inverted on demo
 >    decks**. Both cost me time; PART 1B says exactly how.
+>
+> **And read PREREQUISITES immediately below** — the scored data is not in the repo, so a clone alone
+> cannot build a deck.
 
 ## STANDING RULE — ESCALATE TO A HUMAN RATHER THAN GUESS (Principal, 2026-08-05)
 **Applies to every decision in this manual, not just the fund frameworks.** His words: *"keep this
@@ -42,7 +45,44 @@ Discretion is **one-directional** wherever it appears in this manual: an analyst
 veto or soften an action, never manufacture one. That asymmetry is what keeps judgment from becoming
 a licence to invent.
 
-Everything a team member needs to produce client deliverables. This is the SINGLE source of truth. The GitHub repo has all code, data, and scripts referenced below.
+## PREREQUISITES — READ THIS BEFORE YOU TRY TO BUILD ANYTHING
+
+**The repo has the code. It does NOT have the data.** Verified against `.gitignore` and `git ls-files`
+on 2026-08-07. Cloning the repo and reading this manual is **not sufficient to produce a deck** — the
+build will fail on the first data read. You must obtain the data files separately from the Principal.
+
+| | on GitHub? | what it is |
+|---|---|---|
+| `pr_template/` — engine, slidekit, all modules, `lib/five_signals.py` | **YES** | the deck code |
+| `09_PRODUCT/scripts/` — builders, audits, `pptx_slide_png.py` | **YES** | the tooling |
+| `results/pf_qual_*.json` — **752 files** | **YES** | the analyst research per stock |
+| `data/<client>.py` — client context files | **YES** | see the PII warning below |
+| **`results/full750_scored.csv`** | **NO** — `*.csv` is gitignored | **every quant score** |
+| **`results/full750_scored_v3.csv`** | **NO** | the frozen v3 scores |
+| **`results/portfolio_quant.csv`** | **NO** | per-client pillar scores |
+| **`results/EARNINGS_QUALITY.csv`** | **NO** | the profit-bridge flags |
+| **`datasets/screener_deep/*.parquet`** | **NO** — `datasets/` + `*.parquet` ignored | financials, ~28GB tree |
+| **`ALPHA_RANKER/data/prices/`** | **NO** | price panels (all backtests need these) |
+| **QFRA-2 engine + NAV data** | **NO** — a **separate repo** | all mutual-fund work |
+
+**This bites immediately.** `data/azby_family.py` — the *demo* deck, the one you would reasonably try
+first — reads `portfolio_quant.csv` at line 103. So a fresh clone cannot even build the showcase, let
+alone a client book. Ask for, at minimum: `full750_scored_v3.csv`, `portfolio_quant.csv`,
+`EARNINGS_QUALITY.csv`, and `datasets/screener_deep/screener_annual_pl.parquet`.
+
+**⚠ CLIENT PII IS IN THIS REPO.** `data/talaulikar_family.py` is a **real client's** holdings, weights
+and analyst commentary, and it **is tracked**. The `.gitignore` PII guard covers `pr_kordes/` and
+`*Kordes*` but not this file. Do not widen access to the repo without checking with the Principal
+first, and do not add another real client file without extending that guard.
+
+**⚠ THE GIT REMOTE URL CONTAINS A PLAINTEXT PERSONAL ACCESS TOKEN.** `git remote -v` prints it. Anyone
+with the working copy has push access to the repo. Rotate the token before sharing a clone or a
+machine image.
+
+---
+
+Everything a team member needs to produce client deliverables, **given the data files above**. This is
+the single source of truth for method and process.
 
 > **Repo:** https://github.com/shreyas1gupta-wq/ionic-scorecard (private)
 
