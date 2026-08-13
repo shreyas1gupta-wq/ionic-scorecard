@@ -1,0 +1,30 @@
+{
+  "$comment": [
+    "Shreyas_Ionic_AMC project settings. Checked in, so both desk accounts share it.",
+    "",
+    "The Stop hook keeps the HANDOVER MANIFEST current on GitHub without anyone remembering to.",
+    "It runs 99_OPS/sync_handover.py at the end of each turn: that script commits and pushes ONLY",
+    "the skill, the explainer docs, the frozen spec, the finished score/fund/ISIN data and the",
+    "command-centre state files. It is a no-op when none of those changed, so ordinary coding turns",
+    "cost nothing. Source code is deliberately NOT auto-synced -- an auto-commit of every dirty file",
+    "would push half-written code the moment a turn ended.",
+    "",
+    "It exists because on 2026-08-13 the skill was handed over after a long editing session and the",
+    "recipient's clone saw none of the material: the default branch is a 1-file stub with an",
+    "unrelated history. The script prints that delivery warning on every run rather than reporting a",
+    "misleading success."
+  ],
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Users/Shreyas.1Gupta/AppData/Local/Python/pythoncore-3.14-64/python.exe\" \"$CLAUDE_PROJECT_DIR/Shreyas_Ionic_AMC/99_OPS/sync_handover.py\"",
+            "timeout": 120
+          }
+        ]
+      }
+    ]
+  }
+}

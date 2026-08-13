@@ -195,7 +195,7 @@ def render(deck, ctx, tier):
     else:
         eyebrow = "Hybrid funds · return-for-risk, drawdown, worst year"
         title = "A hybrid earns its keep in the bad year, not the good one"
-    s = deck.content(3, "Funds", eyebrow, title)
+    s = deck.content(2, "The Fund Book", eyebrow, title)
     deck.scope_tag(s, f"MF sleeve only: hybrid schemes · Direct-plan NAV vs the 65:35 hybrid benchmark; "
                       f"cushion shown vs pure equity · common 3y window · as of {as_of}")
 

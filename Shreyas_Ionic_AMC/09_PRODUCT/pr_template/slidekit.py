@@ -37,6 +37,9 @@ RX = CW - MR; UW = RX - ML
 # hollow intensifiers never reach a client slide, wherever they sit in the sentence
 # (mid-word matches like 'ingenuine' are protected by the leading whitespace requirement)
 _TELL_RE = re.compile(r"\s+(?:genuinely|genuine|truly)(?=[\s,.;:…)]|$)")
+# any snake_case identifier: lower-case word, then one or more _word groups. Deliberately excludes
+# leading/trailing underscores and CamelCase so it only catches things that look like data fields.
+_SNAKE_FIELD_RE = re.compile(r"\b[a-z][a-z0-9]*(?:_[a-z0-9]+)+\b")
 # internal epistemic tags (D-035 keeps them in research FILES; they never render client-side)
 _TAG_RE = re.compile(r"\[\s*(?:OPINION|INFERENCE|DATA|ESTIMATE)\b[^\]]*\]\s*")
 
@@ -99,6 +102,19 @@ def clip_sentences(txt, n):
         return out
     return clip_clause(txt, n)
 
+
+def fmt_dual_pct(port_pct, sleeve_pct=None, sleeve_label="sleeve", dp=1):
+    """FM #8, the ONE calculation-base convention, applied everywhere rather than per page:
+    every figure prints as % of TOTAL PORTFOLIO, with the sleeve % added in brackets only where
+    a reader would otherwise misread it (a table already headed "% of the equity sleeve" does
+    not need the bracket repeated on every row; a portfolio-level page mixing bases does).
+    Pass sleeve_pct=None to print the portfolio figure alone."""
+    base = f"{port_pct:.{dp}f}%"
+    if sleeve_pct is None:
+        return base
+    return f"{base} of portfolio ({sleeve_pct:.{dp}f}% of {sleeve_label})"
+
+
 REC_STYLE = {"Sell": (SELLBG, SELL), "Exit": (SELLBG, SELL), "Redeem-to-Direct": (AMBERBG, AMBER),
              "Redeem": (AMBERBG, AMBER), "Switch": (AMBERBG, AMBER), "Trim": (AMBERBG, AMBER),
              "Hold": (HOLDBG, HOLD), "Aligned": (HOLDBG, HOLD), "Watch": (PANEL, SLATE),
@@ -121,6 +137,10 @@ class Deck:
         self.BLANK = self.prs.slide_layouts[6]
         self.logo_path = logo_path if (logo_path and os.path.exists(logo_path)) else None
         self.folio = 0
+        # Footer product label. Defaults to the NDPMS review so every existing deck is
+        # unchanged; set it on the Deck for any other product built on this engine (the
+        # QFRA-2 committee deck was shipping "Portfolio Review" in its footer otherwise).
+        self.footer_label = "Portfolio Review"
         self._anchors = {}    # key -> (prio, slide, folio)
         self._links = []      # (shape, key)
         self._pagerefs = []   # (run, key)
@@ -212,9 +232,15 @@ class Deck:
             except Exception: pass
         return shp
 
-    def oval(self, s, x, y, d, fill):
+    def oval(self, s, x, y, d, fill, line=None, lw=0.9):
+        """`line` draws an outline — needed for a hollow ring (a not-scored signal dot), which must be
+        unmistakable against any filled dot and never read as a rating."""
         o = s.shapes.add_shape(MSO_SHAPE.OVAL, Inches(x), Inches(y), Inches(d), Inches(d))
-        o.fill.solid(); o.fill.fore_color.rgb = fill; o.line.fill.background(); self._nosh(o)
+        if fill is None: o.fill.background()
+        else: o.fill.solid(); o.fill.fore_color.rgb = fill
+        if line is None: o.line.fill.background()
+        else: o.line.color.rgb = line; o.line.width = Pt(lw)
+        self._nosh(o)
         return o
 
     def rule(self, s, x, y, w, color=HAIR, h=0.01): return self.rect(s, x, y, w, h, fill=color)
@@ -256,6 +282,13 @@ class Deck:
                           .replace("quant snapshot", "screening snapshot")
                           .replace("data snapshot", "screening snapshot")
                           .replace("fcf_yield", "FCF yield"))
+                    # CATCH-ALL for raw field names. The named replacements above are whack-a-mole:
+                    # `fcf_yield` was listed, `available_date` was not, and it reached a client slide
+                    # in two analyst paragraphs and every ABXY deck. Analyst prose is written by 752
+                    # separate research passes and cannot be policed name by name. English prose never
+                    # contains word_word, so converting any snake_case token to spaced words is safe
+                    # and closes the whole class rather than one instance of it.
+                    t = _SNAKE_FIELD_RE.sub(lambda m: m.group(0).replace("_", " "), t)
                     t = re.sub(r"\s*\(\d+\s*rows?\b[^)]{0,60}\)", "", t)
                     # glyphs Bahnschrift lacks (render as tofu in charts/PDF): never ship
                     t = (t.replace(" → ", " to ").replace("→", "to")
@@ -300,7 +333,7 @@ class Deck:
         self.txt(s, CW / 2 - 1.7, 0.14, 3.4, 0.2, [("Private & Confidential", SANS, 7.5, (NT2 if dark else SLATE), False)], align=PP_ALIGN.CENTER)
 
     def footer(self, s, dark=False):
-        self.txt(s, RX - 2.4, 7.14, 2.4, 0.2, [(f"Portfolio Review  ·  {self.folio:02d}", SANS, 7.5, (NT2 if dark else SLATE), False)], align=PP_ALIGN.RIGHT)
+        self.txt(s, RX - 2.4, 7.14, 2.4, 0.2, [(f"{self.footer_label}  ·  {self.folio:02d}", SANS, 7.5, (NT2 if dark else SLATE), False)], align=PP_ALIGN.RIGHT)
 
     def source(self, s, text):
         self.txt(s, ML, 6.66, UW, 0.24, [(text, SANS, 7, SLATE, False)])
@@ -359,9 +392,18 @@ class Deck:
         if subtitle:
             self.txt(s, ML, 3.98, 8.6, 0.6, [(subtitle, SERIF, 13, NT3, False, True)])
         if pages:
+            # A bare string here (e.g. pages="4-7" instead of pages=["4-7"]) used to be iterated
+            # CHARACTER BY CHARACTER -- pages[:5] slices a string to its first 5 characters, then
+            # `for label in ...` walks it one glyph at a time, stacking single digits down the
+            # divider (found on the QFRA-2 PAC deck; that caller was fixed to pass a list, but the
+            # primitive itself had no guard, so any other caller making the same mistake would
+            # silently reproduce it). Normalise once here so every caller, present or future, is
+            # protected regardless of what it passes.
+            if isinstance(pages, str):
+                pages = [pages]
             y = 5.45
             for label in pages[:5]:
-                self.txt(s, ML, y, 8.0, 0.24, [(label, SANS, 9.5, NT3, False, False, 40)])
+                self.txt(s, ML, y, 8.0, 0.24, [(str(label), SANS, 9.5, NT3, False, False, 40)])
                 y += 0.30
         return s
 
@@ -412,7 +454,9 @@ class Deck:
               maxrows=None, totals=None):
         """cols = [(label, width_frac, align 'l'/'c'/'r')]. Each cell:
            str (Georgia serif, v8 register) | ('b', text[, color]) bold sans | ('c', text, color[, bold])
-           | ('pill', text, kind) | ('bar', score) | ('flags', [str,...]).
+           | ('pill', text, kind) | ('bar', score) | ('flags', [str,...])
+           | ('chip', label, fg, bg) pill with caller-supplied colours (five-signal bands)
+           | ('dot', fill|None[, diameter]) traffic-light dot, centred; None = hollow "not scored" ring.
            totals: optional footer row (same cell forms) under a navy rule (v8 utbl pattern).
            Returns y after the table."""
         tot = sum(c[1] for c in cols); xs = []; ws = []; cx = x
@@ -428,6 +472,26 @@ class Deck:
                     self.pill(s, cx, ry + rowh / 2 - 0.13, cell[1], w=min(cwid, 1.4), kind=cell[2] if len(cell) > 2 else cell[1])
                 elif k == "bar":
                     self.score_bar(s, cx, ry + rowh / 2 - 0.02, cell[1], w=min(cwid - 0.5, 0.7))
+                elif k == "dot":
+                    # ('dot', fill|None[, diameter]) -- a traffic-light signal dot, centred in the
+                    # column under its header. fill None draws a hollow grey ring for "not scored".
+                    dia = cell[2] if len(cell) > 2 else 0.15
+                    fillc = cell[1]
+                    self.oval(s, xs[i] + ws[i] / 2 - dia / 2, ry + rowh / 2 - dia / 2, dia,
+                              fillc, line=(None if fillc is not None else SLATE), lw=0.9)
+                elif k == "chip":
+                    # ('chip', label, fg, bg) -- a pill with CALLER-SUPPLIED colours, for bands that
+                    # aren't the Sell/Trim/Hold vocabulary REC_STYLE covers. One chip per column, so
+                    # the table's own header row labels it and alignment comes free; a single packed
+                    # cell holding five chips would need its category labels hand-positioned outside
+                    # table(), which drifts the moment a column width changes.
+                    _lab, _fg, _bg = cell[1], cell[2], cell[3]
+                    cwv = min(cwid, 1.30)
+                    self.rect(s, cx, ry + rowh / 2 - 0.115, cwv, 0.23,
+                              fill=_bg, line=_fg, lw=0.6, round_=0.35)
+                    self.txt(s, cx, ry + rowh / 2 - 0.125, cwv, 0.25,
+                             [(str(_lab), SANS, 6.8, _fg, True, False, 20)],
+                             align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE, wrap=False)
                 elif k == "flags":
                     fx = cx
                     for fl in cell[1][:3]:

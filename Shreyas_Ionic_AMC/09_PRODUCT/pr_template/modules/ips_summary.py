@@ -50,7 +50,19 @@ def _fit(current, band, cap_style=False):
         return "Pending"
     if cap_style:
         return "Aligned" if current <= band + 1e-9 else "Gap"
-    lo, tgt, hi = band
+    # bands come in BOTH shapes by design (_band_txt has always handled both): 3-tuple
+    # min/target/max for allocation and commodity bands, 2-tuple min/max for the equity
+    # market-cap and credit bands. This used to unpack 3 unconditionally, so any 2-tuple
+    # band raised mid-render; engine.build catches a module exception and moves on, so the
+    # IPS page silently lost its whole right half (equity-level + commodities) while still
+    # passing both geometry gates. Fixed 2026-08-03 — see the equity_mcap_bands shape in
+    # data/azby_family.py, which is what every client data file is copied from.
+    if isinstance(band, (tuple, list)) and len(band) == 3:
+        lo, _tgt, hi = band
+    elif isinstance(band, (tuple, list)) and len(band) == 2:
+        lo, hi = band
+    else:
+        return "Pending"
     return "Aligned" if lo - 1e-9 <= current <= hi + 1e-9 else "Gap"
 
 

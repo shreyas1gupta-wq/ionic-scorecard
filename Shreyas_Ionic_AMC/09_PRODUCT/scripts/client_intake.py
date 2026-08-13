@@ -26,6 +26,7 @@ Usage
 """
 import os
 import re
+import sys
 import csv
 import json
 import argparse
@@ -33,6 +34,26 @@ import argparse
 HERE = os.path.dirname(os.path.abspath(__file__))
 RESULTS = os.path.abspath(os.path.join(HERE, "..", "..", "04_RND_LAB",
                                        "STOCK_SCORECARD_750", "results"))
+
+
+def _root(p):
+    """Outermost ancestor containing Shreyas_Ionic_AMC. Outermost, not innermost: inside a git worktree
+    the worktree dir also qualifies, but the data lives in the live tree."""
+    found = None
+    while True:
+        p, tail = os.path.split(p)
+        if not tail:
+            if found:
+                return found
+            raise RuntimeError("repo root not found")
+        cand = os.path.join(p, tail)
+        if os.path.isdir(os.path.join(cand, "Shreyas_Ionic_AMC")) or tail == "NIFTY 500":
+            found = cand
+
+
+ROOT = _root(HERE)
+sys.path.insert(0, os.path.abspath(os.path.join(HERE, "..", "pr_template")))
+from lib.mf_mapping import validate_holdings, resolve_scheme_rename  # noqa: E402
 
 # the four personalization blocks every real deck carries (Principal 2026-07-26)
 PROFILE_TEMPLATE = {
@@ -78,14 +99,53 @@ def _load_holdings(path):
 
 
 def _load_universe():
-    """symbol -> row of the scored 750; plus isin/name lookup maps."""
+    """symbol -> row of the scored universe; plus isin/name lookup maps.
+
+    This used to read `portfolio_quant.csv`, which is not the universe -- it is ONE CLIENT'S BOOK, 59
+    rows. So a new client's holdings could only ever ISIN-match against the previous client's 59 names,
+    and everything else fell through to the name-prefix fallback below. On a fresh 12-name model book
+    that meant nothing matched and every score came out blank, which is exactly what happened to the
+    handed-over deck on 2026-08-13: it printed "pending" in all 24 score/call cells and reported the
+    scoring layer as unreachable, when 11 of its 12 names were sitting in the universe file with real
+    scores.
+
+    Now reads the full scored universe (751 names) and attaches ISINs from the ISIN master, because the
+    universe CSV itself carries no isin column -- which is why `by_isin` was silently empty even for the
+    59 names it did load. Rebuild the master with
+    05_DATA_OFFICE/scripts/build_isin_master.py if a newly-listed name is missing.
+    """
     by_symbol, by_isin, by_name = {}, {}, {}
-    with open(os.path.join(RESULTS, "portfolio_quant.csv"), encoding="utf-8") as f:
+
+    # symbol -> ISIN, from the NSE equity list (05_DATA_OFFICE/data/isin_master.csv)
+    sym2isin = {}
+    master = os.path.join(ROOT, "Shreyas_Ionic_AMC", "05_DATA_OFFICE", "data", "isin_master.csv")
+    if os.path.exists(master):
+        with open(master, encoding="utf-8") as f:
+            for r in csv.DictReader(f):
+                s = str(r.get("symbol") or "").strip().upper()
+                i = str(r.get("isin") or "").strip().upper()
+                if s and i:
+                    sym2isin[s] = i
+    else:
+        print(f"[WARN] ISIN master missing ({master}). ISIN matching is DISABLED and every holding "
+              f"will fall back to name matching. Run 05_DATA_OFFICE/scripts/build_isin_master.py.")
+
+    src = os.path.join(RESULTS, "full750_scored_v3.csv")
+    if not os.path.exists(src):
+        src = os.path.join(RESULTS, "full750_scored.csv")
+    with open(src, encoding="utf-8") as f:
         for r in csv.DictReader(f):
-            by_symbol[r["symbol"]] = r
-            if r.get("isin"):
-                by_isin[r["isin"].strip().upper()] = r
-            by_name[_norm(r.get("Company Name") or r["symbol"])] = r
+            sym = str(r.get("symbol") or "").strip().upper()
+            if not sym:
+                continue
+            r.setdefault("isin", sym2isin.get(sym, ""))
+            by_symbol[sym] = r
+            if r["isin"]:
+                by_isin[r["isin"]] = r
+            nm = r.get("Company Name") or r.get("company_name") or sym
+            by_name[_norm(nm)] = r
+    print(f"[intake] universe {len(by_symbol)} names, {len(by_isin)} with an ISIN "
+          f"({len(by_isin) / max(len(by_symbol), 1) * 100:.0f}%)")
     return by_symbol, by_isin, by_name
 
 
@@ -96,7 +156,11 @@ def _match_equity(row, by_isin, by_name):
     key = _norm(row.get("name"))
     if key in by_name:
         return by_name[key], "name-exact"
-    # longest-prefix fallback (>=10 normalized chars)
+    # Longest-prefix fallback (>=10 normalized chars). This IS string-similarity matching, which the
+    # Principal banned outright, so it is deliberately kept as a LAST resort and reported loudly rather
+    # than accepted silently: the caller routes every "name-prefix" hit to exceptions.csv for a human.
+    # It is not paranoia -- the universe holds BOTH `TMCV` (61.2) and `ZFCVINDIA` (43.7), the same
+    # company either side of a rename, 17.5 score points apart. A prefix match can take either one.
     best, best_n = None, 0
     for k, v in by_name.items():
         n = 0
@@ -104,7 +168,11 @@ def _match_equity(row, by_isin, by_name):
             n += 1
         if n > best_n:
             best, best_n = v, n
-    return (best, "name-prefix") if best_n >= 10 else (None, "unmatched")
+    if best_n >= 10:
+        print(f"[intake] NAME-PREFIX guess for {row.get('name')!r} -> {best.get('symbol')} "
+              f"({best_n} chars). No ISIN supplied or ISIN not in the master. VERIFY THIS BY HAND.")
+        return best, "name-prefix"
+    return None, "unmatched"
 
 
 def intake(holdings_path, profile_path, out_dir):
@@ -112,6 +180,17 @@ def intake(holdings_path, profile_path, out_dir):
     raw = _load_holdings(holdings_path)
     profile = json.load(open(profile_path, encoding="utf-8")) if os.path.exists(profile_path) else dict(PROFILE_TEMPLATE)
     _, by_isin, by_name = _load_universe()
+
+    # row-bleed / CAS-corruption check (2026-08-02, Talaulikar build: a stock's name
+    # field had an entirely different holding's row content silently concatenated
+    # onto it during extraction). Flag, never silently trust or drop.
+    row_warnings = validate_holdings(raw)
+    if row_warnings:
+        print(f"intake: {len(row_warnings)} row(s) flagged by data-quality check (see "
+              f"row_warnings.json in {out_dir}) -- review before trusting these rows")
+        json.dump({str(i): w for i, w in row_warnings.items()},
+                  open(os.path.join(out_dir, "row_warnings.json"), "w", encoding="utf-8"),
+                  indent=2, ensure_ascii=False)
 
     equity, mf, exceptions = [], [], []
     for row in raw:
@@ -123,7 +202,11 @@ def intake(holdings_path, profile_path, out_dir):
             exceptions.append({**row, "reason": "value not numeric"})
             continue
         if typ == "MF":
-            mf.append({"name": row.get("name"), "value_inr": val, "units": row.get("units")})
+            # resolve known AMFI scheme renames so this and future clients' holdings
+            # match our fund-quality frameworks on the first pass (see lib/mf_mapping.py)
+            resolved_name = resolve_scheme_rename(row.get("name") or "")
+            mf.append({"name": resolved_name, "raw_name": row.get("name"),
+                       "value_inr": val, "units": row.get("units")})
         else:
             hit, how = _match_equity(row, by_isin, by_name)
             if hit is None:

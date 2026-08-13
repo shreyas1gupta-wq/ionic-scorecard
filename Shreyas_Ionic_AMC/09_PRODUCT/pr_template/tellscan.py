@@ -37,6 +37,9 @@ BUCKETS = {
         "SENTINEL", "QFRA", "MERIT", "pf_qual", "AZBY",
         "quant-only", "analyst view", "Ratified Sell", "Ratified Hold",
         "One-time review", "House decision", "Quant-head research",
+        # stale label class (Talaulikar build, 2026-08-02): "No Recommendation" was the
+        # old label, "No View" is current -- catches regressions to the retired term.
+        "No Recommendation",
     ],
     "DATA_QA_VOCAB": [
         "stale", "does not reconcile", "data feed", "data cut", "quant snapshot",
@@ -51,6 +54,8 @@ BUCKETS = {
     ],
     "GLYPH_HYGIENE": [
         "→", "≤", "≥",  # -> <= >=  (Bahnschrift can't render these)
+        "₹",  # house style is "Rs", not the rupee glyph (Talaulikar build, 2026-08-02:
+              # found scattered across snapshot.py/growth_projection.py/annex_income_ladder.py)
     ],
     "LITERAL_NONE": [
         "None-year", "built not yet", "None%", "+0.0%",

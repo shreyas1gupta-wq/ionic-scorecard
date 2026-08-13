@@ -29,7 +29,7 @@ def render(deck, ctx, tier):
     L = LABELS.get(reg, LABELS["std"])
     eq = ctx["equity"]
     as_of = ctx["client"].get("as_of", "")
-    s = deck.content(2, "Equity", "The book at a glance", L["title"])
+    s = deck.content(3, "The Equity Book", "The book at a glance", L["title"])
     deck.scope_tag(s, f"Direct equity only · as of {as_of}")
 
     deck.txt(s, ML, 1.80, UW, 0.5, [(L["lead"], SERIF, 10.5, SLATE, False, True)], ls=1.05)

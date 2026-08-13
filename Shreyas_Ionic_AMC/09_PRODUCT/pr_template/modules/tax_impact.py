@@ -43,14 +43,26 @@ def render(deck, ctx, tier):
 
     # --- left: fund-action tax table (own scope caption; NOT the chart's numbers) ---
     deck.txt(s, ML, 1.72, 6.95, 0.24, [(L["tcap"].upper(), SANS, 8, SLATE, True, False, 80)])
+    # cap displayed line items (2026-08-01 fix: a real client's 16-fund liquidity/consolidation
+    # sweep no longer fits any legible row height in the fixed table area) — show the largest
+    # MAX_ROWS by amount individually, roll the rest into one disclosed summary row so nothing
+    # is silently dropped from the total.
+    MAX_ROWS = 7
+    fund_rows_all = sorted(tax["fund_rows"], key=lambda r: -r[2])
+    shown, hidden = fund_rows_all[:MAX_ROWS], fund_rows_all[MAX_ROWS:]
+    # total = sum of EVERY row's individually-rounded amount (shown AND hidden), not a
+    # lump-rounded hidden group -- this must match priority_actions.py's fund_sum
+    # digit-for-digit (2026-08-02 fix: the old lump-then-round path printed 63.4L here
+    # vs 63.3L there on the identical 17-action set).
+    total_l = round(sum(round(r[2] / 1e5, 1) for r in fund_rows_all), 1)
     rows = []
-    total_l = 0.0
-    for (action, scheme, amt, holding, character, note) in tax["fund_rows"]:
+    for (action, scheme, amt, holding, character, note) in shown:
         disp, kind = ACT_MAP.get(action, (action.title(), action.title()))
         from slidekit import short_name
         rows.append([("pill", disp, kind), short_name(scheme, 30), _money(amt), character])
-        total_l += round(amt / 1e5, 1)   # total = sum of the DISPLAYED row values,
-    total_l = round(total_l, 1)          # so the printed column visibly adds up
+    if hidden:
+        hidden_l = round(sum(round(r[2] / 1e5, 1) for r in hidden), 1)
+        rows.append(["", f"+ {len(hidden)} more schemes", _money(hidden_l * 1e5), "Mixed"])
     total_disp = f"Rs {total_l/100:.2f} Cr" if total_l >= 100 else f"Rs {total_l:.1f} L"
     rows.append(["", ("b", "Total fund actions"), ("b", total_disp), ""])
     cols = [("Action", 0.16, "l"), ("Scheme", 0.44, "l"), ("Amount", 0.18, "r"), ("Tax character", 0.22, "l")]
@@ -59,7 +71,15 @@ def render(deck, ctx, tier):
     # produce more rows, e.g. 7+1=8 here, which pushed the table past the fixed y=5.5 callouts
     # below; keeping the same target end-y regardless of row count avoids that regardless of how
     # many fund actions a future client's constraint produces).
-    rowh = max(0.30, min(0.42, 3.0 / len(rows)))
+    # 2026-08-02 fix: the budget below is BODY rows only -- deck.table()'s header (header=True
+    # default) consumes its own fixed ~0.33in (label row + rule) on top of len(rows)*rowh, which
+    # this arithmetic never accounted for. A 17-fund book's row count grew enough to push the
+    # real table bottom (0.33 + len(rows)*rowh) past y=5.5 and get visibly clipped by the callout
+    # below it -- invisible to check_geometry2.py (a python-pptx shape-geometry check), only
+    # caught by an actual PowerPoint-rendered visual pass. Budget the header explicitly now.
+    HEADER_H = 0.33
+    BODY_BUDGET = 3.0 - HEADER_H
+    rowh = max(0.26, min(0.42, BODY_BUDGET / len(rows)))
     fs = 9.5 if rowh >= 0.36 else 8.5
     deck.table(s, ML, 2.02, 6.95, cols, rows, rowh=rowh, fs=fs, hfs=8)
 

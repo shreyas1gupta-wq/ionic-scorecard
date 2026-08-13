@@ -28,7 +28,7 @@ def render(deck, ctx, tier):
     as_of = ctx["client"]["as_of"]
     efunds = [f for f in ctx["funds"] if f["category"] in ("equity", "passive")]
     eyebrow, title = LABELS.get(reg, LABELS["std"])
-    s = deck.content(3, "Funds", eyebrow, title)
+    s = deck.content(2, "The Fund Book", eyebrow, title)
     deck.scope_tag(s, f"MF sleeve · equity & index schemes · Direct-plan NAV, each scheme vs its own "
                       f"SEBI category benchmark (TRI) · as of {as_of}")
 

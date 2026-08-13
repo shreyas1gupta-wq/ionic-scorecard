@@ -19,33 +19,54 @@ MODULES = [
     # is True (self-gates, always checked) -- a client with no bespoke IPS agreed yet gets no
     # slide at all rather than a page of TBD/Pending rows (Principal 2026-07-28).
     ("ips_summary",        0, "Understanding", True),
+    # ips_seven_aspects: NEW (FM #5, Principal ruling 2026-08-06) -- the seven standard IPS
+    # aspects (return/risk/liability/liquidity/timelines/tax/unique circumstances). Always
+    # checked; self-degrades to "on file with the advisor" when ctx has no seven_aspects on
+    # file, so a real client without them renders honestly rather than inheriting ABXY's
+    # assumed demo values.
+    ("ips_seven_aspects",  0, "Understanding", True),
     ("exec_summary",       0, "Understanding", True),
     # renders ONLY when the client profile has meeting_history (always checked)
     ("since_last_review",  0, "Understanding", True),
     ("mandate_method",     0, "Understanding", True),
     ("_div1",              1, "Portfolio X-ray", True),
     ("snapshot",           1, "Portfolio X-ray", True),
-    ("allocation_house_view", 1, "Portfolio X-ray", True),
+    # core_satellite: NEW (FM #1, Principal ruling 2026-08-06) -- a guidance READ of core vs
+    # satellite construction against the mandate's own ~70/30 target (explicitly flexible,
+    # never a pass/fail breach test -- see the module docstring). Midcap classifies as Core
+    # per the ruling.
+    ("core_satellite",     1, "Portfolio X-ray", True),
+    # allocation_house_view: RETIRED (Principal, FM #7, 2026-08-06) -- covered by the IPS page
+    # (ips_summary already shows Current-vs-target allocation live). Unwired the same way every
+    # prior CUT module is: core flipped False, absent from every tier's optional_on, so it never
+    # renders while the file stays in the library rather than becoming an orphan reference.
+    ("allocation_house_view", 1, "Portfolio X-ray", False),
     ("concentration_risk", 1, "Portfolio X-ray", True),
     # group_concentration: CUT permanently (Principal 2026-07-27) — module stays in the
     # library, renders nowhere by default.
     ("group_concentration", 1, "Portfolio X-ray", False),
     ("sector_exposure",    1, "Portfolio X-ray", True),
     ("mcap_positioning",   1, "Portfolio X-ray", True),
-    ("_div2",              2, "The Equity Book", True),
-    ("score_method",       2, "The Equity Book", True),
-    ("book_scored",        2, "The Equity Book", True),
-    ("equity_book",        2, "The Equity Book", True),
-    ("sell_list",          2, "The Equity Book", True),
-    ("hold_rationale",     2, "The Equity Book", True),
-    ("_div3",              3, "The Fund Book",  True),
-    ("fund_book_scored",   3, "The Fund Book",  True),
-    ("funds_equity",       3, "The Fund Book",  True),
-    ("funds_hybrid",       3, "The Fund Book",  True),
+    # ---- restructure (FM #11, 2026-08-06): three parts -- portfolio statistics (above), then
+    # MF, then direct equity. Fund Book block now precedes Equity Book block in LIST ORDER
+    # (render order follows list position, sec_no is only a per-page display marker), and
+    # sec_no is swapped 2<->3 to match, because every module's deck.content(sec_no, ...) call
+    # is a literal per file, not derived -- see the section-marker rail top-right of every page
+    # and contents_legend.py's section list, both updated to match.
+    ("_div2",              2, "The Fund Book",  True),
+    # mf_methodology: NEW (FM #12) -- honest description of what covers a fund TODAY and what
+    # is still hand-reviewed (hybrids and debt; neither of the two frameworks is built for them).
+    ("mf_methodology",     2, "The Fund Book",  True),
+    ("fund_book_scored",   2, "The Fund Book",  True),
+    ("funds_equity",       2, "The Fund Book",  True),
+    ("funds_hybrid",       2, "The Fund Book",  True),
+    # funds_debt: NEW (FM #22) -- YTM / modified duration / expense / rating for debt-category
+    # funds. Self-gates to 0 slides when the book holds none (common, not an error).
+    ("funds_debt",         2, "The Fund Book",  True),
     # fund_category_rules ("Category & structure · preference rules"): CUT 2026-07-28
     # (Principal, permanent, all tiers) -- superseded the 2026-07-25 ruling that its AMC-
     # concentration strip specifically should stay; the whole module is out now.
-    ("fund_category_rules", 3, "The Fund Book", False),
+    ("fund_category_rules", 2, "The Fund Book", False),
     # fund_quality_alloc: PARKED per Principal 2026-07-25 (quadrant graph cut; MF calls come from
     # the desk's own framework, not this deck) — module kept in the library, rendered nowhere.
     ("fund_quality_alloc", 5, "Annexure",       False),
@@ -53,13 +74,19 @@ MODULES = [
     # fund_actions as a replacement suggestion, e.g. index-sleeve route; module stays in
     # the library, renders nowhere by default).
     ("fund_overlap",       5, "Annexure",       False),
-    # scheme_overlap_full ("fund overlap"): RESTORED 2026-07-28 -- an earlier same-day cut was
-    # based on a mis-identified "page 26" (the Principal actually meant fund_category_rules,
-    # above); back in its 2026-07-27 position (main Fund Book section, supporting evidence for
-    # fund_actions). The hash-fabricated-score concern from the audit still stands and is worth
-    # a separate look, but was not what this specific cut instruction was about.
-    ("scheme_overlap_full", 3, "The Fund Book", False),
-    ("fund_actions",       3, "The Fund Book",  True),
+    # scheme_correlation: NEW (FM #24, Principal ruling 2026-08-06) -- "correlation REPLACES
+    # overlap." Takes scheme_overlap_full's former slot and former on/off profile exactly:
+    # real, NAV-history-derived pairwise correlation between the top funds by weight, main
+    # Fund Book section. See the module docstring for why holdings-level overlap cannot be
+    # honestly computed from ACE data at all (sector percentages, not a security list).
+    ("scheme_correlation", 2, "The Fund Book", False),
+    ("fund_actions",       2, "The Fund Book",  True),
+    ("_div3",              3, "The Equity Book", True),
+    ("score_method",       3, "The Equity Book", True),
+    ("book_scored",        3, "The Equity Book", True),
+    ("equity_book",        3, "The Equity Book", True),
+    ("sell_list",          3, "The Equity Book", True),
+    ("hold_rationale",     3, "The Equity Book", True),
     ("_div4",              4, "Recommendations", True),
     ("house_view_fit",     4, "Recommendations", True),
     # cost: CUT permanently (Principal 2026-07-27) — module stays in the library, renders
@@ -96,6 +123,13 @@ MODULES = [
     ("annex_valuation_bands", 5, "Annexure",    False),
     ("annex_returns_quilt", 5, "Annexure",      False),
     ("annex_correlation",  5, "Annexure",       False),
+    # scheme_overlap_full: MOVED here from "The Fund Book" main section (Principal ruling
+    # 2026-08-06, FM #24) -- scheme_correlation.py (above, main Fund Book section) replaced it
+    # as the default page. This illustrative fund-vs-fund overlap estimate stays in the
+    # library, available on request ("add overlap in annexure if needed"), off by default in
+    # every tier -- see the module docstring for why it can never become a real number from
+    # data ACE provides today.
+    ("scheme_overlap_full", 5, "Annexure",      False),
     ("annex_risk_contribution", 5, "Annexure",  False),
     # annex_stress_scenarios.py DELETED outright 2026-07-28 (not just parked): its TODAY/PROP
     # drawdown arrays were hardcoded constants shown as if computed, AND structurally biased
@@ -122,15 +156,17 @@ MODULES = [
 # divider mini-TOC labels (v7 device: each section divider carries a muted local
 # contents list, bottom-left). Filtered to what the tier actually renders, max 5.
 DIVIDER_TOC = {
-    1: [("snapshot", "Portfolio snapshot"), ("allocation_house_view", "Allocation vs house view"),
+    1: [("snapshot", "Portfolio snapshot"), ("core_satellite", "Core vs satellite"),
         ("concentration_risk", "Concentration risk"), ("sector_exposure", "Sector exposure"),
         ("mcap_positioning", "Market-cap positioning")],
-    2: [("score_method", "How we score every stock"), ("book_scored", "The book, scored"),
+    # restructure (FM #11): Fund Book is section 2, Equity Book is section 3 -- swapped from
+    # the original numbering, matching MODULES list order above.
+    2: [("mf_methodology", "How we assess every fund"), ("fund_book_scored", "The fund book, scored"),
+        ("funds_equity", "Equity funds vs benchmark"), ("funds_hybrid", "Hybrid funds"),
+        ("funds_debt", "Debt funds")],
+    3: [("score_method", "How we score every stock"), ("book_scored", "The book, scored"),
         ("equity_book", "The book at a glance"), ("sell_list", "What we would sell"),
         ("hold_rationale", "What stays, and why")],
-    3: [("fund_book_scored", "The fund book, scored"), ("funds_equity", "Equity funds vs benchmark"),
-        ("funds_hybrid", "Hybrid funds"), ("scheme_overlap_full", "Fund overlap & redundancy"),
-        ("fund_actions", "Fund actions")],
     4: [("house_view_fit", "House-view fit"), ("cost", "What you're paying today"),
         ("tax_impact", "Tax impact"), ("priority_actions", "Your priority actions")],
     5: [("deployment", "Transition framework"), ("before_after", "Before and after"),
@@ -186,8 +222,8 @@ def build(ctx, tier_name, verbose=True):
         if mod_id.startswith("_div"):
             # section divider — skip empty sections for light tiers handled implicitly
             titles = {1: ("Portfolio X-ray", "Where the book stands today"),
-                      2: ("The Equity Book", "Every direct holding, scored and read"),
-                      3: ("The Fund Book", "Upside, downside and consistency — not just returns"),
+                      2: ("The Fund Book", "Upside, downside and consistency — not just returns"),
+                      3: ("The Equity Book", "Every direct holding, scored and read"),
                       4: ("What We Would Do", "The calls, the cost and the tax"),
                       5: ("Annexure", "Detail and frameworks, on request")}
             t, sub = titles.get(sec_no, (sec_name, ""))

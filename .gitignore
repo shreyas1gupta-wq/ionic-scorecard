@@ -39,12 +39,38 @@ Strategy_Results/
 *.jsonl
 scrip_master.json
 
+# --- FINAL SCORE + GRADE OUTPUTS: DELIBERATELY IN GIT (Principal, 2026-08-07) ---
+# `*.csv` above excludes everything by default, which is right for working files but wrong for the
+# finished scores. Anyone handed the SG_NDPMS_TEMP1 skill must get the stock scores and the MF grades
+# WITHOUT re-running the pipeline -- that was the whole point of the handover. These are outputs, not
+# inputs: small (~1.6 MB total), regenerated on the Apr/Oct cadence, and useless to recompute by hand.
+# Negations must be listed file by file; a blanket `!*.csv` would drag every working file back in.
+!Shreyas_Ionic_AMC/04_RND_LAB/STOCK_SCORECARD_750/results/full750_scored.csv
+!Shreyas_Ionic_AMC/04_RND_LAB/STOCK_SCORECARD_750/results/full750_scored_v3.csv
+!Shreyas_Ionic_AMC/04_RND_LAB/STOCK_SCORECARD_750/results/portfolio_quant.csv
+!Shreyas_Ionic_AMC/04_RND_LAB/STOCK_SCORECARD_750/results/EARNINGS_QUALITY.csv
+!Shreyas_Ionic_AMC/03_RESEARCH_DESK/MF_RECOMMENDATIONS/**/QFRA1_all_categories.csv
+!Shreyas_Ionic_AMC/03_RESEARCH_DESK/MF_RECOMMENDATIONS/**/QFRA2_verdicts.csv
+!Shreyas_Ionic_AMC/03_RESEARCH_DESK/MF_RECOMMENDATIONS/**/QFRA2_current_asof_*.csv
+# Still excluded on purpose -- the WORKING data behind those scores, which nobody should need:
+#   datasets/screener_deep/*.parquet   raw financials  |  ALPHA_RANKER/data/prices/  price panels
+#   MF_RECOMMENDATIONS/**/fund_daily.csv, bench.csv, codes.csv, wb_tail.csv, results_asof_*.csv
+# Consequence, stated so it is not a surprise: with the scores but not the working data you can BUILD
+# decks and READ scores, but you cannot RE-RUN the scoring chain (it needs the screener parquets and
+# the price panel) or any backtest. Ask the Principal if you need to regenerate rather than consume.
+
 # --- OS noise ---
 Thumbs.db
 desktop.ini
 ~$*
 
 Shreyas_Ionic_AMC/05_DATA_OFFICE/data/
+# ...except the ISIN master. It is the ONLY exact join key between a client's holdings file (CAS
+# statements carry ISINs, not our symbols) and the scored universe. Without it shipped, client_intake
+# falls back to name-prefix guessing -- the banned fuzzy match -- and a fresh model book comes back
+# entirely unmatched with every score blank. It is 2,404 rows of public NSE reference data, no PII.
+!Shreyas_Ionic_AMC/05_DATA_OFFICE/data/
+!Shreyas_Ionic_AMC/05_DATA_OFFICE/data/isin_master.csv
 
 # --- Client PII guard (D-039-era PR decks; QA-flagged 2026-07-21) ---
 # Client-specific portfolio-review artifacts must never be committed (name + folio PII)

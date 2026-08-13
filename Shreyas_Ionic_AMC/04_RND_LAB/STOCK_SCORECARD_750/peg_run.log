@@ -1,0 +1,72 @@
+loading ...
+  2023-03-31: n=414  PEG excluded (growth<=0 or no P/E): 118 (29%)
+  2023-09-30: n=420  PEG excluded (growth<=0 or no P/E): 119 (28%)
+  2024-03-31: n=437  PEG excluded (growth<=0 or no P/E): 131 (30%)
+  2024-09-30: n=438  PEG excluded (growth<=0 or no P/E): 132 (30%)
+  2025-03-31: n=447  PEG excluded (growth<=0 or no P/E): 140 (31%)
+
+pooled 2156 obs, 5 formations
+PEG available on 1516 of 2156 (70%)
+
+=== 1. PEG profile of the EXISTING deciles ===
+       n  fwd_trim5  value_pillar  pe_med  eps_gr_med  peg_med  peg_lt1_pct
+dec                                                                        
+1    217       12.5          31.0    68.9       -10.8     2.22          9.0
+2    216       16.7          37.6    56.5         0.4     2.43         11.0
+3    214       19.5          42.8    44.8        11.4     1.94         16.0
+4    216       13.7          44.2    48.1         9.9     2.95         12.0
+5    216       11.8          48.8    41.5        14.3     2.04         20.0
+6    214        8.7          49.7    38.3        17.9     1.84         23.0
+7    216       17.0          53.9    32.1        16.7     1.64         27.0
+8    214       23.6          58.5    29.5        20.7     1.30         36.0
+9    216       17.1          64.2    24.8        26.0     0.81         48.0
+10   217       22.1          76.6    12.9        32.2     0.41         68.0
+
+=== 2. deciles ranked on PEG alone (1 = cheapest PEG) ===
+           n  peg_med  fwd_trim5
+peg_dec                         
+1        152     0.09       28.5
+2        152     0.27       27.6
+3        151     0.49       22.2
+4        152     0.85       33.5
+5        151     1.24       16.8
+6        152     1.66       10.5
+7        151     2.31        5.6
+8        152     3.36        7.5
+9        151     5.16        9.3
+10       152    13.89        9.8
+
+=== 3. Value pillar: P/E versus PEG, same weights, same four pillars ===
+
+  P/E-based (control): n=2156
+   dd
+   1     12.0
+   2     20.6
+   3     11.9
+   4     14.0
+   5     11.0
+   6     17.3
+   7      8.4
+   8     21.7
+   9     17.3
+   10    26.5
+    D10-D1 = +14.50pp   IC = +0.0636   monotonic = False   mid-decile dip = -6.37pp
+
+  PEG-based: n=2156
+   dd
+   1     17.2
+   2     13.6
+   3     13.7
+   4     14.4
+   5     14.7
+   6     11.7
+   7     20.6
+   8     20.3
+   9     14.9
+   10    20.6
+    D10-D1 = +3.40pp   IC = +0.0515   monotonic = False   mid-decile dip = -0.78pp
+
+=== VERDICT ===
+  spread   : P/E +14.50pp   ->   PEG +3.40pp   (-11.10pp)
+  IC       : P/E +0.0636   ->   PEG +0.0515
+  mid dip  : P/E -6.37pp  ->   PEG -0.78pp   (less negative = flatter, U-shape reduced)

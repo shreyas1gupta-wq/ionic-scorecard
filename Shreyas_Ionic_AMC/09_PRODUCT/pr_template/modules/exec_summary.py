@@ -30,6 +30,12 @@ def render(deck, ctx, tier):
     n_fund_act = sum(1 for f in ctx["funds"] if f["action"] not in ("HOLD", "Hold"))
     n_switch = sum(1 for f in ctx["funds"] if f["action"].upper() == "SWITCH")
     has_redeem = any(f["action"].upper() == "REDEEM" for f in ctx["funds"])
+    # not every fund action is purely structural -- at least one (2026-08-02) is also an
+    # independent quality-framework flag; don't claim "none for performance" if that's false
+    n_fund_perf_flag = sum(1 for f in ctx["funds"]
+                            if f["action"] not in ("HOLD", "Hold")
+                            and f.get("qfra") is not None and f.get("qfra") < 40)
+    all_structural = n_fund_perf_flag == 0
     # a 0-count "gap" isn't a gap to flag in a "things that need attention" list -- if this
     # book has fund actions but none of them are SWITCH specifically (e.g. all Exit), name
     # what's actually happening instead of a fabricated zero-count line item
@@ -37,6 +43,13 @@ def render(deck, ctx, tier):
     reg_drag = ctx["cost"]["reg_drag_inr"]
     foreign_gap = abs(hv.get("Foreign", -12.0))
     cap = ips["single_name_cap_pct"]
+    # concentration row must be computed, not fabricated (2026-08-02 fix: a hardcoded
+    # ">11%" breach claim survived from an earlier client's numbers -- this book's real
+    # top-2 direct-equity weight is well inside the cap, with zero names over it)
+    eq_sorted = sorted(ctx["equity"], key=lambda e: -(e.get("weight_pct") or 0))
+    top2_pct = sum(e.get("weight_pct") or 0 for e in eq_sorted[:2])
+    breach_names = [e for e in ctx["equity"] if (e.get("weight_pct") or 0) > cap]
+    has_breach = len(breach_names) > 0
     # no bespoke IPS -> don't claim a foreign-allocation target or house "plan" that was
     # never agreed with this client; and a real reg_drag of 0 (every fund already Direct)
     # is a fee non-issue, not a "Rs 0k/yr avoidable fee" to report as if it were a gap
@@ -85,12 +98,19 @@ def render(deck, ctx, tier):
              ("c", "Switch to an index/factor fund and a Flexi-Cap.", NAVY), "03 · Funds"]
             if show_switch_row else
             [("b", "Fund line-up"),
-             f"{n_fund_act} funds exit for structural reasons (overlap, consolidation) — none for performance.",
+             (f"{n_fund_act} funds exit for structural reasons (overlap, consolidation) — none for performance."
+              if all_structural else
+              f"{n_fund_act} funds exit, mostly structural (overlap, consolidation); {n_fund_perf_flag} also flagged on quality."),
              ("c", "See the fund actions detail for the reasoning on each.", NAVY), "03 · Funds"])
+        conc_row = ([("b", "Too concentrated"),
+             f"{len(breach_names)} share(s) sit above our {cap:.0f}% single-name cap.",
+             ("c", "These are addressed in the sell/trim list.", NAVY), "01 · X-ray"]
+            if has_breach else
+            [("b", "Concentration"),
+             f"Your 2 biggest shares are {top2_pct:.1f}% combined — comfortably inside the {cap:.0f}% single-name cap.",
+             ("c", "No action needed; monitored each review.", NAVY), "01 · X-ray"])
         rows = [
-            [("b", "Too concentrated"),
-             f"Your 2 biggest shares are over 11%; our guideline caps any one at {cap:.0f}%.",
-             ("c", "One exits via the sell list; the other is reduced slowly.", NAVY), "01 · X-ray"],
+            conc_row,
             [("b", "Weak holdings"),
              f"{t['n_sell']} shares score in the Sell zone.",
              ("c", "Sell all of them, in a planned order.", NAVY), "02 · Equity"],
@@ -119,12 +139,19 @@ def render(deck, ctx, tier):
              ("c", "Switch to passive-LC / factor + a Flexi-Cap.", NAVY), "03 · Funds"]
             if show_switch_row else
             [("b", "Fund structure"),
-             f"{n_fund_act} schemes exit for structural reasons (overlap, consolidation), not performance.",
+             (f"{n_fund_act} schemes exit for structural reasons (overlap, consolidation), not performance."
+              if all_structural else
+              f"{n_fund_act} schemes exit, mostly structural (overlap, consolidation); {n_fund_perf_flag} also independently flagged on quality."),
              ("c", "See the fund actions detail for the reasoning on each.", NAVY), "03 · Funds"])
-        rows = [
+        conc_row = ([("b", "Concentration"),
+             f"{len(breach_names)} name(s) sit above our {cap:.0f}% single-name cap.",
+             ("c", "Addressed in the sell/trim programme.", NAVY), "01 · X-ray"]
+            if has_breach else
             [("b", "Concentration"),
-             f"Top-2 names each >11%; our guideline caps a single name at {cap:.0f}%.",
-             ("c", "One exits via the sell programme; the other trims toward the cap.", NAVY), "01 · X-ray"],
+             f"Top-2 direct holdings are {top2_pct:.1f}% combined — comfortably inside the {cap:.0f}% single-name cap.",
+             ("c", "No action needed; monitored each review.", NAVY), "01 · X-ray"])
+        rows = [
+            conc_row,
             [("b", "Sell programme"),
              f"{t['n_sell']} direct holdings score in the Sell band (<40).",
              ("c", "Exit all {n}, sliced by liquidity.".format(n=t["n_sell"]), NAVY), "02 · Equity"],

@@ -50,7 +50,7 @@ def render(deck, ctx, tier):
     deck.pic(s, png, ML, 1.85, 6.9, 4.5, valign="top")
 
     tx = 7.95; tw = RX - tx
-    deck.kpi_strip(s, [(f"₹{total / 1e5:.1f} L", "est. annual dividends"),
+    deck.kpi_strip(s, [(f"Rs {total / 1e5:.1f} L", "est. annual dividends"),
                        (f"{blend:.1f}%", "blended equity yield")], y=1.95, x=tx, w=tw)
 
     body1 = (f"{labels[0]} and {labels[1]} pay about {top_share:.0f}% of the book's cash income; "

@@ -1,0 +1,53 @@
+formations: 906 across 6 categories, 2012-01..2024-07   (must reconcile with the 2026-07-26 run: 906)
+
+============================================================================================================
+ALL CATEGORIES POOLED - fwd 6M excess vs category benchmark (%)
+============================================================================================================
+   pair   n  buy_med  buy_mean  buy_trim  buy_hit  sell_med  sell_mean  sell_trim  sell_hit
+Apr/Oct 150     2.59      2.62      2.59    66.00     -0.57      -0.13      -0.22     49.33
+Feb/Aug 150     2.34      1.99      2.04    58.00     -0.19      -0.07      -0.16     44.67
+Jun/Dec 150     2.22      2.65      2.34    66.00     -0.09       0.22       0.04     47.33
+May/Nov 150     1.94      1.94      1.98    58.00     -0.00       0.30       0.17     45.33
+Mar/Sep 150     1.82      2.08      2.10    54.67      0.15      -0.41       0.04     45.33
+Jan/Jul 156     1.31      2.20      1.77    57.69      0.02       0.32       0.12     44.87
+
+spread (BUY minus SELL cohort):
+   pair  spr_med  spr_mean  spr_trim
+Apr/Oct     2.31      2.50      2.43
+Feb/Aug     2.23      1.94      2.09
+Jun/Dec     2.13      2.63      2.42
+May/Nov     1.38      1.57      1.27
+Mar/Sep     1.90      2.15      1.78
+Jan/Jul     1.77      2.14      1.88
+
+============================================================================================================
+SMALLCAP ONLY - fwd 6M excess vs NIFTY SMALLCAP 250 (%)
+============================================================================================================
+   pair  n  buy_med  buy_mean  buy_trim  buy_hit  sell_med  sell_mean  sell_trim  sell_hit
+Mar/Sep 25     3.94      2.72      3.19    68.00     -0.47      -2.15      -1.06     44.00
+Feb/Aug 25     3.77      3.05      3.28    72.00      0.58      -0.30      -0.17     32.00
+Apr/Oct 25     3.49      2.80      2.91    72.00     -1.05      -0.92      -1.72     44.00
+May/Nov 25     3.45      2.08      2.55    68.00      0.48       0.58       0.24     36.00
+Jun/Dec 25     3.34      2.98      3.23    76.00      0.44       1.26       0.55     36.00
+Jan/Jul 26     1.08      2.21      1.99    69.23      0.09       1.33       0.86     38.46
+
+============================================================================================================
+APR/OCT ISOLATED  (anchor = month-END close: 30-Apr / 31-Oct)
+============================================================================================================
+             pair   n  buy_med  buy_mean  buy_trim  buy_hit  sell_med  sell_mean  sell_trim  sell_hit
+Apr/Oct  ALL CATS 150     2.59      2.62      2.59     66.0     -0.57      -0.13      -0.22     49.33
+Apr/Oct  SMALLCAP  25     3.49      2.80      2.91     72.0     -1.05      -0.92      -1.72     44.00
+Jun/Dec  SMALLCAP  25     3.34      2.98      3.23     76.0      0.44       1.26       0.55     36.00
+
+Apr/Oct BUY cohort by category (untrimmed mean vs trimmed vs median):
+     cat  n  med  mean  trim  hit
+   small 25 3.49  2.80  2.91 72.0
+   flexi 25 2.61  2.98  3.00 84.0
+   large 25 3.32  2.89  2.96 52.0
+largemid 25 0.66  1.04  0.60 68.0
+     mid 25 3.48  3.24  3.26 56.0
+   multi 25 3.12  3.22  3.07 64.0
+
+wrote C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\.claude\worktrees\sweet-austin-283067\Shreyas_Ionic_AMC\04_RND_LAB\STOCK_SCORECARD_750\results\anchor_pair_study\ANCHOR_PAIR_EXT.csv
+
+legend: med/mean/trim = median / PLAIN UNTRIMMED mean / 10% trimmed mean of each formation's cohort-average forward 6M excess. buy_hit = % of formations with positive BUY excess. sell_hit = % of formations where the SELL cohort went on to UNDERPERFORM (higher = the sell call worked more often).

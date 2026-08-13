@@ -17,10 +17,15 @@ def _one(deck, e, tier):
     px, py, pw, ph = ML, 1.95, 3.5, 3.7
     deck.rect(s, px, py, pw, ph, fill=PANEL, line=HAIR, round_=0.03)
     deck.txt(s, px + 0.25, py + 0.22, pw - 0.5, 0.22, [("IONIC SCORE", SANS, 8.5, SLATE, True, False, 140)])
-    deck.txt(s, px + 0.22, py + 0.44, pw - 0.5, 0.8, [(f"{e['ionic_score']:.0f}", SANS, 52, INK, False)])
-    deck.score_bar(s, px + 0.28, py + 1.42, e["ionic_score"], w=2.3)
+    _sc = e.get("ionic_score")
+    _sc_txt = f"{_sc:.0f}" if _sc is not None else "-"
+    _s3 = e.get("score_3y")
+    _s1 = e.get("score_1y")
+    _sub = f"3Y {_s3:.0f}   ·   1Y {_s1:.0f}" if _s3 is not None and _s1 is not None else "Pending scoring"
+    deck.txt(s, px + 0.22, py + 0.44, pw - 0.5, 0.8, [(_sc_txt, SANS, 52, INK, False)])
+    deck.score_bar(s, px + 0.28, py + 1.42, _sc, w=2.3)
     deck.txt(s, px + 0.25, py + 1.72, pw - 0.5, 0.22,
-             [(f"3Y {e['score_3y']:.0f}   ·   1Y {e['score_1y']:.0f}", SANS, 10, SLATE, False)])
+             [(_sub, SANS, 10, SLATE, False)])
     deck.pill(s, px + 0.25, py + 2.15, e["rec"], w=1.3, kind=e["rec"])
     deck.txt(s, px + 0.25, py + 2.6, pw - 0.5, 0.7,
              [(f"{e['mcap_band']}-cap   ·   {e['conviction']}", SANS, 9.5, SLATE, False)])

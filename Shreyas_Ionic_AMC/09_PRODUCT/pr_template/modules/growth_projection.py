@@ -65,13 +65,13 @@ def render(deck, ctx, tier):
     rx = ML + 8.15
     rw = RX - rx
     if reg == "simple":
-        b1 = (f"Starting from ₹{v0 / 1e7:.2f} Cr, this shows a possible range over {years} years at "
+        b1 = (f"Starting from Rs {v0 / 1e7:.2f} Cr, this shows a possible range over {years} years at "
               f"{mu}% a year — worked out from this book's own holdings, not a fixed guess. "
               f"It is an illustration, not a promise.")
         b2 = ("Markets do not move in a straight line, the shaded band shows the good and bad cases "
               "around the middle line.")
     else:
-        b1 = (f"Median path from ₹{v0 / 1e7:.2f} Cr at {mu}% p.a. and {sigma}% volatility over "
+        b1 = (f"Median path from Rs {v0 / 1e7:.2f} Cr at {mu}% p.a. and {sigma}% volatility over "
               f"{years} years — derived from this book's own holdings-weighted growth and fund "
               f"track record, not a fixed assumption. The dashed line is an illustrative wealth goal.")
         b2 = ("Read the band, not the line: the shaded area is the 10th-to-90th-percentile range. "
