@@ -1,0 +1,24 @@
+[load] 1-min -> 15-min
+       15-min bars 69,848  2015-01-09 09:15:00 .. 2026-05-14 15:15:00
+[formations] BULL_ENGULF:3794, BEAR_ENGULF:3905, HAMMER:6541, SHOOTING_STAR:5475, MARUBOZU_BULL:4628, MARUBOZU_BEAR:4236, PIERCING:1705, DARK_CLOUD:1600, THREE_SOLDIERS:8172, THREE_CROWS:7397, MORNING_STAR:5440, EVENING_STAR:5271, TWEEZER_BOTTOM:4393, TWEEZER_TOP:5100, INSIDE_BREAK_UP:3006, INSIDE_BREAK_DN:2850
+
+[sweep] 16 formations x 6 filters x 5 exits = 480 cells; Bonferroni bar t~3.8
+  BULL_ENGULF      cells so far 30
+  BEAR_ENGULF      cells so far 60
+  HAMMER           cells so far 90
+  SHOOTING_STAR    cells so far 120
+  MARUBOZU_BULL    cells so far 150
+  MARUBOZU_BEAR    cells so far 180
+  PIERCING         cells so far 210
+  DARK_CLOUD       cells so far 240
+  THREE_SOLDIERS   cells so far 270
+  THREE_CROWS      cells so far 300
+  MORNING_STAR     cells so far 330
+  EVENING_STAR     cells so far 360
+  TWEEZER_BOTTOM   cells so far 390
+  TWEEZER_TOP      cells so far 420
+  INSIDE_BREAK_UP  cells so far 450
+  INSIDE_BREAK_DN  cells so far 480
+
+[done] 480 scored cells -> cells.csv
+wrote meta.json + trades.pkl

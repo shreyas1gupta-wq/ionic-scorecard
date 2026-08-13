@@ -1,0 +1,31 @@
+[spot] 477,738 bars 2021-05-24 09:07:00..2026-06-03 15:30:00
+[signals] ['sweep_priorday_reclaim', 'sweep_intraday_continue', 'volbrk_orb_volfilter', 'trend_ema_cross', 'trend_breakout20', 'trend_bigday']
+  sweep_priorday_reclaim: n=1790
+  sweep_intraday_continue: n=5790
+  volbrk_orb_volfilter: n=1063
+  trend_ema_cross: n=24
+  trend_breakout20: n=120
+  trend_bigday: n=68
+
+[phase 1/2] discovering every (exp,strike,otype) the grid will need (no disk I/O yet)...
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+[phase 1/2] 9,381 unique (exp,strike,otype) legs across 261 expiries -- 53s elapsed
+
+[phase 2/2] preloading -- each expiry file read exactly once...
+[preload] 261 expiries needed, 214 not yet cached on disk from a prior run
+  [preload] batch batch0 exit=1 stderr_tail=Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\array_algos\take.py", line 155, in _take_nd_ndarray
+    out = np.empty(out_shape, dtype=dtype)
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 1.63 MiB for an array with shape (2, 106587) and data type float64
+
+  [preload/batch] 1/36 chunks (11s)
+  [preload] batch batch10 exit=1 stderr_tail=dex.pyx", line 374, in pandas._libs.index.IndexEngine.get_indexer
+  File "pandas/_libs/hashtable_class_helper.pxi", line 2928, in pandas._libs.hashtable.Int64HashTable.lookup
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 3.86 MiB for an array with shape (505726,) and data type int64
+
+  [preload/batch] 11/36 chunks (140s)
+  [preload] batch batch16 exit=1 stderr_tail=", line 5219, in pandas._libs.hashtable.Int32HashTable.factorize
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5054, in pandas._libs.hashtable.Int32HashTable._unique
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 1.86 MiB for an array with shape (243716,) and data type int64
+
+  [preload/batch] 21/36 chunks (280s)

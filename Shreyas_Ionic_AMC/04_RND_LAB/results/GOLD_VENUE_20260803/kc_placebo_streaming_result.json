@@ -1,0 +1,16 @@
+{
+  "trigger": "KC_WIDTH_PCTL",
+  "best_rr": 8.0,
+  "obs_proxy_col": "r_eod",
+  "n_entries": 1661,
+  "n_real_resolved": 1661,
+  "obs_proxy_mean_pct": 0.029,
+  "n_placebo_reps_used": 150,
+  "placebo_mean_pct": -0.0002,
+  "placebo_p": 0.0467,
+  "n_bench_reps_used": 150,
+  "unconditional_bench_mean_pct": 0.0023,
+  "beats_unconditional_bench_p": 0.0667,
+  "verdict": "DEAD (beta -- no better than unconditional benchmark)",
+  "method_note": "year-batched streaming recovery, 2026-08-03: gl.load_gold_ist()'s full concat OOM'd then SIGSEGV'd under live memory pressure; this recomputes the identical r_eod/placebo/unconditional_benchmark formula and RNG seed (20260803) one year file at a time, never materialising the full frame"
+}

@@ -1,0 +1,591 @@
+PASS 2023-06-08
+PASS 2021-05-27
+PASS 2023-06-15
+PASS 2021-06-03
+PASS 2023-06-22
+PASS 2021-06-10
+PASS 2023-06-28
+PASS 2021-06-17
+PASS 2023-07-06
+PASS 2021-06-24
+PASS 2023-07-13
+PASS 2021-07-01
+PASS 2021-07-08
+PASS 2023-07-20
+PASS 2021-07-15
+PASS 2023-07-27
+PASS 2021-07-22
+PASS 2023-08-03
+PASS 2021-07-29
+PASS 2023-08-10
+PASS 2021-08-05
+PASS 2023-08-17
+PASS 2021-08-12
+PASS 2023-08-24
+PASS 2021-08-18
+PASS 2023-08-31
+PASS 2021-08-26
+PASS 2023-09-07
+PASS 2021-09-02
+PASS 2023-09-14
+PASS 2021-09-09
+PASS 2023-09-21
+PASS 2021-09-16
+PASS 2023-09-28
+PASS 2021-09-23
+PASS 2023-10-05
+PASS 2021-09-30
+PASS 2023-10-12
+PASS 2021-10-07
+PASS 2023-10-19
+PASS 2021-10-14
+PASS 2023-10-26
+PASS 2021-10-21
+PASS 2023-11-02
+PASS 2021-10-28
+PASS 2023-11-09
+PASS 2021-11-11
+PASS 2023-11-16
+PASS 2021-11-18
+PASS 2023-11-23
+PASS 2021-11-25
+PASS 2023-11-30
+PASS 2021-12-02
+PASS 2023-12-07
+PASS 2021-12-09
+PASS 2021-12-16
+PASS 2023-12-14
+PASS 2021-12-23
+PASS 2023-12-21
+PASS 2021-12-30
+PASS 2023-12-28
+PASS 2022-01-06
+PASS 2024-01-04
+FAIL 2022-01-13 code=1 out=[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+Traceback (most recent call last):
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\VOL_SELLING_BENCHMARK_20260729\probe_one.py", line 7, in <module>
+    df = chain.load_expiry(exp)
+  File "c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\intraday_options_strategy\buying\chain.py", line 69, in load_expiry
+    df = df.drop_duplicates(["t", "strike", "option_type"])
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\frame.py", line 7953, in drop_duplicates
+    result = self[-self.duplicated(subset, keep=keep)]
+                   ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\frame.py", line 8091, in duplicated
+    labels, shape = map(list, zip(*map(f, vals), strict=True))
+                              ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\frame.py", line 8063, in f
+    labels, shape = algorithms.factorize(vals, size_hint=len(self))
+                    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\algorithms.py", line 821, in factorize
+    codes, uniques = factorize_array(
+                     ~~~~~~~~~~~~~~~^
+        values,
+        ^^^^^^^
+        use_na_sentinel=use_na_sentinel,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        size_hint=size_hint,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\algorithms.py", line 637, in factorize_array
+    uniques, codes = table.factorize(
+                     ~~~~~~~~~~~~~~~^
+        values,
+        ^^^^^^^
+    ...<3 lines>...
+        ignore_na=use_na_sentinel,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5219, in pandas._libs.hashtable.Int32HashTable.factorize
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5054, in pandas._libs.hashtable.Int32HashTable._unique
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 3.86 MiB for an array with shape (505553,) and data type int64
+PASS 2024-01-11
+PASS 2022-01-20
+PASS 2024-01-18
+PASS 2022-01-27
+PASS 2024-01-25
+PASS 2022-02-03
+PASS 2024-02-01
+PASS 2022-02-10
+PASS 2024-02-08
+PASS 2022-02-17
+PASS 2024-02-15
+PASS 2022-02-24
+PASS 2024-02-22
+PASS 2022-03-03
+PASS 2024-02-29
+PASS 2022-03-10
+PASS 2024-03-07
+PASS 2022-03-17
+PASS 2024-03-14
+PASS 2022-03-24
+PASS 2024-03-21
+PASS 2022-03-31
+PASS 2024-03-28
+PASS 2022-04-07
+PASS 2024-04-04
+PASS 2022-04-13
+PASS 2024-04-10
+PASS 2022-04-21
+PASS 2024-04-18
+PASS 2022-04-28
+PASS 2024-04-25
+PASS 2022-05-05
+PASS 2024-05-02
+PASS 2022-05-12
+PASS 2024-05-09
+PASS 2022-05-19
+PASS 2022-05-26
+PASS 2024-05-16
+PASS 2024-05-23
+PASS 2022-06-02
+PASS 2022-06-09
+PASS 2024-05-30
+PASS 2022-06-16
+PASS 2024-06-06
+PASS 2024-06-13
+PASS 2022-06-23
+PASS 2022-06-30
+PASS 2024-06-20
+PASS 2022-07-07
+PASS 2024-06-27
+PASS 2022-07-14
+PASS 2024-07-04
+PASS 2022-07-21
+PASS 2024-07-11
+PASS 2022-07-28
+PASS 2024-07-18
+PASS 2022-08-04
+PASS 2024-07-25
+PASS 2022-08-11
+PASS 2024-08-01
+PASS 2022-08-18
+PASS 2024-08-08
+PASS 2022-08-25
+PASS 2024-08-14
+PASS 2022-09-01
+PASS 2024-08-22
+PASS 2022-09-08
+FAIL 2024-08-29 code=1 out=[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+Traceback (most recent call last):
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\VOL_SELLING_BENCHMARK_20260729\probe_one.py", line 7, in <module>
+    df = chain.load_expiry(exp)
+  File "c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\intraday_options_strategy\buying\chain.py", line 69, in load_expiry
+    df = df.drop_duplicates(["t", "strike", "option_type"])
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\frame.py", line 7953, in drop_duplicates
+    result = self[-self.duplicated(subset, keep=keep)]
+                   ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\frame.py", line 8091, in duplicated
+    labels, shape = map(list, zip(*map(f, vals), strict=True))
+                              ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\frame.py", line 8063, in f
+    labels, shape = algorithms.factorize(vals, size_hint=len(self))
+                    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\algorithms.py", line 821, in factorize
+    codes, uniques = factorize_array(
+                     ~~~~~~~~~~~~~~~^
+        values,
+        ^^^^^^^
+        use_na_sentinel=use_na_sentinel,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        size_hint=size_hint,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\algorithms.py", line 637, in factorize_array
+    uniques, codes = table.factorize(
+                     ~~~~~~~~~~~~~~~^
+        values,
+        ^^^^^^^
+    ...<3 lines>...
+        ignore_na=use_na_sentinel,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5219, in pandas._libs.hashtable.Int32HashTable.factorize
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5054, in pandas._libs.hashtable.Int32HashTable._unique
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 3.22 MiB for an array with shape (421679,) and data type int64
+PASS 2022-09-15
+PASS 2024-09-05
+PASS 2022-09-22
+PASS 2024-09-12
+PASS 2022-09-29
+PASS 2024-09-19
+PASS 2022-10-06
+PASS 2024-09-26
+PASS 2022-10-13
+FAIL 2022-10-20 code=1 out=[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+Traceback (most recent call last):
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\VOL_SELLING_BENCHMARK_20260729\probe_one.py", line 7, in <module>
+    df = chain.load_expiry(exp)
+  File "c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\intraday_options_strategy\buying\chain.py", line 67, in load_expiry
+    df["t"] = pd.to_datetime(df["timestamp"]).dt.tz_localize(None)
+              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\accessor.py", line 127, in f
+    return self._delegate_method(name, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\indexes\accessors.py", line 126, in _delegate_method
+    result = method(*args, **kwargs)
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\indexes\datetimes.py", line 543, in tz_localize
+    arr = self._data.tz_localize(tz, ambiguous, nonexistent)
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\arrays\_mixins.py", line 83, in method
+    return meth(self, *args, **kwargs)
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\arrays\datetimes.py", line 1100, in tz_localize
+    new_dates = tz_convert_from_utc(self.asi8, self.tz, reso=self._creso)
+  File "pandas/_libs/tslibs/vectorized.pyx", line 71, in pandas._libs.tslibs.vectorized.tz_convert_from_utc
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 3.98 MiB for an array with shape (521667,) and data type int64
+PASS 2024-10-03
+FAIL 2022-10-27 code=139 out=[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+PASS 2024-10-10
+PASS 2022-11-03
+PASS 2024-10-17
+PASS 2022-11-10
+PASS 2024-10-24
+PASS 2022-11-17
+PASS 2024-10-31
+PASS 2022-11-24
+PASS 2024-11-07
+PASS 2022-12-01
+PASS 2024-11-14
+PASS 2022-12-08
+PASS 2024-11-21
+PASS 2022-12-15
+PASS 2024-11-28
+PASS 2022-12-22
+PASS 2024-12-05
+PASS 2022-12-29
+PASS 2024-12-12
+PASS 2023-01-05
+PASS 2024-12-19
+PASS 2023-01-12
+PASS 2024-12-26
+PASS 2023-01-19
+PASS 2025-01-02
+PASS 2023-01-25
+PASS 2025-01-09
+PASS 2023-02-02
+PASS 2025-01-16
+PASS 2023-02-09
+PASS 2025-01-23
+PASS 2023-02-16
+PASS 2025-01-30
+PASS 2023-02-23
+PASS 2025-02-06
+PASS 2023-03-02
+PASS 2025-02-13
+PASS 2023-03-09
+PASS 2025-02-20
+PASS 2023-03-16
+PASS 2025-02-27
+PASS 2023-03-23
+PASS 2025-03-06
+PASS 2023-03-29
+PASS 2023-04-06
+PASS 2025-03-13
+PASS 2023-04-13
+PASS 2025-03-20
+PASS 2023-04-20
+PASS 2025-03-27
+PASS 2023-04-27
+PASS 2025-04-03
+PASS 2023-05-04
+PASS 2025-04-09
+PASS 2023-05-11
+PASS 2025-04-17
+PASS 2023-05-18
+PASS 2025-04-24
+PASS 2023-05-25
+PASS 2025-04-30
+PASS 2023-06-01
+PASS 2025-05-08
+PASS 2023-06-08
+PASS 2025-05-15
+PASS 2023-06-15
+PASS 2023-06-22
+PASS 2025-05-22
+PASS 2023-06-28
+PASS 2025-05-29
+FAIL 2023-07-06 code=1 out=[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+Traceback (most recent call last):
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\VOL_SELLING_BENCHMARK_20260729\probe_one.py", line 7, in <module>
+    df = chain.load_expiry(exp)
+  File "c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\intraday_options_strategy\buying\chain.py", line 69, in load_expiry
+    df = df.drop_duplicates(["t", "strike", "option_type"])
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\frame.py", line 7953, in drop_duplicates
+    result = self[-self.duplicated(subset, keep=keep)]
+                   ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\frame.py", line 8091, in duplicated
+    labels, shape = map(list, zip(*map(f, vals), strict=True))
+                              ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\frame.py", line 8064, in f
+    return labels.astype("i8"), len(shape)
+           ~~~~~~~~~~~~~^^^^^^
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 3.67 MiB for an array with shape (480381,) and data type int64
+PASS 2025-06-05
+PASS 2023-07-13
+PASS 2025-06-12
+PASS 2023-07-20
+PASS 2025-06-19
+PASS 2023-07-27
+PASS 2025-06-26
+PASS 2023-08-03
+PASS 2025-07-03
+PASS 2023-08-10
+PASS 2025-07-10
+PASS 2023-08-17
+PASS 2025-07-17
+PASS 2023-08-24
+PASS 2025-07-24
+PASS 2023-08-31
+PASS 2025-07-31
+PASS 2023-09-07
+PASS 2023-09-14
+PASS 2025-08-07
+PASS 2023-09-21
+PASS 2025-08-14
+PASS 2023-09-28
+PASS 2025-08-21
+PASS 2023-10-05
+PASS 2025-08-28
+PASS 2023-10-12
+PASS 2025-09-02
+PASS 2023-10-19
+PASS 2025-09-09
+PASS 2023-10-26
+PASS 2025-09-16
+PASS 2023-11-02
+PASS 2025-09-23
+PASS 2023-11-09
+FAIL 2025-09-30 code=139 out=[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+PASS 2023-11-16
+PASS 2025-10-07
+PASS 2023-11-23
+PASS 2025-10-14
+PASS 2023-11-30
+PASS 2025-10-28
+PASS 2023-12-07
+PASS 2025-11-04
+PASS 2023-12-14
+PASS 2025-11-11
+PASS 2023-12-21
+PASS 2025-11-18
+PASS 2023-12-28
+PASS 2025-11-25
+PASS 2024-01-04
+FAIL 2025-12-02 code=1 out=[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+Traceback (most recent call last):
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\VOL_SELLING_BENCHMARK_20260729\probe_one.py", line 7, in <module>
+    df = chain.load_expiry(exp)
+  File "c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\intraday_options_strategy\buying\chain.py", line 69, in load_expiry
+    df = df.drop_duplicates(["t", "strike", "option_type"])
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\frame.py", line 7953, in drop_duplicates
+    result = self[-self.duplicated(subset, keep=keep)]
+                   ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\frame.py", line 8091, in duplicated
+    labels, shape = map(list, zip(*map(f, vals), strict=True))
+                              ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\frame.py", line 8063, in f
+    labels, shape = algorithms.factorize(vals, size_hint=len(self))
+                    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\algorithms.py", line 821, in factorize
+    codes, uniques = factorize_array(
+                     ~~~~~~~~~~~~~~~^
+        values,
+        ^^^^^^^
+        use_na_sentinel=use_na_sentinel,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        size_hint=size_hint,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\algorithms.py", line 637, in factorize_array
+    uniques, codes = table.factorize(
+                     ~~~~~~~~~~~~~~~^
+        values,
+        ^^^^^^^
+    ...<3 lines>...
+        ignore_na=use_na_sentinel,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5219, in pandas._libs.hashtable.Int32HashTable.factorize
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5054, in pandas._libs.hashtable.Int32HashTable._unique
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 2.01 MiB for an array with shape (262960,) and data type int64
+PASS 2024-01-11
+PASS 2025-12-09
+PASS 2024-01-18
+PASS 2025-12-16
+PASS 2024-01-25
+PASS 2024-02-01
+PASS 2025-12-23
+PASS 2024-02-08
+PASS 2025-12-30
+PASS 2024-02-15
+PASS 2026-01-06
+PASS 2024-02-22
+PASS 2026-01-13
+PASS 2024-02-29
+PASS 2026-01-20
+PASS 2024-03-07
+PASS 2026-01-27
+PASS 2024-03-14
+FAIL 2026-02-03 code=139 out=[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+PASS 2024-03-21
+PASS 2026-02-10
+PASS 2024-03-28
+PASS 2026-02-17
+PASS 2024-04-04
+PASS 2026-02-24
+PASS 2024-04-10
+PASS 2026-03-02
+PASS 2026-03-10
+PASS 2024-04-18
+PASS 2026-03-17
+PASS 2024-04-25
+PASS 2026-03-24
+PASS 2024-05-02
+PASS 2024-05-09
+PASS 2026-03-30
+PASS 2024-05-16
+PASS 2026-04-07
+PASS 2024-05-23
+PASS 2026-04-13
+PASS 2024-05-30
+PASS 2026-04-21
+PASS 2024-06-06
+PASS 2026-04-28
+PASS 2024-06-13
+PASS 2026-05-05
+PASS 2024-06-20
+PASS 2026-05-12
+PASS 2024-06-27
+PASS 2026-05-19
+PASS 2024-07-04
+PASS 2026-05-26
+PASS 2024-07-11
+PASS 2026-06-02
+PROBE DONE
+PASS 2024-07-18
+PASS 2024-07-25
+PASS 2024-08-01
+PASS 2024-08-08
+PASS 2024-08-14
+PASS 2024-08-22
+PASS 2024-08-29
+PASS 2024-09-05
+PASS 2024-09-12
+PASS 2024-09-19
+PASS 2024-09-26
+PASS 2024-10-03
+PASS 2024-10-10
+PASS 2024-10-17
+PASS 2024-10-24
+PASS 2024-10-31
+PASS 2024-11-07
+PASS 2024-11-14
+PASS 2024-11-21
+PASS 2024-11-28
+PASS 2024-12-05
+PASS 2024-12-12
+PASS 2024-12-19
+PASS 2024-12-26
+PASS 2025-01-02
+PASS 2025-01-09
+PASS 2025-01-16
+PASS 2025-01-23
+PASS 2025-01-30
+PASS 2025-02-06
+PASS 2025-02-13
+PASS 2025-02-20
+PASS 2025-02-27
+PASS 2025-03-06
+PASS 2025-03-13
+PASS 2025-03-20
+PASS 2025-03-27
+PASS 2025-04-03
+PASS 2025-04-09
+PASS 2025-04-17
+PASS 2025-04-24
+FAIL 2025-04-30 code=1 out=[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+Traceback (most recent call last):
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\VOL_SELLING_BENCHMARK_20260729\probe_one.py", line 7, in <module>
+    df = chain.load_expiry(exp)
+  File "c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\intraday_options_strategy\buying\chain.py", line 69, in load_expiry
+    df = df.drop_duplicates(["t", "strike", "option_type"])
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\frame.py", line 7953, in drop_duplicates
+    result = self[-self.duplicated(subset, keep=keep)]
+                   ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\frame.py", line 8091, in duplicated
+    labels, shape = map(list, zip(*map(f, vals), strict=True))
+                              ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\frame.py", line 8064, in f
+    return labels.astype("i8"), len(shape)
+           ~~~~~~~~~~~~~^^^^^^
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 2.91 MiB for an array with shape (381705,) and data type int64
+PASS 2025-05-08
+PASS 2025-05-15
+PASS 2025-05-22
+PASS 2025-05-29
+PASS 2025-06-05
+PASS 2025-06-12
+PASS 2025-06-19
+PASS 2025-06-26
+PASS 2025-07-03
+PASS 2025-07-10
+PASS 2025-07-17
+PASS 2025-07-24
+PASS 2025-07-31
+PASS 2025-08-07
+PASS 2025-08-14
+PASS 2025-08-21
+PASS 2025-08-28
+PASS 2025-09-02
+PASS 2025-09-09
+PASS 2025-09-16
+PASS 2025-09-23
+PASS 2025-09-30
+PASS 2025-10-07
+PASS 2025-10-14
+PASS 2025-10-28
+PASS 2025-11-04
+PASS 2025-11-11
+PASS 2025-11-18
+PASS 2025-11-25
+PASS 2025-12-02
+PASS 2025-12-09
+PASS 2025-12-16
+PASS 2025-12-23
+PASS 2025-12-30
+PASS 2026-01-06
+PASS 2026-01-13
+PASS 2026-01-20
+PASS 2026-01-27
+PASS 2026-02-03
+PASS 2026-02-10
+PASS 2026-02-17
+PASS 2026-02-24
+PASS 2026-03-02
+PASS 2026-03-10
+PASS 2026-03-17
+PASS 2026-03-24
+PASS 2026-03-30
+PASS 2026-04-07
+PASS 2026-04-13
+PASS 2026-04-21
+PASS 2026-04-28
+PASS 2026-05-05
+PASS 2026-05-12
+PASS 2026-05-19
+PASS 2026-05-26
+PASS 2026-06-02
+PROBE DONE

@@ -1,0 +1,48 @@
+[speed] placebo draws reduced 200->50 (disclosed deviation, wall-clock)
+[spot] 463,826 bars 2021-05-24 09:15:00 .. 2026-06-03 15:30:00
+=== ATTEMPT 1 Mon Aug  3 21:56:48 IST 2026 ===
+[speed] placebo draws reduced 200->50 (disclosed deviation, wall-clock)
+[spot] 463,826 bars 2021-05-24 09:15:00 .. 2026-06-03 15:30:00
+Traceback (most recent call last):
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPEN_ITEMS_20260803\task1_a6_isolate.py", line 322, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPEN_ITEMS_20260803\task1_a6_isolate.py", line 231, in main
+    res_buggy = orig155.mine_cell(spot, sig_buggy, "A6_ORIGINAL_BUGGY_REPRO", "continuation",
+                                   np.random.default_rng(SEED))
+  File "c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\BACKTEST_QUEUE_20260730\done\155_indicator_mine_signals.py", line 123, in mine_cell
+    p_val, placebo_mean = placebo_pval(spot, b, pts_col, rng)
+                          ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\BACKTEST_QUEUE_20260730\done\155_indicator_mine_signals.py", line 89, in placebo_pval
+    f = forward_stats(spot, pd.DataFrame(rows))
+  File "c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\EMA_INTRADAY_BUYING_20260729\signal_budget\measure_signal_budget.py", line 82, in forward_stats
+    return pd.DataFrame(out)
+           ~~~~~~~~~~~~^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\frame.py", line 837, in __init__
+    arrays, columns, index = nested_data_to_arrays(
+                             ~~~~~~~~~~~~~~~~~~~~~^
+        # error: Argument 3 to "nested_data_to_arrays" has incompatible
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        dtype,
+        ^^^^^^
+    )
+    ^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\internals\construction.py", line 477, in nested_data_to_arrays
+    arrays, columns = to_arrays(data, columns, dtype=dtype)
+                      ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\internals\construction.py", line 804, in to_arrays
+    arr, columns = _list_of_dict_to_arrays(data, columns)
+                   ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Shreyas.1Gupta\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\internals\construction.py", line 893, in _list_of_dict_to_arrays
+    content = lib.dicts_to_array(data, pre_cols)
+  File "pandas/_libs/lib.pyx", line 381, in pandas._libs.lib.dicts_to_array
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 1.18 MiB for an array with shape (9647, 16) and data type object
+=== attempt 1 exit code 1 ===
+=== ATTEMPT 2 Mon Aug  3 22:05:52 IST 2026 ===
+[speed] placebo draws reduced 200->50 (disclosed deviation, wall-clock)
+[spot] 463,826 bars 2021-05-24 09:15:00 .. 2026-06-03 15:30:00
+SANITY (target: n=9655 mean_pts=4.153 t_nw=2.576 largest_day_share=0.087): {'label': 'A6_ORIGINAL_BUGGY_REPRO', 'n_build': 9655, 'n_forward': 849, 'best_horizon': 'to15:25', 'mean_pts': 4.153, 't_nw': 2.576, 'hit': 0.5384, 'largest_day_share': 0.0872, 'placebo_p': 0.0, 'verdict': 'FORWARD-TEST CANDIDATE'}
+[checkpoint] wrote c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPEN_ITEMS_20260803\task1_a6_isolation.json (top keys: ['ablations', 'sanity_original_repro'], ablations: [])
+[audit] naive-vs-corrected expiry mismatch on 32,397 common buckets: 0.513 (NEWDIM reported 0.256)
+[checkpoint] wrote c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPEN_ITEMS_20260803\task1_a6_isolation.json (top keys: ['ablations', 'sanity_original_repro', 'expiry_mismatch_frac', 'n_buckets_dte_negative_dropped'], ablations: [])

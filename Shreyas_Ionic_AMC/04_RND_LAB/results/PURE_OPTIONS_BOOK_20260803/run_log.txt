@@ -1,0 +1,187 @@
+Loaded baseline HIST series: {'CALENDAR': (178, '2011-01-21..2026-07-07'), 'OVERSHOOT': (913, '2021-06-21..2026-05-27'), 'LD_SELL': (286, '2011-02-24..2026-06-17')}
+CALENDAR: 178 trades, delta/trade Rs5.62, total delta Rs1,001
+OVERSHOOT: 913 active days, delta/day Rs1.95, total delta Rs1,780
+LD_SELL: 286 trades, REAL premium mean 66.0pt, total delta Rs614
+S1_F: 208 active days (extracted from BOOK's s1f column, span 2022-01-06..2025-12-30), delta/day Rs12.38, total delta Rs2,574
+  [DATA CAVEAT, per S1F_SPEC.md] S1-F has NO real COVID-class option day in-sample; its own spec's crash number (~-16% maxDD) is MODEL-validated (corr 0.64 to realised), not measured.
+ROLLED_RATIO_CAL: 160 cycles (n matches STT_RECOST recost.py's 28.48pt/cycle row to 4dp: mean=28.7589), span 2011-01-03..2026-05-27, total delta Rs900
+  [INFERENCE] date anchor = entry_day (day0), not true exit date (~1mo later, 3d-before-expiry) -- immaterial for MONTHLY/QUARTERLY correlation (the only resolution used below), would matter for a live order plan (not this build's job).
+
+TOTAL FORWARD-COST DELTA BY CANDIDATE SLEEVE (rupees, full history, natural 1x=Rs10L):
+  CALENDAR           hist net Rs     106,551  fwd net Rs     105,550  delta Rs     1,001 (+0.94% of hist)
+  OVERSHOOT          hist net Rs      27,396  fwd net Rs      25,616  delta Rs     1,780 (+6.50% of hist)
+  LD_SELL            hist net Rs     246,161  fwd net Rs     245,548  delta Rs       614 (+0.25% of hist)
+  S1_F               hist net Rs     436,251  fwd net Rs     433,677  delta Rs     2,574 (+0.59% of hist)
+  ROLLED_RATIO_CAL   hist net Rs     295,307  fwd net Rs     294,407  delta Rs       900 (+0.30% of hist)
+
+====================================================================================================
+STANDALONE METRICS, natural 1x = Rs10L, FORWARD (post-Apr-2026 STT) costed, full history
+====================================================================================================
+CALENDAR           span=2011-01-21..2026-07-07 yrs=15.46  CAGR%=0.65    maxDD%=-1.66    Calmar=0.392  Sharpe=2.82   monthwin%=57.2  active_days=178
+OVERSHOOT          span=2021-06-21..2026-05-27 yrs=4.93   CAGR%=0.51    maxDD%=-1.82    Calmar=0.283  Sharpe=0.68   monthwin%=51.7  active_days=913
+LD_SELL            span=2011-02-24..2026-06-17 yrs=15.31  CAGR%=1.44    maxDD%=-5.93    Calmar=0.244  Sharpe=2.18   monthwin%=68.6  active_days=286
+S1_F               span=2022-01-06..2025-12-30 yrs=3.98   CAGR%=9.47    maxDD%=-4.66    Calmar=2.031  Sharpe=3.26   monthwin%=72.9  active_days=208
+ROLLED_RATIO_CAL   span=2011-01-03..2026-05-27 yrs=15.39  CAGR%=1.69    maxDD%=-12.41   Calmar=0.136  Sharpe=2.44   monthwin%=48.6  active_days=160
+
+Common window (S1_F-constrained, matches firm's own BOOK-constrained convention): 2022-01-04..2025-12-30 (1457 days)
+
+SLEEVE-SLEEVE correlation, MONTHLY (common window):
+                   S1_F  LD_SELL  CALENDAR  ROLLED_RATIO_CAL  OVERSHOOT
+S1_F              1.000   -0.072    -0.049             0.015     -0.013
+LD_SELL          -0.072    1.000     0.183             0.033     -0.207
+CALENDAR         -0.049    0.183     1.000             0.121      0.043
+ROLLED_RATIO_CAL  0.015    0.033     0.121             1.000     -0.013
+OVERSHOOT        -0.013   -0.207     0.043            -0.013      1.000
+
+SLEEVE-SLEEVE correlation, QUARTERLY (common window):
+                   S1_F  LD_SELL  CALENDAR  ROLLED_RATIO_CAL  OVERSHOOT
+S1_F              1.000    0.190     0.173             0.497      0.068
+LD_SELL           0.190    1.000     0.447             0.300     -0.429
+CALENDAR          0.173    0.447     1.000             0.311      0.211
+ROLLED_RATIO_CAL  0.497    0.300     0.311             1.000      0.281
+OVERSHOOT         0.068   -0.429     0.211             0.281      1.000
+
+Naive inverse-vol RAW shares (5-sleeve, pre-redundancy-decision):
+{'S1_F': 0.054, 'LD_SELL': 0.117, 'CALENDAR': 0.2717, 'ROLLED_RATIO_CAL': 0.1017, 'OVERSHOOT': 0.4556}
+
+UNION window (full available history, 0-fill pre-inception): 2011-01-01..2026-07-07
+  S1_F data ends 2025-12-30 (BOOK dataset's own window end, NOT a real strategy stop -- S1-F is CERTIFIED/forward-testing per D-030). Jan-2026 onward S1_F contributes a DATA-GAP zero, not a true zero. Flagged, not silently treated as measured absence of risk.
+
+Per-sleeve capacity/crash-risk cap (max weight share of book capital), [OPINION, judgment call, same discipline as BALANCED's own CAP_TABLE in build_portfolios.py]:
+{'S1_F': 0.3, 'LD_SELL': 0.2, 'CALENDAR': 0.35, 'ROLLED_RATIO_CAL': 0.25, 'OVERSHOOT': 0.15}
+
+Naive inverse-vol shares AFTER cap+renorm (sum=1.0, pre-gross-scaling):
+{'S1_F': 0.1041, 'LD_SELL': 0.2, 'CALENDAR': 0.35, 'ROLLED_RATIO_CAL': 0.1959, 'OVERSHOOT': 0.15}
+
+====================================================================================================
+GROSS-DEPLOYMENT SCAN (naive/equal-risk weights, UNION full-history book, both variants)
+====================================================================================================
+[Reconciliation] LD_SELL mean bare-10%-margin = Rs94,908; the firm's own Rs10L 'natural 1x' convention used below is ALREADY k(LD_SELL)=10.54x bare margin at gross=1.0 -- i.e. ~3.3-2.6x MORE conservative than SELL_PLUS_TAIL's own empirical minimum (k=3.2-4) for this exact sleeve. Every gross level below is annotated with its LD_SELL-equivalent k for translation.
+
+BOOK_5 (incl. rolled ratio-cal): max compliant gross (searched to 15.0) = 6.75 (k_LD_equiv=71.12)  CAGR=5.52% maxDD=-16.99% Calmar=0.325 Sharpe=0.94 COVID%=-19.52
+                           book  gross  CAGR_pct  maxDD_pct  Calmar  Sharpe  covid_pct  compliant  k_LD_equiv
+BOOK_5 (incl. rolled ratio-cal)    0.5      0.59      -1.62   0.367    0.94      -1.45       True        5.27
+BOOK_5 (incl. rolled ratio-cal)    1.0      1.14      -3.17   0.361    0.94      -2.89       True       10.54
+BOOK_5 (incl. rolled ratio-cal)    1.5      1.65      -4.65   0.355    0.94      -4.34       True       15.80
+BOOK_5 (incl. rolled ratio-cal)    2.0      2.12      -6.07   0.350    0.94      -5.78       True       21.07
+BOOK_5 (incl. rolled ratio-cal)    3.0      2.98      -8.72   0.342    0.94      -8.68       True       31.61
+BOOK_5 (incl. rolled ratio-cal)    4.0      3.75     -11.17   0.336    0.94     -11.57       True       42.15
+BOOK_5 (incl. rolled ratio-cal)    5.0      4.45     -13.43   0.331    0.94     -14.46       True       52.68
+BOOK_5 (incl. rolled ratio-cal)    6.0      5.08     -15.52   0.327    0.94     -17.35       True       63.22
+BOOK_5 (incl. rolled ratio-cal)    8.0      6.20     -19.27   0.322    0.94     -23.14      False       84.29
+BOOK_5 (incl. rolled ratio-cal)   10.0      7.17     -22.55   0.318    0.94     -28.92      False      105.36
+BOOK_5 (incl. rolled ratio-cal)   12.0      8.03     -25.43   0.316    0.94     -34.71      False      126.44
+BOOK_5 (incl. rolled ratio-cal)   15.0      9.15     -29.15   0.314    0.94     -43.39      False      158.05
+
+BOOK_4 (ex rolled ratio-cal): max compliant gross (searched to 15.0) = 19.75 (k_LD_equiv=208.10)  CAGR=11.41% maxDD=-15.31% Calmar=0.745 Sharpe=0.88 COVID%=-19.94
+                        book  gross  CAGR_pct  maxDD_pct  Calmar  Sharpe  covid_pct  compliant  k_LD_equiv
+BOOK_4 (ex rolled ratio-cal)    0.5      0.68      -0.75   0.904    0.88      -0.50       True        5.27
+BOOK_4 (ex rolled ratio-cal)    1.0      1.29      -1.37   0.939    0.88      -1.01       True       10.54
+BOOK_4 (ex rolled ratio-cal)    1.5      1.86      -1.91   0.972    0.88      -1.51       True       15.80
+BOOK_4 (ex rolled ratio-cal)    2.0      2.38      -2.42   0.982    0.88      -2.02       True       21.07
+BOOK_4 (ex rolled ratio-cal)    3.0      3.32      -3.52   0.943    0.88      -3.03       True       31.61
+BOOK_4 (ex rolled ratio-cal)    4.0      4.15      -4.56   0.912    0.88      -4.04       True       42.15
+BOOK_4 (ex rolled ratio-cal)    5.0      4.90      -5.53   0.886    0.88      -5.05       True       52.68
+BOOK_4 (ex rolled ratio-cal)    6.0      5.57      -6.45   0.864    0.88      -6.06       True       63.22
+BOOK_4 (ex rolled ratio-cal)    8.0      6.76      -8.14   0.831    0.88      -8.08       True       84.29
+BOOK_4 (ex rolled ratio-cal)   10.0      7.79      -9.66   0.806    0.88     -10.10       True      105.36
+BOOK_4 (ex rolled ratio-cal)   12.0      8.69     -11.04   0.787    0.88     -12.12       True      126.44
+BOOK_4 (ex rolled ratio-cal)   15.0      9.86     -12.87   0.766    0.88     -15.15       True      158.05
+
+====================================================================================================
+SPAN-REALITY CHECK -- bare margin per Rs10L 'natural unit' (the check a structurer must run before treating every sleeve as equally gross-scalable)
+====================================================================================================
+  LD_SELL      bare margin/unit Rs    94,908  =   9.5% of its own Rs10L natural unit  <-- CAPITAL-LIGHT, real headroom to gross-scale
+  CALENDAR     bare margin/unit Rs    93,628  =   9.4% of its own Rs10L natural unit  <-- CAPITAL-LIGHT, real headroom to gross-scale
+  OVERSHOOT    bare margin/unit Rs   162,500  =  16.2% of its own Rs10L natural unit  <-- CAPITAL-LIGHT, real headroom to gross-scale
+  S1_F         bare margin/unit Rs   810,000  =  81.0% of its own Rs10L natural unit  <-- ALREADY NEAR-FULL MARGIN UTILISATION, cannot be gross-scaled off shared idle capital
+VERDICT: LD_SELL/CALENDAR/OVERSHOOT each use <20% of their allocated Rs10L in bare margin (capital genuinely idle most days -- the same 'capital-idleness' effect build_portfolios.py flagged for CALENDAR/OVERSHOOT). S1_F uses ~81% BY DESIGN (spec: lots=floor(0.75xequity/margin)) -- it is NOT part of the same shared-idle-capital pool and must NOT be multiplied by the same gross factor as the other three, or the book asks for more real capital than it has (verified below: doing so naively implied Rs1.46cr of S1_F margin alone inside a Rs1cr book at gross=6 -- an infeasible sizing error, caught here rather than shipped).
+
+====================================================================================================
+CHOSEN BOOK = BOOK_4 (S1_F fixed-slice + LD_SELL/CALENDAR/OVERSHOOT gross-scalable light pool)
+====================================================================================================
+S1_F fixed weight (NO gross leverage) = 0.30 of book capital
+Light-pool base weights (of book capital, pre-gross): {'LD_SELL': 0.2, 'CALENDAR': 0.35, 'OVERSHOOT': 0.15}  (sum=0.7000 = light_pool_frac 0.70)
+
+TWO-TIER gross-on-light-pool-only scan: max compliant gross_light = 19.75
+ gross_light  CAGR_pct  maxDD_pct  Calmar  Sharpe  covid_pct  compliant
+         0.5      1.05      -1.32   0.791    0.79      -0.50       True
+         1.0      1.29      -1.37   0.939    0.88      -1.01       True
+         2.0      1.76      -2.42   0.725    0.93      -2.02       True
+         3.0      2.19      -3.52   0.622    0.91      -3.03       True
+         4.0      2.60      -4.56   0.571    0.89      -4.04       True
+         5.0      2.99      -5.53   0.541    0.86      -5.05       True
+         6.0      3.36      -6.45   0.521    0.84      -6.06       True
+         8.0      4.04      -8.14   0.497    0.82      -8.08       True
+        10.0      4.67      -9.66   0.483    0.80     -10.10       True
+        15.0      6.03     -12.87   0.468    0.77     -15.15       True
+        20.0      7.17     -15.43   0.465    0.76     -20.20      False
+        25.0      8.16     -17.52   0.466    0.75     -25.25      False
+
+OPERATING POINT: S1_F fixed@0.3, light-pool gross=5.0:
+{'span': '2011-01-01..2026-07-07', 'years': 15.51, 'net_rs': 5795758, 'CAGR_pct': 2.99, 'maxDD_pct': -5.53, 'maxDD_rs': -646559, 'Calmar': 0.541, 'Sharpe': 0.86, 'PF': 1.55, 'months': 187, 'month_win_pct': 65.8, 'worst_month_rs': -638219, 'worst_day_pct': -3.28, 'active_days': 1250}
+month_win_pct=65.8  n_months=187
+effective weights (scale, Rs-per-Rs1 of natural-unit daily P&L): {'S1_F': 3.0, 'LD_SELL': 10.0, 'CALENDAR': 17.5, 'OVERSHOOT': 7.5}
+capital_deployed_pct=380.0 (S1F 30.0% fixed + light-pool 350.0% gross-scaled)
+
+SAME operating point, COMMON WINDOW ONLY (2022-01-04..2025-12-30, all 4 sleeves live -- the fair comparator window vs BALANCED, which uses the same convention):
+{'span': '2022-01-04..2025-12-30', 'years': 3.99, 'net_rs': 4253298, 'CAGR_pct': 9.3, 'maxDD_pct': -3.42, 'maxDD_rs': -463897, 'Calmar': 2.719, 'Sharpe': 1.8, 'PF': 1.93, 'months': 48, 'month_win_pct': 75.0, 'worst_month_rs': -118981, 'worst_day_pct': -2.62, 'active_days': 792}
+
+====================================================================================================
+PORTFOLIO-vs-SLEEVE correlation, chosen BOOK_4 @ operating gross, monthly & quarterly
+====================================================================================================
+   sleeve  corr_monthly  corr_quarterly  weight
+     S1_F         0.284           0.541    0.30
+  LD_SELL         0.822           0.819    1.00
+ CALENDAR         0.641           0.761    1.75
+OVERSHOOT         0.092           0.104    0.75
+
+====================================================================================================
+WHOLE-BOOK TAIL RISK -- three lenses (RISK_LIMITS-mandated + task-specified)
+====================================================================================================
+Lens A [RISK_LIMITS 'vol-spike correlation' test, literal]: each sleeve's OWN worst single calendar month, ALL FOUR simultaneously, at chosen weights (S1_F fixed, light pool @ gross=5.0):
+  S1_F         worst_month_rs(natural1x)=   -23,238  scale=  3.00  book contribution Rs     -69,714
+  LD_SELL      worst_month_rs(natural1x)=   -55,552  scale= 10.00  book contribution Rs    -555,520
+  CALENDAR     worst_month_rs(natural1x)=   -12,427  scale= 17.50  book contribution Rs    -217,472
+  OVERSHOOT    worst_month_rs(natural1x)=    -4,409  scale=  7.50  book contribution Rs     -33,067
+  BOOK worst-month-simultaneous = Rs-875,774 = -8.76% of book capital
+
+Lens B [measured COVID Feb15-Apr15 2020, real data only where it exists]:
+  S1_F         covid_rs(natural1x)=         0  [ZERO (pre-inception -- UNMEASURED, not verified-safe)]  book contribution Rs           0
+  LD_SELL      covid_rs(natural1x)=   -43,221  [REAL]  book contribution Rs    -432,212
+  CALENDAR     covid_rs(natural1x)=    -4,155  [REAL]  book contribution Rs     -72,711
+  OVERSHOOT    covid_rs(natural1x)=         0  [ZERO (pre-inception -- UNMEASURED, not verified-safe)]  book contribution Rs           0
+  BOOK COVID-window (2 of 4 sleeves measured) = Rs-504,923 = -5.05% of book capital -- UNDERSTATES true exposure: S1_F and OVERSHOOT did not exist in 2020, so their crash behaviour is genuinely unknown, not measured-safe. S1F_SPEC.md's own model-based backcast (corr 0.64, not real data) is the only evidence for S1_F, and it estimates ~-16% maxDD at spec sizing.
+
+Lens C [pessimistic bound: measured worst 1d/-12.98%, 5d/-19.02%, 20d/-37.01% index move, applied to the book's NAKED legs (LD_SELL, S1_F) at 0%-OTM/ATM conservative bound]:
+  1d: 1.30x margin -> LD_SELL Rs123,195 (1.00 units) + S1_F Rs315,425 (0.30 units, FIXED not gross-scaled) = Rs438,620 = 4.39% of book capital
+  5d: 1.90x margin -> LD_SELL Rs180,553 (1.00 units) + S1_F Rs462,282 (0.30 units, FIXED not gross-scaled) = Rs642,835 = 6.43% of book capital
+  20d: 3.70x margin -> LD_SELL Rs351,214 (1.00 units) + S1_F Rs899,238 (0.30 units, FIXED not gross-scaled) = Rs1,250,452 = 12.50% of book capital
+
+Max book size that survives the 20-day pessimistic bound at ~100% of capital (i.e. does not exceed the capital committed): solve TOTAL_CAPITAL_required = loss_total / 1.0 at the CURRENT unit mix -- i.e. the book above is already sized so that a repeat of the measured worst 20-day move consumes the fraction printed above of book capital; scaling the WHOLE book (S1_F units AND light-pool gross together, same ratio) by 1/that-fraction gives the size at which a repeat exactly wipes it out (100%); a prudent operating ceiling is roughly HALF of that (so the pessimistic 20-day bound costs <=50% of capital, still survivable with a capital call, not a wipeout).
+
+[Structural point] S1_F is a 0DTE structure (flat every day by 15:25, zero overnight-gap carry) -- its OWN capital-multiple requirement is fundamentally smaller than LD_SELL's biweekly-held naked strangle (which IS exposed to gap risk across ~10 trading days per cycle). The k=3.2-4 floor established for LD_SELL does NOT transfer mechanically to S1_F; applying it there would be needlessly conservative. It also does NOT transfer to CALENDAR/ROLLED_RATIO_CAL, whose long far-dated leg gives SOME (imperfect) protection a naked strangle lacks. One uniform k is a structuring error; the Lens C multiplier above is applied only to the two genuinely naked legs for exactly this reason.
+
+====================================================================================================
+COMPARISON vs BALANCED (UPDATED: PORTFOLIOS_REFIT_20260803, both bugs fixed)
+====================================================================================================
+BALANCED (both bugs fixed): {'CAGR_pct': 5.14, 'maxDD_pct': -3.66, 'Calmar': 1.405, 'Sharpe': 1.38}
+Honest maximum across ALL mandates (loosened-cap HIGH_CAGR): {'CAGR_pct': 19.49, 'maxDD_pct': -24.77, 'Calmar': 0.787, 'note': 'HIGH_CAGR, SWEEP/BOOK caps loosened on capacity evidence; MaxDD sits at the 25% mandate ceiling, the binding constraint (not liquidity/capacity)'}
+
+PURE_OPTIONS BOOK_4, UNION full-history window (2011-2026, MaxDD/tail read): CAGR=2.99% maxDD=-5.53% Calmar=0.541 Sharpe=0.86
+PURE_OPTIONS BOOK_4, COMMON WINDOW (2022-01-04..2025-12-30, all 4 sleeves live -- fair CAGR/Sharpe comparator vs BALANCED's own window convention): CAGR=9.3% maxDD=-3.42% Calmar=2.719 Sharpe=1.8
+PURE_OPTIONS BOOK_4 @ max-compliant-backtest light-pool gross=19.75 (CAPACITY-UNVERIFIED at this scale, flagged), UNION window: CAGR=7.12% maxDD=-15.31% Calmar=0.465 Sharpe=0.76
+  SAME, COMMON WINDOW: CAGR=23.19% maxDD=-8.64% Calmar=2.683 Sharpe=1.56
+
+VERDICT (common-window, fair comparison): BALANCED's Calmar 1.405 / Sharpe 1.38 is BEATEN by the pure-options book at the operating point, and BEATEN even at the max-compliant-backtest (capacity-unverified) scale.
+
+SWEEP crash-window record (THREE_PORTFOLIOS PORTFOLIOS.md, real data, natural 1x=Rs10L):
+  2015-16 Rs+360,137 (n=81) | 2018 Rs+75,256 (n=31) | COVID Rs+321,216 (n=17) | 2022 Rs+403,139 (n=69) -- POSITIVE IN ALL FOUR. The only sleeve in the whole firm's corpus with this property.
+Pure-options sleeves' SAME four windows (natural 1x=Rs10L, from the same source table):
+  CALENDAR: -85 / -2,059 / -4,144 / +27,517   (3 of 4 negative, thin sample)
+  LD_SELL : +13,239 / -7,756 / -43,196 / +17,430   (2 of 4 negative, COVID sign robust)
+  OVERSHOOT: NO DATA / NO DATA / NO DATA / +9,233   (no crash exposure ever observed)
+  S1_F: no data in any of the 4 windows (post-2022 series); spec's own MODEL backcast only.
+None of the four pure-options legs offsets a broad equity/vol shock the way SWEEP does -- SWEEP's positive-carry-in-crisis behaviour comes from being a trend/swing FUTURES sleeep with a demonstrated long-vol-like payoff in real selloffs, structurally unavailable to a short-premium options sleeve by construction (a short strangle/straddle/calendar cannot be net long convexity without also being long premium somewhere, which is a DIFFERENT sleeve, e.g. the tail put overlay -- see SELL_PLUS_TAIL's own finding that even a full-time long put overlay is NOT net-hedge-positive in absolute Rs terms across the sample).
+
+WROTE all checkpoints to: c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\PURE_OPTIONS_BOOK_20260803\checkpoints

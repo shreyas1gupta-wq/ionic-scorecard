@@ -225,6 +225,78 @@ floor (fixing how FN/HC is computed internally); item 6's 7-month rule is the se
 universal, CLIENT-FACING "No View" floor applied on top, across both frameworks. Fixing this
 does not replace building that — both are needed.
 
+## 6c. QFRA-2 short-history overlay: score the 7mo-3y gap instead of dropping it [NEXT WEEK — confirm spec, do not build yet]
+Principal (2026-07-27), reacting to the MERIT-grade explanation: "Override to D --> new fund
+we can improve instead of giving a D rating, less than 7 month we already had hold vs no view
+and for other we can have some view basis the fund manager track record and recent
+performance etc and other metrics we were looking." Decided same session: build the manager-
+track-record data now; spec the overlay mechanism first, build the scoring code later.
+
+**CORRECTION to item 6 round 3's "resolved fact" — QFRA-2 is NOT a soft gate on <3y funds,
+it's a hard one.** Round 3 above says "QFRA-2 = a SOFT scoring preference... without literally
+blocking a <3y fund from being scored." Code reading of `final_model.py` line 98
+(`if len(fr) < C.MIN_HISTORY_D: continue`, MIN_HISTORY_D = 756 trading days = 3y) shows a fund
+under 3 years of return history is dropped BEFORE it ever enters the scoring table — it never
+gets a `score`, `qfra_score`, `merit_grade`, or `sentinel` status; it is simply absent from
+`FINAL_recommendations.csv` / `QFRA2_current.csv`. Consequently `gates.py`'s `history_tier()`
+"<3y -> watchlist, ceiling Low" branch and the `new_fund`/`merit_grade='D'` override are
+**unreachable dead code under the current pipeline** — nothing that reaches `apply_gates()`
+can ever have n_obs < 756, because the upstream filter already removed it. Net effect today:
+a fund between the firm's 7-month "No View" floor and QFRA-2's 3-year cut gets **nothing** —
+not a D grade, not a Hold, just absence from the recommendation file. This is the actual gap
+item 6c fixes, not a grading-severity complaint.
+
+**Data check done this session — manager track record IS buildable, don't need a new source:**
+`Mf_qfra2/data/fund_metadata_full.csv` (one level above the engine's own `mr_x_framework/data/`,
+so it survives even when the engine dir is refreshed) has `Fund_Manager` + `Inception_Date`
+complete for all 119 tracked funds (latest snapshot), 75 unique managers, **29 of them running
+2+ funds already in our tracked universe** — enough overlap to build a real manager-quality
+proxy without fetching anything new. Caveat: this only sees a manager's record on the ~119
+funds QFRA-2 itself tracks (8 categories) — not their career at a prior AMC, not debt funds,
+not anything outside our universe. A real but partial proxy, not a full career history; say so
+wherever it's surfaced, don't oversell it as complete.
+
+**Proposed mechanism (post-processing overlay — does NOT touch `config.py`/`final_model.py`,
+so the "frozen, do not retune" rule stands; matches how item 6's own 7-month floor is meant to
+sit on top of both engines' output rather than inside them):**
+  1. Run the frozen engine as-is (`final_model.py` -> `qfra2_step4.py`), unchanged.
+  2. Separately, for each fund with 7 months <= age < 3 years (from `Inception_Date`) that is
+     therefore ABSENT from the engine's own output: compute the SAME core features it already
+     uses (info_ratio, down_capture, calmar, mom_12_1) over whatever window the fund actually
+     has, instead of the fixed 756-day alpha window — same idea QFRA-1 already applies at 6
+     months, just reusing QFRA-2's own feature definitions instead of inventing new ones.
+  3. **Manager-quality proxy = reuse the frozen engine's own validated output, don't build a
+     parallel scorer.** If the fund's manager (from `Fund_Manager`) runs any OTHER fund that
+     DID clear the 3y gate and has a real `qfra_score` in this run's output, use that other
+     fund's score (simple average if more than one) as the manager-track-record signal. If the
+     manager has no other qualifying fund, there is no manager signal for this fund — fall back
+     to the fund's own short-window metric alone, flagged lower-confidence.
+  4. **Bayesian shrinkage blend, continuous at the 3-year boundary:** weight the fund's own
+     short-window metric by `w = min(1, n_obs / 756)` and the manager-proxy by `(1-w)` (when a
+     manager signal exists; else the fund's own metric gets full weight regardless of `w`, just
+     labeled low-confidence). At exactly 3y, w=1 and this MUST reduce to exactly what the frozen
+     engine would compute on its own — no discontinuity at the handoff.
+  5. **Output as a DISTINCT "Provisional" tier, never blended into the frozen QFRA 0-100 scale
+     or the A-D MERIT letters** — e.g. `merit_grade='P'` with its own `qfra_score=None` (or a
+     separately-labeled provisional score) so nobody mistakes a ~7mo-old fund's necessarily
+     noisier read for the validated, OOS-backtested measurement the A-D grades represent.
+     Conviction ceiling for anything in this tier should stay capped at Low regardless of how
+     good the blended number looks — this overlay's own hit rate can't realistically be OOS-
+     validated (the sample of "funds that were once 7mo-3y old with a known manager history" is
+     small and survivorship-prone), so treat its output as a lean, not a score to act on size with.
+
+**Before building — needs Principal confirmation (same class of open question as item 6):**
+  (a) exact shrinkage weight formula above, or a different blend Principal prefers;
+  (b) what happens when the manager has ZERO other qualifying funds — silent fund-only fallback
+      (as drafted) or should THOSE funds stay "No View" until they age past 3y themselves;
+  (c) does "Provisional/P" need its own pill color in the NDPMS deck (same slidekit/module-touch
+      cost as item 6's "No View" pill did — this is a SEPARATE addition, not reuse of that one);
+  (d) should a fund ever GRADUATE from Provisional to a real letter grade before the frozen
+      engine itself picks it up at 3y, or is 3y the only graduation trigger;
+  (e) confirm whether this fully supersedes today's silent-absence behavior for the whole
+      7mo-3y band, or should only apply where a manager signal exists (drafted: applies either
+      way, fund-only fallback covers the no-manager-signal case).
+
 ## 7. save_mf_recommendations.py polish [NEXT WEEK]
 From the method audit (majors/minors, all mechanical):
   a. Carry `loser_flags` into the saved CSV (currently dropped) + add a derived

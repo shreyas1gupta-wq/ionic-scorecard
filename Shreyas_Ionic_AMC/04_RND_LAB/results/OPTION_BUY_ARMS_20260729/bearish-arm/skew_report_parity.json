@@ -1,0 +1,84 @@
+{
+  "why": "Part A's spot-based inversion is contaminated by the forward basis; the same-strike differential measures that contamination exactly (parity forces it to zero in truth). Both corrections below are computed from real traded prices only; no interest rate is assumed.",
+  "n_days": 984,
+  "forward_basis": {
+    "F_minus_S_pts_mean": 16.413,
+    "F_minus_S_pts_median": 13.3,
+    "F_minus_S_pct_mean": 0.0741,
+    "annualised_carry_pct_mean": 5.965,
+    "note": "F_implied = K_atm + (C_atm - P_atm), r-discount ~1 at 1-week tenor. A positive basis is exactly why a spot-anchored 'equidistant' comparison makes puts look cheap."
+  },
+  "spot_based_raw_partA": {
+    "n": 984,
+    "mean_volpts": -1.0434,
+    "median_volpts": -1.0345,
+    "t": -17.503,
+    "frac_positive": 0.2907
+  },
+  "same_strike_parity_bias": {
+    "n": 984,
+    "mean_volpts": -1.6235,
+    "median_volpts": -1.577,
+    "t": -24.814,
+    "frac_positive": 0.1921
+  },
+  "CORRECTED_1_forward_reinverted": {
+    "n": 983,
+    "mean_volpts": 0.0029,
+    "median_volpts": 0.0019,
+    "t": 22.305,
+    "frac_positive": 0.9766
+  },
+  "CORRECTED_2_parity_neutralised_DiD": {
+    "n": 984,
+    "mean_volpts": 0.5801,
+    "median_volpts": 0.5458,
+    "t": 54.157,
+    "frac_positive": 0.9797
+  },
+  "residual_parity_check_on_forward": {
+    "n": 983,
+    "mean_volpts": -0.0,
+    "median_volpts": -0.0,
+    "t": -1.604,
+    "frac_positive": 0.4741
+  },
+  "distance_from_forward_pts": {
+    "ce_wing_mean": 33.55,
+    "pe_wing_mean": 66.45,
+    "note": "if these differ, the ATM+-50 pair is NOT equidistant from the forward; that residual asymmetry is why correction (2) is the safer read."
+  },
+  "corrected_by_year": {
+    "2021": {
+      "n": 118,
+      "skew_fwd_volpts": 0.01,
+      "skew_did_volpts": 0.556
+    },
+    "2022": {
+      "n": 199,
+      "skew_fwd_volpts": 0.004,
+      "skew_did_volpts": 0.614
+    },
+    "2023": {
+      "n": 193,
+      "skew_fwd_volpts": 0.002,
+      "skew_did_volpts": 0.694
+    },
+    "2024": {
+      "n": 202,
+      "skew_fwd_volpts": 0.001,
+      "skew_did_volpts": 0.552
+    },
+    "2025": {
+      "n": 192,
+      "skew_fwd_volpts": 0.001,
+      "skew_did_volpts": 0.538
+    },
+    "2026": {
+      "n": 80,
+      "skew_fwd_volpts": 0.001,
+      "skew_did_volpts": 0.429
+    }
+  },
+  "VERDICT": "AGREE_puts_richer"
+}

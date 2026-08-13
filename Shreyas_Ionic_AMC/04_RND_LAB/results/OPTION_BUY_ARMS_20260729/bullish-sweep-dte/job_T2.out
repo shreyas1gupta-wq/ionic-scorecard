@@ -1,0 +1,10 @@
+=== ARM 1 grid, process T2 ===
+T1_sweep_priorday_reclaim: 1924 total | BUILD 1775 (2021-05-25 10:45:00 .. 2025-12-30 14:30:00) | FORWARD 149 (2026-01-01 09:45:00 .. 2026-05-21 14:00:00)
+T2_sweep_intraday_continue: 6325 total | BUILD 5836 (2021-05-25 09:45:00 .. 2025-12-31 13:30:00) | FORWARD 489 (2026-01-01 10:15:00 .. 2026-05-27 11:30:00)
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+needed-strike map: 261 expiries, 19.2 strikes/expiry avg
+cells: primary 36 + probe 0
+
+--- BUILD 2021-05-24 .. 2025-12-31 ---
+  [build] chunk 2021 done in 326s (parquet reads 32, cached 32, mem-retries 0)

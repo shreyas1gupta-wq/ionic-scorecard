@@ -1,0 +1,38 @@
+{
+  "SWEEP_E_swing3": {
+    "source": "SWEEP_11YR_20260729\\trades_E_swing3_trail60_1lot.csv",
+    "n_trades": 4378,
+    "span": "2015-01-13..2026-05-14",
+    "pct_short": 54.5,
+    "carry_applied": true
+  },
+  "SWEEP_D_overnight": {
+    "source": "SWEEP_11YR_20260729\\trades_D_overnight1_trail40_1lot.csv",
+    "n_trades": 4378,
+    "span": "2015-01-13..2026-05-14",
+    "pct_short": 54.5,
+    "carry_applied": true
+  },
+  "SWING_priorweek_f10": {
+    "source": "SWING_DELTA1_20260729\\all_trades.csv",
+    "cell": "D_priorweek_sweep_long__fixed_10",
+    "n_trades": 54,
+    "span": "2021-07-05..2026-05-18"
+  },
+  "CALENDAR_1x1_3d": {
+    "source": "RATIO_CALENDAR_20260730\\grid_a_trades_raw.csv",
+    "cell": "ATM_ATM 1x1 exit 3d_before (NET)",
+    "n_trades": 178,
+    "span": "2011-01-03..2026-06-29"
+  },
+  "IVLOW_straddle": {
+    "source": "INVERSE_VRP_NICHE_20260729\\niche1_niche2_trades.csv",
+    "n_trades": 76,
+    "span": "2022-11-24..2026-02-17"
+  },
+  "BOOK_total": {
+    "source": "STACKED_BOOK_20260711\\book_daily_pnl.csv",
+    "n_days": 942,
+    "span": "2022-01-04..2025-12-31"
+  }
+}

@@ -1,0 +1,206 @@
+
+==============================================================================
+REG-1  incumbent emacross_ITM2 -- signal set from engine_swing.entry_days()
+==============================================================================
+incumbent trigger days in build window: 22  [datetime.date(2021, 5, 26), datetime.date(2022, 1, 4), datetime.date(2022, 3, 22), datetime.date(2022, 7, 11)] ... [datetime.date(2025, 9, 11), datetime.date(2025, 10, 8), datetime.date(2025, 12, 23)]
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+INCUMBENT LIVE RERUN: n=22 wr=45.5% pf=2.81 net=Rs.51,420 (+17.1% on Rs.3L) gross=Rs.52,874
+REPORT.md claim (2026-07-01): n=22 wr=45% pf=2.81 +17.1% on Rs.3L
+
+[strike convention] incumbent engine_swing: k = ATM - offset*STEP  with offset=-2  =>  k = ATM + 100  =  2 strikes OTM for a CE (label 'ITM2' is WRONG).
+
+--- HARNESS parity-mode (incumbent rates/rules) ---
+signals 22 | filled 22 (100.0%)
+GROSS  total Rs.      51,984  mean Rs.    2,363  WR 45.5%  PF 2.90
+NET    total Rs.      50,537  mean Rs.    2,297  WR 45.5%  PF 2.80   (costs Rs.1,448)
+per-trade net ret +21.32%  t=1.60  best Rs.14,637  worst Rs.-4,535
+hold 1625min / 1.0d | exits {'trail': 10, 'target': 8, 'stop': 4}
+liquidity: zero-vol entry 0.00%, thin entry 0.00%, thin exit 0.00%, stale exits 0.00%, cash-settled 0.00%
+concentration: top trade = 18.6% of gross profit
+on Rs.300,000: +16.8% total, maxDD -3.2% | positive months gross 47.6% vs net 47.6% (n=21)
+
+--- FILL / LIQUIDITY HONESTY REPORT ---
+signals 22 | filled 22 | rejected 0
+   entry_lag_min_mean: 1.0000
+   entry_lag_min_p95: 1.0000
+   entry_lag_gt1min_frac: 0.0000
+   entry_vol_median: 98,112.5000
+   exit_vol_median: 228,775.0000
+   zero_vol_entry_frac: 0.0000
+   zero_vol_exit_frac: 0.0000
+   thin_entry_frac: 0.0000
+   thin_exit_frac: 0.0000
+   slip_mult_gt1_frac: 0.0000
+   stale_exit_frac: 0.0000
+   oi_zero_entry_frac: 0.3182
+
+--- HARNESS honest-default (COST_STANDARDS + dyn slip + liq gates) ---
+signals 22 | filled 22 (100.0%)
+GROSS  total Rs.      52,678  mean Rs.    2,394  WR 45.5%  PF 2.97
+NET    total Rs.      51,213  mean Rs.    2,328  WR 45.5%  PF 2.86   (costs Rs.1,465)
+per-trade net ret +21.66%  t=1.63  best Rs.14,633  worst Rs.-4,535
+hold 1625min / 1.0d | exits {'trail': 10, 'target': 8, 'stop': 4}
+liquidity: zero-vol entry 0.00%, thin entry 0.00%, thin exit 0.00%, stale exits 0.00%, cash-settled 0.00%
+concentration: top trade = 18.6% of gross profit
+on Rs.300,000: +17.1% total, maxDD -3.2% | positive months gross 47.6% vs net 47.6% (n=21)
+
+--- HELD-OUT 2026 H1 (reported only, nothing selected on it) ---
+signals 2 | filled 2 (100.0%)
+GROSS  total Rs.      -5,534  mean Rs.   -2,767  WR 0.0%  PF 0.00
+NET    total Rs.      -5,656  mean Rs.   -2,828  WR 0.0%  PF 0.00   (costs Rs.122)
+per-trade net ret -29.45%  t=-5.27  best Rs.-2,260  worst Rs.-3,396
+hold 886min / 0.5d | exits {'trail': 2}
+liquidity: zero-vol entry 0.00%, thin entry 0.00%, thin exit 0.00%, stale exits 0.00%, cash-settled 0.00%
+on Rs.300,000: -1.9% total, maxDD -1.1% | positive months gross 0.0% vs net 0.0% (n=2)
+
+REG-1 pre-registered band {'n': (17, 27), 'wr': (0.3, 0.6), 'pf': (1.0, 6.0), 'net': (20568.0, 128550.0)}
+REG-1 VERDICT: PASS (consistent in sign and magnitude)
+REG-1 IS A REGRESSION TEST, NOT A CORRECTNESS PROOF. Both engines could share the
+same error. Correctness evidence = UNIT-1/2/3 below.
+
+==============================================================================
+UNIT-1  arithmetic reconciliation of 6 filled trades vs RAW parquet
+==============================================================================
+OK  2022-01-04 09:19:00 K17800CE open=125.90 close=150.00 gross=1,704.04 | d_open=0.00e+00 d_close=0.00e+00 d_gross=0.00e+00 | next-bar OK
+OK  2023-02-17 09:19:00 K18050CE open=68.75 close=59.05 gross=-775.43 | d_open=0.00e+00 d_close=0.00e+00 d_gross=0.00e+00 | next-bar OK
+OK  2022-03-22 09:19:00 K17200CE open=260.70 close=233.55 gross=-2,221.59 | d_open=0.00e+00 d_close=0.00e+00 d_gross=0.00e+00 | next-bar OK
+OK  2025-12-23 09:19:00 K26250CE open=107.90 close=67.85 gross=-3,069.66 | d_open=0.00e+00 d_close=0.00e+00 d_gross=0.00e+00 | next-bar OK
+OK  2025-09-11 09:19:00 K25100CE open=75.05 close=71.85 gross=-295.09 | d_open=0.00e+00 d_close=0.00e+00 d_gross=0.00e+00 | next-bar OK
+OK  2024-05-21 09:19:00 K22550CE open=196.90 close=396.25 gross=14,728.82 | d_open=0.00e+00 d_close=0.00e+00 d_gross=0.00e+00 | next-bar OK
+UNIT-1: PASS
+
+==============================================================================
+UNIT-2  expiry intrinsic cash-settlement reconciliation
+==============================================================================
+cash-settled trades: 14 of 14 filled
+OK  exp=2021-06-03 K15200CE settle_spot=15690.08 intrinsic=490.08 harness_exit_px=490.08 exit_t=2021-06-03 15:30:00 exit_fill=490.08 (no slippage on settlement) | d=0.00e+00 spot_bars_on_exp=375
+OK  exp=2022-01-13 K17700CE settle_spot=18258.78 intrinsic=558.78 harness_exit_px=558.78 exit_t=2022-01-13 15:30:00 exit_fill=558.78 (no slippage on settlement) | d=0.00e+00 spot_bars_on_exp=375
+OK  exp=2022-03-31 K17100CE settle_spot=17466.08 intrinsic=366.08 harness_exit_px=366.08 exit_t=2022-03-31 15:30:00 exit_fill=366.08 (no slippage on settlement) | d=0.00e+00 spot_bars_on_exp=375
+OK  exp=2022-07-14 K16150CE settle_spot=15939.90 intrinsic=0.00 harness_exit_px=0.00 exit_t=2022-07-14 15:30:00 exit_fill=0.00 (no slippage on settlement) | d=0.00e+00 spot_bars_on_exp=376
+OK  exp=2022-10-27 K17650CE settle_spot=17737.74 intrinsic=87.74 harness_exit_px=87.74 exit_t=2022-10-27 15:30:00 exit_fill=87.74 (no slippage on settlement) | d=0.00e+00 spot_bars_on_exp=375
+OK  exp=2023-02-23 K17950CE settle_spot=17510.91 intrinsic=0.00 harness_exit_px=0.00 exit_t=2023-02-23 15:30:00 exit_fill=0.00 (no slippage on settlement) | d=0.00e+00 spot_bars_on_exp=376
+exit_fill == intrinsic for all cash-settled: True
+UNIT-2: PASS
+
+==============================================================================
+UNIT-3  no-lookahead invariants over every trade produced so far
+==============================================================================
+entry_t <= signal_t      : 0   (must be 0)
+exit_t  <  entry_t       : 0   (must be 0)
+entry before 09:15       : 0   (must be 0 -- pre-open auction guard)
+entry on a different day : 0   (must be 0)
+UNIT-3: PASS  (n=60)
+
+==============================================================================
+UNIT-4  degenerate-exit control (stop 99% / target 9900% => only squareoff)
+==============================================================================
+exit reasons: {'squareoff': 19, 'stop': 2, 'expiry_settle': 1}
+UNIT-4: FAIL (a stop/target fired that could not)
+
+==============================================================================
+SANITY-5  RANDOM-TIMESTAMP CONTROL -- must be NET-NEGATIVE or the harness is broken
+==============================================================================
+  [opt_pl] 0/1800 signals, filled=0
+  [opt_pl] 600/1800 signals, filled=591
+  [opt_pl] 1200/1800 signals, filled=1185
+
+--- RANDOM CONTROL A: hold-to-15:25, no stop/target (pure theta+cost drag) ---
+signals 1800 | filled 1768 (98.2%)
+GROSS  total Rs.    -466,433  mean Rs.     -264  WR 41.6%  PF 0.82
+NET    total Rs.    -578,404  mean Rs.     -327  WR 40.8%  PF 0.78   (costs Rs.111,972)
+per-trade net ret -2.95%  t=-2.88  best Rs.19,603  worst Rs.-14,884
+hold 208min / 0.0d | exits {'squareoff': 1767, 'data_end': 1}
+liquidity: zero-vol entry 0.00%, thin entry 0.06%, thin exit 0.79%, stale exits 0.06%, cash-settled 0.00%
+concentration: top trade = 1.0% of gross profit
+on Rs.300,000: -192.8% total, maxDD -187.1% | positive months gross 28.6% vs net 23.2% (n=56)
+   frictionless gross (raw open->close, no slippage/costs): Rs.-299,580
+   zero-vol entry rejects: 0, lag rejects: 0
+   SANITY-5 A: PASS (net-negative as required)
+  [opt_pl] 0/1800 signals, filled=0
+  [opt_pl] 600/1800 signals, filled=591
+  [opt_pl] 1200/1800 signals, filled=1185
+
+--- RANDOM CONTROL B: target +50% / stop -30% (a realistic intraday buy config) ---
+signals 1800 | filled 1768 (98.2%)
+GROSS  total Rs.    -354,959  mean Rs.     -201  WR 40.7%  PF 0.84
+NET    total Rs.    -467,088  mean Rs.     -264  WR 40.2%  PF 0.79   (costs Rs.112,129)
+per-trade net ret -2.74%  t=-3.72  best Rs.12,478  worst Rs.-7,450
+hold 146min / 0.0d | exits {'squareoff': 850, 'stop': 628, 'target': 290}
+liquidity: zero-vol entry 0.00%, thin entry 0.06%, thin exit 0.00%, stale exits 0.00%, cash-settled 0.00%
+concentration: top trade = 0.7% of gross profit
+on Rs.300,000: -155.7% total, maxDD -153.8% | positive months gross 33.9% vs net 32.1% (n=56)
+   frictionless gross (raw open->close, no slippage/costs): Rs.-194,471
+   zero-vol entry rejects: 0, lag rejects: 0
+   SANITY-5 B: PASS (net-negative as required)
+  [opt_pl] 0/1800 signals, filled=0
+  [opt_pl] 600/1800 signals, filled=592
+  [opt_pl] 1200/1800 signals, filled=1191
+
+--- RANDOM CONTROL C: 0DTE allowed, trade_out at 15:25 ---
+signals 1800 | filled 1780 (98.9%)
+GROSS  total Rs.    -437,768  mean Rs.     -246  WR 38.8%  PF 0.83
+NET    total Rs.    -544,394  mean Rs.     -306  WR 38.0%  PF 0.79   (costs Rs.106,626)
+per-trade net ret -5.02%  t=-2.68  best Rs.24,010  worst Rs.-14,884
+hold 209min / 0.0d | exits {'squareoff': 1778, 'data_end': 2}
+liquidity: zero-vol entry 0.00%, thin entry 0.00%, thin exit 4.33%, stale exits 0.11%, cash-settled 0.00%
+concentration: top trade = 1.1% of gross profit
+on Rs.300,000: -181.5% total, maxDD -176.0% | positive months gross 32.1% vs net 30.4% (n=56)
+   frictionless gross (raw open->close, no slippage/costs): Rs.-297,896
+   zero-vol entry rejects: 0, lag rejects: 0
+   SANITY-5 C: PASS (net-negative as required)
+
+==============================================================================
+SANITY-6  cost monotonicity: gross > net on every filled trade
+==============================================================================
+trades with gross <= net: 0 (must be 0); min cost Rs.27.34
+SANITY-6: PASS
+
+==============================================================================
+ONE-DAY-LAG DEGRADATION (informational, D-028 style)
+==============================================================================
+
+--- emacross signals shifted +1 trading day ---
+signals 22 | filled 22 (100.0%)
+GROSS  total Rs.       6,557  mean Rs.      298  WR 31.8%  PF 1.18
+NET    total Rs.       5,158  mean Rs.      234  WR 31.8%  PF 1.14   (costs Rs.1,399)
+per-trade net ret +6.04%  t=0.51  best Rs.12,145  worst Rs.-7,595
+hold 1523min / 1.0d | exits {'trail': 15, 'target': 5, 'stop': 2}
+liquidity: zero-vol entry 0.00%, thin entry 0.00%, thin exit 0.00%, stale exits 0.00%, cash-settled 0.00%
+concentration: top trade = 28.3% of gross profit
+on Rs.300,000: +1.7% total, maxDD -5.8% | positive months gross 33.3% vs net 33.3% (n=21)
+
+==============================================================================
+SUMMARY
+==============================================================================
+{
+  "REG1_pass": true,
+  "UNIT1_pass": true,
+  "UNIT2_pass": true,
+  "UNIT3_pass": true,
+  "UNIT4_pass": false,
+  "SANITY5_A": {
+    "net_total": -578404.3242292941,
+    "gross_total": -466432.74374999997,
+    "raw_gross": -299580.0,
+    "n": 1768,
+    "pass_": true
+  },
+  "SANITY5_B": {
+    "net_total": -467088.23065939196,
+    "gross_total": -354959.0062500001,
+    "raw_gross": -194471.25,
+    "n": 1768,
+    "pass_": true
+  },
+  "SANITY5_C": {
+    "net_total": -544394.3578226462,
+    "gross_total": -437768.0625,
+    "raw_gross": -297896.25000000006,
+    "n": 1780,
+    "pass_": true
+  },
+  "SANITY6_pass": true
+}
+
+wrote reg1_parity_trades.csv / reg1_honest_trades.csv / random_control_B.csv / validation_results.json

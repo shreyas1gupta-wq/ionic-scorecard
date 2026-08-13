@@ -1,0 +1,66 @@
+[load] index
+[join] 30,638 windows with an out-of-sample H4 probability
+
+======================================================================================================================
+ALL 2015-2026   n=30,638   payoff in ATR units, 1:1.5 harvest, adverse-first
+======================================================================================================================
+arm                           decline   n kept     gated    random  rand p95       p      verdict
+DIR_vwap  (A6 logic)              all    30638    0.0114         -         -       -     baseline
+                                  30%    21446    0.0135    0.0114    0.0128   0.005   BEATS NULL
+                                  50%    15319    0.0161    0.0113    0.0135   0.000   BEATS NULL
+                                  60%    12255    0.0182    0.0113    0.0139   0.000   BEATS NULL
+                                  70%     9192    0.0179    0.0113    0.0144   0.000   BEATS NULL
+                                  80%     6128    0.0194    0.0112    0.0156   0.000   BEATS NULL
+DIR_trend (vs prior close)        all    30638    0.0038         -         -       -     baseline
+                                  30%    21446    0.0067    0.0038    0.0051   0.001   BEATS NULL
+                                  50%    15319    0.0074    0.0038    0.0059   0.001   BEATS NULL
+                                  60%    12255    0.0110    0.0038    0.0063   0.000   BEATS NULL
+                                  70%     9192    0.0148    0.0038    0.0070   0.000   BEATS NULL
+                                  80%     6128    0.0169    0.0038    0.0080   0.000   BEATS NULL
+DIR_coin  (PLACEBO dir)           all    30638    0.0017         -         -       -     baseline
+                                  30%    21446    0.0025    0.0017    0.0031   0.163         weak
+                                  50%    15319    0.0026    0.0017    0.0037   0.230      NO EDGE
+                                  60%    12255    0.0025    0.0017    0.0043   0.316      NO EDGE
+                                  70%     9192    0.0027    0.0017    0.0048   0.321      NO EDGE
+                                  80%     6128    0.0019    0.0018    0.0060   0.469      NO EDGE
+BEST-OF-BOTH (upper bound)        all    30638    0.1902         -         -       -     baseline
+                                  30%    21446    0.2053    0.1901    0.1911   0.000   BEATS NULL
+                                  50%    15319    0.2137    0.1901    0.1915   0.000   BEATS NULL
+                                  60%    12255    0.2185    0.1901    0.1919   0.000   BEATS NULL
+                                  70%     9192    0.2245    0.1901    0.1923   0.000   BEATS NULL
+                                  80%     6128    0.2310    0.1901    0.1930   0.000   BEATS NULL
+
+======================================================================================================================
+HELD OUT from 2025-07-01   n=3,424   payoff in ATR units, 1:1.5 harvest, adverse-first
+======================================================================================================================
+arm                           decline   n kept     gated    random  rand p95       p      verdict
+DIR_vwap  (A6 logic)              all     3424    0.0084         -         -       -     baseline
+                                  30%     2397    0.0108    0.0083    0.0122   0.162         weak
+                                  50%     1712    0.0070    0.0081    0.0145   0.623      NO EDGE
+                                  60%     1370    0.0043    0.0082    0.0160   0.791      NO EDGE
+                                  70%     1027    0.0031    0.0085    0.0183   0.814      NO EDGE
+                                  80%      685   -0.0045    0.0086    0.0214   0.963      NO EDGE
+DIR_trend (vs prior close)        all     3424    0.0047         -         -       -     baseline
+                                  30%     2397    0.0089    0.0046    0.0087   0.040   BEATS NULL
+                                  50%     1712    0.0032    0.0044    0.0103   0.634      NO EDGE
+                                  60%     1370    0.0039    0.0045    0.0121   0.550      NO EDGE
+                                  70%     1027    0.0036    0.0045    0.0143   0.564      NO EDGE
+                                  80%      685   -0.0023    0.0045    0.0172   0.804      NO EDGE
+DIR_coin  (PLACEBO dir)           all     3424    0.0003         -         -       -     baseline
+                                  30%     2397   -0.0003    0.0004    0.0045   0.625      NO EDGE
+                                  50%     1712    0.0006    0.0003    0.0065   0.473      NO EDGE
+                                  60%     1370    0.0001    0.0004    0.0080   0.510      NO EDGE
+                                  70%     1027    0.0029    0.0004    0.0102   0.325      NO EDGE
+                                  80%      685    0.0074    0.0005    0.0131   0.161         weak
+BEST-OF-BOTH (upper bound)        all     3424    0.1880         -         -       -     baseline
+                                  30%     2397    0.2032    0.1880    0.1910   0.000   BEATS NULL
+                                  50%     1712    0.2085    0.1879    0.1923   0.000   BEATS NULL
+                                  60%     1370    0.2113    0.1880    0.1936   0.000   BEATS NULL
+                                  70%     1027    0.2167    0.1880    0.1947   0.000   BEATS NULL
+                                  80%      685    0.2282    0.1881    0.1969   0.000   BEATS NULL
+
+wrote direction_committed.csv/.json
+
+HOW TO READ THIS: if DIR_coin gains as much as DIR_vwap, the gate is avoiding bad VOLATILITY
+windows rather than picking winners - still useful, but it is a risk filter, not alpha.
+And BEST-OF-BOTH minus DIR_vwap is exactly the size of the optimism in my earlier headline.

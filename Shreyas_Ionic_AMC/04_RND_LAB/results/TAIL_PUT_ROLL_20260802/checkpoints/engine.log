@@ -1,0 +1,9 @@
+[23:50:36] loading tables...
+[23:50:37] PE rows 763,512 | trading days 2579 | expiries 456
+[23:50:37] running NO_ROLL (hold to own 6M expiry)...
+[23:50:37]   -> 11 cycles, mean net -81.24 pts, total -893.67 pts
+[23:50:37] running ROLL_3M (close+refresh every ~3 months)...
+[23:50:38]   -> 12 cycles, mean net -45.43 pts, total -545.14 pts
+[23:50:38] no_roll: actual entry OTM%% mean=10.200% min=8.645% max=12.036%
+[23:50:38] roll_3m: actual entry OTM%% mean=10.041% min=8.610% max=12.034%
+[23:50:38] DONE

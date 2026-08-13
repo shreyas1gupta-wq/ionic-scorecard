@@ -17,6 +17,237 @@ readers start at `09_PRODUCT/HOW_WE_SCORE_STOCKS.md`. Workflow audit 42/43.
 
 # CURRENT STATE — read me first (updated every session end)
 
+## [EOD FLAG] AngelDailyOptionCapture is STALLING — 2026-08-04 00:08 (DESK-100 EOD run)
+**Status: AMBER/RED. Not a data-freshness nit — this task is the firm's only defense against Angel
+purging expired option contracts, so a silent stall is unrecoverable data loss.**
+Evidence (ground truth = files on disk, not the log):
+- Output `intraday_options_strategy/datasets/angel_capture_2026/{day,minute}/`. Files written per
+  date: **2026-07-31 → 62, 2026-08-02 → 91, 2026-08-03 → only 2.**
+- 2026-08-03 **15:45 primary trigger wrote ZERO files** despite `login OK` + `universe 210 stocks |
+  expiries ['2026-08-25','2026-09-29']` logged at 15:45:12. Nothing for the next 7 hours.
+- 2026-08-03 **23:00 backup trigger wrote 2 files** (360ONE day+minute, 23:02) then stalled — no
+  further lines or files in the following ~68 min. It dies after the FIRST symbol.
+- The 20:00 backup trigger did not log at all on 08-03.
+- **Coverage is 89/210 symbols (42%)**: 88 have the 2026-08-25 expiry, only **51 have 2026-09-29**.
+  121 F&O names have never been captured at all.
+- `capture.log` also carries a DNS failure to `apiconnect.angelone.in` (`getaddrinfo failed`) from an
+  earlier run, so the network path is intermittently unavailable.
+Note on diagnosis: symbol-directory mtimes read 2026-07-31 and are MISLEADING — the capture overwrites
+parquet files in place, so directory mtimes do not move. Check file mtimes, never directory mtimes.
+**NOT repaired by this EOD (health check only, no agent spawns, and a repair is an ops decision).**
+Next action: `/pipeline-health` or Manoj (ops) to find why the per-symbol loop exits after symbol 1;
+the 15:45 zero-file run and the 23:00 one-symbol run are probably the same root cause. Until fixed,
+treat any option-data backtest on Aug-2026 expiries as running on a 42%-complete universe.
+
+## 750-SCORECARD MILESTONE — 2026-08-03 evening (DESK-100, parallel session)
+**The 750-universe analyst-research build is COMPLETE: 751/751 pf_qual files on disk** (560 Hold /
+191 Sell, 126 escalations → `09_PRODUCT/reports/ESCALATIONS_750_REVIEW.xlsx` for Principal
+adjudication). Deliverable: `09_PRODUCT/reports/ANALYST_RECOMMENDATIONS_750.xlsx` (751×43, 4 sheets).
+**pf_state initialized for the FULL universe (751 files)** — the Thursday weekly V1 router now runs
+incrementally over everything. Talaulikar deck upgrade in flight (19 former No-View names now have
+real scores; 5 remain outside the universe). **OPEN: technical-agent pass has never run (0/751 have
+chart scores) — blocked on choosing the per-symbol multi-year price source; do NOT launch it against
+an unverified path.** MF: NAV-refresh armed Sep-1; QFRA models stay Apr/Oct (next Oct-end). Full
+detail in SESSION_JOURNAL 2026-08-03 entries.
+
+## >>> RESUME HERE — 2026-08-03, session paused softly by the Principal <<<
+**READ THIS BLOCK FIRST NEXT SESSION.**
+
+### The one thing that changed everything today
+**Budget-2026 STT hike CONFIRMED (2 independent sources), effective 1 April 2026:**
+futures on sale value **0.02% -> 0.05% (+150%)**, options on premium 0.10% -> 0.15%, exercise
+0.125% -> 0.15%. STT is not a line item in our futures cost, it IS the cost (non-STT residual only
+1.97 pts). **NIFTY futures round trip 7.27 -> 14.47 index pts at spot 24,000 (1.99x).** Measured gross
+edges cluster at 2-5 pts, so they are now 3.6x under the floor.
+**Asymmetry:** futures 1.99x, options **1.027x** (STT is on PREMIUM not notional), MCX gold **1.00x**
+(CTT not STT). **Gold is now 2.45x CHEAPER than NIFTY futures, reversing my own earlier "no cost
+advantage" conclusion.** Four survivors died, including ICHIMOKU_TK (+2.442 -> -4.758), which had been
+the only TradingView cell to clear a placebo. Evidence pack: `04_RND_LAB/results/STT_RECOST_20260803/`.
+
+### FIRST ACTION NEXT SESSION — needs the Principal, not more research
+**COST_STANDARDS.md amendment awaiting sign-off (APPROVED under D-021, so only he can change it).**
+Recommended: futures STT 0.05% with the STT term computed from CONTEMPORANEOUS SPOT rather than a fixed
+point value; options STT 0.15% of premium; an explicit MCX row noting CTT-not-STT. Until signed, every
+quoted futures result carries a pre-April-2026 cost basis, and April-Jun 2026 held-out figures are
+UNDER-COSTED (small in trade count, uniformly optimistic).
+
+### SECOND ACTION — read three agent folders that were still running at pause
+They bank to disk continuously, so their outputs should be present even though the session ended:
+1. `04_RND_LAB/results/SELL_PLUS_TAIL_20260803/` — **the highest-value open build.** Short-premium core
+   x long-put tail overlay (hedge ratio x moneyness x tenor), re-costed at new STT, net-hedge-positive
+   discipline, max survivable notional under a COVID repeat. The case for it: selling is the edge
+   (VRP +0.0605 vol pts at **t=32.14**, the strongest number in the book; realised short of straddle
+   breakeven on 95.3% of trades; gamma/theta fell 1.15 -> 1.03 -> **0.83** post-Oct-2024) but a crash
+   ruins it (20-day -37.01% = **3.70x the entire margin**; LD_SELL's real COVID cycles lost Rs42,545,
+   worst trade -50.6% of its margin WITH a 2x stop armed). The fix is measured and nearly free: a plain
+   5%-OTM long put held to expiry costs **-18 to -20 pts/yr at t=-0.69** and paid **+3,463 pts in the
+   real 2020 crash**. PLEDGE_SAFE already showed it converting a FAILING COVID drawdown (-20.17%) into
+   a PASSING one (-17.53%). And the STT hike makes an all-options book strictly better.
+2. `04_RND_LAB/results/GOLD_VENUE_20260803/` — gold re-opened as the now-cheapest venue: time-of-day
+   decomposition across the 14.5h MCX session, MCX-session gap behaviour, RR curve as a third test of
+   the negative-excess-slope result. NOTE gold's standalone verdict was still NEGATIVE (gross 0.0149%
+   vs its own 0.0246% cost) — only the venue RANKING moved.
+3. `04_RND_LAB/results/OPEN_ITEMS_20260803/` — isolates how much of A6_vwap_proxy_continue's
+   +4.153/t=2.576 was the 25.6% wrong-expiry drop_duplicates defect vs methodology; writes
+   PUTCAL_LADDER's missing FINDINGS.md; spot-checks the no-pre-2010-index-data conclusion.
+
+### Where the book actually stands (post-STT, honest)
+- **SWEEP_E is the only clean survivor** of ~1,872 nominal cells (~40-55 effective independent trials):
+  DSR 0.996-1.00, PBO 0.00. S1-F, the certified flagship, newly carries **PBO=33%**. OVERSHOOT fails
+  DSR at ~0.00. CALENDAR fails at 0.58-0.70.
+- **Portfolio: BALANCED — RE-COSTED 2026-08-03 (Vikram), recommendation HOLDS.** Historical (old-rate)
+  Sharpe 1.81/Calmar 1.765/CAGR 10.29%/MaxDD -5.83%; **forward-costed (new STT throughout) Sharpe
+  1.10/Calmar 1.034/CAGR 6.60%/MaxDD -6.38%** — still the best risk-adjusted of the three, but CAGR
+  nearly halves. HIGH_CAGR's fitted weights independently moved AWAY from SWEEP (11.92x->5.02x
+  documented size) and toward every options sleeve + BOOK once recosted, confirming the futures-vs-
+  options asymmetry at the portfolio level — but HIGH_CAGR still trails BALANCED on Calmar/Sharpe, so
+  the "don't run HIGH_CAGR as designed" call is reinforced, not reversed (capacity ask shrinks to ~5x,
+  still unverified). CPPI drawdown-floor overlay re-tested: its Calmar benefit on HIGH_CAGR REVERSES
+  post-recost (1.232->1.699 historically vs 0.671->0.633 forward) — no longer recommended.
+  Full detail: `04_RND_LAB/results/PORTFOLIOS_RECOST_20260803/PORTFOLIOS_RECOST.md`.
+- **Option buying is CLOSED** from four independent angles, with the mechanism dated to Oct-2024.
+- **Scaling:** 1 lot until forward evidence. If scaling, 3-session hold + CPPI floor — NOT the
+  high-frequency arm and NOT naive monthly addition. **Frequency is not what makes a strategy scalable;
+  edge-to-drawdown ratio is** — a conclusion the STT hike independently confirms.
+
+### Still owed
+Capacity check on SWEEP (~5x post-recost, down from ~12x) before any HIGH_CAGR sizing. Acquire SENSEX
+daily 1979+ (without it 2008, 2000 and 1992 stay untestable). ~~Re-cost THREE_PORTFOLIOS at new STT~~
+DONE 2026-08-03. EVENT_FED paper-track at zero size through 4-6 FOMC cycles (era sign-flip unresolved).
+
+### Corrections issued this run — six of my own numbers
+73% CAGR portfolio (contaminated by an excluded sleeve) · the 106%->73.1% withdrawal (never existed) ·
+SWING maxDD (neither prior number right) · the crash-data claim (wrong for 2 of 3 sleeves) ·
+A6 VWAP-continue (wrong-expiry defect, re-test running) · gold's cost advantage (reversed by the STT
+hike). Every one was surfaced by a control I had asked for, but they were my errors.
+
+---
+
+
+> **CORRECTION 2026-07-31:** an earlier claim that all three option-selling sleeves have no crash data is WRONG for two of three. Only OVERSHOOT (from 2021-06) lacks it; CALENDAR and LD_SELL span 2011-2026 with thin crash sampling. Detail in SESSION_JOURNAL.
+
+## 2026-08-02 (DESK-100) — Financed/laddered long iron-fly KILLED (K-018, 32/32 cells); swing-level idea scoped
+Principal's new option-buying variant (ATM straddle financed by a tight OTM short strangle,
+weekly-rolled ladder, 4 vol-timing filters) tested despite strong prior art already flagging the
+core mechanism as dead (`OPTBUY_CONVEXITY_20260731`, 2026-07-31). **Clean kill, all 32 cells**:
+tighter wings (100-200pt) significantly NEGATIVE (t to -8.17) — the short strangle caps the payoff
+on the one thing that could offset theta, so it's a worse buy, not a cheaper one. Widest wing
+(300pt) just re-converges to the already-known fairly-priced naked-straddle result; best cell
+(+8.49pts, t=1.11) fails its own placebo (p=0.088) and misses the honest Bonferroni bar
+(t~4.20 needed at ~1,904-trial family size) by a mile. This is the 4th distinct vol-cheapness gate
+to fail placebo on "time straddle-buying by IV vs RV" (after VIX-low/VIX-high/RV20-compression).
+Found and fixed a small, harmless shared-cache bug along the way (4,447 exact-duplicate option
+rows, 2024-07-01..05, flagged to Kavya). Full detail: `04_RND_LAB/results/IRONFLY_LADDER_20260802/
+FINDINGS.md`, `04_RND_LAB/KILLED_IDEAS.md` K-018. **Separately**, Principal proposed a
+support/resistance swing-high/low entry trigger — the firm already has an exact prior test
+(`SWING_DELTA1_20260729`), a directional version of which reverses hard out-of-sample (best build
+t_nw 1.858, held-out Sharpe -2.34 to -4.40 on every long variant). Reported as caution, not built.
+**OPEN:** whether Principal wants the swing-level idea spec'd as a NEW intake (entry-timing filter
+on the vol structure, not a directional bet, reusing SWING_DELTA1's existing level definition).
+
+## 2026-08-02/03 (DESK-100) — PLEDGE_SAFE: Rs50L bond+Rs50L MF pledge-and-sell backtest, red-team caught a real bug, corrected verdict = yield ALONE fails the firm's own COVID bar, yield+protective-put PASSES it
+Principal ask: pledge Rs50L G-sec (8%) + Rs50L equity MF as collateral, run options for yield "very
+very safely." Reused S1-F (frozen spec) unchanged, sized via RISK_LIMITS.md's existing 40%-of-book
+cap (0 breaches, 1,812 days verified). **Calm 2021-2026 (real NIFTY500 for the MF leg): combined
+MaxDD -6.96% vs -9.81% baseline — yield HELPS.** COVID rerun first came back -23.34% (fails
+RISK_LIMITS' own <20% COVID bar) — **red-team caught it was contaminated**: the reused covid_backcast
+never applies F1/F2 vetoes, and the 2 worst days behind that number would both be vetoed live; also
+caught a same-day sizing lookahead. **Corrected: yield-only COVID MaxDD -20.17% (still a real, narrow
+breach + still worse than baseline).** Built a 50%-notional rolling protective put (real 2016-2026
+option data, incl. actual COVID prices — paid +3,463pts in the real Feb-Apr-2020 window) per
+Principal's mid-session follow-up allowing directional hedges: **yield+hedge corrected COVID MaxDD
+-17.53% — PASSES the firm's bar and beats the passive baseline**, for ~0.5pt/yr CAGR cost in calm
+markets. **Recommended: yield overlay + partial protective put, NOT yield alone.** Side-thread: PE
+calendar ladder (buy-far/sell-near PE) confirmed DEAD at 45D/15D both roll timings; 90D/30D mildly
+positive but underpowered (t=0.69) — forward-test candidate only, not in the recommended structure.
+Put ratio spread: cheaper but doesn't help in a crash, real uncapped tail risk — not recommended.
+Two background jobs (red-team, calendar Bash job) were lost to a process restart mid-session and
+successfully resumed/relaunched — a resume-from-cache pattern (skip re-computing if `trades_*.csv`
+already exists) was added, reusable for future long jobs. **OPEN: Principal decision on the
+yield+hedge structure; 3 disclosed caveats unresolved (settlement/liquidity channel not modeled, no
+GFC-class scenario testable — data starts 2015/2016, haircuts are labeled assumptions not a live
+broker quote).** Full detail: SESSION_JOURNAL.md top entry + `04_RND_LAB/results/PLEDGE_SAFE_20260802/
+FINDINGS.md`. Nothing committed to git yet.
+
+## 2026-07-30/31 (DESK-100) — >100% CAGR hunt part 2: buying refused a 3rd time, regime-ML answered, candle system exposed as BETA
+**HEADLINE: no single strategy reaches >100% CAGR at <25% MDD, and the reason is now measured four
+independent ways.** (a) directional intraday edge is 2-5 index pts vs 5-6 pts futures cost; (b)
+MFE/|MAE| = 0.92-1.32 across every signal family ⇒ no convexity for a buyer; (c) the 1:1.5
+option-buying harvest is priced FAIRLY — hit rate 40-43% against the 44.7% needed to clear cost;
+(d) the one 59%-CAGR candle system is ~60% index beta. **The portfolio route is still the only one
+that works: ~73% CAGR at 25% MaxDD, Calmar 2.597, three independent constructions agreeing.**
+
+**Option buying at the Principal's own spec (0.6 delta / ITM-100 / ITM-50, RR 1:1.5): 36,061 legs,
+87 cells, 0 POSITIVE.** `GATED_BUYING_20260730`. Measured delta on the 0.60 rule = 0.602; ITM-50 =
+0.590 ⇒ *0.6 delta and ITM-50 are the same instrument in practice*. Hit rate clusters at 40-43% and
+breakeven at RR 1:1.5 is exactly 40.0%; clearing the 1.77-pt round trip needs 44.7%. The harvest is
+priced fairly and the cost is the entire loss — not a tuning problem. The B2 IV/RV gate that cleared
+its bar on the UNDERLYING (+4.584 pts, t=4.029) does NOT transfer to the option vehicle: CHEAP −0.99
+≈ RICH −0.98, MID −0.45 beats both ⇒ noise at option level. Held-out 2026 worse (hit 30-37%).
+
+**Regime-state ML built to spec — vol is predictable, direction is not.** `REGIME_ML_20260730`,
+42,528 samples at 15-min, purged walk-forward + 5-day embargo + label-permutation placebo + held-out
+from 2025-07. **Volatility bucket AUC 0.8528 OOS / 0.8742 HELD-OUT (strong, improves out of sample).
+Choppy-vs-trending 0.5356 / 0.5055 held-out (coin flip).** No-trade head 0.6795 / 0.6917.
+**I WITHDREW MY OWN HEADLINE HERE:** the first economic null (−0.0589 → +0.0089 gated, p=0.000) was
+~17× inflated because the `tradeable` label was `winnable(long) OR winnable(short)`, crediting a
+perfect direction choice the model never makes. Direction-committed rerun: the gate BEATS the
+random-decline null 2015-2025 but **FAILS held-out** (−0.0045 at 80% decline). The placebo direction
+gains nothing (p=0.23), so it is not merely a vol filter. **Usable for SIZING and the SELLING book,
+never to rescue buying.** Also explains the earlier `REGIME_GATE_20260730` null result: that tested
+monthly sleeve P&L at n=111-172 months; 15-min granularity gives 250× the observations.
+
+**Candle formations × EMA/DMA: it works, but it is BETA.** `CANDLE_MTF_20260730`. 480 cells, best raw
+t=9.90 → two self-caught defects. (1) OVERLAP: the signal fires on 11.7% of all 15-min bars with a
+78-bar hold, so ~10 positions were open at once and the t-stat counted the same move ~10× (measured
+2.9-10.7×); fixed to one-position-at-a-time, survived at t_NW 7.85 / CAGR 59.6%. (2) **BETA:
+unconditional random LONG on any 15-min bar with the same 63-pt stop/trail/3-day hold earns +29.25
+pts, exp_R 0.432** (random SHORT +13.57) on a sample where NIFTY went 8,294→23,714 (+186%). Against
+matched-random entries, **7 of 8 formations are that wide trail in costume; only THREE_SOLDIERS adds
+(+45.52 vs +26.81, p=0.000 ⇒ +18.7 pts incremental) = 41% of the headline, not 100%.**
+**THE EMA/DMA ANSWER: the filters do NOT help** — held-out 2026 is +67.56 unfiltered vs **−44.06 with
+the daily 10/20 DMA filter** (it inverts the result), +4.83 with 15-min 9/21. Retail band reached only
+by the 1-session hold (13.0/mo, win 52.0%, RR 1.45). **STANDING RISK: this is a long-biased wide-trail
+trend harvest with no bear segment in the data long enough to test it. Size as beta with a trend
+overlay, not as market-neutral alpha.**
+
+**Opening patterns: 0 of 75 survive; the 15-min U-shape actively LOSES.**
+`OPENING_PATTERNS_20260730`, shapes built from 1-minute bars so a U inside the first candle is
+resolvable. U_DOWN_UP_15m: −10.1 to −13.3 pts, win 32-37%, t_NW −2.00 to −3.09 across all five exits.
+Best in family (inverted-U 30m) t_NW 1.23 against a 4.14 bar. Flipping it yields only +1.17 pts —
+half the loss is cost. Best non-finding: narrow-OR then DOWNSIDE break, +9.94 pts, RR 1.54, improving
+across eras (+8.07 → +18.50 → +41.38), but t_NW 2.60 at only 4.0 trades/month with 14 held-out
+trades. Note the sign: downside opening breaks work, upside ones do not — opposite to the candle
+result, consistent with a liquidity effect rather than drift.
+
+**Indicator/levels debt DISCHARGED (the Principal had asked twice).** `INDICATOR_MINE_20260730`: only
+**B2_vix_rv_divergence_LOW** cleared the t=3.8 Bonferroni bar at m=481 (+4.584 pts, t=4.029, placebo
+p=0.000). `STRUCTURAL_EDGES_20260730`: **PCR predicts VOLATILITY (t = −8.9 to −13.2, clears placebo,
+holdout sign matches) and NOT DIRECTION (t = 0.57-2.00, fails placebo)** — which independently
+confirmed the Principal's ML thesis before he proposed it. **CRITICAL CAVEAT (`effect8`): PCR→vol t
+was −13.48 pre-Oct-2024 and +0.09 post**; chain Herfindahl halved at the SEBI break (0.0558→0.0263,
+KS p≈1e-178). Saty ATR Levels / Fibonacci / Elliott had NEVER been tested — now with a dedicated
+agent; the measurable Saty core (`atr_consumed`, `dist_pc_atr`, `gap_atr`, `or30_atr`) went into the
+regime ML and two landed top-5 for the vol head.
+
+**Orthogonal alpha (agent, complete): one lead, sub-scale.** SHORT NIFTY intraday after extreme
+overnight WTI crude crashes — n=229, +27.60 pts, 59.0% win, t=2.83, placebo p=0.008, **held-out 2026
+LARGER (+81.6 pts, t=1.97)** — but **4.1 trades/month** and it misses its own 24-cell bar. Loosening
+the threshold for frequency destroyed the held-out result (t 1.97→0.40) ⇒ genuinely confined to
+extreme days. Forward-test candidate only. Everything else dead: SPX/VIX/USDINR/US10Y all t<1.4;
+NIFTY-BANKNIFTY dispersion is momentum-not-reversion but ~1.3 pts against a 10-12 pt cost floor.
+Breadth UNDERPOWERED-UNRESOLVED (PIT membership file ends Oct-2025). Highest-prior untested channel:
+**same-morning Asian lead-lag (Nikkei/HSI)** — needs a D-009 data proposal.
+
+**SHIPPED:** `04_RND_LAB/results/FINAL_RANKING_20260730/sleeve_performance.html` — all six sleeves +
+portfolio, cumulative P&L with drawdown traces, OOS shading, colour-coded monthly heatmaps.
+
+**OPEN / OWED:** weekly candle FORMATIONS as triggers (computed as columns, never tested — half of
+that ask outstanding); catalogue `05_DATA_OFFICE/data/wti_crude_fred_daily.parquet` (D-009
+spot-checked, not yet in DATA_CATALOG); 3 agents still running (master strategy table sorted by
+Sharpe incl. rejected; TradingView indicators — `VORTEX|60min` t=4.071 with positive mean_net and low
+concentration was never placebo-tested; price levels); and from earlier in the session: DSR/PBO at
+634 trials, the SWING maxDD contradiction, and 2008/Black-Monday tail stress on daily data.
 ## URGENT FLAG #3 (2026-08-05 EOD, DESK-20) — ANGEL OPTION CAPTURE HAS WRITTEN NOTHING SINCE 2026-08-03; the per-symbol loop dies SILENTLY. DESK-100 to fix (owner per CLAUDE.md).
 **[DATA] Evidence, from file mtimes not directory mtimes** (the capture overwrites parquet in place, so
 directory mtimes never move and will lie to you):

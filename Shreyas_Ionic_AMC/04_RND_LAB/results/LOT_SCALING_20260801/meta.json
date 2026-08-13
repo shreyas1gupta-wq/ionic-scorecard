@@ -1,0 +1,19 @@
+{
+  "capital": 1000000.0,
+  "lot": 65,
+  "margin_pct": 0.1,
+  "ruin_frac": 0.5,
+  "mdd_ceiling": 0.25,
+  "buffer_frac": 0.6,
+  "floor_ratchet": 0.8,
+  "cppi_mult": 3.0,
+  "n_boot": 2000,
+  "block_months": 3,
+  "policies": [
+    "P0_FIXED_1",
+    "P1_NAIVE_MONTHLY",
+    "P2_MARGIN_ONLY",
+    "P3_MDD_BUFFER",
+    "P4_CPPI_FLOOR"
+  ]
+}

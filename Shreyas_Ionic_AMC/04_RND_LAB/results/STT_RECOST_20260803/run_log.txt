@@ -1,0 +1,61 @@
+============================================================================================================
+FUTURES ROUND-TRIP COST, index points per lot (STT scales with spot; non-STT residual 1.97)
+============================================================================================================
+ spot  stt_old_pts  stt_new_pts  rt_old_pts  rt_new_pts  delta_pts  ratio  pct_of_notional_old  pct_of_notional_new
+18000          3.6          9.0        6.07       11.47        5.4   1.89               0.0337               0.0637
+20000          4.0         10.0        6.47       12.47        6.0   1.93               0.0323               0.0624
+22000          4.4         11.0        6.87       13.47        6.6   1.96               0.0312               0.0612
+24000          4.8         12.0        7.27       14.47        7.2   1.99               0.0303               0.0603
+26000          5.2         13.0        7.67       15.47        7.8   2.02               0.0295               0.0595
+
+At spot 24,000: round trip 7.27 -> 14.47 pts  (+7.20, 1.99x)
+
+============================================================================================================
+OPTIONS ROUND-TRIP COST, premium points per lot (STT is on PREMIUM, so it barely moves)
+============================================================================================================
+ premium_pts  stt_old  stt_new  rt_old  rt_new  delta  ratio
+          30     0.03    0.045   1.799   1.814  0.015  1.008
+          60     0.06    0.090   1.829   1.859  0.030  1.016
+         100     0.10    0.150   1.869   1.919  0.050  1.027
+         150     0.15    0.225   1.919   1.994  0.075  1.039
+         250     0.25    0.375   2.019   2.144  0.125  1.062
+
+============================================================================================================
+THE ASYMMETRY — this is the actionable finding
+============================================================================================================
+  NIFTY futures, % of notional : 0.0303%  ->  0.0603%   (1.99x)
+  NIFTY options (100pt premium): 1.869  ->  1.919 premium pts   (1.027x)
+  MCX GOLDM, % of notional     : 0.0246%  ->  0.0246%   (1.00x — commodities pay CTT, NOT STT)
+
+  => Gold is now 2.45x CHEAPER than NIFTY futures, having been 1.23x more expensive.
+     This REVERSES my earlier conclusion that gold carried no cost advantage.
+
+================================================================================================================================
+RE-COST OF EVERY SURVIVOR — futures delta +7.20 pts at spot 24,000; options delta is premium-scaled
+================================================================================================================================
+                           cell vehicle    n  per_month  net_old  delta  net_new  pts_month_new                                 verdict                               note
+       THREE_SOLDIERS 3-session     FUT  758       5.50   45.520  7.200   38.320          210.8                                SURVIVES           t_NW 7.85, but ~60% BETA
+       THREE_SOLDIERS 1-session     FUT 1778      13.00   18.520  7.200   11.320          147.2                                SURVIVES            the in-spec scaling arm
+        MARUBOZU_BULL 2-session     FUT 1022       7.50   29.760  7.200   22.560          169.2                                SURVIVES beta placebo p=0.200 — likely beta
+               HAMMER 2-session     FUT 1100       8.10   25.520  7.200   18.320          148.4                                SURVIVES beta placebo p=0.242 — likely beta
+         BOX4 first-60min break     FUT   55       0.43   20.420  7.200   13.220            5.7                                SURVIVES    placebo 0/5, zero 2026 held-out
+              ICHIMOKU_TK 15min     FUT 1126       8.50    2.442  7.200   -4.758          -40.4                                    DIES        the one TV placebo survivor
+                   VORTEX 60min     FUT 1196       9.10    2.394  7.200   -4.806          -43.7                                    DIES                  placebo never run
+          WTI crude-crash short     FUT  229       4.10   27.600  7.200   20.400           83.6                                SURVIVES            held-out LARGER, 4.1/mo
+  Sweep prior-day reclaim (15m)     FUT 1232       8.00    6.669  7.200   -0.531           -4.2                                    DIES                            t=2.085
+       1DTE flow-imbalance FADE     FUT   27       0.50    2.800  7.200   -4.400           -2.2                                    DIES                n=27, zero held-out
+       S1-F 0DTE short straddle     OPT  259      17.20    9.710  0.055    9.655          166.1                                SURVIVES        CERTIFIED; premium ~110 pts
+LD_SELL biweekly 0.10d strangle     OPT  286       1.40      NaN    NaN      NaN            NaN n/a (quoted as CAGR, re-cost at source)               CAGR-quoted, not pts
+        Overshoot sell (0-1DTE)     OPT  913      24.00    0.300  0.030    0.270            6.5                                MARGINAL       within cost-model error bars
+      Ratio calendar 1x1 rolled     OPT  100       0.90   28.480  0.075   28.405           25.6                                SURVIVES                   premium ~150 pts
+
+============================================================================================================
+BREAK-EVEN GROSS EDGE NOW REQUIRED (futures, spot 24,000)
+============================================================================================================
+  Gross edge must exceed 14.47 index points just to break even, up from 7.27.
+  The session's measured gross edges clustered at 2-5 points. That band was already below
+  the old 7.27 floor; it is now 3.6x below the new one.
+  At RR 1:1.5 with a 1-ATR (~250pt) stop the cost is 3.86% of the target,
+  so LARGE-TARGET futures trades are hurt far less than small-target ones.
+
+wrote futures_cost_by_spot.csv, options_cost_by_premium.csv, recost_survivors.csv, meta.json

@@ -1,0 +1,17 @@
+[23:19:00] loading nifty_optidx_all_traded.parquet + spot_vix_daily.parquet ...
+[23:19:01] tbl 1,508,205 rows | trading days 2579 (2016-01-04..2026-07-03) | expiries 456
+[23:19:01] === A_T5_45v15: far=45D near=15D roll_offset=5D ===
+[23:19:09]   n=138 gross_mean=-24.83 net_mean=-28.37 net_median=-8.02 hit=45.7% t=-3.41 mean_net_debit=+119.11 credit_rungs=1
+[23:19:09]     pre2019: n=35 mean_net=-7.09
+[23:19:09]     era_2019_2024_09: n=85 mean_net=-40.29
+[23:19:09]     era_2024_10plus: n=14 mean_net=-27.97
+[23:19:09]     held_out_2026: n=4 mean_net=+37.26
+[23:19:09]   running placebo (500x random roll-dates)...
+[23:39:21]   placebo: observed mean at percentile 10.4% of 500 random draws
+[23:39:21] === A_T2_45v15: far=45D near=15D roll_offset=2D ===
+[23:39:26]   n=140 gross_mean=-9.34 net_mean=-12.88 net_median=-6.54 hit=47.1% t=-1.87 mean_net_debit=+117.51 credit_rungs=0
+[23:39:26]     pre2019: n=35 mean_net=-5.11
+[23:39:26]     era_2019_2024_09: n=87 mean_net=-15.26
+[23:39:26]     era_2024_10plus: n=15 mean_net=-20.95
+[23:39:26]     held_out_2026: n=3 mean_net=+5.78
+[23:39:26]   running placebo (500x random roll-dates)...

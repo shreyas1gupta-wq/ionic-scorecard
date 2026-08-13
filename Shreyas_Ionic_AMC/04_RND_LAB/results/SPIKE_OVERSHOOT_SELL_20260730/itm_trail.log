@@ -1,0 +1,51 @@
+[events] 4,569
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+  [50] 2022-06-09 rows 935
+  [100] 2023-05-25 rows 1,786
+  [150] 2024-05-09 rows 2,680
+  [200] 2025-04-24 rows 3,493
+  [250] 2026-04-13 rows 4,452
+
+[built] 4,543 ITM trades  | mean premium 168.1 pts (intrinsic 100.3, extrinsic 67.8 = 35.8%)
+
+======================================================================================================================
+100-PT ITM OPTION BUYING, TRAILING EXIT (premium pts, net of 1.67 cost)
+======================================================================================================================
+exit rule            n     mean   median    win%    worst     PF    ROI%
+----------------------------------------------------------------------------------------------------------------------
+trail10           4543     2.61   -11.67   44.4%    -11.7   1.44   1.55%
+trail15           4543     3.06    -1.57   47.0%    -16.7   1.38   1.82%
+trail25           4543     3.03    -1.42   47.7%    -26.7   1.25   1.80%
+endpoint          4543    -1.69    -5.72   44.6%   -266.8   0.92  -1.00%
+
+--- trail25 broken down ---
+  by era:
+                 n  mean   med    win  worst
+era                                         
+post_Oct2024  1574  3.60 -3.54  46.38 -26.67
+pre_Oct2024   2969  2.73 -0.97  48.40 -26.67
+  by split:
+                  n  mean   med    win  worst
+split                                        
+build          4098  2.78 -1.50  47.54 -26.67
+held_out_2026   445  5.33 -0.72  49.21 -26.67
+  by dte_band:
+             n  mean   med    win  worst
+dte_band                                
+0-1DTE    1720  2.90 -1.77  47.79 -26.67
+2-7DTE    2823  3.11 -1.27  47.64 -26.67
+
+======================================================================================================================
+ECONOMICS vs FUTURES (Principal margin: option = premium x qty; futures = 10% notional)
+======================================================================================================================
+  75.7 trades/mo | ITM edge +3.03 prem pts | premium 168.1 pts = Rs10,928/lot
+  futures equivalent edge (measured on underlying, 40pt trail): +5.97 pts, Rs162,500/lot
+    ITM OPTION  100% dep (  91 lots):  135.70%/mo -> CAGR 2939438.8%   maxDD   -723.2%
+    ITM OPTION   25% dep (  22 lots):   32.81%/mo -> CAGR    2910.4%   maxDD   -174.8%
+    ITM OPTION   10% dep (   9 lots):   13.42%/mo -> CAGR     353.2%   maxDD    -71.5%
+    FUTURES     100% dep (   6 lots):   17.63%/mo -> CAGR     601.7%   maxDD      nan%
+    FUTURES      25% dep (   1 lots):    2.94%/mo -> CAGR      41.6%   maxDD      nan%
+    FUTURES      10% dep (   1 lots):    2.94%/mo -> CAGR      41.6%   maxDD      nan%
+
+wrote itm_trail.csv

@@ -1,0 +1,10 @@
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+[w=1 exit_-1d] n=259 CE_trap=6.6% PE_trap=3.9% either=10.4% median|move|=228pts
+[w=1 hold_to_expiry] n=259 CE_trap=5.0% PE_trap=5.8% either=10.8% median|move|=259pts
+[w=2 exit_-1d] n=259 CE_trap=11.6% PE_trap=8.5% either=20.1% median|move|=228pts
+[w=2 hold_to_expiry] n=259 CE_trap=10.4% PE_trap=11.6% either=22.0% median|move|=259pts
+[w=4 exit_-1d] n=259 CE_trap=24.7% PE_trap=19.7% either=44.4% median|move|=228pts
+[w=4 hold_to_expiry] n=259 CE_trap=19.3% PE_trap=21.2% either=40.5% median|move|=259pts
+
+DONE -> trapzone_report.json

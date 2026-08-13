@@ -1,0 +1,48 @@
+[23:07:00] loading tables...
+[23:07:01] deduped 4447 exact-duplicate rows (known 2024-07-01..05 bhavcopy double-print)
+[23:07:02] tbl 1,503,758 rows | schedule 530 roll dates (2016-01-04..2026-06-17)
+[23:07:08] d100_layer_unconditional: n=528 mean=-6.85 t=-5.23 win=60.6% skip_data=2
+[23:07:10] d100_layer_iv_lt_rv50: n=167 mean=-3.20 t=-1.51 win=61.1% skip_data=1
+[23:07:11] d100_layer_iv_lt_garch: n=163 mean=-7.20 t=-3.39 win=63.2% skip_data=2
+[23:07:12] d100_layer_iv_pct_low: n=90 mean=-6.25 t=-2.38 win=72.2% skip_data=0
+[23:07:27]     1 rung still open at data end (2026-06-17) -- excluded from stats
+[23:07:27] d100_replace_unconditional: n=527 mean=-7.28 t=-8.17 win=17.6% skip_data=2
+[23:07:31]     1 rung still open at data end (2026-06-17) -- excluded from stats
+[23:07:31] d100_replace_iv_lt_rv50: n=166 mean=-5.11 t=-2.74 win=27.7% skip_data=1
+[23:07:35]     1 rung still open at data end (2026-06-17) -- excluded from stats
+[23:07:35] d100_replace_iv_lt_garch: n=162 mean=-7.18 t=-5.00 win=30.9% skip_data=2
+[23:07:37] d100_replace_iv_pct_low: n=90 mean=-5.81 t=-6.42 win=26.7% skip_data=0
+[23:07:41] d150_layer_unconditional: n=523 mean=-5.38 t=-2.75 win=71.3% skip_data=7
+[23:07:44] d150_layer_iv_lt_rv50: n=164 mean=-2.38 t=-0.71 win=71.3% skip_data=4
+[23:07:45] d150_layer_iv_lt_garch: n=161 mean=-3.69 t=-1.02 win=75.2% skip_data=4
+[23:07:46] d150_layer_iv_pct_low: n=90 mean=-3.98 t=-0.94 win=76.7% skip_data=0
+[23:07:54]     1 rung still open at data end (2026-06-17) -- excluded from stats
+[23:07:54] d150_replace_unconditional: n=522 mean=-5.53 t=-6.33 win=32.0% skip_data=7
+[23:07:57]     1 rung still open at data end (2026-06-17) -- excluded from stats
+[23:07:57] d150_replace_iv_lt_rv50: n=163 mean=-5.16 t=-2.23 win=36.8% skip_data=4
+[23:07:58]     1 rung still open at data end (2026-06-17) -- excluded from stats
+[23:07:58] d150_replace_iv_lt_garch: n=160 mean=-4.37 t=-1.72 win=46.9% skip_data=4
+[23:07:59] d150_replace_iv_pct_low: n=90 mean=-3.99 t=-2.52 win=42.2% skip_data=0
+[23:08:02] d200_layer_unconditional: n=527 mean=-5.32 t=-1.95 win=67.4% skip_data=3
+[23:08:03] d200_layer_iv_lt_rv50: n=167 mean=-0.79 t=-0.17 win=70.7% skip_data=1
+[23:08:04] d200_layer_iv_lt_garch: n=163 mean=-1.62 t=-0.33 win=73.0% skip_data=2
+[23:08:05] d200_layer_iv_pct_low: n=90 mean=-0.91 t=-0.15 win=73.3% skip_data=0
+[23:08:12]     1 rung still open at data end (2026-06-17) -- excluded from stats
+[23:08:12] d200_replace_unconditional: n=526 mean=-6.16 t=-4.99 win=35.4% skip_data=3
+[23:08:14]     1 rung still open at data end (2026-06-17) -- excluded from stats
+[23:08:14] d200_replace_iv_lt_rv50: n=166 mean=-5.99 t=-1.99 win=40.4% skip_data=1
+[23:08:16]     1 rung still open at data end (2026-06-17) -- excluded from stats
+[23:08:16] d200_replace_iv_lt_garch: n=162 mean=-4.84 t=-1.47 win=48.1% skip_data=2
+[23:08:17] d200_replace_iv_pct_low: n=90 mean=-2.87 t=-1.03 win=46.7% skip_data=0
+[23:08:20] d300_layer_unconditional: n=524 mean=-1.79 t=-0.42 win=60.9% skip_data=6
+[23:08:21] d300_layer_iv_lt_rv50: n=165 mean=4.44 t=0.61 win=65.5% skip_data=3
+[23:08:22] d300_layer_iv_lt_garch: n=161 mean=8.49 t=1.11 win=65.8% skip_data=4
+[23:08:23] d300_layer_iv_pct_low: n=90 mean=10.99 t=1.07 win=67.8% skip_data=0
+[23:08:32]     1 rung still open at data end (2026-06-17) -- excluded from stats
+[23:08:32] d300_replace_unconditional: n=523 mean=-5.35 t=-2.56 win=40.9% skip_data=6
+[23:08:35]     1 rung still open at data end (2026-06-17) -- excluded from stats
+[23:08:35] d300_replace_iv_lt_rv50: n=164 mean=-5.39 t=-1.16 win=45.1% skip_data=3
+[23:08:38]     1 rung still open at data end (2026-06-17) -- excluded from stats
+[23:08:38] d300_replace_iv_lt_garch: n=160 mean=0.01 t=0.00 win=48.8% skip_data=4
+[23:08:40] d300_replace_iv_pct_low: n=90 mean=2.95 t=0.54 win=46.7% skip_data=0
+[23:08:40] DONE -- all 32 cells written to cells.csv

@@ -1,0 +1,29 @@
+[load] 1-min spot
+       done 141.4s
+
+=== VORTEX|60min ===
+  raw signals: 1227  ->  one-position-at-a-time: 934 (76.1% kept)
+  n_raw=1227 n_deduped=911 tpm=6.9 mean_net=+5.130 t_naive=3.61 t_nw=4.035 conc=0.189
+  placebo mean=-0.072 p=0.0  |  unconditional-SHORT-benchmark mean=0.446 p(bench>=obs)=0.0
+  era_pre(n=800)=8.463  era_post(n=111)=23.399  2026_heldout(n=23)=48.928
+  -> FORWARD-TEST CANDIDATE (survives overlap fix, placebo, and beta test)
+  [banked to disk: 1/4 cells done]
+
+=== AROON|15min ===
+  raw signals: 1705  ->  one-position-at-a-time: 1394 (81.8% kept)
+  n_raw=1705 n_deduped=1358 tpm=10.29 mean_net=+2.862 t_naive=3.568 t_nw=3.844 conc=0.121
+  placebo mean=-0.131 p=0.0  |  unconditional-LONG-benchmark mean=-0.948 p(bench>=obs)=0.0
+  era_pre(n=1188)=8.62  era_post(n=170)=3.823  2026_heldout(n=36)=39.996
+  -> FORWARD-TEST CANDIDATE (survives overlap fix, placebo, and beta test)
+  [banked to disk: 2/4 cells done]
+
+=== DONCHIAN_BRK|15min ===
+  raw signals: 7650  ->  one-position-at-a-time: 2356 (30.8% kept)
+  n_raw=7650 n_deduped=2281 tpm=17.28 mean_net=-1.629 t_naive=1.791 t_nw=2.086 conc=0.367
+  placebo mean=0.302 p=0.05  |  unconditional-LONG-benchmark mean=-1.451 p(bench>=obs)=0.0
+  era_pre(n=2022)=2.426  era_post(n=259)=11.978  2026_heldout(n=75)=-12.009
+  -> DEAD (concentration >30%)
+  [banked to disk: 3/4 cells done]
+
+=== ICHIMOKU_TK|15min ===
+  raw signals: 1159  ->  one-position-at-a-time: 1059 (91.4% kept)

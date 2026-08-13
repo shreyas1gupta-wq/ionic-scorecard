@@ -1,0 +1,16 @@
+[02:22:53] 2016: 514,250 NIFTY OPTIDX rows (contracts>0: 54,388)
+[02:22:55] 2017: 527,414 NIFTY OPTIDX rows (contracts>0: 55,774)
+[02:22:56] 2018: 566,450 NIFTY OPTIDX rows (contracts>0: 62,844)
+[02:22:59] 2019: 770,090 NIFTY OPTIDX rows (contracts>0: 80,807)
+[02:23:01] 2020: 731,639 NIFTY OPTIDX rows (contracts>0: 119,926)
+[02:23:02] 2021: 510,565 NIFTY OPTIDX rows (contracts>0: 157,140)
+[02:23:04] 2022: 562,041 NIFTY OPTIDX rows (contracts>0: 209,037)
+[02:23:05] 2023: 339,069 NIFTY OPTIDX rows (contracts>0: 177,522)
+[02:23:07] 2024: 402,556 NIFTY OPTIDX rows (contracts>0: 218,710)
+[02:23:08] 2025: 394,283 NIFTY OPTIDX rows (contracts>0: 231,973)
+[02:23:09] 2026: 230,360 NIFTY OPTIDX rows (contracts>0: 140,084)
+[02:23:24] TOTAL 5,548,717 rows -> cache/nifty_optidx_daily.parquet (2016-01-01 .. 2026-07-10)
+[02:23:24] computing trailing VIX percentile (this loops, ~2600 rows, seconds)...
+[02:23:25] computing trailing RV20 percentile...
+[02:23:25] spot/vix merged 2,579 rows -> cache/spot_vix_daily.parquet (2016-01-04 .. 2026-07-03)
+[02:23:25] DONE

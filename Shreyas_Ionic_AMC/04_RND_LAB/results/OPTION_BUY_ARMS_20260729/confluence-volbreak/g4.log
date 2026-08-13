@@ -1,0 +1,15 @@
+[cells] 4: ['stackA_exact3', 'stackA_exact2', 'stackA_exact1', 'volbrk_orb_volfilter']
+
+=== stackA_exact3  build n=463  forward n=39 ===
+  stackA_exact3        C1_ATM_hold1525        build   [cached] filled   453/  463 net     -135,714
+  stackA_exact3        C1_ATM_hold1525        forward [cached] filled    38/   39 net       14,548
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+  stackA_exact3        C2_ATM_tgt50_stp30     build   filled   453/  463 gross     -100,453 net     -129,385 ret/tr -2.83% t=-2.12 (132.0s)
+  stackA_exact3        C2_ATM_tgt50_stp30     forward filled    38/   39 gross       12,342 net        9,451 ret/tr +3.52% t=+0.70 (9.9s)
+  stackA_exact3        C3_ITM2_hold1525       build   filled   451/  463 gross     -124,543 net     -156,931 ret/tr -2.03% t=-1.27 (136.3s)
+  stackA_exact3        C3_ITM2_hold1525       forward filled    38/   39 gross       20,422 net       17,217 ret/tr +4.28% t=+0.89 (9.5s)
+  stackA_exact3        C4_ATM_0dte_hold1525   build   filled   457/  463 gross     -109,507 net     -136,596 ret/tr -2.67% t=-0.67 (129.2s)
+  stackA_exact3        C4_ATM_0dte_hold1525   forward filled    39/   39 gross       22,649 net       19,839 ret/tr +13.39% t=+0.76 (9.1s)
+
+=== stackA_exact2  build n=6634 -> subsampled 4000  forward n=730 ===

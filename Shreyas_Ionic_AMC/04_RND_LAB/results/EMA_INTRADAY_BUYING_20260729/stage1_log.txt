@@ -1,0 +1,18 @@
+[spot] 463,826 1-min bars  2021-05-24 09:15:00 .. 2026-06-03 15:30:00
+
+=== 5min_EMA9_21 ===
+  signals: build 4305  forward 339
+  best=r_eod mean=+0.0052% (bar 0.30%) t=1.179 hit=50.2% conc=0.10 -> FAIL g1_magnitude,g2_tstat
+  MFE +0.361% / MAE -0.355% -> ratio 1.018
+
+=== 5min_EMA20_50 ===
+  signals: build 2857  forward 235
+  best=r_eod mean=+0.0040% (bar 0.30%) t=0.614 hit=50.9% conc=0.20 -> FAIL g1_magnitude,g2_tstat
+  MFE +0.391% / MAE -0.390% -> ratio 1.004
+
+=== 15min_EMA9_21 ===
+  signals: build 2333  forward 203
+  best=r_eod mean=+0.0101% (bar 0.30%) t=1.277 hit=51.3% conc=0.11 -> FAIL g1_magnitude,g2_tstat
+  MFE +0.386% / MAE -0.382% -> ratio 1.011
+
+==== VERDICT: STAGE1_FAILED_kill_no_option_layer ====

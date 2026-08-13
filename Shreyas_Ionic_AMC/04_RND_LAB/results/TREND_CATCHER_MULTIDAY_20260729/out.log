@@ -1,0 +1,22 @@
+[chain] skipped 1 files: [('2026-06-09', 'stub 32305B')]
+[chain] 261 valid expiries 2021-05-27 .. 2026-06-02
+
+=== ema_cross ===
+meta: {'n_triggers_in_window': 68, 'n_trades': 36, 'skipped_no_valid_leg': 0}
+NET : {'n': 36, 'cagr': np.float64(-0.0472), 'maxdd': np.float64(-0.2294), 'calmar': np.float64(-0.2057), 'sharpe': np.float64(-0.475), 'pf': np.float64(0.557), 'win_rate': 0.1944, 'total_pnl': -57141.8207, 'nw_t_retpct': -1.5778, 'top1_share_of_total': -0.4323, 'top4_share_of_total': -1.1346, 'top1_share_of_grosswin': 0.3438, 'top4_share_of_grosswin': 0.9022, 'monthly_win_rate': 0.16, 'n_months': 25}
+GROSS: {'n': 36, 'cagr': np.float64(-0.0446), 'maxdd': np.float64(-0.2221), 'calmar': np.float64(-0.2009), 'sharpe': np.float64(-0.4496), 'pf': np.float64(0.5718), 'win_rate': 0.1944, 'total_pnl': -54286.2937, 'nw_t_retpct': -1.5778, 'top1_share_of_total': -0.4574, 'top4_share_of_total': -1.2015, 'top1_share_of_grosswin': 0.3425, 'top4_share_of_grosswin': 0.8996, 'monthly_win_rate': 0.16, 'n_months': 25}
+PASS STAGE A BAR: False
+
+=== breakout20 ===
+meta: {'n_triggers_in_window': 170, 'n_trades': 60, 'skipped_no_valid_leg': 3}
+NET : {'n': 60, 'cagr': np.float64(-0.0124), 'maxdd': np.float64(-0.2039), 'calmar': np.float64(-0.061), 'sharpe': np.float64(-0.0042), 'pf': np.float64(0.935), 'win_rate': 0.25, 'total_pnl': -15990.4006, 'nw_t_retpct': 0.0352, 'top1_share_of_total': -2.6711, 'top4_share_of_total': -9.9604, 'top1_share_of_grosswin': 0.1857, 'top4_share_of_grosswin': 0.6926, 'monthly_win_rate': 0.2826, 'n_months': 46}
+GROSS: {'n': 60, 'cagr': np.float64(-0.0084), 'maxdd': np.float64(-0.1977), 'calmar': np.float64(-0.0425), 'sharpe': np.float64(0.0168), 'pf': np.float64(0.9552), 'win_rate': 0.25, 'total_pnl': -10870.65, 'nw_t_retpct': 0.0352, 'top1_share_of_total': -3.9462, 'top4_share_of_total': -14.706, 'top1_share_of_grosswin': 0.1853, 'top4_share_of_grosswin': 0.6904, 'monthly_win_rate': 0.2826, 'n_months': 46}
+PASS STAGE A BAR: False
+
+=== sweep_priorweek_reclaim ===
+meta: {'n_triggers_in_window': 188, 'n_trades': 83, 'skipped_no_valid_leg': 0}
+NET : {'n': 83, 'cagr': np.float64(0.0129), 'maxdd': np.float64(-0.2252), 'calmar': np.float64(0.0574), 'sharpe': np.float64(0.1313), 'pf': np.float64(1.0734), 'win_rate': 0.3494, 'total_pnl': 18018.192, 'nw_t_retpct': -0.5698, 'top1_share_of_total': 3.085, 'top4_share_of_total': 8.1011, 'top1_share_of_grosswin': 0.211, 'top4_share_of_grosswin': 0.5541, 'monthly_win_rate': 0.4167, 'n_months': 48}
+GROSS: {'n': 83, 'cagr': np.float64(0.0178), 'maxdd': np.float64(-0.2198), 'calmar': np.float64(0.0811), 'sharpe': np.float64(0.1605), 'pf': np.float64(1.1029), 'win_rate': 0.3494, 'total_pnl': 24841.0688, 'nw_t_retpct': -0.5698, 'top1_share_of_total': 2.2457, 'top4_share_of_total': 5.9052, 'top1_share_of_grosswin': 0.2094, 'top4_share_of_grosswin': 0.5507, 'monthly_win_rate': 0.4375, 'n_months': 48}
+PASS STAGE A BAR: False
+
+Saved: c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\TREND_CATCHER_MULTIDAY_20260729\stage_a_results.json

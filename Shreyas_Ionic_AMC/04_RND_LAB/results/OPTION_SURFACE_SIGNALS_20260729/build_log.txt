@@ -1,0 +1,99 @@
+[23:45:54] [bn_chain] 61 BANKNIFTY expiries 2021-05-27..2026-05-26
+[23:45:54] total NIFTY trading days candidate: 1236 (2021-05-24..2026-05-27)
+[23:45:54] ...0/1236 days processed, elapsed 3s, rows so far 0
+[23:46:54] ...200/1236 days processed, elapsed 63s, rows so far 196
+[23:47:51] ...400/1236 days processed, elapsed 120s, rows so far 396
+[23:48:48] ...600/1236 days processed, elapsed 177s, rows so far 596
+[23:49:31] ...800/1236 days processed, elapsed 220s, rows so far 796
+[00:02:01] [bn_chain] 61 BANKNIFTY expiries 2021-05-27..2026-05-26
+[00:02:01] total NIFTY trading days candidate: 1236 (2021-05-24..2026-05-27)
+[00:02:01] ...0/1236 days processed, elapsed 3s, rows so far 0
+[00:29:56] [bn_chain] 61 BANKNIFTY expiries 2021-05-27..2026-05-26
+[00:29:56] total NIFTY trading days candidate: 1236 (2021-05-24..2026-05-27)
+[00:29:56] ...0/1236 days processed, elapsed 3s, rows so far 0
+[00:30:14] ...100/1236 days processed, elapsed 21s, rows so far 100
+[00:30:33] ...200/1236 days processed, elapsed 40s, rows so far 196
+[00:30:53] ...300/1236 days processed, elapsed 60s, rows so far 296
+[00:31:12] ...400/1236 days processed, elapsed 79s, rows so far 396
+[00:31:34] ...500/1236 days processed, elapsed 101s, rows so far 496
+[00:31:52] ...600/1236 days processed, elapsed 119s, rows so far 596
+[00:32:10] ...700/1236 days processed, elapsed 138s, rows so far 696
+[00:32:27] ...800/1236 days processed, elapsed 154s, rows so far 796
+[00:32:44] ...900/1236 days processed, elapsed 172s, rows so far 896
+[00:33:02] ...1000/1236 days processed, elapsed 189s, rows so far 996
+[00:33:15] ...1100/1236 days processed, elapsed 203s, rows so far 1091
+[00:33:31] ...1200/1236 days processed, elapsed 219s, rows so far 1191
+[00:33:37] panel rows: 1227  drops: {'no_E1': 9, 'no_spot': 0, 'no_atm_E1': 0, 'no_bn': 4, 'error': 0}
+[00:33:37] wrote c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPTION_SURFACE_SIGNALS_20260729\panel_raw.parquet  shape=(1227, 25)
+[00:33:37] wrote c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPTION_SURFACE_SIGNALS_20260729\oi_coverage.csv
+      n_days  frac_oi_ce_zero  frac_oi_pe_zero  frac_pcr_nan
+year                                                        
+2021   149.0              0.0              0.0           0.0
+2022   247.0              0.0              0.0           0.0
+2023   245.0              0.0              0.0           0.0
+2024   248.0              0.0              0.0           0.0
+2025   242.0              0.0              0.0           0.0
+2026    96.0              0.0              0.0           0.0
+[00:33:37] DONE in 224s
+[00:50:55] [bn_chain] 61 BANKNIFTY expiries 2021-05-27..2026-05-26
+[00:50:55] total NIFTY trading days candidate: 1236 (2021-05-24..2026-05-27)
+[00:50:55] ...0/1236 days processed, elapsed 4s, rows so far 0
+[00:51:22] ...100/1236 days processed, elapsed 32s, rows so far 100
+[00:51:52] ...200/1236 days processed, elapsed 62s, rows so far 196
+[00:52:17] ...300/1236 days processed, elapsed 87s, rows so far 296
+[00:52:45] ...400/1236 days processed, elapsed 115s, rows so far 396
+[01:07:19] [bn_chain] 61 BANKNIFTY expiries 2021-05-27..2026-05-26
+[01:07:19] total NIFTY trading days candidate: 1236 (2021-05-24..2026-05-27)
+[01:07:19] ...0/1236 days processed, elapsed 3s, rows so far 0
+[01:07:41] ...100/1236 days processed, elapsed 26s, rows so far 100
+[01:15:08] [bn_chain] 61 BANKNIFTY expiries 2021-05-27..2026-05-26
+[01:15:08] total NIFTY trading days candidate: 1236 (2021-05-24..2026-05-27)
+[01:15:08] RESUMING: 100 rows already done, skipping those days
+[01:15:08] ...100/1236 days processed, elapsed 3s, rows so far 100
+[01:15:30] ...200/1236 days processed, elapsed 24s, rows so far 196
+[01:15:57] [bn_chain] 61 BANKNIFTY expiries 2021-05-27..2026-05-26
+[01:15:57] total NIFTY trading days candidate: 1236 (2021-05-24..2026-05-27)
+[01:15:57] RESUMING: 196 rows already done, skipping those days
+[01:15:57] ...200/1236 days processed, elapsed 3s, rows so far 196
+[01:16:24] ...300/1236 days processed, elapsed 30s, rows so far 296
+[01:16:38] ERROR on day 2022-11-11: MemoryError: Unable to allocate 1.95 MiB for an array with shape (255114, 1) and data type datetime64[ns]
+[01:16:46] ...400/1236 days processed, elapsed 51s, rows so far 395
+[01:17:06] ...500/1236 days processed, elapsed 71s, rows so far 495
+[01:17:25] ...600/1236 days processed, elapsed 91s, rows so far 595
+[01:17:30] ERROR on day 2023-11-10: ArrowMemoryError: ZSTD_DCtx create failed
+[01:17:50] [bn_chain] 61 BANKNIFTY expiries 2021-05-27..2026-05-26
+[01:17:50] total NIFTY trading days candidate: 1236 (2021-05-24..2026-05-27)
+[01:17:50] RESUMING: 595 rows already done, skipping those days
+[01:17:53] ...600/1236 days processed, elapsed 5s, rows so far 596
+[01:17:58] ERROR on day 2023-10-27: MemoryError: Unable to allocate 1.50 MiB for an array with shape (2, 98018) and data type int64
+[01:18:51] [bn_chain] 61 BANKNIFTY expiries 2021-05-27..2026-05-26
+[01:18:51] total NIFTY trading days candidate: 1236 (2021-05-24..2026-05-27)
+[01:18:51] RESUMING: 596 rows already done, skipping those days
+[01:18:51] ...600/1236 days processed, elapsed 3s, rows so far 596
+[01:19:30] [bn_chain] 61 BANKNIFTY expiries 2021-05-27..2026-05-26
+[01:19:30] total NIFTY trading days candidate: 1236 (2021-05-24..2026-05-27)
+[01:19:31] RESUMING: 596 rows already done, skipping those days
+[01:19:31] ...600/1236 days processed, elapsed 3s, rows so far 596
+[01:19:54] ...700/1236 days processed, elapsed 26s, rows so far 696
+[01:20:14] ...800/1236 days processed, elapsed 46s, rows so far 796
+[01:20:33] ...900/1236 days processed, elapsed 65s, rows so far 896
+[01:20:52] ERROR on day 2025-04-25: MemoryError: Unable to allocate 3.98 MiB for an array with shape (521884,) and data type int64
+[01:20:57] ...1000/1236 days processed, elapsed 89s, rows so far 995
+[01:22:02] [bn_chain] 61 BANKNIFTY expiries 2021-05-27..2026-05-26
+[01:22:02] total NIFTY trading days candidate: 1236 (2021-05-24..2026-05-27)
+[01:22:02] RESUMING: 995 rows already done, skipping those days
+[01:22:06] ...1000/1236 days processed, elapsed 37s, rows so far 996
+[01:22:23] ...1100/1236 days processed, elapsed 54s, rows so far 1091
+[01:22:37] ...1200/1236 days processed, elapsed 68s, rows so far 1191
+[01:22:42] panel rows: 1227  drops: {'no_E1': 9, 'no_spot': 0, 'no_atm_E1': 0, 'no_bn': 1, 'error': 0}
+[01:22:42] wrote c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPTION_SURFACE_SIGNALS_20260729\panel_raw.parquet  shape=(1227, 25)
+[01:22:42] wrote c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\OPTION_SURFACE_SIGNALS_20260729\oi_coverage.csv
+      n_days  frac_oi_ce_zero  frac_oi_pe_zero  frac_pcr_nan
+year                                                        
+2021   149.0              0.0              0.0           0.0
+2022   247.0              0.0              0.0           0.0
+2023   245.0              0.0              0.0           0.0
+2024   248.0              0.0              0.0           0.0
+2025   242.0              0.0              0.0           0.0
+2026    96.0              0.0              0.0           0.0
+[01:22:42] DONE in 73s

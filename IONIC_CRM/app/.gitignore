@@ -1,0 +1,55 @@
+# Dependencies — never committed, and see NOTE below about OneDrive
+node_modules/
+.pnp
+.pnp.js
+
+# Build output
+.next/
+out/
+dist/
+build/
+.open-next/
+.wrangler/
+
+# Test / tooling caches
+coverage/
+.vitest/
+*.tsbuildinfo
+
+# Secrets — nothing in this list may ever be committed.
+# The KEK and any Supabase service-role key live in Cloudflare Worker secrets,
+# never on disk. See DESIGN.md §7.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+age.key
+*.agekey
+
+# Local database artefacts
+*.sqlite
+*.sqlite3
+.pgdata/
+pgdata/
+*.dump
+*.sql.age
+
+# Local dev server logs
+dev-out.log
+dev-err.log
+next-env.d.ts
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# NOTE ON ONEDRIVE
+# This repo lives inside a OneDrive-synced folder. node_modules is tens of thousands
+# of small files and will thrash OneDrive sync if it is allowed to upload. It is
+# gitignored here, but gitignore does not stop OneDrive — see IONIC_CRM/PROGRESS.md
+# for the mitigation.

@@ -1,0 +1,1795 @@
+{
+  "n_cells": 15,
+  "n_dead": 9,
+  "n_underpowered": 0,
+  "n_forward_test_candidate": 6,
+  "promoted_to_stage2": [
+    "A6_vwap_proxy_continue",
+    "A7_oi_long_buildup",
+    "A8_oi_short_covering",
+    "B2_vix_rv_divergence_low",
+    "C1_sweep_priorday_reclaim_30min",
+    "C2_sweep_priorday_reclaim_45min"
+  ],
+  "bonferroni_m": 481,
+  "t_bar_approx": 3.8,
+  "elapsed_s": 3004.2,
+  "cells": {
+    "A1_imbalance_call_heavy": {
+      "label": "A1_imbalance_call_heavy",
+      "hypothesis": "bullish (call-volume pressure precedes upside)",
+      "n_signals_build": 1633,
+      "n_signals_forward": 128,
+      "build": {
+        "n": 1620,
+        "horizons": {
+          "+15m": {
+            "mean_pct": -0.0007,
+            "mean_pts": -0.233,
+            "hit": 0.5012,
+            "t_nw": -0.288,
+            "n": 1620
+          },
+          "+30m": {
+            "mean_pct": -0.0046,
+            "mean_pts": -1.084,
+            "hit": 0.5142,
+            "t_nw": -1.16,
+            "n": 1620
+          },
+          "+60m": {
+            "mean_pct": -0.0005,
+            "mean_pts": -0.477,
+            "hit": 0.5296,
+            "t_nw": -0.076,
+            "n": 1620
+          },
+          "+120m": {
+            "mean_pct": 0.0046,
+            "mean_pts": 0.526,
+            "hit": 0.5253,
+            "t_nw": 0.526,
+            "n": 1620
+          },
+          "to15:25": {
+            "mean_pct": 0.0104,
+            "mean_pts": 1.646,
+            "hit": 0.5167,
+            "t_nw": 0.788,
+            "n": 1620
+          }
+        },
+        "best_horizon": "to15:25",
+        "best": {
+          "mean_pct": 0.0104,
+          "mean_pts": 1.646,
+          "hit": 0.5167,
+          "t_nw": 0.788,
+          "n": 1620
+        },
+        "largest_day_share": 0.4084,
+        "mfe_pct": 0.2803,
+        "mae_pct": -0.2973,
+        "mfe_over_mae": 0.943
+      },
+      "forward": {
+        "n": 125,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.008,
+            "mean_pts": 1.884,
+            "hit": 0.504,
+            "t_nw": 0.751,
+            "n": 125
+          },
+          "+30m": {
+            "mean_pct": 0.0066,
+            "mean_pts": 1.538,
+            "hit": 0.52,
+            "t_nw": 0.385,
+            "n": 125
+          },
+          "+60m": {
+            "mean_pct": 0.0423,
+            "mean_pts": 9.849,
+            "hit": 0.576,
+            "t_nw": 1.624,
+            "n": 125
+          },
+          "+120m": {
+            "mean_pct": 0.0826,
+            "mean_pts": 19.142,
+            "hit": 0.576,
+            "t_nw": 1.77,
+            "n": 125
+          },
+          "to15:25": {
+            "mean_pct": 0.0531,
+            "mean_pts": 11.816,
+            "hit": 0.552,
+            "t_nw": 0.706,
+            "n": 125
+          }
+        },
+        "best_horizon": "+120m",
+        "best": {
+          "mean_pct": 0.0826,
+          "mean_pts": 19.142,
+          "hit": 0.576,
+          "t_nw": 1.77,
+          "n": 125
+        },
+        "largest_day_share": 0.4811,
+        "mfe_pct": 0.4088,
+        "mae_pct": -0.3378,
+        "mfe_over_mae": 1.21
+      },
+      "placebo": {
+        "p_value": 0.44,
+        "placebo_mean_pts": 0.7780973668096114,
+        "n_draws": 200
+      },
+      "verdict": "DEAD",
+      "reason": "fails own placebo (p=0.44)",
+      "promote_to_stage2": false
+    },
+    "A2_imbalance_put_heavy": {
+      "label": "A2_imbalance_put_heavy",
+      "hypothesis": "bearish (put-volume pressure precedes downside)",
+      "n_signals_build": 1755,
+      "n_signals_forward": 131,
+      "build": {
+        "n": 1737,
+        "horizons": {
+          "+15m": {
+            "mean_pct": -0.0015,
+            "mean_pts": -0.295,
+            "hit": 0.4784,
+            "t_nw": -0.545,
+            "n": 1737
+          },
+          "+30m": {
+            "mean_pct": -0.0042,
+            "mean_pts": -0.829,
+            "hit": 0.4646,
+            "t_nw": -1.135,
+            "n": 1737
+          },
+          "+60m": {
+            "mean_pct": -0.0061,
+            "mean_pts": -1.019,
+            "hit": 0.479,
+            "t_nw": -1.056,
+            "n": 1737
+          },
+          "+120m": {
+            "mean_pct": -0.0059,
+            "mean_pts": -0.844,
+            "hit": 0.483,
+            "t_nw": -0.699,
+            "n": 1737
+          },
+          "to15:25": {
+            "mean_pct": -0.0112,
+            "mean_pts": -1.858,
+            "hit": 0.4905,
+            "t_nw": -0.868,
+            "n": 1737
+          }
+        },
+        "best_horizon": "+15m",
+        "best": {
+          "mean_pct": -0.0015,
+          "mean_pts": -0.295,
+          "hit": 0.4784,
+          "t_nw": -0.545,
+          "n": 1737
+        },
+        "largest_day_share": 0.8206,
+        "mfe_pct": 0.3082,
+        "mae_pct": -0.284,
+        "mfe_over_mae": 1.085
+      },
+      "forward": {
+        "n": 125,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.0024,
+            "mean_pts": 0.718,
+            "hit": 0.52,
+            "t_nw": 0.273,
+            "n": 125
+          },
+          "+30m": {
+            "mean_pct": 0.0004,
+            "mean_pts": 0.221,
+            "hit": 0.536,
+            "t_nw": 0.027,
+            "n": 125
+          },
+          "+60m": {
+            "mean_pct": -0.0188,
+            "mean_pts": -4.544,
+            "hit": 0.536,
+            "t_nw": -0.756,
+            "n": 125
+          },
+          "+120m": {
+            "mean_pct": 0.0227,
+            "mean_pts": 5.982,
+            "hit": 0.56,
+            "t_nw": 0.631,
+            "n": 125
+          },
+          "to15:25": {
+            "mean_pct": 0.0233,
+            "mean_pts": 6.034,
+            "hit": 0.528,
+            "t_nw": 0.447,
+            "n": 125
+          }
+        },
+        "best_horizon": "to15:25",
+        "best": {
+          "mean_pct": 0.0233,
+          "mean_pts": 6.034,
+          "hit": 0.528,
+          "t_nw": 0.447,
+          "n": 125
+        },
+        "largest_day_share": 1.2948,
+        "mfe_pct": 0.3315,
+        "mae_pct": -0.3077,
+        "mfe_over_mae": 1.077
+      },
+      "placebo": {
+        "p_value": 0.545,
+        "placebo_mean_pts": -0.1369923076922888,
+        "n_draws": 200
+      },
+      "verdict": "DEAD",
+      "reason": "fails own placebo (p=0.545)",
+      "promote_to_stage2": false
+    },
+    "A3_otm_call_concentration": {
+      "label": "A3_otm_call_concentration",
+      "hypothesis": "bullish (unusual OTM-call strike volume)",
+      "n_signals_build": 2616,
+      "n_signals_forward": 599,
+      "build": {
+        "n": 2615,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.0023,
+            "mean_pts": 0.525,
+            "hit": 0.5144,
+            "t_nw": 1.03,
+            "n": 2613
+          },
+          "+30m": {
+            "mean_pct": 0.0009,
+            "mean_pts": 0.206,
+            "hit": 0.5132,
+            "t_nw": 0.25,
+            "n": 2613
+          },
+          "+60m": {
+            "mean_pct": 0.003,
+            "mean_pts": 0.639,
+            "hit": 0.5187,
+            "t_nw": 0.492,
+            "n": 2614
+          },
+          "+120m": {
+            "mean_pct": 0.008,
+            "mean_pts": 1.736,
+            "hit": 0.5159,
+            "t_nw": 0.83,
+            "n": 2615
+          },
+          "to15:25": {
+            "mean_pct": 0.0049,
+            "mean_pts": 1.196,
+            "hit": 0.5071,
+            "t_nw": 0.311,
+            "n": 2615
+          }
+        },
+        "best_horizon": "+120m",
+        "best": {
+          "mean_pct": 0.008,
+          "mean_pts": 1.736,
+          "hit": 0.5159,
+          "t_nw": 0.83,
+          "n": 2615
+        },
+        "largest_day_share": 0.3102,
+        "mfe_pct": 0.2761,
+        "mae_pct": -0.2904,
+        "mfe_over_mae": 0.951
+      },
+      "forward": {
+        "n": 599,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.0011,
+            "mean_pts": 0.181,
+            "hit": 0.5092,
+            "t_nw": 0.194,
+            "n": 599
+          },
+          "+30m": {
+            "mean_pct": 0.0016,
+            "mean_pts": 0.22,
+            "hit": 0.5075,
+            "t_nw": 0.165,
+            "n": 599
+          },
+          "+60m": {
+            "mean_pct": -0.0069,
+            "mean_pts": -1.942,
+            "hit": 0.4841,
+            "t_nw": -0.422,
+            "n": 599
+          },
+          "+120m": {
+            "mean_pct": -0.0063,
+            "mean_pts": -2.059,
+            "hit": 0.4541,
+            "t_nw": -0.214,
+            "n": 599
+          },
+          "to15:25": {
+            "mean_pct": -0.0394,
+            "mean_pts": -10.214,
+            "hit": 0.4457,
+            "t_nw": -0.81,
+            "n": 599
+          }
+        },
+        "best_horizon": "+30m",
+        "best": {
+          "mean_pct": 0.0016,
+          "mean_pts": 0.22,
+          "hit": 0.5075,
+          "t_nw": 0.165,
+          "n": 599
+        },
+        "largest_day_share": 3.5203,
+        "mfe_pct": 0.4082,
+        "mae_pct": -0.4308,
+        "mfe_over_mae": 0.948
+      },
+      "placebo": {
+        "p_value": 0.18,
+        "placebo_mean_pts": -0.016237003058130625,
+        "n_draws": 200
+      },
+      "verdict": "DEAD",
+      "reason": "fails own placebo (p=0.18)",
+      "promote_to_stage2": false
+    },
+    "A4_otm_put_concentration": {
+      "label": "A4_otm_put_concentration",
+      "hypothesis": "bearish (unusual OTM-put strike volume)",
+      "n_signals_build": 3586,
+      "n_signals_forward": 340,
+      "build": {
+        "n": 3586,
+        "horizons": {
+          "+15m": {
+            "mean_pct": -0.0024,
+            "mean_pts": -0.587,
+            "hit": 0.4771,
+            "t_nw": -1.073,
+            "n": 3586
+          },
+          "+30m": {
+            "mean_pct": -0.0038,
+            "mean_pts": -0.825,
+            "hit": 0.4788,
+            "t_nw": -1.174,
+            "n": 3586
+          },
+          "+60m": {
+            "mean_pct": -0.009,
+            "mean_pts": -1.96,
+            "hit": 0.4663,
+            "t_nw": -1.726,
+            "n": 3586
+          },
+          "+120m": {
+            "mean_pct": -0.0203,
+            "mean_pts": -4.223,
+            "hit": 0.4663,
+            "t_nw": -2.241,
+            "n": 3586
+          },
+          "to15:25": {
+            "mean_pct": -0.0425,
+            "mean_pts": -8.694,
+            "hit": 0.4601,
+            "t_nw": -3.037,
+            "n": 3586
+          }
+        },
+        "best_horizon": "+15m",
+        "best": {
+          "mean_pct": -0.0024,
+          "mean_pts": -0.587,
+          "hit": 0.4771,
+          "t_nw": -1.073,
+          "n": 3586
+        },
+        "largest_day_share": 0.2496,
+        "mfe_pct": 0.2839,
+        "mae_pct": -0.2906,
+        "mfe_over_mae": 0.977
+      },
+      "forward": {
+        "n": 340,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.0006,
+            "mean_pts": 0.215,
+            "hit": 0.4853,
+            "t_nw": 0.087,
+            "n": 340
+          },
+          "+30m": {
+            "mean_pct": 0.0022,
+            "mean_pts": 0.64,
+            "hit": 0.4971,
+            "t_nw": 0.199,
+            "n": 340
+          },
+          "+60m": {
+            "mean_pct": 0.0054,
+            "mean_pts": 1.472,
+            "hit": 0.4971,
+            "t_nw": 0.29,
+            "n": 340
+          },
+          "+120m": {
+            "mean_pct": 0.0006,
+            "mean_pts": 0.931,
+            "hit": 0.5147,
+            "t_nw": 0.017,
+            "n": 340
+          },
+          "to15:25": {
+            "mean_pct": -0.024,
+            "mean_pts": -3.929,
+            "hit": 0.4882,
+            "t_nw": -0.334,
+            "n": 340
+          }
+        },
+        "best_horizon": "+60m",
+        "best": {
+          "mean_pct": 0.0054,
+          "mean_pts": 1.472,
+          "hit": 0.4971,
+          "t_nw": 0.29,
+          "n": 340
+        },
+        "largest_day_share": 1.4842,
+        "mfe_pct": 0.4292,
+        "mae_pct": -0.4214,
+        "mfe_over_mae": 1.018
+      },
+      "placebo": {
+        "p_value": 0.17,
+        "placebo_mean_pts": 0.05787465142221308,
+        "n_draws": 200
+      },
+      "verdict": "DEAD",
+      "reason": "fails own placebo (p=0.17)",
+      "promote_to_stage2": false
+    },
+    "A5_vwap_proxy_reclaim": {
+      "label": "A5_vwap_proxy_reclaim",
+      "hypothesis": "reversal (mirrors proven sweep_priorday_reclaim structure)",
+      "n_signals_build": 3062,
+      "n_signals_forward": 238,
+      "build": {
+        "n": 3062,
+        "horizons": {
+          "+15m": {
+            "mean_pct": -0.0041,
+            "mean_pts": -0.878,
+            "hit": 0.4686,
+            "t_nw": -1.993,
+            "n": 3062
+          },
+          "+30m": {
+            "mean_pct": -0.0031,
+            "mean_pts": -0.795,
+            "hit": 0.4722,
+            "t_nw": -0.985,
+            "n": 3062
+          },
+          "+60m": {
+            "mean_pct": -0.0006,
+            "mean_pts": -0.348,
+            "hit": 0.4824,
+            "t_nw": -0.125,
+            "n": 3062
+          },
+          "+120m": {
+            "mean_pct": 0.0006,
+            "mean_pts": 0.044,
+            "hit": 0.484,
+            "t_nw": 0.094,
+            "n": 3062
+          },
+          "to15:25": {
+            "mean_pct": 0.0111,
+            "mean_pts": 2.416,
+            "hit": 0.4925,
+            "t_nw": 1.256,
+            "n": 3062
+          }
+        },
+        "best_horizon": "to15:25",
+        "best": {
+          "mean_pct": 0.0111,
+          "mean_pts": 2.416,
+          "hit": 0.4925,
+          "t_nw": 1.256,
+          "n": 3062
+        },
+        "largest_day_share": 0.3238,
+        "mfe_pct": 0.2784,
+        "mae_pct": -0.2724,
+        "mfe_over_mae": 1.022
+      },
+      "forward": {
+        "n": 238,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.0079,
+            "mean_pts": 2.056,
+            "hit": 0.5126,
+            "t_nw": 0.685,
+            "n": 238
+          },
+          "+30m": {
+            "mean_pct": 0.0173,
+            "mean_pts": 4.312,
+            "hit": 0.521,
+            "t_nw": 1.488,
+            "n": 238
+          },
+          "+60m": {
+            "mean_pct": 0.0192,
+            "mean_pts": 4.946,
+            "hit": 0.5252,
+            "t_nw": 1.13,
+            "n": 238
+          },
+          "+120m": {
+            "mean_pct": 0.0035,
+            "mean_pts": 1.312,
+            "hit": 0.479,
+            "t_nw": 0.136,
+            "n": 238
+          },
+          "to15:25": {
+            "mean_pct": -0.001,
+            "mean_pts": 0.216,
+            "hit": 0.4706,
+            "t_nw": -0.03,
+            "n": 238
+          }
+        },
+        "best_horizon": "+60m",
+        "best": {
+          "mean_pct": 0.0192,
+          "mean_pts": 4.946,
+          "hit": 0.5252,
+          "t_nw": 1.13,
+          "n": 238
+        },
+        "largest_day_share": 0.3551,
+        "mfe_pct": 0.358,
+        "mae_pct": -0.3413,
+        "mfe_over_mae": 1.049
+      },
+      "placebo": {
+        "p_value": 0.1,
+        "placebo_mean_pts": -0.03577000326583853,
+        "n_draws": 200
+      },
+      "verdict": "DEAD",
+      "reason": "fails own placebo (p=0.1)",
+      "promote_to_stage2": false
+    },
+    "A6_vwap_proxy_continue": {
+      "label": "A6_vwap_proxy_continue",
+      "hypothesis": "continuation",
+      "n_signals_build": 9655,
+      "n_signals_forward": 849,
+      "build": {
+        "n": 9655,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.0021,
+            "mean_pts": 0.44,
+            "hit": 0.5078,
+            "t_nw": 1.733,
+            "n": 9655
+          },
+          "+30m": {
+            "mean_pct": 0.0055,
+            "mean_pts": 1.126,
+            "hit": 0.5164,
+            "t_nw": 2.569,
+            "n": 9655
+          },
+          "+60m": {
+            "mean_pct": 0.0115,
+            "mean_pts": 2.363,
+            "hit": 0.5309,
+            "t_nw": 3.079,
+            "n": 9655
+          },
+          "+120m": {
+            "mean_pct": 0.0172,
+            "mean_pts": 3.542,
+            "hit": 0.5372,
+            "t_nw": 2.843,
+            "n": 9655
+          },
+          "to15:25": {
+            "mean_pct": 0.02,
+            "mean_pts": 4.153,
+            "hit": 0.5384,
+            "t_nw": 2.576,
+            "n": 9655
+          }
+        },
+        "best_horizon": "to15:25",
+        "best": {
+          "mean_pct": 0.02,
+          "mean_pts": 4.153,
+          "hit": 0.5384,
+          "t_nw": 2.576,
+          "n": 9655
+        },
+        "largest_day_share": 0.0872,
+        "mfe_pct": 0.2883,
+        "mae_pct": -0.2688,
+        "mfe_over_mae": 1.073
+      },
+      "forward": {
+        "n": 849,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.0014,
+            "mean_pts": 0.276,
+            "hit": 0.4982,
+            "t_nw": 0.291,
+            "n": 849
+          },
+          "+30m": {
+            "mean_pct": 0.0142,
+            "mean_pts": 3.25,
+            "hit": 0.5418,
+            "t_nw": 1.745,
+            "n": 849
+          },
+          "+60m": {
+            "mean_pct": 0.0255,
+            "mean_pts": 5.812,
+            "hit": 0.5512,
+            "t_nw": 1.727,
+            "n": 849
+          },
+          "+120m": {
+            "mean_pct": 0.0292,
+            "mean_pts": 6.677,
+            "hit": 0.5395,
+            "t_nw": 1.307,
+            "n": 849
+          },
+          "to15:25": {
+            "mean_pct": 0.0379,
+            "mean_pts": 8.832,
+            "hit": 0.5029,
+            "t_nw": 1.24,
+            "n": 849
+          }
+        },
+        "best_horizon": "to15:25",
+        "best": {
+          "mean_pct": 0.0379,
+          "mean_pts": 8.832,
+          "hit": 0.5029,
+          "t_nw": 1.24,
+          "n": 849
+        },
+        "largest_day_share": 0.4451,
+        "mfe_pct": 0.3723,
+        "mae_pct": -0.3069,
+        "mfe_over_mae": 1.213
+      },
+      "placebo": {
+        "p_value": 0.0,
+        "placebo_mean_pts": 0.09650590367685463,
+        "n_draws": 200
+      },
+      "verdict": "FORWARD-TEST CANDIDATE",
+      "clears_bonferroni_m481": false,
+      "trade_direction": "as-hypothesized",
+      "promote_to_stage2": true
+    },
+    "A7_oi_long_buildup": {
+      "label": "A7_oi_long_buildup",
+      "hypothesis": "bullish continuation (price up + OI up)",
+      "n_signals_build": 6583,
+      "n_signals_forward": 512,
+      "build": {
+        "n": 6583,
+        "horizons": {
+          "+15m": {
+            "mean_pct": -0.0002,
+            "mean_pts": -0.011,
+            "hit": 0.5141,
+            "t_nw": -0.138,
+            "n": 6582
+          },
+          "+30m": {
+            "mean_pct": 0.0001,
+            "mean_pts": 0.032,
+            "hit": 0.5252,
+            "t_nw": 0.063,
+            "n": 6582
+          },
+          "+60m": {
+            "mean_pct": 0.0028,
+            "mean_pts": 0.565,
+            "hit": 0.5324,
+            "t_nw": 0.79,
+            "n": 6582
+          },
+          "+120m": {
+            "mean_pct": 0.0047,
+            "mean_pts": 0.916,
+            "hit": 0.5242,
+            "t_nw": 0.789,
+            "n": 6583
+          },
+          "to15:25": {
+            "mean_pct": 0.015,
+            "mean_pts": 2.87,
+            "hit": 0.5268,
+            "t_nw": 1.436,
+            "n": 6583
+          }
+        },
+        "best_horizon": "to15:25",
+        "best": {
+          "mean_pct": 0.015,
+          "mean_pts": 2.87,
+          "hit": 0.5268,
+          "t_nw": 1.436,
+          "n": 6583
+        },
+        "largest_day_share": 0.1293,
+        "mfe_pct": 0.3012,
+        "mae_pct": -0.3169,
+        "mfe_over_mae": 0.95
+      },
+      "forward": {
+        "n": 512,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.0033,
+            "mean_pts": 0.733,
+            "hit": 0.5059,
+            "t_nw": 0.54,
+            "n": 512
+          },
+          "+30m": {
+            "mean_pct": 0.0056,
+            "mean_pts": 1.229,
+            "hit": 0.4902,
+            "t_nw": 0.596,
+            "n": 512
+          },
+          "+60m": {
+            "mean_pct": 0.0072,
+            "mean_pts": 1.339,
+            "hit": 0.5039,
+            "t_nw": 0.449,
+            "n": 512
+          },
+          "+120m": {
+            "mean_pct": -0.0035,
+            "mean_pts": -1.595,
+            "hit": 0.4844,
+            "t_nw": -0.125,
+            "n": 512
+          },
+          "to15:25": {
+            "mean_pct": -0.0304,
+            "mean_pts": -8.199,
+            "hit": 0.4648,
+            "t_nw": -0.64,
+            "n": 512
+          }
+        },
+        "best_horizon": "+60m",
+        "best": {
+          "mean_pct": 0.0072,
+          "mean_pts": 1.339,
+          "hit": 0.5039,
+          "t_nw": 0.449,
+          "n": 512
+        },
+        "largest_day_share": 1.1189,
+        "mfe_pct": 0.3605,
+        "mae_pct": -0.3909,
+        "mfe_over_mae": 0.922
+      },
+      "placebo": {
+        "p_value": 0.03,
+        "placebo_mean_pts": 0.6178018380678097,
+        "n_draws": 200
+      },
+      "verdict": "FORWARD-TEST CANDIDATE",
+      "clears_bonferroni_m481": false,
+      "trade_direction": "as-hypothesized",
+      "promote_to_stage2": true
+    },
+    "A8_oi_short_covering": {
+      "label": "A8_oi_short_covering",
+      "hypothesis": "bullish (price up + OI down)",
+      "n_signals_build": 5042,
+      "n_signals_forward": 414,
+      "build": {
+        "n": 5040,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.0019,
+            "mean_pts": 0.366,
+            "hit": 0.5242,
+            "t_nw": 1.167,
+            "n": 5040
+          },
+          "+30m": {
+            "mean_pct": 0.0016,
+            "mean_pts": 0.255,
+            "hit": 0.5222,
+            "t_nw": 0.664,
+            "n": 5040
+          },
+          "+60m": {
+            "mean_pct": 0.0032,
+            "mean_pts": 0.448,
+            "hit": 0.5282,
+            "t_nw": 0.789,
+            "n": 5040
+          },
+          "+120m": {
+            "mean_pct": 0.008,
+            "mean_pts": 1.222,
+            "hit": 0.5276,
+            "t_nw": 1.19,
+            "n": 5040
+          },
+          "to15:25": {
+            "mean_pct": 0.0159,
+            "mean_pts": 2.944,
+            "hit": 0.5262,
+            "t_nw": 1.455,
+            "n": 5040
+          }
+        },
+        "best_horizon": "to15:25",
+        "best": {
+          "mean_pct": 0.0159,
+          "mean_pts": 2.944,
+          "hit": 0.5262,
+          "t_nw": 1.455,
+          "n": 5040
+        },
+        "largest_day_share": 0.166,
+        "mfe_pct": 0.2876,
+        "mae_pct": -0.3021,
+        "mfe_over_mae": 0.952
+      },
+      "forward": {
+        "n": 414,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.0036,
+            "mean_pts": 0.763,
+            "hit": 0.5097,
+            "t_nw": 0.502,
+            "n": 414
+          },
+          "+30m": {
+            "mean_pct": 0.0068,
+            "mean_pts": 1.509,
+            "hit": 0.5097,
+            "t_nw": 0.688,
+            "n": 414
+          },
+          "+60m": {
+            "mean_pct": 0.0086,
+            "mean_pts": 1.726,
+            "hit": 0.5193,
+            "t_nw": 0.486,
+            "n": 414
+          },
+          "+120m": {
+            "mean_pct": 0.0134,
+            "mean_pts": 2.732,
+            "hit": 0.5193,
+            "t_nw": 0.507,
+            "n": 414
+          },
+          "to15:25": {
+            "mean_pct": 0.0064,
+            "mean_pts": 0.758,
+            "hit": 0.5072,
+            "t_nw": 0.144,
+            "n": 414
+          }
+        },
+        "best_horizon": "+120m",
+        "best": {
+          "mean_pct": 0.0134,
+          "mean_pts": 2.732,
+          "hit": 0.5193,
+          "t_nw": 0.507,
+          "n": 414
+        },
+        "largest_day_share": 0.9212,
+        "mfe_pct": 0.3744,
+        "mae_pct": -0.3572,
+        "mfe_over_mae": 1.048
+      },
+      "placebo": {
+        "p_value": 0.015,
+        "placebo_mean_pts": 0.5063666203887953,
+        "n_draws": 200
+      },
+      "verdict": "FORWARD-TEST CANDIDATE",
+      "clears_bonferroni_m481": false,
+      "trade_direction": "as-hypothesized",
+      "promote_to_stage2": true
+    },
+    "A9_oi_short_buildup": {
+      "label": "A9_oi_short_buildup",
+      "hypothesis": "bearish continuation (price down + OI up)",
+      "n_signals_build": 6181,
+      "n_signals_forward": 530,
+      "build": {
+        "n": 6181,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.0014,
+            "mean_pts": 0.317,
+            "hit": 0.4927,
+            "t_nw": 0.897,
+            "n": 6180
+          },
+          "+30m": {
+            "mean_pct": 0.0017,
+            "mean_pts": 0.375,
+            "hit": 0.4867,
+            "t_nw": 0.744,
+            "n": 6180
+          },
+          "+60m": {
+            "mean_pct": 0.0042,
+            "mean_pts": 0.884,
+            "hit": 0.4986,
+            "t_nw": 1.128,
+            "n": 6181
+          },
+          "+120m": {
+            "mean_pct": 0.0057,
+            "mean_pts": 1.195,
+            "hit": 0.4968,
+            "t_nw": 0.898,
+            "n": 6181
+          },
+          "to15:25": {
+            "mean_pct": 0.0043,
+            "mean_pts": 1.023,
+            "hit": 0.4977,
+            "t_nw": 0.382,
+            "n": 6181
+          }
+        },
+        "best_horizon": "+120m",
+        "best": {
+          "mean_pct": 0.0057,
+          "mean_pts": 1.195,
+          "hit": 0.4968,
+          "t_nw": 0.898,
+          "n": 6181
+        },
+        "largest_day_share": 0.2237,
+        "mfe_pct": 0.3392,
+        "mae_pct": -0.3012,
+        "mfe_over_mae": 1.126
+      },
+      "forward": {
+        "n": 530,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.0031,
+            "mean_pts": 0.789,
+            "hit": 0.4962,
+            "t_nw": 0.491,
+            "n": 530
+          },
+          "+30m": {
+            "mean_pct": 0.0074,
+            "mean_pts": 1.987,
+            "hit": 0.5472,
+            "t_nw": 0.724,
+            "n": 530
+          },
+          "+60m": {
+            "mean_pct": 0.003,
+            "mean_pts": 0.955,
+            "hit": 0.5302,
+            "t_nw": 0.218,
+            "n": 530
+          },
+          "+120m": {
+            "mean_pct": 0.0081,
+            "mean_pts": 2.523,
+            "hit": 0.5566,
+            "t_nw": 0.353,
+            "n": 530
+          },
+          "to15:25": {
+            "mean_pct": 0.0368,
+            "mean_pts": 9.667,
+            "hit": 0.5358,
+            "t_nw": 0.875,
+            "n": 530
+          }
+        },
+        "best_horizon": "to15:25",
+        "best": {
+          "mean_pct": 0.0368,
+          "mean_pts": 9.667,
+          "hit": 0.5358,
+          "t_nw": 0.875,
+          "n": 530
+        },
+        "largest_day_share": 0.4406,
+        "mfe_pct": 0.3899,
+        "mae_pct": -0.3501,
+        "mfe_over_mae": 1.114
+      },
+      "placebo": {
+        "p_value": 0.135,
+        "placebo_mean_pts": -0.035371016016797346,
+        "n_draws": 200
+      },
+      "verdict": "DEAD",
+      "reason": "fails own placebo (p=0.135)",
+      "promote_to_stage2": false
+    },
+    "A10_oi_long_unwind": {
+      "label": "A10_oi_long_unwind",
+      "hypothesis": "bearish (price down + OI down)",
+      "n_signals_build": 4712,
+      "n_signals_forward": 406,
+      "build": {
+        "n": 4712,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.0025,
+            "mean_pts": 0.489,
+            "hit": 0.4822,
+            "t_nw": 1.345,
+            "n": 4710
+          },
+          "+30m": {
+            "mean_pct": 0.002,
+            "mean_pts": 0.396,
+            "hit": 0.4771,
+            "t_nw": 0.759,
+            "n": 4710
+          },
+          "+60m": {
+            "mean_pct": 0.0027,
+            "mean_pts": 0.542,
+            "hit": 0.4811,
+            "t_nw": 0.635,
+            "n": 4710
+          },
+          "+120m": {
+            "mean_pct": 0.0048,
+            "mean_pts": 0.986,
+            "hit": 0.4921,
+            "t_nw": 0.699,
+            "n": 4712
+          },
+          "to15:25": {
+            "mean_pct": 0.0032,
+            "mean_pts": 0.692,
+            "hit": 0.5002,
+            "t_nw": 0.279,
+            "n": 4712
+          }
+        },
+        "best_horizon": "+120m",
+        "best": {
+          "mean_pct": 0.0048,
+          "mean_pts": 0.986,
+          "hit": 0.4921,
+          "t_nw": 0.699,
+          "n": 4712
+        },
+        "largest_day_share": 0.2591,
+        "mfe_pct": 0.3267,
+        "mae_pct": -0.2916,
+        "mfe_over_mae": 1.12
+      },
+      "forward": {
+        "n": 406,
+        "horizons": {
+          "+15m": {
+            "mean_pct": -0.0003,
+            "mean_pts": -0.038,
+            "hit": 0.532,
+            "t_nw": -0.035,
+            "n": 406
+          },
+          "+30m": {
+            "mean_pct": -0.0083,
+            "mean_pts": -2.027,
+            "hit": 0.4852,
+            "t_nw": -0.72,
+            "n": 406
+          },
+          "+60m": {
+            "mean_pct": 0.0019,
+            "mean_pts": 0.516,
+            "hit": 0.5222,
+            "t_nw": 0.131,
+            "n": 406
+          },
+          "+120m": {
+            "mean_pct": -0.0107,
+            "mean_pts": -2.353,
+            "hit": 0.4901,
+            "t_nw": -0.425,
+            "n": 406
+          },
+          "to15:25": {
+            "mean_pct": 0.0044,
+            "mean_pts": 1.242,
+            "hit": 0.5296,
+            "t_nw": 0.092,
+            "n": 406
+          }
+        },
+        "best_horizon": "to15:25",
+        "best": {
+          "mean_pct": 0.0044,
+          "mean_pts": 1.242,
+          "hit": 0.5296,
+          "t_nw": 0.092,
+          "n": 406
+        },
+        "largest_day_share": 3.4889,
+        "mfe_pct": 0.3848,
+        "mae_pct": -0.3731,
+        "mfe_over_mae": 1.031
+      },
+      "placebo": {
+        "p_value": 0.365,
+        "placebo_mean_pts": -0.1191086587436105,
+        "n_draws": 200
+      },
+      "verdict": "DEAD",
+      "reason": "fails own placebo (p=0.365)",
+      "promote_to_stage2": false
+    },
+    "B1_vix_rv_divergence_high": {
+      "label": "B1_vix_rv_divergence_high",
+      "hypothesis": "contrarian bounce (VIX richer than realized)",
+      "n_signals_build": 16564,
+      "n_signals_forward": 1432,
+      "build": {
+        "n": 16564,
+        "horizons": {
+          "+15m": {
+            "mean_pct": -0.0033,
+            "mean_pts": -0.732,
+            "hit": 0.5051,
+            "t_nw": -2.046,
+            "n": 16564
+          },
+          "+30m": {
+            "mean_pct": -0.0016,
+            "mean_pts": -0.425,
+            "hit": 0.522,
+            "t_nw": -0.663,
+            "n": 16564
+          },
+          "+60m": {
+            "mean_pct": 0.0039,
+            "mean_pts": 0.648,
+            "hit": 0.5325,
+            "t_nw": 1.137,
+            "n": 16564
+          },
+          "+120m": {
+            "mean_pct": 0.0018,
+            "mean_pts": 0.254,
+            "hit": 0.5124,
+            "t_nw": 0.365,
+            "n": 16564
+          },
+          "to15:25": {
+            "mean_pct": 0.0077,
+            "mean_pts": 1.104,
+            "hit": 0.5069,
+            "t_nw": 1.04,
+            "n": 16564
+          }
+        },
+        "best_horizon": "to15:25",
+        "best": {
+          "mean_pct": 0.0077,
+          "mean_pts": 1.104,
+          "hit": 0.5069,
+          "t_nw": 1.04,
+          "n": 16564
+        },
+        "largest_day_share": 0.5706,
+        "mfe_pct": 0.2888,
+        "mae_pct": -0.3067,
+        "mfe_over_mae": 0.942
+      },
+      "forward": {
+        "n": 1432,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.0118,
+            "mean_pts": 2.798,
+            "hit": 0.5279,
+            "t_nw": 2.178,
+            "n": 1432
+          },
+          "+30m": {
+            "mean_pct": 0.0077,
+            "mean_pts": 1.646,
+            "hit": 0.4986,
+            "t_nw": 0.943,
+            "n": 1432
+          },
+          "+60m": {
+            "mean_pct": -0.0001,
+            "mean_pts": -0.399,
+            "hit": 0.507,
+            "t_nw": -0.006,
+            "n": 1432
+          },
+          "+120m": {
+            "mean_pct": 0.0117,
+            "mean_pts": 1.911,
+            "hit": 0.4791,
+            "t_nw": 0.53,
+            "n": 1432
+          },
+          "to15:25": {
+            "mean_pct": 0.0016,
+            "mean_pts": -0.487,
+            "hit": 0.4825,
+            "t_nw": 0.05,
+            "n": 1432
+          }
+        },
+        "best_horizon": "+15m",
+        "best": {
+          "mean_pct": 0.0118,
+          "mean_pts": 2.798,
+          "hit": 0.5279,
+          "t_nw": 2.178,
+          "n": 1432
+        },
+        "largest_day_share": 0.1994,
+        "mfe_pct": 0.3614,
+        "mae_pct": -0.3579,
+        "mfe_over_mae": 1.01
+      },
+      "placebo": {
+        "p_value": 0.38,
+        "placebo_mean_pts": 0.8851449529099942,
+        "n_draws": 200
+      },
+      "verdict": "DEAD",
+      "reason": "fails own placebo (p=0.38)",
+      "promote_to_stage2": false
+    },
+    "B2_vix_rv_divergence_low": {
+      "label": "B2_vix_rv_divergence_low",
+      "hypothesis": "continuation of recent realized move",
+      "n_signals_build": 19504,
+      "n_signals_forward": 1545,
+      "build": {
+        "n": 19504,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.0019,
+            "mean_pts": 0.361,
+            "hit": 0.4901,
+            "t_nw": 1.094,
+            "n": 19504
+          },
+          "+30m": {
+            "mean_pct": 0.006,
+            "mean_pts": 1.085,
+            "hit": 0.5021,
+            "t_nw": 2.273,
+            "n": 19504
+          },
+          "+60m": {
+            "mean_pct": 0.018,
+            "mean_pts": 3.56,
+            "hit": 0.5035,
+            "t_nw": 4.32,
+            "n": 19504
+          },
+          "+120m": {
+            "mean_pct": 0.0199,
+            "mean_pts": 3.528,
+            "hit": 0.5117,
+            "t_nw": 3.604,
+            "n": 19504
+          },
+          "to15:25": {
+            "mean_pct": 0.0261,
+            "mean_pts": 4.584,
+            "hit": 0.5142,
+            "t_nw": 4.029,
+            "n": 19504
+          }
+        },
+        "best_horizon": "to15:25",
+        "best": {
+          "mean_pct": 0.0261,
+          "mean_pts": 4.584,
+          "hit": 0.5142,
+          "t_nw": 4.029,
+          "n": 19504
+        },
+        "largest_day_share": 0.1328,
+        "mfe_pct": 0.3088,
+        "mae_pct": -0.2696,
+        "mfe_over_mae": 1.146
+      },
+      "forward": {
+        "n": 1545,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.011,
+            "mean_pts": 2.687,
+            "hit": 0.4848,
+            "t_nw": 1.145,
+            "n": 1545
+          },
+          "+30m": {
+            "mean_pct": 0.0076,
+            "mean_pts": 1.728,
+            "hit": 0.5081,
+            "t_nw": 0.678,
+            "n": 1545
+          },
+          "+60m": {
+            "mean_pct": -0.0099,
+            "mean_pts": -2.945,
+            "hit": 0.49,
+            "t_nw": -0.662,
+            "n": 1545
+          },
+          "+120m": {
+            "mean_pct": -0.0197,
+            "mean_pts": -5.102,
+            "hit": 0.5068,
+            "t_nw": -0.971,
+            "n": 1545
+          },
+          "to15:25": {
+            "mean_pct": 0.0001,
+            "mean_pts": -0.082,
+            "hit": 0.5016,
+            "t_nw": 0.003,
+            "n": 1545
+          }
+        },
+        "best_horizon": "+15m",
+        "best": {
+          "mean_pct": 0.011,
+          "mean_pts": 2.687,
+          "hit": 0.4848,
+          "t_nw": 1.145,
+          "n": 1545
+        },
+        "largest_day_share": 0.5806,
+        "mfe_pct": 0.3527,
+        "mae_pct": -0.3495,
+        "mfe_over_mae": 1.009
+      },
+      "placebo": {
+        "p_value": 0.0,
+        "placebo_mean_pts": -0.10092402840444509,
+        "n_draws": 200
+      },
+      "verdict": "FORWARD-TEST CANDIDATE",
+      "clears_bonferroni_m481": true,
+      "trade_direction": "as-hypothesized",
+      "promote_to_stage2": true
+    },
+    "B3_vix_roc_spike": {
+      "label": "B3_vix_roc_spike",
+      "hypothesis": "fear-spike bounce / complacency-drop fade",
+      "n_signals_build": 68078,
+      "n_signals_forward": 7478,
+      "build": {
+        "n": 68078,
+        "horizons": {
+          "+15m": {
+            "mean_pct": -0.0001,
+            "mean_pts": -0.002,
+            "hit": 0.499,
+            "t_nw": -0.044,
+            "n": 68077
+          },
+          "+30m": {
+            "mean_pct": 0.0003,
+            "mean_pts": 0.024,
+            "hit": 0.4977,
+            "t_nw": 0.159,
+            "n": 68078
+          },
+          "+60m": {
+            "mean_pct": 0.0024,
+            "mean_pts": 0.381,
+            "hit": 0.503,
+            "t_nw": 0.925,
+            "n": 68078
+          },
+          "+120m": {
+            "mean_pct": -0.0028,
+            "mean_pts": -0.56,
+            "hit": 0.4972,
+            "t_nw": -0.78,
+            "n": 68078
+          },
+          "to15:25": {
+            "mean_pct": -0.0045,
+            "mean_pts": -0.732,
+            "hit": 0.4973,
+            "t_nw": -0.888,
+            "n": 68078
+          }
+        },
+        "best_horizon": "+60m",
+        "best": {
+          "mean_pct": 0.0024,
+          "mean_pts": 0.381,
+          "hit": 0.503,
+          "t_nw": 0.925,
+          "n": 68078
+        },
+        "largest_day_share": 0.4622,
+        "mfe_pct": 0.4225,
+        "mae_pct": -0.4268,
+        "mfe_over_mae": 0.99
+      },
+      "forward": {
+        "n": 7478,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.011,
+            "mean_pts": 2.647,
+            "hit": 0.53,
+            "t_nw": 2.696,
+            "n": 7478
+          },
+          "+30m": {
+            "mean_pct": 0.006,
+            "mean_pts": 1.532,
+            "hit": 0.5139,
+            "t_nw": 1.098,
+            "n": 7478
+          },
+          "+60m": {
+            "mean_pct": 0.0107,
+            "mean_pts": 2.726,
+            "hit": 0.513,
+            "t_nw": 1.385,
+            "n": 7478
+          },
+          "+120m": {
+            "mean_pct": 0.0221,
+            "mean_pts": 5.344,
+            "hit": 0.5111,
+            "t_nw": 2.204,
+            "n": 7478
+          },
+          "to15:25": {
+            "mean_pct": -0.0013,
+            "mean_pts": -0.379,
+            "hit": 0.4799,
+            "t_nw": -0.086,
+            "n": 7478
+          }
+        },
+        "best_horizon": "+120m",
+        "best": {
+          "mean_pct": 0.0221,
+          "mean_pts": 5.344,
+          "hit": 0.5111,
+          "t_nw": 2.204,
+          "n": 7478
+        },
+        "largest_day_share": 0.266,
+        "mfe_pct": 0.4778,
+        "mae_pct": -0.4582,
+        "mfe_over_mae": 1.043
+      },
+      "placebo": {
+        "p_value": 0.075,
+        "placebo_mean_pts": -0.057485160404242966,
+        "n_draws": 200
+      },
+      "verdict": "DEAD",
+      "reason": "profit concentration 46% > 30%",
+      "promote_to_stage2": false
+    },
+    "C1_sweep_priorday_reclaim_30min": {
+      "label": "C1_sweep_priorday_reclaim_30min",
+      "hypothesis": "reversal (identical def to today's t=3.10 winner, 30min bars)",
+      "n_signals_build": 1232,
+      "n_signals_forward": 98,
+      "build": {
+        "n": 1231,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.0009,
+            "mean_pts": 0.091,
+            "hit": 0.4919,
+            "t_nw": 0.227,
+            "n": 1230
+          },
+          "+30m": {
+            "mean_pct": -0.0031,
+            "mean_pts": -0.888,
+            "hit": 0.4772,
+            "t_nw": -0.581,
+            "n": 1230
+          },
+          "+60m": {
+            "mean_pct": -0.0041,
+            "mean_pts": -1.187,
+            "hit": 0.4777,
+            "t_nw": -0.547,
+            "n": 1231
+          },
+          "+120m": {
+            "mean_pct": 0.0019,
+            "mean_pts": -0.287,
+            "hit": 0.4793,
+            "t_nw": 0.185,
+            "n": 1231
+          },
+          "to15:25": {
+            "mean_pct": 0.0386,
+            "mean_pts": 6.669,
+            "hit": 0.5012,
+            "t_nw": 2.085,
+            "n": 1231
+          }
+        },
+        "best_horizon": "to15:25",
+        "best": {
+          "mean_pct": 0.0386,
+          "mean_pts": 6.669,
+          "hit": 0.5012,
+          "t_nw": 2.085,
+          "n": 1231
+        },
+        "largest_day_share": 0.1294,
+        "mfe_pct": 0.3587,
+        "mae_pct": -0.3251,
+        "mfe_over_mae": 1.103
+      },
+      "forward": {
+        "n": 98,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.0293,
+            "mean_pts": 7.091,
+            "hit": 0.5612,
+            "t_nw": 1.198,
+            "n": 98
+          },
+          "+30m": {
+            "mean_pct": 0.0164,
+            "mean_pts": 3.992,
+            "hit": 0.4796,
+            "t_nw": 0.735,
+            "n": 98
+          },
+          "+60m": {
+            "mean_pct": 0.0342,
+            "mean_pts": 8.249,
+            "hit": 0.5204,
+            "t_nw": 1.105,
+            "n": 98
+          },
+          "+120m": {
+            "mean_pct": 0.0544,
+            "mean_pts": 13.361,
+            "hit": 0.5612,
+            "t_nw": 1.459,
+            "n": 98
+          },
+          "to15:25": {
+            "mean_pct": 0.1226,
+            "mean_pts": 30.715,
+            "hit": 0.5816,
+            "t_nw": 1.636,
+            "n": 98
+          }
+        },
+        "best_horizon": "to15:25",
+        "best": {
+          "mean_pct": 0.1226,
+          "mean_pts": 30.715,
+          "hit": 0.5816,
+          "t_nw": 1.636,
+          "n": 98
+        },
+        "largest_day_share": 0.3364,
+        "mfe_pct": 0.4577,
+        "mae_pct": -0.3467,
+        "mfe_over_mae": 1.32
+      },
+      "placebo": {
+        "p_value": 0.055,
+        "placebo_mean_pts": 0.345704545454541,
+        "n_draws": 200
+      },
+      "verdict": "FORWARD-TEST CANDIDATE",
+      "clears_bonferroni_m481": false,
+      "trade_direction": "as-hypothesized",
+      "promote_to_stage2": true
+    },
+    "C2_sweep_priorday_reclaim_45min": {
+      "label": "C2_sweep_priorday_reclaim_45min",
+      "hypothesis": "reversal (identical def, 45min bars)",
+      "n_signals_build": 1092,
+      "n_signals_forward": 87,
+      "build": {
+        "n": 1091,
+        "horizons": {
+          "+15m": {
+            "mean_pct": -0.0004,
+            "mean_pts": -0.208,
+            "hit": 0.4752,
+            "t_nw": -0.109,
+            "n": 1090
+          },
+          "+30m": {
+            "mean_pct": -0.0018,
+            "mean_pts": -0.489,
+            "hit": 0.5028,
+            "t_nw": -0.349,
+            "n": 1090
+          },
+          "+60m": {
+            "mean_pct": 0.0022,
+            "mean_pts": 0.227,
+            "hit": 0.4954,
+            "t_nw": 0.3,
+            "n": 1090
+          },
+          "+120m": {
+            "mean_pct": 0.0037,
+            "mean_pts": -0.05,
+            "hit": 0.4858,
+            "t_nw": 0.325,
+            "n": 1091
+          },
+          "to15:25": {
+            "mean_pct": 0.0397,
+            "mean_pts": 6.892,
+            "hit": 0.5151,
+            "t_nw": 2.124,
+            "n": 1091
+          }
+        },
+        "best_horizon": "to15:25",
+        "best": {
+          "mean_pct": 0.0397,
+          "mean_pts": 6.892,
+          "hit": 0.5151,
+          "t_nw": 2.124,
+          "n": 1091
+        },
+        "largest_day_share": 0.1888,
+        "mfe_pct": 0.3455,
+        "mae_pct": -0.3122,
+        "mfe_over_mae": 1.106
+      },
+      "forward": {
+        "n": 87,
+        "horizons": {
+          "+15m": {
+            "mean_pct": 0.0104,
+            "mean_pts": 2.869,
+            "hit": 0.4483,
+            "t_nw": 0.386,
+            "n": 87
+          },
+          "+30m": {
+            "mean_pct": -0.0168,
+            "mean_pts": -4.021,
+            "hit": 0.4598,
+            "t_nw": -0.74,
+            "n": 87
+          },
+          "+60m": {
+            "mean_pct": 0.0028,
+            "mean_pts": 0.707,
+            "hit": 0.5057,
+            "t_nw": 0.109,
+            "n": 87
+          },
+          "+120m": {
+            "mean_pct": 0.0071,
+            "mean_pts": 1.959,
+            "hit": 0.5057,
+            "t_nw": 0.191,
+            "n": 87
+          },
+          "to15:25": {
+            "mean_pct": 0.0696,
+            "mean_pts": 17.625,
+            "hit": 0.5402,
+            "t_nw": 1.038,
+            "n": 87
+          }
+        },
+        "best_horizon": "to15:25",
+        "best": {
+          "mean_pct": 0.0696,
+          "mean_pts": 17.625,
+          "hit": 0.5402,
+          "t_nw": 1.038,
+          "n": 87
+        },
+        "largest_day_share": 0.5735,
+        "mfe_pct": 0.408,
+        "mae_pct": -0.3434,
+        "mfe_over_mae": 1.188
+      },
+      "placebo": {
+        "p_value": 0.02,
+        "placebo_mean_pts": -0.247143772893775,
+        "n_draws": 200
+      },
+      "verdict": "FORWARD-TEST CANDIDATE",
+      "clears_bonferroni_m481": false,
+      "trade_direction": "as-hypothesized",
+      "promote_to_stage2": true
+    }
+  }
+}

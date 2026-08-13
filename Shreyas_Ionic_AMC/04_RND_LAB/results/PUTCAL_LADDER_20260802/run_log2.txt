@@ -1,0 +1,31 @@
+[23:56:35] loading nifty_optidx_all_traded.parquet + spot_vix_daily.parquet ...
+[23:56:36] tbl 1,503,758 rows | trading days 2579 (2016-01-04..2026-07-03) | expiries 456
+[23:56:36] === A_T5_45v15: far=45D near=15D roll_offset=5D ===
+[23:56:36]   RESUME: c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\PUTCAL_LADDER_20260802/trades_A_T5_45v15.csv already on disk from prior run -- loading, skipping walk
+[23:56:36]   n=138 gross_mean=-24.83 net_mean=-28.37 net_median=-8.02 hit=45.7% t=-3.41 mean_net_debit=+119.11 credit_rungs=1
+[23:56:36]     pre2019: n=35 mean_net=-7.09
+[23:56:36]     era_2019_2024_09: n=85 mean_net=-40.29
+[23:56:36]     era_2024_10plus: n=14 mean_net=-27.97
+[23:56:36]     held_out_2026: n=4 mean_net=+37.26
+[23:56:36]   running placebo (500x random roll-dates)...
+[00:02:23]   placebo: observed mean at percentile 12.0% of 150 random draws
+[00:02:23] === A_T2_45v15: far=45D near=15D roll_offset=2D ===
+[00:02:23]   RESUME: c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\PUTCAL_LADDER_20260802/trades_A_T2_45v15.csv already on disk from prior run -- loading, skipping walk
+[00:02:23]   n=140 gross_mean=-9.34 net_mean=-12.88 net_median=-6.54 hit=47.1% t=-1.87 mean_net_debit=+117.51 credit_rungs=0
+[00:02:23]     pre2019: n=35 mean_net=-5.11
+[00:02:23]     era_2019_2024_09: n=87 mean_net=-15.26
+[00:02:23]     era_2024_10plus: n=15 mean_net=-20.95
+[00:02:23]     held_out_2026: n=3 mean_net=+5.78
+[00:02:23]   running placebo (500x random roll-dates)...
+[00:06:35]   placebo: observed mean at percentile 36.7% of 150 random draws
+[00:06:35] === B_T7_90v30: far=90D near=30D roll_offset=7D ===
+[00:06:39]   n=112 gross_mean=+8.91 net_mean=+5.37 net_median=+12.71 hit=58.9% t=+0.69 mean_net_debit=+137.25 credit_rungs=2
+[00:06:39]     pre2019: n=36 mean_net=+7.15
+[00:06:39]     era_2019_2024_09: n=63 mean_net=+0.47
+[00:06:39]     era_2024_10plus: n=11 mean_net=+26.29
+[00:06:39]     held_out_2026: n=2 mean_net=+12.61
+[00:06:39]   running placebo (500x random roll-dates)...
+[00:09:46]   placebo: observed mean at percentile 63.3% of 150 random draws
+[00:09:46] 
+saved cells.csv (3 configs) + per-config trades_*.csv
+[00:09:46] DONE

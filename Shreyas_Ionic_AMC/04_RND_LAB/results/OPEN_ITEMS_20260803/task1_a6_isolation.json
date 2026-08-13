@@ -1,0 +1,42 @@
+{
+  "ablations": {
+    "plus_daily_cap": {
+      "label": "A6_corrected_PLUS_dailycap",
+      "n_build": 1621,
+      "n_forward": 149,
+      "best_horizon": "+120m",
+      "mean_pts": 3.412,
+      "t_nw": 2.074,
+      "hit": 0.5231,
+      "largest_day_share": 0.098,
+      "placebo_p": 0.0,
+      "verdict": "FORWARD-TEST CANDIDATE"
+    }
+  },
+  "sanity_original_repro": {
+    "label": "A6_ORIGINAL_BUGGY_REPRO",
+    "n_build": 9655,
+    "n_forward": 849,
+    "best_horizon": "to15:25",
+    "mean_pts": 4.153,
+    "t_nw": 2.576,
+    "hit": 0.5384,
+    "largest_day_share": 0.0872,
+    "placebo_p": 0.0,
+    "verdict": "FORWARD-TEST CANDIDATE"
+  },
+  "expiry_mismatch_frac": 0.5133191344877612,
+  "n_buckets_dte_negative_dropped": 0,
+  "corrected_selection_only": {
+    "label": "A6_CORRECTED_SELECTION_ONLY",
+    "n_build": 9923,
+    "n_forward": 863,
+    "best_horizon": "to15:25",
+    "mean_pts": 3.887,
+    "t_nw": 2.45,
+    "hit": 0.5427,
+    "largest_day_share": 0.1009,
+    "placebo_p": 0.0,
+    "verdict": "FORWARD-TEST CANDIDATE"
+  }
+}

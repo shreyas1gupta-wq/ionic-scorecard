@@ -1,0 +1,59 @@
+=== SECTION 0: BOOK unit-bug verification ===
+hist['BOOK'] (from all_sleeves_daily.json) sum = Rs864,397.88 over 942 days
+book_daily_pnl.csv 'total' (RAW) sum         = Rs8,643,978.85 over 942 days
+ratio raw/json = 10.0000  (confirms hist['BOOK'] = raw/10, i.e. 'Rs10L-equivalent' pre-scaling is REAL in the data, not just a mislabeled comment)
+CONCLUSION: portfolio $ contribution from BOOK = w*10*(raw/10) = w*raw -- already correct.
+            The bug is the AU-multiple LABEL only: true_AU = w (native Rs1cr), not w*10 (mislabeled Rs10L).
+
+=== SECTION 1: SWEEP forward-edge method comparison ===
+OLD-STT avg net pts/trade          : 10.941  (matches CAPACITY_WRITEUP's 10.941)
+FWD real-per-trade-spot avg pts/trade: 6.512  (mean entry spot 14,759, already embedded in PORTFOLIOS_RECOST.md's FORWARD SWEEP standalone CAGR 9.79%)
+FWD flat-spot-24000 avg pts/trade   : 3.741  (matches CAPACITY_WRITEUP's 3.741 -- task's instructed basis)
+FLAGGED DISCREPANCY: the flat-spot method applies TODAY's spot to trades back to 2015 (mean spot then ~9,678), overstating cost on ~87% of the trade history. Using per THE TASK'S EXPLICIT INSTRUCTION anyway for the headline re-fit; both shown throughout.
+
+====================================================================================================
+RUNNING: FORWARD headline (SWEEP flat-spot 3.741-anchored, BOOK $ unchanged, ORIGINAL caps)
+====================================================================================================
+LOW_RISK {'CAGR_pct': 6.89, 'maxDD_pct': -7.87, 'Calmar': 0.875, 'Sharpe': 1.0, 'month_win_pct': 56.4, 'net_rs': 3498036, 'capital_deployed_pct': np.float64(88.0)} NAIVE
+  weights: {'SWEEP': 0.25, 'CALENDAR': 0.2, 'OVERSHOOT': 0.08, 'LD_SELL': 0.1, 'BOOK': 0.25}
+HIGH_CAGR {'CAGR_pct': 12.86, 'maxDD_pct': -13.98, 'Calmar': 0.92, 'Sharpe': 1.03, 'month_win_pct': 56.4, 'net_rs': 7241304, 'capital_deployed_pct': np.float64(185.3)} FITTED
+  weights: {'SWEEP': 0.5, 'CALENDAR': 0.5, 'OVERSHOOT': 0.0034, 'LD_SELL': 0.35, 'BOOK': 0.5}
+BALANCED {'CAGR_pct': 5.14, 'maxDD_pct': -3.66, 'Calmar': 1.405, 'Sharpe': 1.38, 'month_win_pct': 63.6, 'net_rs': 2532599, 'capital_deployed_pct': np.float64(94.6)} FITTED
+  weights: {'SWEEP': 0.0189, 'CALENDAR': 0.35, 'OVERSHOOT': 0.15, 'LD_SELL': 0.2, 'BOOK': 0.2268}
+
+====================================================================================================
+RUNNING: FORWARD cross-check (SWEEP real-per-trade-spot 6.512-anchored, ORIGINAL caps)
+====================================================================================================
+LOW_RISK {'CAGR_pct': 7.29, 'maxDD_pct': -7.83, 'Calmar': 0.931, 'Sharpe': 1.07, 'month_win_pct': 56.4, 'net_rs': 3725981, 'capital_deployed_pct': np.float64(88.0)} NAIVE
+HIGH_CAGR {'CAGR_pct': 13.51, 'maxDD_pct': -13.7, 'Calmar': 0.986, 'Sharpe': 1.1, 'month_win_pct': 58.2, 'net_rs': 7697194, 'capital_deployed_pct': np.float64(185.3)} FITTED
+BALANCED {'CAGR_pct': 5.14, 'maxDD_pct': -3.61, 'Calmar': 1.422, 'Sharpe': 1.39, 'month_win_pct': 63.6, 'net_rs': 2531959, 'capital_deployed_pct': np.float64(94.3)} FITTED
+
+====================================================================================================
+RUNNING: FORWARD + LOOSENED SWEEP/BOOK caps (honest max CAGR exploration, 3.741-anchored)
+====================================================================================================
+LOW_RISK {'CAGR_pct': 8.62, 'maxDD_pct': -8.91, 'Calmar': 0.967, 'Sharpe': 1.12, 'month_win_pct': 61.8, 'net_rs': 4509658, 'capital_deployed_pct': np.float64(100.0)} NAIVE
+  weights: {'SWEEP': 0.2474, 'CALENDAR': 0.2, 'OVERSHOOT': 0.08, 'LD_SELL': 0.1, 'BOOK': 0.3726}
+HIGH_CAGR {'CAGR_pct': 19.49, 'maxDD_pct': -24.77, 'Calmar': 0.787, 'Sharpe': 1.07, 'month_win_pct': 60.0, 'net_rs': 12298231, 'capital_deployed_pct': np.float64(232.8)} FITTED
+  weights: {'SWEEP': 0.7319, 'CALENDAR': 0.1666, 'OVERSHOOT': 0.0796, 'LD_SELL': 0.35, 'BOOK': 1.0}
+BALANCED {'CAGR_pct': 5.14, 'maxDD_pct': -3.66, 'Calmar': 1.405, 'Sharpe': 1.38, 'month_win_pct': 63.6, 'net_rs': 2532599, 'capital_deployed_pct': np.float64(94.6)} FITTED
+  weights: {'SWEEP': 0.0189, 'CALENDAR': 0.35, 'OVERSHOOT': 0.15, 'LD_SELL': 0.2, 'BOOK': 0.2268}
+
+====================================================================================================
+RUNNING: FORWARD + LOOSENED caps, cross-check SWEEP basis (6.512-anchored)
+====================================================================================================
+LOW_RISK {'CAGR_pct': 8.99, 'maxDD_pct': -8.77, 'Calmar': 1.025, 'Sharpe': 1.17, 'month_win_pct': 61.8, 'net_rs': 4736138, 'capital_deployed_pct': np.float64(100.0)} NAIVE
+HIGH_CAGR {'CAGR_pct': 20.36, 'maxDD_pct': -24.92, 'Calmar': 0.817, 'Sharpe': 1.1, 'month_win_pct': 58.2, 'net_rs': 13035914, 'capital_deployed_pct': np.float64(225.1)} FITTED
+BALANCED {'CAGR_pct': 5.14, 'maxDD_pct': -3.61, 'Calmar': 1.422, 'Sharpe': 1.39, 'month_win_pct': 63.6, 'net_rs': 2531959, 'capital_deployed_pct': np.float64(94.3)} FITTED
+
+====================================================================================================
+TRUE-NATIVE AU LABELS -- BOOK at Rs1cr native (correction 1), others unchanged at Rs10L native
+====================================================================================================
+            variant   mandate sleeve  weight_pct  mislabeled_AU  true_AU
+headline(orig caps)  LOW_RISK   BOOK       25.00          2.500    0.250
+headline(orig caps) HIGH_CAGR   BOOK       50.00          5.000    0.500
+headline(orig caps)  BALANCED   BOOK       22.68          2.268    0.227
+      loosened caps  LOW_RISK   BOOK       37.26          3.726    0.373
+      loosened caps HIGH_CAGR   BOOK      100.00         10.000    1.000
+      loosened caps  BALANCED   BOOK       22.68          2.268    0.227
+
+WROTE: c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\PORTFOLIOS_REFIT_20260803\refit_results.json c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\PORTFOLIOS_REFIT_20260803\au_labels.csv

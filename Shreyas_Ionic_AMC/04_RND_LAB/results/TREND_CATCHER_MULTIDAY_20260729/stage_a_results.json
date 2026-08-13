@@ -1,0 +1,131 @@
+{
+  "ema_cross": {
+    "meta": {
+      "n_triggers_in_window": 68,
+      "n_trades": 36,
+      "skipped_no_valid_leg": 0
+    },
+    "net": {
+      "n": 36,
+      "cagr": -0.04717835501752643,
+      "maxdd": -0.2293948949808119,
+      "calmar": -0.2056643632870415,
+      "sharpe": -0.4749903826987826,
+      "pf": 0.5570428788668009,
+      "win_rate": 0.19444444444444445,
+      "total_pnl": -57141.82071550295,
+      "nw_t_retpct": -1.577775910909961,
+      "top1_share_of_total": -0.43231376012240524,
+      "top4_share_of_total": -1.1345554092790064,
+      "top1_share_of_grosswin": 0.343773281869526,
+      "top4_share_of_grosswin": 0.9021915851122442,
+      "monthly_win_rate": 0.16,
+      "n_months": 25
+    },
+    "gross": {
+      "n": 36,
+      "cagr": -0.04462759073702194,
+      "maxdd": -0.2221124866834846,
+      "calmar": -0.20092337627383047,
+      "sharpe": -0.44962764653916354,
+      "pf": 0.5718473889405822,
+      "win_rate": 0.19444444444444445,
+      "total_pnl": -54286.29374999981,
+      "nw_t_retpct": -1.577775910909961,
+      "top1_share_of_total": -0.45742036404907715,
+      "top4_share_of_total": -1.201489740676951,
+      "top1_share_of_grosswin": 0.34247900227749595,
+      "top4_share_of_grosswin": 0.8995773690336638,
+      "monthly_win_rate": 0.16,
+      "n_months": 25
+    },
+    "pass_stage_a": false,
+    "csv": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\04_RND_LAB\\results\\TREND_CATCHER_MULTIDAY_20260729\\trades\\stageA_ema_cross_b2_ATM_trail35.csv"
+  },
+  "breakout20": {
+    "meta": {
+      "n_triggers_in_window": 170,
+      "n_trades": 60,
+      "skipped_no_valid_leg": 3
+    },
+    "net": {
+      "n": 60,
+      "cagr": -0.01244932373741614,
+      "maxdd": -0.20393918797051291,
+      "calmar": -0.06104429394519389,
+      "sharpe": -0.004180369587140127,
+      "pf": 0.9349878088698502,
+      "win_rate": 0.25,
+      "total_pnl": -15990.400587794948,
+      "nw_t_retpct": 0.03516572512875566,
+      "top1_share_of_total": -2.6710717376932824,
+      "top4_share_of_total": -9.960437220026174,
+      "top1_share_of_grosswin": 0.18572672786306826,
+      "top4_share_of_grosswin": 0.6925757129078659,
+      "monthly_win_rate": 0.2826086956521739,
+      "n_months": 46
+    },
+    "gross": {
+      "n": 60,
+      "cagr": -0.008405774559890444,
+      "maxdd": -0.19768015464664457,
+      "calmar": -0.042522096236295735,
+      "sharpe": 0.016752583689596773,
+      "pf": 0.9551578198505588,
+      "win_rate": 0.25,
+      "total_pnl": -10870.64999999996,
+      "nw_t_retpct": 0.03516572512875566,
+      "top1_share_of_total": -3.9462422900194722,
+      "top4_share_of_total": -14.706009990203029,
+      "top1_share_of_grosswin": 0.18526583147283798,
+      "top4_share_of_grosswin": 0.6904089937339813,
+      "monthly_win_rate": 0.2826086956521739,
+      "n_months": 46
+    },
+    "pass_stage_a": false,
+    "csv": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\04_RND_LAB\\results\\TREND_CATCHER_MULTIDAY_20260729\\trades\\stageA_breakout20_b2_ATM_trail35.csv"
+  },
+  "sweep_priorweek_reclaim": {
+    "meta": {
+      "n_triggers_in_window": 188,
+      "n_trades": 83,
+      "skipped_no_valid_leg": 0
+    },
+    "net": {
+      "n": 83,
+      "cagr": 0.01293139025385548,
+      "maxdd": -0.22517242433086448,
+      "calmar": 0.05742883611207346,
+      "sharpe": 0.13132732508374584,
+      "pf": 1.0734228306498146,
+      "win_rate": 0.3493975903614458,
+      "total_pnl": 18018.19199109819,
+      "nw_t_retpct": -0.5697734954280014,
+      "top1_share_of_total": 3.085007453923771,
+      "top4_share_of_total": 8.101126050440833,
+      "top1_share_of_grosswin": 0.21101654760383637,
+      "top4_share_of_grosswin": 0.5541223729275848,
+      "monthly_win_rate": 0.4166666666666667,
+      "n_months": 48
+    },
+    "gross": {
+      "n": 83,
+      "cagr": 0.01782613392059562,
+      "maxdd": -0.21982871277641913,
+      "calmar": 0.08109101716264891,
+      "sharpe": 0.1605362831976652,
+      "pf": 1.1028504448237861,
+      "win_rate": 0.3493975903614458,
+      "total_pnl": 24841.068750000064,
+      "nw_t_retpct": -0.5697734954280014,
+      "top1_share_of_total": 2.2457336905039504,
+      "top4_share_of_total": 5.905171652487759,
+      "top1_share_of_grosswin": 0.20943429828420596,
+      "top4_share_of_grosswin": 0.5507088781346237,
+      "monthly_win_rate": 0.4375,
+      "n_months": 48
+    },
+    "pass_stage_a": false,
+    "csv": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\04_RND_LAB\\results\\TREND_CATCHER_MULTIDAY_20260729\\trades\\stageA_sweep_priorweek_reclaim_b2_ATM_trail35.csv"
+  }
+}

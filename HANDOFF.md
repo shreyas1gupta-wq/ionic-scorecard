@@ -17,7 +17,7 @@ Read this file first. It tells you everything about what was built, where every 
 | **HuggingFace token** | `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` |
 | **OneDrive quirk** | Filenames with `=` chars cannot be deleted via PowerShell — use Bash `rm -rf` instead |
 | **Parquet library** | `pyarrow` (installed in system Python) |
-| **Angel One API** | API_KEY=8crMtPbu, CLIENT=S59047501 — fund-less/disposable test account, no real money |
+| **Angel One API** | API_KEY=<ANGEL_API_KEY_REDACTED>, CLIENT=<ANGEL_CLIENT_ID_REDACTED> — fund-less/disposable test account, no real money |
 
 ### Key pip packages available
 pyarrow, pandas, numpy, requests, huggingface_hub, truststore, SmartApi (Angel One SDK)

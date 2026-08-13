@@ -1,0 +1,303 @@
+{
+  "SWEEP_E": {
+    "per_trade_stats_ALL_11yr_carry": {
+      "label": "E_swing3_ALL_11yr_carry_1lot",
+      "n": 4378,
+      "mean": 921.9095,
+      "sd": 7345.6867,
+      "skew": 1.6453,
+      "excess_kurt": 3.4624,
+      "naive_t": 8.3041,
+      "top1_share": 0.0105,
+      "top3_share": 0.0313,
+      "sharpe_per_trade": 0.1255
+    },
+    "per_trade_stats_OOS_2015_2021": {
+      "label": "E_swing3_OOS_2015_2021_carry",
+      "n": 2474,
+      "mean": 830.1131,
+      "sd": 6932.5083,
+      "skew": 1.5292,
+      "excess_kurt": 2.8314,
+      "naive_t": 5.9559,
+      "top1_share": 0.0204,
+      "top3_share": 0.0543,
+      "sharpe_per_trade": 0.11974
+    },
+    "per_trade_stats_IS_2021_2025": {
+      "label": "E_swing3_IS_2021_2025_carry",
+      "n": 1769,
+      "mean": 1066.1272,
+      "sd": 7831.5096,
+      "skew": 1.7104,
+      "excess_kurt": 3.6708,
+      "naive_t": 5.7257,
+      "top1_share": 0.0224,
+      "top3_share": 0.0651,
+      "sharpe_per_trade": 0.13613
+    },
+    "daily_basis_stats_ALL_11yr_carry": {
+      "label": "E_swing3_DAILY_dr_ALL_11yr_carry",
+      "n": 1578,
+      "mean": 0.0026,
+      "sd": 0.022,
+      "skew": 2.615,
+      "excess_kurt": 11.9145,
+      "naive_t": 4.6153,
+      "top1_share": 0.0424,
+      "top3_share": 0.1207,
+      "sharpe_per_trade": 0.11618,
+      "raw_daily_sharpe": 0.11618306910984001,
+      "annualized_sharpe": 1.8443490445252029,
+      "n_days": 1578
+    },
+    "reported_headline": {
+      "n": 4378,
+      "CAGR_pct": 15.33,
+      "maxDD_pct": -18.02,
+      "Sharpe": 1.84,
+      "t_nw": 4.35
+    },
+    "AF_grid_no_carry_1lot_ALL_11yr": [
+      {
+        "config": "A_intraday_stop30",
+        "Sharpe_annualized": -0.13,
+        "t": -0.33,
+        "CAGR": -1.31,
+        "n": 4378
+      },
+      {
+        "config": "B_intraday_trail25",
+        "Sharpe_annualized": 0.56,
+        "t": 1.43,
+        "CAGR": 3.37,
+        "n": 4378
+      },
+      {
+        "config": "C_intraday_trail40",
+        "Sharpe_annualized": 0.59,
+        "t": 1.47,
+        "CAGR": 4.66,
+        "n": 4378
+      },
+      {
+        "config": "D_overnight1_trail40",
+        "Sharpe_annualized": 1.35,
+        "t": 3.31,
+        "CAGR": 10.29,
+        "n": 4378
+      },
+      {
+        "config": "E_swing3_trail60",
+        "Sharpe_annualized": 1.65,
+        "t": 3.92,
+        "CAGR": 14.4,
+        "n": 4378
+      },
+      {
+        "config": "F_intraday_tgt200",
+        "Sharpe_annualized": -0.0,
+        "t": -0.01,
+        "CAGR": -0.04,
+        "n": 4378
+      }
+    ],
+    "DSR_vs_AF_grid": {
+      "dsr": 0.9963234408258206,
+      "sr0_benchmark_raw_daily": 0.058261617315563834,
+      "N_trials": 6
+    },
+    "DSR_vs_riskfrac_sizing_grid_16cells_auxiliary": {
+      "dsr": 0.9999962544551108,
+      "sr0_benchmark_raw_daily": 0.019390623080705573,
+      "N_trials": 14
+    },
+    "CSCV_PBO_AF_6configs": {
+      "pbo": 0.0,
+      "n_combos": 70,
+      "S": 8,
+      "N_configs": 6,
+      "T_obs": 1578,
+      "logit_mean": 9.97931561220616
+    },
+    "AF_effective_independent_trials": {
+      "N_eff": 1.330340054982332,
+      "avg_abs_corr": 0.7020250089485105,
+      "N_raw": 6
+    }
+  },
+  "S1_zscore": {
+    "per_trade_stats": {
+      "label": "S1_futures_z1.0",
+      "n": 1618,
+      "mean": 4.283,
+      "sd": 119.5372,
+      "skew": 1.1205,
+      "excess_kurt": 10.1138,
+      "naive_t": 1.4412,
+      "top1_share": 0.17,
+      "top3_share": 0.3857,
+      "sharpe_per_trade": 0.03583
+    },
+    "reported_headline": {
+      "n": 1618,
+      "mean_net_pts": 4.28,
+      "median_net_pts": 2.48,
+      "placebo_p": 0.006
+    },
+    "family_sharpes_THREE_POSTED": {
+      "S1_futures_primary": 0.03582958201312952,
+      "S1_options_primary": -0.044875684163244015,
+      "S2_futures_atr": 0.051851374683358466,
+      "S2_futures_raw": -0.13102401515443288,
+      "S2_options_atr": 0.01787020725019654,
+      "S3_futures_atr": -0.1085747627943003,
+      "S3_futures_raw": -0.13325396072823997,
+      "S3_options_atr": 0.01787020725019654,
+      "S3_options_raw": -0.041182681136603595
+    },
+    "DSR_vs_family": {
+      "dsr": 0.0010518218180087168,
+      "sr0_benchmark": 0.11088041867683521,
+      "N_trials": 9
+    },
+    "CSCV_PBO_family": {
+      "pbo": 0.24285714285714285,
+      "n_combos": 70,
+      "S": 8,
+      "N_configs": 9,
+      "T_obs": 1923,
+      "logit_mean": 1.8611798944560511
+    },
+    "effective_independent_trials": {
+      "N_eff": 1.705420615193733,
+      "avg_abs_corr": 0.5346613116889066,
+      "N_raw": 9
+    }
+  },
+  "CALENDAR_1x1_3d_before": {
+    "per_trade_stats_unconditional": {
+      "label": "CALENDAR_1x1_3d_before_unconditional",
+      "n": 178,
+      "mean": 9.2093,
+      "sd": 51.3665,
+      "skew": 0.1906,
+      "excess_kurt": 2.2381,
+      "naive_t": 2.392,
+      "top1_share": 0.1273,
+      "top3_share": 0.322,
+      "sharpe_per_trade": 0.17929
+    },
+    "pre2019": {
+      "n": 94,
+      "mean_pts": 1.0889592198581532
+    },
+    "post2019": {
+      "n": 84,
+      "mean_pts": 18.296319940476206
+    },
+    "reported_headline": {
+      "PF": 1.6,
+      "t": 2.25,
+      "n_pre2019": 93,
+      "n_post2019": 85,
+      "pts_pre2019": 0.88,
+      "pts_post2019": 18.32
+    },
+    "grid_a_family_N": 24,
+    "DSR_vs_grid_a_family": {
+      "dsr": 0.5762934933660009,
+      "sr0_benchmark": 0.16494434053120452,
+      "N_trials": 24
+    },
+    "CSCV_PBO_grid_a": {
+      "pbo": 0.3,
+      "n_combos": 70,
+      "S": 8,
+      "N_configs": 24,
+      "T_obs": 178,
+      "logit_mean": 0.8921331723796756
+    },
+    "effective_independent_trials": {
+      "N_eff": 1.8183022323287443,
+      "avg_abs_corr": 0.5303967761385328,
+      "N_raw": 24
+    }
+  },
+  "overshoot_delta_neutral_sell": {
+    "own_recomputation_from_filtered_trades_csv": {
+      "label": "overshoot_delta_neutral_sell_ALL",
+      "n": 1418,
+      "mean": 0.7624,
+      "sd": 8.4872,
+      "skew": 0.4826,
+      "excess_kurt": 17.0197,
+      "naive_t": 3.3828,
+      "top1_share": 0.0747,
+      "top3_share": 0.1836,
+      "sharpe_per_trade": 0.08983
+    },
+    "reported_headline": {
+      "mean_pts": 0.3,
+      "delta": 0.3,
+      "range_hi": 0.64,
+      "range_lo": -0.25,
+      "band": "0.20-0.40"
+    },
+    "provenance_note": "Own recomputation from filtered_trades.csv gives mean +0.76 pts (n=1418, sd=8.49) at full population -- MORE positive than the FINAL_VERDICT-quoted +0.30. The +0.30 figure is not reproducible from any file on disk as-is; it likely reflects a later, unsaved refinement (extra slippage/cost pass -- rerun_with_px.log documents a rerun of the upstream overshoot measurement but not this P&L step). Conservative choice below: use the QUOTED +0.30 mean with the ARTIFACT's own observed n/sd (more conservative than the artifact's own raw +0.76), so the DSR here is not inflated by trusting an unreproducible number at face value.",
+    "delta_bucket_breakdown": [
+      {
+        "dbucket": "(0.2, 0.24]",
+        "count": "23",
+        "mean": "1.7169879612285224",
+        "std": "14.514724612293438"
+      },
+      {
+        "dbucket": "(0.24, 0.28]",
+        "count": "256",
+        "mean": "1.1816589474983206",
+        "std": "6.361468750068275"
+      },
+      {
+        "dbucket": "(0.28, 0.32]",
+        "count": "889",
+        "mean": "0.6189089920138249",
+        "std": "7.709274605341572"
+      },
+      {
+        "dbucket": "(0.32, 0.36]",
+        "count": "216",
+        "mean": "1.144797430275773",
+        "std": "8.023571356518422"
+      },
+      {
+        "dbucket": "(0.36, 0.4]",
+        "count": "34",
+        "mean": "-1.716580750680967",
+        "std": "24.724885101784228"
+      }
+    ],
+    "conservative_recompute": {
+      "n": 1418,
+      "sd": 8.4872,
+      "mean_used": 0.3,
+      "t": 1.3310517285156045,
+      "sharpe_per_trade": 0.03534734659251579
+    },
+    "DSR_vs_delta_bucket_family": {
+      "dsr": 0.0010448106536815188,
+      "sr0_benchmark": 0.11661251875610655,
+      "N_trials": 5,
+      "note": "delta buckets are slices of ONE backtest, not independent re-runs -- this DSR is illustrative/conservative, not a true multi-trial deflation; PLATEAU check only"
+    }
+  },
+  "bonferroni_bars": {
+    "466": 3.8734710955884215,
+    "500": 3.8905918864131204,
+    "600": 3.9346058615604647,
+    "650": 3.9537895412742796,
+    "700": 3.971476421064663,
+    "750": 3.987878936606944,
+    "800": 4.003167571450173
+  }
+}

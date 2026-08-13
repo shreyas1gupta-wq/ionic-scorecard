@@ -1,0 +1,48 @@
+{
+  "signal": "sweep_priorweek_reclaim",
+  "dte_key": "b1_8_12",
+  "strike": "ATM",
+  "hold": "N5",
+  "start": "2021-08-17",
+  "end": "2025-12-31",
+  "meta": {
+    "n_triggers_in_window": 188,
+    "n_trades": 89,
+    "skipped_no_valid_leg": 44
+  },
+  "net": {
+    "n": 89,
+    "cagr": 0.14700641492970568,
+    "maxdd": -0.1759225105732558,
+    "calmar": 0.8356316337839597,
+    "sharpe": 0.7553276050698852,
+    "pf": 1.6517219146607787,
+    "win_rate": 0.29213483146067415,
+    "total_pnl": 246466.88361574948,
+    "nw_t_retpct": 1.736881245409527,
+    "top1_share_of_total": 0.24855849658235418,
+    "top4_share_of_total": 0.8463230596036486,
+    "top1_share_of_grosswin": 0.0980740267838156,
+    "top4_share_of_grosswin": 0.3339347137860889,
+    "monthly_win_rate": 0.4318181818181818,
+    "n_months": 44
+  },
+  "gross": {
+    "n": 89,
+    "cagr": 0.1502843795215496,
+    "maxdd": -0.17127632340106924,
+    "calmar": 0.8774381451990662,
+    "sharpe": 0.7700128927125823,
+    "pf": 1.6772581560302888,
+    "win_rate": 0.30337078651685395,
+    "total_pnl": 253328.23125000013,
+    "nw_t_retpct": 1.736881245409527,
+    "top1_share_of_total": 0.24237206882562942,
+    "top4_share_of_total": 0.8256286674720936,
+    "top1_share_of_grosswin": 0.0978671409740504,
+    "top4_share_of_grosswin": 0.33337965708350814,
+    "monthly_win_rate": 0.4318181818181818,
+    "n_months": 44
+  },
+  "csv": "c:\\Users\\Shreyas.1Gupta\\OneDrive - Angel Broking Limited\\Desktop\\Backup\\NIFTY 500\\Shreyas_Ionic_AMC\\04_RND_LAB\\results\\TREND_CATCHER_MULTIDAY_20260729\\trades\\dte_b1_sweep_N5_build.csv"
+}

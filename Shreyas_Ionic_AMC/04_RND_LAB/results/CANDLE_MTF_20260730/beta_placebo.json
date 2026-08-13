@@ -1,0 +1,107 @@
+{
+  "hold_bars": 78,
+  "n_draws": 120,
+  "n2_uncond_long_mean": 29.25,
+  "n2_uncond_long_expR": 0.432,
+  "n2_uncond_short_mean": 13.57,
+  "nifty_start": 8294.15,
+  "nifty_end": 23713.75,
+  "results": [
+    {
+      "pattern": "THREE_SOLDIERS",
+      "side": 1,
+      "n": 758,
+      "real_mean": 45.52,
+      "real_expR": 0.607,
+      "n1_placebo_mean": 26.81,
+      "n1_placebo_p95": 35.92,
+      "p_value": 0.0,
+      "n3_short_mirror": 8.6,
+      "verdict": "PATTERN ADDS"
+    },
+    {
+      "pattern": "MORNING_STAR",
+      "side": 1,
+      "n": 776,
+      "real_mean": 33.68,
+      "real_expR": 0.443,
+      "n1_placebo_mean": 26.42,
+      "n1_placebo_p95": 34.23,
+      "p_value": 0.09166666666666666,
+      "n3_short_mirror": 16.36,
+      "verdict": "weak"
+    },
+    {
+      "pattern": "HAMMER",
+      "side": 1,
+      "n": 783,
+      "real_mean": 29.37,
+      "real_expR": 0.421,
+      "n1_placebo_mean": 25.28,
+      "n1_placebo_p95": 33.87,
+      "p_value": 0.24166666666666667,
+      "n3_short_mirror": 20.47,
+      "verdict": "BETA, NOT PATTERN"
+    },
+    {
+      "pattern": "MARUBOZU_BULL",
+      "side": 1,
+      "n": 741,
+      "real_mean": 33.96,
+      "real_expR": 0.44,
+      "n1_placebo_mean": 27.32,
+      "n1_placebo_p95": 39.07,
+      "p_value": 0.2,
+      "n3_short_mirror": 12.49,
+      "verdict": "BETA, NOT PATTERN"
+    },
+    {
+      "pattern": "BULL_ENGULF",
+      "side": 1,
+      "n": 717,
+      "real_mean": 31.63,
+      "real_expR": 0.462,
+      "n1_placebo_mean": 25.93,
+      "n1_placebo_p95": 35.09,
+      "p_value": 0.225,
+      "n3_short_mirror": 19.22,
+      "verdict": "BETA, NOT PATTERN"
+    },
+    {
+      "pattern": "TWEEZER_BOTTOM",
+      "side": 1,
+      "n": 747,
+      "real_mean": 24.95,
+      "real_expR": 0.389,
+      "n1_placebo_mean": 27.36,
+      "n1_placebo_p95": 38.4,
+      "p_value": 0.6416666666666667,
+      "n3_short_mirror": 18.23,
+      "verdict": "BETA, NOT PATTERN"
+    },
+    {
+      "pattern": "THREE_CROWS",
+      "side": -1,
+      "n": 755,
+      "real_mean": 21.21,
+      "real_expR": 0.306,
+      "n1_placebo_mean": 16.09,
+      "n1_placebo_p95": 26.74,
+      "p_value": 0.23333333333333334,
+      "n3_short_mirror": 18.61,
+      "verdict": "BETA, NOT PATTERN"
+    },
+    {
+      "pattern": "SHOOTING_STAR",
+      "side": -1,
+      "n": 761,
+      "real_mean": 16.16,
+      "real_expR": 0.207,
+      "n1_placebo_mean": 16.4,
+      "n1_placebo_p95": 27.93,
+      "p_value": 0.5166666666666667,
+      "n3_short_mirror": 26.12,
+      "verdict": "BETA, NOT PATTERN"
+    }
+  ]
+}

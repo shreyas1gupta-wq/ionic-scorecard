@@ -1,0 +1,43 @@
+{
+  "n_cells": 480,
+  "bonferroni_m": 480,
+  "t_bar": 3.8,
+  "formations": [
+    "BULL_ENGULF",
+    "BEAR_ENGULF",
+    "HAMMER",
+    "SHOOTING_STAR",
+    "MARUBOZU_BULL",
+    "MARUBOZU_BEAR",
+    "PIERCING",
+    "DARK_CLOUD",
+    "THREE_SOLDIERS",
+    "THREE_CROWS",
+    "MORNING_STAR",
+    "EVENING_STAR",
+    "TWEEZER_BOTTOM",
+    "TWEEZER_TOP",
+    "INSIDE_BREAK_UP",
+    "INSIDE_BREAK_DN"
+  ],
+  "filters": [
+    "none",
+    "15m_ema",
+    "d_dma",
+    "wk_ema",
+    "d+wk",
+    "all3"
+  ],
+  "exits": [
+    "RR1.5",
+    "RR2.0",
+    "RR2.5",
+    "PARTIAL_1R_trail",
+    "BE_1R_trail"
+  ],
+  "retail_band": [
+    10,
+    100
+  ],
+  "heldout_from": "2026-01-01"
+}

@@ -1330,7 +1330,7 @@ Local git repo at the project root: **1,288 tracked files, 187 commits, `.git` =
 | `AppData\Local\angel_capture\creds.json` | **Full Angel credential set in plaintext**: `api_key`, `client_id`, login **PIN**, and **TOTP secret seed** | No | No |
 | `AppData\Local\angel_capture\angel_cfg.py` | Login helper — correctly reads from `creds.json`, no literals | No | No |
 | Old session scratchpad (`AppData\Local\Temp\claude\...\d096bfac...\scratchpad\angel_cfg.py` + its `.pyc`) | **All four secrets hardcoded as string literals** (API key, client ID, PIN, TOTP seed) — an earlier-generation copy that was never cleaned up | No | No |
-| Project `CLAUDE.md` (git-tracked, OneDrive-synced) | Angel **API key** (`8crMtPbu`) and **client code** (`S59047501`) in plaintext | **Yes** | **Yes** |
+| Project `CLAUDE.md` (git-tracked, OneDrive-synced) | Angel **API key** (`<ANGEL_API_KEY_REDACTED>`) and **client code** (`<ANGEL_CLIENT_ID_REDACTED>`) in plaintext | **Yes** | **Yes** |
 | `HANDOFF.md`, `other2\MANIFEST.md` (git-tracked) | Same API key + client code; HANDOFF.md also carries the **HuggingFace token** literal | **Yes** | **Yes** |
 | 8 git-tracked Python files (`intraday_options_strategy/data/hf_*.py`, `05_DATA_OFFICE/scripts/hf_us_stocks_daily.py`) | Hardcoded **HF token** | **Yes** | **Yes** |
 | Auto-memory dir (`~\.claude\projects\...\memory\reference_hf_token.md`) | HF token again | No (outside repo) | No |

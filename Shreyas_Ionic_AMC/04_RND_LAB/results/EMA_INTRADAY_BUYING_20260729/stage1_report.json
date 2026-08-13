@@ -1,0 +1,294 @@
+{
+  "breakeven_bar_pct": 0.3,
+  "cells": [
+    {
+      "cell": "5min_EMA9_21",
+      "build": {
+        "label": "build",
+        "n": 4305,
+        "r30": {
+          "mean_pct": 0.0005,
+          "median_pct": 0.0014,
+          "hit": 0.5029,
+          "t_nw": 0.211,
+          "n": 4305
+        },
+        "r60": {
+          "mean_pct": -0.0007,
+          "median_pct": -0.0002,
+          "hit": 0.4987,
+          "t_nw": -0.227,
+          "n": 4305
+        },
+        "r120": {
+          "mean_pct": 0.0004,
+          "median_pct": -0.004,
+          "hit": 0.4945,
+          "t_nw": 0.109,
+          "n": 4305
+        },
+        "r_eod": {
+          "mean_pct": 0.0052,
+          "median_pct": 0.0016,
+          "hit": 0.5022,
+          "t_nw": 1.179,
+          "n": 4305
+        },
+        "mfe_pct": 0.3611,
+        "mae_pct": -0.3546,
+        "mfe_over_mae": 1.018
+      },
+      "forward": {
+        "label": "forward_2026H1",
+        "n": 339,
+        "r30": {
+          "mean_pct": 0.0204,
+          "median_pct": 0.0166,
+          "hit": 0.5546,
+          "t_nw": 1.918,
+          "n": 339
+        },
+        "r60": {
+          "mean_pct": 0.0065,
+          "median_pct": 0.0075,
+          "hit": 0.5044,
+          "t_nw": 0.45,
+          "n": 339
+        },
+        "r120": {
+          "mean_pct": 0.0037,
+          "median_pct": -0.0027,
+          "hit": 0.4985,
+          "t_nw": 0.215,
+          "n": 339
+        },
+        "r_eod": {
+          "mean_pct": -0.0035,
+          "median_pct": 0.017,
+          "hit": 0.5133,
+          "t_nw": -0.193,
+          "n": 339
+        },
+        "mfe_pct": 0.4357,
+        "mae_pct": -0.4364,
+        "mfe_over_mae": 0.998
+      },
+      "gates": {
+        "best_horizon": "r_eod",
+        "g1_magnitude": {
+          "value_pct": 0.0052,
+          "bar_pct": 0.3,
+          "pass": false
+        },
+        "g2_tstat": {
+          "value": 1.179,
+          "bar": 2.0,
+          "pass": false
+        },
+        "g4_concentration": {
+          "max_day_share": 0.0999,
+          "bar": 0.3,
+          "pass": true
+        },
+        "g3_placebo_pctile": {
+          "skipped": "cheap gates already failed; placebo cannot rescue",
+          "pass": false
+        },
+        "ALL_PASS": false
+      }
+    },
+    {
+      "cell": "5min_EMA20_50",
+      "build": {
+        "label": "build",
+        "n": 2857,
+        "r30": {
+          "mean_pct": -0.001,
+          "median_pct": 0.0038,
+          "hit": 0.511,
+          "t_nw": -0.303,
+          "n": 2857
+        },
+        "r60": {
+          "mean_pct": -0.002,
+          "median_pct": 0.0065,
+          "hit": 0.51,
+          "t_nw": -0.476,
+          "n": 2857
+        },
+        "r120": {
+          "mean_pct": -0.004,
+          "median_pct": 0.004,
+          "hit": 0.504,
+          "t_nw": -0.801,
+          "n": 2857
+        },
+        "r_eod": {
+          "mean_pct": 0.004,
+          "median_pct": 0.0088,
+          "hit": 0.5089,
+          "t_nw": 0.614,
+          "n": 2857
+        },
+        "mfe_pct": 0.3913,
+        "mae_pct": -0.3899,
+        "mfe_over_mae": 1.004
+      },
+      "forward": {
+        "label": "forward_2026H1",
+        "n": 235,
+        "r30": {
+          "mean_pct": 0.0081,
+          "median_pct": 0.0159,
+          "hit": 0.5447,
+          "t_nw": 0.541,
+          "n": 235
+        },
+        "r60": {
+          "mean_pct": -0.0215,
+          "median_pct": 0.0075,
+          "hit": 0.5021,
+          "t_nw": -1.165,
+          "n": 235
+        },
+        "r120": {
+          "mean_pct": -0.0029,
+          "median_pct": 0.0115,
+          "hit": 0.5149,
+          "t_nw": -0.137,
+          "n": 235
+        },
+        "r_eod": {
+          "mean_pct": -0.0205,
+          "median_pct": 0.0194,
+          "hit": 0.5106,
+          "t_nw": -0.802,
+          "n": 235
+        },
+        "mfe_pct": 0.4696,
+        "mae_pct": -0.483,
+        "mfe_over_mae": 0.972
+      },
+      "gates": {
+        "best_horizon": "r_eod",
+        "g1_magnitude": {
+          "value_pct": 0.004,
+          "bar_pct": 0.3,
+          "pass": false
+        },
+        "g2_tstat": {
+          "value": 0.614,
+          "bar": 2.0,
+          "pass": false
+        },
+        "g4_concentration": {
+          "max_day_share": 0.1961,
+          "bar": 0.3,
+          "pass": true
+        },
+        "g3_placebo_pctile": {
+          "skipped": "cheap gates already failed; placebo cannot rescue",
+          "pass": false
+        },
+        "ALL_PASS": false
+      }
+    },
+    {
+      "cell": "15min_EMA9_21",
+      "build": {
+        "label": "build",
+        "n": 2333,
+        "r30": {
+          "mean_pct": -0.0022,
+          "median_pct": 0.0006,
+          "hit": 0.5006,
+          "t_nw": -0.546,
+          "n": 2333
+        },
+        "r60": {
+          "mean_pct": -0.0013,
+          "median_pct": -0.0018,
+          "hit": 0.4946,
+          "t_nw": -0.266,
+          "n": 2333
+        },
+        "r120": {
+          "mean_pct": -0.0047,
+          "median_pct": -0.0019,
+          "hit": 0.4989,
+          "t_nw": -0.793,
+          "n": 2333
+        },
+        "r_eod": {
+          "mean_pct": 0.0101,
+          "median_pct": 0.0119,
+          "hit": 0.5135,
+          "t_nw": 1.277,
+          "n": 2333
+        },
+        "mfe_pct": 0.3855,
+        "mae_pct": -0.3815,
+        "mfe_over_mae": 1.011
+      },
+      "forward": {
+        "label": "forward_2026H1",
+        "n": 203,
+        "r30": {
+          "mean_pct": -0.0101,
+          "median_pct": 0.0182,
+          "hit": 0.5517,
+          "t_nw": -0.643,
+          "n": 203
+        },
+        "r60": {
+          "mean_pct": -0.0309,
+          "median_pct": 0.0095,
+          "hit": 0.5222,
+          "t_nw": -1.552,
+          "n": 203
+        },
+        "r120": {
+          "mean_pct": -0.0205,
+          "median_pct": -0.0291,
+          "hit": 0.4828,
+          "t_nw": -0.913,
+          "n": 203
+        },
+        "r_eod": {
+          "mean_pct": -0.0295,
+          "median_pct": -0.0171,
+          "hit": 0.4828,
+          "t_nw": -1.044,
+          "n": 203
+        },
+        "mfe_pct": 0.4537,
+        "mae_pct": -0.494,
+        "mfe_over_mae": 0.918
+      },
+      "gates": {
+        "best_horizon": "r_eod",
+        "g1_magnitude": {
+          "value_pct": 0.0101,
+          "bar_pct": 0.3,
+          "pass": false
+        },
+        "g2_tstat": {
+          "value": 1.277,
+          "bar": 2.0,
+          "pass": false
+        },
+        "g4_concentration": {
+          "max_day_share": 0.1096,
+          "bar": 0.3,
+          "pass": true
+        },
+        "g3_placebo_pctile": {
+          "skipped": "cheap gates already failed; placebo cannot rescue",
+          "pass": false
+        },
+        "ALL_PASS": false
+      }
+    }
+  ],
+  "VERDICT": "STAGE1_FAILED_kill_no_option_layer"
+}

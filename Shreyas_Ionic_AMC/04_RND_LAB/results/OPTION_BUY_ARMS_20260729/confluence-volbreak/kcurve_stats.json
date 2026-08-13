@@ -1,0 +1,172 @@
+{
+  "metric": "signed spot move to 15:25, POINTS, entry = next 1-min bar open after the signal bar (no same-bar lookahead)",
+  "split": "BUILD only (<= 2025-12-31)",
+  "families": {
+    "stackA": {
+      "per_k": {
+        "1": {
+          "n": 18697,
+          "mean_pts": 0.053,
+          "sd_pts": 93.92,
+          "se_pts": 0.687,
+          "t_iid": 0.077,
+          "t_nw": 0.14,
+          "mean_pct": 0.0005,
+          "hit": 0.5093,
+          "boot95_mean_pts": [
+            -1.341,
+            1.413
+          ]
+        },
+        "2": {
+          "n": 6634,
+          "mean_pts": 2.788,
+          "sd_pts": 104.58,
+          "se_pts": 1.284,
+          "t_iid": 2.171,
+          "t_nw": 1.568,
+          "mean_pct": 0.0127,
+          "hit": 0.5179,
+          "boot95_mean_pts": [
+            0.324,
+            5.298
+          ]
+        },
+        "3": {
+          "n": 463,
+          "mean_pts": 2.012,
+          "sd_pts": 77.99,
+          "se_pts": 3.625,
+          "t_iid": 0.555,
+          "t_nw": 0.397,
+          "mean_pct": 0.0069,
+          "hit": 0.4903,
+          "boot95_mean_pts": [
+            -5.181,
+            9.123
+          ]
+        },
+        "4": {
+          "n": 35,
+          "mean_pts": 20.741,
+          "sd_pts": 75.68,
+          "se_pts": 12.792,
+          "t_iid": 1.621,
+          "t_nw": 1.728,
+          "mean_pct": 0.0914,
+          "hit": 0.6571,
+          "boot95_mean_pts": [
+            -3.337,
+            45.286
+          ]
+        }
+      },
+      "regression_move_on_k": {
+        "n": 25829,
+        "slope_pts_per_condition": 2.492,
+        "se": 1.194,
+        "t": 2.086,
+        "interpretation": "t on the slope is THE answer to 'does stacking buy magnitude'"
+      },
+      "top_bucket_vs_rest": {
+        "top_k": 4,
+        "t": 1.558,
+        "df": 34.2,
+        "mean_a": 20.7414,
+        "mean_b": 0.7915
+      },
+      "n_collapse_accounting": {
+        "from_k": 1,
+        "to_k": 4,
+        "n_shrink_factor": 534.2,
+        "magnitude_gain_factor": 391.3,
+        "t_at_lowest_k": 0.077,
+        "t_at_highest_k": 1.621,
+        "max_t_across_k": 2.171
+      }
+    },
+    "stackB": {
+      "per_k": {
+        "1": {
+          "n": 13295,
+          "mean_pts": 1.403,
+          "sd_pts": 99.96,
+          "se_pts": 0.867,
+          "t_iid": 1.618,
+          "t_nw": 1.629,
+          "mean_pct": 0.0074,
+          "hit": 0.5114,
+          "boot95_mean_pts": [
+            -0.296,
+            3.118
+          ]
+        },
+        "2": {
+          "n": 3493,
+          "mean_pts": 5.709,
+          "sd_pts": 104.6,
+          "se_pts": 1.77,
+          "t_iid": 3.226,
+          "t_nw": 2.503,
+          "mean_pct": 0.0304,
+          "hit": 0.5334,
+          "boot95_mean_pts": [
+            2.334,
+            9.133
+          ]
+        },
+        "3": {
+          "n": 329,
+          "mean_pts": 2.08,
+          "sd_pts": 82.84,
+          "se_pts": 4.567,
+          "t_iid": 0.455,
+          "t_nw": 0.272,
+          "mean_pct": 0.0065,
+          "hit": 0.4833,
+          "boot95_mean_pts": [
+            -7.061,
+            10.88
+          ]
+        },
+        "4": {
+          "n": 32,
+          "mean_pts": 21.584,
+          "sd_pts": 78.27,
+          "se_pts": 13.836,
+          "t_iid": 1.56,
+          "t_nw": 1.718,
+          "mean_pct": 0.0935,
+          "hit": 0.6562,
+          "boot95_mean_pts": [
+            -5.457,
+            49.009
+          ]
+        }
+      },
+      "regression_move_on_k": {
+        "n": 17149,
+        "slope_pts_per_condition": 3.334,
+        "se": 1.582,
+        "t": 2.108,
+        "interpretation": "t on the slope is THE answer to 'does stacking buy magnitude'"
+      },
+      "top_bucket_vs_rest": {
+        "top_k": 4,
+        "t": 1.392,
+        "df": 31.2,
+        "mean_a": 21.5844,
+        "mean_b": 2.2947
+      },
+      "n_collapse_accounting": {
+        "from_k": 1,
+        "to_k": 4,
+        "n_shrink_factor": 415.5,
+        "magnitude_gain_factor": 15.4,
+        "t_at_lowest_k": 1.618,
+        "t_at_highest_k": 1.56,
+        "max_t_across_k": 3.226
+      }
+    }
+  }
+}

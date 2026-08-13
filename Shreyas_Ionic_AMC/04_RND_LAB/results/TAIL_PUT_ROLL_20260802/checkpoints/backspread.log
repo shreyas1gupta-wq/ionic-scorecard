@@ -1,0 +1,13 @@
+[00:30:56] loading tables...
+[00:30:56] PE rows 451,414 | monthly expiries 140
+[00:30:56] running backspread @ 6M (180d)...
+[00:30:57]   -> 21 cycles (skipped 5), span 2016-01-04..2026-06-30 (10.49yr)
+[00:30:57]   -> mean net_debit0 (neg=credit): -14.7 pts | total net -1445.6 | ann. -137.9 pts/yr
+[00:30:57]   -> best cycle: entry 2020-06-26 net=279.7 (spot 10383->13982)
+[00:30:57]   -> worst cycle: entry 2025-12-31 net=-1207.2 (spot 26130->23866)
+[00:30:57] running backspread @ 1Y (365d)...
+[00:30:57]   -> 10 cycles (skipped 11), span 2016-01-04..2026-06-30 (10.49yr)
+[00:30:57]   -> mean net_debit0 (neg=credit): -59.6 pts | total net 408.9 | ann. 39.0 pts/yr
+[00:30:57]   -> best cycle: entry 2021-12-31 net=199.5 (spot 17354->18191)
+[00:30:57]   -> worst cycle: entry 2025-08-18 net=-149.6 (spot 24877->23866)
+[00:30:57] DONE

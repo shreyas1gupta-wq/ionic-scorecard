@@ -1,0 +1,59 @@
+Loaded HISTORICAL series: {'SWEEP': (1578, '2015-01-13..2026-05-14'), 'CALENDAR': (178, '2011-01-21..2026-07-07'), 'OVERSHOOT': (913, '2021-06-21..2026-05-27'), 'LD_SELL': (286, '2011-02-24..2026-06-17'), 'BOOK': (942, '2022-01-04..2025-12-31')}
+
+SWEEP: 4378 trades, mean contemporaneous sell-leg spot 14,766, mean delta/trade Rs332.23, total delta Rs1,454,491
+CALENDAR: 178 trades, delta/trade Rs5.62 (assumed 150.0pt premium, single sell-leg only), total delta Rs1,001
+OVERSHOOT: 913 active days treated as 1 trade/day, delta/trade Rs1.95 (assumed 60.0pt premium), total delta Rs1,780
+LD_SELL: 286 trades, REAL premium (credit_pt) mean 66.0pt, mean delta/trade Rs2.15, total delta Rs614
+BOOK components: midsmall/breakout (equity cash) = ZERO delta, exact, not an approximation.
+  s1f: 208 days, delta/day Rs12.38 (assumed 110.0pt premium x 3 lots)
+  b1b: 196 days, delta/day Rs1500.00 (EXACT -- fixed Rs50L notional, no spot needed)
+  BOOK total delta Rs296,574
+
+TOTAL FORWARD-COST DELTA BY SLEEVE (rupees, full history, natural 1x = Rs10L):
+  SWEEP      hist net Rs     3,335,387   fwd net Rs     1,880,896   delta Rs   1,454,491  (+43.6% of hist net)
+  CALENDAR   hist net Rs       106,551   fwd net Rs       105,550   delta Rs       1,001  (+0.9% of hist net)
+  OVERSHOOT  hist net Rs        27,396   fwd net Rs        25,616   delta Rs       1,780  (+6.5% of hist net)
+  LD_SELL    hist net Rs       246,161   fwd net Rs       245,548   delta Rs         614  (+0.2% of hist net)
+  BOOK       hist net Rs       864,398   fwd net Rs       567,824   delta Rs     296,574  (+34.3% of hist net)
+
+====================================================================================================
+RUNNING PIPELINE: HISTORICAL (old rate throughout -- unchanged baseline, sanity check vs PORTFOLIOS.md)
+====================================================================================================
+LOW_RISK {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 5755913, 'CAGR_pct': 10.62, 'maxDD_pct': -6.45, 'maxDD_rs': -836727, 'Calmar': 1.646, 'Sharpe': 1.64, 'PF': 1.54, 'months': 55, 'month_win_pct': 61.8, 'worst_month_pct': -2.96, 'worst_day_pct': -1.74, 'active_days': 1088, 'worst_3mo_stretch_pct': -4.98, 'capital_deployed_pct': np.float64(88.0), 'capital_utilisation_pct': np.float64(28.7)}
+  weights: {'SWEEP': 0.25, 'CALENDAR': 0.2, 'OVERSHOOT': 0.08, 'LD_SELL': 0.1, 'BOOK': 0.25} NAIVE
+HIGH_CAGR {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 23098978, 'CAGR_pct': 30.44, 'maxDD_pct': -24.71, 'maxDD_rs': -3976979, 'Calmar': 1.232, 'Sharpe': 1.51, 'PF': 1.52, 'months': 55, 'month_win_pct': 60.0, 'worst_month_pct': -12.65, 'worst_day_pct': -5.46, 'active_days': 1088, 'worst_3mo_stretch_pct': -22.52, 'capital_deployed_pct': np.float64(241.0), 'capital_utilisation_pct': np.float64(92.5)}
+  weights: {'SWEEP': 1.1921, 'CALENDAR': 0.0902, 'OVERSHOOT': 0.0274, 'LD_SELL': 0.3134, 'BOOK': 0.7867} FITTED
+BALANCED {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 5541987, 'CAGR_pct': 10.29, 'maxDD_pct': -5.83, 'maxDD_rs': -586258, 'Calmar': 1.765, 'Sharpe': 1.81, 'PF': 1.57, 'months': 55, 'month_win_pct': 63.6, 'worst_month_pct': -2.56, 'worst_day_pct': -1.88, 'active_days': 1088, 'worst_3mo_stretch_pct': -4.01, 'capital_deployed_pct': np.float64(150.0), 'capital_utilisation_pct': np.float64(36.9)}
+  weights: {'SWEEP': 0.1786, 'CALENDAR': 0.525, 'OVERSHOOT': 0.225, 'LD_SELL': 0.3, 'BOOK': 0.2714} NAIVE
+
+====================================================================================================
+RUNNING PIPELINE: FORWARD (new STT rate throughout -- what we'd face running this book today)
+====================================================================================================
+LOW_RISK {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 3058689, 'CAGR_pct': 6.1, 'maxDD_pct': -8.92, 'maxDD_rs': -1250702, 'Calmar': 0.685, 'Sharpe': 0.88, 'PF': 1.25, 'months': 55, 'month_win_pct': 54.5, 'worst_month_pct': -3.49, 'worst_day_pct': -1.74, 'active_days': 1088, 'worst_3mo_stretch_pct': -6.51, 'capital_deployed_pct': np.float64(88.0), 'capital_utilisation_pct': np.float64(28.7)}
+  weights: {'SWEEP': 0.25, 'CALENDAR': 0.2, 'OVERSHOOT': 0.08, 'LD_SELL': 0.1, 'BOOK': 0.25} NAIVE
+HIGH_CAGR {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 9896458, 'CAGR_pct': 16.5, 'maxDD_pct': -24.61, 'maxDD_rs': -2758616, 'Calmar': 0.671, 'Sharpe': 0.95, 'PF': 1.27, 'months': 55, 'month_win_pct': 60.0, 'worst_month_pct': -11.31, 'worst_day_pct': -7.79, 'active_days': 1088, 'worst_3mo_stretch_pct': -17.66, 'capital_deployed_pct': np.float64(231.5), 'capital_utilisation_pct': np.float64(90.2)}
+  weights: {'SWEEP': 0.5019, 'CALENDAR': 0.1718, 'OVERSHOOT': 0.0811, 'LD_SELL': 0.4374, 'BOOK': 1.1225} FITTED
+BALANCED {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 3335174, 'CAGR_pct': 6.6, 'maxDD_pct': -6.38, 'maxDD_rs': -836954, 'Calmar': 1.034, 'Sharpe': 1.1, 'PF': 1.31, 'months': 55, 'month_win_pct': 61.8, 'worst_month_pct': -3.0, 'worst_day_pct': -1.88, 'active_days': 1088, 'worst_3mo_stretch_pct': -5.17, 'capital_deployed_pct': np.float64(150.0), 'capital_utilisation_pct': np.float64(36.9)}
+  weights: {'SWEEP': 0.1791, 'CALENDAR': 0.525, 'OVERSHOOT': 0.225, 'LD_SELL': 0.3, 'BOOK': 0.2709} NAIVE
+
+====================================================================================================
+CPPI OVERLAY RE-TEST, HIGH_CAGR, FORWARD-costed
+====================================================================================================
+HISTORICAL: {'static': {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 23098978, 'CAGR_pct': 30.44, 'maxDD_pct': -24.71, 'maxDD_rs': -3976979, 'Calmar': 1.232, 'Sharpe': 1.51, 'PF': 1.52, 'months': 55, 'month_win_pct': 60.0, 'worst_month_pct': -12.65, 'worst_day_pct': -5.46, 'active_days': 1088}, 'cppi': {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 16739732, 'CAGR_pct': 24.41, 'maxDD_pct': -14.36, 'maxDD_rs': -2631158, 'Calmar': 1.699, 'Sharpe': 1.32, 'PF': 1.48, 'months': 55, 'month_win_pct': 60.0, 'worst_month_pct': -9.37, 'worst_day_pct': -5.46, 'active_days': 1088}}
+FORWARD   : {'static': {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 9896458, 'CAGR_pct': 16.5, 'maxDD_pct': -24.61, 'maxDD_rs': -2758616, 'Calmar': 0.671, 'Sharpe': 0.95, 'PF': 1.27, 'months': 55, 'month_win_pct': 60.0, 'worst_month_pct': -11.31, 'worst_day_pct': -7.79, 'active_days': 1088}, 'cppi': {'span': '2022-01-04..2026-07-07', 'years': 4.5, 'net_rs': 4593818, 'CAGR_pct': 8.76, 'maxDD_pct': -13.82, 'maxDD_rs': -1768910, 'Calmar': 0.633, 'Sharpe': 0.69, 'PF': 1.23, 'months': 55, 'month_win_pct': 58.2, 'worst_month_pct': -8.01, 'worst_day_pct': -7.79, 'active_days': 1088}}
+
+====================================================================================================
+PER-SLEEVE STANDALONE METRICS, natural 1x = Rs10L, HISTORICAL vs FORWARD (full available history)
+====================================================================================================
+SWEEP      HIST  CAGR=13.82   MDD=-17.61  Calmar=0.785  Sharpe=1.76   monthwin%=64.2
+           FWD   CAGR=9.79    MDD=-24.49  Calmar=0.4    Sharpe=1.0    monthwin%=56.9
+CALENDAR   HIST  CAGR=0.66    MDD=-1.65   Calmar=0.398  Sharpe=2.85   monthwin%=57.2
+           FWD   CAGR=0.65    MDD=-1.66   Calmar=0.392  Sharpe=2.82   monthwin%=57.2
+OVERSHOOT  HIST  CAGR=0.55    MDD=-1.76   Calmar=0.313  Sharpe=0.72   monthwin%=53.3
+           FWD   CAGR=0.51    MDD=-1.82   Calmar=0.283  Sharpe=0.68   monthwin%=51.7
+LD_SELL    HIST  CAGR=1.45    MDD=-5.92   Calmar=0.245  Sharpe=2.19   monthwin%=68.6
+           FWD   CAGR=1.44    MDD=-5.93   Calmar=0.244  Sharpe=2.18   monthwin%=68.6
+BOOK       HIST  CAGR=16.9    MDD=-19.24  Calmar=0.879  Sharpe=1.5    monthwin%=62.5
+           FWD   CAGR=11.93   MDD=-24.06  Calmar=0.496  Sharpe=0.99   monthwin%=60.4
+
+WROTE: c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\PORTFOLIOS_RECOST_20260803\sleeve_delta_summary.json c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\PORTFOLIOS_RECOST_20260803\before_after.json c:\Users\Shreyas.1Gupta\OneDrive - Angel Broking Limited\Desktop\Backup\NIFTY 500\Shreyas_Ionic_AMC\04_RND_LAB\results\PORTFOLIOS_RECOST_20260803\sleeve_before_after.json

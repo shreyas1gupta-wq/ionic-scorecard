@@ -71,3 +71,62 @@ Principal-triggered review ("check once again if we were too hard on them"). Fou
 **Reusable components:** (a) **50/50 monthly-rebal NIFTY-gold BENCHMARK dominates** (12.29% CAGR / 10.47% vol / −21.49% DD) — evidence FOR K-011's unclaimed strategic-gold-sleeve, routed to Devika; (b) any gold-rotation retest must beat the 50/50 benchmark, not B&H.
 **Resurrection:** (1) as timing OVERLAY on a 50/50 base (tilt 70/30, not 100/0 switches — halves whipsaw cost); (2) monthly-frequency variant with drag <1pp/yr AND t+1-open CAGR ≥ B&H AND DD ≤ 0.7× B&H; (3) integration with the banked VIX-252d-percentile regime gate. GT-2 signed-corr template applies to any corr claim.
 **Addendum 2026-07-13 (Principal: "execute 15:25-15:30"):** that execution = the 12.44%/−25.3%DD variant (recovers ~2.6pp overnight drift vs next-open), NOT the 29.4% same-bar row (unreachable at any clock time — books the day's move in the asset chosen at that day's close). CAGR prong then passes but DD + cost prongs still fail; 50/50 rebal still dominates → kill stands. Resurrection path (2) is the right door if pursued.
+
+## K-017 — Inverse-VRP niche, Niches 2 & 3 (2026-07-29/30) — the ARM's premise survives, two of its four candidate niches don't
+**Context:** ARM-level hypothesis (buyer wins only where RV_realized>IV_priced) tested across 4 candidate
+niches, real 1-min option P&L via `OPTION_PL_HARNESS_20260729/opt_pl.py`, COST_STANDARDS D-021.
+Full detail + scripts + CSVs: `results/INVERSE_VRP_NICHE_20260729/` (PREREG.md pre-registered
+before any run).
+**Niche 2 — post-compression expansion, pure REALIZED-vol trough (trailing-10d RV percentile≤10),
+long ATM straddle, hold to expiry:** KILLED on both pre-registered criteria — net mean **−26.13
+pts/straddle** (n=47, t=−1.10), WORSE than the unconditional baseline (−22.93 pts/trade, n=245).
+Historical calm alone (independent of whether IV was cheap) does NOT identify a buyable edge —
+confirms the ROADMAP's tautology warning: RV mean-reverting off a compressed base does not imply
+the buyer wins if IV re-priced concurrently. **Resurrection:** none for pure-RV conditioning alone;
+subsumed by Niche 1 (IV-percentile), which DOES show a (weak) effect — see IDEA_PIPELINE.
+**Niche 3 — overnight tail BUY, mirror of NS-1 (which killed the SELL side 2026-07-25):** buy 1×CE+1×PE
+at 5 strike distances (0/0.5/1.0/1.5/2.0% OTM), D−1 15:25→D0 open, n=258-259/arm, same population as
+NS-1. KILLED on the pre-registered criterion — **net pts/night negative at EVERY distance** (−3.2 to
+−6.8 pts/night FULL sample, t=−2.2 to −2.6 FULL / −3.3 to −3.9 BUILD-only). The fat right tail IS real
+and event-driven (best nights land on 2026-02-03 and 2022-02-24, the Russia-Ukraine invasion — not data
+artifacts, skew +5 to +7, best single night +228 to +443 pts) but it is NOT large or frequent enough
+(win rate only 6-23%, falling as distance widens) to overcome the frequent small overnight decay losses
+plus costs. **The buy-side mirror of NS-1 loses money on average, exactly as the seller's small-positive
+edge implies it must** (these are ~complementary, not identical, populations once costs are netted on
+each side, but both point the same direction: no exploitable structure in raw overnight NIFTY option
+holding, buy or sell, beyond NS-1's already-banked ~5pt gross/night ceiling).
+**Resurrection (either niche):** only a construction that changes WHICH nights are entered (a filter,
+not unconditional entry) — e.g., an ex-ante flag for scheduled-event eve (see Niche 4/K-pending below)
+— tested as a NEW pre-registered cell, not a re-run of the unconditional population.
+
+## K-018 — Financed/laddered long iron butterfly (ATM straddle + tight OTM strangle, weekly-rolled) (2026-08-02)
+**Killed by:** `IRONFLY_LADDER_20260802` (Principal-ordered full grid despite strong recent prior
+art — see below). 32 pre-registered cells: OTM distance {100,150,200,300}pts x roll-mode
+{layer,replace} x filter {unconditional, IV<50d-RV, IV<GARCH(1,1), IV<=own 25th pctile}. ALL 32
+fail. Tighter wings are cleanly, significantly NEGATIVE (d100 layer unconditional t=-5.23, d100
+replace unconditional t=-8.17) — financing the straddle with a TIGHT short strangle is not a
+cheaper way to buy convexity, it is a worse one, because the short legs cap away the one thing
+(a large move) that could offset the theta cost. The widest wing (d300) merely converges back to
+the already-known "fairly priced" naked-straddle result; its best cell (iv_lt_garch, +8.49 pts,
+t=1.11) fails its own 500x placebo (p=0.088) and misses the honest family-adjusted Bonferroni bar
+(t~=4.20 required at N=1,904 nominal, i.e. this grid's 32 + the ~1,872 already run this week per
+VALIDATION_DEBTS_20260731) by a wide margin. REPLACE mode (forced early exit before the rung's own
+expiry) is worse than LAYER mode at every single distance/filter combination — matches
+`OPTBUY_CONVEXITY_20260731`'s 50%-partial-hold finding that early exit does not dodge the theta
+bleed. This is the 4th distinct vol-cheapness gate to fail placebo on the general "time straddle
+buying by IV-vs-RV" question, after that arm's VIX<=25pct/VIX>=75pct/RV20<=25pct (all three also
+failed placebo, and two of them disagreed in SIGN with each other). Full detail, cells.csv,
+per-rung trade CSVs, validation battery: `results/IRONFLY_LADDER_20260802/FINDINGS.md`.
+**Resurrection:** only a construction where the financing leg does NOT cap the same structure's
+own gamma — e.g. financing via a genuinely uncorrelated instrument/vehicle rather than a tighter
+strangle on the identical underlying and expiry — OR if the post-Oct-2024 gamma/theta regime
+(currently 0.83-0.90, buyer-unfavorable) reverts to >=1.0 for a sustained, adequately-powered
+window. NO re-tests of tighter wings, different roll cadences, or additional vol-filter
+definitions on this same financed-strangle-on-the-same-underlying construction — the mechanism
+(capped convexity vs. an already-unfavorable theta regime), not the specific parameters, is what
+failed.
+**Adjacent, explicitly NOT killed here:** a swing-high/low PRICE-LEVEL entry trigger (raised same
+session, "identify key S/R via swing high/low, act when NIFTY reaches that point") was not built
+or tested as part of this grid — see FINDINGS.md's cross-reference section for the highly
+relevant `SWING_DELTA1_20260729` prior art (a directional version of almost exactly this signal
+reverses hard out-of-sample) and the recommended path if pursued as a separate intake.

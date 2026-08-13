@@ -1,0 +1,14 @@
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3963
+- Network:       http://10.202.21.235:3963
+- Environments: .env.local
+✓ Ready in 1021ms
+
+ GET /tickets 200 in 1363ms (next.js: 371ms, proxy.ts: 125ms, application-code: 867ms)
+ GET /admin/access-review 200 in 488ms (next.js: 137ms, proxy.ts: 11ms, application-code: 339ms)
+ GET /admin/access-review 200 in 79ms (next.js: 5ms, proxy.ts: 5ms, application-code: 69ms)
+ GET /admin/audit 200 in 253ms (next.js: 66ms, proxy.ts: 4ms, application-code: 183ms)
+ GET /admin/audit 200 in 120ms (next.js: 11ms, proxy.ts: 8ms, application-code: 100ms)
+ GET /reports/export?kind=people 200 in 177ms (next.js: 137ms, proxy.ts: 5ms, application-code: 34ms)
+ GET /reports/export?kind=people 200 in 22ms (next.js: 6ms, proxy.ts: 6ms, application-code: 11ms)
+[?25h

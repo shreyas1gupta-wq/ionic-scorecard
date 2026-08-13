@@ -1,0 +1,15 @@
+[spot] 463,826 bars
+  5min_EMA9_21_nostop: n=4305 pts/trade=1.628 CAGR=nan% MDD=-468.55% Sharpe=-1.94 PF=0.82 t=-4.552 months+=12/56
+      forward: n=339 net=-88456 pts/trade=3.719 PF=0.9
+  5min_EMA9_21_stop: n=4305 pts/trade=2.129 CAGR=nan% MDD=-391.93% Sharpe=-1.77 PF=0.84 t=-4.132 months+=12/56
+      forward: n=339 net=-56578 pts/trade=4.973 PF=0.93
+  5min_EMA20_50_nostop: n=2857 pts/trade=1.254 CAGR=nan% MDD=-347.95% Sharpe=-1.47 PF=0.85 t=-3.428 months+=14/56
+      forward: n=235 net=-158813 pts/trade=-1.833 PF=0.81
+  5min_EMA20_50_stop: n=2857 pts/trade=1.541 CAGR=nan% MDD=-327.33% Sharpe=-1.43 PF=0.85 t=-3.403 months+=15/56
+      forward: n=235 net=-115275 pts/trade=0.637 PF=0.85
+  15min_EMA9_21_nostop: n=2333 pts/trade=1.956 CAGR=nan% MDD=-240.67% Sharpe=-1.07 PF=0.88 t=-2.443 months+=16/56
+      forward: n=203 net=-201820 pts/trade=-6.088 PF=0.75
+  15min_EMA9_21_stop: n=2333 pts/trade=2.171 CAGR=nan% MDD=-225.26% Sharpe=-1.07 PF=0.88 t=-2.47 months+=18/56
+      forward: n=203 net=-156766 pts/trade=-3.129 PF=0.79
+
+wrote futures_report.json
