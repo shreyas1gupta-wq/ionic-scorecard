@@ -18,8 +18,8 @@ description: Operating manual for the Ionic Wealth NDPMS client product suite â
 > 5. `check_method.py` takes a **data module**, not a .pptx. Two gate rules are **inverted on demo
 >    decks**. Both cost me time; PART 1B says exactly how.
 >
-> **And read PREREQUISITES immediately below** â€” the scored data is not in the repo, so a clone alone
-> cannot build a deck.
+> **The scores and fund grades are already in the repo** - you consume them, you do not re-run
+> the scoring chain. Read PREREQUISITES below for what is and is not committed.
 
 ## STANDING RULE â€” ESCALATE TO A HUMAN RATHER THAN GUESS (Principal, 2026-08-05)
 **Applies to every decision in this manual, not just the fund frameworks.** His words: *"keep this
@@ -61,6 +61,7 @@ against `.gitignore` and `git ls-files`.
 | `results/full750_scored.csv` | **YES** | v1 scores, for comparison only |
 | `results/portfolio_quant.csv` | **YES** | per-client pillar scores |
 | `results/EARNINGS_QUALITY.csv` | **YES** | profit-bridge earnings flags |
+| **`05_DATA_OFFICE/data/isin_master.csv`** | **YES** | symbol/ISIN map, 2,404 NSE equities - the ONLY exact join key from a client's CAS to the scored universe |
 | **`MF_RECOMMENDATIONS/**/QFRA1_all_categories.csv`** | **YES** | QFRA-1 fund grades |
 | **`MF_RECOMMENDATIONS/**/QFRA2_verdicts.csv`, `QFRA2_current_asof_*.csv`** | **YES** | QFRA-2 fund verdicts |
 | `datasets/screener_deep/*.parquet` | **no** | raw financials â€” working data |
@@ -90,7 +91,31 @@ machine image.
 Everything a team member needs to produce client deliverables, **given the data files above**. This is
 the single source of truth for method and process.
 
-> **Repo:** https://github.com/shreyas1gupta-wq/ionic-scorecard (private)
+## GET THE CODE FIRST
+
+```bash
+git clone -b master https://github.com/shreyas1gupta-wq/ionic-scorecard.git
+```
+
+**The `-b master` matters.** The repository's default branch is `main`, which holds a single README and
+a history unrelated to the real work, so a plain `git clone` gives you nothing and raises no error. If
+the default has since been switched to `master`, the flag is simply redundant, never wrong.
+
+**The finished stock scores and fund grades ARE in the repo — you consume them, you do not re-run the
+scoring chain.** An earlier version of this manual said the opposite; it predated the data being
+committed, and acting on it means redoing work that is already done. What is *not* committed is the raw
+working data behind those scores (screener parquets, the price panel), so you can build decks and read
+scores but cannot regenerate them. See PREREQUISITES below, and the QFRA-2 exception in PART 3.
+
+Then confirm the data actually joined. From `09_PRODUCT/pr_template/`:
+
+```bash
+python check_dots.py
+```
+
+It must print `PASS`. If it does not, every signal dot on the holdings page is a hollow grey ring and
+the deck is a shell that will still build with exit code 0. See BURN YOU #1.
+
 
 ---
 
@@ -1372,11 +1397,11 @@ dirty file would push half-written code the moment a turn ended.
 
 **Read the delivery warning it prints.** Pushing is not the same as being readable by a recipient. This
 repo's default branch (`main`) is a one-file stub whose history is unrelated to the real trunk, so it
-can never fast-forward and a plain `git clone` gets nothing. Until that is resolved, hand people the
+can never fast-forward and a plain `git clone` gets nothing. `master` is the real delivery branch, so hand people the
 branch explicitly:
 
 ```bash
-git clone -b <branch> <url>
+git clone -b master https://github.com/shreyas1gupta-wq/ionic-scorecard.git
 ```
 
 That gap is exactly how a handover on 2026-08-13 produced a deck with all 24 score cells reading
