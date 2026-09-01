@@ -53,19 +53,35 @@ def render(deck, ctx, tier):
             y += 0.30
             y = deck.table(s, ML, y, UW, cols, rows, rowh=rowh, fs=9, hfs=8) + 0.22
 
-        if no_view:
-            cols = [("Holding", 0.30, "l"), ("Category", 0.20, "l"), ("Why no view", 0.50, "l")]
-            rows = [[e["name"], e["category"], clip_clause(e["reason"], 200)] for e in no_view]
-            rowh = _rowh_for([r[2] for r in rows], 0.50 * UW)
-            deck.txt(s, ML, y, UW, 0.22, [("FUNDS BELOW OUR MINIMUM TRACK RECORD — \"NO VIEW\"", SANS, 9, AMBER, True, False, 60)])
-            y += 0.30
-            y = deck.table(s, ML, y, UW, cols, rows, rowh=rowh, fs=9, hfs=8) + 0.22
-
-        deck.source(s, "Suspended/insolvent status and fund launch dates verified against public "
-                       "listing/exchange records at the time of this review; re-confirm before any "
-                       "client communication that depends on them.")
-        deck.score_band(s)
-        n_slides += 1
+        # PAGINATED 2026-08-19. The no-view table was unpaginated: a book with many uncovered
+        # holdings ran it off the page (an MF-only book with 15 no-view funds reached 10.43in on a
+        # 7.5in slide, 24 shapes below the trim and invisible). Exactly the failure the flags valve
+        # below was fixed for on 2026-08-02 -- a holding we have no view on going missing is worse
+        # than one more slide. Under _NV_PER_PAGE rows, behaviour is unchanged.
+        _NV_PER_PAGE = 6      # row heights grow with the reason text; 8 collided with the source line
+        nv_pages = [no_view[i:i + _NV_PER_PAGE] for i in range(0, len(no_view), _NV_PER_PAGE)] \
+            if no_view else []
+        SRC = ("Suspended/insolvent status and fund launch dates verified against public "
+               "listing/exchange records at the time of this review; re-confirm before any "
+               "client communication that depends on them.")
+        cols = [("Holding", 0.30, "l"), ("Category", 0.20, "l"), ("Why no view", 0.50, "l")]
+        for pg, chunk in enumerate(nv_pages or [None]):
+            if pg > 0:
+                s = deck.content(SECTION_NO, SECTION, eyebrow,
+                                 f"{title}  ({pg + 1} of {len(nv_pages)})")
+                deck.scope_tag(s, "These positions sit outside the normal scored tables, continued.")
+                y = 2.0
+            if chunk:
+                rows = [[e["name"], e["category"], clip_clause(e["reason"], 200)] for e in chunk]
+                rowh = _rowh_for([r[2] for r in rows], 0.50 * UW)
+                label = ("HOLDINGS WITH NO PERFORMANCE VIEW" if pg else
+                         "HOLDINGS WITH NO PERFORMANCE VIEW — \"NO VIEW\"")
+                deck.txt(s, ML, y, UW, 0.22, [(label, SANS, 9, AMBER, True, False, 60)])
+                y += 0.30
+                y = deck.table(s, ML, y, UW, cols, rows, rowh=rowh, fs=9, hfs=8) + 0.22
+            deck.source(s, SRC)
+            deck.score_band(s)
+            n_slides += 1
 
     # PAGE 2+: data-quality flags, one callout each, paginated (2026-08-02 fix: a real
     # client's 13 authored flags silently dropped to 4 past a fixed footer valve —

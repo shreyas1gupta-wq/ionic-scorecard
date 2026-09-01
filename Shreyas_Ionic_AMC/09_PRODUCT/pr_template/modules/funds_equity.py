@@ -36,11 +36,26 @@ def render(deck, ctx, tier):
     # short-horizon framework's own decision variable — nothing invented, nothing contradictory
     # a fund that's a portfolio-construction call (consolidate index/passive exposure) rather
     # than a performance call has no independently-benchmarked cagr3y -- never chart it as 0%
+    # A paired bar chart stops being readable past a handful of bars. ctx["chart_top_n"] caps BOTH
+    # charts on this page to the largest N holdings by weight (Principal 2026-08-19: "too cluttered,
+    # add only 6 on one graph ... only take top funds by wt"). The TABLE still lists every scheme, so
+    # nothing is hidden -- the cap is a legibility choice, and the chart captions say so. Unset =
+    # previous behaviour, so existing books are unchanged.
+    TOPN = ctx.get("chart_top_n")
+
+    def _cap(seq):
+        if not TOPN or len(seq) <= TOPN:
+            return seq, False
+        return sorted(seq, key=lambda f: -f.get("weight_pct", 0))[:TOPN], True
+
     bfunds = [f for f in efunds if f.get("cagr3y") is not None]
+    bfunds, b_capped = _cap(bfunds)
     labs = [_short(f["name"], 13) for f in bfunds]
     fv = [f["cagr3y"] for f in bfunds]
     bv = [f.get("bench_cagr3y") if f.get("bench_cagr3y") is not None else 13.0 for f in bfunds]
-    deck.txt(s, ML, 1.98, 6.5, 0.2, [("THE LONG-TERM TEST · 3-YEAR RECORD VS OWN CATEGORY BENCHMARK", SANS, 8, NAVY, True, False, 80)])
+    _cap_note = f" · LARGEST {TOPN} HOLDINGS BY WEIGHT" if b_capped else ""
+    deck.txt(s, ML, 1.98, 6.5, 0.2, [("THE LONG-TERM TEST · 3-YEAR RECORD VS OWN CATEGORY BENCHMARK"
+                                      + _cap_note, SANS, 8, NAVY, True, False, 80)])
     if bfunds:
         png = CH.paired_bar(labs, fv, bv, "fe_vs_bm", a_label="Fund (3y CAGR)", b_label="Its category benchmark",
                             figsize=(7.6, 3.0))
@@ -56,8 +71,10 @@ def render(deck, ctx, tier):
     # firm-wide, per root CLAUDE.md DATA LANDMINES) -- filter before charting, don't pass None
     # into a numeric bar chart.
     act = [f for f in efunds if f["category"] != "passive" and f.get("down_capture") is not None]
-    deck.txt(s, ML, 4.38, 6.5, 0.2, [("THE SHORT-HORIZON TEST · PARTICIPATION IN FALLS VS THE CUTOFF",
-                                      SANS, 8, NAVY, True, False, 80)])
+    act, a_capped = _cap(act)
+    _cap_note2 = f" · LARGEST {TOPN} BY WEIGHT" if a_capped else ""
+    deck.txt(s, ML, 4.38, 6.5, 0.2, [("THE SHORT-HORIZON TEST · PARTICIPATION IN FALLS VS THE CUTOFF"
+                                      + _cap_note2, SANS, 8, NAVY, True, False, 80)])
     if act:
         labs2 = [_short(f["name"], 13) for f in act]
         dcap = [f["down_capture"] for f in act]
@@ -84,6 +101,19 @@ def render(deck, ctx, tier):
         rows.append([_short(f["name"], 18), f"{f['cagr3y']:.1f}%",
                      ("c", f"{d:+.1f}", HOLD if d >= 0 else SELL, True),
                      ("pill", VDISP.get(f["verdict"], f["verdict"]), f["verdict"])])
+    # PAGINATION (added 2026-08-19). This table was unpaginated and always returned 1 slide, so a
+    # book with many equity schemes ran straight off the page: a 43-holding MF-only book put 28 rows
+    # here, reaching 12.33in on a 7.5in slide -- 75 shapes below the trim, invisible in the deck and
+    # silently lost. Same defect class as the flags valve fixed in data_notes on 2026-08-02.
+    # Backwards-compatible: at or under _ROWS_P1 rows nothing changes -- one slide, chart + table.
+    # 6 on page 1: the "where the calls come from" callout is pinned at y=5.1, so the table must
+    # end above it (2.0 + 0.33 header + 6*0.40 = 4.73). 10 on continuation pages, which have no
+    # callout but must still clear the source line and footer (2.0 + 0.33 + 10*0.40 = 6.33).
+    _ROWS_P1, _ROWS_PN = 6, 10
+    extra_pages = []
+    if len(rows) > _ROWS_P1:
+        extra_pages = [rows[i:i + _ROWS_PN] for i in range(_ROWS_P1, len(rows), _ROWS_PN)]
+        rows = rows[:_ROWS_P1]
     ty = deck.table(s, tx, 2.0, tw, cols, rows, rowh=0.40, fs=9, hfs=7.5)
 
     body = ("Fund calls follow our fund-quality frameworks, a long-term view and a short-horizon "
@@ -95,7 +125,20 @@ def render(deck, ctx, tier):
     deck.callout(s, tx, min(ty + 0.18, 5.1), tw, 1.35, "Where the calls come from", body, kind="note")
 
     demo_tag = " · illustrative synthetic funds." if ctx.get("is_demo", False) else "."
-    deck.source(s, "3y CAGR and down-capture vs each scheme's own SEBI category benchmark (TRI), "
-                   "Direct-plan NAV, common 3y window · fund recommendations per the "
-                   "Ionic MF desk (long-term + short-term frameworks)" + demo_tag)
-    return 1
+    src = ("3y CAGR and down-capture vs each scheme's own SEBI category benchmark (TRI), "
+           "Direct-plan NAV, common 3y window · fund recommendations per the "
+           "Ionic MF desk (long-term + short-term frameworks)" + demo_tag)
+    deck.source(s, src)
+
+    # continuation pages: table only, full width, header repeated. No chart -- the charts describe
+    # the whole set once and repeating them would imply a different sample per page.
+    n = 1
+    for pg, chunk in enumerate(extra_pages, 2):
+        s2 = deck.content(2, "The Fund Book", eyebrow,
+                          f"{title}  ({pg} of {len(extra_pages) + 1})")
+        deck.scope_tag(s2, f"MF sleeve · equity & index schemes, continued · as of {as_of}")
+        deck.table(s2, ML, 2.0, UW, cols, chunk, rowh=0.40, fs=9, hfs=7.5)
+        deck.source(s2, src)
+        deck.score_band(s2)
+        n += 1
+    return n

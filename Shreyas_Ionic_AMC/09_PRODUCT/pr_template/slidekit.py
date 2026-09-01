@@ -131,10 +131,19 @@ REC_STYLE = {"Sell": (SELLBG, SELL), "Exit": (SELLBG, SELL), "Redeem-to-Direct":
 
 
 class Deck:
-    def __init__(self, logo_path=None):
-        self.prs = Presentation()
+    def __init__(self, logo_path=None, base=None):
+        # base: an existing .pptx to build ON TOP OF, so hand-authored front-matter (the firm's
+        # company pages, which live in PowerPoint and depend on their own master/layouts for
+        # theme inheritance) survives into a generated deck. Engine slides are appended after
+        # whatever the base already holds. base=None keeps the previous behaviour exactly.
+        self.prs = Presentation(base) if base else Presentation()
         self.prs.slide_width = Inches(CW); self.prs.slide_height = Inches(CH)
-        self.BLANK = self.prs.slide_layouts[6]
+        # A truly empty layout. python-pptx's stock template has none at index 6, but a
+        # PowerPoint-authored file's "Blank" often carries date/footer/slide-number
+        # placeholders, and add_slide() copies those onto every generated page. Prefer any
+        # layout with zero placeholders and fall back to index 6.
+        self.BLANK = next((L for L in self.prs.slide_layouts if len(L.placeholders) == 0),
+                          self.prs.slide_layouts[6])
         self.logo_path = logo_path if (logo_path and os.path.exists(logo_path)) else None
         self.folio = 0
         # Footer product label. Defaults to the NDPMS review so every existing deck is
@@ -559,6 +568,6 @@ class Deck:
         self.txt(s, ML, y, UW, 0.18, [(line, SERIF, 8.5, SLATE, False, True)])
 
 
-def new_deck():
+def new_deck(base=None):
     logo = r"C:\Users\SHREYA~1.1GU\AppData\Local\Temp\claude\c--Users-Shreyas-1Gupta-OneDrive---Angel-Broking-Limited-Desktop-Backup-NIFTY-500\5ec2bf16-8c38-4f40-9e4f-8e07be6545fd\scratchpad\assets\logo_clean.png"
-    return Deck(logo_path=logo)
+    return Deck(logo_path=logo, base=base)

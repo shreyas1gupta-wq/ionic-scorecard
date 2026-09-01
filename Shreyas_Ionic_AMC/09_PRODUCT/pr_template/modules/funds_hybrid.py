@@ -90,7 +90,14 @@ def _bias_body(f, simple):
     flags = [_FLAG_READ.get(x, x.lower().replace("_", " ")) for x in (f.get("flags") or [])]
     # scale/record Trims are consolidation calls — never dressed as a cushioning failure
     structural_trim = bool({"SHORT_RECORD", "SUB_SCALE"} & set(f.get("flags") or []))
-    no_stats = w1 is None and dc is None and so is None
+    # FIXED 2026-08-19: was `w1 is None and dc is None and so is None` — ALL three had to be missing
+    # before the module fell back to its honest "we don't have the numbers" wording. Every narrative
+    # branch below QUOTES all three, so a fund holding just one of them took the assertive branch and
+    # printed sentences like "it falls nearly like equity while charging for protection; Sortino at
+    # n/a says holders were not paid for that downside" — a specific risk claim about a client's
+    # largest holding, sourced from a value that isn't there. If any quoted figure is missing, the
+    # sentence cannot be made, so fall back. Decks holding the full set are unaffected.
+    no_stats = any(x is None for x in (w1, dc, so))
     if simple:
         if v == "Hold":
             if no_stats:
@@ -142,6 +149,10 @@ def _bias_body(f, simple):
                  f"{_fmt(w1, '{:+.1f}')}% worst year means it falls nearly like equity while charging "
                  f"for protection; Sortino at {_fmt(so, '{:.2f}')} says holders were not paid for that "
                  f"downside.")
+        if sr:
+            # the analyst's actual reason for the Trim. Every other verdict branch appends this; the
+            # Trim branch did not, so a card could state a bias without ever saying why.
+            s += f" {sr}"
         if flags:
             s += f" Flags firing: {', '.join(flags)}."
         return s + " We would cut the allocation, not the asset class."
@@ -170,10 +181,19 @@ def _bias_body(f, simple):
 def _bias_cards(deck, s, funds, y, h, simple):
     gap = 0.15
     cw = (UW - gap * (len(funds) - 1)) / max(len(funds), 1)
+    bodies = [_bias_body(f, simple) for f in funds]
+    # Size the row to its OWN longest body instead of trusting the caller's fixed h. The passed
+    # height assumed a short body; a No-View fund's text ("Our bias is No View. Full risk numbers
+    # aren't available for this fund yet." plus its reason) overran the card by 0.46in and spilled
+    # under the source line. Never SHRINK below the caller's h -- that would change every existing
+    # deck's layout -- only grow, and stop at the footer read line.
+    if bodies:
+        need = max(deck.callout_h(cw, b, min_h=h, max_h=2.4) for b in bodies)
+        h = min(max(h, need), 6.45 - y)
     for i, f in enumerate(funds):
         title = f"{_short(f['name'], 26)} · {VDISP.get(f['verdict'], f['verdict'])}"
         deck.callout(s, ML + i * (cw + gap), y, cw, h, title,
-                     _bias_body(f, simple), kind=_KIND.get(f["verdict"], "note"))
+                     bodies[i], kind=_KIND.get(f["verdict"], "note"))
 
 
 def render(deck, ctx, tier):
@@ -242,19 +262,39 @@ def render(deck, ctx, tier):
                      ("pill", VDISP.get(f["verdict"], f["verdict"]), f["verdict"])])
     ty = deck.table(s, ML, 1.9, UW, cols, rows, rowh=0.34, fs=9.5, hfs=8)
 
+    demo_tag2 = " Illustrative synthetic funds." if ctx.get("is_demo", False) else ""
+    SRC = ("Sortino / Calmar / max drawdown / worst 1-yr on a COMMON 3y window (funds launched at "
+           "different dates are never compared on since-inception drawdowns); down-capture vs the "
+           "scheme's own 65:35 hybrid benchmark (TRI); 'falls vs equity' = share of pure-equity "
+           "falls taken. Direct-plan NAV." + demo_tag2)
+
     # --- per-fund bias commentary (replaces the removed drawdown / rolling-band zoom) ---
-    hy = ty + 0.12
-    deck.txt(s, ML, hy, UW, 0.2,
+    # A long hybrid table pushes this block down the page. When what's left cannot hold the cards,
+    # move them to their own slide instead of letting them run under the source line and off the
+    # trim (added 2026-08-19: an 8-row hybrid table left 0.58in for text needing 1.03in). Books
+    # whose table is short enough keep the single-slide layout exactly as before.
+    n_slides = 1
+    cy = ty + 0.12 + 0.30
+    need = 0.0
+    if cards:
+        gap = 0.15
+        cw = (UW - gap * (len(cards) - 1)) / max(len(cards), 1)
+        need = max(deck.callout_h(cw, _bias_body(f, False), min_h=0.58, max_h=2.4) for f in cards)
+    if cards and need > (6.30 - cy):
+        deck.source(s, SRC)
+        s2 = deck.content(2, "The Fund Book", eyebrow, "Our bias, fund by fund")
+        deck.scope_tag(s2, "Why each hybrid verdict stands.")
+        deck.txt(s2, ML, 1.9, UW, 0.2,
+                 [("OUR BIAS, FUND BY FUND   ", SANS, 8.5, NAVY, True, False, 60),
+                  ("why each verdict stands", SERIF, 9, SLATE, False, True)])
+        _bias_cards(deck, s2, cards, 2.25, min(2.4, 6.30 - 2.25), False)
+        deck.source(s2, SRC)
+        deck.score_band(s2)
+        return 2
+    deck.txt(s, ML, ty + 0.12, UW, 0.2,
              [("OUR BIAS, FUND BY FUND   ", SANS, 8.5, NAVY, True, False, 60),
               ("why each verdict stands", SERIF, 9, SLATE, False, True)])
-    cy = hy + 0.30
     # cards sized to their text, not to the void — a half-empty tinted box reads as filler
-    chh = min(1.95, 6.30 - cy)
-    _bias_cards(deck, s, cards, cy, chh, False)
-
-    demo_tag2 = " Illustrative synthetic funds." if ctx.get("is_demo", False) else ""
-    deck.source(s, "Sortino / Calmar / max drawdown / worst 1-yr on a COMMON 3y window (funds launched at "
-                   "different dates are never compared on since-inception drawdowns); down-capture vs the "
-                   "scheme's own 65:35 hybrid benchmark (TRI); 'falls vs equity' = share of pure-equity "
-                   "falls taken. Direct-plan NAV." + demo_tag2)
-    return 1
+    _bias_cards(deck, s, cards, cy, min(1.95, 6.30 - cy), False)
+    deck.source(s, SRC)
+    return n_slides

@@ -24,16 +24,30 @@ def _short(name, n=30):
 def render(deck, ctx, tier):
     reg = tier.get("register", "std")
     acts = [f for f in ctx["funds"] if f["action"] not in ("HOLD", "Hold")]
-    n_perf_flag = sum(1 for f in acts if f.get("qfra") is not None and f["qfra"] < 40)
+    # A performance-driven sell is NOT only a sub-40 QFRA-2 score. Fixed 2026-08-19: an MF-only
+    # book whose sells were originated by the desk's own long-record category test carried
+    # qfra=None on every one of them, n_perf_flag came out 0, and the page then told the client
+    # "No fund here is sold on performance alone" -- the exact opposite of the reasoning behind
+    # all four sells. Any module that infers intent from one optional field will do this again, so
+    # the data layer can now say so directly via perf_flag. Books without it are unaffected.
+    n_perf_flag = sum(1 for f in acts
+                      if f.get("perf_flag") or (f.get("qfra") is not None and f["qfra"] < 40))
     n_other = len(acts) - n_perf_flag
     eyebrow, title = LABELS.get(reg, LABELS["std"])
     s = deck.content(2, "The Fund Book", eyebrow, title)
     deck.anchor("mod:fund_actions", s, prio=5)
     if n_perf_flag:
-        opening = (f"{n_other} of these {len(acts)} actions are structural or a liquidity need, not a quality "
-                   f"call. {n_perf_flag} scheme(s) are also independently flagged by our own fund-quality "
-                   "framework. Where a scheme mostly re-buys index names you already hold directly, the "
-                   "cleaner replacement is a low-cost index sleeve rather than paying an active fee twice.")
+        if n_other == 0:
+            # every action is a performance call -- say that plainly rather than implying a
+            # structural mix that does not exist in this book
+            opening = (f"All {len(acts)} of these actions are performance calls: each scheme sits in "
+                       f"the bottom third of its own category on the long record. Nothing here is being "
+                       f"sold for structural or liquidity reasons.")
+        else:
+            opening = (f"{n_other} of these {len(acts)} actions are structural or a liquidity need, not a "
+                       f"quality call. {n_perf_flag} are flagged on performance by our own framework. "
+                       "Where a scheme mostly re-buys index names you hold directly, a low-cost index "
+                       "sleeve is the cleaner replacement.")
     else:
         opening = ("No fund here is sold on performance alone. Each action is structural or a directed "
                    "liquidity need: mandate, cost, scale, consistency, or a client cash requirement. Where a "

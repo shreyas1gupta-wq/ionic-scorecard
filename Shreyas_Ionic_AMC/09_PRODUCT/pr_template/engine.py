@@ -197,9 +197,9 @@ def _load(mod_id):
         return None
 
 
-def build(ctx, tier_name, verbose=True):
+def build(ctx, tier_name, verbose=True, base=None):
     tier = T.get(tier_name)
-    deck = slidekit.new_deck()
+    deck = slidekit.new_deck(base=base)
     manifest = []
     # a divider with no rendered content behind it is a dangling chapter page — skip it
     sec_counts = {}

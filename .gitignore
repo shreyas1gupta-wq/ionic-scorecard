@@ -103,3 +103,11 @@ Shreyas_Ionic_AMC/09_PRODUCT/pr_template/data/*
 !Shreyas_Ionic_AMC/09_PRODUCT/pr_template/data/azby_family.py
 !Shreyas_Ionic_AMC/09_PRODUCT/pr_template/data/abxy_showcase.py
 !Shreyas_Ionic_AMC/09_PRODUCT/pr_template/data/client_cases.json
+# Deck kit: generated client output never enters git
+ionic-deck-kit/out/
+
+# Deck-kit demo fixtures. Synthetic, no real client, published so the kit can be tested end to end.
+# Note the _DEMO suffix on the score pattern: a REAL score file, named without it, stays ignored by
+# the blanket *.csv rule above. Publishing live calls has to be a deliberate act, not a filename away.
+!ionic-deck-kit/scores/ionic_scores_*_DEMO.csv
+!ionic-deck-kit/fixtures/demo_statement.xlsx
