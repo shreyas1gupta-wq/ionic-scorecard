@@ -182,7 +182,7 @@ diff-based visual QA, model-tier assignment). Read before a large multi-iteratio
   with the pre-existing, semantically different `Switch` verdict (move to a different/better
   fund in the same category) — both now show an identical "Switch" pill even though one means
   "same fund, cheaper plan" and the other means "different fund." Revisit if a client ever holds
-  both action types in one deck and it reads as confusing; no fund in the Anand Reddy book
+  both action types in one deck and it reads as confusing; no fund in the Client B book
   triggered this collision.
 - **Cover/dividers:** generative flow-art (`art.py`), two-tone "Portfolio Review" headline, text
   logo lockup on navy (never the white-box PNG on dark slides), divider mini-TOC + ghost numeral.

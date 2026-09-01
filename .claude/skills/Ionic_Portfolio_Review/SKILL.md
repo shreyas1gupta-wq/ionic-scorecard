@@ -118,7 +118,7 @@ ask the Principal for the working data.
 **Start here, in this order:** read `09_PRODUCT/HOW_WE_SCORE_STOCKS.md` for the scoring workflow in
 plain language, then PART 1A below for the deck page, then build the ABXY demo deck to see it end to end.
 
-**âš  CLIENT PII IS IN THIS REPO.** `data/talaulikar_family.py` is a **real client's** holdings, weights
+**âš  CLIENT PII IS IN THIS REPO.** `data/client_a_family.py` is a **real client's** holdings, weights
 and analyst commentary, and it **is tracked**. The `.gitignore` PII guard covers `pr_kordes/` and
 `*Kordes*` but not this file. Do not widen access to the repo without checking with the Principal
 first, and do not add another real client file without extending that guard.
@@ -240,7 +240,7 @@ pr_template/
   check_geometry2.py Extended geometry checker (QA gate)
   data/
     azby_family.py   Demo client context (schema reference)
-    anand_reddy.py   Real client: Anand Reddy (first production deck)
+    client_b.py   Real client: Client B (first production deck)
   modules/           ~57 slide modules, each: render(deck, ctx, tier) -> int
   out/               Build output directory
 ```
@@ -256,7 +256,7 @@ Actual slide counts as at 2026-08-07 (real client book / demo showcase):
 | **RM_SIMPLE** | RM-led / newer investor | **30 / 20** | Plain language, bigger type | Story beats + the five-signal page |
 
 A real client book runs longer than the demo because `sell_cards` and `scheme_scorecards` paginate per
-name (Talaulikar: 21 sell cards, 19 scheme scorecards). Do not treat the demo count as the target.
+name (Client A: 21 sell cards, 19 scheme scorecards). Do not treat the demo count as the target.
 
 ### How to build a deck
 
@@ -282,7 +282,7 @@ Copy `data/azby_family.py` (demo schema) to `data/<client_name>.py`. Fill in:
 - A `ctx()` function returning all of the above as a single dict
 
 **Step 2: Create the build script**
-Copy `build_anand_reddy.py` to `build_<client>.py`. Change the import to your data file:
+Copy `build_client_b.py` to `build_<client>.py`. Change the import to your data file:
 ```python
 import data.<client_name> as D
 ```
@@ -435,7 +435,7 @@ red flags read revenue growth directly.
 `MAXROWS` references had to move together, including one that placed an extra invisible hotspot over
 the legend and one that undercounted the annexure overflow by one.
 
-### Talaulikar-build lessons (2026-08-02) â€” bugs fixed, do not regress
+### Client A-build lessons (2026-08-02) â€” bugs fixed, do not regress
 
 **MF / fund name mapping â€” now codified in `09_PRODUCT/pr_template/lib/mf_mapping.py`**
 - **Never fuzzy-match a fund name to a framework's fund list.** A naive string-similarity pass matched "Kotak Midcap Fund" to "Kotak Multicap Fund" (wrong category) and "ICICI Prudential Liquid Fund" to "ICICI Pru Large & Mid Cap Fund" (nonsensical â€” liquid vs equity). Always dispatch a Sonnet agent, one fund at a time, reasoning about real scheme identity (same AMC + same mandate) with web search to disambiguate â€” see `[[feedback-mf-mapping-no-fuzzy]]` memory. "Not found" beats a wrong guess, always. `lib/mf_mapping.py`'s docstring states this rule as a hard constraint the module itself must never violate.
@@ -843,7 +843,7 @@ scored **+5**. Of 93 names then taking âˆ’15, **75 had negative trailing rev
 estimate of 10%+**. One field per research file (`expected_next_3y_revenue_growth_pct`) unblocks it.
 
 **Where the adjustment lived in v1:** in `compute_client_scores.py` (the CLIENT pipeline, frozen v6.2),
-never in the universe file. 30 of 59 holdings on the shipped Talaulikar deck carried one, between âˆ’11
+never in the universe file. 30 of 59 holdings on the shipped Client A deck carried one, between âˆ’11
 and +15, and the deck's scores reconcile to `pf_mech_flags.json` 59/59. v1's `growth_leg(g)` took the
 analyst's expected figure **alone** â€” 100% EPS, no revenue leg at any weight.
 

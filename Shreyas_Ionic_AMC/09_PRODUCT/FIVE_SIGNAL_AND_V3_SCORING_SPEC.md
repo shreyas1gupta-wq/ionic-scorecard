@@ -291,7 +291,7 @@ Deleting it as a "v1 duplicate" breaks the entire scoring chain.
 | C5 | **Ownership feed caps at 2023-12** universe-wide. Largest single coverage win available. | 20.8% of names | Data gap |
 | C6 | **`compute_client_scores.py` (the CLIENT pipeline) has NOT been updated** — old gates, no March-to-March, no rescue, no 40/50 ladder. Adopt v3 and the deck will disagree with the universe. | every client book | Must be done before adoption |
 | C7 | **LT's score is stale.** `pf_mech_flags` recorded analyst Hold (+6 rescue → 45.5); the current research file says Sell. Recomputed it is 33.5, a clean Sell — the "borderline" was an artefact. | 1 name, 4.27% weight | Re-run the mech layer |
-| C8 | **Deck reads v1 sources**, Excel reads v3. On the Talaulikar book that is 5 of 11 printed rows, 24 of 93 holdings. | per book | Resolved by adopting v3 |
+| C8 | **Deck reads v1 sources**, Excel reads v3. On the Client A book that is 5 of 11 printed rows, 24 of 93 holdings. | per book | Resolved by adopting v3 |
 | C9 | `score_method.py` explains **3** buckets while the page shows **5**. | 1 slide | Not started |
 | C10 | **Rescue edge cases.** SPARC qualifies on a 98.8% 3Y CAGR off a tiny base; ITI qualifies on a 3Y CAGR of +16% despite the latest year being **−39.6%**. The "1y OR 3y" reading is mine, not the Principal's words. | 2 of 3 rescues | Flagged for ruling |
 | C11 | **35 names still on the engine's TTM window** — no full-year pair exists in the screener data. | 5% of names | Accepted |
@@ -302,7 +302,7 @@ Deleting it as a "v1 duplicate" breaks the entire scoring chain.
 
 | # | Item | Consequence |
 |---|---|---|
-| 1 | **Adopt v3?** | Excel is on v3; the deck still reads v1 (`_SOURCES` in five_signals.py). On the Talaulikar book that is **5 of the 11 printed rows** and **24 of 93 in-universe holdings** — all `growth_3y←growth_1y`. Adopting means pointing `_SOURCES` at the v3 file, or folding v3 into the engine. |
+| 1 | **Adopt v3?** | Excel is on v3; the deck still reads v1 (`_SOURCES` in five_signals.py). On the Client A book that is **5 of the 11 printed rows** and **24 of 93 in-universe holdings** — all `growth_3y←growth_1y`. Adopting means pointing `_SOURCES` at the v3 file, or folding v3 into the engine. |
 | 2 | Ownership feed caps at **2023-12** | universe-wide; refreshing it is the single largest remaining coverage win. |
 | 3 | `score_method.py` still explains **3** buckets | the holdings page shows 5 — the deck currently contradicts itself. |
 | 4 | L&T `SELL` beside four non-red dots | pending adjudication (45.5 score, 4.27% weight). |

@@ -19,7 +19,7 @@ pattern repeated ~15 times:
 | `annex_goal_mapping.py` | A second, independent flat `MU,SIGMA=12,14` — literally the same bug `growth_projection.py` had already been fixed for, re-typed by hand into a sibling module |
 | `opportunity_set.py` (pre-cut) | `today = [0.80,0.03,0.12,0.05]` — authored to match the DEMO's assumed gaps, not derived from the real client's mix |
 | `annex_stress_scenarios.py` | `TODAY`/`PROP` drawdown arrays hardcoded outright — deleted, not fixable |
-| `data/anand_reddy.py` (fund placeholders) | `(f3,f1,b3,b1)=(0,0,0,0)` "no research run" marker fed straight into `cagr3y`/`alpha_ann` as if 0% were a real finding |
+| `data/client_b.py` (fund placeholders) | `(f3,f1,b3,b1)=(0,0,0,0)` "no research run" marker fed straight into `cagr3y`/`alpha_ann` as if 0% were a real finding |
 | `fund_actions.py`, `tax_impact.py` | Layout math hand-tuned for "~2 non-Hold funds" — broke the instant a real client's constraint produced 7 |
 
 None of these were sloppy code. Every one was **correct for the exact client shape the author had

@@ -18,7 +18,7 @@ def _sleeve_amount(sleeves, prefixes):
 def _plan_for(dim, ctx):
     """What the plan does per house-view dimension, derived from THIS client's real ctx --
     never authored/static prose (2026-07-28 fix: the old static PLAN dict claimed a global
-    sleeve, a gold-silver sleeve and 2 trims that did not exist on the real Anand Reddy deck --
+    sleeve, a gold-silver sleeve and 2 trims that did not exist on the real Client B deck --
     confirmed shipped-false content, same bug class as the cut annex_stress_scenarios.py)."""
     t = ctx["totals"]
     sleeves = ctx.get("deployment", {}).get("sleeves", [])

@@ -8,7 +8,7 @@ readers start at `09_PRODUCT/HOW_WE_SCORE_STOCKS.md`. Workflow audit 42/43.
   class of failure (STEP 4b of the workflow audit).
 - DO NOT DELETE `results/full750_scored.csv` as a "v1 duplicate" — it is the engine output and
   the v3 corrector's input; 15 scripts read it.
-- OPEN, Principal call: 5 sell-bar names on the real Talaulikar book, of which POONAWALLA (53.1)
+- OPEN, Principal call: 5 sell-bar names on the real Client A book, of which POONAWALLA (53.1)
   and ITCHOTELS (50.6) are Sells above 50 and contradict the frozen ladder; plus a 20.2% churn
   split across 39 unprioritised lines. Root cause is C6 — v3 is not yet adopted into
   `compute_client_scores.py`.
@@ -44,7 +44,7 @@ treat any option-data backtest on Aug-2026 expiries as running on a 42%-complete
 191 Sell, 126 escalations → `09_PRODUCT/reports/ESCALATIONS_750_REVIEW.xlsx` for Principal
 adjudication). Deliverable: `09_PRODUCT/reports/ANALYST_RECOMMENDATIONS_750.xlsx` (751×43, 4 sheets).
 **pf_state initialized for the FULL universe (751 files)** — the Thursday weekly V1 router now runs
-incrementally over everything. Talaulikar deck upgrade in flight (19 former No-View names now have
+incrementally over everything. Client A deck upgrade in flight (19 former No-View names now have
 real scores; 5 remain outside the universe). **OPEN: technical-agent pass has never run (0/751 have
 chart scores) — blocked on choosing the per-symbol multi-year price source; do NOT launch it against
 an unverified path.** MF: NAV-refresh armed Sep-1; QFRA models stay Apr/Oct (next Oct-end). Full
@@ -355,7 +355,7 @@ book. Full detail + every file path: SESSION_JOURNAL.md 2026-08-06 entry.
 and the exact next steps. NOTHING IS COMMITTED (branch `claude/sweet-austin-283067`, still on `994a9d6`).**
 Headlines: our skills' **"QFRA-2 covers 40 curated funds" was a misreading** — that CSV is 8 categories x
 top-5 = 40 ROWS; the engine ranks **99 Direct-plan funds**, and the cost of the error is 6 substituted
-fund scores in the shipped Talaulikar deck (3 Focused funds plus 2 resolvable by renames already in our
+fund scores in the shipped Client A deck (3 Focused funds plus 2 resolvable by renames already in our
 own `SCHEME_RENAMES`). **QFRA-2 has no Sell verdict at all**, so the old "both frameworks at Sell" rule was
 unsatisfiable; sell logic rebuilt to "originate and veto" per Principal ruling (A+B+C) with a
 **contradiction gate** that surfaces a QFRA-1 Sell against a CALIBRE A/B grade instead of resolving it
@@ -372,7 +372,7 @@ biased MDD-scenario page removed, and a full redundant/safe/needs-changes audit 
 Sonnet/Opus plan. 3 parallel Sonnet audits (D-023's cap respected, flagged since "many" were
 asked for) covering ~47 modules found **`house_view_fit.py` was showing CONFIRMED FALSE CONTENT
 to the Principal already** — a hardcoded "what the plan does" table claimed a foreign/gold sleeve
-and 2 trims that don't exist in Anand Reddy's real data (100% cash, 0 trims). Fixed, plus ~15
+and 2 trims that don't exist in Client B's real data (100% cash, 0 trims). Fixed, plus ~15
 more real bugs: an undisclosed hardcoded constant in `annex_mcap_migration.py`, a second flat-
 rate anti-pattern in `annex_goal_mapping.py`, a hardcoded fake "Today" mix in `opportunity_set.py`,
 a raw-jargon leak in `fund_actions.py`, dead crash-prone code in `funds_hybrid.py`, a backwards
@@ -383,7 +383,7 @@ supplied a reference IPS image from another platform; `ips_summary.py` rebuilt v
 richer coverage (single-scheme/AMC/locked-in/cash caps, market-cap bands, thematic/unlisted/
 international-equity caps, fixed-income credit/duration, gold/silver bands) in our house visual
 style, "Current" always computed live from real ctx (incl. a new look-through Equity/Debt split
-blending direct equity + equity-oriented funds — Anand Reddy's real equity exposure is ~86% this
+blending direct equity + equity-oriented funds — Client B's real equity exposure is ~86% this
 way, not the ~42% direct-only figure used elsewhere). IPS page UN-CUT (reverses yesterday's
 removal — the old thin version was the problem, not the concept). `opportunity_set.py`'s
 "Illustrative" mix now derives from real IPS targets when on file. Real finding: Single-scheme
@@ -399,9 +399,9 @@ untracked data file, pre-existing gap).
 
 ## 2026-07-27 (later still, DESK-100) — Principal feedback round: 5 PERMANENT template rules + tellscan.py + intake-workflow live
 Principal reviewed the HNI_DEEP build below and issued a batch of corrections, all explicitly
-permanent (applied to shared pr_template code, not just Anand Reddy). Rebuilt v10 = 78 slides,
+permanent (applied to shared pr_template code, not just Client B). Rebuilt v10 = 78 slides,
 0/0/0 gates. **(1)** Factor-fund rule reversed: factor ETFs default Hold now, except a named
-Nifty 200 Momentum 30 fund which stays Sell (Anand Reddy: MOVALUE Sell→Hold, MOM30IETF stays
+Nifty 200 Momentum 30 fund which stays Sell (Client B: MOVALUE Sell→Hold, MOM30IETF stays
 Sell). **(2)** 5 pages cut permanently (module stays in library, never renders by default):
 ips_summary, group_concentration, cost, factor_profile, annex_currency_geo. **(3)**
 "Redeem-to-Direct" now displays as "Switch" everywhere client-facing (internal code unchanged) —
@@ -419,7 +419,7 @@ Full detail: SESSION_JOURNAL.md 2026-07-27 (later still) entry. **OPEN:** Princi
 v10; the Switch/Redeem-to-Direct display collision; next-session candidates in
 `TOKEN_TIME_OPTIMIZATION.md` (per-module render cache, diff-based visual QA) not yet built.
 
-## 2026-07-27 (later, DESK-100) — Anand Reddy: complete HNI_DEEP tier built (82 slides), max-automation pass
+## 2026-07-27 (later, DESK-100) — Client B: complete HNI_DEEP tier built (82 slides), max-automation pass
 Principal ask ("complete large deck, max automation, template use, haiku+sonnet split") went
 beyond the RM_SIMPLE ship below to the full HNI_DEEP tier. Building the larger tier exercised
 ~57 modules vs RM_SIMPLE's 23 and surfaced real gaps the small tier never hit: 13 modules
@@ -440,8 +440,8 @@ whether the fund risk battery (Sortino/Calmar/drawdown) is worth a real daily-NA
 client (currently honest "n/a" — needs new data sourcing, not a code fix); the RM_SIMPLE entry's
 still-open 10+-agent QA sweep + transfer-in-review DOCX apply here too.
 
-## 2026-07-27 (DESK-100) — FIRST REAL CLIENT DECK: Anand Reddy NDPMS review built + shipped (RM_SIMPLE)
-First real (non-demo) portfolio review, built from `Anand Reddy.xlsx` (~Rs1.61cr, 27 equity + 26 fund lines) through the pr_template engine. Same 750-scorecard/QFRA methodology applied one-time to 9 out-of-universe names (Principal ruling); MF funds outside QFRA-1/2 coverage got real 3y/1y-vs-benchmark research via analyst/quant-head agents. **CRITICAL FIX before ship:** `sell_list.py`/`fund_actions.py` were rendering raw internal audit text (analyst names, "pf_qual"/"QFRA" codenames, "Principal"/"CIO" refs) straight onto client slides via a summary-field fallback — caught on a tellscan-equivalent grep sweep, fixed by adding explicit client-safe `client_case` text for all 15 Sell names + rewriting 2 funds' structural_reason; internal audit trail kept only as source comments. Also added `is_demo` ctx flag (9 shared modules) so demo/ABXY language can never leak into a real deck, and a new `data_notes` module for holdings that don't fit a normal Sell/Hold call. Ship: `09_PRODUCT/pr_template/out/AnandReddy_RM_SIMPLE.pptx` (23 slides), 0/0 geometry gates, visual QA pass. **OPEN for Principal/RM:** (1) MF-sheet header stray value Rs 8,61,415.04 — unexplained, excluded not guessed; (2) HDFC Overnight Fund's current value is blank on statement, shown at value_inr=0; (3) SBI Gilt + HDFC Gilt = same-factor duplication, consolidation candidate; (4) whether a STANDARD/HNI_DEEP tier build is also wanted (RM_SIMPLE was a judgment call under time pressure, not yet confirmed as final). **NOT YET DONE this session** (ran out of time): the 10+-agent parallel QA sweep and the transfer-in-review DOCX — both still pending, do next session before this deck is considered client-ready to send. Full detail: SESSION_JOURNAL.md 2026-07-27 entry.
+## 2026-07-27 (DESK-100) — FIRST REAL CLIENT DECK: Client B NDPMS review built + shipped (RM_SIMPLE)
+First real (non-demo) portfolio review, built from `Client B.xlsx` (~Rs1.61cr, 27 equity + 26 fund lines) through the pr_template engine. Same 750-scorecard/QFRA methodology applied one-time to 9 out-of-universe names (Principal ruling); MF funds outside QFRA-1/2 coverage got real 3y/1y-vs-benchmark research via analyst/quant-head agents. **CRITICAL FIX before ship:** `sell_list.py`/`fund_actions.py` were rendering raw internal audit text (analyst names, "pf_qual"/"QFRA" codenames, "Principal"/"CIO" refs) straight onto client slides via a summary-field fallback — caught on a tellscan-equivalent grep sweep, fixed by adding explicit client-safe `client_case` text for all 15 Sell names + rewriting 2 funds' structural_reason; internal audit trail kept only as source comments. Also added `is_demo` ctx flag (9 shared modules) so demo/ABXY language can never leak into a real deck, and a new `data_notes` module for holdings that don't fit a normal Sell/Hold call. Ship: `09_PRODUCT/pr_template/out/AnandReddy_RM_SIMPLE.pptx` (23 slides), 0/0 geometry gates, visual QA pass. **OPEN for Principal/RM:** (1) MF-sheet header stray value Rs 8,61,415.04 — unexplained, excluded not guessed; (2) HDFC Overnight Fund's current value is blank on statement, shown at value_inr=0; (3) SBI Gilt + HDFC Gilt = same-factor duplication, consolidation candidate; (4) whether a STANDARD/HNI_DEEP tier build is also wanted (RM_SIMPLE was a judgment call under time pressure, not yet confirmed as final). **NOT YET DONE this session** (ran out of time): the 10+-agent parallel QA sweep and the transfer-in-review DOCX — both still pending, do next session before this deck is considered client-ready to send. Full detail: SESSION_JOURNAL.md 2026-07-27 entry.
 
 ## 2026-07-26 (DESK-100, latest) — Principal dispositions on the open ledger; **read `NEXT_WEEK_QUEUE.md` before touching any of it**
 Principal ruled/deferred across the full open list from the last session in one pass — nothing executed this turn except doc/skill sync (explicitly low-risk, no code behavior changes). **RULED:** PK=3 quadrant never-sells is CONFIRMED CORRECT, not a bug — firm's own backtest shows quadrant-3 mean-reversion + lower forward underperformance; do not "fix" to SELL on {3,4} (qfra1-rerun skill updated). **RELIANCE stays SELL** — Principal reconfirmed directly; ESCALATIONS_BOARD.md + ESCALATIONS_FOR_PRINCIPAL.md RELIANCE entries were stale (pre-recheck "Hold") and are now marked RESOLVED/SELL to match the ratified `pf_qual_RELIANCE.json`. **CLARIFIED:** FACTOR_NAVS.xlsx is correct as-is (price/PRI, a different purpose) — the TRI fix is scoped ONLY to the MF Dashboard's Indices sheet, queued for next week. **DEFERRED — see `01_COMMAND_CENTER/NEXT_WEEK_QUEUE.md` for full detail on all 11 items:** QFRA-2 Sell backtest, category-wise-BM-in-graph (code), TRI Indices rebuild, weekly stock-run bundle (router patch + pf_state re-seed + earnings feed — pushed to week of 08-10, "short of tokens"), a new young-fund Hold-vs-"No View" verdict spec (confirm before building), save_mf_recommendations polish, QFRA2_current.csv relocation, cross-category --verify, adapter/save walk-back unification, Sanjay Kulkarni + analyst-desk persona updates. **DO NOT execute any queued item ahead of its stated timing band.**

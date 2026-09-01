@@ -18,7 +18,7 @@ def _mix(ctx):
     """2026-07-28 fix: trims are now computed from each holding's real weight vs the real
     single-name cap (same logic as the priority_actions/tax trim total elsewhere in the deck)
     -- the old TRIM_PT=2.0 constant applied a fixed "two >11% trims" shift unconditionally,
-    which was FALSE for any client (e.g. Anand Reddy, n_trim=0) whose book has no over-cap
+    which was FALSE for any client (e.g. Client B, n_trim=0) whose book has no over-cap
     Hold names. A per-band trim total that's genuinely zero now shows as zero, not -2pt."""
     eq = ctx["equity"]; grand = ctx["totals"]["grand_inr"]
     cap = ctx.get("ips", {}).get("single_name_cap_pct")

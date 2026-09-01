@@ -102,9 +102,9 @@ for the X-ray/Annexure group to check).
 
 ## Positive finding worth recording
 
-The prior Anand Reddy session's crash-guard fixes for missing IPS / no meeting history / all-
+The prior Client B session's crash-guard fixes for missing IPS / no meeting history / all-
 Direct funds / no SWITCH actions are **in the shared module code** (`exec_summary.py`,
 `mandate_method.py`, `allocation_house_view.py`, `mcap_positioning.py`,
 `concentration_risk.py`, `since_last_review.py`), not patched into that one client's data file —
 confirmed by reading each fallback branch above. These protect every future first-review client,
-not just Anand Reddy's book.
+not just Client B's book.

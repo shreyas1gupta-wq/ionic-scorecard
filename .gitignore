@@ -95,3 +95,11 @@ Shreyas_Ionic_AMC/04_RND_LAB/results/PRICE_LEVELS_20260730/bars_1min.parquet
 
 # Personal side venture — not part of the firm repo / IT handover
 Xorlog/
+
+# Real client data never enters git. The deck engine's data/ dir may hold only demo contexts.
+# Two real clients reached the public repo through this directory; the rule is here so it cannot
+# happen a third time by someone adding a file that looks like the ones already there.
+Shreyas_Ionic_AMC/09_PRODUCT/pr_template/data/*
+!Shreyas_Ionic_AMC/09_PRODUCT/pr_template/data/azby_family.py
+!Shreyas_Ionic_AMC/09_PRODUCT/pr_template/data/abxy_showcase.py
+!Shreyas_Ionic_AMC/09_PRODUCT/pr_template/data/client_cases.json

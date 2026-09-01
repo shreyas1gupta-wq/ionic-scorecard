@@ -23,7 +23,7 @@ from pptx import Presentation
 
 # ---------------------------------------------------------------------------
 # Term buckets (SKILL.md QA LAW #3 + the internal-jargon/mislabeling classes
-# actually caught during the Anand Reddy HNI_DEEP build, 2026-07-27).
+# actually caught during the Client B HNI_DEEP build, 2026-07-27).
 # ---------------------------------------------------------------------------
 BUCKETS = {
     "AI_TELL": [
@@ -37,7 +37,7 @@ BUCKETS = {
         "SENTINEL", "QFRA", "MERIT", "pf_qual", "AZBY",
         "quant-only", "analyst view", "Ratified Sell", "Ratified Hold",
         "One-time review", "House decision", "Quant-head research",
-        # stale label class (Talaulikar build, 2026-08-02): "No Recommendation" was the
+        # stale label class (Client A build, 2026-08-02): "No Recommendation" was the
         # old label, "No View" is current -- catches regressions to the retired term.
         "No Recommendation",
     ],
@@ -54,7 +54,7 @@ BUCKETS = {
     ],
     "GLYPH_HYGIENE": [
         "→", "≤", "≥",  # -> <= >=  (Bahnschrift can't render these)
-        "₹",  # house style is "Rs", not the rupee glyph (Talaulikar build, 2026-08-02:
+        "₹",  # house style is "Rs", not the rupee glyph (Client A build, 2026-08-02:
               # found scattered across snapshot.py/growth_projection.py/annex_income_ladder.py)
     ],
     "LITERAL_NONE": [

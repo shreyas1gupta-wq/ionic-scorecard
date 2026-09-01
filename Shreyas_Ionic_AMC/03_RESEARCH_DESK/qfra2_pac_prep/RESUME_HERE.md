@@ -122,7 +122,7 @@ cadence lock, and the **40.5-47.5%** capture-family overlap (a RANGE — correct
 
 ## NOT DONE / OPEN
 - **Nothing is committed since `994a9d6`.** One command away: see the journal entry.
-- The 6 Talaulikar fund scores that have real engine scores available (reconciliation §3) — still
+- The 6 Client A fund scores that have real engine scores available (reconciliation §3) — still
   substituted. Needs a read-only engine run; snapshot `QFRA2_current.csv` first (handoff §9).
 - Branch `claude/sweet-austin-283067` is not merged to master; master still serves analyst skill v2.
 - `MODEL_CARD.md`'s transposed "+2.86 = Small" and the other doc defects (reconciliation §4) are the

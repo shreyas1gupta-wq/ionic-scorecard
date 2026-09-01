@@ -24,7 +24,7 @@ Confirmed by diffing `6c8f39f` (shared `modules/*.py`/`slidekit.py` code, not cl
    bug type this session hit** — only 2 of ~57 modules have been audited (see Rec #6).
 5. **Raw snake_case leak** (`fund_book_scored.py`): `Dividend_Yield` now humanized — one
    instance of the broader "internal field name reaches client text" class.
-6. **Client-specific tier variant idiom proved out** (`build_anand_reddy.py`): register
+6. **Client-specific tier variant idiom proved out** (`build_client_b.py`): register
    `ANANDREDDY_{TIER}` at runtime by copying/patching `T.TIERS[base]`, never touching shared
    `tiers.py`. Every future client with unusual slide-cut needs reuses this directly.
 

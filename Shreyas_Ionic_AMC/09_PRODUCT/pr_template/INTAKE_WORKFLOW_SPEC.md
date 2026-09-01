@@ -45,7 +45,7 @@ build anything yet — it only unlocks §3 below.
 
 | Named tier (Principal) | Page band | Existing preset | Confirmed slide counts |
 |---|---|---|---|
-| Detailed | 60–100 | `HNI_DEEP` | Demo 61→79 slides (module library grew); **real client (Anand Reddy) build = 82 slides** |
+| Detailed | 60–100 | `HNI_DEEP` | Demo 61→79 slides (module library grew); **real client (Client B) build = 82 slides** |
 | Medium | 30–60 | `STANDARD` | **40 slides**, stable across the 2026-07-25 and current build (PROGRESS.md log) — mid-band, comfortable headroom both directions |
 | RM Light | 15–30 | `RM_SIMPLE` | Demo = 31 slides; **real client build = 23 slides** |
 
@@ -178,4 +178,4 @@ section (renumber existing 1–6 to 2–7):
 ---
 *Design only — no code or SKILL.md edits made. Real anchors used: STANDARD = 40 slides
 (PROGRESS.md build log), HNI_DEEP real-client = 82 slides and RM_SIMPLE real-client = 23 slides
-(SESSION_JOURNAL.md, 2026-07-27 Anand Reddy entries).*
+(SESSION_JOURNAL.md, 2026-07-27 Client B entries).*

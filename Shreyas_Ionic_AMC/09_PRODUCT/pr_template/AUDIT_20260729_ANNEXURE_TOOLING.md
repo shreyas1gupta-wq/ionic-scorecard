@@ -1,4 +1,4 @@
-# Audit 2026-07-29 — Annexure modules + QA tooling (Anand Reddy HNI_DEEP)
+# Audit 2026-07-29 — Annexure modules + QA tooling (Client B HNI_DEEP)
 
 Scope: annexure modules re-check, parked-module leak check, QA-tooling blind-spot analysis,
 actual build/gate/visual run. Build used: `PR_SUFFIX=_audit3`, tier HNI_DEEP, 75 slides.
@@ -6,15 +6,15 @@ actual build/gate/visual run. Build used: `PR_SUFFIX=_audit3`, tier HNI_DEEP, 75
 ## Finding 1 (SEVERITY: CRITICAL, live, real client) — `annex_valuation_bands.py` narrative
 contradicts its own chart
 
-`_derive`/`_pctile` computed Anand Reddy's real weighted trailing P/E at **22.0x, the ~10th
+`_derive`/`_pctile` computed Client B's real weighted trailing P/E at **22.0x, the ~10th
 percentile** of the (synthetic) 10-year band — i.e. the book is at the **cheap** end of its own
-range. Verified by running the module's own functions against `data/anand_reddy.py` and by
+range. Verified by running the module's own functions against `data/client_b.py` and by
 rendering slide 67: the chart itself plots "Today 22.0x · ~10th percentile" at the bottom of the
 band. But the callout text on the *same slide* (`render()`, `hni`/`std` branch) is a hardcoded
 narrative that always asserts the opposite: "The starting multiple ... sits high" / "priced for a
 lot of good news" / "near the top of its usual range". The text is not conditioned on `pct` at
 all — it was written for whatever book originally sat near the expensive end (the demo book) and
-never made data-driven. For Anand Reddy this is now a **directly false claim next to the
+never made data-driven. For Client B this is now a **directly false claim next to the
 correct chart**, the same bug class as the `house_view_fit.py` fabrication caught 2026-07-28.
 **Fix needed:** branch `b1`/`b2` on `pct` (cheap/mid/expensive tercile), not a fixed assumption.
 **File:** `modules/annex_valuation_bands.py` lines ~64-75.
@@ -65,7 +65,7 @@ catch this class of bug.
 anti-pattern in `annex_beta_ladder.py`
 
 `render()`'s body text unconditionally states "close to the market" regardless of the computed
-`book_beta`. For Anand Reddy `book_beta=1.06`, so the claim happens to be true today — not a live
+`book_beta`. For Client B `book_beta=1.06`, so the claim happens to be true today — not a live
 bug — but it is the identical pattern as Finding 1 (assertion not conditioned on the number it
 describes) and will silently go wrong for a future client whose book beta drifts materially above
 1.2-1.3. Worth a defensive branch (e.g. "above/below/near market") while fixing Finding 1, same
@@ -83,7 +83,7 @@ root cause, cheap to fix together.
    `spotlight_holdings.py`, `holdings_detail.py`, `sell_cards.py`, `appendix.py`,
    `quality_vs_price.py`. `annex_concentration_curve.py` reads `ctx["ips"]["single_name_cap_pct"]`
    with a direct (non-`.get`) index — safe today because the field is always populated
-   (house-standard 8% default, confirmed in `data/anand_reddy.py` even with `on_file=False`),
+   (house-standard 8% default, confirmed in `data/client_b.py` even with `on_file=False`),
    but inconsistent with the `.get`-guarded style used in `annex_mcap_migration.py`/
    `annex_currency_geo.py`/`growth_projection.py` for the same ctx branch — minor robustness note,
    not a bug today.
@@ -93,7 +93,7 @@ root cause, cheap to fix together.
    ALL equity sells book-wide, not just the group's own), and `after` correctly excludes sold
    group members from the numerator — the fix is mathematically sound. `fund_quality_alloc.py`'s
    `ctx.get("is_demo", False)` gate is correctly placed (`False` default, matches the firm-wide
-   2026-07-28 fix). `grep -n` across `engine.py`/`tiers.py`/`build_anand_reddy.py` confirms
+   2026-07-28 fix). `grep -n` across `engine.py`/`tiers.py`/`build_client_b.py` confirms
    neither module appears in any tier's `optional_on`, both stay `core=False` — genuinely
    unreachable in any current build.
 
@@ -139,7 +139,7 @@ across the three files, no architecture change.
 
 ## Actual build / gate / visual results
 
-- Build: `PR_SUFFIX=_audit3`, `build_anand_reddy.py HNI_DEEP` → **75 slides**, no crashes.
+- Build: `PR_SUFFIX=_audit3`, `build_client_b.py HNI_DEEP` → **75 slides**, no crashes.
 - `check_geometry.py`: **0 findings.**
 - `check_geometry2.py`: **0 findings.**
 - `tellscan.py` (rendered pptx): **4 findings, all previously-accepted false positives** —

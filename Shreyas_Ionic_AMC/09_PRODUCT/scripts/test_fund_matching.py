@@ -3,7 +3,7 @@
 
 Removing the 85%-prefix fuzzy matcher only counts as a fix if REAL name variants still match.
 MUST_MATCH pairs are (QFRA-source name, holdings-statement name) taken from the actual
-QFRA2_current.csv / verified_navs_*.csv and the Talaulikar CAS. MUST_NOT_MATCH are the exact
+QFRA2_current.csv / verified_navs_*.csv and the Client A CAS. MUST_NOT_MATCH are the exact
 false positives that fuzzy produced and that caused the original incident.
 
 Run: python test_fund_matching.py    (exit 0 = all pass)

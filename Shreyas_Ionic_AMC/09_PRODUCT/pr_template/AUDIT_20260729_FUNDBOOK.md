@@ -6,7 +6,7 @@ Output: `out/AnandReddy_HNI_DEEP_audit1.pptx`, previews in `out/preview_audit1/`
 ## Findings, severity-ordered
 
 ### HIGH — fake "Fund score/Grade" for the 2 no-research placeholder funds (new, unflagged)
-`data/anand_reddy.py`'s `(0,0,0,0)` placeholder pattern (HDFC NIFTY 50 Index Fund, HDFC Floating
+`data/client_b.py`'s `(0,0,0,0)` placeholder pattern (HDFC NIFTY 50 Index Fund, HDFC Floating
 Rate Debt Fund — "no independent research run") was fixed at the source for `cagr3y`/`alpha_ann`/
 `bench_cagr3y` (now `None`, correctly renders "n/a" everywhere). **But `qfra`/`merit` were never
 covered by that fix**: line 457, `qfra = _qscore(f3 - b3, f1 - b1) if (f3 or f1) else 50` —
@@ -28,9 +28,9 @@ never touched. Fix: default `qfra=None`/`merit=None` (or a dedicated "n/a" rende
 `_no_research` funds, same treatment as the other three fields.
 
 ### HIGH — internal doc reference ("DATA_GAPS") leaks onto a real client slide
-`data/anand_reddy.py:427`, HDFC Overnight Fund's `structural_reason`: "...NOTE: the value of this
+`data/client_b.py:427`, HDFC Overnight Fund's `structural_reason`: "...NOTE: the value of this
 holding is MISSING from the client's statement, see DATA_GAPS." Renders **verbatim** on slide 65
-(scheme scorecard, Annexure) of the real Anand Reddy deck. "DATA_GAPS" is an internal
+(scheme scorecard, Annexure) of the real Client B deck. "DATA_GAPS" is an internal
 end-of-file comment-section name, meaningless and unprofessional to a client. `tellscan.py`'s
 buckets (INTERNAL_JARGON/DATA_QA_VOCAB) don't include this literal term, so both the automated
 gate and this session's first `tellscan.py` pass on the built pptx (4 findings, all 3
@@ -89,7 +89,7 @@ correctly). Currently dormant — no fund in this book has `bench_cagr3y == 0.0`
 `is not None` for consistency and defense against a future client.
 
 ### LOW — stale comment in DATA_GAPS section (item 1 ask, confirmed)
-`data/anand_reddy.py` end-of-file DATA_GAPS #2 still reads "Real 3y/1y performance was still
+`data/client_b.py` end-of-file DATA_GAPS #2 still reads "Real 3y/1y performance was still
 verified (**Hold**), but value_inr is set to 0" for HDFC Overnight Fund — the verdict flipped to
 Sell on 2026-07-29 and this comment was never updated. Internal-only, zero client-facing impact,
 but exactly the "stale comment assuming the old state" pattern the task asked to hunt for.
@@ -113,7 +113,7 @@ correct and consistent with the fund_actions card's own language — just a layo
 could read as contradictory on a fast skim. No fix required unless the Principal wants it changed.
 
 ## Area verdicts
-1. **Verdict-flip cascade (`data/anand_reddy.py`)** — CLEAN. All 7 Sell funds are correctly present
+1. **Verdict-flip cascade (`data/client_b.py`)** — CLEAN. All 7 Sell funds are correctly present
    in `_RISK_BATTERY`, `_CV`, `_AMC`; `proceeds`/`fund_action_val`/tax counts all use
    `action != "Hold"` and correctly sum all 7 (verified via `sum(1 for f in funds if
    f['action']!='Hold')` in `de_gap_note` and the flags text, both say "7"). One stale comment
@@ -134,7 +134,7 @@ could read as contradictory on a fast skim. No fix required unless the Principal
 5. **Gates + visual QA** — Build: 75 slides, 0 crashes. `check_geometry.py`: 0 findings.
    `check_geometry2.py`: 0 findings. `tellscan.py` on the pptx: 4 findings = exactly the 3
    previously-accepted false positives ("+0.0%" x2 on slide 59/SBI Gilt, "MERIT" slide 22, "genuine"
-   slide 46) — no new automated-gate findings. `tellscan.py` on `data/anand_reddy.py`: 286 findings,
+   slide 46) — no new automated-gate findings. `tellscan.py` on `data/client_b.py`: 286 findings,
    all expected raw-source noise per SKILL.md (citation preambles/snake_case field names that the
    render-time scrub already strips — confirmed clean at the pptx level). Visual QA surfaced the 2
    HIGH findings above, which no automated gate catches.

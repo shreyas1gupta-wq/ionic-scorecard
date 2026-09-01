@@ -3,7 +3,7 @@
 
 Gates 1-3 check that the deck LOOKS right and gate 4 checks the data is CURRENT. Nothing checked
 that the recommendations obey the method. On 2026-08-05 the Principal asked us to re-look at
-Hindustan Copper, and an audit of the shipped Talaulikar book found FIVE quality sells on names our
+Hindustan Copper, and an audit of the shipped Client A book found FIVE quality sells on names our
 own model scores as Hold - including L&T at 4.27% of the book. The rule existed in the methodology
 document and in the analyst's head; nothing enforced it.
 
@@ -30,7 +30,7 @@ Rules enforced here, with the comment number they come from:
     A debt fund bought before 1-Apr-2023 must not be sold for optimisation or rebalancing. A credit
     or governance event overrides, so a structural reason clears the check.
 
-Usage:  python check_method.py <data_module.py>       e.g. data/talaulikar_family.py
+Usage:  python check_method.py <data_module.py>       e.g. data/client_a_family.py
 Exit 1 on any finding, so it can gate a build.
 """
 import importlib.util

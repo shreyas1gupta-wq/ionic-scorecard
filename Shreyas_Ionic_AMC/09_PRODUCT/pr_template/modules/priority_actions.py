@@ -84,7 +84,7 @@ def render(deck, ctx, tier):
     # real trim cash = money actually coming off over-cap Hold names, reduced toward the
     # single-name cap -- NOT "whatever proceeds are left over once sells are subtracted"
     # (that residual silently included fund-exit money whenever a book has zero Trim-rec
-    # equities, e.g. Anand Reddy 2026-07-27: showed fund-exit cash against a stock-trim
+    # equities, e.g. Client B 2026-07-27: showed fund-exit cash against a stock-trim
     # action label, wrongly implying HDFCBANK/TCS trims were worth the fund-exit amount)
     cap = ctx["ips"]["single_name_cap_pct"]
     grand = t["grand_inr"]

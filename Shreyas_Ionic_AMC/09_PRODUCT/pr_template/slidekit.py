@@ -119,7 +119,7 @@ REC_STYLE = {"Sell": (SELLBG, SELL), "Exit": (SELLBG, SELL), "Redeem-to-Direct":
              "Redeem": (AMBERBG, AMBER), "Switch": (AMBERBG, AMBER), "Trim": (AMBERBG, AMBER),
              "Hold": (HOLDBG, HOLD), "Aligned": (HOLDBG, HOLD), "Watch": (PANEL, SLATE),
              "Gap": (SELLBG, SELL), "Breach": (SELLBG, SELL),
-             # added 2026-07-27 (first real client, Anand Reddy): "No View" = a genuine
+             # added 2026-07-27 (first real client, Client B): "No View" = a genuine
              # verdict class (young/uncovered fund, firm's 7-month rule) — distinct from a
              # Hold/Watch judgment, so it gets its own neutral-but-labelled look, not reused
              # colors that would blur the distinction in a table scan.
