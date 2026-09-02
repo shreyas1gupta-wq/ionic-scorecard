@@ -3238,3 +3238,47 @@ client deck.
 `claude/sweet-austin-283067`.
 **NEXT:** Principal to decide on the 5 Client A sell-bar names + churn split; C6 (adopt v3 into the
 engine); rotate the plaintext GitHub PAT sitting in the git remote URL.
+
+---
+
+## 2026-09-02 — DESK-20 — Advisor deck distribution: central calls, zero method leaving the building
+
+**Principal ruling (2026-09-02):** scores and Buy/Sell/Hold/Trim are fixed centrally; the method,
+workflow and data do not go to an advisor or to another Claude. An advisor hands Claude a holding
+statement and gets the standardised deck.
+
+**Built.** `export_score_file.py` (central only, gitignored): the whole AMFI universe to six columns
+— isin, scheme, category, score, call, rationale. 17,904 ISIN rows, 2,875 scored, 2 desk rulings.
+`desk_calls.csv` is the only route by which the desk overrides the arithmetic, keyed on the ISIN of
+any one share class and propagated to the scheme. `ionic-deck-kit/` merged to public master, so an
+advisor clones and runs with no branch checkout.
+
+**Nine defects found and fixed** (full list in `09_PRODUCT/_CENTRAL/SCORING_RECORD.md`). The three
+that mattered:
+
+- `latest_score_file()` chose by filename order, and the demo file is dated later than a production
+  file, so a client deck could be built from **invented** scores while printing the production as-of
+  date read from the VERSION file next door.
+- A base-key leak stranded a connective: "Payout **of** Income Distribution cum capital withdrawal
+  option" left a bare `OF`, so the Kotak Small Cap share class the client actually held became a key
+  of its own and the desk's ruling could not reach it.
+- The score depended on which plans a client held — the first delivered book averaged the share
+  classes in that portfolio, so the same fund would score differently in two clients' decks. Now the
+  Direct plan's percentile, one consistent pool.
+
+Also fixed a wording defect in the delivered workbook: two rationale lines read "clear of the bottom
+third" beside a 0th-percentile five-year number. The calls were right, the sentences were not.
+
+**Verified** from a fresh clone of public master: method and rulings absent, 43-holding statement
+reconciles to its own total, 42 of 43 matched, cap fires on one holding, all three tiers build
+(31/30/19 slides) and pass all three QA gates with zero findings.
+
+**Handover** at `Downloads/ionic_handover/`, split `SEND_TO_ADVISOR/` (score file + VERSION only) and
+`KEEP_INTERNAL/` (the record + the email text).
+
+**NEXT / Principal calls:** (1) the method and rulings are gitignored out of a public repo and so
+version-controlled nowhere — they need a private repository; (2) git history still holds both
+scrubbed client surnames, needs filter-repo + force-push; (3) the HuggingFace token in public history
+is leaked, rotation still deferred; (4) Axis ELSS Tax Saver moved Hold to Sell on the corrected pool
+— one row in `desk_calls.csv` pins it back if you disagree; (5) "a fund Sell requires BOTH
+frameworks" is stale in two skills, superseded by originate-and-veto.
