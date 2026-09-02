@@ -111,3 +111,15 @@ ionic-deck-kit/out/
 # the blanket *.csv rule above. Publishing live calls has to be a deliberate act, not a filename away.
 !ionic-deck-kit/scores/ionic_scores_*_DEMO.csv
 !ionic-deck-kit/fixtures/demo_statement.xlsx
+
+# The production VERSION.json travels with the real score file and is never committed; the
+# tracked VERSION_DEMO.json is what a fresh clone falls back to.
+ionic-deck-kit/scores/VERSION.json
+
+# --- CENTRAL ONLY: the method and the calls, never in a public repository ---
+# This repo is public (verified via the GitHub API). export_score_file.py contains the whole scoring
+# method: the percentile definition, the bottom-third threshold, the category policy. desk_calls.csv
+# IS the firm's rulings. The Principal's instruction of 2026-09-02 is that neither the method nor the
+# workflow goes to an advisor, and a public repo goes to everyone. Both need a private home.
+Shreyas_Ionic_AMC/09_PRODUCT/scripts/export_score_file.py
+Shreyas_Ionic_AMC/09_PRODUCT/scripts/desk_calls.csv

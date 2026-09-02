@@ -43,7 +43,10 @@ def render(deck, ctx, tier):
              [("Private & Confidential  ·  Prepared exclusively for the named client",
                SANS, 9.5, NT3, False, False, 60)], align=PP_ALIGN.CENTER)
 
-    deck.txt(s, ML, 6.9, UW, 0.3, [("Ionic Wealth by Angel One  ·  Portfolio Review  ·  Private & Confidential",
+    # 7.14 is where Deck.footer() puts page chrome on every other slide. Hand-placing this one at
+    # 6.9 lifted the closing colophon a fifth of an inch above the line the reader has seen on the
+    # thirty pages before it, and dropped its baseline into the band the geometry gate protects.
+    deck.txt(s, ML, 7.14, UW, 0.3, [("Ionic Wealth by Angel One  ·  Portfolio Review  ·  Private & Confidential",
                                     SANS, 8, NT3, False)])
     ack = latest_ack_text()
     if ack:

@@ -72,6 +72,28 @@ _SNAKE_RE = re.compile(r"\b[a-z]+(?:_[a-z0-9]+)+\b")
 _SNAKE_ALLOW = {"pf_qual"}  # already caught by INTERNAL_JARGON; don't double-report
 
 
+# The Principal sanctioned exactly one client-facing use of the framework name: rationale lines open
+# with "QFRA Framework:" so a client can see which framework produced a call. Every OTHER use of the
+# word is still internal jargon and still a finding. Left in the blanket list, the sanctioned prefix
+# raised eight permanent findings on every deck, and a gate that always fails is a gate nobody reads.
+SANCTIONED = ("qfra framework:",)
+
+
+def strip_sanctioned(text):
+    low = text.lower()
+    out, i = [], 0
+    while i < len(low):
+        for phrase in SANCTIONED:
+            if low.startswith(phrase, i):
+                out.append(" " * len(phrase))
+                i += len(phrase)
+                break
+        else:
+            out.append(text[i])
+            i += 1
+    return "".join(out)
+
+
 def _bucket_hits(text):
     hits = []
     low = text.lower()
@@ -113,7 +135,7 @@ def extract_texts_pyfile(path):
 def scan(pairs):
     findings = []
     for loc, text in pairs:
-        for bucket, term in _bucket_hits(text):
+        for bucket, term in _bucket_hits(strip_sanctioned(text)):
             findings.append({"loc": loc, "bucket": bucket, "term": term, "text": text[:100]})
     return findings
 

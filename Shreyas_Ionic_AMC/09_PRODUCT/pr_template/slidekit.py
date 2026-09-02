@@ -569,5 +569,10 @@ class Deck:
 
 
 def new_deck(base=None):
-    logo = r"C:\Users\SHREYA~1.1GU\AppData\Local\Temp\claude\c--Users-Shreyas-1Gupta-OneDrive---Angel-Broking-Limited-Desktop-Backup-NIFTY-500\5ec2bf16-8c38-4f40-9e4f-8e07be6545fd\scratchpad\assets\logo_clean.png"
+    # The logo lives next to this file, in the repository, resolved relative to __file__.
+    # It previously pointed at a per-session temp directory. Those are cleaned up, so the file was
+    # gone and Deck.__init__ silently set logo_path=None: every deck built after that temp directory
+    # was swept came out with no logo and nothing said so. A repo-relative path cannot rot that way,
+    # and on any other machine the old absolute path could never have resolved at all.
+    logo = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "logo_ionic.png")
     return Deck(logo_path=logo, base=base)

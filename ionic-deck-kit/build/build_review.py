@@ -38,7 +38,8 @@ from read_statement import read_statement                                  # noq
 import engine as ENG                                                       # noqa: E402
 import tiers                                                               # noqa: E402
 
-ORDER = {"Sell": 0, "Trim": 1, "Hold": 2, "No View": 3}
+ORDER = {"Sell": 0, "Trim": 1, "Hold (watch)": 2, "Hold": 3, "No View": 4}
+HELD = ("Hold", "Hold (watch)")
 # every module that needs direct equity, plus the ones needing data a statement never carries
 SKIP = {"score_method", "book_scored", "equity_book", "sell_list", "hold_rationale",
         "mcap_positioning", "sector_exposure", "funds_debt", "mf_methodology",
@@ -47,11 +48,21 @@ KEEP_ANNEX = {"holdings_detail", "appendix"}
 
 
 def latest_score_file():
+    """The newest PRODUCTION score file, and a demo one only if there is no production file.
+
+    Never choose between them by filename order. The demo file is dated 2026-08-31 and a production
+    file dated earlier sorts before it, so a plain sort hands a client deck the invented scores while
+    the run still prints the production as-of date it read from a VERSION file next door. The demo is
+    a fallback, and when it is used the output has to say so in words nobody can miss.
+    """
     d = os.path.join(KIT, "scores")
     f = sorted(x for x in os.listdir(d) if x.startswith("ionic_scores_") and x.endswith(".csv"))
-    if not f:
-        raise SystemExit("  no score file in scores/. The kit cannot issue a call without one.")
-    return os.path.join(d, f[-1])
+    real = [x for x in f if not x.upper().endswith("_DEMO.CSV")]
+    if real:
+        return os.path.join(d, real[-1]), False
+    if f:
+        return os.path.join(d, f[-1]), True
+    raise SystemExit("  no score file in scores/. The kit cannot issue a call without one.")
 
 
 def main():
@@ -76,10 +87,26 @@ def main():
         print(f"    {notes['exceptions']} row(s) could not be resolved, written to the exceptions file")
 
     # ---- 2. look up the central calls ------------------------------------------------------------
-    sf = latest_score_file()
+    sf, is_demo = latest_score_file()
     S = pd.read_csv(sf)
-    ver = json.load(open(os.path.join(KIT, "scores", "VERSION.json"), encoding="utf-8"))
+    # The production VERSION.json arrives with the real score file. VERSION_DEMO.json is the tracked
+    # fallback so a fresh clone runs on the demo data without one.
+    # Pair the VERSION with the score file actually chosen. Reading the production VERSION beside a
+    # demo CSV is how a run announces an as-of date that belongs to neither.
+    vp = os.path.join(KIT, "scores", "VERSION_DEMO.json" if is_demo else "VERSION.json")
+    if not os.path.exists(vp):
+        vp = os.path.join(KIT, "scores", "VERSION_DEMO.json")
+    ver = json.load(open(vp, encoding="utf-8"))
     print(f"  scores    : {os.path.basename(sf)}  as of {ver['as_of']}  ({ver.get('kind','')})")
+    if is_demo:
+        print("  " + "!" * 74)
+        print("  !! NO PRODUCTION SCORE FILE FOUND. These calls are INVENTED demo data.")
+        print("  !! Do not send this deck to a client. Ask the desk for the current score file.")
+        print("  " + "!" * 74)
+    stamp = os.path.basename(sf).replace("ionic_scores_", "").replace("_DEMO", "")[:10]
+    if stamp != str(ver.get("as_of")):
+        raise SystemExit(f"  the score file is dated {stamp} but VERSION says {ver.get('as_of')}. "
+                         f"They are not a matched pair; get a fresh set from the desk.")
 
     M = H.merge(S, on="isin", how="left", suffixes=("_stmt", ""))
     M["call"] = M["call"].fillna("No View")
@@ -103,6 +130,33 @@ def main():
     GRAND = float(G["value"].sum())
     G["weight_pct"] = G["value"] / GRAND * 100
 
+    # ---- 3b. the central concentration cap ------------------------------------------------------
+    # A Sell is a judgement on a fund and travels in the score file. A Trim is a judgement on a
+    # WEIGHT, so it cannot: the same scheme at 13% of one book and 2% of another warrants a trim in
+    # the first and nothing in the second. The desk publishes the cap in VERSION.json and it is
+    # applied here, to a book the desk has not seen. Nothing about it is the advisor's to set.
+    G["trim_to_pct"] = None
+    G["trim_value"] = 0.0
+    cap = ver.get("single_scheme_cap_pct")
+    if cap:
+        cap = float(cap)
+        over = G["call"].isin(HELD) & (G["weight_pct"] > cap)
+        for i in G.index[over]:
+            w = G.at[i, "weight_pct"]
+            G.at[i, "trim_to_pct"] = cap
+            G.at[i, "trim_value"] = G.at[i, "value"] - GRAND * cap / 100.0
+            G.at[i, "call"] = "Trim"
+            G.at[i, "rationale"] = (
+                (G.at[i, "rationale"].rstrip() + " ") if G.at[i, "rationale"] else "") + (
+                "At %.1f%% of the portfolio it is above the firm's %.0f%% single-scheme cap, so the "
+                "weight comes down to %.0f%% rather than the fund being sold." % (w, cap, cap))
+        G["_o"] = G["call"].map(ORDER).fillna(9)
+        G = G.sort_values(["_o", "value"], ascending=[True, False]).drop(columns="_o")
+        if over.sum():
+            print("    %d holding(s) above the %.0f%% cap, trimmed back to it" % (over.sum(), cap))
+    else:
+        print("    no single-scheme cap in VERSION.json, so no holding is trimmed on weight")
+
     print(f"  calls     : " + "  ".join(f"{k} {v}" for k, v in G["call"].value_counts().items()))
 
     # ---- 4. build the deck ------------------------------------------------------------------------
@@ -122,14 +176,19 @@ def main():
                   value_inr=float(r.value), cost_inr=float(r.invested or r.value),
                   unrealised_pnl=float((r.value or 0) - (r.invested or r.value or 0)),
                   weight_pct=round(r.weight_pct, 2),
-                  verdict=r.call, action=("Sell" if r.call == "Sell" else
-                                          "Trim" if r.call == "Trim" else "Hold"),
+                  verdict=r.call,
+                  action=("Sell in full" if r.call == "Sell" else
+                          ("Trim to %.0f%% of the portfolio" % r.trim_to_pct)
+                          if (r.call == "Trim" and r.trim_to_pct is not None)
+                          else "Trim" if r.call == "Trim" else "Hold"),
+                  trim_to_pct=(None if r.trim_to_pct is None else float(r.trim_to_pct)),
+                  trim_value_inr=float(r.trim_value or 0),
                   qfra=(None if pd.isna(r.score) else float(r.score)), merit=None,
                   structural_reason=r.rationale, bench_label="", exemplar="-",
                   hit3y=None, alpha_t=None, ter=None, up_capture=None, down_capture=None,
                   max_dd=None, worst_1y=None, sortino=None, calmar=None, cagr3y=None,
                   bench_cagr3y=None, alpha_ann=None, info_ratio=None, r2=None, flags=[],
-                  perf_flag=(r.call in ("Sell", "Trim")))
+                  perf_flag=(r.call in ("Sell", "Trim", "Hold (watch)")))
              for r in G.itertuples()]
 
     ctx = {
@@ -144,7 +203,7 @@ def main():
                    "n_stocks": 0, "n_funds": len(funds),
                    "n_sell": int((G["call"] == "Sell").sum()),
                    "n_trim": int((G["call"] == "Trim").sum()),
-                   "n_hold": int((G["call"] == "Hold").sum()),
+                   "n_hold": int(G["call"].isin(HELD).sum()),
                    "top10_pct": round(G["weight_pct"].nlargest(10).sum(), 1),
                    "lookthrough": {}},
         "house_view": {"stance": {"Domestic equity": "Constructive, quality-biased",
