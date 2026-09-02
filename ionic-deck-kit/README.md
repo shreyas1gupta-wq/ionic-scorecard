@@ -34,6 +34,24 @@ should be covered.
 **Exceptions.** Rows carrying money that the parser could not tie to a scheme. Never zero these out
 by ignoring them. Send them back.
 
+## The calls
+
+Five, and only five:
+
+| Call | What it means |
+|---|---|
+| Sell | Exit the position in full. |
+| Trim | Keep the fund, bring the weight down to the firm's cap. |
+| Hold (watch) | Held for now on the desk's instruction, under review. Not a clean hold. |
+| Hold | Keep it. |
+| No View | The frameworks do not reach this scheme. Not a criticism of it, and not a gap to fill. |
+
+**Trim is not in the score file, and that is deliberate.** A Sell is a judgement on a fund and is the
+same in every portfolio. A Trim is a judgement on a *weight*: the same scheme at 13% of one book and
+2% of another warrants a trim in the first and nothing in the second. So the desk publishes a
+single-scheme cap in `VERSION.json`, and the kit turns a held scheme above that cap into a Trim,
+sized to bring it back to the cap. You do not set the cap and you cannot usefully change it.
+
 ## Where the calls come from
 
 `scores/` holds a file published centrally, keyed on ISIN. It carries the score, the call and the
@@ -46,6 +64,14 @@ holds no scoring logic: no NAV history, no peer construction, no percentile math
 central publishes.
 
 A scheme missing from the file gets No View rather than a guess.
+
+## If you see the demo warning, stop
+
+Without a production score file the kit falls back to invented demo scores and prints a block of
+exclamation marks saying so. That deck is not sendable. Ask the desk for the current file.
+
+The score file and its `VERSION.json` travel together as a pair, and the kit refuses to run if their
+dates disagree. If it does, you have a half-updated `scores/` folder; get a fresh set.
 
 ## Check the date
 

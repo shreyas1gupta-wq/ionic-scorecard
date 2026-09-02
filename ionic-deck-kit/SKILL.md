@@ -17,6 +17,15 @@ the correct answer rather than a problem to solve.
 If the advisor asks why a fund is a Sell, the rationale column is the answer. If they want more than
 that, it is a conversation with the desk.
 
+The vocabulary is Sell, Trim, Hold (watch), Hold, No View. **Hold (watch)** is a held position the
+desk has flagged, not a clean hold, and it is not an invitation for you to soften or harden it.
+
+**Trim never comes from the score file.** It is derived from the single-scheme cap the desk publishes
+in `VERSION.json`: a held scheme above the cap becomes a Trim sized to bring it back to the cap. A
+Sell is a judgement on a fund, the same in every portfolio; a Trim is a judgement on a weight, and
+the same fund is a trim in a concentrated book and nothing in a diversified one. Do not hand-set a
+trim, and do not adjust the cap for a client.
+
 ## Steps
 
 1. Read the statement with `parse/read_statement.py`. It finds holdings by ISIN rather than by column
@@ -41,6 +50,10 @@ name. Do not match schemes by string similarity under any circumstances.
 
 **Rows without an ISIN.** They go to the exceptions file. Never drop one quietly, and never guess
 which scheme it was.
+
+**The demo score file is a trap.** It is dated later than the production file on purpose so nobody
+mistakes it for real, and the kit prefers a production file whenever one is present. If the run
+prints the invented-data warning, the deck is not sendable at any price. Say so and stop.
 
 **Debt, arbitrage, gold and insurance-linked plans.** These are not taxed at equity-fund rates and
 several carry no view at all. If the score file says No View, leave it at No View.
