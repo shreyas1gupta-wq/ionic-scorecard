@@ -121,10 +121,16 @@ def main():
         print(f"    {len(miss)} scheme(s) absent from the score file, rendered as No View: {miss}")
 
     # ---- 3. one call per SCHEME, never per plan --------------------------------------------------
+    for _c in ("consistency", "hit_rate", "months"):
+        if _c not in M.columns:
+            M[_c] = None          # an older score file simply has no consistency; the page self-gates
     G = (M.groupby(["isin", "scheme", "category", "call", "rationale"], dropna=False)
          .agg(value=("value", "sum"), invested=("invested", "sum"),
               folios=("folio", "nunique"), holders=("holder", "nunique"),
-              score=("score", "first")).reset_index())
+              score=("score", "first"),
+              consistency=("consistency", "first"),
+              hit_rate=("hit_rate", "first"),
+              months=("months", "first")).reset_index())
     G["_o"] = G["call"].map(ORDER).fillna(9)
     G = G.sort_values(["_o", "value"], ascending=[True, False]).drop(columns="_o")
     GRAND = float(G["value"].sum())
@@ -184,6 +190,12 @@ def main():
                   trim_to_pct=(None if r.trim_to_pct is None else float(r.trim_to_pct)),
                   trim_value_inr=float(r.trim_value or 0),
                   qfra=(None if pd.isna(r.score) else float(r.score)), merit=None,
+                  # How STEADILY the fund got there, as against how far ahead it finished. Context
+                  # for the reader, never a verdict: the desk's call always wins (Principal
+                  # 2026-09-03), and a Sell sitting high here is a fund that is reliably behind.
+                  consistency=(None if pd.isna(r.consistency) else float(r.consistency)),
+                  hit_rate=(None if pd.isna(r.hit_rate) else float(r.hit_rate)),
+                  cons_months=(None if pd.isna(r.months) else int(r.months)),
                   structural_reason=r.rationale, bench_label="", exemplar="-",
                   hit3y=None, alpha_t=None, ter=None, up_capture=None, down_capture=None,
                   max_dd=None, worst_1y=None, sortino=None, calmar=None, cagr3y=None,

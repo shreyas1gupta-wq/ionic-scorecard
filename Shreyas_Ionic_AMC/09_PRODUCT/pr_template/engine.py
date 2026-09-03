@@ -60,6 +60,13 @@ MODULES = [
     ("fund_book_scored",   2, "The Fund Book",  True),
     ("funds_equity",       2, "The Fund Book",  True),
     ("funds_hybrid",       2, "The Fund Book",  True),
+    # quality_consistency (2026-09-03): the score says how far ahead of its own category a fund
+    # finished; this says how steadily it got there. Rank correlation between the two is +0.28, so
+    # it is new information rather than the score restated. Self-gates to nothing below four funds
+    # carrying both readings. Steadiness is CONTEXT and never a verdict: 37% of the schemes this
+    # desk rates Sell sit in the top half on it, which is what "reliably behind" means, and the
+    # call always wins (Principal 2026-09-03).
+    ("quality_consistency", 2, "The Fund Book",  True),
     # funds_debt: NEW (FM #22) -- YTM / modified duration / expense / rating for debt-category
     # funds. Self-gates to 0 slides when the book holds none (common, not an error).
     ("funds_debt",         2, "The Fund Book",  True),
