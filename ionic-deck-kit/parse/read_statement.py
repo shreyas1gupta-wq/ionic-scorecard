@@ -30,6 +30,24 @@ FOLIO_WORDS = ["folio"]
 SKIP_ROW_WORDS = ("total", "grand total", "sub total", "subtotal", "sum")
 
 
+def _is_total_row(raw):
+    """A totals row, tested cell by cell rather than by substring on the whole line.
+
+    Matching "total" anywhere in the joined row text throws away real holdings: "Navi US TOTAL Stock
+    Market Fund of Fund" is a fund, not a totals line, and it was being dropped silently along with
+    its Rs 2.12 crore. Every AMC with a "Total Market" index fund hits this. A genuine totals row
+    carries the word as a LABEL on its own, so require a cell to be that label and nothing else.
+    """
+    for c in raw:
+        if c is None:
+            continue
+        t = re.sub(r"[^a-z ]", " ", str(c).strip().lower())
+        t = re.sub(r"\s+", " ", t).strip()
+        if t in SKIP_ROW_WORDS:
+            return True
+    return False
+
+
 def _norm(x):
     return re.sub(r"\s+", " ", str(x)).strip().lower()
 
@@ -51,8 +69,41 @@ def _num(x):
     return None if v != v else v
 
 
+# Words that only ever appear in a HEADER, never in a holding's name.
+_HEADER_WORDS = tuple(set(["isin"] + VALUE_WORDS + COST_WORDS + UNIT_WORDS
+                          + NAME_WORDS + HOLDER_WORDS + FOLIO_WORDS
+                          + ["asset class", "category", "sub-category", "type", "plan", "nav"]))
+
+
 def _find_header(df, isin_col):
-    """The header is the nearest row ABOVE the first ISIN whose cells are mostly words."""
+    """The header is the row whose cells read like COLUMN NAMES, found by vocabulary.
+
+    This used to take the nearest row above the first ISIN with three or more wordy cells. That
+    mistakes a data row for the header on any statement whose fund block does not come first: a
+    book listing REITs, an AIF and nineteen direct equities before its funds put the first ISIN on
+    row 31, and the row above it, an ordinary holding, was accepted as the header. Every column pick
+    then failed, and because rows above the supposed header are skipped, twenty-seven holdings
+    carrying Rs 22.4 crore vanished from the read without a word.
+
+    So score every row on how many of its cells are header vocabulary and take the best one. A real
+    header says "ISIN" and "Market Value"; a data row says "Embassy Office Parks REIT".
+    """
+    best, best_score = None, 0
+    for i in range(min(len(df), 60)):
+        cells = [_norm(c) for c in df.iloc[i].tolist()]
+        score = sum(1 for c in cells if c and c != "nan"
+                    and any(w == c or w in c for w in _HEADER_WORDS))
+        # a header is words, not numbers
+        if any(c and c != "nan" and _num(c) is not None for c in cells):
+            score -= 1
+        if score > best_score:
+            best, best_score = i, score
+    if best is not None and best_score >= 2:
+        cells = [_norm(c) for c in df.iloc[best].tolist()]
+        return best, {j: c for j, c in enumerate(cells) if c and c != "nan"}
+
+    # nothing looked like a header. Fall back to the old rule rather than reading nothing at all,
+    # and start the data block at the top so no row is silently skipped.
     first = None
     for i in range(len(df)):
         v = df.iat[i, isin_col]
@@ -122,11 +173,23 @@ def read_statement(path):
                 # a row with money on it but no ISIN, sitting inside the data block, is worth flagging
                 if hrow is not None and i > hrow and any(_num(x) is not None and _num(x) > 1000
                                                          for x in raw):
-                    if not any(w in joined for w in SKIP_ROW_WORDS):
+                    if not _is_total_row(raw):
+                        # Capture the VALUE too, not just the text. A book is rarely all mutual
+                        # funds: direct equity, REITs, AIFs and bonds carry no ISIN this parser can
+                        # use, and if their money never reaches the caller then every weight is
+                        # computed against a denominator that is missing them. On the book that
+                        # prompted this, 39% of the value sat outside the funds, which would have
+                        # inflated every weight by 1.63x and over-fired the single-scheme cap.
+                        ev = _num(raw[c_val]) if c_val is not None else None
+                        if ev is None:
+                            en = [n for n in (_num(x) for x in raw) if n is not None and n > 0]
+                            ev = max(en) if en else None
                         exc.append(dict(sheet=sheet, row=i + 1, reason="no ISIN on the row",
-                                        text=joined[:160]))
+                                        name=" ".join(str(x).strip() for x in raw
+                                                      if x is not None and not _num(x))[:80],
+                                        value=ev, text=joined[:160]))
                 continue
-            if any(w in joined for w in SKIP_ROW_WORDS):
+            if _is_total_row(raw):
                 continue
 
             val = _num(raw[c_val]) if c_val is not None else None
@@ -162,11 +225,18 @@ def read_statement(path):
                 nums = [n for n in (_num(x) for x in df.iloc[i].tolist()) if n is not None]
                 if nums:
                     stated = max(stated or 0, max(nums))
+    # Reconcile the WHOLE READ against the statement's own total, funds plus everything the parser
+    # could not tie to a scheme. Comparing the fund sleeve alone reports a 39% shortfall on a book
+    # that is 61% funds, which is not a failed read: it is the rest of the portfolio. That false
+    # alarm is worse than none, because the SKILL tells an advisor to stop when this says MISMATCH.
     parsed = float(H["value"].sum()) if len(H) else 0.0
+    other = 0.0
+    if exc:
+        other = float(sum(e.get("value") or 0 for e in exc))
     recon = None
     if stated:
-        gap = parsed - stated
-        recon = dict(stated=stated, parsed=parsed, gap=gap,
+        gap = (parsed + other) - stated
+        recon = dict(stated=stated, parsed=parsed, other=other, gap=gap,
                      gap_pct=(gap / stated * 100) if stated else None,
                      ok=abs(gap) <= max(1.0, 0.005 * stated))
     notes = dict(sheets_with_holdings=sheets_used,

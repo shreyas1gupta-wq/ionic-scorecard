@@ -133,7 +133,20 @@ def main():
               months=("months", "first")).reset_index())
     G["_o"] = G["call"].map(ORDER).fillna(9)
     G = G.sort_values(["_o", "value"], ascending=[True, False]).drop(columns="_o")
-    GRAND = float(G["value"].sum())
+    # THE DENOMINATOR IS THE WHOLE BOOK, not the part this kit can score. Holdings the parser could
+    # not tie to a scheme still belong to the client, and a weight that ignores them is wrong in the
+    # direction that matters: it inflates every fund's share and trips the single-scheme cap on
+    # positions that are not actually concentrated.
+    FUNDS_VAL = float(G["value"].sum())
+    OTHER_VAL = 0.0
+    if len(E) and "value" in E.columns:
+        OTHER_VAL = float(pd.to_numeric(E["value"], errors="coerce").fillna(0).sum())
+    GRAND = FUNDS_VAL + OTHER_VAL
+    if OTHER_VAL > 0:
+        print(f"    Rs {FUNDS_VAL:,.0f} in schemes this kit can score, plus Rs {OTHER_VAL:,.0f} "
+              f"the parser could not tie to a scheme")
+        print(f"    weights and the cap are computed on the full Rs {GRAND:,.0f}, "
+              f"so the fund sleeve is {FUNDS_VAL / GRAND * 100:.1f}% of the book")
     G["weight_pct"] = G["value"] / GRAND * 100
 
     # ---- 3b. the central concentration cap ------------------------------------------------------
@@ -211,7 +224,9 @@ def main():
                 "locked_in_cap_pct": None, "cash_cap_pct": None, "alloc_bands": {},
                 "mcap_bands": {}, "risk_tier": None, "objective": None, "horizon_yrs": None},
         "funds": funds, "equity": [], "fund_churn": {},
-        "totals": {"grand_inr": GRAND, "eq_pct": 0.0, "mf_pct": 100.0, "cash_pct": 0.0,
+        "totals": {"grand_inr": GRAND, "eq_pct": 0.0,
+                   "mf_pct": round(FUNDS_VAL / GRAND * 100, 1) if GRAND else 0.0,
+                   "cash_pct": 0.0,
                    "n_stocks": 0, "n_funds": len(funds),
                    "n_sell": int((G["call"] == "Sell").sum()),
                    "n_trim": int((G["call"] == "Trim").sum()),
@@ -232,6 +247,9 @@ def main():
                          "reason": "Outside the coverage of the firm's fund-quality frameworks."}
                         for r in G[G["call"] == "No View"].itertuples()],
             "flags": ([f"Scores are as of {ver['as_of']}."] +
+                      ([f"Rs {OTHER_VAL:,.0f}, {OTHER_VAL / GRAND * 100:.1f}% of the book, is held "
+                        f"outside the schemes this review covers and carries no view here. It is "
+                        f"counted in every weight on these pages."] if OTHER_VAL > 0 else []) +
                       ([f"{len(miss)} scheme(s) in this statement are absent from the score file and "
                         f"carry no view."] if miss else []) +
                       ([f"{notes['exceptions']} statement row(s) could not be resolved and are listed "
