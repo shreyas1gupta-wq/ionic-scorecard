@@ -271,7 +271,11 @@ def main():
                 return a.strip()
         return None
 
-    funds = [dict(name=r.scheme, isin=r.isin, category="equity", plan="",
+    funds = [dict(name=r.scheme, isin=r.isin,
+                  category=RL.engine_category(
+                      RL.sub_for_fund(r.scheme, r.category),
+                      str(getattr(r, "asset_class", "") or "")),
+                  plan="",
                   amc=(_amc(r.scheme) or "-"),
                   asset_class=(str(getattr(r, "asset_class", "") or "").strip() or "Equity"),
                   sebi_category=r.category,

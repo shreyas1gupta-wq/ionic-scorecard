@@ -5,6 +5,7 @@ does NOT invent MF methodology; recommendations come from the Ionic MF desk (QFR
 long-term SIP; the 6m capture-ratio overlay for short-term/alpha, see qfra1-rerun skill).
 This slide shows 3-5y performance vs benchmark + the desk's call, nothing more."""
 import charts as CH
+from lib import lookthrough as LT
 from slidekit import NAVY, INK, SLATE, HOLD, SELL, AMBER, GOLD, SERIF, SANS, ML, UW, RX
 
 VDISP = {"Redeem-to-Direct": "Switch"}  # display label only (Principal 2026-07-27); internal verdict code unchanged
@@ -26,7 +27,7 @@ def render(deck, ctx, tier):
     reg = tier.get("register", "std")
     simple = reg == "simple"
     as_of = ctx["client"]["as_of"]
-    efunds = [f for f in ctx["funds"] if f["category"] in ("equity", "passive")]
+    efunds = [f for f in ctx["funds"] if LT.is_equity_fund(f)]
     eyebrow, title = LABELS.get(reg, LABELS["std"])
     s = deck.content(2, "The Fund Book", eyebrow, title)
     deck.scope_tag(s, f"MF sleeve · equity & index schemes · Direct-plan NAV, each scheme vs its own "

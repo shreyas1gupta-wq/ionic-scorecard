@@ -9,7 +9,8 @@ stands, built from verdict/flags/structural_reason/worst_1y/down_capture. rollin
 dropped with it: three commentary cards plus the metric table fill the slide and the chart
 crowded it. The _synth_nav reconstruction is gone with the charts.
 """
-from slidekit import NAVY, INK, SLATE, HOLD, SELL, AMBER, SERIF, SANS, ML, UW
+from slidekit import (NAVY, INK, SLATE, HOLD, SELL, AMBER, SERIF, SANS, ML, UW,
+                      clip_sentences)
 
 VDISP = {"Redeem-to-Direct": "Switch"}  # display label only (Principal 2026-07-27); internal verdict code unchanged
 _ORDER = {"Exit": 0, "Switch": 1, "Trim": 2, "Redeem-to-Direct": 3, "Hold": 4}
@@ -74,6 +75,27 @@ def _sort_col(v):
     if v is None:
         return INK
     return HOLD if v >= 1 else (SELL if v < 0 else INK)
+
+
+def _fit_body(deck, f, simple, cw, max_h):
+    """The bias text, trimmed to whole sentences that ACTUALLY fit the card it goes in.
+
+    The card is capped at max_h and the Trim branch appends the analyst's own rationale on top of an
+    already long sentence, so on a book whose rationale is a full framework line the body ran past
+    its box. This only surfaced once hybrid funds were categorised correctly and the page began
+    rendering at all.
+
+    A fixed character budget is the wrong tool: the card is narrower when three funds share the row
+    than when one does, so the same string fits in one book and spills in another. Ask the layout
+    engine instead, and step the budget down until it says the text fits. Clipping to whole
+    sentences is the house rule, so the text ends on its own full stop rather than mid-clause.
+    """
+    body = _bias_body(f, simple)
+    for budget in (10000, 430, 360, 300, 250, 200, 160):
+        cand = body if budget >= len(body) else clip_sentences(body, budget)
+        if deck.callout_h(cw, cand, min_h=0.58, max_h=max_h) < max_h - 0.01:
+            return cand
+    return clip_sentences(body, 160)
 
 
 def _bias_body(f, simple):
@@ -181,7 +203,7 @@ def _bias_body(f, simple):
 def _bias_cards(deck, s, funds, y, h, simple):
     gap = 0.15
     cw = (UW - gap * (len(funds) - 1)) / max(len(funds), 1)
-    bodies = [_bias_body(f, simple) for f in funds]
+    bodies = [_fit_body(deck, f, simple, cw, 2.4) for f in funds]
     # Size the row to its OWN longest body instead of trusting the caller's fixed h. The passed
     # height assumed a short body; a No-View fund's text ("Our bias is No View. Full risk numbers
     # aren't available for this fund yet." plus its reason) overran the card by 0.46in and spilled
@@ -279,7 +301,8 @@ def render(deck, ctx, tier):
     if cards:
         gap = 0.15
         cw = (UW - gap * (len(cards) - 1)) / max(len(cards), 1)
-        need = max(deck.callout_h(cw, _bias_body(f, False), min_h=0.58, max_h=2.4) for f in cards)
+        need = max(deck.callout_h(cw, _fit_body(deck, _f, False, cw, 2.4), min_h=0.58, max_h=2.4)
+                   for _f in cards)
     if cards and need > (6.30 - cy):
         deck.source(s, SRC)
         s2 = deck.content(2, "The Fund Book", eyebrow, "Our bias, fund by fund")

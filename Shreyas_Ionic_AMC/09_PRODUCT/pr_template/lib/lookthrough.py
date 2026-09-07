@@ -43,6 +43,18 @@ _GROSS_EQUITY_NAME_KEYWORDS = ("balanced advantage", "multi-asset", "multi asset
                                "dynamic asset allocation", "arbitrage", "equity savings")
 
 
+def is_equity_fund(f):
+    """One definition of an equity-style fund, shared by every page that needs it.
+
+    funds_equity filtered on the literal pair ("equity", "passive") while this library sorted on a
+    richer set. While the kit handed every fund the single coarse string "equity" both happened to
+    agree; once the real category was derived, a large-cap fund reads "large" and passed the library
+    but failed the page, so the equity-funds pages went from four to one and twenty-four scored
+    equity funds vanished from the fund book.
+    """
+    return (f.get("category") or "") in _EQUITY_FUND_CATS
+
+
 def other_holdings(ctx):
     """Everything held that is neither a direct share nor a mutual-fund scheme: AIFs, private
     equity, a PMS, REITs, a ULIP, direct bonds and deposits.

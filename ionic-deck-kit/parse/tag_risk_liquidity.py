@@ -213,3 +213,45 @@ def attach(rows, bands, mcap, kind):
         r["liq_priority"] = None if pd.isna(p) else int(p)
         placed += 1
     return placed, gap
+
+
+# The slide engine buckets a fund by a COARSE category string, and lib/lookthrough.py sorts those
+# into equity, hybrid and debt. The kit used to hand every fund the literal string "equity", which
+# is itself a member of _EQUITY_FUND_CATS, so every gilt, liquid and corporate-bond fund in a book
+# counted as equity in the look-through. On this book that was Rs 36.9 crore, and it is why the
+# equity share appeared as 82% on one page against a true 75.9% on another.
+ENGINE_CATEGORY = {
+    "Large Cap Fund": "large",
+    "Large & Mid Cap Fund": "largemid",
+    "Flexi Cap Fund": "flexi",
+    "Focused Fund": "focused",
+    "Mid Cap Fund": "mid",
+    "Small Cap Fund": "small",
+    "Thematic / Sectoral Fund": "thematic_mnc",
+    "Factor / Smart Beta Fund": "passive",
+    "Index Fund / ETF - Broad Market": "passive",
+    "International Fund / FoF": "passive",
+    "ELSS": "elss",
+    "Arbitrage Fund": "hybrid",
+    "Equity Savings Fund": "hybrid",
+    "Balanced Advantage / Dynamic Asset Allocation": "hybrid",
+    "Gold / Silver ETF or FoF": "passive",
+    "Overnight Fund": "overnight",
+    "Liquid Fund": "overnight",
+    "Money Market / Ultra Short / Low Duration": "debt_short",
+    "Short Duration / Banking & PSU Debt": "debt_short",
+    "Corporate Bond Fund": "debt_short",
+    "Credit Risk Fund": "debt",
+    "Target Maturity Index Fund (G-Sec / SDL / PSU)": "debt_short",
+    "Gilt Fund / Constant Maturity Gilt": "gilt",
+    "Dynamic Bond Fund": "debt",
+}
+
+
+def engine_category(sub, asset_class=""):
+    """The coarse category the slide engine buckets on, from the framework sub-category."""
+    if sub in ENGINE_CATEGORY:
+        return ENGINE_CATEGORY[sub]
+    # Unknown scheme: fall back to the asset class the statement gave, never to "equity".
+    c = (asset_class or "").strip().lower()
+    return "debt" if c == "fixed income" else "hybrid" if c == "alternates" else "flexi"
