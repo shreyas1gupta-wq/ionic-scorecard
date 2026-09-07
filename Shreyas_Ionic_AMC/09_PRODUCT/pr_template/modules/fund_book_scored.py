@@ -10,7 +10,8 @@ priority actions, then Holds), using only existing table cell types — no new p
 change, per the spec's explicit instruction."""
 from slidekit import NAVY, INK, SLATE, HOLD, SELL, AMBER, SERIF, ML, UW, short_name
 
-MERIT_COL = {"A": HOLD, "B": NAVY, "C": AMBER, "D": SELL}
+MERIT_COL = {"A": HOLD, "B": NAVY, "C": AMBER, "D": SELL,
+             "Top": HOLD, "Middle": NAVY, "Bottom": SELL}
 VDISP = {"Redeem-to-Direct": "Switch"}  # display label only (Principal 2026-07-27); internal verdict code unchanged
 # flag chips read as PLAIN WORDS (leak audit 2026-07-26), never engine codes; all <=9 chars
 FLAB = {"CLOSET_INDEX": "INDEX HUG", "NEG_ALPHA": "TRAILS", "DOWN_CAP_HI": "DOWNSIDE",
@@ -28,8 +29,8 @@ LABELS = {
 }
 
 
-def _short(name, n=27):
-    return short_name(name, n)
+def _short(name, n=None):
+    return short_name(name, n or 27)
 
 
 _PER_PAGE = 9   # proven fit: 2.0 + 0.33 header + 9*0.40 rows = 5.93, clears the 6.02 read line
@@ -130,10 +131,19 @@ def render(deck, ctx, tier):
                 rows.append(row)
             deck.table(s, ML, 2.0, UW, cols, rows, rowh=0.40, fs=11, hfs=9)
         else:
-            ncols = 8
-            cols = [("Scheme", 0.22, "l"), ("Category", 0.09, "l"), ("Plan", 0.06, "c"),
-                    ("Wt %", 0.06, "r"), ("Fund score /100", 0.12, "l"), ("Grade", 0.06, "c"),
-                    ("Watch-outs", 0.20, "l"), ("Verdict", 0.10, "c")]
+            # Watch-outs is a per-scheme flag list. Where the score file publishes none, the column
+            # rendered a dash on every row of every page while scheme names two columns to its left
+            # were being cut mid-word. A column that can say nothing gives its width to one that
+            # can.
+            _any_flags = any(f.get("flags") for _k, f in
+                             [(k, i) for k, i in chunk if k != "sub"])
+            ncols = 8 if _any_flags else 7
+            cols = ([("Scheme", 0.22, "l"), ("Category", 0.09, "l"), ("Plan", 0.06, "c"),
+                     ("Wt %", 0.06, "r"), ("Fund score /100", 0.12, "l"), ("Grade", 0.06, "c"),
+                     ("Watch-outs", 0.20, "l"), ("Verdict", 0.10, "c")] if _any_flags else
+                    [("Scheme", 0.38, "l"), ("Category", 0.11, "l"), ("Plan", 0.06, "c"),
+                     ("Wt %", 0.06, "r"), ("Fund score /100", 0.16, "l"), ("Grade", 0.09, "c"),
+                     ("Verdict", 0.14, "c")])
             if has_subheads:
                 # Watch-outs kept WIDER than the no-priority layout, not narrower: a 3-flag row
                 # (e.g. DEEP FALL/TRAILS/OVERSIZED) overlapped into Verdict the first time this
@@ -151,9 +161,21 @@ def render(deck, ctx, tier):
                 fcell = ("flags", [FLAB.get(x, x[:9]) for x in f["flags"]]) if f["flags"] else ("c", "-", SLATE)
                 m = f["merit"]
                 grade_cell = ("c", m, MERIT_COL.get(m, INK), True) if m else ("c", "-", SLATE)
-                row = [_short(f["name"]), f["category"].replace("_", " ").title(), f["plan"][:3],
-                       f"{f['weight_pct']:.1f}", ("bar", f["qfra"]), grade_cell, fcell,
-                       ("pill", VDISP.get(v, v), v)]
+                # A real holding printed as "0.0" reads as a closed position, and "Uns" is the
+                # word "Unstated" cut to three characters rather than a plan.
+                _w = f["weight_pct"] or 0.0
+                # Keyed on the MONEY, not the rounded weight: a Rs 17,552 position on a Rs 577
+                # crore book rounds to 0.00% and printed "0.0", which reads as a closed position
+                # beside a live Sell call.
+                _wtxt = ("<0.1" if _w < 0.05 and (f.get("value_inr") or 0) > 0
+                         else f"{_w:.1f}")
+                _plan = {"Direct": "Dir", "Regular": "Reg"}.get(str(f.get("plan") or "").strip(), "-")
+                row = [_short(f["name"], 46 if ncols == 7 else None),
+                       f["category"].replace("_", " ").title(), _plan,
+                       _wtxt, ("bar", f["qfra"]), grade_cell]
+                if ncols != 7:
+                    row.append(fcell)
+                row.append(("pill", VDISP.get(v, v), v))
                 if has_subheads:
                     prio = f.get("sell_priority")
                     row.append(("c", prio, (SELL if prio == "High" else (AMBER if prio == "Low" else SLATE)), True)

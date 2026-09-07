@@ -28,10 +28,22 @@ def render(deck, ctx, tier):
 
     # ---- aggregate weights by mcap band, % of the direct-equity sleeve ----
     agg = {b: 0.0 for b in _BUCKETS}
+    # A share the market-cap file cannot place used to default to "Large", so a name the desk has
+    # never sized was counted as a large cap and inflated the one bucket a reader takes as the
+    # book's ballast. An unplaced name is held out of the distribution and its share is reported,
+    # because "we do not know" is a different statement from "it is a large cap".
+    unplaced_w, unplaced_n = 0.0, 0
     for e in eq:
-        b = e.get("mcap_band") or "Large"
+        b = e.get("mcap_band")
+        if b not in agg:
+            unplaced_w += e["weight_pct"] or 0.0
+            unplaced_n += 1
+            continue
         agg[b] = agg.get(b, 0.0) + e["weight_pct"]
-    eq_total = sum(agg.values()) or 1.0
+    eq_total = sum(agg.values())
+    if not eq_total:
+        # Nothing placed at all: there is no distribution to draw and the deck says so elsewhere.
+        return 0
     # a 0.0% bucket is dead ink as a chart row — drop it, note it in the source line
     pairs = [(b, 100.0 * agg[b] / eq_total) for b in _BUCKETS if b in agg]
     dropped = [b for b, v in pairs if v < 0.05]
@@ -73,6 +85,10 @@ def render(deck, ctx, tier):
                  "MID / SMALL VIEW" if reg != "simple" else "OUR VIEW", view, kind="human")
 
     drop_note = f" No {'/'.join(dropped).lower()}-cap exposure." if dropped else ""
+    _unplaced_note = ("" if not unplaced_n else
+                      " %d direct holding(s), %.1f%% of the sleeve, are not placed in a cap band "
+                      "by the desk's market-cap file and are held out of this distribution."
+                      % (unplaced_n, unplaced_w))
     deck.source(s, f"Source: client holdings as of {as_of}. Weights as % of the direct-equity sleeve; "
-                   f"bands per SEBI/AMFI classification.{drop_note}")
+                   f"bands per SEBI/AMFI classification.{drop_note}{_unplaced_note}")
     return 1

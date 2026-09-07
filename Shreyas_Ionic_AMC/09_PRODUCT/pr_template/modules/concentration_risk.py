@@ -112,8 +112,13 @@ def render(deck, ctx, tier):
     # fit even short copy above the churn/AMC blocks; the fact still gets a permanent line,
     # just not its own box (see PROGRESS_FM_REVIEW_BUILD_2026-08-05.md for the arithmetic) ----
     sect, sect_pct, sgap_pct, sgap_n = LT.max_sector_lookthrough(ctx)
-    sect_line = (f"Largest sector incl. funds: {sect} {sect_pct:.0f}% (see Sector Exposure). "
-                if sect else "")
+    # "(see Sector Exposure)" pointed at a page this build deliberately does not render, so the
+    # reader was sent looking for something that is not in the document. The pointer is made only
+    # when the page it points at is actually in the deck, which the engine's probe pass records.
+    _has_sector_page = bool((ctx.get("_rendered") or {}).get("sector_exposure"))
+    sect_line = (f"Largest sector incl. funds: {sect} {sect_pct:.0f}%"
+                 + (" (see Sector Exposure). " if _has_sector_page else ". ")
+                 if sect else "")
 
     ips_note = ("IPS single-scheme guideline." if ctx["ips"].get("on_file", True) else
                 "Guideline per house risk policy, no client IPS on file yet.")

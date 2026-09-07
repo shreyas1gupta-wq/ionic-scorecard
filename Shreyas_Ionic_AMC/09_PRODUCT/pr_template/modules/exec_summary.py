@@ -48,7 +48,25 @@ def render(deck, ctx, tier):
     # cost is unknown, which is not the same statement as "every scheme is already Direct".
     n_regular = int(ctx["cost"].get("n_regular") or 0)
     foreign_gap = abs(hv.get("Foreign", -12.0))
-    cap = ips["single_name_cap_pct"]
+    # .get, because engine.build swallows a KeyError here and takes the whole executive summary
+    # out of the deck with nothing on the deck to say it is missing.
+    cap = ips.get("single_name_cap_pct")
+    # WHERE the Sell calls are, and what they are. "02 . Equity" was hardcoded on a deck whose
+    # section 02 is the Fund Book and which carries no Equity Book at all, and the sells here are
+    # schemes rather than shares.
+    _n_fund_sell = sum(1 for f in (ctx.get("funds") or [])
+                       if str(f.get("verdict") or "").strip() == "Sell")
+    _n_eq_sell = sum(1 for e in (ctx.get("equity") or [])
+                     if str(e.get("rec") or "").strip() == "Sell")
+    if _n_fund_sell and not _n_eq_sell:
+        _sell_gap = f"{_n_fund_sell} scheme(s) carry a Sell call, part of the fund actions below."
+        _sell_ref = "02 · Funds"
+    elif _n_eq_sell and not _n_fund_sell:
+        _sell_gap = f"{_n_eq_sell} holding(s) carry a Sell call."
+        _sell_ref = "03 · Equity"
+    else:
+        _sell_gap = (f"{_n_eq_sell} share(s) and {_n_fund_sell} scheme(s) carry a Sell call.")
+        _sell_ref = "04 · Actions"
     # concentration row must be computed, not fabricated (2026-08-02 fix: a hardcoded
     # ">11%" breach claim survived from an earlier client's numbers -- this book's real
     # top-2 direct-equity weight is well inside the cap, with zero names over it)
@@ -140,8 +158,8 @@ def render(deck, ctx, tier):
         rows = [
             conc_row,
             [("b", "Weak holdings"),
-             f"{t['n_sell']} holdings carry a Sell call.",
-             ("c", "Sell all of them, in a planned order.", NAVY), "02 · Equity"],
+             _sell_gap,
+             ("c", "Sell all of them, in a planned order.", NAVY), _sell_ref],
             foreign_row,
             fee_row,
             fundline_row,
@@ -194,8 +212,8 @@ def render(deck, ctx, tier):
         rows = [
             conc_row,
             [("b", "Sell programme"),
-             f"{t['n_sell']} holdings carry a Sell call.",
-             ("c", "Exit all {n}, sliced by liquidity.".format(n=t["n_sell"]), NAVY), "02 · Equity"],
+             _sell_gap,
+             ("c", "Exit all {n}, sliced by liquidity.".format(n=t["n_sell"]), NAVY), _sell_ref],
             foreign_row,
             fee_row,
             fundline_row,

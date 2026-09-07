@@ -3,7 +3,7 @@
 assumptions, with the book's Today mix and a Proposed mix marked (v8 #30)."""
 import charts as CH
 from slidekit import SELL, HOLD, NAVY, ML, UW, RX
-from modules.ips_summary import _lookthrough_mix
+from lib import lookthrough as LT
 
 # matplotlib-safe hex mirrors of the house palette (RGBColor cannot cross into matplotlib)
 SELL_HEX = "#E0402F"; NAVY_HEX = "#1B27A3"
@@ -26,7 +26,10 @@ def render(deck, ctx, tier):
     # IPS page (direct equity + equity-oriented funds, not just direct-equity-only) -- a client
     # with most of their equity exposure inside funds was understated here before. Foreign/gold
     # are not separately tracked yet -- 0, not fabricated.
-    true_equity, true_hybrid_debt, true_cash = _lookthrough_mix(ctx)
+    # ips_summary's private copy of this maths was deleted when the shared library became the
+    # single source; importing it kept this module un-importable, which the engine then reported
+    # as "not implemented".
+    true_equity, true_hybrid_debt, true_cash, _oth = LT.full_lookthrough_mix(ctx)
     tot = (true_equity + true_hybrid_debt + true_cash) or 100.0
     eq_share = true_equity / tot
     today = [round(eq_share, 3), 0.0, round(true_hybrid_debt / tot, 3), round(true_cash / tot, 3)]

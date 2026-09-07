@@ -290,7 +290,15 @@ def main():
                           else "Trim" if r.call == "Trim" else "Hold"),
                   trim_to_pct=(None if r.trim_to_pct is None else float(r.trim_to_pct)),
                   trim_value_inr=float(r.trim_value or 0),
-                  qfra=(None if pd.isna(r.score) else float(r.score)), merit=None,
+                  qfra=(None if pd.isna(r.score) else float(r.score)),
+                  # The GRADE column rendered "-" on every row of every page because nothing set
+                  # it. It is not a new judgement: the score is the share of the scheme's own peer
+                  # group it beat, and the desk's published rule cuts that into thirds, which is
+                  # exactly the legend the contents page prints. Restating the desk's own rule in
+                  # words beside its own number is what the column was for.
+                  merit=(None if pd.isna(r.score) else
+                         ("Bottom" if float(r.score) < 100.0 / 3 else
+                          "Top" if float(r.score) >= 200.0 / 3 else "Middle")),
                   # How STEADILY the fund got there, as against how far ahead it finished. Context
                   # for the reader, never a verdict: the desk's call always wins (Principal
                   # 2026-09-03), and a Sell sitting high here is a fund that is reliably behind.

@@ -310,6 +310,13 @@ def render(deck, ctx, tier):
         counts[k] = counts.get(k, 0) + 1
 
     acting = [r for r in rows if r["call"] in ACTING]
+    # This page can only plot a fund that has BOTH readings, so a scheme the desk is acting on
+    # without a score does not appear in `rows` and silently vanished from a list headed "funds we
+    # would act on". A reader counted three where the deck recommends four. The shortfall is named
+    # under the table rather than left to be noticed.
+    _acting_total = sum(1 for f in ctx["funds"]
+                        if str(f.get("verdict") or "").strip() in ACTING)
+    _unscored_acting = max(0, _acting_total - len(acting))
     cutting = [r for r in rows if r["call"] in ("Sell", "Trim")]
     steady_cut = [r for r in cutting if r["cons"] >= SPLIT]
     steady_val = sum(r["value"] for r in steady_cut)
@@ -364,11 +371,18 @@ def render(deck, ctx, tier):
             for r, nm in zip(shown, names)]
     if body:
         ty = deck.table(s, cx, 2.20, cw, cols, body, rowh=0.34, fs=8, hfs=7)
+        _tail = []
         if len(ranked) > 5:
-            rest = len(ranked) - 5
-            deck.txt(s, cx, ty + 0.06, cw, 0.24,
-                     [(f"and {rest} more, each listed in the fund book.", SERIF, 8,
-                       PSLATE, False, True)])
+            _tail.append(f"and {len(ranked) - 5} more, each listed in the fund book")
+        if _unscored_acting:
+            _tail.append(f"{_unscored_acting} further scheme"
+                         + ("" if _unscored_acting == 1 else "s")
+                         + " we would act on carries no score, so it cannot be placed here; "
+                           "it is on the fund-actions page")
+        if _tail:
+            deck.txt(s, cx, ty + 0.06, cw, 0.34,
+                     [("; ".join(_tail).capitalize() + ".", SERIF, 8, PSLATE, False, True)],
+                     ls=1.0)
     else:
         deck.txt(s, cx, 2.24, cw, 0.60,
                  [("Every scored fund here is a Hold. Steadiness stays context on this page "

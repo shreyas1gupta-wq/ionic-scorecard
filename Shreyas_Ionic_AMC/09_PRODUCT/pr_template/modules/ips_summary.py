@@ -50,7 +50,15 @@ def _fit(current, band, cap_style=False):
     if band is None or current is None:
         return "Pending"
     if cap_style:
-        return "Aligned" if current <= band + 1e-9 else "Gap"
+        if current > band + 1e-9:
+            return "Gap"
+        # A holding inside a cap by a hundredth of a point is not the same risk as one inside it
+        # by ten. One AMC at 24.9855% of this book, displayed as "25.0%" against a "max 25%" cap,
+        # was stamped ALIGNED and read to a client as comfortable. A cap the book is sitting on
+        # says so, because the next market move decides it, not the desk.
+        if band and current >= band - 1.0:
+            return "At limit"
+        return "Aligned"
     # bands come in BOTH shapes by design (_band_txt has always handled both): 3-tuple
     # min/target/max for allocation and commodity bands, 2-tuple min/max for the equity
     # market-cap and credit bands. This used to unpack 3 unconditionally, so any 2-tuple

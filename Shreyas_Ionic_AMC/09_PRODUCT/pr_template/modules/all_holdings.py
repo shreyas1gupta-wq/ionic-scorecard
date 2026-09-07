@@ -83,7 +83,8 @@ def render(deck, ctx, tier):
                 short_name(r["kind"], 20),
                 r["cls"],
                 f"{r['v']:,.0f}",
-                f"{r['w']:.1f}",
+                # A held position that rounds to 0.0% shows as under a tenth, not as nothing.
+                ("<0.1" if r["w"] < 0.05 and r["v"] > 0 else f"{r['w']:.1f}"),
                 "-" if r["score"] is None else f"{float(r['score']):.0f}",
                 (r["rb"] or "-")[:1] if r["rb"] else "-",
                 (r["lb"] or "-")[:1] if r["lb"] else "-",

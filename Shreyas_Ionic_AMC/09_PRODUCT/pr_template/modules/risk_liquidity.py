@@ -107,6 +107,17 @@ def _rs(v):
     return f"Rs {v:,.0f}"
 
 
+def _rs_round(v):
+    """A rupee figure at the precision the input supports. A shortfall against a band whose edge is
+    stated in whole percentage points is not a to-the-rupee quantity, and printing it as one
+    invites a reader to reconcile it against a number that was never that exact."""
+    if v >= 1e7:
+        return f"Rs {v / 1e7:.2f} crore"
+    if v >= 1e5:
+        return f"Rs {v / 1e5:.1f} lakh"
+    return f"Rs {v:,.0f}"
+
+
 def _holdings(n):
     return "1 holding" if n == 1 else f"{n} holdings"
 
@@ -159,7 +170,20 @@ def render(deck, ctx, tier):
     liq_cap = float(ips.get("locked_in_cap_pct") or 0)
     band = (ips.get("alloc_bands") or {}).get("Equity") or (0, 0, 100)
     b_lo, b_hi = float(band[0]), float(band[-1])
-    eq_pct = float(ctx.get("totals", {}).get("eq_pct") or 0)
+    # totals.eq_pct is published rounded to one decimal. Deriving a rupee figure from it and then
+    # printing that figure TO THE RUPEE gave the reader eight significant digits of precision from
+    # an input carrying three, and the number was wrong by lakhs. The exact share is recomputed
+    # from the holdings; the rounded one is still what the page displays as a percentage, so the
+    # two agree on screen.
+    _eq_val = sum(float(h.get("value_inr") or 0.0)
+                  for h in (list(ctx.get("funds") or []) + list(ctx.get("equity") or [])
+                            + list(ctx.get("other") or []))
+                  if (h.get("asset_class") or "").strip().lower() == "equity")
+    eq_pct_exact = (_eq_val / total * 100.0) if total else 0.0
+    eq_pct = round(eq_pct_exact, 1) if eq_pct_exact else float(
+        ctx.get("totals", {}).get("eq_pct") or 0)
+    if not eq_pct_exact:
+        eq_pct_exact = eq_pct
 
     tests = []
 
@@ -197,7 +221,7 @@ def render(deck, ctx, tier):
 
     eq_ok = b_lo <= eq_pct <= b_hi
     eq_edge = b_lo if eq_pct < b_lo else b_hi
-    eq_short = abs(eq_pct - eq_edge) / 100.0 * total
+    eq_short = abs(eq_pct_exact - eq_edge) / 100.0 * total
     tests.append({"name": L["tests"][3], "held": f"{eq_pct:.1f}%",
                   "limit": f"{b_lo:.0f} to {b_hi:.0f}%",
                   "status": "Inside" if eq_ok else ("Below" if eq_pct < b_lo else "Above"),
@@ -205,7 +229,7 @@ def render(deck, ctx, tier):
                   "line": (f"Equity is {eq_pct:.1f}% of the book against a band of {b_lo:.0f} to "
                            f"{b_hi:.0f}%, {abs(eq_pct - eq_edge):.1f} points "
                            f"{'below' if eq_pct < b_lo else 'above'} that band, "
-                           f"{_rs(eq_short)} at today's values."),
+                           f"about {_rs_round(eq_short)} at today's values."),
                   "clause": (f"Equity, {eq_pct:.1f}% against a band of {b_lo:.0f} to "
                              f"{b_hi:.0f}%.")})
 

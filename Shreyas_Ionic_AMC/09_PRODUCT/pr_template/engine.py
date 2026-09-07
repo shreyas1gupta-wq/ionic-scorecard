@@ -233,10 +233,20 @@ def _toc_for(sec_no, tier, rendered=None):
     return [lab for _m, lab in ordered + extra][:5]
 
 
+_LOAD_ERR = {}
+
+
 def _load(mod_id):
+    """Import a slide module, remembering WHY it failed.
+
+    Swallowing the exception here made the engine report every broken module as "not implemented",
+    which is a different thing entirely: a module that does not exist needs writing, a module that
+    fails to import needs fixing, and the operator could not tell the two apart from the log.
+    """
     try:
         return importlib.import_module(f"modules.{mod_id}")
-    except Exception:
+    except Exception as e:
+        _LOAD_ERR[mod_id] = f"{type(e).__name__}: {e}"
         return None
 
 
@@ -287,7 +297,11 @@ def build(ctx, tier_name, verbose=True, base=None, _rendered=None):
             manifest.append((mod_id, 1)); continue
         m = _load(mod_id)
         if m is None or not hasattr(m, "render"):
-            if verbose: print(f"  [skip] {mod_id}: not implemented")
+            if verbose:
+                _why = _LOAD_ERR.get(mod_id)
+                print(f"  [skip] {mod_id}: " + (f"failed to import, {_why}" if _why else
+                                                "no render() to call" if m is not None else
+                                                "not implemented"))
             continue
         # A module that raises BEFORE it draws anything simply vanishes, which is the failure this
         # build has been chasing all along. A module that raises AFTER deck.content() is worse: the

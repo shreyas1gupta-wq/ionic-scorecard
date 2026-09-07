@@ -209,10 +209,15 @@ def full_lookthrough_mix(ctx):
             elif cat in _DEBT_FUND_CATS:
                 fund_debt_w += w
             elif cat in _HYBRID_FUND_CATS:
-                # no ACE split on file for this hybrid -- conservative: treat as debt-like rather
-                # than invent an equity/debt split we do not have (unchanged conservative default
-                # from lookthrough_mix, just now landing in the finer debt bucket, not "others").
-                fund_debt_w += w
+                # No split on file for this hybrid. Calling it debt was described here as the
+                # conservative choice, but it is not conservative, it is simply wrong in a
+                # particular direction: a Balanced Advantage or Multi-Asset fund typically runs
+                # most of its money in equity, and filing it as 100% debt understates the book's
+                # equity and overstates its debt by the whole position. Neither number is knowable
+                # without the fund's own allocation, so it goes to the disclosed Others bucket,
+                # which is what that bucket is for. A reader can see there is something the review
+                # could not split; a reader cannot see a hybrid hidden inside a debt figure.
+                fund_others_w += w
             else:
                 fund_others_w += w  # truly uncategorised: disclosed as Others, never smuggled in
     oth_eq, oth_debt, oth_alt = other_by_class(ctx)
