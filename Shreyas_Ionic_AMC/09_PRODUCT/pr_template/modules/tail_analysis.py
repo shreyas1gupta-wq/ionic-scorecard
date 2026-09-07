@@ -8,14 +8,13 @@ the statement, a decision at every review, and its own risk band. The page count
 prints the share each accounts for, so the reader arrives at that reading from arithmetic rather
 than being told it.
 
-THE ONE THING THAT MUST NOT GO WRONG HERE is the cap test. The mandate's single-name cap is 5% per
-ISIN and applies to DIRECT equity and single-issuer debt. It does NOT apply to a fund, so the
-largest position on this page can sit well above 5% without any cap being touched. The AMC cap is
-20% measured on the manager, so several schemes from one house aggregate into one number. On the
-test book the largest direct security is 2.6%, inside its cap, while one house is at 25.0% across
-seven schemes, outside its cap. Reading those two the other way round puts a false alarm on a
-client page and misses a real one, so each test is struck against its own population and the page
-says in words which population that is.
+THE ONE THING THAT MUST NOT GO WRONG HERE is the cap test, and there are two caps with two
+different populations. The single-name cap is per holding and the AMC cap is per manager, so
+several schemes from one house aggregate into the second and into nothing else. Read the other way
+round they put a false alarm on a client page and miss a real one, so each test is struck against
+its own population and the page says in words which population that is. Both numbers are read live
+from ctx["ips"] and NEITHER is written down here: an earlier version of this note asserted 5% and
+20%, which were one test book's figures and were already wrong for the profile they claimed.
 
 Weights arrive as shares of the WHOLE book, funds and direct holdings together, and are used as
 they arrive. Nothing here is renormalised.

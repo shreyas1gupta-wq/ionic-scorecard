@@ -6,7 +6,7 @@ import charts as CH
 from lib import lookthrough as LT
 
 # chart-side colours (matplotlib hex, mirror chart_lib palette)
-CNAVY, CGOLD, CNT3 = "#1B27A3", "#F2A93C", "#C9CEF0"
+CNAVY, CGOLD, CNT3, CNT1 = "#1B27A3", "#F2A93C", "#C9CEF0", "#4A57C4"
 
 LABELS = {
     "hni":    {"eyebrow": "Portfolio snapshot",
@@ -63,8 +63,22 @@ def render(deck, ctx, tier):
     deck.rule(s, ML, 2.92, UW, h=0.012)
 
     # ---- donut (left) ----
-    dpath = CH.donut([("Direct equity", eq), ("Mutual funds", mf), ("Cash", cash)],
-                     "azby_snapshot_donut", colors=[CNAVY, CGOLD, CNT3],
+    # ASSET CLASSES, which sum to the book. This plotted eq_pct labelled "Direct equity" next to
+    # mf_pct, but eq_pct is ALL equity however it is held and mf_pct is the fund sleeve, so every
+    # equity fund was counted in both wedges: the donut summed to 137% of the portfolio and its
+    # largest wedge said "Direct equity 75.9%" on a book holding 8.9% in shares. Fixed income and
+    # alternates, a quarter of this book, had no wedge at all.
+    fi = t.get("fi_pct")
+    alt = t.get("alt_pct")
+    if fi is None and alt is None:      # a statement with no asset-class column
+        wedges = [("Direct equity", t.get("eq_pct", 0.0) - mf if mf else eq),
+                  ("Mutual funds", mf), ("Cash", cash)]
+    else:
+        wedges = [("Equity", eq), ("Fixed income", fi or 0.0),
+                  ("Alternates", alt or 0.0), ("Cash", cash)]
+        wedges = [(lab, v) for lab, v in wedges if v and v > 0.05]
+    dpath = CH.donut(wedges,
+                     "azby_snapshot_donut", colors=[CNAVY, CGOLD, CNT3, CNT1][:len(wedges)],
                      center_top=f"Rs {grand/1e7:.1f} Cr", center_bot="Your portfolio" if reg == "simple" else "Total AUM")
     deck.pic(s, dpath, ML, 3.05, 4.35, 3.35, valign="middle", halign="center")
 

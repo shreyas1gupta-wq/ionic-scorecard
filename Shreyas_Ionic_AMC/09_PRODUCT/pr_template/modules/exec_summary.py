@@ -6,6 +6,7 @@ to a non-empty action and a section pointer. Sell/Trim/Hold and fund-action coun
 straight from ctx['totals'] so they equal the book-scored counts by construction."""
 from slidekit import (NAVY, NT2, GOLD, INK, SLATE, HOLD, SELL, AMBER, PANEL, HAIR,
                       SERIF, SANS, ML, UW, RX)
+from lib import lookthrough as LT
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 
 
@@ -41,14 +42,37 @@ def render(deck, ctx, tier):
     # what's actually happening instead of a fabricated zero-count line item
     show_switch_row = n_switch > 0
     reg_drag = ctx["cost"]["reg_drag_inr"]
+    # Two different facts, and the page used to collapse them into one. Whether Regular-plan
+    # schemes are HELD is read off the scheme names; what the drag COSTS needs a TER per scheme in
+    # each plan. A book can hold seven Regular schemes and still have reg_drag == 0 because the
+    # cost is unknown, which is not the same statement as "every scheme is already Direct".
+    n_regular = int(ctx["cost"].get("n_regular") or 0)
     foreign_gap = abs(hv.get("Foreign", -12.0))
     cap = ips["single_name_cap_pct"]
     # concentration row must be computed, not fabricated (2026-08-02 fix: a hardcoded
     # ">11%" breach claim survived from an earlier client's numbers -- this book's real
     # top-2 direct-equity weight is well inside the cap, with zero names over it)
     eq_sorted = sorted(ctx["equity"], key=lambda e: -(e.get("weight_pct") or 0))
-    top2_pct = sum(e.get("weight_pct") or 0 for e in eq_sorted[:2])
-    breach_names = [e for e in ctx["equity"] if (e.get("weight_pct") or 0) > cap]
+    # The concentration page states the top two across EVERY holding. Taking direct shares only
+    # here printed 3.3% on the executive summary against 22.9% on slide 11 of the same deck.
+    _top = LT.scheme_concentration(ctx, top_n=2)
+    top2_pct = sum(w for _n, _k, w in _top) if _top else         sum(e.get("weight_pct") or 0 for e in eq_sorted[:2])
+    # The cap is PER HOLDING, so it is the largest single position that tests it, not the top two
+    # added together. Comparing a combined figure against a single-name cap produced the sentence
+    # "top-2 are 22.9% combined, comfortably inside the 15% single-name cap", which is both the
+    # wrong comparison and, on its own numbers, a contradiction.
+    _largest = max((w for _n, _k, w in LT.scheme_concentration(ctx, top_n=1)), default=0.0)
+    _over = [(n, w) for n, _k, w in LT.scheme_concentration(ctx, top_n=50)
+             if cap is not None and w > float(cap)]
+    _conc_line = ((f"{len(_over)} holding{'' if len(_over) == 1 else 's'} above the {cap:.0f}% cap, "
+                   f"the largest at {_largest:.1f}%; the top two come to {top2_pct:.1f}% of "
+                   f"the book.")
+                  if _over else
+                  f"The largest single holding is {_largest:.1f}%, inside the {cap:.0f}% cap; the "
+                  f"top two come to {top2_pct:.1f}% of the book.")
+    # The cap covers every holding, so the breach test must too. Reading direct equity only put
+    # "No action needed" beside a 14.0% fund the scoring engine was already trimming back to 10%.
+    breach_names = _over
     has_breach = len(breach_names) > 0
     # no bespoke IPS -> don't claim a foreign-allocation target or house "plan" that was
     # never agreed with this client; and a real reg_drag of 0 (every fund already Direct)
@@ -70,7 +94,7 @@ def render(deck, ctx, tier):
         (_cr(t["grand_inr"]), "Portfolio value"),
         (f"{t['n_stocks']} / {t['n_funds']}", "Stocks / funds"),
         (f"{t['top10_pct']:.0f}%", "Top-10 weight"),
-        (str(t["n_sell"]), "Equity sells", None, SELL),
+        (str(t["n_sell"]), "Sell calls", None, SELL),
         (str(n_fund_act), "Fund actions", None, AMBER),
     ], y=1.80)
 
@@ -107,16 +131,16 @@ def render(deck, ctx, tier):
               f"{n_fund_act} funds exit, mostly structural (overlap, consolidation); {n_fund_perf_flag} also flagged on quality."),
              ("c", "See the fund actions detail for the reasoning on each.", NAVY), "03 · Funds"])
         conc_row = ([("b", "Too concentrated"),
-             f"{len(breach_names)} share(s) sit above our {cap:.0f}% single-name cap.",
+             _conc_line,
              ("c", "These are addressed in the sell/trim list.", NAVY), "01 · X-ray"]
             if has_breach else
             [("b", "Concentration"),
-             f"Your 2 biggest shares are {top2_pct:.1f}% combined — comfortably inside the {cap:.0f}% single-name cap.",
+             _conc_line,
              ("c", "No action needed; monitored each review.", NAVY), "01 · X-ray"])
         rows = [
             conc_row,
             [("b", "Weak holdings"),
-             f"{t['n_sell']} shares score in the Sell zone.",
+             f"{t['n_sell']} holdings carry a Sell call.",
              ("c", "Sell all of them, in a planned order.", NAVY), "02 · Equity"],
             foreign_row,
             fee_row,
@@ -127,16 +151,29 @@ def render(deck, ctx, tier):
              f"~{foreign_gap:.0f} pts below the {ips['foreign_target_pct']:.0f}% foreign-equity target.",
              ("c", "Plan a foreign sleeve at deployment (annexure framework).", NAVY), "04 · Plan"]
             if show_foreign_row else
-            [("b", "No investment policy on file"),
-             "This is a first review; no written mandate (goals, timeline, risk tier) exists yet for this account.",
-             ("c", "Agree an IPS with the RM before the next review cycle.", NAVY), "01 · X-ray"])
+            ([("b", "No investment policy on file"),
+              "This is a first review; no written mandate (goals, timeline, risk tier) exists yet "
+              "for this account.",
+              ("c", "Agree an IPS with the RM before the next review cycle.", NAVY), "01 · X-ray"]
+             if not ips_on_file else
+             # The mandate IS on file, it simply sets no overseas target. Falling through to the
+             # "no IPS" copy told the client no policy existed on a deck whose third slide is that
+             # policy, showing risk tier AGGRESSIVE and live bands.
+             [("b", "Mandate on file"),
+              f"Reviewed against the {ips.get('risk_tier') or 'agreed'} mandate: allocation bands, "
+              f"single-name, single-manager and illiquidity limits, all tested on this page's own "
+              f"numbers.",
+              ("c", "See the Investment Policy Statement.", NAVY), "00 · Understanding"]))
         fee_row = ([("b", "Regular-plan cost"),
              f"~{_k(reg_drag)}/yr avoidable trail on Regular-plan funds.",
              ("c", "Switch to Direct where the same scheme exists Direct." if has_redeem
               else "Every recommended fund move lands in a Direct plan.", NAVY), "04 · Plan"]
             if show_fee_row else
             [("b", "Plan cost"),
-             "Every scheme in this account is already held Direct — no Regular-plan drag to correct.",
+             (f"{n_regular} scheme{'' if n_regular == 1 else 's'} held in the Regular plan; the "
+              "saving from moving to Direct needs expense ratios this statement does not carry."
+              if n_regular else
+              "Every scheme in this account is already held Direct — no Regular-plan drag to correct."),
              ("c", "The fund actions below address structure and consistency, not cost.", NAVY), "03 · Funds"])
         fundline_row = ([("b", "Fund structure"),
              f"{n_switch} schemes: index-trailing or rigid mandate.",
@@ -148,16 +185,16 @@ def render(deck, ctx, tier):
               f"{n_fund_act} schemes exit, mostly structural (overlap, consolidation); {n_fund_perf_flag} also independently flagged on quality."),
              ("c", "See the fund actions detail for the reasoning on each.", NAVY), "03 · Funds"])
         conc_row = ([("b", "Concentration"),
-             f"{len(breach_names)} name(s) sit above our {cap:.0f}% single-name cap.",
+             _conc_line,
              ("c", "Addressed in the sell/trim programme.", NAVY), "01 · X-ray"]
             if has_breach else
             [("b", "Concentration"),
-             f"Top-2 direct holdings are {top2_pct:.1f}% combined — comfortably inside the {cap:.0f}% single-name cap.",
+             _conc_line,
              ("c", "No action needed; monitored each review.", NAVY), "01 · X-ray"])
         rows = [
             conc_row,
             [("b", "Sell programme"),
-             f"{t['n_sell']} direct holdings score in the Sell band (<40).",
+             f"{t['n_sell']} holdings carry a Sell call.",
              ("c", "Exit all {n}, sliced by liquidity.".format(n=t["n_sell"]), NAVY), "02 · Equity"],
             foreign_row,
             fee_row,

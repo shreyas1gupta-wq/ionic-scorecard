@@ -15,6 +15,7 @@ A scheme missing from the score file renders as No View. Rows the parser could n
 exceptions file. Neither is ever silently dropped.
 """
 import argparse
+import re
 import json
 import os
 import sys
@@ -393,6 +394,30 @@ def main():
     if HV.get("as_of"):
         print(f"    house view : published {HV['as_of']}, {len(HV.get('stance') or {})} stances")
 
+    # The score file states the framework by its INTERNAL name. That name is on the desk's own
+    # tell-scan list of words a client page must not carry, and it reached slide 26 of this deck
+    # four times. Renamed at the point the rationale enters the deck, so an already-published
+    # score file cannot leak it and a re-publish on the desk's own cadence cannot reintroduce it.
+    _HOUSE_NAME = "Fund-quality framework"
+    for _f in funds:
+        _r = _f.get("structural_reason")
+        if _r:
+            _f["structural_reason"] = str(_r).replace("QFRA Framework", _HOUSE_NAME).replace(
+                "QFRA-2", _HOUSE_NAME).replace("QFRA-1", _HOUSE_NAME).replace("QFRA", _HOUSE_NAME)
+
+    def _plan_of(name):
+        n = " %s " % re.sub(r"[^a-z ]+", " ", str(name or "").lower())
+        return ("Regular" if " regular " in n else
+                "Direct" if " direct " in n else "Unstated")
+
+    _N_REG = sum(1 for f in funds if _plan_of(f["name"]) == "Regular")
+    _REG_VAL = sum(f["value_inr"] for f in funds if _plan_of(f["name"]) == "Regular")
+    for _f in funds:
+        _f["plan"] = _plan_of(_f["name"])
+
+    _SELL_VAL = sum(f["value_inr"] for f in funds if f["verdict"] == "Sell")
+    _TRIM_VAL = sum(f.get("trim_value_inr") or 0.0 for f in funds if f["verdict"] == "Trim")
+
     ctx = {
         "client": {"name": a.client, "code": "-", "account_type": "Portfolio review",
                    "profile": "-", "horizon": "-", "construction": "Mutual funds",
@@ -417,7 +442,17 @@ def main():
                     "Cash": (_pb["Cash and equivalents"][0],
                              sum(_pb["Cash and equivalents"]) / 2,
                              _pb["Cash and equivalents"][1])},
-                "single_name_cap_pct": float(_prof["equity"]["A single listed security"][1]),
+                # ONE cap, and it is the desk's own published single_scheme_cap_pct. The deck
+                # tests this on EVERY holding as a share of the WHOLE book, which is exactly the
+                # population and basis the trim engine above applies it on. It used to be sourced
+                # from the IPS row "A single listed security", which is a different cap entirely:
+                # direct listed shares only, measured against the EQUITY SLEEVE. Reading a 15%
+                # sleeve limit as a 15% whole-book limit let a holding the trim engine was already
+                # trimming at 10% be reported on the executive summary as inside the cap, and put
+                # three different single-name caps in one deck. The IPS page keeps its own row and
+                # tests it on the sleeve, in build_ips, where it belongs.
+                "single_name_cap_pct": float(ver.get("single_scheme_cap_pct")
+                                             or _prof["equity"]["A single listed security"][1]),
                 "single_amc_cap_pct": float(_pb["Allocation to a single AMC"][1]),
                 "locked_in_cap_pct": float(_pb["Locked-in products, over one year"][1]),
                 "unlisted_equity_cap_pct": float(_prof["equity"]["Unlisted securities"][1]),
@@ -457,8 +492,24 @@ def main():
         # from scores/house_view.json alongside the calls, on the desk's own cadence.
         "house_view": HV,
         "tax": {"fund_rows": [], "gross": 0, "ltcg": 0, "stcg": 0, "net": 0},
-        "deployment": {"proceeds_inr": 0, "tax_leak_inr": 0, "net_inr": 0, "personalization": []},
-        "cost": {"reg_drag_inr": 0, "rows": []},
+        # REAL money, from the calls this run actually issued. Zeros here printed "Rs 0.0 L gross
+        # freed" on the priority-actions page three lines above "Rs 96.29 Cr" of fund actions on
+        # the same page. A Sell frees the whole position; a Trim frees only the slice above the
+        # cap, which is trim_value_inr and never the position. Tax is NOT netted off: a holdings
+        # statement carries no acquisition date and no lot history, so the rate cannot be known,
+        # and the page says the figure is before tax rather than quietly showing a gross number
+        # under a net label.
+        "deployment": {"proceeds_inr": _SELL_VAL + _TRIM_VAL, "tax_leak_inr": None,
+                       "net_inr": None, "personalization": []},
+        # The plan is READ OFF the scheme's own name, which is where SEBI requires it to be
+        # stated; nothing here is matched by similarity. The rupee drag is a different question and
+        # needs a TER per scheme in each plan, which a holdings statement does not carry, so it
+        # stays 0 and the pages that quote it say the saving is not estimable rather than printing
+        # one. Leaving this at "no Regular-plan drag" made the executive summary state that every
+        # scheme was Direct on a book listing Regular-plan schemes by name a few pages later.
+        "cost": {"reg_drag_inr": 0, "rows": [],
+                 "n_regular": _N_REG, "regular_value_inr": _REG_VAL,
+                 "n_direct": sum(1 for f in funds if _plan_of(f["name"]) == "Direct")},
         "actions": [], "meeting_history": [], "goals": [], "chart_top_n": 6,
         "data_notes": {
             "suspended": [],

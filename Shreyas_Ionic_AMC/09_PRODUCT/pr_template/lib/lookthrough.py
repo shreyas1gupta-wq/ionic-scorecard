@@ -155,8 +155,9 @@ def lookthrough_mix(ctx):
                 fund_debt_w += w
             else:
                 fund_hybrid_w += w  # unknown category: conservative default (unchanged behaviour)
-    true_equity = eq_w + fund_eq_w
-    true_hybrid_debt = fund_hybrid_w + fund_debt_w
+    oth_eq, oth_debt, oth_alt = other_by_class(ctx)
+    true_equity = eq_w + fund_eq_w + oth_eq
+    true_hybrid_debt = fund_hybrid_w + fund_debt_w + oth_debt + oth_alt
     true_cash = t.get("cash_pct", 0.0)
     return true_equity, true_hybrid_debt, true_cash
 
@@ -229,7 +230,9 @@ def combined_sector_exposure(ctx):
     evenly across sectors as an assumption.
     Returns (sector_pct: {sector: pct_of_portfolio}, gap_pct, gap_n)."""
     out = {}
-    for e in ctx["equity"]:
+    # Include everything held. Without this the "largest sector" was computed on the direct-share
+    # sleeve only, 8.9% of this book, and then presented as a whole-portfolio figure.
+    for e in list(ctx["equity"]) + list(ctx.get("other") or []):
         sec = (e.get("sector") or "Diversified").strip() or "Diversified"
         out[sec] = out.get(sec, 0.0) + e["weight_pct"]
     gap_w = 0.0; gap_n = 0
