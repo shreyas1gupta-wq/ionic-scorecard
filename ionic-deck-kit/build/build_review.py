@@ -387,10 +387,29 @@ def main():
 
     _tg = HV.get("targets") or {}
     if _tg and GRAND:
+        # GOLD IS NOT THE ALTERNATES SLEEVE. This bar used to plot the whole alternates class,
+        # AIFs, PMS, REITs and gold together, against the house's 5% GOLD target, so a book with no
+        # gold at all could show gold running well ahead of target on the strength of a private
+        # equity fund. Gold is taken from the framework's own gold sub-categories, and whatever
+        # else sits in alternates is reported as its own figure rather than folded into a bar that
+        # names a different asset.
+        _GOLD_SUBS = ("Gold / Silver ETF or FoF", "Sovereign Gold Bond")
+        _gold_val = sum(float(h.get("value_inr") or 0.0)
+                        for h in (list(funds) + list(equity_rows) + list(other_rows))
+                        if str(h.get("risk_sub") or "").strip() in _GOLD_SUBS)
         HV["alloc_gap"] = {
             "Equity": round(EQ_VAL / GRAND * 100 - float(_tg.get("Equity", 0)), 1),
             "Debt/Hybrid": round(FI_VAL / GRAND * 100 - float(_tg.get("Debt/Hybrid", 0)), 1),
-            "Gold": round(ALT_VAL / GRAND * 100 - float(_tg.get("Gold", 0)), 1)}
+            "Gold": round(_gold_val / GRAND * 100 - float(_tg.get("Gold", 0)), 1)}
+        HV["alloc_note"] = None
+        _alt_ex_gold = ALT_VAL - _gold_val
+        if _alt_ex_gold / GRAND * 100 >= 0.5:
+            HV["alloc_note"] = ("A further %.1f%% of the book sits in alternates other than gold, "
+                                "AIFs, PMS and listed property among them. The house view publishes "
+                                "no single target for that sleeve, so it is not plotted here; the "
+                                "mandate's own 0 to %.0f%% band for it is tested on the Investment "
+                                "Policy Statement page."
+                                % (_alt_ex_gold / GRAND * 100, _pb["Alternates"][1]))
     if HV.get("as_of"):
         print(f"    house view : published {HV['as_of']}, {len(HV.get('stance') or {})} stances")
 
@@ -398,6 +417,18 @@ def main():
     # tell-scan list of words a client page must not carry, and it reached slide 26 of this deck
     # four times. Renamed at the point the rationale enters the deck, so an already-published
     # score file cannot leak it and a re-publish on the desk's own cadence cannot reintroduce it.
+    # WHY a scheme carries an action, stated by the layer that decided it rather than inferred
+    # downstream from an optional score field. A Sell in this pipeline is always originated by the
+    # framework's own long-record test; a Trim is originated by the concentration cap and is not a
+    # judgement on the fund at all. Left to infer, fund_actions counted the cap trim as a
+    # performance call and opened the page "All 4 of these actions are performance calls ...
+    # nothing here is being sold for structural or liquidity reasons", directly contradicted by
+    # its own card for that trim three inches below.
+    for _f in funds:
+        _f["perf_flag"] = (_f["verdict"] == "Sell")
+        _f["action_origin"] = ("performance" if _f["verdict"] == "Sell" else
+                               "concentration" if _f["verdict"] == "Trim" else "")
+
     _HOUSE_NAME = "Fund-quality framework"
     for _f in funds:
         _r = _f.get("structural_reason")
@@ -460,7 +491,37 @@ def main():
                 # on_file must carry them or the executive summary raises and the engine, which
                 # swallows module exceptions, drops the page with no error on the deck.
                 "foreign_target_pct": None, "gold_target_pct": None,
-                "cash_cap_pct": None,
+                # EVERY band the profile already defines, under the key the IPS page reads. Nine of
+                # the page's fifteen rows printed "TBD / Pending" because these were never set,
+                # while ips_profiles.py held a number for each one; and "mcap_bands" was not even
+                # the name the page looks up, which is "equity_mcap_bands", so the market-cap rows
+                # could not have found a band under any circumstances. A TBD on a client page must
+                # mean the desk has not set a band, never that the build forgot to pass it.
+                "cash_cap_pct": float(_pb["Cash and equivalents"][1]),
+                # Whether the desk has SIGNED OFF these bands. The Aggressive profile is the
+                # desk's own transcribed sheet; Moderate and Conservative are derived drafts. The
+                # build printed that to the console and nowhere else, so a deck built on a draft
+                # mandate said nothing about it to the person reading it.
+                "bands_approved": bool(IPS["approved"]),
+                # Figures the IPS workbook already computes and this deck used to print as "Not
+                # tracked". Passed through rather than recomputed here, so the workbook and the
+                # deck cannot drift apart, and left absent where the workbook itself could not
+                # compute one.
+                "computed": {r["name"]: r["current"]
+                             for _s in IPS["sections"] for r in _s["rows"]
+                             if r["current"] is not None},
+                "equity_mcap_bands": {"Large": tuple(_prof["equity"]["Large cap"]),
+                                      "Mid & Small": tuple(_prof["equity"]["Mid and small cap"])},
+                "fi_credit_bands": {"AAA": tuple(_prof["fixed_income"]["AAA rated"]),
+                                    "AA": tuple(_prof["fixed_income"]["AA rated"]),
+                                    "Below AA": tuple(_prof["fixed_income"]["Below AA rated"])},
+                "mod_duration_cap_yrs": _prof["fixed_income"]["Modified duration, years"][1],
+                "thematic_sectoral_cap_pct": _prof["equity"]["Thematic and sectoral"][1],
+                "international_equity_cap_pct": _prof["equity"]["International equity"][1],
+                "gold_band_pct": tuple(_prof["alternates"]["Gold"]),
+                # The desk's profiles set a band for gold and silver together, under one heading.
+                # Publishing a silver band the profile does not carry would be inventing one.
+                "silver_band_pct": None,
                 "mcap_bands": {}, "constraints": [
                     "Minimum liquid buffer, Priority 1 assets, 5% of the book at every review.",
                     "High Risk and Low Liquidity together may not exceed 30% of the book.",

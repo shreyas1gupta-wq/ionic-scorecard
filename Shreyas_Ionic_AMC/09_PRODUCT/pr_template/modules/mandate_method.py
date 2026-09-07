@@ -10,6 +10,33 @@ from slidekit import (NAVY, NT2, NT3, GOLD, INK, SLATE, HOLD, SELL, AMBER, PANEL
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 
 
+def _mix_clause(ctx, simple=False):
+    """How the book is split, on ONE axis, plus how it is held on the other.
+
+    eq_pct is the EQUITY ASSET CLASS as a share of the whole book and mf_pct is the share held
+    through FUNDS. They are two different axes: a share bought through an equity fund is in both.
+    Printing them side by side as "~76% direct equity, 61% funds" labelled the first as direct
+    holdings, which it is not, and offered a reader two figures summing to 137%. Asset class is the
+    split that answers the mandate question, so that is the one stated as percentages; the vehicle
+    question is answered with counts, which cannot be mistaken for shares of the same whole."""
+    tot = 0.0
+    by = {}
+    for h in (list(ctx.get("funds") or []) + list(ctx.get("equity") or [])
+              + list(ctx.get("other") or [])):
+        v = float(h.get("value_inr") or 0.0)
+        k = (h.get("asset_class") or "").strip().title() or "Other"
+        by[k] = by.get(k, 0.0) + v
+        tot += v
+    if not tot:
+        return ""
+    order = ["Equity", "Fixed Income", "Alternates", "Cash", "Other"]
+    parts = [(k, by[k] / tot * 100.0) for k in order if by.get(k)]
+    parts += [(k, v / tot * 100.0) for k, v in by.items() if k not in order]
+    words = {"Fixed Income": "fixed income" if not simple else "bonds and debt funds",
+             "Alternates": "alternates", "Equity": "equity", "Cash": "cash", "Other": "other"}
+    return ", ".join(f"{p:.0f}% {words.get(k, k.lower())}" for k, p in parts if p >= 0.5)
+
+
 def render(deck, ctx, tier):
     reg = tier.get("register", "std")
     simple = reg == "simple"
@@ -34,16 +61,16 @@ def render(deck, ctx, tier):
         prose = (f"We look after the {c['name']} portfolio under a non-discretionary mandate: "
                  f"we advise, and you approve every trade yourself. The aim is to grow your money "
                  f"over {horizon_txt}, favouring good-quality businesses, using a "
-                 f"‘core plus satellites’ style. Right now you hold about {t['eq_pct']:.0f}% shares, "
-                 f"{t['mf_pct']:.0f}% funds and {t['cash_pct']:.0f}% cash, {t['n_stocks']} shares and "
-                 f"{t['n_funds']} funds.")
+                 f"‘core plus satellites’ style. Right now the money is about "
+                 f"{_mix_clause(ctx, simple=True)}, held across {t['n_funds']} funds and "
+                 f"{t['n_stocks']} shares you own directly.")
     else:
         built_clause = f", built {c['construction'].lower()}" if construction_known else ""
         prose = (f"The {c['name']} portfolio is managed under a {c['account_type']} mandate, we advise, "
                  f"you authorise every trade. The stated objective is long-term capital growth with a "
                  f"quality bias over {horizon_txt_formal}{built_clause}. "
-                 f"The book today runs ~{t['eq_pct']:.0f}% direct equity, {t['mf_pct']:.0f}% funds and "
-                 f"{t['cash_pct']:.0f}% cash, across {t['n_stocks']} stocks and {t['n_funds']} schemes.")
+                 f"The book today runs ~{_mix_clause(ctx)} by asset class, held across "
+                 f"{t['n_funds']} schemes and {t['n_stocks']} directly-owned stocks.")
     deck.txt(s, lx, 2.06, lw, 1.9, [(prose, SERIF, 11.5, INK, False)], ls=1.16)
 
     note_body = ("Nothing in this review is executed until you authorise it. Every recommendation is "

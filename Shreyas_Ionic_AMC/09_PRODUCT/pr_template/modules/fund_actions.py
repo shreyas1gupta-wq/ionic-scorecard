@@ -33,6 +33,9 @@ def render(deck, ctx, tier):
     n_perf_flag = sum(1 for f in acts
                       if f.get("perf_flag") or (f.get("qfra") is not None and f["qfra"] < 40))
     n_other = len(acts) - n_perf_flag
+    # A concentration trim is neither structural nor a liquidity need, and calling it one is the
+    # same error in the other direction. Counted separately so the opening can name it.
+    n_conc = sum(1 for f in acts if f.get("action_origin") == "concentration")
     eyebrow, title = LABELS.get(reg, LABELS["std"])
     s = deck.content(2, "The Fund Book", eyebrow, title)
     deck.anchor("mod:fund_actions", s, prio=5)
@@ -43,6 +46,16 @@ def render(deck, ctx, tier):
             opening = (f"All {len(acts)} of these actions are performance calls: each scheme sits in "
                        f"the bottom third of its own category on the long record. Nothing here is being "
                        f"sold for structural or liquidity reasons.")
+        elif n_conc == n_other:
+            opening = (f"{n_perf_flag} of these {len(acts)} actions are performance calls: the scheme "
+                       f"sits in the bottom third of its own category on the long record. The other "
+                       f"{n_conc} is a position size, not a view on the fund: it is above the "
+                       f"single-name cap and is eased back to it."
+                       if n_conc == 1 else
+                       f"{n_perf_flag} of these {len(acts)} actions are performance calls, the scheme "
+                       f"sitting in the bottom third of its own category on the long record. The other "
+                       f"{n_conc} are position sizes, not views on the funds: each is above the "
+                       f"single-name cap and is eased back to it.")
         else:
             opening = (f"{n_other} of these {len(acts)} actions are structural or a liquidity need, not a "
                        f"quality call. {n_perf_flag} are flagged on performance by our own framework. "
@@ -89,7 +102,12 @@ def render(deck, ctx, tier):
         deck.txt(s, x + 1.62, y + 0.13, col_w - 1.75, 0.26, [(_short(f["name"], 32), "Bahnschrift", 11, INK, True)])
         # translate raw SENTINEL codes to plain words (2026-07-28: was leaking CLOSET_INDEX/
         # NEG_ALPHA/etc. raw; reuse the same FLAB dict fund_book_scored.py already uses)
-        flags = "  ·  ".join(FLAB.get(x, x[:9]) for x in f["flags"]) if f["flags"] else "structural"
+        # The default tag used to be the word "structural" on every unflagged card, printed
+        # directly above a reason reading "bottom third of its own category on the long record".
+        # The tag now says what the data layer says originated the action.
+        _ORIGIN_TAG = {"performance": "performance", "concentration": "position size"}
+        flags = ("  ·  ".join(FLAB.get(x, x[:9]) for x in f["flags"]) if f["flags"]
+                 else _ORIGIN_TAG.get(f.get("action_origin"), "structural"))
         if f.get("holding_years", 0) >= 5:
             flags += f"  ·  HELD ~{f['holding_years']:.0f}Y, COSTLIER TO SWITCH"
         deck.txt(s, x + 0.18, y + 0.46, col_w - 0.3, 0.2, [(flags, "Bahnschrift", 7.5, vc, True, False, 30)])

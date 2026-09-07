@@ -72,6 +72,33 @@ def _all_holdings(ctx):
     return list(ctx.get("funds") or []) + list(ctx.get("equity") or []) + list(ctx.get("other") or [])
 
 
+def _combined_band(ab):
+    """One row covers fixed income AND alternates, so it needs the band for both.
+
+    It looked up "Hybrid/Debt", a key nothing in this kit sets, so the row read TBD / Pending on
+    every statement-driven deck while the mandate carried a band for each of the two sleeves. The
+    envelope is the two bands added: a book can be anywhere inside either one."""
+    fi, alt = ab.get("Fixed Income"), ab.get("Alternatives")
+    if ab.get("Hybrid/Debt") is not None:
+        return ab["Hybrid/Debt"]
+    if fi is None and alt is None:
+        return None
+
+    def _hi(b):
+        return 0.0 if b is None else float(b[-1])
+
+    def _lo(b):
+        return 0.0 if b is None else float(b[0])
+
+    return (_lo(fi) + _lo(alt), _hi(fi) + _hi(alt))
+
+
+def _computed(ips, name, unit="%"):
+    """A figure the IPS workbook computed, or "Not tracked" where it could not."""
+    v = (ips.get("computed") or {}).get(name)
+    return "Not tracked" if v is None else (f"{v:.0f}{unit}" if unit else f"{v:.1f}")
+
+
 def _current_values(ctx):
     """Every 'Current' figure computed live from ctx, over the WHOLE book.
 
@@ -124,6 +151,11 @@ def _current_values(ctx):
         large_share = sum(w(h) for h in eq_holdings
                           if h.get("mcap_band") == "Large") / band_w * 100.0
     midsmall_share = 100.0 - large_share
+    # The market-cap split is struck on the holdings whose mandate FIXES a cap band, which on this
+    # book is about half the equity sleeve. Printed under a heading reading "Equity-level
+    # parameters" with no scope, a client reads 73% large cap as 73% of their equity. It is 73% of
+    # the part that has been placed, and the page now says which part that is.
+    mcap_cover = (cap_w / eq_sleeve_w * 100.0) if eq_sleeve_w else 0.0
 
     UNLISTED = ("Unlisted Equity", "AIF Cat I", "AIF Cat II")
     intl_equity = sum(w(h) for h in eq_holdings
@@ -141,6 +173,7 @@ def _current_values(ctx):
         "single_scheme_pct": single_scheme, "single_amc_pct": single_amc,
         "locked_in_pct": locked_in, "cash_cap_pct": true_cash,
         "large_pct": large_share, "midsmall_pct": midsmall_share,
+        "mcap_cover_pct": mcap_cover,
         "intl_equity_pct": intl_equity, "unlisted_equity_pct": unlisted_equity,
         "gold_pct": gold_share, "silver_pct": silver_share,
     }
@@ -215,8 +248,8 @@ def render(deck, ctx, tier):
     port_rows = [
         ("Equity", _band_txt(ab.get("Equity")), f"{cur['equity_pct']:.0f}%",
          _fit(cur["equity_pct"], ab.get("Equity"))),
-        ("Fixed income & alternates", _band_txt(ab.get("Hybrid/Debt")), f"{cur['hybrid_debt_pct']:.0f}%",
-         _fit(cur["hybrid_debt_pct"], ab.get("Hybrid/Debt"))),
+        ("Fixed income & alternates", _band_txt(_combined_band(ab)),
+         f"{cur['hybrid_debt_pct']:.0f}%", _fit(cur["hybrid_debt_pct"], _combined_band(ab))),
         ("Single scheme / instrument", _band_txt(ips.get("single_name_cap_pct")), f"{cur['single_scheme_pct']:.1f}%",
          _fit(cur["single_scheme_pct"], ips.get("single_name_cap_pct"), cap_style=True)),
         ("Single AMC", _band_txt(ips.get("single_amc_cap_pct")), f"{cur['single_amc_pct']:.1f}%",
@@ -230,7 +263,13 @@ def render(deck, ctx, tier):
 
     y += 0.10
     fib = ips.get("fi_credit_bands", {})
-    fi_rows = [(f"Credit — {k}", _band_txt(v), "Not tracked", None) for k, v in fib.items()]
+    _CREDIT_ROW = {"AAA": "AAA rated", "AA": "AA rated", "Below AA": "Below AA rated"}
+    fi_rows = []
+    for k, v in fib.items():
+        _c = _computed(ips, _CREDIT_ROW.get(k, k))
+        fi_rows.append((f"Credit — {k}", _band_txt(v), _c,
+                        None if _c == "Not tracked" else
+                        _fit((ips.get("computed") or {}).get(_CREDIT_ROW.get(k, k)), v)))
     fi_rows.append(("Modified duration", _band_txt(ips.get("mod_duration_cap_yrs"), unit="yr"), "Not tracked", None))
     y = _section(deck, s, lx, y, colw, "Fixed-income parameters", fi_rows)
 
@@ -242,7 +281,10 @@ def render(deck, ctx, tier):
          _fit(cur["large_pct"], emb.get("Large"))),
         ("Mid & small cap", _band_txt(emb.get("Mid & Small")), f"{cur['midsmall_pct']:.0f}%",
          _fit(cur["midsmall_pct"], emb.get("Mid & Small"))),
-        ("Thematic / sectoral", _band_txt(ips.get("thematic_sectoral_cap_pct")), "Not tracked", None),
+        ("Thematic / sectoral", _band_txt(ips.get("thematic_sectoral_cap_pct")),
+         _computed(ips, "Thematic and sectoral"),
+         _fit((ips.get("computed") or {}).get("Thematic and sectoral"),
+              ips.get("thematic_sectoral_cap_pct"), cap_style=True)),
         ("Unlisted equity", _band_txt(ips.get("unlisted_equity_cap_pct")), f"{cur['unlisted_equity_pct']:.0f}%",
          _fit(cur["unlisted_equity_pct"], ips.get("unlisted_equity_cap_pct"), cap_style=True)),
         ("International equity", _band_txt(ips.get("international_equity_cap_pct")), f"{cur['intl_equity_pct']:.0f}%",
@@ -275,6 +317,17 @@ def render(deck, ctx, tier):
                      anchor=MSO_ANCHOR.MIDDLE)
 
     demo_tag = " Illustrative for the AZBY demo." if ctx.get("is_demo", False) else ""
+    # Two things a reader of this page is entitled to know and could not previously learn from it:
+    # that the market-cap rows are struck on part of the equity sleeve rather than all of it, and
+    # that the bands themselves may not yet be signed off.
+    _cov = cur.get("mcap_cover_pct")
+    _cov_note = ("" if _cov is None or _cov >= 99.5 else
+                 f" Market-cap rows are struck on the {_cov:.0f}% of the equity sleeve whose "
+                 "mandate fixes a cap band; a fund without one is not forced into a band.")
+    _draft_note = ("" if ips.get("bands_approved", True) else
+                   " The bands for this profile are a DRAFT pending the desk's sign-off; the "
+                   "Aggressive profile is the approved one.")
     deck.source(s, "Ideal bands per the house IPS framework; Current computed live from actual "
-                   "holdings (direct equity + fund look-through by category)." + demo_tag)
+                   "holdings (direct equity + fund look-through by category)."
+                   + _cov_note + _draft_note + demo_tag)
     return 1

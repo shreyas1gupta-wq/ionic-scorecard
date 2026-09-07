@@ -76,7 +76,20 @@ def render(deck, ctx, tier):
 
     entries, has_subheads = _ordered_with_subheads(funds, split, simple)
     n_act = sum(1 for f in funds if f["action"] not in ("HOLD", "Hold"))
-    n_hold = len(funds) - n_act
+    # "everything without an action is a Hold" turned ten schemes the frameworks do not reach into
+    # ten Holds on the closing line of the fund book. A scheme carrying No View has not been
+    # judged, and the page must not say it has.
+    # WHY the actions exist, from the actions themselves. This clause was a fixed sentence saying
+    # the actions were "mostly on cost and structure ... rather than performance alone", printed on
+    # a book where the fund-actions page five slides later said three of the four were performance
+    # calls. Two pages of one deck cannot give a reader opposite reasons for the same four calls.
+    _n_perf = sum(1 for f in funds
+                  if f["action"] not in ("HOLD", "Hold") and f.get("action_origin") == "performance")
+    _n_conc = sum(1 for f in funds
+                  if f["action"] not in ("HOLD", "Hold") and f.get("action_origin") == "concentration")
+    n_noview = sum(1 for f in funds
+                   if str(f.get("verdict") or "").strip().lower() in ("no view", "no recommendation"))
+    n_hold = len(funds) - n_act - n_noview
 
     # pagination (added 2026-07-27, first real client: this module was built assuming a
     # ~9-fund demo book and silently overflowed past the read-line and footer on a 25-fund
@@ -152,12 +165,25 @@ def render(deck, ctx, tier):
         if page == n_pages - 1:
             if simple:
                 read = (f"What this means: {n_act} of {len(funds)} funds could be improved, usually because "
-                        f"of high fees or the wrong structure, not just weak returns. {n_hold} are worth keeping.")
+                        f"of high fees or the wrong structure, not just weak returns. {n_hold} are worth keeping" +
+                        (f", and we have no view on {n_noview} of them."
+                         if n_noview else "."))
             else:
+                if _n_perf and _n_perf == n_act:
+                    _why = "every one on the long-record category test"
+                elif _n_perf and _n_conc and _n_perf + _n_conc == n_act:
+                    _why = (f"{_n_perf} on the long-record category test and {_n_conc} on position "
+                            f"size alone")
+                elif _n_perf:
+                    _why = f"{_n_perf} of them on the long-record category test"
+                else:
+                    _why = ("on cost and structure (plan, mandate rigidity, scale, consistency) "
+                            "rather than performance alone")
                 read = (f"The desk read: the fund score ranks the scheme; the Portfolio Review team sets the "
-                        f"verdict. {n_act} of {len(funds)} schemes carry an action, mostly on cost and "
-                        f"structure (plan, mandate rigidity, scale, consistency) rather than performance "
-                        f"alone; {n_hold} are Holds on their own standing.")
+                        f"verdict. {n_act} of {len(funds)} schemes carry an action, {_why}; "
+                        f"{n_hold} are Holds on their own standing" +
+                        (f", and {n_noview} carry no view because the frameworks do not reach them."
+                         if n_noview else "."))
             if has_subheads:
                 read += (f" Churn is {churn['pct']:.0f}% of the portfolio, above our 20% trigger, "
                         "so actions above are grouped by priority."

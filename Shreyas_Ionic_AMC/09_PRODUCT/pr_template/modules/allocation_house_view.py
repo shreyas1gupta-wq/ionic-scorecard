@@ -49,26 +49,37 @@ def render(deck, ctx, tier):
                rows=rows, rowh=0.56, fs=9, hfs=8, header=True, zebra=True, maxrows=6)
 
     # ---- one-line read (full width) ----
-    lg = gap.get("Large"); fg = gap.get("Foreign"); gd = gap.get("Gold")
-    if lg is None or gd is None:
+    # Built from the buckets this book ACTUALLY has. Keying on "Large" and "Foreign" meant a
+    # statement-driven book, whose gaps are Equity, Debt/Hybrid and Gold, fell through to
+    # "allocation targets aren't fully set for this account yet" printed directly beneath a chart
+    # plotting three of them against published targets.
+    _named = {"Debt/Hybrid": "debt and hybrid", "Gold": "gold", "Equity": "equity",
+              "Large": "large-cap domestic equity", "Foreign": "foreign equity"}
+
+    def _phrase(k, v):
+        n = _named.get(k, k.lower())
+        if abs(v) < 0.5:
+            return f"{n} is on target"
+        return f"{n} is {abs(v):.0f} points {'over' if v > 0 else 'light'}"
+
+    _ranked = sorted(((k, v) for k, v in gap.items()), key=lambda kv: -abs(kv[1]))
+    if not _ranked:
         read = ("Allocation targets versus a house view aren't fully set for this account yet. "
                 "Closing any gaps will follow once an IPS is agreed.")
     elif reg == "simple":
-        read = ("Right now there is a lot in big Indian companies and very little in foreign "
-                "shares and gold. When we reinvest, we plan to balance this out, with you.")
-    elif reg == "hni":
-        read = (f"Pronounced large-cap domestic tilt (+{lg:.1f} vs target); foreign ~{abs(fg):.0f}pts and "
-                f"gold ~{abs(gd):.0f}pts light. Closing these gaps is planned at deployment "
-                f"(transition framework, annexure), on your authorisation.")
+        read = ("Against what we would aim for, " +
+                ", ".join(_phrase(k, v) for k, v in _ranked[:3]) +
+                ". Any change here is planned with you, never done on our own.")
     else:
-        read = (f"The book leans heavily into large-cap domestic equity (+{lg:.1f} vs target), while "
-                f"foreign equity is ~{abs(fg):.0f} points light and gold ~{abs(gd):.0f} points light. "
-                "Closing these gaps is planned at deployment, on your authorisation.")
+        read = ("Against the house view, " + ", ".join(_phrase(k, v) for k, v in _ranked[:3]) +
+                ". Closing these gaps is planned at deployment, on your authorisation.")
+    _alloc_note = (ctx.get("house_view") or {}).get("alloc_note")
     deck.callout(s, ML, 5.75, UW, 0.82,
                  "WHAT IT MEANS" if reg != "simple" else "IN SHORT", read,
                  kind="note")
 
     demo_tag = " Illustrative for the AZBY demo." if ctx.get("is_demo", False) else ""
     deck.source(s, f"House-view allocation bands.{demo_tag} "
-                   "Gap = current book minus house-view target, in percentage points.")
+                   "Gap = current book minus house-view target, in percentage points."
+                   + (" " + _alloc_note if _alloc_note else ""))
     return 1
