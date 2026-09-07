@@ -27,7 +27,7 @@ def render(deck, ctx, tier):
     simple = reg == "simple"
     t = ctx["totals"]
     ips = ctx["ips"]
-    hv = ctx["house_view"]["alloc_gap"]
+    hv = (ctx.get("house_view") or {}).get("alloc_gap") or {}
     n_fund_act = sum(1 for f in ctx["funds"] if f["action"] not in ("HOLD", "Hold"))
     n_switch = sum(1 for f in ctx["funds"] if f["action"].upper() == "SWITCH")
     has_redeem = any(f["action"].upper() == "REDEEM" for f in ctx["funds"])
@@ -87,7 +87,10 @@ def render(deck, ctx, tier):
                    f"the book.")
                   if _over else
                   f"The largest single holding is {_largest:.1f}%, inside the {cap:.0f}% cap; the "
-                  f"top two come to {top2_pct:.1f}% of the book.")
+                  f"top two come to {top2_pct:.1f}% of the book."
+                  if cap is not None else
+                  f"The largest single holding is {_largest:.1f}% of the book and the top two come "
+                  f"to {top2_pct:.1f}%. No single-name cap is on file to test these against.")
     # The cap covers every holding, so the breach test must too. Reading direct equity only put
     # "No action needed" beside a 14.0% fund the scoring engine was already trimming back to 10%.
     breach_names = _over

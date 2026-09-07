@@ -237,11 +237,11 @@ def render(deck, ctx, tier):
     # ---- header: risk badge + objective + horizon ----
     deck.txt(s, ML, 1.80, 1.6, 0.2, [("RISK TIER", SANS, 7.5, SLATE, True, False, 100)])
     deck.rect(s, ML, 2.00, 1.6, 0.42, fill=NAVY, round_=0.10)
-    deck.txt(s, ML, 2.00, 1.6, 0.42, [(ips["risk_tier"].upper(), SANS, 11, WHITE, True, False, 20)],
+    deck.txt(s, ML, 2.00, 1.6, 0.42, [(str(ips.get("risk_tier") or "Not set").upper(), SANS, 11, WHITE, True, False, 20)],
              align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
     ox = ML + 1.85
     deck.txt(s, ox, 1.80, 5.2, 0.2, [("OBJECTIVE", SANS, 7.5, SLATE, True, False, 100)])
-    deck.txt(s, ox, 2.00, 5.2, 0.42, [(ips["objective"], SERIF, 9.5, INK, False, True)], ls=1.02)
+    deck.txt(s, ox, 2.00, 5.2, 0.42, [(str(ips.get("objective") or "Not stated"), SERIF, 9.5, INK, False, True)], ls=1.02)
     hx = ox + 5.4
     horizon_txt = f"{ips['horizon_yrs']} yr+" if ips.get("horizon_yrs") is not None else "TBD"
     deck.txt(s, hx, 1.80, RX - hx, 0.2, [("HORIZON", SANS, 7.5, SLATE, True, False, 100)])
@@ -252,7 +252,7 @@ def render(deck, ctx, tier):
 
     # ---- LEFT column: Portfolio-Level + Fixed-Income ----
     y = 2.58
-    ab = ips["alloc_bands"]
+    ab = ips.get("alloc_bands") or {}
     port_rows = [
         ("Equity", _band_txt(ab.get("Equity")), f"{cur['equity_pct']:.0f}%",
          _fit(cur["equity_pct"], ab.get("Equity"))),

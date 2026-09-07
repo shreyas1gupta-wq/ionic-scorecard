@@ -130,46 +130,16 @@ def equity_lookthrough_pct(ctx):
 
 
 def lookthrough_mix(ctx):
-    """Equity / Hybrid-debt / Cash split, direct equity + fund look-through — moved from
-    ips_summary.py 2026-08-06 so every page that needs this figure (IPS, snapshot allocation,
-    concentration, sector) reads the identical number rather than re-deriving its own."""
-    eq = ctx["equity"]; funds = ctx["funds"]; t = ctx["totals"]
-    eq_w = sum(e["weight_pct"] for e in eq)
-    fund_eq_w = fund_hybrid_w = fund_debt_w = 0.0
-    for f in funds:
-        w = f["weight_pct"]
-        g = fund_equity_gross_pct(f)
-        if g is not None:
-            d = f.get("debt_pct")
-            if d is None:
-                d = max(0.0, 100.0 - g - (f.get("others_pct") or 0.0))
-            fund_eq_w += w * g / 100.0
-            fund_hybrid_w += w * d / 100.0
-        else:
-            cat = f.get("category")
-            if cat in _EQUITY_FUND_CATS:
-                fund_eq_w += w
-            elif cat in _HYBRID_FUND_CATS:
-                fund_hybrid_w += w
-            elif cat in _DEBT_FUND_CATS:
-                fund_debt_w += w
-            else:
-                fund_hybrid_w += w  # unknown category: conservative default (unchanged behaviour)
-    oth_eq, oth_debt, oth_alt = other_by_class(ctx)
-    true_equity = eq_w + fund_eq_w + oth_eq
-    true_hybrid_debt = fund_hybrid_w + fund_debt_w + oth_debt + oth_alt
-    true_cash = t.get("cash_pct", 0.0)
-    return true_equity, true_hybrid_debt, true_cash
+    """DEPRECATED. Kept only so an older client data file importing it does not break.
 
-
-# NEXT STEP, NOT BUILT (FM #9 extension, Principal 2026-08-06): "we can look for last factsheet
-# other data etc." for fund HOLDINGS. Everything above is fund-level (a scheme's own disclosed
-# equity/debt/sector split). STOCK-level look-through -- which named companies a client is really
-# exposed to once every fund's underlying portfolio is added to their direct holdings -- needs each
-# fund's monthly factsheet/portfolio disclosure, which is not sourced yet (ACE gives sector percentages,
-# not a security list, per the scheme_correlation.py / scheme_overlap_full.py finding the same day).
-# Documented here as the natural next data-sourcing step; deliberately NOT scraped in this task.
-
+    Its own body summed ctx["equity"] and ctx["funds"] and nothing else, so on a book holding
+    AIFs, a PMS, REITs, direct bonds and a ULIP it returned 70% of the money and called it the
+    whole mix, while its docstring claimed every page read the identical number from it. Nothing
+    in the kit calls it any more. It now delegates to full_lookthrough_mix, which covers the whole
+    book, so the two can no longer disagree.
+    """
+    eq, debt, cash, _others = full_lookthrough_mix(ctx)
+    return eq, debt, cash
 
 def full_lookthrough_mix(ctx):
     """Principal ruling 2026-08-06 (FM #6): 'asset allocations should incl ... all mf stocks

@@ -136,7 +136,7 @@ def render(deck, ctx, tier):
     # (that residual silently included fund-exit money whenever a book has zero Trim-rec
     # equities, e.g. Client B 2026-07-27: showed fund-exit cash against a stock-trim
     # action label, wrongly implying HDFCBANK/TCS trims were worth the fund-exit amount)
-    cap = ctx["ips"]["single_name_cap_pct"]
+    cap = (ctx.get("ips") or {}).get("single_name_cap_pct") or 0.0
     grand = t["grand_inr"]
     # Where the scoring engine has already sized the trim, use ITS number: it is the slice above
     # the cap and it is what the fund book, the tax page and this page must all agree on. Fall

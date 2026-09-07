@@ -79,7 +79,7 @@ def render(deck, ctx, tier):
 
     deck.txt(s, ML, 1.72, UW, 0.3, [(L["intro"], SERIF, 11, SLATE, False, True)])
 
-    stance = ctx["house_view"]["stance"]
+    stance = (ctx.get("house_view") or {}).get("stance") or {}
     gaps = ctx["house_view"].get("alloc_gap", {})
     rows = []
     for dim, view in stance.items():

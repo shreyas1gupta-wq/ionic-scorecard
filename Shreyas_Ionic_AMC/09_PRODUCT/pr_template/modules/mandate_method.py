@@ -43,7 +43,7 @@ def render(deck, ctx, tier):
     c = ctx["client"]
     ips = ctx["ips"]
     t = ctx["totals"]
-    stance = ctx["house_view"]["stance"]
+    stance = (ctx.get("house_view") or {}).get("stance") or {}
 
     title = "What we manage, and how we measure it" if simple else "Mandate, construction and benchmark"
     s = deck.content(0, "Understanding", "Our understanding", title)

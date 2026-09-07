@@ -31,7 +31,9 @@ def render(deck, ctx, tier):
         run += w
         cum.append(run / tot * 100.0)
     c5, c10, c20 = cum[4], (cum[9] if n >= 10 else cum[-1]), (cum[19] if n >= 20 else cum[-1])
-    cap = ctx["ips"]["single_name_cap_pct"]
+    cap = (ctx.get("ips") or {}).get("single_name_cap_pct")
+    if cap is None:
+        return 0   # no cap on file: this page exists to test one
     over = sum(1 for e in ctx["equity"] if e["weight_pct"] > cap)
 
     s = deck.content(5, "Annexure", eyebrow, title)

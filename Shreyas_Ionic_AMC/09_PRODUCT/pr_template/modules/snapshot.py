@@ -47,7 +47,8 @@ def _alloc_bar(deck, s, x, y, w, h, segs):
 def render(deck, ctx, tier):
     reg = tier.get("register", "std")
     L = LABELS.get(reg, LABELS["std"])
-    t = ctx["totals"]; cl = ctx["client"]; cap = ctx["ips"]["single_name_cap_pct"]
+    t = ctx["totals"]; cl = ctx["client"]
+    cap = (ctx.get("ips") or {}).get("single_name_cap_pct")
     grand = t["grand_inr"]; eq = t["eq_pct"]; mf = t["mf_pct"]; cash = t["cash_pct"]
     n_st = t["n_stocks"]; n_fd = t["n_funds"]; top10 = t["top10_pct"]
 
@@ -95,10 +96,13 @@ def render(deck, ctx, tier):
         # as a spread statement. Also "an 10%": the article has to follow the number it is read as.
         _largest = max((w for _n, _k, w in LT.scheme_concentration(ctx, top_n=1)), default=0.0)
         # "an" before a number the reader says aloud starting with a vowel: 8, 11, 18, 80-89.
-        _c = int(round(cap))
+        _c = int(round(cap)) if cap is not None else 0
         _art = "an" if (_c in (11, 18) or str(_c)[0] == "8") else "a"
-        _conc = (f"the ten largest holdings carry {top10:.0f}% of the book between them, and the "
-                 f"largest single one is {_largest:.1f}% against {_art} {cap:.0f}% cap")
+        _conc = ((f"the ten largest holdings carry {top10:.0f}% of the book between them, and the "
+                  f"largest single one is {_largest:.1f}% against {_art} {cap:.0f}% cap")
+                 if cap is not None else
+                 (f"the ten largest holdings carry {top10:.0f}% of the book between them, the "
+                  f"largest single one {_largest:.1f}% of it"))
         # "direct equity" was wrong: eq is the whole equity share, however it is held. On a book
         # holding 8.9% in shares and the rest through funds, a PMS and AIFs, that sentence read
         # "76% direct equity".

@@ -26,7 +26,10 @@ LABELS = {
 def render(deck, ctx, tier):
     reg = tier.get("register", "std")
     L = LABELS.get(reg, LABELS["std"])
-    eq = ctx["equity"]; cap = ctx["ips"]["single_name_cap_pct"]; as_of = ctx["client"]["as_of"]
+    eq = ctx["equity"]; as_of = ctx["client"]["as_of"]
+    cap = (ctx.get("ips") or {}).get("single_name_cap_pct")
+    if cap is None:
+        return 0   # the page is a cap test; without a cap there is nothing to test
 
     # ---- scheme level: stocks AND funds together (FM #9) ----
     combined = LT.scheme_concentration(ctx, top_n=10)  # [(name, kind, weight_pct), ...]
