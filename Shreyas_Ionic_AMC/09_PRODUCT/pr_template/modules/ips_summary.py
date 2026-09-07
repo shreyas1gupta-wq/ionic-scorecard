@@ -13,6 +13,7 @@ On a first-review client with no bespoke IPS on file, Ideal columns show "TBD" a
 every parameter so the next review has a baseline to set targets against."""
 from slidekit import (NAVY, GOLD, INK, SLATE, PANEL, HAIR, WHITE, SERIF, SANS, ML, UW, RX)
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
+from lib import lookthrough as LT
 
 # fund category -> broad allocation bucket, for a TRUE look-through Equity/Fixed-Income split
 # (direct equity + equity-oriented funds vs hybrid/debt/cash-like funds) -- addresses "too much
@@ -66,50 +67,77 @@ def _fit(current, band, cap_style=False):
     return "Aligned" if lo - 1e-9 <= current <= hi + 1e-9 else "Gap"
 
 
-def _lookthrough_mix(ctx):
-    """Real Equity / Hybrid-Debt / Cash split, direct equity + fund look-through by category --
-    not just the crude direct-equity-vs-everything-else split used elsewhere in the deck."""
-    eq = ctx["equity"]; funds = ctx["funds"]; t = ctx["totals"]
-    eq_w = sum(e["weight_pct"] for e in eq)
-    fund_eq_w = sum(f["weight_pct"] for f in funds if f.get("category") in _EQUITY_FUND_CATS)
-    fund_hybrid_w = sum(f["weight_pct"] for f in funds if f.get("category") in _HYBRID_FUND_CATS)
-    fund_debt_w = sum(f["weight_pct"] for f in funds if f.get("category") in _DEBT_FUND_CATS)
-    fund_other_w = sum(f["weight_pct"] for f in funds) - fund_eq_w - fund_hybrid_w - fund_debt_w
-    true_equity = eq_w + fund_eq_w
-    true_hybrid_debt = fund_hybrid_w + fund_debt_w + max(fund_other_w, 0)
-    true_cash = t.get("cash_pct", 0.0)
-    return true_equity, true_hybrid_debt, true_cash
+def _all_holdings(ctx):
+    """Every position: funds, direct shares, and everything else the desk does not score."""
+    return list(ctx.get("funds") or []) + list(ctx.get("equity") or []) + list(ctx.get("other") or [])
 
 
 def _current_values(ctx):
-    """Every 'Current' figure computed live from ctx -- correct for ANY client automatically,
-    never pre-baked into a client's data file (2026-07-28 design rule for this module)."""
-    eq = ctx["equity"]; funds = ctx["funds"]; t = ctx["totals"]
-    true_equity, true_hybrid_debt, true_cash = _lookthrough_mix(ctx)
+    """Every 'Current' figure computed live from ctx, over the WHOLE book.
 
-    all_weights = [e["weight_pct"] for e in eq] + [f["weight_pct"] for f in funds]
+    This module used to carry its OWN copy of the look-through maths, which lib/lookthrough.py
+    documents as having been moved out of here in 2026-08-06 precisely so every page reads the
+    identical number. The copy stayed behind and drifted. On a book that is 30% AIFs, a PMS, REITs,
+    a ULIP and direct bonds, this page reported EQUITY AT 9% against a true 75.9%, because its copy
+    summed direct shares and funds only, and it printed "fixed income and alternates 61%" which was
+    the fund sleeve, not fixed income.
+
+    Three figures were hardcoded to zero with comments asserting facts about ONE client's book:
+    international equity, unlisted equity and silver. This book holds two overseas feeders and four
+    unlisted companies, so both of those "facts" were false and the page said 0% to a client whose
+    mandate caps unlisted at 30% and who is at 16% of the equity sleeve. Nothing here is hardcoded
+    now; a figure that cannot be computed is left to the caller's band as TBD.
+    """
+    t = ctx["totals"]
+    everything = _all_holdings(ctx)
+    true_equity, true_debt, true_cash, true_other = LT.full_lookthrough_mix(ctx)
+
+    def w(h):
+        return float(h.get("weight_pct") or 0.0)
+
+    def sub(h):
+        return (h.get("risk_sub") or "").strip()
+
+    all_weights = [w(h) for h in everything]
     single_scheme = max(all_weights) if all_weights else 0.0
+    amc_share = LT.amc_concentration(ctx)
+    single_amc = max(amc_share.values()) if amc_share else 0.0
 
-    amc_tot = {}
-    for f in funds:
-        amc = f.get("amc") or "Unknown"
-        amc_tot[amc] = amc_tot.get(amc, 0.0) + f["weight_pct"]
-    single_amc = max(amc_tot.values()) if amc_tot else 0.0
+    # Locked in means the holder cannot get out inside a year, whatever the wrapper. Counting only
+    # ELSS missed every AIF, the ULIP and the private-equity funds, which is most of the real
+    # lock-up in a book like this one.
+    locked_in = sum(w(h) for h in everything if (h.get("days_to_cash") or 0) > 365)
 
-    locked_in = sum(f["weight_pct"] for f in funds if f.get("category") == "elss")
-
-    eq_sleeve_w = sum(e["weight_pct"] for e in eq) or 1.0
-    large_share = sum(e["weight_pct"] for e in eq if e.get("mcap_band") == "Large") / eq_sleeve_w * 100.0
+    eq_holdings = [h for h in everything
+                   if (h.get("asset_class") or "").strip().lower() == "equity"] or                   (list(ctx.get("equity") or []) + list(ctx.get("funds") or []))
+    eq_sleeve_w = sum(w(h) for h in eq_holdings) or 1.0
+    LARGE = {"Direct Equity - Large Cap", "Large Cap Fund", "Index Fund / ETF - Broad Market",
+             "Factor / Smart Beta Fund"}
+    MIDSMALL = {"Direct Equity - Mid Cap", "Direct Equity - Small Cap", "Direct Equity - Micro Cap",
+                "Direct Equity - Recent IPO", "Mid Cap Fund", "Small Cap Fund"}
+    capped = [h for h in eq_holdings if sub(h) in LARGE or sub(h) in MIDSMALL]
+    cap_w = sum(w(h) for h in capped)
+    if cap_w:
+        large_share = sum(w(h) for h in capped if sub(h) in LARGE) / cap_w * 100.0
+    else:   # fall back to the older mcap_band field where the framework has not placed anything
+        band_w = sum(w(h) for h in eq_holdings if h.get("mcap_band")) or 1.0
+        large_share = sum(w(h) for h in eq_holdings
+                          if h.get("mcap_band") == "Large") / band_w * 100.0
     midsmall_share = 100.0 - large_share
 
-    intl_equity = 0.0  # no foreign-listed holding in this book -- a real fact, not a data gap
-    unlisted_equity = 0.0  # every holding here is exchange-listed -- a real fact, not a data gap
-    gold_share = sum(e["weight_pct"] for e in eq if "gold" in e["name"].lower()) / (
-        sum(e["weight_pct"] for e in eq) + sum(f["weight_pct"] for f in funds) or 1.0) * 100.0
-    silver_share = 0.0  # no silver-specific holding tracked
+    UNLISTED = ("Unlisted Equity", "AIF Cat I", "AIF Cat II")
+    intl_equity = sum(w(h) for h in eq_holdings
+                      if sub(h) == "International Fund / FoF") / eq_sleeve_w * 100.0
+    unlisted_equity = sum(w(h) for h in eq_holdings
+                          if sub(h).startswith(UNLISTED)) / eq_sleeve_w * 100.0
+    gold_share = sum(w(h) for h in everything if "gold" in (sub(h) + " " +
+                     str(h.get("name") or "")).lower())
+    silver_share = sum(w(h) for h in everything if "silver" in (sub(h) + " " +
+                       str(h.get("name") or "")).lower())
 
     return {
-        "equity_pct": true_equity, "hybrid_debt_pct": true_hybrid_debt, "cash_pct": true_cash,
+        "equity_pct": true_equity, "hybrid_debt_pct": true_debt + true_other,
+        "cash_pct": true_cash,
         "single_scheme_pct": single_scheme, "single_amc_pct": single_amc,
         "locked_in_pct": locked_in, "cash_cap_pct": true_cash,
         "large_pct": large_share, "midsmall_pct": midsmall_share,
