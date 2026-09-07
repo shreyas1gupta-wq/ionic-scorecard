@@ -49,10 +49,12 @@ def render(deck, ctx, tier):
                        "Where a scheme mostly re-buys index names you hold directly, a low-cost index "
                        "sleeve is the cleaner replacement.")
     else:
-        opening = ("No fund here is sold on performance alone. Each action is structural or a directed "
-                   "liquidity need: mandate, cost, scale, consistency, or a client cash requirement. Where a "
-                   "scheme mostly re-buys index names you already hold directly, the cleaner replacement is "
-                   "a low-cost index sleeve (Nifty 50 / Nifty 500 class) rather than paying an active fee twice.")
+        # Kept inside the 0.40in band this is laid into. The longer version ran to four lines and
+        # clipped by 0.28in on any book with few actions, which the geometry gate caught only once
+        # a one-fund book was tested.
+        opening = ("No fund here is sold on performance alone. Each action is structural or a "
+                   "directed liquidity need. Where a scheme mostly re-buys index names you already "
+                   "hold directly, a low-cost index sleeve is the cleaner replacement.")
     deck.txt(s, ML, 1.62, UW, 0.40, [(opening, SERIF, 10, SLATE, False, True)], ls=1.04)
 
     # 2 or 3 columns of cards, adapting to fund count (2026-07-29 fix: a real client can have

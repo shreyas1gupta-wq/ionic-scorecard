@@ -143,6 +143,12 @@ def main():
         raise SystemExit(f"  the score file is dated {stamp} but VERSION says {ver.get('as_of')}. "
                          f"They are not a matched pair; get a fresh set from the desk.")
 
+    # A book with no scheme-level match anywhere is legitimate: a portfolio of direct shares,
+    # bonds and REITs has no ISIN this kit can join on. Merging an empty frame raised a bare
+    # KeyError on "isin" and took the whole run down.
+    if H.empty:
+        H = pd.DataFrame(columns=["isin", "sheet", "scheme", "holder", "folio", "units",
+                                  "asset_class", "sub_category", "invested", "value"])
     M = H.merge(S, on="isin", how="left", suffixes=("_stmt", ""))
     M["call"] = M["call"].fillna("No View")
     M["rationale"] = M["rationale"].fillna("")
@@ -346,7 +352,12 @@ def main():
         for _e in equity_rows:
             _rs = (_e.get("risk_sub") or "")
             if _rs.startswith("Direct Equity - "):
-                _e["mcap_band"] = _rs.split(" - ", 1)[1]
+                # mcap_positioning's buckets are "Large"/"Mid"/"Small"/"Micro". The framework's
+                # sub-category says "Large Cap". Handing it the longer string put every holding in
+                # a key the page does not read, so all four buckets summed to zero: the page either
+                # showed nothing or, on a one-holding book, raised inside the chart on max() of an
+                # empty sequence and vanished from the deck.
+                _e["mcap_band"] = _rs.split(" - ", 1)[1].replace(" Cap", "")
         po, go = RL.attach(other_rows, _bands, _mcap, "other")
         placed, gap = pf + pe + po, gf + ge + go
         total_rows = len(funds) + len(equity_rows) + len(other_rows)

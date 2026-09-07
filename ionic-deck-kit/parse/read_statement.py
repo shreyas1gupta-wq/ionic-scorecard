@@ -159,11 +159,19 @@ def read_statement(path):
         for j in range(df.shape[1]):
             counts[j] = sum(1 for v in df.iloc[:, j] if v is not None and ISIN_RE.match(str(v).strip()))
         isin_col = max(counts, key=counts.get) if counts else None
-        if isin_col is None or counts[isin_col] == 0:
-            continue
+        # A SHEET WITH NO ISIN ANYWHERE IS STILL A SHEET OF HOLDINGS. This used to skip the whole
+        # sheet, so a statement that quotes no ISINs at all, which is the common case for direct
+        # equity, REITs, bonds and anything a client's own spreadsheet lists, produced zero
+        # holdings, zero exceptions and a total of zero, and the caller then died on a merge
+        # against an empty frame. Nothing was reported: the book simply disappeared.
+        no_isin_sheet = isin_col is None or counts[isin_col] == 0
+        if no_isin_sheet:
+            isin_col = None
         sheets_used.append(sheet)
 
         hrow, hdr = _find_header(df, isin_col)
+        if hrow is None and no_isin_sheet:
+            continue          # no header and no ISIN: there is nothing here to read
         c_val = _pick(hdr, VALUE_WORDS)
         c_cost = _pick(hdr, COST_WORDS, exclude={c_val} if c_val is not None else ())
         c_unit = _pick(hdr, UNIT_WORDS)
@@ -178,7 +186,8 @@ def read_statement(path):
 
         for i in range(len(df)):
             raw = df.iloc[i].tolist()
-            cell = str(raw[isin_col]).strip() if raw[isin_col] is not None else ""
+            cell = ("" if isin_col is None else
+                    (str(raw[isin_col]).strip() if raw[isin_col] is not None else ""))
             joined = " ".join(_norm(x) for x in raw if x is not None)
             if not ISIN_RE.match(cell):
                 # a row with money on it but no ISIN, sitting inside the data block, is worth flagging
