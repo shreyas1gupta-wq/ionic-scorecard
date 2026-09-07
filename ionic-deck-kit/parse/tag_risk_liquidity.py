@@ -92,7 +92,14 @@ FACTOR_RX = re.compile(r"momentum|low\s*vol|value\s*\d|quality|alpha|smart\s*bet
                        re.IGNORECASE)
 TARGET_MAT_RX = re.compile(r"\bsdl\b|target\s*matur|g-?sec\s*20\d\d|psu\s*bond", re.IGNORECASE)
 LIQUID_RX = re.compile(r"1d\s*rate|liquid\s*bees|liquid\s*rate|overnight", re.IGNORECASE)
-GSEC_RX = re.compile(r"g-?sec.*?(20\d\d)", re.IGNORECASE)
+# A G-Sec on a statement is almost never spelled "G-Sec". It is "7.26% GOI 2033", "6.54%
+# Government of India 2032", "GOI SEC 7.10% 2029" or "CGL 2035", and requiring the literal string
+# left every one of them unplaced by the framework, so sovereign paper carried no risk band, no
+# liquidity band and no AAA treatment. The maturity year is what the band needs and it is on the
+# line in all of these forms. This runs only for a holding the statement already calls direct
+# fixed income, so a "Government Securities Fund" cannot reach it.
+GSEC_RX = re.compile(r"(?:g-?sec|goi|gov(?:ernment)?\s+of\s+india|\bcgl\b|\bgs\b)"
+                     r"[^0-9]*(?:\d+\.?\d*\s*%)?[^0-9]*(20\d\d)", re.IGNORECASE)
 
 # The statement's own Category column, for holdings the score file never sees.
 CATEGORY_TO_SUB = {
@@ -142,7 +149,64 @@ def sub_for_fund(name, sebi_category):
                "Exchange Traded Funds (ETFs) - Equity ETF") or "index" in nm.lower() \
             or "etf" in nm.lower():
         return "Factor / Smart Beta Fund" if FACTOR_RX.search(nm) else "Index Fund / ETF - Broad Market"
-    return SEBI_TO_SUB.get(cat)
+    hit = SEBI_TO_SUB.get(cat)
+    if hit:
+        return hit
+    return _by_leaf(cat, nm)
+
+
+def _leafkey(cat):
+    """The category's LEAF, normalised: the part after the family prefix, lower-cased, with
+    punctuation and spacing collapsed."""
+    leaf = str(cat or "").split(" - ")[-1]
+    return re.sub(r"[^a-z0-9]+", " ", leaf.lower()).strip()
+
+
+# Built from SEBI_TO_SUB itself, so every leaf the table already knows stays in step with it.
+_LEAF_TO_SUB = {}
+
+# Leaves the table has no singular twin for. Each is the AMFI feed's own wording for a mandate the
+# framework already has a band for; none of them is a new judgement.
+_LEAF_EXTRA = {
+    "elss tax saver fund": "ELSS", "sectoral fund": "Thematic / Sectoral Fund",
+    "thematic fund": "Thematic / Sectoral Fund",
+    "balanced advantage fund dynamic asset allocation":
+        "Balanced Advantage / Dynamic Asset Allocation",
+    "dynamic term fund": "Dynamic Bond Fund",
+    "fund of funds scheme domestic": "Index Fund / ETF - Broad Market",
+    "fund of funds investing overseas": "International Fund / FoF",
+    "debt funds": "Target Maturity Index Fund (G-Sec / SDL / PSU)",
+    "children s fund": "Flexi Cap Fund", "childrens fund": "Flexi Cap Fund",
+    # "Growth" is the legacy bucket the feed still uses for plain equity, the twin of "Income",
+    # which this table already sends to a bond fund.
+    "growth": "Flexi Cap Fund",
+}
+
+
+def _by_leaf(cat, name=""):
+    """Match on the category's LEAF when the full string is not in the table.
+
+    The AMFI feed writes the same mandate as "Equity Scheme - Large Cap Fund" and "Equity Schemes -
+    Large Cap Fund" in different vintages, and eighteen of the seventy-one categories in the
+    current score file arrived in the plural form and matched nothing at all, so those schemes
+    carried no risk band, no liquidity band and no core/satellite placing. This is EXACT matching
+    on a normalised leaf, not similarity matching: the leaf either is a category this desk has
+    banded or it is not, and an unrecognised leaf still returns None rather than a near-miss.
+    """
+    if not _LEAF_TO_SUB:
+        for k, v in SEBI_TO_SUB.items():
+            _LEAF_TO_SUB.setdefault(_leafkey(k), v)
+        _LEAF_TO_SUB.update(_LEAF_EXTRA)
+    key = _leafkey(cat)
+    hit = _LEAF_TO_SUB.get(key)
+    # A debt ETF is a container, like an index fund: what it tracks decides the band, and an
+    # overnight-rate ETF is not a target-maturity bond fund.
+    if key == "debt etf":
+        low = str(name or "").lower()
+        if re.search(r"liquid|overnight|1d rate|1-d rate|\bday\b", low):
+            return "Liquid Fund"
+        return "Target Maturity Index Fund (G-Sec / SDL / PSU)"
+    return hit
 
 
 def sub_for_other(name, category, asset_class, mcap):
@@ -165,13 +229,45 @@ def sub_for_other(name, category, asset_class, mcap):
             return ("G-Sec - Long (residual over 15 years)" if yrs > 15 else
                     "G-Sec - Medium (residual 5 to 15 years)" if yrs >= 5 else
                     "G-Sec - Short (residual under 5 years)")
-        if re.search(r"\bbank\b", nm, re.IGNORECASE):
-            return "Fixed Deposit - small finance bank / NBFC / corporate"
-        if re.search(r"national highway|railway finance|infrastructure finance|\bnhai\b|\birfc\b",
-                     nm, re.IGNORECASE):
-            return "Bonds - AAA PSU / sovereign-owned"
-        if re.search(r"\bncd\b|debenture", nm, re.IGNORECASE):
+        # THE INSTRUMENT DECIDES, THEN THE ISSUER. A word like "bank" in a security's name is the
+        # ISSUER, not the instrument: "State Bank of India NCD 2029" and "Bank of Baroda
+        # Infrastructure Bond" are a debenture and a bond, and neither is a deposit. Testing for
+        # "bank" first sent every one of them to the small-finance-bank deposit band, which carries
+        # a different risk band, a different liquidity band and a different credit treatment from
+        # what the client actually holds. The deposit test now needs a deposit word, and the
+        # bare-"bank" fallback runs last, after every instrument has had its turn.
+        low = nm.lower()
+        if re.search(r"\bsdl\b|state development loan", low):
+            return "SDL"
+        if re.search(r"\bt-?bill\b|treasury bill", low):
+            return "T-Bill"
+        if re.search(r"perpetual|\bat1\b|\bat-1\b|tier ?(?:2|ii)\b", low):
+            return "Perpetual / AT1 / Tier 2"
+        if re.search(r"savings a/?c|savings account|current account|bank balance", low):
+            return "Bank Balance / Savings / Current Account"
+        _psu = re.search(r"national highway|railway finance|infrastructure finance|\bnhai\b|"
+                         r"\birfc\b|\brec ltd\b|\bpfc\b|\bnabard\b|\bhudco\b|power finance|"
+                         r"rural electrification|government of india|\bgoi\b|\bpsu\b", low)
+        if re.search(r"fixed deposit|\bfd\b|\bdeposit\b", low):
+            # The two deposit bands exist because the credit behind them differs. A small finance
+            # bank, a co-operative bank and an NBFC all carry the word "bank" or not at whim, so
+            # they are tested BEFORE the generic bank test, which would otherwise file every one
+            # of them as scheduled-commercial and understate the risk on that line.
+            if re.search(r"small finance|\bsfb\b|co-?operative|\bnbfc\b|finance ltd|"
+                         r"financial services", low):
+                return "Fixed Deposit - small finance bank / NBFC / corporate"
+            return ("Fixed Deposit - scheduled commercial or PSU bank, callable"
+                    if _psu or re.search(r"\bbank\b", low)
+                    else "Fixed Deposit - small finance bank / NBFC / corporate")
+        if re.search(r"\bncd\b|debenture", low):
             return "NCD - AA and below / unrated / market-linked"
+        if re.search(r"\bbonds?\b|\bnotes?\b", low):
+            return ("Bonds - AAA PSU / sovereign-owned" if _psu
+                    else "Bonds - AAA / AA+ private issuer")
+        # No instrument word at all. A bare bank name on a fixed-income line is, on the statements
+        # this desk sees, a deposit.
+        if re.search(r"\bbank\b", low):
+            return "Fixed Deposit - small finance bank / NBFC / corporate"
         return None
     if cat == "aif":
         low = nm.lower()
