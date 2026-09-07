@@ -94,11 +94,24 @@ def render(deck, ctx, tier):
     deck.rect(s, rx, by, rw, 1.70, fill=PANEL, round_=0.04)
     deck.rect(s, rx, by, 0.06, 1.70, fill=NAVY)
     deck.txt(s, rx + 0.20, by + 0.14, rw - 0.4, 0.24, [("HOW WE MEASURE PROGRESS", SANS, 9.5, NAVY, True, False, 60)])
-    basis = [
-        f"Foreign equity, {stance['Foreign equity']}",
-        f"Gold & silver, {stance['Gold & silver']}",
-        f"Low-vol / value {stance['Low-vol / value'].lower()}; momentum {stance['Momentum'].lower()}",
-    ]
+    # Indexed with [] these four keys made a client page hostage to the desk's own wording: rename
+    # one stance in house_view.json and this module raises, and a raise here used to take the whole
+    # mandate page out of the deck with nothing on the deck to say so. A stance the published view
+    # does not carry is simply not claimed.
+    _st = ((ctx.get("house_view") or {}).get("stance_all") or {}) | dict(stance or {})
+
+    def _s(k):
+        return str(_st.get(k) or "").strip()
+
+    basis = [b for b in (
+        (f"Foreign equity, {_s('Foreign equity')}" if _s("Foreign equity") else ""),
+        (f"Gold & silver, {_s('Gold & silver')}" if _s("Gold & silver") else ""),
+        ("; ".join(p for p in (
+            (f"Low-vol / value {_s('Low-vol / value').lower()}" if _s("Low-vol / value") else ""),
+            (f"momentum {_s('Momentum').lower()}" if _s("Momentum") else "")) if p)),
+    ) if b]
+    if not basis:
+        basis = ["Against our published house view of markets, not a single index."]
     deck.txt(s, rx + 0.20, by + 0.42, rw - 0.4, 0.24,
              [("Against our house-view mix of markets, not a single index:", SERIF, 9.5, INK, False, True)])
     for i, b in enumerate(basis):

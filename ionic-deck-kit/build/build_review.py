@@ -336,6 +336,20 @@ def main():
                              "value"].sum())
         return v
 
+    # A book worth nothing cannot be reviewed, and every weight on every page of this deck is a
+    # share of GRAND. Sixteen divisions by it follow this line. Left unguarded the build died on
+    # a ZeroDivisionError with a traceback and no deck; what the advisor needs is to be told
+    # which statement produced no value, and that it is almost always a parsing problem rather
+    # than an empty account.
+    if not GRAND:
+        raise SystemExit(
+            "\n  STOP: this statement produced a book worth Rs 0, so there are no "
+            "weights to compute and no review to write." + "\n" +
+            "  Usually the value column was not read: check that the sheet has a column "
+            "headed Value, Market Value, Current Value or Amount, that its numbers are "
+            "stored as numbers rather than text, and that the holdings are not all closed."
+            + "\n  Nothing has been written.")
+
     EQ_VAL = _clsval("equity")
     FI_VAL = _clsval("fixed income")
     ALT_VAL = _clsval("alternates")

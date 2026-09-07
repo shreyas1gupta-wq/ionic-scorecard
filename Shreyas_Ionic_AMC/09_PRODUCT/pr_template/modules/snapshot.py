@@ -88,16 +88,28 @@ def render(deck, ctx, tier):
                 f"About {mf:.0f}% is in mutual funds and {cash:.0f}% is kept as cash. "
                 "A lot sits in just a few shares. We look at that next.")
     elif reg == "hni":
+        # A top-TEN aggregate against a per-NAME cap compares nothing: 56% of the book in ten
+        # holdings is not a breach of a 10% single-holding limit, and printing the two side by side
+        # invited the reader to conclude it was. The cap is tested by the largest single holding,
+        # which is what the concentration page tests it with; the top-ten figure stands on its own
+        # as a spread statement. Also "an 10%": the article has to follow the number it is read as.
+        _largest = max((w for _n, _k, w in LT.scheme_concentration(ctx, top_n=1)), default=0.0)
+        # "an" before a number the reader says aloud starting with a vowel: 8, 11, 18, 80-89.
+        _c = int(round(cap))
+        _art = "an" if (_c in (11, 18) or str(_c)[0] == "8") else "a"
+        _conc = (f"the ten largest holdings carry {top10:.0f}% of the book between them, and the "
+                 f"largest single one is {_largest:.1f}% against {_art} {cap:.0f}% cap")
         # "direct equity" was wrong: eq is the whole equity share, however it is held. On a book
         # holding 8.9% in shares and the rest through funds, a PMS and AIFs, that sentence read
         # "76% direct equity".
+        # mf is a share of the BOOK, not of the equity sleeve, so "of it through funds" attributed
+        # the whole fund sleeve, debt funds included, to the equity number beside it.
         body = (f"The mix itself is healthy: {eq:.0f}% in equity overall doing the compounding, "
-                f"{mf:.0f}% of it through funds. What deserves attention "
-                f"sits inside the equity sleeve: the ten largest names carry {top10:.0f}% of the "
-                f"book against an {cap:.0f}% single-name guideline. This review deals with that "
-                f"first, then the funds, then the costs.")
+                f"with {mf:.0f}% of the book held through funds. What deserves attention is "
+                f"concentration: {_conc}. This review deals with that first, then the funds, then "
+                f"the costs.")
     else:
-        body = (f"About {eq:.0f}% of the book is in direct equity, {mf:.0f}% in mutual funds and "
+        body = (f"About {eq:.0f}% of the book is in equity, {mf:.0f}% is held through funds and "
                 f"{cash:.0f}% in cash. The equity sleeve drives the portfolio, and inside it the ten "
                 f"largest names hold {top10:.0f}% of the book. Concentration, not asset mix, is what we address first.")
     cx = ML + 4.85

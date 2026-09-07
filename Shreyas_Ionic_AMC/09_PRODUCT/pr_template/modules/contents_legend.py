@@ -11,6 +11,13 @@ from slidekit import (NAVY, NT2, NT3, GOLD, INK, SLATE, HOLD, SELL, AMBER, PANEL
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 
 # reading-order sections (Understanding is front matter -> gold dot; 01-05 have dividers)
+# Which chapter each module belongs to, read off the engine's own registry so the two cannot drift.
+try:
+    from engine import MODULES as _ENG_MODULES
+    _SEC_OF = {m: sec for m, sec, _n, _c in _ENG_MODULES if not m.startswith("_div")}
+except Exception:
+    _SEC_OF = {}
+
 _SECTIONS = [
     (None, "Understanding",   "Your mandate, policy bands and the headline plan",
                               "What you asked us to do"),
@@ -45,10 +52,23 @@ def render(deck, ctx, tier):
     s = deck.content(0, "", "How to read this review", title)
 
     # ---- LEFT: reading-order section list ----
+    # The contents page is the reader's map of THIS document. Printed from a fixed list it promised
+    # an Equity Book chapter on every mutual-fund book, six sections on a deck carrying five. The
+    # engine's probe pass records which modules render, so the chapter list is the chapters that
+    # exist.
+    _r = ctx.get("_rendered")
+    if _r:
+        _live = {str(sec) for mod, sec in _SEC_OF.items() if _r.get(mod)}
+        sections = [row for row in _SECTIONS if row[0] is None or row[0].lstrip("0") in
+                    {x.lstrip("0") for x in _live}]
+    else:
+        sections = list(_SECTIONS)
+    _NUMWORD = {2: "TWO", 3: "THREE", 4: "FOUR", 5: "FIVE", 6: "SIX", 7: "SEVEN"}
     lx = ML
     deck.txt(s, lx, 1.80, 5.2, 0.24,
-             [("THE SIX SECTIONS", SANS, 8.5, SLATE, True, False, 120)])
-    for i, (num, name, desc_std, desc_simple) in enumerate(_SECTIONS):
+             [(f"THE {_NUMWORD.get(len(sections), len(sections))} SECTIONS",
+               SANS, 8.5, SLATE, True, False, 120)])
+    for i, (num, name, desc_std, desc_simple) in enumerate(sections):
         yy = 2.18 + i * 0.60
         if num:
             deck.txt(s, lx, yy - 0.02, 0.55, 0.32, [(num, SANS, 15, NT2, True)])
@@ -84,20 +104,39 @@ def render(deck, ctx, tier):
              "A review of what you already own, and what we would do with each holding.")
     deck.txt(s, rx, 2.98, rw, 0.4, [(vocab, SERIF, 10, INK, False, True)], ls=1.05)
 
-    # ---- RIGHT-MID: Ionic-Score positioning legend ----
+    # ---- RIGHT-MID: score positioning legend ----
+    # Two different scores, two different scales. The Ionic Score is the direct-equity score and
+    # its 40 / 50 thresholds mean nothing on a book of funds; a deck that scores no share printed
+    # its legend anyway, teaching the reader a scale no page in front of them uses. The legend
+    # names whichever score the deck carries, and is dropped when it carries neither.
+    _has_stock_score = any(e.get("ionic_score") is not None for e in (ctx.get("equity") or []))
+    _has_fund_score = any(f.get("qfra") is not None for f in (ctx.get("funds") or []))
+    if not (_has_stock_score or _has_fund_score):
+        return 1
     deck.rule(s, rx, 3.50, rw, HAIR, 0.008)
-    deck.txt(s, rx, 3.62, rw, 0.24, [("THE IONIC SCORE, POSITIONED", SANS, 8.5, SLATE, True, False, 120)])
+    deck.txt(s, rx, 3.62, rw, 0.24,
+             [(("THE IONIC SCORE, POSITIONED" if _has_stock_score
+                else "THE FUND SCORE, POSITIONED"), SANS, 8.5, SLATE, True, False, 120)])
 
     def chip(cy, color, lab):
         deck.rect(s, rx, cy, 0.32, 0.20, fill=color, round_=0.4)
         deck.txt(s, rx + 0.46, cy - 0.04, rw - 0.5, 0.28, [(lab, SERIF, 10.5, INK, False)],
                  anchor=MSO_ANCHOR.MIDDLE)
 
-    chip(3.98, SELL,  "Below 40  ·  Sell candidate")
-    chip(4.31, AMBER, "40 to 50  ·  watch zone; Trim only with a concentration or risk flag")
-    chip(4.64, HOLD,  "50 and above  ·  Hold")
+    if _has_stock_score:
+        chip(3.98, SELL,  "Below 40  ·  Sell candidate")
+        chip(4.31, AMBER, "40 to 50  ·  watch zone; Trim only with a concentration or risk flag")
+        chip(4.64, HOLD,  "50 and above  ·  Hold")
+    else:
+        # The fund score is a share of the scheme's OWN peer group beaten, so the bottom third is
+        # the line the desk's framework actually draws, not 40 and 50.
+        chip(3.98, SELL,  "Bottom third of its own category  ·  Sell candidate")
+        chip(4.31, AMBER, "Middle of its category  ·  held and watched")
+        chip(4.64, HOLD,  "Top third of its own category  ·  Hold")
     deck.txt(s, rx, 5.02, rw, 0.4,
-             [("The Ionic Score flags candidates; the Portfolio Review team confirms every call.",
+             [(("The Ionic Score flags candidates; the Portfolio Review team confirms every call."
+                if _has_stock_score else
+                "The fund score flags candidates; the Portfolio Review team confirms every call."),
                SERIF, 9.5, SLATE, False, True)], ls=1.05)
 
     # ---- BOTTOM: per-build annexure tag ----

@@ -28,6 +28,17 @@ def render(deck, ctx, tier):
     simple = reg == "simple"
     as_of = ctx["client"]["as_of"]
     efunds = [f for f in ctx["funds"] if LT.is_equity_fund(f)]
+    # SELF-GATE. This page exists to show a RECORD: a three-year CAGR against the scheme's own
+    # category benchmark, and how much of the benchmark's falls the fund took. A review driven from
+    # a holdings statement has neither, because the published score file carries scores and
+    # percentiles rather than a NAV series. Rendered anyway it produced three slides headed
+    # "Three-year record against the index" whose every record cell read n/a, above two callouts
+    # asserting no funds are scored at all, on a page listing twenty-four scored funds with a desk
+    # call against each. A page that cannot be filled must not ship: the fund book, the
+    # quality-and-consistency page and the fund-actions page already carry every figure this review
+    # does have on these schemes.
+    if not any(f.get("cagr3y") is not None or f.get("down_capture") is not None for f in efunds):
+        return 0
     eyebrow, title = LABELS.get(reg, LABELS["std"])
     s = deck.content(2, "The Fund Book", eyebrow, title)
     deck.scope_tag(s, f"MF sleeve · equity & index schemes · Direct-plan NAV, each scheme vs its own "

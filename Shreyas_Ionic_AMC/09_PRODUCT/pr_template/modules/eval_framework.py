@@ -188,7 +188,10 @@ def render(deck, ctx, tier):
     nocall_val = sum(_val(h) for h in nocall)
     n_called = n_all - len(nocall)
 
-    s = deck.content(0, "Understanding", L["eyebrow"], L["title"])
+    # Registered in section 2 and drawn with the section-0 rail, so it sat inside The Fund Book
+    # chapter wearing the Understanding chapter's colours and eyebrow. The rail must be the
+    # chapter the engine files the page under.
+    s = deck.content(2, "The Fund Book", L["eyebrow"], L["title"])
     deck.anchor("mod:eval_framework", s, prio=1)
     deck.scope_tag(s, "Every holding in the book, funds and everything else · "
                       + (_count(n_all, "holding", "holdings") if n_all else "none held")

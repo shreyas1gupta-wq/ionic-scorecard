@@ -193,19 +193,44 @@ DIVIDER_TOC = {
 }
 
 
-def _toc_for(sec_no, tier):
-    out = []
-    for mod_id, label in DIVIDER_TOC.get(sec_no, []):
-        core = next((c for m, s, _n, c in MODULES if m == mod_id), None)
-        if core is None:
+# What each module calls itself on a chapter contents list. A module absent from here contributes
+# no line, which is the safe direction; a module present here contributes one only when it actually
+# rendered a page. DIVIDER_TOC above is kept as the ORDER, and this is the label lookup.
+_TOC_LABEL = {lab_id: lab for rows in DIVIDER_TOC.values() for lab_id, lab in rows}
+_TOC_LABEL.update({
+    "risk_liquidity": "Risk and liquidity", "tail_analysis": "Position sizing and the tail",
+    "eval_framework": "How we evaluate what you hold", "quality_consistency": "Score against steadiness",
+    "data_notes": "Data and coverage notes", "core_satellite": "Core vs satellite",
+    "mcap_positioning": "Market-cap positioning", "concentration_risk": "Concentration risk",
+    "all_holdings": "Every holding", "allocation_house_view": "Mix vs the house view",
+    "fund_actions": "Fund actions", "appendix": "Method and definitions",
+    "growth_projection": "Projection", "before_after": "Before and after",
+    "annex_goal_mapping": "Goals", "disclaimer": "Important information",
+})
+
+
+def _toc_for(sec_no, tier, rendered=None):
+    """The chapter's contents, from what the build ACTUALLY produced.
+
+    This used to be decided from the tier configuration alone, so a module that self-gated to zero
+    slides, and every module the pipeline had since replaced, still appeared on the chapter page.
+    Section 02 promised "Equity funds vs benchmark" and "Hybrid funds" on a deck carrying neither,
+    and named no page that had been added. A chapter page is a promise to the reader; it is now
+    made from the pages that exist.
+    """
+    order = [m for m, _l in DIVIDER_TOC.get(sec_no, [])]
+    ordered, extra = [], []
+    for mod_id, msec, _n, _c in MODULES:
+        if msec != sec_no or mod_id.startswith("_div"):
             continue
-        if core:
-            ok = mod_id not in tier.get("skip_core", set())
-        else:
-            ok = mod_id in tier["optional_on"]
-        if ok:
-            out.append(label)
-    return out[:5]
+        if rendered is not None and not rendered.get(mod_id):
+            continue
+        lab = _TOC_LABEL.get(mod_id)
+        if not lab:
+            continue
+        (ordered if mod_id in order else extra).append((mod_id, lab))
+    ordered.sort(key=lambda kv: order.index(kv[0]))
+    return [lab for _m, lab in ordered + extra][:5]
 
 
 def _load(mod_id):
@@ -215,8 +240,20 @@ def _load(mod_id):
         return None
 
 
-def build(ctx, tier_name, verbose=True, base=None):
+def build(ctx, tier_name, verbose=True, base=None, _rendered=None):
     tier = T.get(tier_name)
+    if _rendered is None:
+        # PROBE PASS. Chapter contents and the contents page have to name the pages the deck will
+        # actually carry, and a module only knows whether it has anything to say once it runs. The
+        # deck is built twice: once discarded, to learn that, and once for real. Modules are pure
+        # apart from writing chart PNGs, which are deterministic and overwritten.
+        try:
+            _, _mf = build(ctx, tier_name, verbose=False, base=base, _rendered={})
+            _rendered = {m: n for m, n in _mf}
+        except Exception:
+            _rendered = {}
+        ctx = dict(ctx)
+        ctx["_rendered"] = _rendered
     deck = slidekit.new_deck(base=base)
     manifest = []
     # a divider with no rendered content behind it is a dangling chapter page — skip it
@@ -245,16 +282,43 @@ def build(ctx, tier_name, verbose=True, base=None):
                       4: ("What We Would Do", "The calls, the cost and the tax"),
                       5: ("Annexure", "Detail and frameworks, on request")}
             t, sub = titles.get(sec_no, (sec_name, ""))
-            deck.section_divider(sec_no, t, sub, pages=_toc_for(sec_no, tier))
+            deck.section_divider(sec_no, t, sub,
+                                 pages=_toc_for(sec_no, tier, _rendered or None))
             manifest.append((mod_id, 1)); continue
         m = _load(mod_id)
         if m is None or not hasattr(m, "render"):
             if verbose: print(f"  [skip] {mod_id}: not implemented")
             continue
+        # A module that raises BEFORE it draws anything simply vanishes, which is the failure this
+        # build has been chasing all along. A module that raises AFTER deck.content() is worse: the
+        # title, the eyebrow and the section rail are already on a slide, so a half-drawn page
+        # SHIPS. It carries a heading promising content, no content, and no error anywhere the
+        # geometry or tell gates can see, because an empty page overlaps nothing and says nothing.
+        # The slides added by a failed module are removed here, so a raise always costs the whole
+        # page and never half of one.
+        _before = len(deck.prs.slides)
         try:
             n = m.render(deck, ctx, tier)
             manifest.append((mod_id, n if isinstance(n, int) else 1))
         except Exception as e:
-            if verbose: print(f"  [ERR ] {mod_id}: {e}")
+            _partial = len(deck.prs.slides) - _before
+            if _partial > 0:
+                _drop_slides(deck, _before)
+            if verbose:
+                print(f"  [ERR ] {mod_id}: {e}"
+                      + (f"  ({_partial} half-drawn slide(s) removed)" if _partial > 0 else ""))
             if os.environ.get("PR_TRACE"): traceback.print_exc()
     return deck, manifest
+
+
+def _drop_slides(deck, keep_upto):
+    """Remove every slide from index keep_upto onward. python-pptx has no public delete, so the
+    relationship and the sldIdLst entry both have to go, newest first."""
+    xml_slides = deck.prs.slides._sldIdLst
+    ids = list(xml_slides)
+    for idx in range(len(ids) - 1, keep_upto - 1, -1):
+        try:
+            deck.prs.part.drop_rel(ids[idx].rId)
+            xml_slides.remove(ids[idx])
+        except Exception:
+            pass
