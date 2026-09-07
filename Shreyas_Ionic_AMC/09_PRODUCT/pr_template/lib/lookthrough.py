@@ -43,6 +43,39 @@ _GROSS_EQUITY_NAME_KEYWORDS = ("balanced advantage", "multi-asset", "multi asset
                                "dynamic asset allocation", "arbitrage", "equity savings")
 
 
+def other_holdings(ctx):
+    """Everything held that is neither a direct share nor a mutual-fund scheme: AIFs, private
+    equity, a PMS, REITs, a ULIP, direct bonds and deposits.
+
+    THIS LIBRARY USED TO IGNORE THEM ENTIRELY, and that was the single biggest error in the
+    portfolio pages. Every function below summed ctx["equity"] and ctx["funds"] only, so on a book
+    holding 30% of its value in AIFs, a PMS, REITs, a ULIP and direct bonds, the allocation strip,
+    the core-satellite split, the AMC and scheme concentration tests and the IPS current column were
+    all struck on 70% of the portfolio. full_lookthrough_mix even documents a Principal ruling that
+    it must sum to the WHOLE book, and it did not.
+
+    Each one is bucketed BY ITS OWN ASSET CLASS, which is what the statement already states: a
+    long-only equity AIF and a discretionary equity PMS are equity, a credit AIF and a bond are
+    fixed income, a REIT and a ULIP are alternates.
+    """
+    return list(ctx.get("other") or [])
+
+
+def other_by_class(ctx):
+    """(equity_w, debt_w, alt_w) from the non-fund, non-share holdings, as % of the book."""
+    eq = debt = alt = 0.0
+    for o in other_holdings(ctx):
+        w = float(o.get("weight_pct") or 0.0)
+        c = (o.get("asset_class") or "").strip().lower()
+        if c == "equity":
+            eq += w
+        elif c == "fixed income":
+            debt += w
+        else:
+            alt += w
+    return eq, debt, alt
+
+
 def gross_equity_footnote(ctx):
     """Footnote text for a page carrying look-through equity (Principal ruling 2026-08-05: gross,
     footnote not a per-row flag), or None if no held category needs it. Names the CATEGORIES
@@ -80,7 +113,8 @@ def equity_lookthrough_pct(ctx):
             gap_w += f["weight_pct"]; gap_n += 1
             continue
         fund_eq += f["weight_pct"] * g / 100.0
-    return round(eq_w + fund_eq, 1), round(gap_w, 1), gap_n
+    oth_eq, _d, _a = other_by_class(ctx)
+    return round(eq_w + fund_eq + oth_eq, 1), round(gap_w, 1), gap_n
 
 
 def lookthrough_mix(ctx):
@@ -168,9 +202,11 @@ def full_lookthrough_mix(ctx):
                 fund_debt_w += w
             else:
                 fund_others_w += w  # truly uncategorised: disclosed as Others, never smuggled in
-    true_equity = eq_w + fund_eq_w
+    oth_eq, oth_debt, oth_alt = other_by_class(ctx)
+    true_equity = eq_w + fund_eq_w + oth_eq
     true_cash = t.get("cash_pct", 0.0)
-    return (round(true_equity, 1), round(fund_debt_w, 1), round(true_cash, 1), round(fund_others_w, 1))
+    return (round(true_equity, 1), round(fund_debt_w + oth_debt, 1), round(true_cash, 1),
+            round(fund_others_w + oth_alt, 1))
 
 
 def combined_sector_exposure(ctx):
@@ -202,6 +238,12 @@ def amc_concentration(ctx):
     for f in ctx["funds"]:
         amc = mf_mapping.canonical_amc(f.get("amc") or "Unknown")
         out[amc] = out.get(amc, 0.0) + f["weight_pct"]
+    # A PMS, an AIF or a ULIP has a manager too, and the cap is measured on the manager.
+    for o in other_holdings(ctx):
+        amc = (o.get("amc") or "").strip()
+        if amc and amc != "-":
+            k = mf_mapping.canonical_amc(amc)
+            out[k] = out.get(k, 0.0) + float(o.get("weight_pct") or 0.0)
     return dict(sorted(out.items(), key=lambda kv: -kv[1]))
 
 
@@ -212,6 +254,10 @@ def scheme_concentration(ctx, top_n=10):
     Returns [(name, kind, weight_pct), ...], kind in {"Stock","Fund"}, sorted descending."""
     rows = [(e["name"], "Stock", e["weight_pct"]) for e in ctx["equity"]]
     rows += [(f["name"], "Fund", f["weight_pct"]) for f in ctx["funds"]]
+    # Without this, the largest single position in a book like this one, a Rs 31 crore
+    # discretionary PMS, was absent from the top-ten concentration table altogether.
+    rows += [(o["name"], (o.get("sub_category") or "Other").split(" - ")[0],
+              float(o.get("weight_pct") or 0.0)) for o in other_holdings(ctx)]
     rows.sort(key=lambda r: -r[2])
     return rows[:top_n]
 

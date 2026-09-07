@@ -74,8 +74,11 @@ def render(deck, ctx, tier):
                 f"About {mf:.0f}% is in mutual funds and {cash:.0f}% is kept as cash. "
                 "A lot sits in just a few shares. We look at that next.")
     elif reg == "hni":
-        body = (f"The mix itself is healthy: {eq:.0f}% direct equity doing the compounding, "
-                f"{mf:.0f}% in funds for breadth, {cash:.0f}% in cash. What deserves attention "
+        # "direct equity" was wrong: eq is the whole equity share, however it is held. On a book
+        # holding 8.9% in shares and the rest through funds, a PMS and AIFs, that sentence read
+        # "76% direct equity".
+        body = (f"The mix itself is healthy: {eq:.0f}% in equity overall doing the compounding, "
+                f"{mf:.0f}% of it through funds. What deserves attention "
                 f"sits inside the equity sleeve: the ten largest names carry {top10:.0f}% of the "
                 f"book against an {cap:.0f}% single-name guideline. This review deals with that "
                 f"first, then the funds, then the costs.")

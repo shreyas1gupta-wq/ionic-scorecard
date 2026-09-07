@@ -52,7 +52,7 @@ HELD = ("Hold", "Hold (watch)")
 #   tax_impact needs a cost basis, which a holdings statement rarely carries.
 #   scheme_correlation needs NAV history, which is deliberately not in the kit.
 SKIP = {"score_method", "book_scored", "equity_book", "sell_list", "hold_rationale",
-        "mcap_positioning", "sector_exposure", "funds_debt",
+        "sector_exposure", "funds_debt",
         "scheme_correlation", "tax_impact"}
 # Pages that live in the library but sit in no tier by default, and which this review wants.
 # The tier override INTERSECTS optional_on with KEEP_ANNEX, so a module that is not already in some
@@ -110,6 +110,18 @@ def main():
               f"portfolio and its totals; the list is written out for reference")
 
     # ---- 2. look up the central calls ------------------------------------------------------------
+    # the house view travels with the calls
+    HV = {"stance": {}, "alloc_gap": {}, "sector_bands": {}}
+    _hvp = os.path.join(KIT, "scores", "house_view.json")
+    if os.path.exists(_hvp):
+        _hv = json.load(open(_hvp, encoding="utf-8"))
+        HV = {"stance": _hv.get("stance", {}), "sector_bands": {}, "alloc_gap": {},
+              "as_of": _hv.get("as_of"), "what_we_do": _hv.get("what_we_do", {}),
+              "limits_we_state": _hv.get("limits_we_state", []),
+              "review_cycle": _hv.get("review_cycle"), "targets": _hv.get("targets", {})}
+    else:
+        print("    no scores/house_view.json, so the house-view pages will render nothing")
+
     sf, is_demo = latest_score_file()
     S = pd.read_csv(sf)
     # The production VERSION.json arrives with the real score file. VERSION_DEMO.json is the tracked
@@ -292,8 +304,15 @@ def main():
     equity_rows, other_rows = [], []
     for o in OTH:
         w = o["value"] / GRAND * 100 if GRAND else 0.0
+        # A PMS, an AIF and a ULIP all have a manager, and the single-manager cap is measured on
+        # the manager. Kotak Alternate Opportunities aggregates with Kotak's schemes, which is
+        # exactly what that cap is for. A boutique with no match keeps its own leading words.
+        _mgr = _amc(o["name"])
+        if _mgr is None and o["sub_category"] in ("AIF", "Funds", "Private Equity"):
+            _mgr = " ".join(str(o["name"]).split()[:2])
         rec = dict(name=o["name"], value_inr=o["value"], weight_pct=round(w, 2),
                    asset_class=o["asset_class"], sub_category=o["sub_category"],
+                   amc=(_mgr or "-"),
                    rec="No View", verdict="No View", sector=None, ionic_score=None)
         (equity_rows if _isdirect(o) else other_rows).append(rec)
     equity_rows.sort(key=lambda r: -r["value_inr"])
@@ -324,6 +343,10 @@ def main():
             f["sebi_category"] = f.get("sebi_category") or ""
         pf, gf = RL.attach(funds, _bands, _mcap, "fund")
         pe, ge = RL.attach(equity_rows, _bands, _mcap, "other")
+        for _e in equity_rows:
+            _rs = (_e.get("risk_sub") or "")
+            if _rs.startswith("Direct Equity - "):
+                _e["mcap_band"] = _rs.split(" - ", 1)[1]
         po, go = RL.attach(other_rows, _bands, _mcap, "other")
         placed, gap = pf + pe + po, gf + ge + go
         total_rows = len(funds) + len(equity_rows) + len(other_rows)
@@ -345,6 +368,15 @@ def main():
         _out = [r for r in _sec["rows"] if r["fit"] in ("Above", "Below")]
         _na = [r for r in _sec["rows"] if r["fit"] is None]
         print(f"      {_sec['title'][:44]:<46} {len(_out)} outside band, {len(_na)} not computable")
+
+    _tg = HV.get("targets") or {}
+    if _tg and GRAND:
+        HV["alloc_gap"] = {
+            "Equity": round(EQ_VAL / GRAND * 100 - float(_tg.get("Equity", 0)), 1),
+            "Debt/Hybrid": round(FI_VAL / GRAND * 100 - float(_tg.get("Debt/Hybrid", 0)), 1),
+            "Gold": round(ALT_VAL / GRAND * 100 - float(_tg.get("Gold", 0)), 1)}
+    if HV.get("as_of"):
+        print(f"    house view : published {HV['as_of']}, {len(HV.get('stance') or {})} stances")
 
     ctx = {
         "client": {"name": a.client, "code": "-", "account_type": "Portfolio review",
@@ -404,17 +436,11 @@ def main():
                            [r["weight_pct"] for r in equity_rows + other_rows],
                            reverse=True)[:10]) or 0.0, 1),
                    "lookthrough": {}},
-        # The gap is struck against the MANDATE bands above, not an invented house target, so the
-        # page and the IPS page cannot disagree with each other.
-        "house_view": {"stance": {"Domestic equity": "Constructive, quality-biased",
-                                  "Foreign equity": "held via feeders",
-                                  "Gold & silver": "held" if ALT_VAL else "none held",
-                                  "Momentum": "Neutral", "Low-vol / value": "Favoured"},
-                       "alloc_gap": {
-                           "Equity": round(EQ_VAL / GRAND * 100 - 90, 1) if GRAND else 0.0,
-                           "Debt/Hybrid": round(FI_VAL / GRAND * 100 - 10, 1) if GRAND else 0.0,
-                           "Gold": round(ALT_VAL / GRAND * 100 - 5, 1) if GRAND else 0.0},
-                       "sector_bands": {}},
+        # PUBLISHED, not invented here. The stance and the "what we do" text used to be written
+        # inline in this file, which meant the house view was whatever the build script happened to
+        # say that day and two advisors could send two different ones in the same week. It now comes
+        # from scores/house_view.json alongside the calls, on the desk's own cadence.
+        "house_view": HV,
         "tax": {"fund_rows": [], "gross": 0, "ltcg": 0, "stcg": 0, "net": 0},
         "deployment": {"proceeds_inr": 0, "tax_leak_inr": 0, "net_inr": 0, "personalization": []},
         "cost": {"reg_drag_inr": 0, "rows": []},

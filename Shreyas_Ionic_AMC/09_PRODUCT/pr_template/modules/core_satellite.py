@@ -108,6 +108,21 @@ def render(deck, ctx, tier):
 
     rows = [(e["name"], "Stock", _equity_bucket(e), e["weight_pct"]) for e in eq]
     rows += [(f["name"], "Fund", _fund_bucket(f), f["weight_pct"]) for f in funds]
+    # Everything else held: an AIF, a private-equity fund, a PMS, a REIT, a ULIP, a bond. These
+    # were absent from this page entirely, so on a book with 30% of its value in them the split was
+    # struck on 70% of the portfolio. A concentrated PMS or a private-equity fund is the clearest
+    # satellite there is, and leaving it out flattered the core reading.
+    # Read the FRAMEWORK's sub-category (risk_sub), not the statement's own Category column. The
+    # statement says "AIF"; the framework says "AIF Cat II - Private Equity Fund". Matching the
+    # former against the latter's prefixes silently filed a Rs 31 crore concentrated PMS and every
+    # private-equity fund as CORE, which is the opposite of what they are.
+    _SAT_SUB = ("Unlisted Equity", "AIF Cat", "PMS", "Market Linked", "NCD",
+                "Perpetual", "Credit Risk", "Thematic")
+    for o in (ctx.get("other") or []):
+        sub = (o.get("risk_sub") or o.get("sub_category") or "")
+        bucket = "Satellite" if sub.startswith(_SAT_SUB) else "Core"
+        rows.append((o.get("name") or "", (sub.split(" - ")[0] or "Other"), bucket,
+                     float(o.get("weight_pct") or 0.0)))
 
     invested = sum(r[3] for r in rows) or 1.0
     core_pct = sum(r[3] for r in rows if r[2] == "Core") / invested * 100.0

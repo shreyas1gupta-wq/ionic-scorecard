@@ -1,0 +1,59 @@
+{
+  "_what_this_is": "The desk's current house view and what Ionic Wealth does for a client. Published centrally with the score file and refreshed on the desk's own cadence, exactly like the calls. The kit used to invent this text at build time, which meant two advisors could send two different house views in the same week. An advisor cannot edit it here to suit a client.",
+  "as_of": "2026-07-26",
+  "review_cycle": "Quarterly, with an interim review on any breach of the mandate",
+  "stance": {
+    "Domestic equity": "Constructive, quality-biased",
+    "Foreign equity": "Held through feeders",
+    "Gold & silver": "Held",
+    "Momentum": "Neutral",
+    "Low-vol / value": "Favoured"
+  },
+  "targets": {
+    "_note": "Directional house targets for an equity-led mandate, as a share of the whole book. The client's own mandate bands in the IPS take precedence where the two differ.",
+    "Equity": 90.0,
+    "Debt/Hybrid": 10.0,
+    "Gold": 5.0
+  },
+  "what_we_do": {
+    "headline": "What Ionic Wealth does for this portfolio",
+    "points": [
+      "We review what you already own. Every recommendation is Sell, Trim or Hold on a holding in your name, and nothing here is a solicitation to buy.",
+      "Every scheme earns a score out of 100 against its own SEBI category, on the three-year and five-year record, with the peer median as the benchmark rather than an index. The score is the input; the desk sets the verdict.",
+      "Every holding is placed on two independent axes: what can go wrong, and how quickly you can get out of it. Position size is part of the second one.",
+      "Your mandate is written down as bands, not adjectives, and the book is measured against it at every review. A breach is reported whether or not we have a fix for it.",
+      "Nothing is executed until you authorise it. We advise, you decide, and the trail of who signed off on what is kept."
+    ]
+  },
+  "limits_we_state": [
+    "A fund score describes a record. It is not a forecast of return, and we do not present it as one.",
+    "A holding the frameworks do not reach carries no view. It still appears in your portfolio, in every weight and in every concentration test.",
+    "Where a figure cannot be computed from the statement you gave us, the review says so rather than estimating it."
+  ],
+  "_key_note": "Four of these keys are indexed directly by the mandate_method page: 'Foreign equity', 'Gold & silver', 'Low-vol / value' and 'Momentum'. Renaming one of them drops that page from the deck with no error, because engine.build swallows module exceptions. Keep them exactly as spelled.",
+  "stance_detail": {
+    "Domestic equity": "Constructive, quality-biased. Earnings breadth is narrowing, so we prefer managers whose record does not depend on one part of the market.",
+    "Large cap": "Preferred. Valuations are undemanding relative to mid and small, and the drawdown behaviour is what an equity-led mandate needs at the core.",
+    "Mid and small cap": "Held, not added to. Three strong years have moved valuations ahead of earnings, and liquidity thins quickly when flows reverse.",
+    "Foreign equity": "Held through feeders. A diversifier for currency and for the part of the world's earnings India does not carry.",
+    "Fixed income": "Accrual over duration. The curve pays little for taking length, so the sleeve is there to hold value and fund calls, not to make the return.",
+    "Credit": "Selective and senior only. The spread on offer below AA does not compensate for the exit risk when it matters.",
+    "Alternates and private markets": "Owned for the return they add, held to the illiquidity budget. Nothing is bought here that the mandate cannot afford to leave alone.",
+    "Momentum": "Neutral. It works, and it turns fast; we would rather own it through a rules-based vehicle than through a manager's discretion.",
+    "Gold & silver": "A held diversifier, sized as insurance rather than as a view.",
+    "Low-vol / value": "Favoured. Both have paid over the long run and neither is crowded on our own screens today."
+  },
+  "_layout_note": "A stance is a SHORT phrase and the table holds FIVE rows. Ten rows pushed the page into its own source line. The four keys mandate_method indexes directly must always be present: Foreign equity, Gold & silver, Low-vol / value, Momentum. Everything else lives in stance_all and stance_detail.",
+  "stance_all": {
+    "Domestic equity": "Constructive, quality-biased",
+    "Large cap": "Preferred at the core",
+    "Mid and small cap": "Held, not added to",
+    "Foreign equity": "Held through feeders",
+    "Fixed income": "Accrual over duration",
+    "Credit": "Senior and selective only",
+    "Alternates and private markets": "Held to the illiquidity budget",
+    "Momentum": "Neutral, rules-based only",
+    "Gold & silver": "Held as insurance",
+    "Low-vol / value": "Favoured"
+  }
+}

@@ -36,7 +36,9 @@ def render(deck, ctx, tier):
 
     s = deck.content(1, "Portfolio X-ray", L["eyebrow"], L["title"])
     deck.anchor("mod:concentration", s, prio=5)
-    deck.scope_tag(s, f"Direct equity + funds, scheme level · as of {as_of}")
+    _n_oth = len(ctx.get("other") or [])
+    deck.scope_tag(s, ("Every holding, scheme level · as of %s" % as_of) if _n_oth else
+                      ("Direct equity + funds, scheme level · as of %s" % as_of))
 
     # ---- concentration KPIs, moved to the top so the two dense columns below have the
     # full remaining height (a bottom kpi_strip is a fixed ~0.9in footprint regardless of
