@@ -54,7 +54,11 @@ def render(deck, ctx, tier):
     # never agreed with this client; and a real reg_drag of 0 (every fund already Direct)
     # is a fee non-issue, not a "Rs 0k/yr avoidable fee" to report as if it were a gap
     ips_on_file = ips.get("on_file", True)
-    show_foreign_row = ips_on_file
+    show_foreign_row = (ips_on_file) and ips.get("foreign_target_pct") is not None
+    # A mandate that sets no overseas target cannot be under it. The row used to be
+    # gated on the gap alone and then formatted the target directly, so an IPS that
+    # is on file without that key raised and the engine, which swallows module
+    # exceptions, dropped the whole executive summary with no error on the deck.
     show_fee_row = reg_drag > 0
 
     title = ("The five things that need attention" if simple

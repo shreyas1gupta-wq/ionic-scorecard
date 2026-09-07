@@ -24,9 +24,18 @@ VALUE_WORDS = ["market value", "current value", "closing value", "value (rs", "v
                "current amount", "market val", "amount"]
 COST_WORDS = ["invested", "purchase", "cost", "amount invested", "book value"]
 UNIT_WORDS = ["unit", "balance unit", "closing unit", "quantity"]
-NAME_WORDS = ["scheme", "fund", "security", "instrument", "description"]
+# _pick takes the MOST SPECIFIC match, so the generic "name" sits last. Without it a sheet whose
+# column is headed "Asset Name" matched nothing, and every non-fund row fell back to a concatenation
+# of the whole line: "nan Bajaj Finserv Equity Direct Equity" instead of "Bajaj Finserv".
+NAME_WORDS = ["asset name", "scheme name", "security name", "holding name", "scheme", "fund",
+              "security", "instrument", "description", "holding", "asset", "name"]
 HOLDER_WORDS = ["investor", "holder", "member", "name of", "account", "client"]
 FOLIO_WORDS = ["folio"]
+# A statement that spans more than mutual funds usually says so in its own columns. Carrying these
+# through is what lets a REIT, an AIF or a direct share count toward the asset-class weights and the
+# risk profile instead of being filed as an exception and quietly leaving the portfolio.
+CLASS_WORDS = ["asset class", "asset type", "assetclass"]
+SUBCAT_WORDS = ["sub-category", "sub category", "category", "instrument type", "product"]
 SKIP_ROW_WORDS = ("total", "grand total", "sub total", "subtotal", "sum")
 
 
@@ -161,6 +170,8 @@ def read_statement(path):
         c_name = _pick(hdr, NAME_WORDS)
         c_hold = _pick(hdr, HOLDER_WORDS)
         c_folio = _pick(hdr, FOLIO_WORDS)
+        c_class = _pick(hdr, CLASS_WORDS)
+        c_scat = _pick(hdr, SUBCAT_WORDS, exclude={c_class} if c_class is not None else ())
         # "amount" appears in both lists; never let one column serve as value AND cost
         if c_val is not None and c_val == c_cost:
             c_cost = None
@@ -184,10 +195,16 @@ def read_statement(path):
                         if ev is None:
                             en = [n for n in (_num(x) for x in raw) if n is not None and n > 0]
                             ev = max(en) if en else None
-                        exc.append(dict(sheet=sheet, row=i + 1, reason="no ISIN on the row",
-                                        name=" ".join(str(x).strip() for x in raw
-                                                      if x is not None and not _num(x))[:80],
-                                        value=ev, text=joined[:160]))
+                        exc.append(dict(
+                            sheet=sheet, row=i + 1, reason="no ISIN on the row",
+                            name=(str(raw[c_name]).strip() if c_name is not None and raw[c_name]
+                                  else " ".join(str(x).strip() for x in raw
+                                                if x is not None and not _num(x))[:80]),
+                            asset_class=(str(raw[c_class]).strip()
+                                         if c_class is not None and raw[c_class] else ""),
+                            sub_category=(str(raw[c_scat]).strip()
+                                          if c_scat is not None and raw[c_scat] else ""),
+                            value=ev, text=joined[:160]))
                 continue
             if _is_total_row(raw):
                 continue
@@ -209,6 +226,8 @@ def read_statement(path):
                 holder=(str(raw[c_hold]).strip() if c_hold is not None and raw[c_hold] else ""),
                 folio=(str(raw[c_folio]).strip() if c_folio is not None and raw[c_folio] else ""),
                 units=(_num(raw[c_unit]) if c_unit is not None else None),
+                asset_class=(str(raw[c_class]).strip() if c_class is not None and raw[c_class] else ""),
+                sub_category=(str(raw[c_scat]).strip() if c_scat is not None and raw[c_scat] else ""),
                 invested=cost, value=val))
 
     H = pd.DataFrame(rows)

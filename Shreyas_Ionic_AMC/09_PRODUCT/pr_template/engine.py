@@ -123,6 +123,11 @@ MODULES = [
     ("factor_profile",     5, "Annexure",       False),
     ("spotlight_holdings", 5, "Annexure",       False),
     ("holdings_detail",    5, "Annexure",       False),
+    # all_holdings (2026-09-07): holdings_detail is the DIRECT-EQUITY annexure and its columns are
+    # Stock Scorecard fields. A book reviewed from a holding statement has none of them, so that page
+    # rendered a title and nineteen rows of empty cells under "All holdings, scored". This one lists
+    # every position, fund or not, on the fields a statement review actually knows.
+    ("all_holdings",       5, "Annexure",       False),
     ("sell_cards",         5, "Annexure",       False),
     ("scheme_scorecards",  5, "Annexure",       False),
     # ---- extended visual annexure (18 illustrations) ----
