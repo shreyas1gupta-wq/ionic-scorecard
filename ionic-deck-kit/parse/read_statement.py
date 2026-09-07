@@ -54,6 +54,12 @@ def _is_total_row(raw):
         t = re.sub(r"\s+", " ", t).strip()
         if t in SKIP_ROW_WORDS:
             return True
+        # "Sub Total (Equity)", "Total Portfolio", "Total (A)": a qualifier after the label does not
+        # stop it being a totals row. Requiring the bare word let every one of those through as a
+        # HOLDING carrying the subtotal's money, which doubles the book and halves every weight.
+        # Anchored at the START and length-bounded so a fund actually named "Total Market" survives.
+        if len(t) <= 24 and re.match(r"^(grand |sub )?total\b", t):
+            return True
     return False
 
 
@@ -70,12 +76,23 @@ def _num(x):
     """
     if isinstance(x, (int, float)):
         return None if pd.isna(x) else float(x)
-    s = re.sub(r"[,\s₹]", "", str(x))
+    # Strip the currency the statement was written in, not just the rupee glyph. "Rs 5,00,000.00"
+    # is the commonest way an Indian statement writes a value, and it was unparseable: the row then
+    # fell back to "the largest number on the row", which is the UNITS column, and the same text on
+    # the TOTAL row left the stated total as None so the reconciliation switched itself off in
+    # exactly the case it exists for. An Rs 800,000 book read as Rs 3,000 and nothing said so.
+    t = str(x).strip()
+    neg = t.startswith("(") and t.endswith(")")      # accounting negative
+    t = re.sub(r"(?i)^\s*(?:rs\.?|inr|₹)\s*", "", t.strip("()").strip())
+    t = re.sub(r"[,\s₹]", "", t)
+    t = re.sub(r"(?i)\s*(?:cr|crs?|lakhs?|lacs?)\.?$", "", t)
     try:
-        v = float(s)
+        v = float(t)
     except ValueError:
         return None
-    return None if v != v else v
+    if v != v:
+        return None
+    return -v if neg else v
 
 
 # Words that only ever appear in a HEADER, never in a holding's name.
@@ -155,6 +172,7 @@ def read_statement(path):
     """Return (holdings DataFrame, exceptions DataFrame, notes dict)."""
     book = pd.read_excel(path, sheet_name=None, header=None)
     rows, exc, sheets_used = [], [], []
+    val_col = {}          # sheet -> the column the value was read from, for the reconciliation
 
     for sheet, df in book.items():
         if df.empty:
@@ -188,6 +206,7 @@ def read_statement(path):
         # "amount" appears in both lists; never let one column serve as value AND cost
         if c_val is not None and c_val == c_cost:
             c_cost = None
+        val_col[sheet] = c_val
 
         for i in range(len(df)):
             raw = df.iloc[i].tolist()
@@ -250,14 +269,28 @@ def read_statement(path):
     # RECONCILE against any TOTAL row the statement prints for itself. This is the check that would
     # have caught the column mis-pick above on its own: the parsed sum was half the stated total and
     # nothing else complained.
+    # Find the statement's own total with the SAME test used to skip totals rows, or the two
+    # disagree: a row labelled "Total Portfolio" was skipped as a total but invisible to this scan,
+    # so the reconciliation silently had nothing to check against.
+    #
+    # And take the total from the VALUE column, not the largest number on the row. A totals row that
+    # also totals the cost or the units column set `stated` to that larger figure, and the check
+    # then reported MISMATCH on a read that was exactly right. A false alarm here is expensive: the
+    # skill tells an advisor to stop when reconciliation fails.
     stated = None
     for sheet, df in book.items():
         for i in range(len(df)):
-            cells = [_norm(c) for c in df.iloc[i].tolist()]
-            if any(c in ("total", "grand total") for c in cells):
-                nums = [n for n in (_num(x) for x in df.iloc[i].tolist()) if n is not None]
-                if nums:
-                    stated = max(stated or 0, max(nums))
+            raw = df.iloc[i].tolist()
+            if not _is_total_row(raw):
+                continue
+            v = None
+            if val_col.get(sheet) is not None and val_col[sheet] < len(raw):
+                v = _num(raw[val_col[sheet]])
+            if v is None:
+                nums = [n for n in (_num(x) for x in raw) if n is not None]
+                v = max(nums) if nums else None
+            if v is not None:
+                stated = max(stated or 0, v)
     # Reconcile the WHOLE READ against the statement's own total, funds plus everything the parser
     # could not tie to a scheme. Comparing the fund sleeve alone reports a 39% shortfall on a book
     # that is 61% funds, which is not a failed read: it is the rest of the portfolio. That false
