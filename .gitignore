@@ -127,3 +127,10 @@ Shreyas_Ionic_AMC/09_PRODUCT/scripts/desk_calls.csv
 # The central operating record: method, rulings, defect history. Not for a public repository.
 Shreyas_Ionic_AMC/09_PRODUCT/_CENTRAL/
 _x.py
+
+# Scratch probes dropped in the repo root by audit agents. They are throwaway and must
+# never reach a commit.
+_*.py
+vf_*.py
+qc_*.py
+rl_*.py
