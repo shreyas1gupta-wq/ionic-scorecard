@@ -42,6 +42,11 @@ MODULES = [
     # renders while the file stays in the library rather than becoming an orphan reference.
     ("allocation_house_view", 1, "Portfolio X-ray", False),
     ("concentration_risk", 1, "Portfolio X-ray", True),
+    # risk_liquidity / tail_analysis (2026-09-07): the two axes the firm's Risk and Liquidity
+    # framework produces, and the position-size distribution. Both read the WHOLE book, funds and
+    # everything else, so they are the pages that show full portfolio coverage.
+    ("risk_liquidity",     1, "Portfolio X-ray", True),
+    ("tail_analysis",      1, "Portfolio X-ray", True),
     # group_concentration: CUT permanently (Principal 2026-07-27) — module stays in the
     # library, renders nowhere by default.
     ("group_concentration", 1, "Portfolio X-ray", False),
@@ -56,6 +61,7 @@ MODULES = [
     ("_div2",              2, "The Fund Book",  True),
     # mf_methodology: NEW (FM #12) -- honest description of what covers a fund TODAY and what
     # is still hand-reviewed (hybrids and debt; neither of the two frameworks is built for them).
+    ("eval_framework",     2, "The Fund Book",  True),
     ("mf_methodology",     2, "The Fund Book",  True),
     ("fund_book_scored",   2, "The Fund Book",  True),
     ("funds_equity",       2, "The Fund Book",  True),

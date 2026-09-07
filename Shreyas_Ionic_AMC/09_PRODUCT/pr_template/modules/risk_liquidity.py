@@ -38,8 +38,8 @@ BANDS = ("High", "Medium", "Low")
 # mandate caps (high risk, slow to sell).
 RISK_RANK = {"High": 2, "Medium": 1, "Low": 0}
 LIQ_RANK = {"High": 0, "Medium": 1, "Low": 2}
-SEV_FILL = {0: RGBColor(0xE0, 0xF2, 0xEA),      # slidekit HOLDBG, the safe corner
-            1: RGBColor(0xED, 0xF6, 0xF1),
+SEV_FILL = {0: HOLDBG,                          # the safe corner, sells quickly and low risk
+            1: RGBColor(0xED, 0xF6, 0xF1),      # HOLDBG lightened, the only tint the brand lacks
             2: PANEL,
             3: AMBERBG,
             4: SELLBG}                          # high risk meets low liquidity
@@ -78,11 +78,13 @@ LABELS = {
                "title": "Where your money sits on both questions at once",
                "left": "YOUR HOLDINGS, AS A SHARE OF EVERYTHING YOU HOLD",
                "right": "WHAT YOUR MANDATE ASKS OF THIS GRID",
-               "rows": ("MOST CAN GO WRONG", "SOME CAN GO WRONG", "LEAST CAN GO WRONG"),
+               # Row labels sit in a 1.11in column and must hold ONE line at 8.5pt: the first
+               # draft ran to "LEAST CAN GO WRONG", which wrapped onto the share figure below it.
+               "rows": ("HIGHER RISK", "MEDIUM RISK", "LOWER RISK"),
                "cols": ("QUICK TO SELL", "SLOWER TO SELL", "SLOWEST TO SELL"),
-               "corner": "WHERE MOST CAN GO WRONG AND SELLING IS SLOWEST",
+               "corner": "HIGHER RISK AND SLOWEST TO SELL",
                "gap": "NOT ON THIS GRID",
-               "tests": ("Most risk, slowest to sell", "Everything slowest to sell",
+               "tests": ("Higher risk, slowest to sell", "Everything slowest to sell",
                          "Your first source of cash", "Equity share of the book")},
 }
 
@@ -95,7 +97,7 @@ CELL_H = 0.90
 Y_FOOT_HEAD, Y_FOOT = 5.48, 5.70
 RIGHT_X = 8.30
 RIGHT_W = RX - RIGHT_X
-BLK_A_W = 4.00                         # the named holdings in the warning cell
+BLK_A_W = 4.25                         # the named holdings in the warning cell
 BLK_B_X = GX + BLK_A_W + 0.20
 BLK_B_W = GX + GW - BLK_B_X
 
@@ -161,36 +163,51 @@ def render(deck, ctx, tier):
 
     tests = []
 
-    def cap_test(name, held_v, cap):
+    # Each test carries the full sentence AND a compact clause. One breach gets the full sentence,
+    # rupee figure and all. Two or more share the same box, and four full sentences do not fit it:
+    # the first build of this page printed "Rs 1,095,869,547 at today's..." on a two-breach book,
+    # which trails off exactly where the figure's meaning completes. The clause version drops the
+    # rupee restatement instead, because the rupee figure is already in the grid and the table.
+    def cap_test(i, phrase, short, held_v, cap):
+        # The prose uses PHRASES, not the table's own column label. Building a sentence out of a
+        # label that changes with the register is how "Everything slowest to sell are 4.6%" prints.
         p = pct(held_v)
         ok = p <= cap
-        tests.append({"name": name, "held": f"{p:.1f}%", "limit": f"max {cap:.0f}%",
+        tests.append({"name": L["tests"][i], "held": f"{p:.1f}%", "limit": f"max {cap:.0f}%",
                       "status": "Inside" if ok else "Over", "ok": ok,
-                      "line": (f"{name} {'is' if name.startswith('All') else 'are'} {p:.1f}% of "
-                               f"the book, {_rs(held_v)}, against a cap of {cap:.0f}%.")})
+                      "line": (f"{phrase} are {p:.1f}% of the book, {_rs(held_v)}, against a cap "
+                               f"of {cap:.0f}%."),
+                      "clause": f"{short}, {p:.1f}% against a cap of {cap:.0f}%."})
 
-    cap_test(L["tests"][0], hr_ll, HIGH_RISK_ILLIQUID_CAP_PCT)
-    cap_test(L["tests"][1], low_liq, liq_cap)
+    cap_test(0, "High risk and low liquidity together", "High risk and low liquidity",
+             hr_ll, HIGH_RISK_ILLIQUID_CAP_PCT)
+    cap_test(1, "Low liquidity holdings", "Low liquidity holdings", low_liq, liq_cap)
 
     p1_pct = pct(p1)
     p1_ok = p1_pct >= PRIORITY1_FLOOR_PCT
     tests.append({"name": L["tests"][2], "held": f"{p1_pct:.1f}%",
                   "limit": f"min {PRIORITY1_FLOOR_PCT:.0f}%",
                   "status": "Above" if p1_ok else "Below", "ok": p1_ok,
-                  "line": (f"{L['tests'][2]} are {p1_pct:.1f}% of the book, {_rs(p1)}, against a "
-                           f"floor of {PRIORITY1_FLOOR_PCT:.0f}%, so the book holds less than the "
-                           f"liquid buffer the mandate asks for.")})
+                  "line": (f"Priority 1 holdings, the first source of cash, are {p1_pct:.1f}% of "
+                           f"the book, {_rs(p1)}, against a floor of "
+                           f"{PRIORITY1_FLOOR_PCT:.0f}%, so the book carries less than the liquid "
+                           f"buffer the mandate asks for."),
+                  "clause": (f"Priority 1 holdings, {p1_pct:.1f}% against a floor of "
+                             f"{PRIORITY1_FLOOR_PCT:.0f}%.")})
 
     eq_ok = b_lo <= eq_pct <= b_hi
-    eq_short = abs(eq_pct - (b_lo if eq_pct < b_lo else b_hi)) / 100.0 * total
+    eq_edge = b_lo if eq_pct < b_lo else b_hi
+    eq_short = abs(eq_pct - eq_edge) / 100.0 * total
     tests.append({"name": L["tests"][3], "held": f"{eq_pct:.1f}%",
                   "limit": f"{b_lo:.0f} to {b_hi:.0f}%",
                   "status": "Inside" if eq_ok else ("Below" if eq_pct < b_lo else "Above"),
                   "ok": eq_ok,
                   "line": (f"Equity is {eq_pct:.1f}% of the book against a band of {b_lo:.0f} to "
-                           f"{b_hi:.0f}%, {abs(eq_pct - (b_lo if eq_pct < b_lo else b_hi)):.1f} "
-                           f"points {'below' if eq_pct < b_lo else 'above'} that band, "
-                           f"{_rs(eq_short)} at today's values.")})
+                           f"{b_hi:.0f}%, {abs(eq_pct - eq_edge):.1f} points "
+                           f"{'below' if eq_pct < b_lo else 'above'} that band, "
+                           f"{_rs(eq_short)} at today's values."),
+                  "clause": (f"Equity, {eq_pct:.1f}% against a band of {b_lo:.0f} to "
+                             f"{b_hi:.0f}%.")})
 
     out = [t for t in tests if not t["ok"]]
     n_ok = len(tests) - len(out)
@@ -246,11 +263,14 @@ def render(deck, ctx, tier):
     deck.txt(s, GX, Y_FOOT_HEAD, BLK_A_W, 0.20, [(L["corner"], SANS, 8, NAVY, True, False, 80)])
     if corner:
         top = sorted(corner, key=lambda h: -float(h.get("value_inr") or 0))[:4]
-        body = [[short_name(h.get("name", ""), 22),
+        # 25 characters is what the name column holds at 8pt Georgia. Below that, short_name drops
+        # the series marker off a fund ("Ascertis Credit SSTIF - I" becomes a different holding),
+        # and the series is exactly what an adviser is asked to distinguish here.
+        body = [[short_name(h.get("name", ""), 25),
                  ("b", _rs(float(h.get("value_inr") or 0))),
                  ("b", f"{pct(float(h.get('value_inr') or 0)):.1f}%")] for h in top]
         deck.table(s, GX, Y_FOOT, BLK_A_W,
-                   [("Holding", 0.52, "l"), ("Value", 0.30, "r"), ("Share", 0.18, "r")],
+                   [("Holding", 0.55, "l"), ("Value", 0.29, "r"), ("Share", 0.16, "r")],
                    body, rowh=0.215, fs=8, header=False)
     else:
         deck.txt(s, GX, Y_FOOT, BLK_A_W, 0.40,
@@ -277,7 +297,7 @@ def render(deck, ctx, tier):
 
     # A breach is stated in the same voice as a pass. No hedging, no alarm.
     if out:
-        note = " ".join(t["line"] for t in out)
+        note = " ".join((t["line"] if len(out) == 1 else t["clause"]) for t in out)
         if n_ok:
             note += (f" The other {N_WORD[n_ok]} test{'s' if n_ok > 1 else ''} "
                      f"{'are' if n_ok > 1 else 'is'} inside {'their' if n_ok > 1 else 'its'} "
@@ -290,12 +310,15 @@ def render(deck, ctx, tier):
                 f"{tests[1]['line']}")
         head = "Every test is inside its limit"
         kind = "good"
-    # callout_h models 10.5pt serif at this width; clip to whole sentences so the copy can never
-    # run past the box it is given, whatever the book puts in it.
+    # The box runs from under the table to just above the source line, and the copy is cut to
+    # whole SENTENCES inside that budget rather than to a fixed line count. callout_h models
+    # 10.5pt serif at this width, so the same arithmetic sizes the box and the text that fills it.
+    cy = ty + 0.11
+    budget = 6.55 - cy
     cpl = max(10, int((RIGHT_W - 0.44) / (0.0102 * 10.5)))
-    note = clip_sentences(note, cpl * 6)
-    nh = deck.callout_h(RIGHT_W, note, min_h=0.95, max_h=1.90)
-    deck.callout(s, RIGHT_X, ty + 0.11, RIGHT_W, nh, head, note, kind=kind)
+    note = clip_sentences(note, cpl * max(3, int((budget - 0.62) / 0.185)))
+    nh = deck.callout_h(RIGHT_W, note, min_h=0.95, max_h=budget)
+    deck.callout(s, RIGHT_X, cy, RIGHT_W, nh, head, note, kind=kind)
 
     deck.source(s, f"Source: every holding placed on the firm's risk and liquidity framework, as "
                    f"of {as_of}. Each cell is that share of the whole book at today's values, and "

@@ -36,6 +36,8 @@ sys.path.insert(0, ENGINE)
 
 from read_statement import read_statement                                  # noqa: E402
 import tag_risk_liquidity as RL                                            # noqa: E402
+import ips_profiles as IPSP                                                # noqa: E402
+import build_ips as IPSB                                                   # noqa: E402
 import engine as ENG                                                       # noqa: E402
 import tiers                                                               # noqa: E402
 
@@ -84,6 +86,9 @@ def main():
     ap.add_argument("statement")
     ap.add_argument("--client", default="Client")
     ap.add_argument("--tier", default="HNI_DEEP")
+    ap.add_argument("--profile", default="Aggressive",
+                    choices=["Aggressive", "Moderate", "Conservative"],
+                    help="the client's mandate. It sets every band on the IPS.")
     a = ap.parse_args()
 
     # ---- 1. read the statement ------------------------------------------------------------------
@@ -98,7 +103,11 @@ def main():
     else:
         print(f"    no total row in the statement to reconcile against")
     if notes["exceptions"]:
-        print(f"    {notes['exceptions']} row(s) could not be resolved, written to the exceptions file")
+        # NOT "exceptions". These holdings are in the portfolio, in the totals and on the pages;
+        # what they lack is a scheme-level match, which is a detail gap and not an exclusion.
+        # Calling them exceptions is what made a reader think two listed REITs had been left out.
+        print(f"    {notes['exceptions']} holding(s) carry no scheme-level match. They are IN the "
+              f"portfolio and its totals; the list is written out for reference")
 
     # ---- 2. look up the central calls ------------------------------------------------------------
     sf, is_demo = latest_score_file()
@@ -138,7 +147,11 @@ def main():
     for _c in ("consistency", "hit_rate", "months"):
         if _c not in M.columns:
             M[_c] = None          # an older score file simply has no consistency; the page self-gates
-    G = (M.groupby(["isin", "scheme", "category", "call", "rationale"], dropna=False)
+    if "asset_class" not in M.columns:
+        M["asset_class"] = ""
+    M["asset_class"] = M["asset_class"].fillna("").astype(str)
+    G = (M.groupby(["isin", "scheme", "category", "call", "rationale", "asset_class"],
+                   dropna=False)
          .agg(value=("value", "sum"), invested=("invested", "sum"),
               folios=("folio", "nunique"), holders=("holder", "nunique"),
               score=("score", "first"),
@@ -224,8 +237,26 @@ def main():
     tiers.get = _get
     ENG.T = tiers
 
+    # The AMC is read off the scheme name against a NAMED list, never by similarity. It is what
+    # the single-manager cap is measured on, and several schemes from one house aggregate.
+    AMCS = ("ICICI Prudential", "HDFC", "SBI", "Kotak", "Nippon India", "Mirae Asset",
+            "Parag Parikh", "UTI", "Axis", "Canara Robeco", "HSBC", "Motilal Oswal", "quant",
+            "Navi", "Sundaram", "Zerodha", "Tata", "Aditya Birla", "DSP", "Franklin", "Invesco",
+            "Edelweiss", "Bandhan", "PPFAS", "360 ONE", "Baroda BNP", "JM ", "LIC ", "Mahindra",
+            "Quantum", "Samco", "Shriram", "Sundaram", "Trust", "Union", "WhiteOak", "Bajaj",
+            "Groww", "Helios", "ITI ", "NJ ", "Old Bridge", "Taurus", "Unifi", "Zerodha")
+
+    def _amc(nm):
+        u = str(nm or "").strip().lower()
+        for a in sorted(AMCS, key=len, reverse=True):
+            if u.startswith(a.strip().lower()):
+                return a.strip()
+        return None
+
     funds = [dict(name=r.scheme, isin=r.isin, category="equity", plan="",
-                  amc="-", sebi_category=r.category,
+                  amc=(_amc(r.scheme) or "-"),
+                  asset_class=(str(getattr(r, "asset_class", "") or "").strip() or "Equity"),
+                  sebi_category=r.category,
                   value_inr=float(r.value), cost_inr=float(r.invested or r.value),
                   unrealised_pnl=float((r.value or 0) - (r.invested or r.value or 0)),
                   weight_pct=round(r.weight_pct, 2),
@@ -301,6 +332,20 @@ def main():
     else:
         print("    no risk/liquidity band file in scores/, so those pages will not render")
 
+    # ---- 4c. the Investment Policy Statement, generated ---------------------------------------
+    # Three inputs only: the client, the profile, and the holdings. Every band comes from the
+    # profile; every current figure is computed from the book. Nothing is typed in per client.
+    _all = list(funds) + list(equity_rows) + list(other_rows)
+    IPS = IPSB.compute(_all, profile=a.profile)
+    _prof = IPSP.PROFILES[a.profile]
+    _pb = _prof["portfolio"]
+    print(f"    IPS        : {a.profile} profile"
+          + ("" if IPS["approved"] else "  (bands are a DRAFT pending desk sign-off)"))
+    for _sec in IPS["sections"]:
+        _out = [r for r in _sec["rows"] if r["fit"] in ("Above", "Below")]
+        _na = [r for r in _sec["rows"] if r["fit"] is None]
+        print(f"      {_sec['title'][:44]:<46} {len(_out)} outside band, {len(_na)} not computable")
+
     ctx = {
         "client": {"name": a.client, "code": "-", "account_type": "Portfolio review",
                    "profile": "-", "horizon": "-", "construction": "Mutual funds",
@@ -310,17 +355,25 @@ def main():
         # is tested on the WHOLE book, so an AIF or a direct share counts toward the equity band and
         # toward the single-name cap exactly as a fund does.
         "ips": {"on_file": True,
-                "risk_tier": "Aggressive",
+                "risk_tier": a.profile,
                 "objective": "Long-term capital growth with an equity-led core",
                 "horizon_yrs": None,
-                "alloc_bands": {"Equity": (80, 90, 100),
-                                "Fixed Income": (0, 10, 20),
-                                "Alternatives": (0, 5, 15),
-                                "Cash": (0, 2, 10)},
-                "single_name_cap_pct": 5.0,          # per ISIN, direct equity and single-issuer debt
-                "single_amc_cap_pct": 20.0,          # measured on the manager, schemes aggregate
-                "locked_in_cap_pct": 40.0,           # the illiquidity budget
-                "unlisted_equity_cap_pct": 35.0,
+                "alloc_bands": {
+                    "Equity": (_pb["Equity"][0],
+                               (_pb["Equity"][0] + _pb["Equity"][1]) / 2, _pb["Equity"][1]),
+                    "Fixed Income": (_pb["Fixed Income"][0],
+                                     (_pb["Fixed Income"][0] + _pb["Fixed Income"][1]) / 2,
+                                     _pb["Fixed Income"][1]),
+                    "Alternatives": (_pb["Alternates"][0],
+                                     (_pb["Alternates"][0] + _pb["Alternates"][1]) / 2,
+                                     _pb["Alternates"][1]),
+                    "Cash": (_pb["Cash and equivalents"][0],
+                             sum(_pb["Cash and equivalents"]) / 2,
+                             _pb["Cash and equivalents"][1])},
+                "single_name_cap_pct": float(_prof["equity"]["A single listed security"][1]),
+                "single_amc_cap_pct": float(_pb["Allocation to a single AMC"][1]),
+                "locked_in_cap_pct": float(_pb["Locked-in products, over one year"][1]),
+                "unlisted_equity_cap_pct": float(_prof["equity"]["Unlisted securities"][1]),
                 # exec_summary indexes these directly rather than with .get, so an IPS that is
                 # on_file must carry them or the executive summary raises and the engine, which
                 # swallows module exceptions, drops the page with no error on the deck.
@@ -331,7 +384,7 @@ def main():
                     "High Risk and Low Liquidity together may not exceed 30% of the book.",
                     "Uncalled commitments up to 25% of corpus, tracked outside NAV."]},
         "funds": funds, "equity": equity_rows, "other": other_rows, "fund_churn": {},
-        "profile": "Aggressive",
+        "profile": a.profile, "ips_generated": IPS,
         "totals": {"grand_inr": GRAND,
                    "eq_pct": round(EQ_VAL / GRAND * 100, 1) if GRAND else 0.0,
                    "mf_pct": round(FUNDS_VAL / GRAND * 100, 1) if GRAND else 0.0,
@@ -392,14 +445,18 @@ def main():
     deck.save(deck_path)
 
     G.to_excel(os.path.join(out_dir, f"{safe}_Holdings.xlsx"), index=False)
+    ips_path = os.path.join(out_dir, f"{safe}_IPS_{a.profile}.xlsx")
+    IPSB.write_workbook(IPS, ips_path, client=a.client, as_of=ver["as_of"])
     if len(E):
-        E.to_csv(os.path.join(out_dir, f"{safe}_EXCEPTIONS.csv"), index=False)
+        E.to_csv(os.path.join(out_dir, f"{safe}_Holdings_Without_Scheme_Match.csv"), index=False)
 
     n = len(deck.prs.slides._sldIdLst)
     print(f"  deck      : {n} slides -> {deck_path}")
     print(f"  workbook  : {safe}_Holdings.xlsx")
+    print(f"  IPS       : {os.path.basename(ips_path)}")
     if len(E):
-        print(f"  exceptions: {safe}_EXCEPTIONS.csv  ({len(E)} rows)")
+        print(f"  reference : {safe}_Holdings_Without_Scheme_Match.csv  ({len(E)} rows, all of "
+              f"them already counted in the portfolio)")
 
 
 if __name__ == "__main__":
