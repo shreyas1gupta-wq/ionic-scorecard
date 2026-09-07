@@ -19,6 +19,11 @@ def render(deck, ctx, tier):
     reg = tier.get("register", "std")
     L = LABELS.get(reg, LABELS["std"])
     eq = ctx["equity"]; as_of = ctx["client"]["as_of"]
+    # A book held entirely through funds has no direct-equity sleeve to position. This page used to
+    # raise on max() over an empty sequence, and because engine.build swallows module exceptions it
+    # disappeared from the deck with no error rather than declining to render.
+    if not eq:
+        return 0
     gap = ctx["house_view"].get("alloc_gap", {})
 
     # ---- aggregate weights by mcap band, % of the direct-equity sleeve ----
