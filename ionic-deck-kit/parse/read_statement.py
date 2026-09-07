@@ -113,6 +113,11 @@ def _find_header(df, isin_col):
 
     # nothing looked like a header. Fall back to the old rule rather than reading nothing at all,
     # and start the data block at the top so no row is silently skipped.
+    # isin_col is None on a sheet with no ISIN anywhere, and df.iat rejects a None column index.
+    # Without this guard the fallback raised on the demo fixture's second sheet, which is the very
+    # path the README tells an advisor to test the kit with before their score file arrives.
+    if isin_col is None:
+        return None, {}
     first = None
     for i in range(len(df)):
         v = df.iat[i, isin_col]
