@@ -207,8 +207,8 @@ def render(deck, ctx, tier):
               else "Every recommended fund move lands in a Direct plan.", NAVY), "04 · Plan"]
             if show_fee_row else
             [("b", "Plan cost"),
-             (f"{n_regular} scheme{'' if n_regular == 1 else 's'} held in the Regular plan; the "
-              "saving from moving to Direct needs expense ratios this statement does not carry."
+             (f"{n_regular} scheme{'' if n_regular == 1 else 's'} on the Regular plan; the Direct "
+              "saving needs expense ratios this statement lacks."
               if n_regular else
               "Every scheme in this account is already held Direct — no Regular-plan drag to correct."),
              ("c", "The fund actions below address structure and consistency, not cost.", NAVY), "03 · Funds"])
@@ -237,6 +237,30 @@ def render(deck, ctx, tier):
             fee_row,
             fundline_row,
         ]
+
+    # WHAT THE CLIENT HAS ASKED FOR BELONGS ON THE PAGE THAT LISTS WHAT NEEDS ATTENTION. On this
+    # book the client-directed exit is Rs 2.74 crore, a quarter of the portfolio and the single
+    # largest action in the plan, and the executive summary did not mention it at all: it lists the
+    # DESK's gaps, and this is not one of those. It goes first, because it is the biggest thing
+    # happening, and it is labelled as the client's instruction so it is never read as our call.
+    _ex = [r for r in (list(ctx.get("funds") or []) + list(ctx.get("equity") or [])
+                       + list(ctx.get("other") or []))
+           if str(r.get("verdict") or r.get("rec") or "").startswith("Exit")]
+    _ret = [r for r in (list(ctx.get("other") or []) + list(ctx.get("funds") or []))
+            if str(r.get("verdict") or r.get("rec") or "") == "Retain"]
+    if _ex:
+        _exv = sum(float(r.get("value_inr") or 0) for r in _ex)
+        _pct = _exv / (t.get("grand_inr") or 1) * 100
+        _kept = (" %d cannot be exited and are kept." % len(_ret) if _ret else "")
+        rows.insert(0, [
+            ("b", "Your instruction"),
+            "Exit the fixed-income sleeve: %d holdings, %s, %.0f%% of the book."
+            % (len(_ex), _cr(_exv), _pct),
+            ("c", "Staged and priced for tax overleaf." + _kept, NAVY),
+            "04 · Actions"])
+        # the table is laid into a fixed band and a sixth row runs into the footnote beneath it,
+        # so the client's instruction takes a place rather than being added to the list
+        rows = rows[:5]
 
     cols = [("Category", 0.20, "l"), ("Gap vs policy", 0.36, "l"),
             ("What we would do", 0.34, "l"), ("See", 0.10, "l")]
