@@ -13,10 +13,13 @@ import tiers as T
 # (module_id, section_no, section_name, core?)  — canonical order (spec §2)
 MODULES = [
     ("cover",              0, "",              True),
-    # WHO THE FIRM IS, before the review of what the client owns. Content comes
-    # entirely from scores/firm_profile.json; without that file the module renders
-    # nothing rather than inventing a credential.
-    ("firm_intro",         0, "",              True),
+    # WHO THE FIRM IS, before the review of what the client owns.
+    # OFF BY DEFAULT. The desk already has these pages, with photographs and a laid-out
+    # credentials spread, and the advisor wants THOSE pages rather than a reconstruction of
+    # their words. build/graft_firm_pages.py lifts them whole out of the reference deck after
+    # the build. This module remains as the fallback for a run with no reference deck to hand;
+    # switch it on by adding "firm_intro" to EXTRA_ON in build_review.py.
+    ("firm_intro",         0, "",              False),
     ("contents_legend",    0, "",              True),
     # ips_summary: RESTORED 2026-07-28 (reverses the 2026-07-27 cut) -- rebuilt v2 with richer
     # parameter coverage and live-computed Current values. Renders ONLY when ctx["ips"]["on_file"]
