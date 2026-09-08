@@ -4,6 +4,58 @@ Newest entries at TOP.
 
 ---
 
+## 2026-09-08 23:20 (DESK-20) - Review product standardised: one skill, two commands, 84 findings closed
+
+An adversarial verification pass on a finished client deck raised 100 findings; after adjudication
+about 60 were real. They were not sixty separate bugs. They were the same defect in four shapes:
+**a number computed off one field by one page and off another field by the next.** A deck told a
+client that 5 of 60 schemes carried an action while its own table three pages earlier showed 19
+client-directed exits and its annexure said 34 Holds; it headlined a Rs 3.37 crore programme as
+Rs 45.4 lakh; and it printed "less STCG 0.0L" on a book whose supplied lot file carried Rs 89.5
+lakh of short-term units, two of them in schemes on that very sell list.
+
+**Fixed at the root, in the kit, not per-deck:**
+- `ctx["totals"]["census"]` - one count of every call, read by every page that counts anything.
+- The client-directive overlay now writes `action`, which is the field the fund pages actually
+  count. That single omission caused the 5-vs-19 contradiction.
+- `build/tax_engine.py` (new) - LTCG / STCG / post-Apr-2023 slices read from the client's own
+  capital-gains lot file, summed over every folio, equity STCG at 20%, slab money disclosed in
+  rupees and never given a number.
+- "Exit (client)" and "Retain" reach the legend, the mandate page, the annexure pills and the
+  workbook's reason column; the three holdings that cannot be redeemed get a page with the written
+  reason for each.
+- PPF / SCSS / provident funds get risk and liquidity bands: Rs 70 lakh of fifteen- and five-year
+  money was arriving with no band at all and dropping out of the lock-in test and the liquidity
+  page - reported as neither locked in nor illiquid, because reported as nothing.
+- Gold and silver share one framework band, so they get one row. The Silver row was reading 3.7%
+  on a book holding no silver.
+- The graft renumbers cross-references as well as footers.
+
+**Standardised:**
+- `build/run_review.py` - build + graft + all three gates in one command, non-zero exit on any
+  finding on a generated page, manifest to `out/<Client>_RUN.json`.
+- `qa/check_sync.py` - score files against each other, the band file against the sub-categories the
+  parser can actually produce, the cap, the skill's file list, and the git tree of a PUBLIC repo.
+- **`Shreyas_Review_Skill` v1.1** - one manual, eight reference files, superseding
+  ionic-wealth-complete, ndpms-deck and the kit's own SKILL. `Ionic_Portfolio_Review` stays the deep
+  reference for the scoring chain only.
+
+**Corrected a standing falsehood:** `shreyas1gupta-wq/ionic-scorecard` is **PUBLIC** (verified
+against the GitHub API). Two skill files said it was private and told a recipient the standalone
+version check could not work. Two client identities were scrubbed out of the working tree.
+
+**Files:** ionic-deck-kit/{build/build_review.py, build/tax_engine.py, build/run_review.py,
+build/graft_firm_pages.py, parse/tag_risk_liquidity.py, qa/check_sync.py, scores/risk_liquidity_bands.csv},
+13 pr_template modules, .claude/skills/Shreyas_Review_Skill/**.
+Pushed: `demo/deck-kit` at 7563864.
+
+**Next / open:** (1) the client surname is in an already-published commit on the public
+`demo/deck-kit` - a history rewrite is a Principal call, not mine. (2) The git remote holds a
+GitHub PAT in plaintext. (3) `demo/deck-kit` is 21 ahead of `origin/master`, which is the delivery
+branch the skill's own version check reads - the skill will report `unknown` until it is merged.
+
+---
+
 ## 2026-08-04 00:08 (DESK-100) — EOD: option-capture task is stalling (NOTABLE, flagged to CURRENT_STATE)
 Scheduled EOD ran (late — cron is 17:03, fired at 00:08 when the REPL went idle). Data-freshness
 check on `AngelDailyOptionCapture` came back **AMBER/RED**, so journalling per the "only if notable"
