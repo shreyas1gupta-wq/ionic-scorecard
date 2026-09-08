@@ -122,6 +122,10 @@ REC_STYLE = {"Sell": (SELLBG, SELL), "Exit": (SELLBG, SELL), "Redeem-to-Direct":
              # Inside the limit, but sitting on it. Amber rather than green, because the desk has
              # no headroom left on that parameter and the client should be able to see that.
              "At limit": (AMBERBG, AMBER),
+             # A CLIENT INSTRUCTION IS NOT A DESK CALL. It moves money, so it cannot look like a
+             # Hold; it is not the firm's verdict, so it must not wear the Sell red that every
+             # other page uses for one. Amber, and labelled in words wherever it appears.
+             "Exit (client)": (AMBERBG, AMBER), "Retain": (PANEL, SLATE),
              # added 2026-07-27 (first real client, Client B): "No View" = a genuine
              # verdict class (young/uncovered fund, firm's 7-month rule) — distinct from a
              # Hold/Watch judgment, so it gets its own neutral-but-labelled look, not reused

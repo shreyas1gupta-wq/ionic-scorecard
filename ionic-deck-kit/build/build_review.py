@@ -93,6 +93,9 @@ def main():
     ap.add_argument("statement")
     ap.add_argument("--client", default="Client")
     ap.add_argument("--tier", default="HNI_DEEP")
+    ap.add_argument("--directives", default=None,
+                    help="a JSON file of CLIENT instructions, applied on top of the desk's "
+                         "published calls and labelled separately from them.")
     ap.add_argument("--profile", default="Aggressive",
                     choices=["Aggressive", "Moderate", "Conservative"],
                     help="the client's mandate. It sets every band on the IPS.")
@@ -581,11 +584,71 @@ def main():
                 + sum(1 for r in equity_rows + other_rows
                       if str(r.get("rec") or r.get("verdict") or "") == c))
 
+    # ---- 3d. what the CLIENT has asked for ------------------------------------------------------
+    # A Sell on an Ionic page is the desk's verdict. A client asking to exit a sleeve is not that,
+    # and rendering it as one would put the firm's name on twenty-two calls it never made. Client
+    # instructions get their own call, their own colour and their own line in every total, so a
+    # reader can always tell which of the two they are looking at.
+    DIRECTIVES = {}
+    if a.directives and os.path.exists(a.directives):
+        DIRECTIVES = json.load(open(a.directives, encoding="utf-8"))
+
+    def _bucket_of(row):
+        """The asset class this row was read as, for matching a directive against a sleeve."""
+        return str(row.get("asset_class") or "").strip().lower()
+
+    _CLIENT_CALLS = {}
+    if DIRECTIVES.get("directives"):
+        _rows_all = list(funds) + list(equity_rows) + list(other_rows)
+        for d in DIRECTIVES["directives"]:
+            m = d.get("match") or {}
+            want_bucket = [b.strip().lower() for b in (m.get("bucket") or [])]
+            want_name = [w.strip().lower() for w in (m.get("name_contains") or [])]
+            skip = [w.strip().lower() for w in (d.get("except_names") or [])]
+            for r in _rows_all:
+                nm = str(r.get("name") or "").lower()
+                if any(w in nm for w in skip):
+                    continue
+                hit = (want_bucket and _bucket_of(r) in want_bucket) or                       (want_name and any(w in nm for w in want_name))
+                if not hit:
+                    continue
+                # a later directive wins, which is how the retain rules override the sleeve rule
+                _CLIENT_CALLS[id(r)] = (d["call"], d.get("reason", ""), d.get("id", ""))
+        for r in _rows_all:
+            got = _CLIENT_CALLS.get(id(r))
+            if not got:
+                continue
+            call, why, _id = got
+            r["desk_call"] = r.get("verdict") or r.get("rec") or "No View"
+            r["rec"] = r["verdict"] = call
+            r["call_source"] = "Client instruction"
+            r["structural_reason"] = why
+        _n_exit = sum(1 for v in _CLIENT_CALLS.values() if v[0].startswith("Exit"))
+        _n_ret = sum(1 for v in _CLIENT_CALLS.values() if v[0] == "Retain")
+        _v_exit = sum(float(r.get("value_inr") or 0) for r in _rows_all
+                      if str(r.get("verdict") or "").startswith("Exit"))
+        print(f"  client    : {os.path.basename(a.directives)} -> "
+              f"{_n_exit} holdings marked Exit (client), Rs {_v_exit:,.0f}; "
+              f"{_n_ret} marked Retain")
+
     # ---- 3c. what the recommended exits cost in tax ---------------------------------------------
     def _tax_character(row):
         """Equity or debt, and for debt WHEN the units were bought, which is what sets the rate."""
         cls = str(row.get("asset_class") or "").strip().lower()
         sub = str(row.get("risk_sub") or row.get("sub_category") or "")
+        nm = str(row.get("name") or "").lower()
+        # A DEPOSIT IS NOT A DEBT FUND. It produces no capital gain at all: the interest is taxed
+        # at slab as it accrues, and what exiting early costs is the deposit's own penalty, not
+        # tax. Printing "12.5% or slab" against a bank FD states a capital-gains treatment that
+        # does not exist for it.
+        if any(k in nm for k in ("fixed deposit", "bank fd", " fd ", "deposit")):
+            return ("No gain; interest at slab", 0.0)
+        if "ppf" in nm:
+            return ("Tax-free on exit", 0.0)
+        if "senior citizen" in nm or "scss" in nm:
+            return ("No gain; interest at slab", 0.0)
+        if "ulip" in nm:
+            return ("Per the policy terms", 0.0)
         if cls == "fixed income" or any(k in sub for k in ("Bond", "Gilt", "G-Sec", "Debt",
                                                            "Duration", "Liquid", "Overnight",
                                                            "Money Market", "SDL", "Credit")):
@@ -597,7 +660,9 @@ def main():
     _TAX_ROWS, _GROSS, _LT = [], 0.0, 0.0
     for _r in list(funds) + list(equity_rows) + list(other_rows):
         _call = str(_r.get("verdict") or _r.get("rec") or "")
-        if _call not in ("Sell", "Trim"):
+        # a client-directed exit moves real money and carries real tax, so it is priced here
+        # exactly like a desk Sell; the ACTION column is what tells the reader them apart.
+        if _call not in ("Sell", "Trim", "Exit (client)"):
             continue
         _amt = (float(_r.get("trim_value_inr") or 0.0) if _call == "Trim"
                 else float(_r.get("value_inr") or 0.0))
@@ -611,11 +676,16 @@ def main():
         _GROSS += _amt
         if _gain is not None:
             _LT += _gain * _rate
-        _TAX_ROWS.append((("TRIM" if _call == "Trim" else "SELL"), _r.get("name") or "",
-                          _amt, None, _char if _gain is not None else _char + ", no cost",
+        _act = ("TRIM" if _call == "Trim"
+                else "EXIT" if _call.startswith("Exit") else "SELL")
+        _TAX_ROWS.append((_act, _r.get("name") or "",
+                          _amt, None,
+                          (_char if (_gain is not None or _rate == 0.0)
+                           else _char + ", no cost"),
                           ""))
     _no_basis = sum(1 for _r in list(funds) + list(equity_rows) + list(other_rows)
-                    if str(_r.get("verdict") or _r.get("rec") or "") in ("Sell", "Trim")
+                    if str(_r.get("verdict") or _r.get("rec") or "")
+                    in ("Sell", "Trim", "Exit (client)")
                     and not _r.get("cost_inr"))
     _TAX = {"fund_rows": _TAX_ROWS, "gross": round(_GROSS), "ltcg": round(_LT), "stcg": 0,
             "net": round(_GROSS - _LT),
@@ -814,7 +884,19 @@ def main():
     # On this family that was 124 duplicated lines and Rs 2.43 crore of double-counted value in a
     # workbook whose whole purpose is to reconcile. The deck itself was never wrong, because it
     # reads the two lists the split produced; only this export read the pre-split frame.
-    _G_FUNDS = G[~G["isin"].isin(_share_isin)] if len(G) else G
+    _G_FUNDS = G[~G["isin"].isin(_share_isin)].copy() if len(G) else G
+    # THE CLIENT'S INSTRUCTION HAS TO REACH THE WORKBOOK TOO. G is the frame as the score file
+    # left it and knows nothing about a directive applied to the fund objects afterwards, so the
+    # workbook was showing No View against twenty holdings the deck three feet away showed as
+    # Exit (client). The two must not disagree.
+    if len(_G_FUNDS):
+        _by_isin = {str(f.get("isin")): f for f in funds}
+        _G_FUNDS["call"] = [
+            (_by_isin.get(str(i), {}).get("verdict") or c)
+            for i, c in zip(_G_FUNDS["isin"], _G_FUNDS["call"])]
+        _G_FUNDS["rationale"] = [
+            (_by_isin.get(str(i), {}).get("structural_reason") or r)
+            for i, r in zip(_G_FUNDS["isin"], _G_FUNDS["rationale"])]
     _G_ALL = pd.concat(
         [_G_FUNDS.assign(source="Scored scheme")] +
         ([pd.DataFrame([{"isin": r.get("isin") or "", "scheme": r.get("name"),

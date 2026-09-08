@@ -139,6 +139,31 @@ def main():
     for i, e in enumerate(grafted):
         sldIdLst.insert(AFTER + i, e)
 
+    # RENUMBER. The kit stamps each page with its position as it builds, so inserting five slides
+    # at the front leaves every later page printing a number five behind where it actually is: on
+    # this deck 52 of them, and the contents page and every cross-reference point at those numbers.
+    # A deck that misnumbers itself is worse than one with no numbers, because the reader trusts it.
+    import re
+    RX = re.compile(r"(Portfolio Review\s*[·.]\s*)(\d+)")
+    renumbered = 0
+    for i, s in enumerate(tgt.slides):
+        for sh in s.shapes:
+            if not sh.has_text_frame:
+                continue
+            done = False
+            for para in sh.text_frame.paragraphs:
+                for run in para.runs:
+                    m = RX.search(run.text)
+                    if m and int(m.group(2)) != i + 1:
+                        run.text = RX.sub(lambda x: x.group(1) + "%02d" % (i + 1), run.text)
+                        renumbered += 1
+                        done = True
+                        break
+                if done:
+                    break
+            if done:
+                break
+
     tgt.save(OUT)
 
     chk = Presentation(OUT)

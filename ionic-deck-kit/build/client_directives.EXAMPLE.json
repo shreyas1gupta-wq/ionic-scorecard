@@ -1,0 +1,33 @@
+{
+  "_what_this_is": "Instructions the CLIENT has given, which are not calls the desk has made. They are applied on top of the published calls and are labelled differently everywhere they appear, because a Sell on an Ionic page reads as the firm's verdict and this is not one. Nothing here changes the score file; it is a per-client overlay and it travels with this client's build only.",
+  "as_of": "2026-07-26",
+  "instruction": "Mr Dutta has asked to exit the fixed-income sleeve and redeploy the proceeds into the growth-oriented construct.",
+  "directives": [
+    {
+      "id": "exit-fixed-income",
+      "call": "Exit (client)",
+      "match": {"bucket": ["Fixed income"]},
+      "except_names": ["PPF", "Senior Citizens", "SCSS"],
+      "reason": "Directed by the client, not a call on the scheme. The desk's own view on these holdings is unchanged; the money is being moved to fund the growth allocation."
+    },
+    {
+      "id": "retain-ppf",
+      "call": "Retain",
+      "match": {"name_contains": ["PPF"]},
+      "reason": "Cannot be exited on request: a fifteen-year term with one partial withdrawal a year from year seven. Tax-free on maturity, so there is no tax reason to touch it either."
+    },
+    {
+      "id": "retain-scss",
+      "call": "Retain",
+      "match": {"name_contains": ["Senior Citizens", "SCSS"]},
+      "reason": "Age-gated at 60 and running a fixed five-year term. Premature closure forfeits 1% to 1.5% of the deposit and the rate cannot be bought back. Held in a parent's name and doing a job the equity sleeve cannot."
+    },
+    {
+      "id": "retain-ulip",
+      "call": "Retain",
+      "match": {"name_contains": ["ULIP"]},
+      "reason": "Surrender terms depend on the premium against the sum assured and on when the policy was written; a deduction already claimed can be reversed. The policy document is needed before any exit is priced."
+    }
+  ],
+  "footnote": "Client-directed exits are shown separately from the desk's Sell calls throughout this review. Nothing is executed until the client authorises it."
+}
