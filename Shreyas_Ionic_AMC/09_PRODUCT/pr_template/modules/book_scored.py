@@ -66,13 +66,20 @@ LABELS = {
 }
 
 
-def _dist_band(deck, s, tot, y):
+def _dist_band(deck, s, tot, y, equity=()):
     """Compact distribution 'KPI' band. Zero-count calls are dropped — a '0 TRIM'
     tile is dead ink (declutter pass, 2026-07-25)."""
-    cells = [(str(tot["n_sell"]), "SELL", SELL),
-             (str(tot["n_trim"]), "TRIM", AMBER),
-             (str(tot["n_hold"]), "HOLD", HOLD),
-             (str(tot["n_stocks"]), "HOLDINGS", INK)]
+    # THIS PAGE IS THE DIRECT-EQUITY BOOK, so it counts direct equity. It was reading the
+    # book-level counters, which on a book holding both funds and shares are a different
+    # population: the page showed "5 SELL" beside its own sell list headed "SELL x20".
+    def _n(*calls):
+        return sum(1 for e in equity
+                   if str(e.get("rec") or e.get("verdict") or "") in calls)
+
+    cells = [(str(_n("Sell")), "SELL", SELL),
+             (str(_n("Trim")), "TRIM", AMBER),
+             (str(_n("Hold", "Hold (watch)")), "HOLD", HOLD),
+             (str(len(equity) or tot["n_stocks"]), "HOLDINGS", INK)]
     cells = [c for c in cells if c[0] != "0" or c[1] in ("SELL", "HOLDINGS")]
     # content-sized tiles (v7 stat-strip rule) — 3 numbers spread across the full
     # width read as gaps, not as a band
@@ -87,6 +94,11 @@ def _dist_band(deck, s, tot, y):
 
 
 def render(deck, ctx, tier):
+    # SELF-GATE. This page is the direct-equity book. A portfolio held entirely through funds, or
+    # through deposits and alternates, has no direct equity to show, and the page used to raise on
+    # max() over an empty sequence instead of declining to render.
+    if not (ctx.get("equity") or []):
+        return 0
     reg = tier["register"]
     L = LABELS.get(reg, LABELS["std"])
     eq = ctx["equity"]; tot = ctx["totals"]
@@ -118,7 +130,7 @@ def render(deck, ctx, tier):
         bits.append(f"{len(eq) - n_scored_all} unscored")
     deck.scope_tag(s, " · ".join(bits))
 
-    _dist_band(deck, s, tot, 1.95)
+    _dist_band(deck, s, tot, 1.95, equity=ctx.get('equity') or [])
 
     # override honesty line: Holds sitting below the Sell line, kept on analyst conviction
     overrides = sum(1 for e in eq if e["rec"] == "Hold" and (e.get("ionic_score") or 100) < 40)
@@ -207,7 +219,11 @@ def render(deck, ctx, tier):
               or "holdings_detail" in tier.get("optional_on", set()))
     ry = 2.98 + 0.33
     for e in rows_src[:nrows]:      # nrows, not MAXROWS: an extra hotspot would sit over the legend
-        deck.hotspot(s, ML, ry - 0.02, UW, ROWH, f"stock:{e['symbol']}")
+        # A share the scorecard does not carry has no symbol, so the anchor falls back to the name.
+        # Indexing it took the whole page down with a KeyError on any book holding a share the
+        # published stock file has never heard of.
+        deck.hotspot(s, ML, ry - 0.02, UW, ROWH,
+                     "stock:%s" % (e.get("symbol") or e.get("name") or ""))
         ry += ROWH
 
     # NO source() and NO score_band() on this page any more -- Principal, 2026-08-07: "we have to modify

@@ -25,6 +25,11 @@ LABELS = {
 
 
 def render(deck, ctx, tier):
+    # SELF-GATE. This page is the direct-equity book. A portfolio held entirely through funds, or
+    # through deposits and alternates, has no direct equity to show, and the page used to raise on
+    # max() over an empty sequence instead of declining to render.
+    if not (ctx.get("equity") or []):
+        return 0
     reg = tier["register"]
     L = LABELS.get(reg, LABELS["std"])
     eq = ctx["equity"]
@@ -38,7 +43,7 @@ def render(deck, ctx, tier):
     ys = [(e.get("ionic_score") if e.get("ionic_score") is not None else 50) for e in eq]
     sizes = [e.get("value_inr", 0) for e in eq]
     colors = [REC_HEX.get(e["rec"], "#8C95DE") for e in eq]
-    labels = [e["symbol"] for e in eq]
+    labels = [str(e.get("symbol") or e.get("name") or "")[:12] for e in eq]
     png = CH.bubble(xs, ys, sizes, colors, "equity_book_bubble", labels=labels, threshold=40,
                     figsize=(11.0, 4.7), xlabel="Weight in book (%)", ylabel="Ionic Score (0–100)")
     deck.pic(s, png, ML, 2.45, UW, 3.55, valign="top")

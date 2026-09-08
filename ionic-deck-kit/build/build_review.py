@@ -15,6 +15,7 @@ A scheme missing from the score file renders as No View. Rows the parser could n
 exceptions file. Neither is ever silently dropped.
 """
 import argparse
+import glob
 import re
 import json
 import os
@@ -52,9 +53,13 @@ HELD = ("Hold", "Hold (watch)")
 #   sector_exposure and mcap_positioning need a sector and a market-cap band per holding.
 #   tax_impact needs a cost basis, which a holdings statement rarely carries.
 #   scheme_correlation needs NAV history, which is deliberately not in the kit.
-SKIP = {"score_method", "book_scored", "equity_book", "sell_list", "hold_rationale",
-        "sector_exposure", "funds_debt",
-        "scheme_correlation", "tax_impact"}
+SKIP = {"sector_exposure", "funds_debt", "scheme_correlation", "tax_impact"}
+# The Equity Book needs a call and a score per SHARE. Those now arrive in a published stock score
+# file exactly as the fund calls do, so these pages are skipped only when that file is absent
+# rather than always. sector_exposure still needs a sector on every holding including the funds,
+# and tax_impact still needs a cost basis a statement rarely carries.
+SKIP_WITHOUT_STOCK_SCORES = {"score_method", "book_scored", "equity_book", "sell_list",
+                             "hold_rationale"}
 # Pages that live in the library but sit in no tier by default, and which this review wants.
 # The tier override INTERSECTS optional_on with KEEP_ANNEX, so a module that is not already in some
 # tier's optional_on can only be switched on here. all_holdings is new and lives in no tier.
@@ -242,7 +247,8 @@ def main():
     else:
         print("    no single-scheme cap in VERSION.json, so no holding is trimmed on weight")
 
-    print(f"  calls     : " + "  ".join(f"{k} {v}" for k, v in G["call"].value_counts().items()))
+    print(f"  calls     : " + "  ".join(f"{k} {v}" for k, v in G["call"].value_counts().items())
+          + "   (before direct shares are split out and scored separately)")
 
     # ---- 4. build the deck ------------------------------------------------------------------------
     _orig = tiers.get
@@ -271,6 +277,21 @@ def main():
             if u.startswith(a.strip().lower()):
                 return a.strip()
         return None
+
+    # THE DIRECT-EQUITY CALLS. The kit has always joined schemes to a central score file and had
+    # nothing at all for a share, so every direct holding rendered No View: on a book of 139 shares
+    # that told the client the desk had no opinion on 27 stocks it has called Sell. Same publisher,
+    # same ISIN key, same rule that a name the file does not carry stays No View.
+    _SS = {}
+    _ssf = sorted(glob.glob(os.path.join(KIT, "scores", "ionic_stock_scores_*.csv")))
+    if _ssf:
+        _ssd = pd.read_csv(_ssf[-1]).drop_duplicates("isin")
+        _SS = {str(r.isin).strip(): r for r in _ssd.itertuples()}
+        print(f"  stocks    : {os.path.basename(_ssf[-1])}  {len(_SS)} names")
+    else:
+        print("    no stock score file in scores/, so direct shares carry No View")
+    if not _SS:
+        SKIP.update(SKIP_WITHOUT_STOCK_SCORES)
 
     _bands_all, _mcap_all = RL.load_bands()
     funds = [dict(name=r.scheme, isin=r.isin,
@@ -375,13 +396,40 @@ def main():
                    sector=None, ionic_score=None)
         (equity_rows if _isdirect(o) else other_rows).append(rec)
     # the ISIN-matched direct shares, in the shape the equity pages read
+    _n_share_call = 0
     for f in _shares:
+        _sc = _SS.get(str(f["isin"]).strip())
+        _call = (str(getattr(_sc, "call", "") or "").strip() or "No View") if _sc is not None else "No View"
+        if _sc is not None and _call != "No View":
+            _n_share_call += 1
+
+        def _t(field):
+            v = getattr(_sc, field, None) if _sc is not None else None
+            return "" if v is None or (isinstance(v, float) and v != v) else str(v).strip()
+
+        def _f(field):
+            v = getattr(_sc, field, None) if _sc is not None else None
+            try:
+                return None if v is None or (isinstance(v, float) and v != v) else float(v)
+            except (TypeError, ValueError):
+                return None
+
         equity_rows.append(dict(
-            name=f["name"], isin=f["isin"], value_inr=f["value_inr"],
+            name=(_t("company") or f["name"]), isin=f["isin"],
+            symbol=_t("symbol"), value_inr=f["value_inr"],
             weight_pct=f["weight_pct"], asset_class=f.get("asset_class") or "Equity",
-            sub_category="Direct Equity", amc="-", sector=None, ionic_score=None,
-            structural_reason=f.get("structural_reason") or "",
-            rec=f.get("verdict") or "No View", verdict=f.get("verdict") or "No View"))
+            sub_category="Direct Equity", amc="-",
+            sector=(_t("sector") or None),
+            ionic_score=_f("ionic_score"), score_3y=_f("score_3y"), score_1y=_f("score_1y"),
+            growth_pct=_f("growth_pct"),
+            rationale=_t("rationale"), negative_para=_t("negative_para"),
+            positive=_t("positive_para"), reverse_dcf=_t("reverse_dcf"),
+            summary=_t("summary"), holding_years=None,
+            structural_reason=_t("rationale") or f.get("structural_reason") or "",
+            rec=_call, verdict=_call))
+    if _shares:
+        print(f"    {_n_share_call} of {len(_shares)} direct shares carry a published call; "
+              f"the rest are No View")
     equity_rows.sort(key=lambda r: -r["value_inr"])
     other_rows.sort(key=lambda r: -r["value_inr"])
 
@@ -516,6 +564,12 @@ def main():
     for _f in funds:
         _f["plan"] = _plan_of(_f["name"])
 
+    def _n_call(c):
+        return (int((G["call"] == c).sum() if len(G) else 0)
+                - sum(1 for f in _shares if str(f.get("verdict") or "") == c)
+                + sum(1 for r in equity_rows + other_rows
+                      if str(r.get("rec") or r.get("verdict") or "") == c))
+
     _SELL_VAL = sum(f["value_inr"] for f in funds if f["verdict"] == "Sell")
     _TRIM_VAL = sum(f.get("trim_value_inr") or 0.0 for f in funds if f["verdict"] == "Trim")
 
@@ -612,9 +666,11 @@ def main():
                    "cash_pct": 0.0,
                    "n_stocks": len(equity_rows), "n_other": len(other_rows),
                    "n_funds": len(funds),
-                   "n_sell": int((G["call"] == "Sell").sum()),
-                   "n_trim": int((G["call"] == "Trim").sum()),
-                   "n_hold": int(G["call"].isin(HELD).sum()),
+                   # EVERY call in the book, not the fund sleeve's. The executive summary presents
+                   # these as "Sell calls" without qualification, so counting only schemes told a
+                   # client with twenty direct-equity Sells that the review had found five.
+                   "n_sell": _n_call("Sell"), "n_trim": _n_call("Trim"),
+                   "n_hold": _n_call("Hold") + _n_call("Hold (watch)"),
                    "top10_pct": round(sorted(
                        [float(x) for x in G["weight_pct"]] +
                        [r["weight_pct"] for r in equity_rows + other_rows],
