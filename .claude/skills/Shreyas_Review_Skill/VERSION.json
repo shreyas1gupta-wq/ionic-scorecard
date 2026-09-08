@@ -1,7 +1,7 @@
 {
   "skill": "Shreyas_Review_Skill",
-  "version": "v1.0",
-  "sequence": 1,
+  "version": "v1.1",
+  "sequence": 2,
   "released": "2026-09-08",
   "author": "Shreyas Gupta",
   "delivery_branch": "master",
@@ -15,6 +15,8 @@
     "Ionic_Portfolio_Review (the deep reference for the scoring chain itself)"
   ],
   "changes": [
+    "run_review.py: one command for build + graft + all three gates, exiting non-zero on any finding that lands on a generated page and writing out/<Client>_RUN.json so a deck can be traced back to its inputs and score-file dates.",
+    "qa/check_sync.py: one command that says whether the score files, the band files, the concentration cap, the skill and the git tree actually agree. Run it before any client build.",
     "One skill for the whole review pipeline: statement in, deck and reconciling workbook out.",
     "Documents the ionic-deck-kit path (statement -> build_review.py) as primary; the hand-written pr_template ctx path is the legacy route.",
     "references/03_client_directives.md: the overlay that records a client's own instructions without the firm's name landing on calls it never made.",

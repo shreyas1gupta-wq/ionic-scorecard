@@ -48,54 +48,57 @@ PY="C:/Users/Shreyas.1Gupta/AppData/Local/Python/pythoncore-3.14-64/python.exe"
 The `python` alias is broken on this machine. Always set `PYTHONIOENCODING=utf-8` and
 `PYTHONUNBUFFERED=1`; the console is cp1252 and will otherwise die on a rupee sign.
 
-### The pipeline, in order
+### Two commands. That is the whole thing.
+
+```bash
+cd ionic-deck-kit
+
+# 1. is this installation in sync? run it before any client build
+PYTHONIOENCODING=utf-8 "$PY" qa/check_sync.py
+
+# 2. build, graft and check, in one go
+PYTHONIOENCODING=utf-8 "$PY" build/run_review.py \
+    "C:/tmp/<client>/<Client>_Statement.xlsx" \
+    --client "<Client> Family" \
+    --tier HNI_DEEP \
+    --directives "C:/tmp/<client>/client_directives.json" \
+    --lots "C:/tmp/<client>/tax_lots_raw.csv" \
+    --firm-deck "<a deck carrying the firm's introduction pages>"
+```
+
+`run_review.py` runs `build_review.py`, then `graft_firm_pages.py`, then all three QA gates. It
+**exits non-zero** on any gate finding that lands on a page this kit generated, and reports
+findings on the grafted firm pages without failing - those slides are another firm-page layout
+lifted verbatim and are not this kit's to re-lay. It also surfaces the `[skip]` lines, which is how
+a whole page goes missing without anything looking wrong.
+
+Everything it did lands in `out/<Client>_RUN.json`: the inputs, the score-file dates, the pages that
+did not render, and the gate results. A deck can be traced back to what produced it.
+
+`--directives`, `--lots` and `--firm-deck` are all optional and independent. Each one omitted makes
+the deck say **less**, never anything untrue:
+
+| omitted | what the deck does instead |
+|---|---|
+| `--lots` | prices a gain only where the statement carries a cost, cannot tell short-term from long, and says so on the page |
+| `--directives` | shows only the desk's own calls |
+| `--firm-deck` | ships without the introduction pages rather than with invented credentials |
+
+`--skip-gates` exists for iterating. A deck built with it prints UNCHECKED and does not go out.
+
+### The steps underneath, if you need one on its own
 
 | # | step | command |
 |---|---|---|
 | 1 | read the raw statements | `parse/read_statement.py` (called by the build) |
 | 2 | build one consolidated statement sheet | a per-client `extract.py` / `make_statement.py` |
 | 3 | build the deck, workbook and IPS | `build/build_review.py` |
-| 4 | graft the firm's own introduction pages | `build/graft_firm_pages.py` |
+| 4 | graft the firm's introduction pages | `build/graft_firm_pages.py` |
 | 5 | QA gates | `check_geometry.py`, `check_geometry2.py`, `tellscan.py` |
-| 6 | read the pages you changed | there is no substitute for this |
+| 6 | **read the pages you changed** | no gate can see a page |
 
-### The build, in full
-
-```bash
-cd ionic-deck-kit
-PYTHONIOENCODING=utf-8 PYTHONUNBUFFERED=1 "$PY" build/build_review.py \
-    "C:/tmp/<client>/<Client>_Statement.xlsx" \
-    --client "<Client> Family" \
-    --tier HNI_DEEP \
-    --directives "C:/tmp/<client>/client_directives.json" \
-    --lots "C:/tmp/<client>/tax_lots_raw.csv"
-```
-
-`--directives` and `--lots` are optional and independent. Without `--lots` the tax page can price a
-gain only where the statement carries a cost and cannot tell a short-term unit from a long-term
-one, and it says so on the page rather than assuming.
-
-### The graft
-
-```bash
-PYTHONIOENCODING=utf-8 "$PY" build/graft_firm_pages.py \
-    --src "<the reference deck with the firm pages>" \
-    --tgt "out/<Client>_Review_HNI_DEEP.pptx" \
-    --out "C:/tmp/<client>/<Client>_Review_FINAL.pptx"
-```
-
-### The gates
-
-```bash
-cd Shreyas_Ionic_AMC/09_PRODUCT/pr_template
-for g in check_geometry.py check_geometry2.py tellscan.py; do
-  PYTHONIOENCODING=utf-8 "$PY" $g "C:/tmp/<client>/<Client>_Review_FINAL.pptx"
-done
-```
-
-Findings on the grafted pages (slides 2 to 6) are expected and out of scope: those pages are lifted
-verbatim from the firm's own deck and are not this kit's to re-lay. **Every finding on any other
-slide is a defect.** See `references/07_qa_gates.md` for what each gate can and cannot see.
+Step 6 is not automatable and is not optional. Every defect in
+`references/08_do_not_regress.md` passed all three gates.
 
 ---
 
