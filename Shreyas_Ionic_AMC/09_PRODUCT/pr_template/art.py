@@ -8,7 +8,15 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "_charts")
+# ONE DIRECTORY PER PROCESS. Every chart in this kit is written under a FIXED name
+# ("cover_art", "qc_quadrant", "fe_vs_bm", ...) chosen per page, not per client. With a single
+# shared directory, two builds running at the same time overwrite each other's images: the second
+# build reads a half-written PNG and loses the page, or worse, finishes cleanly having embedded the
+# FIRST client's chart in the SECOND client's deck. Both were observed. A cross-client chart in a
+# client deck is a confidentiality incident, not a rendering bug, so the images are separated by
+# process id. The probe pass and the real pass share a process, so they still share the cache and
+# the second pass simply rewrites identical files.
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "_charts", "run-%d" % os.getpid())
 os.makedirs(OUT, exist_ok=True)
 NAVYD, NAVY, NT1, NT2, GOLD = "#10197A", "#1B27A3", "#4A57C4", "#8C95DE", "#F2A93C"
 

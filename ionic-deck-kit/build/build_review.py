@@ -619,7 +619,27 @@ def main():
     deck_path = os.path.join(out_dir, f"{safe}_Review_{a.tier}.pptx")
     deck.save(deck_path)
 
-    G.to_excel(os.path.join(out_dir, f"{safe}_Holdings.xlsx"), index=False)
+    # EVERY holding, not the scored sleeve. G is the fund frame: on the reference book that is 34 of
+    # 75 rows and Rs 352.7 crore of a Rs 576.8 crore portfolio, while the file is called _Holdings
+    # and the README documents it as "Every holding, the call, the rationale". The deck and the IPS
+    # workbook were both moved onto the whole book; this file was not, so an advisor reconciling the
+    # workbook against the deck would find Rs 224 crore missing and no explanation for it. The
+    # unscored rows carry No View, which is the correct answer for them and not a reason to omit
+    # them: they are still the client's money and they still count in every weight on every page.
+    _G_ALL = pd.concat(
+        [G.assign(source="Scored scheme")] +
+        ([pd.DataFrame([{"isin": r.get("isin") or "", "scheme": r.get("name"),
+                         "category": r.get("sub_category") or r.get("category") or "",
+                         "call": r.get("rec") or "No View",
+                         "rationale": "Outside the coverage of the firm's fund-quality frameworks.",
+                         "asset_class": r.get("asset_class") or "", "value": r.get("value_inr") or 0.0,
+                         "invested": r.get("cost_inr") or 0.0,
+                         "weight_pct": r.get("weight_pct") or 0.0,
+                         "risk_band": r.get("risk_band"), "liq_band": r.get("liq_band"),
+                         "source": "Held, no scheme-level match"}
+                        for r in (equity_rows + other_rows)])] if (equity_rows or other_rows) else []),
+        ignore_index=True)
+    _G_ALL.to_excel(os.path.join(out_dir, f"{safe}_Holdings.xlsx"), index=False)
     ips_path = os.path.join(out_dir, f"{safe}_IPS_{a.profile}.xlsx")
     IPSB.write_workbook(IPS, ips_path, client=a.client, as_of=ver["as_of"])
     if len(E):

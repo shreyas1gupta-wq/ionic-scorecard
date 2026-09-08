@@ -28,8 +28,10 @@ trim, and do not adjust the cap for a client.
 
 ## Steps
 
-1. Read the statement with `parse/read_statement.py`. It finds holdings by ISIN rather than by column
-   position, so it survives unfamiliar layouts.
+1. Read the statement with `parse/read_statement.py`. It finds the header row by VOCABULARY rather
+   than by position, so the table can start anywhere on the sheet and the columns can be in any
+   order. A sheet with no ISIN column at all is still read in full: the holdings are real whether or
+   not the statement identifies them.
 2. **Check the reconciliation.** It compares the parsed total against the total the statement prints
    for itself. If it says MISMATCH, stop and tell the advisor. A deck built on a partial read carries
    wrong numbers on every page.
@@ -48,8 +50,21 @@ L&T India Value Fund. Today's Kotak Midcap Fund is the old Kotak Emerging Equity
 Kotak Midcap became Kotak Small Cap in 2018. This is exactly why the join is on ISIN and never on
 name. Do not match schemes by string similarity under any circumstances.
 
-**Rows without an ISIN.** They go to the exceptions file. Never drop one quietly, and never guess
-which scheme it was.
+**Rows without an ISIN are still the client's money.** They are listed in the exceptions file because
+the desk cannot put a CALL on them, and that is the only thing the exceptions file means. They stay
+IN the portfolio: in the total, in every weight, in the concentration tests, on the risk-and-liquidity
+grid and in the holdings annexure, carrying No View. On a real book this is not a rounding detail —
+on the reference book it is 41 of 75 holdings and 39% of the money, REITs and AIFs and direct bonds
+among them. A review that quietly reported the other 61% would be wrong on every page.
+Never drop one, and never guess which scheme it was.
+
+**Two caps, and they are not the same cap.** `single_scheme_cap_pct` in `VERSION.json` is the desk's
+concentration cap: it applies to ANY holding as a share of the WHOLE book, and it is what fires a
+Trim. The Investment Policy Statement separately carries a row called "A single listed security",
+which is a limit on directly-held shares measured against the EQUITY SLEEVE. Two different
+populations on two different denominators. Reading either as the other is the single most expensive
+mistake available in this kit: it once reported a holding as comfortably inside a 15% cap while the
+trim engine was already cutting it back to 10%.
 
 **The demo score file is a trap.** It is dated later than the production file on purpose so nobody
 mistakes it for real, and the kit prefers a production file whenever one is present. If the run
