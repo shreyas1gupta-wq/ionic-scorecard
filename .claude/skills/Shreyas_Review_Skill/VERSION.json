@@ -1,0 +1,27 @@
+{
+  "skill": "Shreyas_Review_Skill",
+  "version": "v1.0",
+  "sequence": 1,
+  "released": "2026-09-08",
+  "author": "Shreyas Gupta",
+  "delivery_branch": "master",
+  "repo": "https://github.com/shreyas1gupta-wq/ionic-scorecard",
+  "supersedes": [
+    "ionic-wealth-complete",
+    "ndpms-deck",
+    "ionic-deck-kit/SKILL.md (ionic-portfolio-review)"
+  ],
+  "complements": [
+    "Ionic_Portfolio_Review (the deep reference for the scoring chain itself)"
+  ],
+  "changes": [
+    "One skill for the whole review pipeline: statement in, deck and reconciling workbook out.",
+    "Documents the ionic-deck-kit path (statement -> build_review.py) as primary; the hand-written pr_template ctx path is the legacy route.",
+    "references/03_client_directives.md: the overlay that records a client's own instructions without the firm's name landing on calls it never made.",
+    "references/04_tax.md: the lot-aware tax engine - LTCG / STCG / post-Apr-2023 slices, equity STCG at 20%, slab money disclosed and never estimated.",
+    "references/08_do_not_regress.md: every defect this deck has shipped once, each of which passed all three QA gates.",
+    "Corrects the repo-visibility claim: shreyas1gupta-wq/ionic-scorecard is PUBLIC (verified 2026-09-08 via the GitHub API). Score files, band files, VERSION.json and every client artefact are gitignored and must stay that way."
+  ],
+  "verify": "python check_version.py",
+  "notes": "sequence is the field compared for staleness; version is for humans."
+}

@@ -3,6 +3,17 @@ name: ionic-portfolio-review
 description: Build an Ionic Wealth portfolio-review deck from a client's holding statement. Use whenever an advisor supplies a CAS, CAMS, Kfintech or platform holdings export and wants the standard review deck and holdings workbook. The recommendations come from a centrally published score file and are never derived, inferred or overridden here.
 ---
 
+> **SUPERSEDED by `Shreyas_Review_Skill` (v1.0, 2026-09-08).**
+>
+> That skill is the single operating manual for producing a review deck end to end: the deck kit,
+> the two score files and their order of precedence, client-directive overlays, the lot-aware tax
+> engine, risk and liquidity mapping, the grafted firm pages and the QA gates. Start there.
+>
+> This file is kept because it is still referenced and because parts of it are not repeated
+> elsewhere. **Where the two disagree, `Shreyas_Review_Skill` is right** - it was written after the
+> defect sweep of 2026-09-08 and this one was not.
+
+
 # Building a portfolio review
 
 ## The one rule

@@ -25,12 +25,16 @@ description: Operating manual for the Ionic Wealth NDPMS portfolio-review produc
 > in the repo — the opposite of the truth — and nothing told the reader it was out of date. The version
 > check is the fix.
 >
-> **One limitation, tested and real:** the repository is **private**, so the HTTPS fallback cannot read
-> it. A copy of this skill sitting on its own, with no clone anywhere, will report `unknown` rather
-> than CURRENT or STALE — it has no way to see the delivery branch. Run the check from inside a clone
-> and it works (verified: reports `[git origin/master]`). This is a property of a private repo, not a
-> bug, and it is the strongest practical argument for working inside the clone rather than keeping a
-> loose copy.
+> **The repository is PUBLIC** (`shreyas1gupta-wq/ionic-scorecard`, verified against the GitHub API
+> on 2026-09-08). An earlier version of this paragraph said it was private and that the HTTPS fallback
+> therefore could not read it; that was wrong in both halves, and a recipient acting on it would have
+> skipped a check that works. The standalone HTTPS path resolves, so a loose copy of this skill can
+> tell whether it is current.
+>
+> **What being public actually costs you:** the score files, the risk and liquidity bands, the
+> market-cap bands, `VERSION.json`, `out/`, `_charts/` and every client artefact are `.gitignore`d
+> and must stay that way. Committing one publishes the desk's calls or a client's holdings to the
+> open internet, and that is not a thing you can undo.
 >
 > **You may not need a copy at all.** Claude Code discovers skills from `.claude/skills/` in whatever
 > folder you open, and this skill lives *inside* the repo. Work in a clone and `git pull` is the whole

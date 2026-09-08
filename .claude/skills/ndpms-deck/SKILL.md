@@ -3,6 +3,17 @@ name: ndpms-deck
 description: Build/modify the Ionic Wealth NDPMS portfolio-review deck from the pr_template engine — tiers (HNI_DEEP/STANDARD/RM_SIMPLE), modules, charts, QA gates and every Principal ruling that governs client-facing slides. Use for "build the client deck", "update the review ppt", template/module edits, or any NDPMS presentation ask.
 ---
 
+> **SUPERSEDED by `Shreyas_Review_Skill` (v1.0, 2026-09-08).**
+>
+> That skill is the single operating manual for producing a review deck end to end: the deck kit,
+> the two score files and their order of precedence, client-directive overlays, the lot-aware tax
+> engine, risk and liquidity mapping, the grafted firm pages and the QA gates. Start there.
+>
+> This file is kept because it is still referenced and because parts of it are not repeated
+> elsewhere. **Where the two disagree, `Shreyas_Review_Skill` is right** - it was written after the
+> defect sweep of 2026-09-08 and this one was not.
+
+
 # NDPMS Deck Engine (pr_template) — operating playbook (consolidated 2026-07-27)
 
 **Home:** `Shreyas_Ionic_AMC/09_PRODUCT/pr_template/`. Config-driven module library:
