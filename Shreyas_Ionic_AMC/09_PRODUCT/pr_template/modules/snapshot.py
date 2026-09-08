@@ -84,17 +84,22 @@ def render(deck, ctx, tier):
     deck.pic(s, dpath, ML, 3.05, 4.35, 3.35, valign="middle", halign="center")
 
     # ---- read (right) ----
+    # Needed by every register, so it is computed before the branch rather than inside one of them.
+    _largest = max((w for _n, _k, w in LT.scheme_concentration(ctx, top_n=1)), default=0.0)
     if reg == "simple":
-        body = (f"Most of your money, about {eq:.0f}%, is invested directly in shares. "
-                f"About {mf:.0f}% is in mutual funds and {cash:.0f}% is kept as cash. "
-                "A lot sits in just a few shares. We look at that next.")
+        # Same defect the other two registers carried: eq is the EQUITY ASSET CLASS however it is
+        # held (8.9% of this book is actually in shares), mf is the share held through FUNDS, and
+        # the two are different axes that summed to 137% side by side. And the concentration here
+        # is in a fund, not in "a few shares".
+        body = (f"About {eq:.0f}% of your money is in equity, {mf:.0f}% of the portfolio is held "
+                f"through funds, and {cash:.0f}% is kept as cash. "
+                f"The largest single holding is {_largest:.1f}% on its own. We look at that next.")
     elif reg == "hni":
         # A top-TEN aggregate against a per-NAME cap compares nothing: 56% of the book in ten
         # holdings is not a breach of a 10% single-holding limit, and printing the two side by side
         # invited the reader to conclude it was. The cap is tested by the largest single holding,
         # which is what the concentration page tests it with; the top-ten figure stands on its own
         # as a spread statement. Also "an 10%": the article has to follow the number it is read as.
-        _largest = max((w for _n, _k, w in LT.scheme_concentration(ctx, top_n=1)), default=0.0)
         # "an" before a number the reader says aloud starting with a vowel: 8, 11, 18, 80-89.
         _c = int(round(cap)) if cap is not None else 0
         _art = "an" if (_c in (11, 18) or str(_c)[0] == "8") else "a"
@@ -143,6 +148,6 @@ def render(deck, ctx, tier):
     gross_note = LT.gross_equity_footnote(ctx)
     gross_txt = f" {gross_note}" if gross_note else ""
     deck.source(s, f"Source: client custody statement as of {cl['as_of']}; Ionic Wealth Portfolio "
-                   "Review. Donut = direct holding, % of AUM. True mix = direct + fund "
+                   "Review. Donut = asset class, % of AUM. True mix = direct + fund "
                    f"look-through equity/debt/others, % of AUM (FM #8).{gross_txt}{demo_tag}")
     return 1

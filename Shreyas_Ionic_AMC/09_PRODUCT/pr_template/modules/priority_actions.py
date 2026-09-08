@@ -67,7 +67,8 @@ def _fund_desc(act_counts):
     return f"{mix}; the proceeds go to cash, not to a replacement scheme."
 
 
-def _rows(reg, n_sell, k, act_counts, n_quality_sell, n_liquidity_sell, trim_reason):
+def _rows(reg, n_sell, k, act_counts, n_quality_sell, n_liquidity_sell, trim_reason,
+          sell_noun="holdings"):
     n_exit = act_counts.get("EXIT", 0)
     n_move = k - n_exit
     sell_desc_hni = (f"{n_sell} names sold, {n_quality_sell} score below the gate; "
@@ -75,14 +76,28 @@ def _rows(reg, n_sell, k, act_counts, n_quality_sell, n_liquidity_sell, trim_rea
                       if n_liquidity_sell else
                       f"{n_sell} names scored below the gate, staged in slices at <=10% ADV.")
     if reg == "simple":
-        # 'cheaper or Direct versions' read as a same-fund plan change (Principal
-        # 2026-07-26) — a Switch replaces the FUND; destinations happen to be Direct
-        fund_sub = f"Tidy the fund list, replace {n_move} weak funds with stronger, cheaper ones"
-        fund_sub += ", drop the tiny one." if n_exit else "."
-        sell_sub = (f"Sell the {n_sell} weakest-scoring stocks; {n_liquidity_sell} more are sold just for "
-                    "cash, not because they're weak."
+        # THE PLAIN-LANGUAGE REGISTER WAS NEVER SWEPT when the other two were, and it drifted
+        # further than either. "Replace N weak funds with stronger, cheaper ones" promises the
+        # client a REPLACEMENT this deck does not recommend and is not allowed to: the review is
+        # Sell, Trim and Hold on what is already owned, no client Buy is ever issued, and the
+        # proceeds here go to cash pending a separate conversation. Saying it in simpler words does
+        # not make it a smaller claim; it makes it a likelier one to be believed.
+        _moved = sum(act_counts.get(a, 0) for a in ("SWITCH", "REDEEM"))
+        if _moved:
+            fund_sub = (f"Move {_moved} fund" + ("" if _moved == 1 else "s") +
+                        " into a cheaper version of the same kind")
+            _rest = k - _moved
+            fund_sub += (f", and sell {_rest} outright." if _rest else ".")
+        else:
+            fund_sub = (f"Sell {k} fund" + ("" if k == 1 else "s") +
+                        " and hold the money as cash; what to buy is a separate conversation.")
+        # "stocks" on a book whose every Sell is a FUND. The word has to follow the holding, and
+        # the caller resolves it because _rows() cannot see the book.
+        _noun = sell_noun
+        sell_sub = (f"Sell the {n_sell} weakest-scoring {_noun}; {n_liquidity_sell} more are sold just "
+                    "for cash, not because they're weak."
                     if n_liquidity_sell else
-                    f"Sell the {n_sell} weakest-scoring stocks, a little at a time.")
+                    f"Sell the {n_sell} weakest-scoring {_noun}, a little at a time.")
         return [
             ("Sell the weak names", sell_sub, "First"),
             ("Free up cash", trim_reason, "Soon"),
@@ -203,7 +218,12 @@ def render(deck, ctx, tier):
                    for h in _book if id(h) in _fund_ids and _call(h) in ("Sell", "Trim"))
     fund_shown = fund_sum if fund_sum - _already > 1e4 else "Included in 1 and 2"
     amounts = [sell_sum, trim_cash, fund_shown, net_shown]
-    rows = _rows(reg, n_sell, k, act_counts, n_quality_sell, n_liquidity_sell, trim_reason)
+    _nf_sell = sum(1 for f in funds if str(f.get("verdict") or "").strip() == "Sell")
+    _ne_sell = sum(1 for e in equity if str(e.get("rec") or "").strip() == "Sell")
+    _sell_noun = ("funds" if _nf_sell and not _ne_sell else
+                  "shares" if _ne_sell and not _nf_sell else "holdings")
+    rows = _rows(reg, n_sell, k, act_counts, n_quality_sell, n_liquidity_sell, trim_reason,
+                 sell_noun=_sell_noun)
     # v7 device (p.29): every action row carries a REF back to the page that justifies it
     refs = ["tbl:sell_list", "mod:concentration", "mod:fund_actions", "mod:tax_impact"]
     ry0, rowh = 2.98, 0.78

@@ -131,17 +131,33 @@ def render(deck, ctx, tier):
              f"About {foreign_gap:.0f} points below the {ips['foreign_target_pct']:.0f}% overseas target.",
              ("c", "Plan an overseas step for when we reinvest.", NAVY), "04 · Plan"]
             if show_foreign_row else
-            [("b", "No plan on file yet"),
-             "This is a first review — goals, timeline and risk comfort aren't yet agreed in writing.",
-             ("c", "Share these with your RM before the next review.", NAVY), "01 · X-ray"])
+            ([("b", "No plan on file yet"),
+              "This is a first review — goals, timeline and risk comfort aren't yet agreed in writing.",
+              ("c", "Share these with your RM before the next review.", NAVY), "01 · X-ray"]
+             if not ips_on_file else
+             # The plain-language deck told the client no plan existed while its own second slide
+             # WAS that plan. The row is only true when there is genuinely nothing on file.
+             [("b", "Your plan"),
+              f"Measured against the {ips.get('risk_tier') or 'agreed'} plan: how much in shares "
+              "and funds, how much in one place, how much you can get out of quickly.",
+              ("c", "See your plan on page 2.", NAVY), "00 · Understanding"]))
         fee_row = ([("b", "Paying extra fees"),
              f"About {_k(reg_drag)}/yr of avoidable Regular-plan cost.",
              ("c", "Move to the cheaper Direct plan." if has_redeem
               else "Every fund change we suggest lands in a cheaper Direct plan.", NAVY), "04 · Plan"]
             if show_fee_row else
-            [("b", "Fund cost"),
-             "Every fund you hold is already on the cheaper Direct plan — no regular-plan drag to fix.",
-             ("c", "The fund changes below are about consistency, not cost.", NAVY), "03 · Funds"])
+            # The same false claim the other register carried: reg_drag is 0 because the COST is
+            # unknown without expense ratios, which is not the same statement as "every fund is
+            # already Direct". This book holds seven Regular-plan schemes, named as such a few
+            # pages later.
+            ([("b", "Fund cost"),
+              f"{n_regular} of your funds are on the Regular plan, which costs more than the "
+              "Direct version of the very same fund.",
+              ("c", "Worth moving; we will price the saving before you decide.", NAVY), "03 · Funds"]
+             if n_regular else
+             [("b", "Fund cost"),
+              "Every fund you hold is already on the cheaper Direct plan — no regular-plan drag to fix.",
+              ("c", "The fund changes below are about consistency, not cost.", NAVY), "03 · Funds"]))
         fundline_row = ([("b", "Fund line-up"),
              f"{n_switch} funds trail the index or are built too rigidly.",
              ("c", "Switch to an index/factor fund and a Flexi-Cap.", NAVY), "03 · Funds"]

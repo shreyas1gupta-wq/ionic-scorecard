@@ -92,6 +92,14 @@ FACTOR_RX = re.compile(r"momentum|low\s*vol|value\s*\d|quality|alpha|smart\s*bet
                        re.IGNORECASE)
 TARGET_MAT_RX = re.compile(r"\bsdl\b|target\s*matur|g-?sec\s*20\d\d|psu\s*bond", re.IGNORECASE)
 LIQUID_RX = re.compile(r"1d\s*rate|liquid\s*bees|liquid\s*rate|overnight", re.IGNORECASE)
+# A single-sector or single-theme vehicle is a satellite bet, not the market. Without this every
+# banking, pharma, IT and infrastructure ETF was banded as a broad-market index fund and filed as
+# CORE, which is the opposite of what it is.
+SECTOR_RX = re.compile(
+    r"\bbank\b|\bbanking\b|\bpsu\s*bank\b|\bfinancial\s*services\b|\bpharma\b|\bhealthcare\b|"
+    r"\bit\b|\bauto\b|\bfmcg\b|\bmetal\b|\benergy\b|\boil\b|\brealty\b|\bmedia\b|\bdefence\b|"
+    r"\bdigital\b|\breal\s*estate\b|\bcapital\s*market\b|\btechnolog|\bconsum|\binfra|"
+    r"\bcommodit|\bmanufactur|\btransport|\blogistic", re.IGNORECASE)
 # A G-Sec on a statement is almost never spelled "G-Sec". It is "7.26% GOI 2033", "6.54%
 # Government of India 2032", "GOI SEC 7.10% 2029" or "CGL 2035", and requiring the literal string
 # left every one of them unplaced by the framework, so sovereign paper carried no risk band, no
@@ -144,10 +152,40 @@ def sub_for_fund(name, sebi_category):
         return "Liquid Fund"
     if TARGET_MAT_RX.search(nm):
         return "Target Maturity Index Fund (G-Sec / SDL / PSU)"
-    if cat in ("Other Scheme - Index Funds", "Other Scheme - Other  ETFs",
-               "Other Scheme - Other ETFs", "Index Funds - Equity Funds",
-               "Exchange Traded Funds (ETFs) - Equity ETF") or "index" in nm.lower() \
-            or "etf" in nm.lower():
+    # THE CATEGORY IS AUTHORITATIVE; THE NAME IS ONLY A FALLBACK. The name test below fires on the
+    # bare word "etf" or "index" ANYWHERE in the scheme name, and it used to run first, so it
+    # overrode the statement's own SEBI category. A holding explicitly categorised "Other Scheme -
+    # Gold ETF" came back as a broad-market EQUITY index fund, and so did a silver ETF, a sovereign
+    # gold bond, a Nasdaq feeder, a Bharat Bond debt ETF and a banking-sector ETF. Every one of
+    # those then counted as domestic equity in the asset mix, in the IPS equity row and in the
+    # core/satellite split. Only a CONTAINER category, one that names a wrapper rather than a
+    # mandate, may be overridden by the name.
+    # "FoF Domestic" is a container too: it says the vehicle is a fund of funds, not what the fund
+    # of funds holds, so a gold FoF filed under it was reaching the broad-market default.
+    _CONTAINERS = ("Other Scheme - Index Funds", "Other Scheme - Other  ETFs",
+                   "Other Scheme - Other ETFs", "Index Funds - Equity Funds",
+                   "Exchange Traded Funds (ETFs) - Equity ETF", "Other Scheme - FoF Domestic",
+                   "Fund of Funds Scheme (Domestic) - Fund of Funds Scheme (Domestic)")
+    if cat and cat not in _CONTAINERS:
+        _hit = SEBI_TO_SUB.get(cat) or _by_leaf(cat, nm)
+        if _hit:
+            return _hit
+    _low = nm.lower()
+    # Inside a container, what the vehicle TRACKS decides, and the commodity, debt, overseas and
+    # single-sector tests come before the broad-market default they were all falling into.
+    if re.search(r"sovereign\s*gold\s*bond|\bsgb\b", _low):
+        return "Sovereign Gold Bond"
+    if re.search(r"\bgold\b|\bsilver\b", _low):
+        return "Gold / Silver ETF or FoF"
+    if re.search(r"\bgilt\b|\bg-?sec\b|\bsdl\b|\bbond\b|\bdebt\b|\bduration\b|"
+                 r"\bmoney\s*market\b|\bcorporate\s*bond\b", _low):
+        return "Target Maturity Index Fund (G-Sec / SDL / PSU)"
+    if re.search(r"nasdaq|\bs&?p\s*500\b|\bus\b|global|world|overseas|international|"
+                 r"emerging\s*market|hang\s*seng|\bfang\b", _low):
+        return "International Fund / FoF"
+    if SECTOR_RX.search(nm):
+        return "Thematic / Sectoral Fund"
+    if cat in _CONTAINERS or "index" in _low or "etf" in _low:
         return "Factor / Smart Beta Fund" if FACTOR_RX.search(nm) else "Index Fund / ETF - Broad Market"
     hit = SEBI_TO_SUB.get(cat)
     if hit:

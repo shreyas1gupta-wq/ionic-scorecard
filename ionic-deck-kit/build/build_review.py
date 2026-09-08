@@ -519,7 +519,13 @@ def main():
                 # the name the page looks up, which is "equity_mcap_bands", so the market-cap rows
                 # could not have found a band under any circumstances. A TBD on a client page must
                 # mean the desk has not set a band, never that the build forgot to pass it.
-                "cash_cap_pct": float(_pb["Cash and equivalents"][1]),
+                # A BAND, NOT A CAP. Cash is 1 to 3% and international equity is 10 to 25% in this
+                # profile; publishing only the upper bound threw the FLOOR away, so a book at 0.4%
+                # cash against a 1% minimum and at 3% international against a 10% minimum were both
+                # stamped ALIGNED. Two real breaches reported as compliant, in the direction that
+                # never gets questioned. Rows whose mandate genuinely has no floor (thematic,
+                # unlisted, locked-in, single AMC) keep their scalar cap.
+                "cash_cap_pct": tuple(_pb["Cash and equivalents"]),
                 # Whether the desk has SIGNED OFF these bands. The Aggressive profile is the
                 # desk's own transcribed sheet; Moderate and Conservative are derived drafts. The
                 # build printed that to the console and nowhere else, so a deck built on a draft
@@ -539,7 +545,7 @@ def main():
                                     "Below AA": tuple(_prof["fixed_income"]["Below AA rated"])},
                 "mod_duration_cap_yrs": _prof["fixed_income"]["Modified duration, years"][1],
                 "thematic_sectoral_cap_pct": _prof["equity"]["Thematic and sectoral"][1],
-                "international_equity_cap_pct": _prof["equity"]["International equity"][1],
+                "international_equity_cap_pct": tuple(_prof["equity"]["International equity"]),
                 "gold_band_pct": tuple(_prof["alternates"]["Gold"]),
                 # The desk's profiles set a band for gold and silver together, under one heading.
                 # Publishing a silver band the profile does not carry would be inventing one.
@@ -639,7 +645,25 @@ def main():
                          "source": "Held, no scheme-level match"}
                         for r in (equity_rows + other_rows)])] if (equity_rows or other_rows) else []),
         ignore_index=True)
-    _G_ALL.to_excel(os.path.join(out_dir, f"{safe}_Holdings.xlsx"), index=False)
+    # THIS FILE GOES TO THE CLIENT, so it obeys the same rules the slides do. It was shipping the
+    # framework's internal name in 24 rationale cells and raw field names as column headings
+    # (asset_class, hit_rate, trim_to_pct), both of which the deck's own tell-scanner exists to
+    # catch and neither of which it can see, because it only reads PowerPoint.
+    _G_ALL["rationale"] = (_G_ALL["rationale"].astype(str)
+                           .str.replace("QFRA Framework", _HOUSE_NAME, regex=False)
+                           .str.replace("QFRA-2", _HOUSE_NAME, regex=False)
+                           .str.replace("QFRA-1", _HOUSE_NAME, regex=False)
+                           .str.replace("QFRA", _HOUSE_NAME, regex=False))
+    _COLS = {"isin": "ISIN", "scheme": "Holding", "category": "Category", "call": "Our call",
+             "rationale": "Why", "asset_class": "Asset class", "value": "Value (Rs)",
+             "invested": "Invested (Rs)", "folios": "Folios", "holders": "Holders",
+             "score": "Fund score /100", "consistency": "Steadiness /100",
+             "hit_rate": "Months ahead of peers (%)", "months": "Months of record",
+             "weight_pct": "Weight (% of portfolio)", "trim_to_pct": "Trim to (% of portfolio)",
+             "trim_value": "Trim amount (Rs)", "risk_band": "Risk band",
+             "liq_band": "Liquidity band", "source": "Coverage"}
+    _G_ALL.rename(columns=_COLS).to_excel(
+        os.path.join(out_dir, f"{safe}_Holdings.xlsx"), index=False)
     ips_path = os.path.join(out_dir, f"{safe}_IPS_{a.profile}.xlsx")
     IPSB.write_workbook(IPS, ips_path, client=a.client, as_of=ver["as_of"])
     if len(E):

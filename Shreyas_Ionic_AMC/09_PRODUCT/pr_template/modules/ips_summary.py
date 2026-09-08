@@ -101,7 +101,7 @@ def _combined_band(ab):
     return (_lo(fi) + _lo(alt), _hi(fi) + _hi(alt))
 
 
-def _computed(ips, name, unit="%"):
+def _computed(ips, name, unit="%"):  # noqa: D401
     """A figure the IPS workbook computed, or "Not tracked" where it could not."""
     v = (ips.get("computed") or {}).get(name)
     return "Not tracked" if v is None else (f"{v:.0f}{unit}" if unit else f"{v:.1f}")
@@ -264,8 +264,15 @@ def render(deck, ctx, tier):
          _fit(cur["single_amc_pct"], ips.get("single_amc_cap_pct"), cap_style=True)),
         ("Locked-in (>1yr lock-in)", _band_txt(ips.get("locked_in_cap_pct")), f"{cur['locked_in_pct']:.1f}%",
          _fit(cur["locked_in_pct"], ips.get("locked_in_cap_pct"), cap_style=True)),
-        ("Cash & equivalent", _band_txt(ips.get("cash_cap_pct")), f"{cur['cash_cap_pct']:.1f}%",
-         _fit(cur["cash_cap_pct"], ips.get("cash_cap_pct"), cap_style=True)),
+        # cap_style would read a two-sided band as "anything at or below the top is fine", which
+        # is how a book under the cash FLOOR came to be stamped ALIGNED. And the current figure
+        # comes from the IPS workbook, which counts arbitrage and T-bills as cash equivalents; the
+        # deck's own hardcoded 0.0 disagreed with the workbook's 0.4% on the same book.
+        ("Cash & equivalent", _band_txt(ips.get("cash_cap_pct")),
+         _computed(ips, "Cash and equivalents", "%") if (ips.get("computed") or {}).get(
+             "Cash and equivalents") is not None else f"{cur['cash_cap_pct']:.1f}%",
+         _fit((ips.get("computed") or {}).get("Cash and equivalents", cur["cash_cap_pct"]),
+              ips.get("cash_cap_pct"))),
     ]
     y = _section(deck, s, lx, y, colw, "Portfolio-level parameters", port_rows)
 
@@ -295,8 +302,9 @@ def render(deck, ctx, tier):
               ips.get("thematic_sectoral_cap_pct"), cap_style=True)),
         ("Unlisted equity", _band_txt(ips.get("unlisted_equity_cap_pct")), f"{cur['unlisted_equity_pct']:.0f}%",
          _fit(cur["unlisted_equity_pct"], ips.get("unlisted_equity_cap_pct"), cap_style=True)),
-        ("International equity", _band_txt(ips.get("international_equity_cap_pct")), f"{cur['intl_equity_pct']:.0f}%",
-         _fit(cur["intl_equity_pct"], ips.get("international_equity_cap_pct"), cap_style=True)),
+        ("International equity", _band_txt(ips.get("international_equity_cap_pct")),
+         f"{cur['intl_equity_pct']:.0f}%",
+         _fit(cur["intl_equity_pct"], ips.get("international_equity_cap_pct"))),
     ]
     y2 = _section(deck, s, rxc, y2, colw, "Equity-level parameters", eq_rows)
 
