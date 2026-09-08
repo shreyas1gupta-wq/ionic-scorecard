@@ -23,7 +23,7 @@ from pptx import Presentation
 
 # ---------------------------------------------------------------------------
 # Term buckets (SKILL.md QA LAW #3 + the internal-jargon/mislabeling classes
-# actually caught during the Anand Reddy HNI_DEEP build, 2026-07-27).
+# actually caught during a live HNI_DEEP build, 2026-07-27).
 # ---------------------------------------------------------------------------
 BUCKETS = {
     "AI_TELL": [
