@@ -99,10 +99,28 @@ def render(deck, ctx, tier):
     # legend row since it would be a second, identical-looking "Switch" pill
     pills_row(rx + 0.95, 2.57, [("Hold", 0.62, "Hold"), ("Trim", 0.62, "Trim"), ("Switch", 0.72, "Switch"),
                                 ("Exit", 0.6, "Exit")])
+    # THE TWO WORDS THAT ARE NOT OURS. Where a client has directed an exit, "Exit (client)" and
+    # "Retain" appear on this deck's tables against a quarter of the book while this panel, the
+    # one page that teaches the reader the vocabulary, listed neither. A reader meeting an unlabelled
+    # word in a table of the firm's calls will read it as one of the firm's calls.
+    _cd = ctx.get("client_directive") or {}
+    _y = 2.98
+    if _cd.get("exits") or _cd.get("retains"):
+        deck.txt(s, rx, 2.96, 0.9, 0.24, [("YOURS", SANS, 8, NT2, True, False, 60)],
+                 anchor=MSO_ANCHOR.MIDDLE)
+        _p = []
+        if _cd.get("exits"):
+            _p.append(("Exit (client)", 1.05, "Exit (client)"))
+        if _cd.get("retains"):
+            _p.append(("Retain", 0.72, "Retain"))
+        pills_row(rx + 0.95, 2.95, _p)
+        _y = 3.34
     vocab = ("A review of the holdings you already own; every call here applies to existing positions."
              if not simple else
              "A review of what you already own, and what we would do with each holding.")
-    deck.txt(s, rx, 2.98, rw, 0.4, [(vocab, SERIF, 10, INK, False, True)], ls=1.05)
+    if _cd.get("exits") or _cd.get("retains"):
+        vocab = "Every call above is ours; the two beside YOURS record your own instructions."
+    deck.txt(s, rx, _y, rw, 0.4, [(vocab, SERIF, 10, INK, False, True)], ls=1.05)
 
     # ---- RIGHT-MID: score positioning legend ----
     # Two different scores, two different scales. The Ionic Score is the direct-equity score and
@@ -113,8 +131,9 @@ def render(deck, ctx, tier):
     _has_fund_score = any(f.get("qfra") is not None for f in (ctx.get("funds") or []))
     if not (_has_stock_score or _has_fund_score):
         return 1
-    deck.rule(s, rx, 3.50, rw, HAIR, 0.008)
-    deck.txt(s, rx, 3.62, rw, 0.24,
+    _dy = 0.0 if _y == 2.98 else 0.44
+    deck.rule(s, rx, 3.50 + _dy, rw, HAIR, 0.008)
+    deck.txt(s, rx, 3.62 + _dy, rw, 0.24,
              [(("THE IONIC SCORE, POSITIONED" if _has_stock_score
                 else "THE FUND SCORE, POSITIONED"), SANS, 8.5, SLATE, True, False, 120)])
 
@@ -124,16 +143,16 @@ def render(deck, ctx, tier):
                  anchor=MSO_ANCHOR.MIDDLE)
 
     if _has_stock_score:
-        chip(3.98, SELL,  "Below 40  ·  Sell candidate")
-        chip(4.31, AMBER, "40 to 50  ·  watch zone; Trim only with a concentration or risk flag")
-        chip(4.64, HOLD,  "50 and above  ·  Hold")
+        chip(3.98 + _dy, SELL,  "Below 40  ·  Sell candidate")
+        chip(4.31 + _dy, AMBER, "40 to 50  ·  watch zone; Trim only with a concentration or risk flag")
+        chip(4.64 + _dy, HOLD,  "50 and above  ·  Hold")
     else:
         # The fund score is a share of the scheme's OWN peer group beaten, so the bottom third is
         # the line the desk's framework actually draws, not 40 and 50.
-        chip(3.98, SELL,  "Bottom third of its own category  ·  Sell candidate")
-        chip(4.31, AMBER, "Middle of its category  ·  held and watched")
-        chip(4.64, HOLD,  "Top third of its own category  ·  Hold")
-    deck.txt(s, rx, 5.02, rw, 0.4,
+        chip(3.98 + _dy, SELL,  "Bottom third of its own category  ·  Sell candidate")
+        chip(4.31 + _dy, AMBER, "Middle of its category  ·  held and watched")
+        chip(4.64 + _dy, HOLD,  "Top third of its own category  ·  Hold")
+    deck.txt(s, rx, 5.02 + _dy, rw, 0.4,
              [(("The Ionic Score flags candidates; the Portfolio Review team confirms every call."
                 if _has_stock_score else
                 "The fund score flags candidates; the Portfolio Review team confirms every call."),

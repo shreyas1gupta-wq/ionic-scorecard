@@ -75,6 +75,14 @@ def render(deck, ctx, tier):
 
     note_body = ("Nothing in this review is executed until you authorise it. Every recommendation is "
                  "Sell, Trim or Hold on a holding you already own · never a solicitation to buy.")
+    # WHERE THE CLIENT HAS DIRECTED SOMETHING, this page has to say so, because it is the page that
+    # tells the reader what a call on the following sixty pages means. Without it the deck's own
+    # framing ("every recommendation is Sell, Trim or Hold") is contradicted by every table in it.
+    _cd = ctx.get("client_directive") or {}
+    if _cd.get("exits") or _cd.get("retains"):
+        _instr = (_cd.get("instruction") or "").strip().rstrip(".")
+        note_body += (" Holdings marked EXIT (CLIENT) or RETAIN are your own instructions, "
+                      "recorded here and priced, and are not calls of ours.")
     deck.callout(s, lx, 4.15, lw, 1.55, "Non-discretionary, you authorise every trade",
                  note_body, kind="human")
 

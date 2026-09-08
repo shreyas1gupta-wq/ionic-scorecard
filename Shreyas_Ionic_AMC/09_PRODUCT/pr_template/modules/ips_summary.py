@@ -170,10 +170,18 @@ def _current_values(ctx):
                       if sub(h) == "International Fund / FoF") / eq_sleeve_w * 100.0
     unlisted_equity = sum(w(h) for h in eq_holdings
                           if sub(h).startswith(UNLISTED)) / eq_sleeve_w * 100.0
-    gold_share = sum(w(h) for h in everything if "gold" in (sub(h) + " " +
-                     str(h.get("name") or "")).lower())
-    silver_share = sum(w(h) for h in everything if "silver" in (sub(h) + " " +
-                       str(h.get("name") or "")).lower())
+    # ONE SLEEVE, ONE ROW. The framework's band is "Gold / Silver ETF or FoF" -- one sub-category
+    # covering both metals -- so a gold ETF's own sub-category string contains the word "silver"
+    # and was counted a second time under a Silver row the desk has no separate band for. That
+    # printed an identical 3.7% against Gold (ALIGNED) and Silver (PENDING) on a book holding no
+    # silver at all, which is a holding the client does not own reported to them as held.
+    def _sleeve(h):
+        return (sub(h) + " " + str(h.get("name") or "")).lower()
+
+    gold_share = sum(w(h) for h in everything if "gold" in _sleeve(h))
+    # silver ONLY where the holding names silver on its own, not where it shares a band with gold
+    silver_share = sum(w(h) for h in everything
+                       if "silver" in _sleeve(h) and "gold" not in _sleeve(h))
 
     return {
         "equity_pct": true_equity, "hybrid_debt_pct": true_debt + true_other,
@@ -309,12 +317,19 @@ def render(deck, ctx, tier):
     y2 = _section(deck, s, rxc, y2, colw, "Equity-level parameters", eq_rows)
 
     y2 += 0.10
+    # The desk's profiles set ONE band for the two metals together, under one heading, so the row
+    # is named for what the band actually covers. A separate Silver row could only ever print
+    # "TBD / PENDING", which reads as a parameter the desk forgot rather than one it does not keep.
+    _has_silver_band = ips.get("silver_band_pct") is not None
     comm_rows = [
-        ("Gold", _band_txt(ips.get("gold_band_pct")), f"{cur['gold_pct']:.1f}%",
+        (("Gold" if _has_silver_band else "Gold and silver"),
+         _band_txt(ips.get("gold_band_pct")), f"{cur['gold_pct']:.1f}%",
          _fit(cur["gold_pct"], ips.get("gold_band_pct"))),
-        ("Silver", _band_txt(ips.get("silver_band_pct")), f"{cur['silver_pct']:.1f}%",
-         _fit(cur["silver_pct"], ips.get("silver_band_pct"))),
     ]
+    if _has_silver_band or cur["silver_pct"] > 0.05:
+        comm_rows.append(
+            ("Silver", _band_txt(ips.get("silver_band_pct")), f"{cur['silver_pct']:.1f}%",
+             _fit(cur["silver_pct"], ips.get("silver_band_pct"))))
     y2 = _section(deck, s, rxc, y2, colw, "Commodities parameters", comm_rows)
 
     # ---- constraints strip, full width, whatever space remains ----

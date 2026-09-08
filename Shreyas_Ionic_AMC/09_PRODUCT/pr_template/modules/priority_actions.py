@@ -8,6 +8,23 @@ from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 SECTION_NO, SECTION = 4, "Recommendations"
 
 
+def _first_clause(s, n=70):
+    """The first clause of a written reason, lower-cased to run on inside a sentence."""
+    s = " ".join(str(s or "").split())
+    if not s:
+        return "term-locked"
+    # The shortest complete clause the sentence offers, wherever its boundary falls. Bounding the
+    # SEARCH to n characters and then cutting at n produced half-clauses on any reason whose first
+    # full stop sat past the bound: "surrender terms depend on the premium against the sum assured
+    # and on" -- a sentence that stops at "and on" reads as a rendering fault, not as a reason.
+    cuts = [s.find(x) for x in (". ", "; ", ": ", ", ") if s.find(x) > 12]
+    if cuts:
+        s = s[:min(cuts)]
+    if len(s) > n:
+        s = s[:n].rsplit(" ", 1)[0].rstrip(" ,;:") + "..."
+    return s[0].lower() + s[1:] if s else s
+
+
 def _money(v):
     if isinstance(v, str):
         return v
@@ -165,7 +182,13 @@ def render(deck, ctx, tier):
 
     trim_cash = round(sum(_trim_amt(h) for h in _book
                           if _call(h) != "Sell" and (_trim_amt(h) > 0 or _call(h) == "Trim")))
-    fund_acts = [f for f in funds if str(f.get("action") or "").strip().upper() != "HOLD"]
+    # THE DESK'S OWN FUND ACTIONS. A client-directed exit and a Retain are actions on the book,
+    # but they are not calls this firm made, and counting them here would put the firm's name on
+    # them; leaving them out of the page altogether -- which is what happened -- hid the largest
+    # single movement of money in the plan. They get their own numbered row below instead.
+    _CLIENT_ACTS = ("EXIT (CLIENT)", "RETAIN")
+    fund_acts = [f for f in funds
+                 if str(f.get("action") or "").strip().upper() not in ("HOLD",) + _CLIENT_ACTS]
     k = len(fund_acts)
     act_counts = {}
     for f in fund_acts:
@@ -203,11 +226,21 @@ def render(deck, ctx, tier):
 
     s = deck.content(SECTION_NO, SECTION, L["eyebrow"], L["title"])
 
+    # WHAT "GROSS FREED" MEANS ON THIS BOOK. proceeds is the desk's own sells and trims; where
+    # the client has directed exits as well, the money actually coming off the table is both, and
+    # printing only the desk's half beside four rows that add to the whole is how this page came
+    # to headline Rs 45.4 L over a Rs 3.37 Cr programme.
+    _CD = ctx.get("client_directive") or {}
+    _v_client = _CD.get("exit_value_inr") or 0.0
+    _gross_all = (proceeds or 0.0) + _v_client
+    _k1s = (L["k1s"] if not _v_client else
+            ("sells, trims and your exits" if reg != "simple" else "everything being sold"))
     deck.kpi_strip(s, [
-        (_money(proceeds), L["k1"], L["k1s"], INK),
-        (str(k), L["k2"], L["k2s"], NT2),
-        (_money(net_shown), L["k3"] if _net_known else "Gross proceeds",
-         L["k3s"] if _net_known else "before tax, not estimable here", NAVY),
+        (_money(_gross_all), L["k1"], _k1s, INK),
+        (str(k), L["k2"], L["k2s"] or "desk calls", NT2),
+        (_money(net_shown if _net_known else _gross_all),
+         L["k3"] if _net_known else "Gross proceeds",
+         L["k3s"] if _net_known else "before tax", NAVY),
     ], y=1.8)
 
     # Rows 1 and 2 price the sells and the trims wherever they sit, funds included. Where the fund
@@ -226,14 +259,55 @@ def render(deck, ctx, tier):
                  sell_noun=_sell_noun)
     # v7 device (p.29): every action row carries a REF back to the page that justifies it
     refs = ["tbl:sell_list", "mod:concentration", "mod:fund_actions", "mod:tax_impact"]
-    ry0, rowh = 2.98, 0.78
+
+    # THE CLIENT'S OWN INSTRUCTION, FIRST AND IN WORDS. On this book it was Rs 2.74 crore, a
+    # quarter of the portfolio, and this page -- the page the client signs -- did not mention it.
+    CD = ctx.get("client_directive") or {}
+    if CD.get("exits"):
+        _n_ce, _v_ce = len(CD["exits"]), CD.get("exit_value_inr") or 0.0
+        _sleeves = []
+        for _d in CD["exits"]:
+            _a = (_d.get("asset_class") or "").strip()
+            if _a and _a not in _sleeves:
+                _sleeves.append(_a)
+        _where = " and ".join(x.lower() for x in _sleeves) if _sleeves else "these holdings"
+        _sub = ("%d holdings in the %s sleeve, on your instruction, not on a view of ours."
+                % (_n_ce, _where))
+        if reg == "simple":
+            _sub = ((CD.get("instruction") or "").rstrip(".") + ". ") if CD.get("instruction") else ""
+            _sub += ("%d holding%s, because you asked us to, not because we think they are weak."
+                     % (_n_ce, "" if _n_ce == 1 else "s"))
+        # THE HOLDINGS THAT CANNOT GO, with the reason each carries. Three of them appeared in the
+        # annexure as a bare word, "Retain", with the fund-coverage boilerplate against them in the
+        # workbook: neither the right sentence nor, as an explanation of why a holding is kept, a
+        # true one.
+        if CD.get("retains"):
+            # NAMED HERE, REASONED IN THE NOTES. Three written reasons do not fit the two lines
+            # this row is laid into -- they overflowed it by 0.28in and landed on the row below --
+            # so the row names them and the coverage notes carry the reason for each in full.
+            _sub += (" %d cannot be redeemed on request; the reason for each is in the coverage "
+                     "notes." % len(CD["retains"]))
+        rows = [("At your instruction: exit the fixed-income sleeve"
+                 if reg != "simple" else "The change you asked for", _sub,
+                 "On authorisation")] + rows
+        amounts = [_v_ce] + amounts
+        refs = ["mod:tax_impact"] + refs
+        if len(rows) > 5:            # keep the page to five numbered rows
+            rows, amounts, refs = rows[:5], amounts[:5], refs[:5]
+    # A FIVE-ROW PAGE NEEDS THE HEIGHT ITS ROWS ASK FOR. At a 0.62in pitch the client-instruction
+    # row, which carries the longest sub-line on the page, ran into the Sell-programme row beneath
+    # it. The rows start higher and the pitch is set from the count.
+    ry0, rowh = (2.98, 0.78) if len(rows) <= 4 else (2.74, 0.66)
     for i, ((title, sub, when), amt) in enumerate(zip(rows, amounts)):
         ry = ry0 + i * rowh
         deck.oval(s, ML, ry + 0.04, 0.42, NAVY)
         deck.txt(s, ML, ry + 0.04, 0.42, 0.42, [(str(i + 1), SANS, 14, WHITE, True)],
                  align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
         deck.txt(s, ML + 0.62, ry, 8.0, 0.3, [(title, SANS, 13, INK, True)])
-        deck.txt(s, ML + 0.62, ry + 0.31, 8.0, 0.34, [(sub, SERIF, 9.5, SLATE, False, True)], ls=1.02)
+        # the sub-line takes whatever the row's own pitch leaves it, rather than a fixed 0.34in
+        # that a five-row page cannot honour
+        deck.txt(s, ML + 0.62, ry + 0.31, 8.0, max(0.30, rowh - 0.36),
+                 [(sub, SERIF, 9.5 if rowh >= 0.72 else 9, SLATE, False, True)], ls=1.02)
         deck.txt(s, RX - 2.55, ry + 0.02, 2.55, 0.3, [(_money(amt), SANS, 15, GOLD, True)],
                  align=PP_ALIGN.RIGHT)
         deck.txt(s, RX - 2.55, ry + 0.42, 2.55, 0.22, [(when.upper(), SANS, 7.5, SLATE, True, False, 60)],
@@ -253,8 +327,14 @@ def render(deck, ctx, tier):
              [("Reviewed with client on  ____________________", SANS, 8, SLATE, False)],
              align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
     demo_tag = "Amounts illustrative for the AZBY demo · " if ctx.get("is_demo", False) else ""
+    # THE OLD FOOTNOTE FLATLY CONTRADICTED THE PAGE BEFORE IT. It said the tax could not be
+    # estimated, on a deck carrying a tax page that estimates it holding by holding. It is true
+    # only of a book with no cost basis at all, so it is now said only when that is the case.
+    _has_basis = any(h.get("cost_inr") for h in _book)
     _net_note = ("Net figures after estimated tax" if net is not None else
-                 "Amounts are before tax: a holdings statement carries no acquisition dates, so "
-                 "the tax on these sales cannot be estimated from it")
+                 "Amounts are before tax; the estimated tax on each move is set out on the tax page"
+                 if _has_basis else
+                 "Amounts are before tax: this statement carries no acquisition cost, so the tax "
+                 "on these sales cannot be estimated from it")
     deck.source(s, f"{demo_tag}{_net_note} · as of {ctx['client']['as_of']}.")
     return 1

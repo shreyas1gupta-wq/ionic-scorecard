@@ -116,6 +116,26 @@ CATEGORY_TO_SUB = {
     "ulip": "ULIP",
     "private equity": "Unlisted Equity - Late Stage / Pre-IPO",
     "pms": "PMS - Discretionary Listed Equity",
+    # SMALL SAVINGS AND DEPOSITS ARRIVE AS THEIR OWN CATEGORY on the statements this desk sees --
+    # the sheet simply says "PPF", "SCSS", "Fixed deposit" -- so they never reached the instrument
+    # tests further down, which only run for a row categorised "direct fixed income". They came
+    # through with no risk band, no liquidity band and no days-to-cash, and then dropped out of
+    # the lock-in test and the liquidity page: Rs 70 lakh of fifteen- and five-year money reported
+    # as neither locked in nor illiquid, because it was reported as nothing at all.
+    "ppf": "Public Provident Fund (PPF)",
+    "public provident fund": "Public Provident Fund (PPF)",
+    "scss": "Senior Citizens' Savings Scheme (SCSS)",
+    "senior citizens savings scheme": "Senior Citizens' Savings Scheme (SCSS)",
+    "epf": "Employee / Voluntary Provident Fund",
+    "vpf": "Employee / Voluntary Provident Fund",
+    "nsc": "Small savings - NSC / KVP / Sukanya / post office",
+    "kvp": "Small savings - NSC / KVP / Sukanya / post office",
+    "sukanya samriddhi": "Small savings - NSC / KVP / Sukanya / post office",
+    "fixed deposit": "Fixed Deposit - scheduled commercial or PSU bank, callable",
+    "fixed deposits": "Fixed Deposit - scheduled commercial or PSU bank, callable",
+    "bank deposit": "Fixed Deposit - scheduled commercial or PSU bank, callable",
+    "savings account": "Bank Balance / Savings / Current Account",
+    "bank balance": "Bank Balance / Savings / Current Account",
 }
 _FORM = re.compile(r"\b(LTD|LIMITED|PVT|PRIVATE|CORPORATION|CORP|COMPANY|CO|THE|INC|INDIA)\b")
 
@@ -265,7 +285,15 @@ def sub_for_other(name, category, asset_class, mcap):
             return None            # not in the top 750 by market cap, or a name we cannot resolve
         return "Direct Equity - " + band
     if cat in CATEGORY_TO_SUB:
-        return CATEGORY_TO_SUB[cat]
+        _sub = CATEGORY_TO_SUB[cat]
+        # The category says "fixed deposit"; the NAME says which kind, and the two deposit bands
+        # differ because the credit behind them differs. "Bank fixed deposits, mainly small
+        # finance banks" is not a scheduled-commercial deposit and must not be banded as one.
+        if _sub.startswith("Fixed Deposit") and re.search(
+                r"small finance|sfb|co-?operative|nbfc|finance ltd|financial services",
+                nm.lower()):
+            return "Fixed Deposit - small finance bank / NBFC / corporate"
+        return _sub
     if cat == "direct units":
         return "REIT" if "reit" in nm.lower() else "InvIT" if "invit" in nm.lower() else None
     if cat == "direct fixed income":
@@ -283,6 +311,21 @@ def sub_for_other(name, category, asset_class, mcap):
         # what the client actually holds. The deposit test now needs a deposit word, and the
         # bare-"bank" fallback runs last, after every instrument has had its turn.
         low = nm.lower()
+        # SMALL SAVINGS FIRST. PPF, SCSS, NSC and the provident funds carry no instrument word
+        # this function tests for, no deposit, no bond, no bank, so every one of them fell
+        # through to a bare `return None`, arrived with no risk band, no liquidity band and no
+        # days_to_cash, and then vanished from the lock-in test and the liquidity page
+        # entirely. A fifteen-year term reported as missing data is the one direction of error
+        # that never gets questioned, because the page simply does not mention the holding.
+        if re.search(r"public provident|\bppf\b", low):
+            return "Public Provident Fund (PPF)"
+        if re.search(r"senior citizens?|\bscss\b", low):
+            return "Senior Citizens' Savings Scheme (SCSS)"
+        if re.search(r"provident fund|\bepf\b|\bvpf\b", low):
+            return "Employee / Voluntary Provident Fund"
+        if re.search(r"national savings certificate|\bnsc\b|kisan vikas|"
+                     r"\bkvp\b|sukanya|post office", low):
+            return "Small savings - NSC / KVP / Sukanya / post office"
         if re.search(r"\bsdl\b|state development loan", low):
             return "SDL"
         if re.search(r"\bt-?bill\b|treasury bill", low):

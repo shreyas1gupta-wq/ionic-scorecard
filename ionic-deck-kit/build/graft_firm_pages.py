@@ -16,16 +16,14 @@ Both decks are 13.333 by 7.5 inches, which is checked before anything is written
 between differently sized decks silently rescales nothing and everything lands in the wrong place.
 """
 import copy
+import re
 import io
 import os
 import sys
 
 from pptx import Presentation
 
-SRC = r"C:/Users/Shreyas.1Gupta/Downloads/ABXY_Family_HNI_DEEP (2).pptx"
-TGT = r"C:/tmp/kit-publish/ionic-deck-kit/out/Dutta_Family_Review_HNI_DEEP.pptx"
-OUT = r"C:/tmp/dutta/Dutta_Family_Review_FINAL.pptx"
-PAGES = (1, 2, 3, 4, 5)      # zero-based: slides 2 to 6 of the reference deck
+DEFAULT_PAGES = "2-6"        # one-based, as a reader of the reference deck would name them
 AFTER = 1                    # insert after the cover
 
 
@@ -38,6 +36,73 @@ def _blank_layout(prs):
             if n < best_n:
                 best, best_n = lay, n
     return best
+
+
+_ASOF_RX = re.compile(r"As of\s+(.+?)\s*$", re.I)
+
+
+def _pretty_date(s):
+    """2026-07-26 -> '26th Jul 2026', the form the desk's own title page uses."""
+    s = str(s or "").strip()
+    m = re.match(r"(\d{4})-(\d{2})-(\d{2})", s)
+    if not m:
+        return s
+    y, mo, d = int(m.group(1)), int(m.group(2)), int(m.group(3))
+    MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    suf = "th" if 11 <= d % 100 <= 13 else {1: "st", 2: "nd", 3: "rd"}.get(d % 10, "th")
+    return "%d%s %s %d" % (d, suf, MON[mo - 1], y)
+
+
+def _title_line(prs, upto=3):
+    """The 'X Family As of Y' line off a deck's own front matter, if it has one.
+
+    It must carry a NAME before the date. The cover of both decks also has a bare "As of 2026-07-25"
+    on its own, and matching that first returned an empty client name, so nothing was substituted
+    and the reference deck's client stayed on the finished page.
+    """
+    for i in range(min(upto, len(prs.slides._sldIdLst))):
+        for sh in prs.slides[i].shapes:
+            if not sh.has_text_frame:
+                continue
+            t = " ".join(sh.text_frame.text.split())
+            m = _ASOF_RX.search(t)
+            if m and m.start() > 0 and len(t) < 90:
+                return t
+    return ""
+
+
+def _source_identity(src):
+    """Who the REFERENCE deck was written for, so those strings can be replaced."""
+    line = _title_line(src)
+    m = _ASOF_RX.search(line)
+    if not m:
+        return "", ""
+    return line[:m.start()].strip(), m.group(1).strip()
+
+
+def _target_identity(tgt):
+    """Who THIS deck is for, read off its own cover rather than passed in and trusted."""
+    who, asof = "", ""
+    for sh in tgt.slides[0].shapes:
+        if not sh.has_text_frame:
+            continue
+        for para in sh.text_frame.paragraphs:
+            t = " ".join(para.text.split())
+            if not t:
+                continue
+            m = re.match(r"(?i)as of\s+(.+)$", t)
+            if m:
+                asof = _pretty_date(m.group(1))
+    # the cover's PREPARED FOR block carries the name on the line after the label
+    lines = []
+    for sh in tgt.slides[0].shapes:
+        if sh.has_text_frame:
+            lines += [" ".join(p.text.split()) for p in sh.text_frame.paragraphs if p.text.strip()]
+    for j, l in enumerate(lines):
+        if l.upper().startswith("PREPARED FOR") and j + 1 < len(lines):
+            who = lines[j + 1]
+            break
+    return who, asof
 
 
 def copy_slide(src_slide, tgt_prs, layout):
@@ -104,7 +169,38 @@ def copy_slide(src_slide, tgt_prs, layout):
     return new, missing
 
 
-def main():
+def _parse_pages(spec):
+    """"2-6" or "2,3,4" -> the zero-based indices the graft copies."""
+    out = []
+    for part in str(spec).split(","):
+        part = part.strip()
+        if not part:
+            continue
+        if "-" in part:
+            a, b = part.split("-", 1)
+            out += list(range(int(a), int(b) + 1))
+        else:
+            out.append(int(part))
+    return tuple(i - 1 for i in out)
+
+
+def main(src=None, tgt=None, out=None, pages=None):
+    global SRC, TGT, OUT, PAGES
+    if src is None:
+        import argparse
+        ap = argparse.ArgumentParser(
+            description="Graft the firm's own introduction pages, photographs and all, out of a "
+                        "reference deck into a generated review.")
+        ap.add_argument("--src", required=True, help="the reference deck to lift the pages from")
+        ap.add_argument("--tgt", required=True, help="the generated review to insert them into")
+        ap.add_argument("--out", required=True, help="where to write the finished deck")
+        ap.add_argument("--pages", default=DEFAULT_PAGES,
+                        help="which pages of the reference deck to lift, one-based "
+                             "(default %s)" % DEFAULT_PAGES)
+        a = ap.parse_args()
+        src, tgt, out, pages = a.src, a.tgt, a.out, a.pages
+    SRC, TGT, OUT = src, tgt, out
+    PAGES = _parse_pages(pages or DEFAULT_PAGES)
     if not os.path.exists(SRC):
         raise SystemExit("  reference deck not found: %s" % SRC)
     src, tgt = Presentation(SRC), Presentation(TGT)
@@ -139,6 +235,34 @@ def main():
     for i, e in enumerate(grafted):
         sldIdLst.insert(AFTER + i, e)
 
+    # RENAME. The reference deck's own client is written on its title page, "ABXY Family As of 31st
+    # July 2026", and a verbatim copy carries THAT NAME onto the next client's deck. Another
+    # client's name on a client deck is the worst thing this script could do, so the substitution
+    # is not optional and not a manual step afterwards: the target's own cover is read for who this
+    # deck is for, and every grafted slide is rewritten to match. Run text is edited in place so
+    # the typography survives.
+    who, asof = _target_identity(tgt)
+    src_who, src_asof = _source_identity(src)
+    renamed = 0
+    for i in range(AFTER, AFTER + len(PAGES)):
+        for sh in tgt.slides[i].shapes:
+            if not sh.has_text_frame:
+                continue
+            for para in sh.text_frame.paragraphs:
+                for run in para.runs:
+                    t0 = run.text
+                    t = t0
+                    if src_who and who:
+                        t = t.replace(src_who, who)
+                    if src_asof and asof:
+                        t = t.replace(src_asof, asof)
+                    if t != t0:
+                        run.text = t
+                        renamed += 1
+    if src_who and not renamed:
+        print("  WARNING: the reference client name %r was not found on the grafted slides; "
+              "check the title page by hand before this goes out." % src_who)
+
     # RENUMBER. The kit stamps each page with its position as it builds, so inserting five slides
     # at the front leaves every later page printing a number five behind where it actually is: on
     # this deck 52 of them, and the contents page and every cross-reference point at those numbers.
@@ -164,12 +288,39 @@ def main():
             if done:
                 break
 
+    # THE CROSS-REFERENCES MOVE TOO. The kit binds every "p.NN" to its anchor at save time, which
+    # is before this script exists; inserting five slides at the front leaves each of them
+    # pointing five pages short of where the page it names now sits. A footer that is right and a
+    # cross-reference that is wrong is the worse of the two failures, because the reader turns to
+    # the page it names and finds something else there.
+    import re as _re
+    _PREF = _re.compile(r"\bp\.(\d{1,3})\b")
+    _n_ref = 0
+
+    def _bump(mm):
+        v = int(mm.group(1))
+        return "p.%02d" % (v + len(PAGES)) if v > AFTER else mm.group(0)
+
+    for _s in tgt.slides:
+        for sh in _s.shapes:
+            if not sh.has_text_frame:
+                continue
+            for para in sh.text_frame.paragraphs:
+                for run in para.runs:
+                    if _PREF.search(run.text):
+                        _new = _PREF.sub(_bump, run.text)
+                        if _new != run.text:
+                            run.text = _new
+                            _n_ref += 1
+
     tgt.save(OUT)
 
     chk = Presentation(OUT)
     pics_after = sum(1 for i in range(1, 1 + len(PAGES))
                      for sh in chk.slides[i].shapes if sh.shape_type == 13)
     print("  grafted %d slides from %s" % (len(PAGES), os.path.basename(SRC)))
+    print("  renamed %d run(s) to the client on this deck; renumbered %d footer(s) and "
+          "%d cross-reference(s)" % (renamed, renumbered, _n_ref))
     print("  pictures: %d in the source pages, %d landed in the target" % (n_pics_before, pics_after))
     if missing_total:
         print("  WARNING: %d relationships could not be copied" % missing_total)

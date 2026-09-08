@@ -29,7 +29,12 @@ def render(deck, ctx, tier):
     suspended = notes.get("suspended") or []
     no_view = notes.get("no_view") or []
     flags = notes.get("flags") or []
-    if not (suspended or no_view or flags):
+    # HOLDINGS THE CLIENT ASKED TO EXIT THAT CANNOT BE EXITED. They belong on exactly this page:
+    # it is the page for a holding that could not take a normal call. Three of them appeared
+    # nowhere else in sixty-four pages as anything but the bare word "Retain" in an annexure
+    # column, and the client is entitled to know why money they asked to move is staying put.
+    retains = list(((ctx.get("client_directive") or {}).get("retains")) or [])
+    if not (suspended or no_view or flags or retains):
         return 0
     reg = tier.get("register", "std")
     eyebrow, title = LABELS.get(reg, LABELS["std"])
@@ -38,6 +43,38 @@ def render(deck, ctx, tier):
     # PAGE 1: suspended holdings + no-view funds (tables) — split from the flags page
     # (2026-07-27: cramming both tables AND the flags callout onto one slide overflowed
     # past the footer the first time this module ran on a real, content-heavy book).
+    # ITS OWN PAGE. Laid in above the no-view table it pushed six rows of that table below the
+    # trim line, where nothing is visible and no gate but this one can see it.
+    if retains:
+        s = deck.content(SECTION_NO, SECTION, eyebrow,
+                         "What you asked to exit, and what cannot be exited")
+        deck.scope_tag(s, "Your instruction was to exit the fixed-income sleeve; these holdings "
+                          "cannot be redeemed on request.")
+        _c = [("Holding", 0.24, "l"), ("Value", 0.13, "r"),
+              ("Why it stays, though you asked us to exit it", 0.63, "l")]
+        _r = [[e.get("name") or "",
+               ("Rs %.2f Cr" % ((e.get("value_inr") or 0) / 1e7)
+                if (e.get("value_inr") or 0) >= 1e7
+                else "Rs %.1f L" % ((e.get("value_inr") or 0) / 1e5)),
+               clip_clause(e.get("reason") or "", 240)] for e in retains]
+        deck.txt(s, ML, 2.0, UW, 0.22,
+                 [("HELD BACK FROM YOUR EXIT INSTRUCTION, AND WHY", SANS, 9, AMBER,
+                   True, False, 60)])
+        _y = deck.table(s, ML, 2.30, UW, _c, _r,
+                        rowh=_rowh_for([x[2] for x in _r], 0.63 * UW), fs=9.5, hfs=8) + 0.28
+        _v = sum(e.get("value_inr") or 0 for e in retains)
+        deck.txt(s, ML, _y, UW, 0.5,
+                 [("Rs %s of the sleeve therefore stays where it is. None of it is counted in the "
+                   "proceeds, the tax estimate or the redeployment on the preceding pages, and the "
+                   "desk's own view on each of these holdings is unchanged: they are held because "
+                   "their terms do not permit an exit on request, not because we would keep them."
+                   % ("%.2f Cr" % (_v / 1e7) if _v >= 1e7 else "%.1f L" % (_v / 1e5)),
+                   SERIF, 10, INK, False, True)], ls=1.08)
+        deck.source(s, "Terms as stated in the scheme rules; confirm the exact surrender position "
+                       "with the issuer before any instruction is given.")
+        deck.score_band(s)
+        n_slides += 1
+
     if suspended or no_view:
         s = deck.content(SECTION_NO, SECTION, eyebrow, title)
         deck.scope_tag(s, "These positions sit outside the normal scored tables — folding them "

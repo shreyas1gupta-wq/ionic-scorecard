@@ -86,6 +86,14 @@ def render(deck, ctx, tier):
     # ---- read (right) ----
     # Needed by every register, so it is computed before the branch rather than inside one of them.
     _largest = max((w for _n, _k, w in LT.scheme_concentration(ctx, top_n=1)), default=0.0)
+    # TWO EQUITY NUMBERS, BOTH TRUE, ON ONE PAGE. The donut is the asset class as the statement
+    # classifies each holding; the strip beside it looks through every fund to what it actually
+    # owns, which is higher wherever a hybrid or a multi-asset scheme is held. The page printed
+    # both and named neither, so its own header and its own read line disagreed by four points
+    # and a reader had no way to tell which of the two the rest of the deck was using.
+    true_eq, true_debt, true_cash, true_other = LT.full_lookthrough_mix(ctx)
+    _basis = ((", %.0f%% once every fund is looked through to what it holds" % true_eq)
+              if abs(true_eq - eq) >= 1.0 else "")
     if reg == "simple":
         # Same defect the other two registers carried: eq is the EQUITY ASSET CLASS however it is
         # held (8.9% of this book is actually in shares), mf is the share held through FUNDS, and
@@ -113,12 +121,12 @@ def render(deck, ctx, tier):
         # "76% direct equity".
         # mf is a share of the BOOK, not of the equity sleeve, so "of it through funds" attributed
         # the whole fund sleeve, debt funds included, to the equity number beside it.
-        body = (f"The mix itself is healthy: {eq:.0f}% in equity overall doing the compounding, "
-                f"with {mf:.0f}% of the book held through funds. What deserves attention is "
+        body = (f"The mix itself is healthy: {eq:.0f}% in equity by asset class{_basis}, doing the "
+                f"compounding, with {mf:.0f}% of the book held through funds. What deserves attention is "
                 f"concentration: {_conc}. This review deals with that first, then the funds, then "
                 f"the costs.")
     else:
-        body = (f"About {eq:.0f}% of the book is in equity, {mf:.0f}% is held through funds and "
+        body = (f"About {eq:.0f}% of the book is in equity by asset class{_basis}, {mf:.0f}% is held through funds and "
                 f"{cash:.0f}% in cash. The equity sleeve drives the portfolio, and inside it the ten "
                 f"largest names hold {top10:.0f}% of the book. Concentration, not asset mix, is what we address first.")
     cx = ML + 4.85
@@ -131,7 +139,6 @@ def render(deck, ctx, tier):
     # real, not hypothetical: every fund in this book carries one. full_lookthrough_mix() is the
     # 4-segment version that reconciles to the whole book; equity is GROSS (2026-08-05 ruling),
     # disclosed by footnote, never a per-row flag.
-    true_eq, true_debt, true_cash, true_other = LT.full_lookthrough_mix(ctx)
     alloc_label = ("TRUE MIX, FUNDS LOOKED THROUGH" if reg != "simple" else "WHAT YOU'RE REALLY IN")
     deck.txt(s, cx, 3.15, cw, 0.18, [(alloc_label, SANS, 8, SLATE, True, False, 100)])
     segs = [("Equity", true_eq, NAVY), ("Debt", true_debt, GOLD), ("Cash", true_cash, NT3)]

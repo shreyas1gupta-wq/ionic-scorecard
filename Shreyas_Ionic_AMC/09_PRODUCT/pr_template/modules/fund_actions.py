@@ -23,7 +23,13 @@ def _short(name, n=30):
 
 def render(deck, ctx, tier):
     reg = tier.get("register", "std")
-    acts = [f for f in ctx["funds"] if f["action"] not in ("HOLD", "Hold")]
+    # This page gives each action a written rationale in the desk's own voice. A client-directed
+    # exit has no such rationale to give -- the reason is the client's instruction, stated once on
+    # the priority-actions page -- and running nineteen of them through here would have produced
+    # nineteen cards each claiming the scheme "sits in the bottom third of its own category".
+    acts = [f for f in ctx["funds"]
+            if f["action"] not in ("HOLD", "Hold")
+            and str(f.get("action") or "").strip().upper() not in ("EXIT (CLIENT)", "RETAIN")]
     # A performance-driven sell is NOT only a sub-40 QFRA-2 score. Fixed 2026-08-19: an MF-only
     # book whose sells were originated by the desk's own long-record category test carried
     # qfra=None on every one of them, n_perf_flag came out 0, and the page then told the client
@@ -43,9 +49,14 @@ def render(deck, ctx, tier):
         if n_other == 0:
             # every action is a performance call -- say that plainly rather than implying a
             # structural mix that does not exist in this book
+            _cd = ctx.get("client_directive") or {}
+            _nce = len(_cd.get("exits") or [])
             opening = (f"All {len(acts)} of these actions are performance calls: each scheme sits in "
                        f"the bottom third of its own category on the long record. Nothing here is being "
                        f"sold for structural or liquidity reasons.")
+            if _nce:
+                opening += (f" Separately, {_nce} holdings are being exited at your instruction; "
+                            f"those are not calls of ours and carry no card here.")
         elif n_conc == n_other:
             opening = (f"{n_perf_flag} of these {len(acts)} actions are performance calls: the scheme "
                        f"sits in the bottom third of its own category on the long record. The other "

@@ -10,7 +10,12 @@ SECTION_NO, SECTION = 4, "Recommendations"
 
 # fund_rows action codes are UPPERCASE -> (pill display, REC_STYLE kind)
 ACT_MAP = {"SWITCH": ("Switch", "Switch"), "REDEEM": ("Switch", "Redeem-to-Direct"),
-           "EXIT": ("Exit", "Exit"), "TRIM": ("Trim", "Trim"), "HOLD": ("Hold", "Hold")}
+           "EXIT": ("Exit", "Exit"), "TRIM": ("Trim", "Trim"), "HOLD": ("Hold", "Hold"),
+           "SELL": ("Sell", "Sell"),
+           # A CLIENT-DIRECTED EXIT IN THE DESK'S SELL RED, in the same column and directly above
+           # a row that IS a desk Sell, tells the reader the firm called for both. It is a
+           # different kind of decision and it gets a different pill and a different word.
+           "EXIT (CLIENT)": ("Exit (client)", "Exit (client)")}
 
 
 def _money(v):
@@ -42,7 +47,14 @@ def render(deck, ctx, tier):
     s = deck.content(SECTION_NO, SECTION, L["eyebrow"], L["title"])
 
     # --- left: fund-action tax table (own scope caption; NOT the chart's numbers) ---
-    deck.txt(s, ML, 1.72, 6.95, 0.24, [(L["tcap"].upper(), SANS, 8, SLATE, True, False, 80)])
+    # WHAT THE PANEL ACTUALLY HOLDS. On an MF-only book these rows are fund actions and the
+    # default caption is right; on a whole-book review they are every move in the plan, deposits
+    # and direct shares included, and the fund caption then puts a Rs 1 crore bank deposit and
+    # fourteen listed shares under a heading that says mutual funds. The data layer states its
+    # own scope and the page prints what it is given.
+    _tcap = tax.get("table_scope_label") or L["tcap"]
+    _ccap = tax.get("chart_scope_label") or L["cap"]
+    deck.txt(s, ML, 1.72, 6.95, 0.24, [(_tcap.upper(), SANS, 8, SLATE, True, False, 80)])
     # cap displayed line items (2026-08-01 fix: a real client's 16-fund liquidity/consolidation
     # sweep no longer fits any legible row height in the fixed table area) — show the largest
     # MAX_ROWS by amount individually, roll the rest into one disclosed summary row so nothing
@@ -64,7 +76,8 @@ def render(deck, ctx, tier):
         hidden_l = round(sum(round(r[2] / 1e5, 1) for r in hidden), 1)
         rows.append(["", f"+ {len(hidden)} more schemes", _money(hidden_l * 1e5), "Mixed"])
     total_disp = f"Rs {total_l/100:.2f} Cr" if total_l >= 100 else f"Rs {total_l:.1f} L"
-    rows.append(["", ("b", "Total fund actions"), ("b", total_disp), ""])
+    rows.append(["", ("b", tax.get("table_total_label") or "Total fund actions"),
+                 ("b", total_disp), ""])
     cols = [("Action", 0.16, "l"), ("Scheme", 0.44, "l"), ("Amount", 0.18, "r"), ("Tax character", 0.22, "l")]
     # Row height scales down as the fund-action count grows (2026-07-29 fix: a flat 0.42in was
     # hand-fit for "6 actions + total" -- a real client's liquid/debt/arbitrage-to-cash sweep can
@@ -84,7 +97,8 @@ def render(deck, ctx, tier):
     deck.table(s, ML, 2.02, 6.95, cols, rows, rowh=rowh, fs=fs, hfs=8)
 
     # --- right: tax bridge chart (direct-equity sell/trim plan, a separate set) ---
-    deck.txt(s, ML + 7.15, 1.72, UW - 7.15, 0.5, [(L["cap"].upper(), SANS, 8, SLATE, True, False, 80)], ls=1.05)
+    deck.txt(s, ML + 7.15, 1.72, UW - 7.15, 0.5,
+             [(_ccap.upper(), SANS, 8, SLATE, True, False, 80)], ls=1.05)
     png = CH.tax_bridge(tax["gross"], tax["ltcg"], tax["stcg"], "azby_tax_bridge")
     deck.pic(s, png, ML + 7.15, 2.25, UW - 7.15, 3.0, valign="middle")
     deck.txt(s, ML + 7.15, 5.05, UW - 7.15, 0.24,
@@ -96,13 +110,21 @@ def render(deck, ctx, tier):
     # clear of that, whatever the text length (2026-07-27: 1.4 let the box reach y=6.9, which
     # already overlaps the 6.66-6.90 source-line band regardless of how much text is in it)
     gap_h = deck.callout_h(half, tax["de_gap_note"], min_h=0.98, max_h=1.05)
-    deck.callout(s, ML, 5.5, half, gap_h, L["ct"], tax["de_gap_note"], kind="warn")
+    deck.callout(s, ML, 5.5, half, gap_h, tax.get("gap_note_title") or L["ct"],
+                 tax["de_gap_note"], kind="warn")
+    # THE SECOND BOX SAYS SOMETHING ABOUT THIS BOOK where there is something to say. The standing
+    # line about long-held units is true of every portfolio and therefore tells this reader
+    # nothing; where the estimate itself carries caveats, those go here, in a box that can show
+    # them, rather than being stacked into the first one until they overflow it unseen.
     inertia = ("Units held >5y (>10y more so) carry gains that offset switching alpha; their bar "
                "rises to structural-only. Stocks get no such pass."
                if tier.get("register") != "simple" else
                "For funds held over 5 years the tax bill can eat the gain from switching, so we "
                "switch those only for structural reasons.")
-    deck.callout(s, ML + half + 0.3, 5.5, half, 0.98, "Long-held units: a higher bar to sell", inertia, kind="note")
+    _t2 = tax.get("gap_note_2_title") or "Long-held units: a higher bar to sell"
+    _b2 = tax.get("gap_note_2") or inertia
+    deck.callout(s, ML + half + 0.3, 5.5, half,
+                 deck.callout_h(half, _b2, min_h=0.98, max_h=1.05), _t2, _b2, kind="note")
 
-    deck.source(s, L["foot"])
+    deck.source(s, tax.get("foot") or L["foot"])
     return 1

@@ -28,6 +28,24 @@ EXC_NOTE = ("Names selling above the 40 score line are exceptional, high-convict
             "the linked page documents each case in full.")
 
 
+def _case_text(e, n=118):
+    """The written case against a name, whatever the data layer calls the field.
+
+    TWO SCHEMAS, ONE FIELD. The demo context maps the analyst's paragraph onto "negative"; the
+    statement pipeline writes the analyst's own column name, "negative_para". This page read only
+    the first, so on a real client book every one of the fourteen case cells rendered empty --
+    fourteen Sell recommendations under a column headed THE CASE with no case in it, on a page
+    whose own lead line promises "two lines carry the case". A blank cell is worse than a short
+    one: the reader takes it for a rendering fault and stops trusting the page.
+    """
+    for k in ("client_case", "negative", "negative_para", "binding_trigger", "summary",
+              "rationale", "structural_reason"):
+        v = str(e.get(k) or "").strip()
+        if v:
+            return clip_clause(v, n)
+    return "The full case is on the analyst's rationale page for this name."
+
+
 def render(deck, ctx, tier):
     reg = tier["register"]
     L = LABELS.get(reg, LABELS["std"])
@@ -36,8 +54,18 @@ def render(deck, ctx, tier):
                    key=lambda e: -(e.get("weight_pct") or 0))
     pages = max(1, (len(sells) + PER - 1) // PER)
 
-    cols = [("Holding", 0.20, "l"), ("Share %" if reg == "simple" else "Wt %", 0.06, "r"), ("Ionic Score", 0.13, "l"),
-            ("Call", 0.09, "c"), ("The case", 0.46, "l"), ("Detail", 0.06, "r")]
+    # DOES THIS DECK ACTUALLY CARRY A RATIONALE PAGE PER NAME? The Detail column is a link to one,
+    # and a link with no target is blanked at save time, so on a deck built without the rationale
+    # cards the column rendered as fourteen empty cells under a heading that says DETAIL, beneath
+    # a source line promising "each row links to the name's full rationale page". The probe pass
+    # already knows which modules produced pages; the column and the promise are dropped together
+    # when the pages are not there.
+    _has_cards = bool((ctx.get("_rendered") or {}).get("sell_cards"))
+    cols = [("Holding", 0.20, "l"), ("Share %" if reg == "simple" else "Wt %", 0.06, "r"),
+            ("Ionic Score", 0.13, "l"), ("Call", 0.09, "c"),
+            ("The case", 0.46 if _has_cards else 0.52, "l")]
+    if _has_cards:
+        cols.append(("Detail", 0.06, "r"))
 
     for p in range(pages):
         chunk = sells[p * PER:(p + 1) * PER]
@@ -55,18 +83,17 @@ def render(deck, ctx, tier):
             exceptional = (e.get("ionic_score") or 0) >= 40
             # case must lean WITH the call: overlay (analyst-authored) first, else the
             # negative para (opens with the concern), never the trigger (can read bullish)
-            case = clip_clause(e.get("client_case") or e.get("negative") or e.get("binding_trigger", ""), 118)
+            case = _case_text(e, 118)
             rows.append([
                 ("b", e["name"]),
                 ("c", f"{e['weight_pct']:.1f}", INK),
                 ("bar", e.get("ionic_score")),
                 ("pill", "Sell", "Sell"),
                 (case, ),                       # marker tuple replaced below (serif 2-liner)
-                "",                             # detail link drawn as a pageref overlay
-            ])
+            ] + ([""] if _has_cards else []))   # detail link drawn as a pageref overlay
         # draw the table shell (case cell blank; we draw the 2-liner + pageref manually
         # so the case wraps to two clean serif lines and the link is clickable)
-        shell = [[r[0], r[1], r[2], r[3], "", ""] for r in rows]
+        shell = [([r[0], r[1], r[2], r[3], ""] + ([""] if _has_cards else [])) for r in rows]
         deck.table(s, ML, 2.22, UW, cols, shell, rowh=ROWH, fs=9.5, hfs=8)
 
         tot = sum(c[1] for c in cols)
@@ -80,9 +107,10 @@ def render(deck, ctx, tier):
             case = r[4][0]
             deck.txt(s, case_x, ry + 0.06, case_w, ROWH - 0.12,
                      [(case, SERIF, 9, INK, False)], ls=1.05, anchor=MSO_ANCHOR.MIDDLE)
-            deck.pageref(s, ref_x, ry + ROWH / 2 - 0.09, f"stock:{e['symbol']}",
-                         w=UW * cols[5][1] / tot - 0.06)
-            deck.hotspot(s, ML, ry - 0.02, UW, ROWH, f"stock:{e['symbol']}")
+            if _has_cards:
+                deck.pageref(s, ref_x, ry + ROWH / 2 - 0.09, f"stock:{e['symbol']}",
+                             w=UW * cols[5][1] / tot - 0.06)
+                deck.hotspot(s, ML, ry - 0.02, UW, ROWH, f"stock:{e['symbol']}")
             if (e.get("ionic_score") or 0) >= 40:
                 exc_any = True
                 deck.txt(s, score_x, ry + ROWH - 0.22, UW * cols[2][1] / tot - 0.1, 0.16,
@@ -94,7 +122,9 @@ def render(deck, ctx, tier):
             deck.txt(s, ML, fy, UW, 0.2, [(EXC_NOTE, SERIF, 8.5, SLATE, False, True)])
 
         demo_tag = " Illustrative synthetic book." if ctx.get("is_demo", False) else ""
-        deck.source(s, "Each row links to the name's full rationale page (score panel, the case, the bull "
-                       f"we rejected, valuation check).{demo_tag}")
+        deck.source(s, ("Each row links to the name's full rationale page (score panel, the case, "
+                        "the bull we rejected, valuation check)." if _has_cards else
+                        "The case here is the analyst's own written view on the name; the full "
+                        "note is on file with the desk and available on request.") + demo_tag)
         deck.score_band(s)
     return pages

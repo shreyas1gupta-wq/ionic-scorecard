@@ -40,6 +40,7 @@ from read_statement import read_statement                                  # noq
 import tag_risk_liquidity as RL                                            # noqa: E402
 import ips_profiles as IPSP                                                # noqa: E402
 import build_ips as IPSB                                                   # noqa: E402
+import tax_engine as TAXE                                                  # noqa: E402
 import engine as ENG                                                       # noqa: E402
 import tiers                                                               # noqa: E402
 
@@ -96,6 +97,10 @@ def main():
     ap.add_argument("--directives", default=None,
                     help="a JSON file of CLIENT instructions, applied on top of the desk's "
                          "published calls and labelled separately from them.")
+    ap.add_argument("--lots", default=None,
+                    help="a capital-gains LOT file (CSV) carrying LTCG / STCG / other-income "
+                         "units per scheme. Without it the tax page can only price a gain where "
+                         "the statement carries a cost, and cannot tell short-term from long.")
     ap.add_argument("--profile", default="Aggressive",
                     choices=["Aggressive", "Moderate", "Conservative"],
                     help="the client's mandate. It sets every band on the IPS.")
@@ -623,6 +628,13 @@ def main():
             r["rec"] = r["verdict"] = call
             r["call_source"] = "Client instruction"
             r["structural_reason"] = why
+            # THE ACTION FIELD IS WHAT THE FUND PAGES COUNT. verdict/rec drive the tables; the
+            # narrative lines on the fund book and the fund-action cards count `action`, which is
+            # written once when the fund dict is built and knew nothing about a directive applied
+            # afterwards. That single omission is why a deck showing nineteen EXIT (CLIENT) rows
+            # in its own tables told the reader, four pages later, that five schemes carried an
+            # action and fifty-three were Holds.
+            r["action"] = call
         _n_exit = sum(1 for v in _CLIENT_CALLS.values() if v[0].startswith("Exit"))
         _n_ret = sum(1 for v in _CLIENT_CALLS.values() if v[0] == "Retain")
         _v_exit = sum(float(r.get("value_inr") or 0) for r in _rows_all
@@ -631,33 +643,85 @@ def main():
               f"{_n_exit} holdings marked Exit (client), Rs {_v_exit:,.0f}; "
               f"{_n_ret} marked Retain")
 
-    # ---- 3c. what the recommended exits cost in tax ---------------------------------------------
-    def _tax_character(row):
-        """Equity or debt, and for debt WHEN the units were bought, which is what sets the rate."""
-        cls = str(row.get("asset_class") or "").strip().lower()
-        sub = str(row.get("risk_sub") or row.get("sub_category") or "")
-        nm = str(row.get("name") or "").lower()
-        # A DEPOSIT IS NOT A DEBT FUND. It produces no capital gain at all: the interest is taxed
-        # at slab as it accrues, and what exiting early costs is the deposit's own penalty, not
-        # tax. Printing "12.5% or slab" against a bank FD states a capital-gains treatment that
-        # does not exist for it.
-        if any(k in nm for k in ("fixed deposit", "bank fd", " fd ", "deposit")):
-            return ("No gain; interest at slab", 0.0)
-        if "ppf" in nm:
-            return ("Tax-free on exit", 0.0)
-        if "senior citizen" in nm or "scss" in nm:
-            return ("No gain; interest at slab", 0.0)
-        if "ulip" in nm:
-            return ("Per the policy terms", 0.0)
-        if cls == "fixed income" or any(k in sub for k in ("Bond", "Gilt", "G-Sec", "Debt",
-                                                           "Duration", "Liquid", "Overnight",
-                                                           "Money Market", "SDL", "Credit")):
-            return ("Debt: 12.5% or SLAB", 0.125)
-        if cls == "alternates":
-            return ("Gold: 12.5% over 24m", 0.125)
-        return ("Equity: 12.5% over 12m", 0.125)
+    # ONE CENSUS, READ BY EVERY PAGE THAT COUNTS ANYTHING. Each module used to count the book for
+    # itself, off whichever field it happened to use -- `action` here, `verdict` there, the scored
+    # frame somewhere else -- and the four answers disagreed on the same deck. Every count of a
+    # call in this review now comes from here.
+    _ALL_ROWS = list(funds) + list(equity_rows) + list(other_rows)
 
-    _TAX_ROWS, _GROSS, _LT = [], 0.0, 0.0
+    def _call_of(r):
+        return str(r.get("verdict") or r.get("rec") or "No View")
+
+    def _census(pred=None):
+        rows = [r for r in _ALL_ROWS if (pred is None or pred(r))]
+        out = {}
+        for r in rows:
+            c = _call_of(r)
+            n, v = out.get(c, (0, 0.0))
+            out[c] = (n + 1, v + float(r.get("value_inr") or 0.0))
+        return out
+
+    CENSUS = {"book": _census(),
+              "funds": _census(lambda r: r in funds),
+              "shares": _census(lambda r: r in equity_rows),
+              "other": _census(lambda r: r in other_rows)}
+
+    def _cn(scope, call):
+        return CENSUS[scope].get(call, (0, 0.0))[0]
+
+    def _cv(scope, call):
+        return CENSUS[scope].get(call, (0, 0.0))[1]
+
+    CLIENT_DIRECTIVE = {}
+    if DIRECTIVES.get("directives"):
+        _dir_rows = [r for r in _ALL_ROWS if r.get("call_source") == "Client instruction"]
+        CLIENT_DIRECTIVE = {
+            "on_file": True,
+            "as_of": DIRECTIVES.get("as_of", ""),
+            "instruction": DIRECTIVES.get("instruction", ""),
+            "footnote": DIRECTIVES.get("footnote", ""),
+            "exits": sorted([{"name": r.get("name"), "value_inr": float(r.get("value_inr") or 0),
+                              "weight_pct": float(r.get("weight_pct") or 0),
+                              "asset_class": r.get("asset_class") or "",
+                              "category": r.get("sub_category") or r.get("category") or "",
+                              "desk_call": r.get("desk_call") or "No View",
+                              "reason": r.get("structural_reason") or ""}
+                             for r in _dir_rows if _call_of(r).startswith("Exit")],
+                            key=lambda d: -d["value_inr"]),
+            "retains": sorted([{"name": r.get("name"), "value_inr": float(r.get("value_inr") or 0),
+                                "weight_pct": float(r.get("weight_pct") or 0),
+                                "asset_class": r.get("asset_class") or "",
+                                "desk_call": r.get("desk_call") or "No View",
+                                "reason": r.get("structural_reason") or ""}
+                               for r in _dir_rows if _call_of(r) == "Retain"],
+                              key=lambda d: -d["value_inr"]),
+        }
+        CLIENT_DIRECTIVE["exit_value_inr"] = sum(d["value_inr"] for d in CLIENT_DIRECTIVE["exits"])
+        CLIENT_DIRECTIVE["retain_value_inr"] = sum(d["value_inr"]
+                                                   for d in CLIENT_DIRECTIVE["retains"])
+
+    # ---- 3c. what the recommended exits cost in tax ---------------------------------------------
+    # PRICED SLICE BY SLICE, from the lot file where one was supplied. The old block charged a
+    # flat 12.5% to every holding with a cost basis and printed a hard-coded "less STCG 0.0L",
+    # which is not a gap in the estimate but a positive claim that no short-term gain arises. On
+    # this family the supplied lot file carried Rs 89.5 lakh of short-term units, two of them in
+    # schemes on the sell list. Nothing that cannot be computed is given a number: money taxed at
+    # the holder's own slab is carried through in rupees and said so.
+    _LOTS = TAXE.load_lots(a.lots) if a.lots else {}
+    if _LOTS:
+        _holders = set()
+        for _v in _LOTS.values():
+            _holders |= set(_v.get("members") or [])
+        _N_HOLDERS = max(1, len(_holders))
+        print(f"  lots      : {os.path.basename(a.lots)} -> {len(_LOTS)} schemes, "
+              f"{_N_HOLDERS} holder(s); short-term units Rs "
+              f"{sum(v['stcg_val'] for v in _LOTS.values()):,.0f}, post-Apr-2023 debt units Rs "
+              f"{sum(v['other_val'] for v in _LOTS.values()):,.0f}")
+    else:
+        _N_HOLDERS = 1
+
+    _TAX_ROWS, _GROSS, _LT, _ST, _SLAB = [], 0.0, 0.0, 0.0, 0.0
+    _EQ_LT_GAIN, _n_priced, _no_basis, _UNDATED = 0.0, 0, 0, 0.0
     for _r in list(funds) + list(equity_rows) + list(other_rows):
         _call = str(_r.get("verdict") or _r.get("rec") or "")
         # a client-directed exit moves real money and carries real tax, so it is priced here
@@ -668,35 +732,106 @@ def main():
                 else float(_r.get("value_inr") or 0.0))
         if _amt <= 0:
             continue
-        _inv = _r.get("cost_inr")
-        _gain = None
-        if _inv not in (None, "") and float(_inv or 0) > 0 and _r.get("value_inr"):
-            _gain = _amt * (1.0 - float(_inv) / float(_r["value_inr"]))
-        _char, _rate = _tax_character(_r)
+        # a trim sells a slice, so it is priced on that slice and not on the position
+        _row_for_tax = dict(_r)
+        _row_for_tax["value_inr"] = _amt
+        if _call == "Trim" and float(_r.get("value_inr") or 0) > 0:
+            _f = _amt / float(_r["value_inr"])
+            if _r.get("cost_inr"):
+                _row_for_tax["cost_inr"] = float(_r["cost_inr"]) * _f
+        _px = TAXE.price(_row_for_tax, _LOTS)
         _GROSS += _amt
-        if _gain is not None:
-            _LT += _gain * _rate
+        _LT += _px["ltcg_tax"]
+        _ST += _px["stcg_tax"]
+        _SLAB += _px["slab_value"]
+        if TAXE.is_equity_oriented(_r.get("asset_class"),
+                                   _r.get("risk_sub") or _r.get("sub_category"),
+                                   _r.get("name")):
+            _EQ_LT_GAIN += _px.get("ltcg_gain") or 0.0
+        if _px["gain_known"]:
+            _n_priced += 1
+        else:
+            _no_basis += 1
+        if "no purchase date" in _px["character"]:
+            _UNDATED += _amt
         _act = ("TRIM" if _call == "Trim"
-                else "EXIT" if _call.startswith("Exit") else "SELL")
-        _TAX_ROWS.append((_act, _r.get("name") or "",
-                          _amt, None,
-                          (_char if (_gain is not None or _rate == 0.0)
-                           else _char + ", no cost"),
-                          ""))
-    _no_basis = sum(1 for _r in list(funds) + list(equity_rows) + list(other_rows)
-                    if str(_r.get("verdict") or _r.get("rec") or "")
-                    in ("Sell", "Trim", "Exit (client)")
-                    and not _r.get("cost_inr"))
-    _TAX = {"fund_rows": _TAX_ROWS, "gross": round(_GROSS), "ltcg": round(_LT), "stcg": 0,
-            "net": round(_GROSS - _LT),
-            "de_gap_note": (
-                "A debt fund bought on or after 1 April 2023 is taxed at SLAB, whatever the "
-                "holding period, and each member's slab differs. "
-                + ("%d exits carry no cost basis. " % _no_basis if _no_basis else "")
-                + "An estimate, not a tax opinion.")}
+                else "EXIT (CLIENT)" if _call.startswith("Exit") else "SELL")
+        _TAX_ROWS.append((_act, _r.get("name") or "", _amt, None, _px["character"], _px["note"]))
 
-    _SELL_VAL = sum(f["value_inr"] for f in funds if f["verdict"] == "Sell")
-    _TRIM_VAL = sum(f.get("trim_value_inr") or 0.0 for f in funds if f["verdict"] == "Trim")
+    # SECTION 112A GIVES EACH HOLDER Rs 1.25 LAKH A YEAR, and this is a family book with more
+    # than one holder in it. Applied once across the programme rather than per holding, which
+    # would give the same exemption to a scheme twenty times over.
+    _EXEMPT = TAXE.LTCG_EXEMPT_PER_HOLDER * _N_HOLDERS
+    _LT_RELIEF = min(_LT, max(0.0, min(_EQ_LT_GAIN, _EXEMPT)) * TAXE.EQUITY_LTCG)
+    _LT = max(0.0, _LT - _LT_RELIEF)
+
+    _n_desk = sum(1 for r in _TAX_ROWS if r[0] in ("SELL", "TRIM"))
+    _n_cl = sum(1 for r in _TAX_ROWS if r[0] == "EXIT (CLIENT)")
+    _v_cl = sum(r[2] for r in _TAX_ROWS if r[0] == "EXIT (CLIENT)")
+    _v_desk = sum(r[2] for r in _TAX_ROWS if r[0] in ("SELL", "TRIM"))
+    _scope = ("The whole action programme" if _n_cl else "Mutual-fund actions")
+    # THE TWO CALLOUTS HOLD ABOUT TWO LINES EACH. Text that overruns a PowerPoint box is
+    # invisible in PowerPoint's own view, so a caveat written into the overflow is a caveat the
+    # reader never sees while the deck looks finished. Each is written to fit; whatever does not
+    # fit is not written smaller, it is left out of the box and put in the source line.
+    _gap_a, _gap_b = [], []
+    if _SLAB > 0:
+        _gap_a.append("Rs %.1f L of these proceeds is taxed at each holder's own slab rather than "
+                      "at a capital-gains rate, so no figure is put against it here."
+                      % (_SLAB / 1e5))
+    else:
+        _gap_a.append("Every move here carries a capital-gains character; none of it falls to slab.")
+    if _no_basis:
+        _gap_b.append("%d of the %d moves carry no acquisition cost on file, so no gain is "
+                      "computed for them." % (_no_basis, len(_TAX_ROWS)))
+    if _UNDATED > 0:
+        # A DEBT UNIT'S RATE TURNS ON ITS PURCHASE DATE and nothing else: bought before 1 April
+        # 2023 it is 12.5%, on or after it is slab. Where the date is absent the lower of the two
+        # is shown, so this is the direction in which the estimate can only be too small.
+        _gap_b.append("Rs %.1f L is struck at 12.5%% with no purchase date on file; if those units "
+                      "postdate April 2023 the rate is slab and this understates it."
+                      % (_UNDATED / 1e5))
+    if not _gap_b:
+        _gap_b.append("Every move here is priced off the client's own capital-gains statement.")
+
+    _TAX = {"fund_rows": _TAX_ROWS, "gross": round(_GROSS), "ltcg": round(_LT),
+            "stcg": round(_ST), "slab_value": round(_SLAB),
+            "net": round(_GROSS - _LT - _ST),
+            "basis": ("lot file" if _LOTS else "statement cost only"),
+            "table_scope_label": "%s . est. tax character per move" % _scope,
+            "chart_scope_label": "%s . net of est. tax" % _scope,
+            "table_total_label": ("Total, whole programme" if _n_cl else "Total fund actions"),
+            "gap_note_title": ("What is not in this estimate" if (_SLAB or _no_basis)
+                               else "How this estimate is struck"),
+            "foot": (
+                ("Both panels, one set: %d desk calls at Rs %.1f L and %d client-directed exits "
+                 "at Rs %.2f Cr. " % (_n_desk, _v_desk / 1e5, _n_cl, _v_cl / 1e7))
+                if _n_cl else "") +
+                ("Long and short slices read from the client's own gains statement; the Rs 1.25 "
+                 "lakh exemption applied once per holder. " if _LOTS else "") +
+                "An estimate, not a tax opinion: confirm rates with the client's tax adviser."
+                + (" " + " ".join(_gap_b[:-1]) if len(_gap_b) > 1 else ""),
+            "de_gap_note": " ".join(_gap_a),
+            "gap_note_2_title": "Also not in this estimate",
+            # THE MATERIAL ONE GOES IN THE BOX. Where a rate could only be too low, that is the
+            # caveat a reader has to see; the count of moves with no cost basis is visible on the
+            # table itself, row by row, and goes to the source line.
+            "gap_note_2": (_gap_b[-1] if len(_gap_b) > 1 else _gap_b[0]),
+            "gap_note_2_extra": (" " + " ".join(_gap_b[:-1]) if len(_gap_b) > 1 else "")}
+
+    # THE DESK'S OWN PROCEEDS, ACROSS THE WHOLE BOOK. Summed over `funds` alone this was the fund
+    # sleeve's Rs 45.4 lakh, while the tax page priced the same programme at Rs 3.37 crore and the
+    # priority page then printed a NET larger than its own GROSS -- Rs 3.28 crore net against
+    # Rs 3.19 crore gross -- because the fourteen direct-equity Sells were in one figure and not
+    # the other. Both figures are struck on the same population now.
+    _SELL_VAL = sum(float(r.get("value_inr") or 0.0) for r in _ALL_ROWS
+                    if str(r.get("verdict") or r.get("rec") or "") == "Sell")
+    _TRIM_VAL = sum(float(r.get("trim_value_inr") or 0.0) for r in _ALL_ROWS
+                    if str(r.get("verdict") or r.get("rec") or "") == "Trim")
+
+    # Every ISIN that carries a real call after the overlay, whatever the score file said.
+    _CALLED_ISIN = {str(r.get("isin")) for r in _ALL_ROWS
+                    if _call_of(r) not in ("No View", "")}
 
     ctx = {
         "client": {"name": a.client, "code": "-", "account_type": "Portfolio review",
@@ -796,6 +931,15 @@ def main():
                    # client with twenty direct-equity Sells that the review had found five.
                    "n_sell": _n_call("Sell"), "n_trim": _n_call("Trim"),
                    "n_hold": _n_call("Hold") + _n_call("Hold (watch)"),
+                   # THE CLIENT'S OWN INSTRUCTIONS, counted separately from the desk's calls and
+                   # never folded into them. A page that says "19 sell calls" and stops has told
+                   # the reader nothing about the largest single movement of money in the plan.
+                   "n_exit_client": _cn("book", "Exit (client)"),
+                   "n_retain": _cn("book", "Retain"),
+                   "v_exit_client": _cv("book", "Exit (client)"),
+                   "v_sell": _cv("book", "Sell"),
+                   "n_no_view": _cn("book", "No View"),
+                   "census": CENSUS,
                    "top10_pct": round(sorted(
                        [float(x) for x in G["weight_pct"]] +
                        [r["weight_pct"] for r in equity_rows + other_rows],
@@ -809,6 +953,10 @@ def main():
         # say that day and two advisors could send two different ones in the same week. It now comes
         # from scores/house_view.json alongside the calls, on the desk's own cadence.
         "house_view": HV,
+        # WHAT THE CLIENT HAS ASKED FOR, in the client's own terms, carried to every page that
+        # shows one of these rows. Without it the deck printed "Exit (client)" against a quarter
+        # of the book and never once said whose instruction it was or why.
+        "client_directive": CLIENT_DIRECTIVE,
         # The firm's own credentials, published centrally beside the calls. Absent, the
         # introduction pages render nothing at all rather than inventing an AUM.
         "firm": FIRM,
@@ -827,8 +975,14 @@ def main():
         # statement carries no acquisition date and no lot history, so the rate cannot be known,
         # and the page says the figure is before tax rather than quietly showing a gross number
         # under a net label.
-        "deployment": {"proceeds_inr": _SELL_VAL + _TRIM_VAL, "tax_leak_inr": None,
-                       "net_inr": None, "personalization": []},
+        # THE NET IS REAL NOW. It was None because a holdings statement carries no acquisition
+        # date; where a lot file is supplied it carries exactly that, so the page can show a net
+        # instead of a gross under a "net" heading. Where no lot file is supplied it stays None
+        # and the page says the figure is before tax, which is what it was built to do.
+        "deployment": {"proceeds_inr": _SELL_VAL + _TRIM_VAL,
+                       "tax_leak_inr": (round(_LT + _ST) if _LOTS else None),
+                       "net_inr": (round(_GROSS - _LT - _ST) if _LOTS else None),
+                       "personalization": []},
         # The plan is READ OFF the scheme's own name, which is where SEBI requires it to be
         # stated; nothing here is matched by similarity. The rupee drag is a different question and
         # needs a TER per scheme in each plan, which a holdings statement does not carry, so it
@@ -844,13 +998,19 @@ def main():
             # value_inr so the page can rank them and count what it does not list: a book with a
             # direct-equity sleeve carries a No View on every share, and naming the largest is the
             # only version of this page a client will read.
+            # G IS THE PRE-DIRECTIVE FRAME. It carries the call the score file published, and
+            # knows nothing about the client's instruction applied to the fund objects afterwards,
+            # so eight debt schemes the plan is exiting were listed on the coverage page as
+            # holdings "with no performance view" -- the reader is told in one breath that the
+            # money is moving and in the next that nobody has looked at it.
             "no_view": [{"name": r.scheme, "category": r.category, "value_inr": float(r.value),
                          "reason": ("A share, not a scheme: the fund-quality framework scores "
                                     "schemes against their own SEBI category, and a single company "
                                     "is not in that population."
                                     if str(r.isin).startswith("INE") else
                                     "Outside the coverage of the firm's fund-quality frameworks.")}
-                        for r in G[G["call"] == "No View"].itertuples()],
+                        for r in G[G["call"] == "No View"].itertuples()
+                        if str(r.isin) not in _CALLED_ISIN],
             "flags": ([f"Scores are as of {ver['as_of']}."] +
                       ([f"Rs {OTHER_VAL:,.0f}, {OTHER_VAL / GRAND * 100:.1f}% of the book, is held "
                         f"outside the schemes this review covers and carries no view here. It is "
@@ -902,7 +1062,14 @@ def main():
         ([pd.DataFrame([{"isin": r.get("isin") or "", "scheme": r.get("name"),
                          "category": r.get("sub_category") or r.get("category") or "",
                          "call": r.get("rec") or "No View",
-                         "rationale": "Outside the coverage of the firm's fund-quality frameworks.",
+                         # THE REASON THE ROW CARRIES, not a coverage disclaimer. PPF, SCSS and
+                         # the ULIP are Retains with a written reason apiece; the workbook printed
+                         # "Outside the coverage of the firm's fund-quality frameworks" against
+                         # all three, which is both the wrong sentence and, as an explanation of
+                         # why a holding is being kept, untrue.
+                         "rationale": (r.get("structural_reason")
+                                       or "Outside the coverage of the firm's "
+                                          "fund-quality frameworks."),
                          "asset_class": r.get("asset_class") or "", "value": r.get("value_inr") or 0.0,
                          "invested": r.get("cost_inr") or 0.0,
                          "weight_pct": r.get("weight_pct") or 0.0,

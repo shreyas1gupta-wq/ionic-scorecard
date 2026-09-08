@@ -76,7 +76,20 @@ def render(deck, ctx, tier):
     split = bool(churn.get("split_required"))
 
     entries, has_subheads = _ordered_with_subheads(funds, split, simple)
-    n_act = sum(1 for f in funds if f["action"] not in ("HOLD", "Hold"))
+    # DESK ACTIONS AND CLIENT INSTRUCTIONS ARE COUNTED APART. A client-directed exit is an action
+    # on the scheme and must never be tallied as a Hold, but it is not a call this desk made and
+    # must never be tallied as one of its actions either. Counting them in neither bucket, which is
+    # what happened, produced a closing line reading "5 of 60 schemes carry an action ... 53 are
+    # Holds" on a page whose own table showed nineteen EXIT (CLIENT) rows.
+    _CLIENT = ("EXIT (CLIENT)", "RETAIN")
+
+    def _acode(f):
+        return str(f.get("action") or "").strip().upper()
+
+    n_client_exit = sum(1 for f in funds if _acode(f) == "EXIT (CLIENT)")
+    n_retain = sum(1 for f in funds if _acode(f) == "RETAIN")
+    n_act = sum(1 for f in funds
+                if f["action"] not in ("HOLD", "Hold") and _acode(f) not in _CLIENT)
     # "everything without an action is a Hold" turned ten schemes the frameworks do not reach into
     # ten Holds on the closing line of the fund book. A scheme carrying No View has not been
     # judged, and the page must not say it has.
@@ -85,12 +98,14 @@ def render(deck, ctx, tier):
     # a book where the fund-actions page five slides later said three of the four were performance
     # calls. Two pages of one deck cannot give a reader opposite reasons for the same four calls.
     _n_perf = sum(1 for f in funds
-                  if f["action"] not in ("HOLD", "Hold") and f.get("action_origin") == "performance")
+                  if f["action"] not in ("HOLD", "Hold") and _acode(f) not in _CLIENT
+                  and f.get("action_origin") == "performance")
     _n_conc = sum(1 for f in funds
-                  if f["action"] not in ("HOLD", "Hold") and f.get("action_origin") == "concentration")
+                  if f["action"] not in ("HOLD", "Hold") and _acode(f) not in _CLIENT
+                  and f.get("action_origin") == "concentration")
     n_noview = sum(1 for f in funds
                    if str(f.get("verdict") or "").strip().lower() in ("no view", "no recommendation"))
-    n_hold = len(funds) - n_act - n_noview
+    n_hold = len(funds) - n_act - n_noview - n_client_exit - n_retain
 
     # pagination (added 2026-07-27, first real client: this module was built assuming a
     # ~9-fund demo book and silently overflowed past the read-line and footer on a 25-fund
@@ -196,7 +211,9 @@ def render(deck, ctx, tier):
                 read = (f"What this means: {n_act} of {len(funds)} funds could be improved, usually because "
                         f"of high fees or the wrong structure, not just weak returns. {n_hold} are worth keeping" +
                         (f", and we have no view on {n_noview} of them."
-                         if n_noview else "."))
+                         if n_noview else ".") +
+                        (f" Another {n_client_exit} are being sold because you asked us to."
+                         if n_client_exit else ""))
             else:
                 if _n_perf and _n_perf == n_act:
                     _why = "every one on the long-record category test"
@@ -209,10 +226,15 @@ def render(deck, ctx, tier):
                     _why = ("on cost and structure (plan, mandate rigidity, scale, consistency) "
                             "rather than performance alone")
                 read = (f"The desk read: the fund score ranks the scheme; the Portfolio Review team sets the "
-                        f"verdict. {n_act} of {len(funds)} schemes carry an action, {_why}; "
+                        f"verdict. {n_act} of {len(funds)} schemes carry an action of ours, {_why}; "
                         f"{n_hold} are Holds on their own standing" +
                         (f", and {n_noview} carry no view because the frameworks do not reach them."
                          if n_noview else "."))
+                if n_client_exit:
+                    read += (f" A further {n_client_exit} are being exited at your instruction, "
+                             f"which is not a view of ours on the scheme"
+                             + (f", and {n_retain} are retained because they cannot be exited on "
+                                f"request." if n_retain else "."))
             if has_subheads:
                 read += (f" Churn is {churn['pct']:.0f}% of the portfolio, above our 20% trigger, "
                         "so actions above are grouped by priority."

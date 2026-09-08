@@ -77,7 +77,8 @@ def _card(deck, e, tier):
     # negative is an internal-audit-trail fallback for names that don't have one yet — never
     # show negative on a client slide if client_case exists.
     deck.callout(s, ML, y1, colw, h, "Why it's on the sell list",
-                 _clip(e.get("client_case") or e.get("negative")), "warn")
+                 _clip(e.get("client_case") or e.get("negative")
+                       or e.get("negative_para") or e.get("rationale")), "warn")
     deck.callout(s, x2, y1, colw, h, "The bull we rejected", _clip(e.get("positive")), "note")
     deck.callout(s, ML, y2, colw, h, "Reverse-DCF: margin of safety", _clip(e.get("reverse_dcf")), "note")
     deck.callout(s, x2, y2, colw, h, "What would change our mind", _clip(_reversal(e)), "human")

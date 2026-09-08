@@ -251,11 +251,20 @@ def render(deck, ctx, tier):
     if _ex:
         _exv = sum(float(r.get("value_inr") or 0) for r in _ex)
         _pct = _exv / (t.get("grand_inr") or 1) * 100
-        _kept = (" %d cannot be exited and are kept." % len(_ret) if _ret else "")
+        # NAME THE THREE THAT STAY, and say in a phrase why. "3 cannot be exited and are kept" is
+        # a statement the reader cannot check and cannot act on; the reasons are written on the
+        # directive and there is room for them.
+        _kept = ""
+        if _ret:
+            from slidekit import short_name as _sn
+            _kept = " Kept: %s (term-locked, cannot be exited on request)." % ", ".join(
+                _sn(str(r.get("name") or ""), 22) for r in _ret[:3])
+        _instr = str((ctx.get("client_directive") or {}).get("instruction") or "").strip()
+        _lead = (_instr.rstrip(".") if _instr else "Exit the fixed-income sleeve")
         rows.insert(0, [
             ("b", "Your instruction"),
-            "Exit the fixed-income sleeve: %d holdings, %s, %.0f%% of the book."
-            % (len(_ex), _cr(_exv), _pct),
+            "%s: %d holdings, %s, %.0f%% of the book."
+            % (_lead, len(_ex), _cr(_exv), _pct),
             ("c", "Staged and priced for tax overleaf." + _kept, NAVY),
             "04 · Actions"])
         # the table is laid into a fixed band and a sixth row runs into the footnote beneath it,

@@ -23,7 +23,12 @@ LABELS = {
     "std": {"eyebrow": "Every holding", "title": "Everything you hold, in one list"},
     "simple": {"eyebrow": "Everything you own", "title": "Your complete list of holdings"},
 }
-CALL_STYLE = {"Sell": SELL, "Trim": AMBER, "Hold (watch)": AMBER, "Hold": HOLD}
+# The two client calls belong here too. Without them "Exit (client)" and "Retain" fell through to
+# the plain-text branch below and rendered as body ink in mixed case, in the same column where a
+# Hold is an upper-case green pill: a reader scanning the column reads the unpilled words as
+# missing data rather than as a call of a different kind.
+CALL_STYLE = {"Sell": SELL, "Trim": AMBER, "Hold (watch)": AMBER, "Hold": HOLD,
+              "Exit (client)": AMBER, "Retain": SLATE}
 _CLASS_ORDER = {"Equity": 0, "Fixed Income": 1, "Alternates": 2, "Other": 3}
 
 
