@@ -53,7 +53,8 @@ HELD = ("Hold", "Hold (watch)")
 #   sector_exposure and mcap_positioning need a sector and a market-cap band per holding.
 #   tax_impact needs a cost basis, which a holdings statement rarely carries.
 #   scheme_correlation needs NAV history, which is deliberately not in the kit.
-SKIP = {"sector_exposure", "funds_debt", "scheme_correlation", "tax_impact"}
+SKIP = {"sector_exposure", "funds_debt", "scheme_correlation"}
+# tax_impact is skipped only when NO exit carries a cost basis, decided below.
 # The Equity Book needs a call and a score per SHARE. Those now arrive in a published stock score
 # file exactly as the fund calls do, so these pages are skipped only when that file is absent
 # rather than always. sector_exposure still needs a sector on every holding including the funds,
@@ -127,6 +128,16 @@ def main():
               "review_cycle": _hv.get("review_cycle"), "targets": _hv.get("targets", {})}
     else:
         print("    no scores/house_view.json, so the house-view pages will render nothing")
+
+    FIRM = {}
+    _fp = os.path.join(KIT, "scores", "firm_profile.json")
+    if os.path.exists(_fp):
+        FIRM = json.load(open(_fp, encoding="utf-8"))
+        print(f"  firm      : profile as of {FIRM.get('as_of', '?')}, "
+              f"{len(FIRM.get('founders') or [])} co-founders, "
+              f"{len(FIRM.get('asset_class_view') or [])} asset-class views")
+    else:
+        print("    no scores/firm_profile.json, so the firm introduction pages are skipped")
 
     sf, is_demo = latest_score_file()
     S = pd.read_csv(sf)
@@ -570,6 +581,50 @@ def main():
                 + sum(1 for r in equity_rows + other_rows
                       if str(r.get("rec") or r.get("verdict") or "") == c))
 
+    # ---- 3c. what the recommended exits cost in tax ---------------------------------------------
+    def _tax_character(row):
+        """Equity or debt, and for debt WHEN the units were bought, which is what sets the rate."""
+        cls = str(row.get("asset_class") or "").strip().lower()
+        sub = str(row.get("risk_sub") or row.get("sub_category") or "")
+        if cls == "fixed income" or any(k in sub for k in ("Bond", "Gilt", "G-Sec", "Debt",
+                                                           "Duration", "Liquid", "Overnight",
+                                                           "Money Market", "SDL", "Credit")):
+            return ("Debt: 12.5% or SLAB", 0.125)
+        if cls == "alternates":
+            return ("Gold: 12.5% over 24m", 0.125)
+        return ("Equity: 12.5% over 12m", 0.125)
+
+    _TAX_ROWS, _GROSS, _LT = [], 0.0, 0.0
+    for _r in list(funds) + list(equity_rows) + list(other_rows):
+        _call = str(_r.get("verdict") or _r.get("rec") or "")
+        if _call not in ("Sell", "Trim"):
+            continue
+        _amt = (float(_r.get("trim_value_inr") or 0.0) if _call == "Trim"
+                else float(_r.get("value_inr") or 0.0))
+        if _amt <= 0:
+            continue
+        _inv = _r.get("cost_inr")
+        _gain = None
+        if _inv not in (None, "") and float(_inv or 0) > 0 and _r.get("value_inr"):
+            _gain = _amt * (1.0 - float(_inv) / float(_r["value_inr"]))
+        _char, _rate = _tax_character(_r)
+        _GROSS += _amt
+        if _gain is not None:
+            _LT += _gain * _rate
+        _TAX_ROWS.append((("TRIM" if _call == "Trim" else "SELL"), _r.get("name") or "",
+                          _amt, None, _char if _gain is not None else _char + ", no cost",
+                          ""))
+    _no_basis = sum(1 for _r in list(funds) + list(equity_rows) + list(other_rows)
+                    if str(_r.get("verdict") or _r.get("rec") or "") in ("Sell", "Trim")
+                    and not _r.get("cost_inr"))
+    _TAX = {"fund_rows": _TAX_ROWS, "gross": round(_GROSS), "ltcg": round(_LT), "stcg": 0,
+            "net": round(_GROSS - _LT),
+            "de_gap_note": (
+                "A debt fund bought on or after 1 April 2023 is taxed at SLAB, whatever the "
+                "holding period, and each member's slab differs. "
+                + ("%d exits carry no cost basis. " % _no_basis if _no_basis else "")
+                + "An estimate, not a tax opinion.")}
+
     _SELL_VAL = sum(f["value_inr"] for f in funds if f["verdict"] == "Sell")
     _TRIM_VAL = sum(f.get("trim_value_inr") or 0.0 for f in funds if f["verdict"] == "Trim")
 
@@ -684,7 +739,17 @@ def main():
         # say that day and two advisors could send two different ones in the same week. It now comes
         # from scores/house_view.json alongside the calls, on the desk's own cadence.
         "house_view": HV,
-        "tax": {"fund_rows": [], "gross": 0, "ltcg": 0, "stcg": 0, "net": 0},
+        # The firm's own credentials, published centrally beside the calls. Absent, the
+        # introduction pages render nothing at all rather than inventing an AUM.
+        "firm": FIRM,
+        # THE TAX ON THE EXITS THIS REVIEW ACTUALLY RECOMMENDS. The page used to be switched off
+        # because "a holdings statement rarely carries a cost basis", which is true of a CAS and
+        # not true of the workbooks a platform exports beside it. Where an invested figure is
+        # present the gain is real arithmetic, and the character of that gain is the single fact
+        # that decides the bill: a debt fund bought on or after 1 April 2023 lost capital-gains
+        # treatment entirely and is taxed at the holder's slab, however long it has been held.
+        # Every rate is stated on the page and nothing here is a tax opinion.
+        "tax": _TAX,
         # REAL money, from the calls this run actually issued. Zeros here printed "Rs 0.0 L gross
         # freed" on the priority-actions page three lines above "Rs 96.29 Cr" of fund actions on
         # the same page. A Sell frees the whole position; a Trim frees only the slice above the

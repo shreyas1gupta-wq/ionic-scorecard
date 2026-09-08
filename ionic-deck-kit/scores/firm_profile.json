@@ -1,0 +1,128 @@
+{
+  "_what_this_is": "Ionic Wealth's own credentials, as they appear at the front of a client deck: the group's scale, who the co-founders are, what the firm claims as its edge, and the desk's current asset-class view. Published centrally with the calls and the house view, for exactly the same reason: an advisor cannot edit the firm's AUM or a co-founder's record to suit a meeting, and two advisors cannot send two different versions of it in the same week. Transcribed from the deck the desk already uses; every figure here is the firm's own.",
+  "as_of": "2026-07-26",
+  "tagline": "Co-founder in your journey of wealth creation",
+  "proposal_title": "Portfolio Review & Proposal",
+
+  "highlights": {
+    "heading": "IONIC Group",
+    "lead": "Trusted by India's most distinguished entrepreneurs and industry leaders",
+    "stats": [
+      {"figure": "~$1 Billion", "label": "AUM", "note": "in less than 2 years"},
+      {"figure": "20+", "label": "Family offices under advisory", "note": ""},
+      {"figure": "40+", "label": "Investment boards advised", "note": ""},
+      {"figure": "10+", "label": "Cities, our presence", "note": ""}
+    ],
+    "client_profiles_heading": "Advisory client profiles",
+    "client_profiles": [
+      {"who": "Real Estate Developer", "what": "Leading listed developer from India"},
+      {"who": "Tech Founders", "what": "Several of India's top listed tech founders"},
+      {"who": "MF-AMC CEO", "what": "One of the top-performing Indian AMCs"},
+      {"who": "Bollywood Actor", "what": "One of India's most celebrated stars"},
+      {"who": "Cricketer", "what": "One of India's greatest cricketers and a former captain"},
+      {"who": "NBFC Promoter", "what": "Systemically important financial institution"}
+    ],
+    "footnote": "Total advisory AUM: ~USD 400mn+"
+  },
+
+  "founders_heading": "Co-founders in the journey of wealth creation",
+  "founders": [
+    {
+      "name": "Srikanth Subramanian",
+      "title": "Co-founder, Ionic Wealth",
+      "record": ["20+ years in Wealth Management", "Ex-CEO, Kotak Cherry",
+                 "Ex-Head, Private Wealth Advisory, Kotak"],
+      "quote": "Start with clarity, not complexity."
+    },
+    {
+      "name": "Dharmendra Jain",
+      "title": "Co-founder, Ionic Wealth",
+      "record": ["20+ years in Private Wealth", "Ex-SVP, Kotak Wealth",
+                 "Ex-Head, Investment Solutions, ASK Wealth"],
+      "quote": "You don't need more options. You need better filters."
+    },
+    {
+      "name": "Shobhit Mathur",
+      "title": "Co-founder, Ionic Wealth",
+      "record": ["Ex-Fund Manager, Kotak Optimus", "Ex-Leadership Team, Kotak Cherry"],
+      "quote": "Relevance is more important than trends."
+    }
+  ],
+
+  "moat_heading": "Strong domain expertise",
+  "moat_strapline": "Our MOAT: unbiased, dynamic, detailed",
+  "moat": [
+    {
+      "title": "In-house global research",
+      "points": ["India's first wealth firm with in-house global research",
+                 "Deep integration with primary research providers across geographies, e.g. New Street Research",
+                 "High-conviction calls across asset classes, e.g. gold and silver, emerging markets",
+                 "The AMC brings breadth and depth of research across asset classes"]
+    },
+    {
+      "title": "Macro specialists",
+      "points": ["2 senior strategists and 2 junior analysts",
+                 "Macro research led higher allocations into commodities"]
+    },
+    {
+      "title": "Quant-based innovation lab",
+      "points": ["Relative Rotation Graph driven momentum and value strategies",
+                 "A quant-based fund selection framework",
+                 "Objective, data-driven decision making",
+                 "Systematic factor identification and portfolio construction"]
+    },
+    {
+      "title": "Future-proofing of portfolios",
+      "points": ["Access to private deals and funds across geographies",
+                 "e.g. Together Fund, Harmattan AI"]
+    }
+  ],
+
+  "asset_class_view_heading": "Asset class view",
+  "asset_class_view_sub": "Key signals across major asset classes shaping our portfolio positioning",
+  "asset_class_view_source": "Ionic AssetX, June 2026",
+  "asset_class_view": [
+    {
+      "asset": "Domestic equities", "stance": "CONSTRUCTIVE",
+      "read": "Improving macros, earnings revival, palatable valuations (Nifty 1Y forward PE ~18x). Geo-political headwinds warrant staggered deployment.",
+      "rows": [["ALLOCATION", "70% domestic, 30% global"],
+               ["DEPLOYMENT", "Two-part stagger: 50% in 0 to 15 days, 50% in 15 to 30 days"],
+               ["TACTICAL IDEA", "50% value, 25% low vol, 25% momentum, overweight value"]]
+    },
+    {
+      "asset": "Global equities", "stance": "CONSTRUCTIVE",
+      "read": "Strong AI-driven tech earnings; valuations below end-2025. US earnings outstanding, with selective emerging-market exposure.",
+      "rows": [["ALLOCATION", "60% developed markets including the US, 40% emerging ex-India"],
+               ["DEPLOYMENT", "Global at 30% of the equity book via lumpsum; the opportunity set is attractive now"],
+               ["TACTICAL IDEA", "South Korea most attractive: cheap valuations with high EPS growth"]]
+    },
+    {
+      "asset": "Fixed income", "stance": "CAUTIOUS",
+      "read": "Short-term volatility from global factors. Fiscal and balance-of-payments risks keep the rate trajectory uncertain.",
+      "rows": [["ALLOCATION", "85% in 3 to 5 year papers, 15% in 30 year and longer bonds"],
+               ["DEPLOYMENT", "Selective participation amid an uncertain rate trajectory"],
+               ["TACTICAL IDEA", "30 year and longer now 15%, down from 25%; locks in yields, held as accrual"]]
+    },
+    {
+      "asset": "Currency", "stance": "UNDER PRESSURE",
+      "read": "The rupee is volatile in a 90 to 96 range. Dollar strength, FPI outflows and elevated oil all weigh on it.",
+      "rows": [["VIEW", "Band of 90 to 96; RBI and central-bank capital measures should curb rupee weakness"],
+               ["KEY RISK", "A reserves drawdown of about USD 47 billion since the February peak limits the defence of the rupee"]]
+    },
+    {
+      "asset": "Commodities", "stance": "STAGGERED",
+      "read": "Gold favoured over silver as a geo-political hedge. Persistent central-bank buying and a supply squeeze support gold.",
+      "rows": [["ALLOCATION", "85% gold, 15% silver"],
+               ["DEPLOYMENT", "Staggered accumulation: gold around USD 4,200, silver at USD 65 or below"],
+               ["TACTICAL IDEA", "Add base metals"]]
+    },
+    {
+      "asset": "Alternates and private equity", "stance": "SELECTIVE",
+      "read": "Q1 2026 private-equity deployment was about USD 9.2 billion, with IT and ITES leading at USD 5.1 billion. Private equity is entering a disciplined, quality-driven phase.",
+      "rows": [["REAL ESTATE", "Commercial real estate on a steady growth path, led by Bengaluru and Delhi NCR"],
+               ["STAGE", "Late-stage and buyout focus over early-stage venture at this point in the cycle"]]
+    }
+  ],
+
+  "_note_on_editing": "These are the firm's own claims about itself and they are quoted to clients. Change them here, once, when the desk changes them, and never in a module or a per-client data file."
+}

@@ -13,6 +13,10 @@ import tiers as T
 # (module_id, section_no, section_name, core?)  — canonical order (spec §2)
 MODULES = [
     ("cover",              0, "",              True),
+    # WHO THE FIRM IS, before the review of what the client owns. Content comes
+    # entirely from scores/firm_profile.json; without that file the module renders
+    # nothing rather than inventing a credential.
+    ("firm_intro",         0, "",              True),
     ("contents_legend",    0, "",              True),
     # ips_summary: RESTORED 2026-07-28 (reverses the 2026-07-27 cut) -- rebuilt v2 with richer
     # parameter coverage and live-computed Current values. Renders ONLY when ctx["ips"]["on_file"]

@@ -96,6 +96,13 @@ def render(deck, ctx, tier):
     # ~9-fund demo book and silently overflowed past the read-line and footer on a 25-fund
     # real book) — one content() slide per _PER_PAGE entries, same layout proven to fit.
     # Subhead rows count as rows on purpose: they still take real vertical space in the table.
+    # AND CAPPED IN THE PLAIN-LANGUAGE DECK. Pagination is right for a 25-fund book and wrong for a
+    # sixty-scheme one in a deck whose design target is under twenty pages for a newer investor:
+    # this page alone ran to ten. The largest are shown, the rest are counted in a line, and the
+    # holdings workbook that travels with the deck carries every one of them.
+    _fb_all = len(entries)
+    if simple and _fb_all > _PER_PAGE * 2:
+        entries = entries[:_PER_PAGE * 2]
     n_pages = max(1, (len(entries) + _PER_PAGE - 1) // _PER_PAGE)
 
     for page in range(n_pages):

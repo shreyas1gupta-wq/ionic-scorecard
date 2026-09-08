@@ -7,8 +7,36 @@ description: Build an Ionic Wealth portfolio-review deck from a client's holding
 
 ## The one rule
 
-**You do not decide the calls.** Sell, Trim, Hold and No View come from `scores/ionic_scores_*.csv`,
-published centrally and keyed on ISIN. Read them and render them.
+**You do not decide the calls.** Sell, Trim, Hold and No View come from files published centrally
+and keyed on ISIN. Read them and render them.
+
+There are two, because a share and a scheme are scored by different desks:
+
+| what | file | keyed on |
+|---|---|---|
+| mutual-fund schemes | `scores/ionic_scores_*.csv` | ISIN (an `INF` prefix) |
+| direct equity | `scores/ionic_stock_scores_*.csv` | ISIN (an `INE` prefix) |
+
+The ISIN prefix is what tells a share from a scheme, exactly and with no lookup: India issues fund
+units under INF and company securities under INE.
+
+**The stock file has its own order of precedence, and the HOUSE VIEW is the top of it.** Wherever
+`STOCK REVIEW FINAL.xlsx` carries a name, that call is the client-facing call, including where it
+says No View. Only where it is silent does the analyst's own recommendation stand, and only where
+that is silent too does the quant call. It matters: on the current pair of files the house view
+disagrees with the scorecard on **97 of 384 names**, and in both directions. Shipping the
+scorecard's answer put a Sell on Hindustan Aeronautics, Reliance, Bharat Dynamics, Thermax, Bajaj
+Auto and Vedanta in a client deck while the house view held every one of them.
+
+And where the house view overrides the analyst, **drop the analyst's rationale**. It was written to
+argue the other case, so printing it under a house-view call contradicts the call it sits beneath.
+`export_stock_score_file.py` already does this; do not undo it.
+
+**A discretionary mandate is Hold, not No View.** A PMS or an AIF has a manager the client has
+already appointed and a book the desk has not been given. That is a reason to withhold a SCORE, not
+a position: "No View" against a rupee-crore mandate reads as *we have nothing to say about the
+largest line in your portfolio*. It is Hold, the rationale says why, and it counts as EQUITY in
+every band and every concentration test.
 
 Never infer a call from returns you can see. Never fill a gap with judgement. Never override a call
 because it looks wrong for a client. A scheme missing from the score file is **No View**, and that is
@@ -80,6 +108,40 @@ and do not describe the score as a prediction. It describes a record.
 
 House style: no long dashes, no filler adjectives, no three-item lists. Numbers in rupees with a
 thousands separator. The `qa/` tell-scanner will flag most lapses.
+
+## What is published centrally, and never written in a module
+
+Five files in `scores/`, all refreshed on the desk's own cadence and none of them an advisor's to
+edit for a meeting:
+
+| file | what it fixes |
+|---|---|
+| `ionic_scores_*.csv` | the fund calls, scores and rationales |
+| `ionic_stock_scores_*.csv` | the direct-equity calls, built by `export_stock_score_file.py` |
+| `house_view.json` | the desk's stance, targets and what Ionic does for a client |
+| `firm_profile.json` | the firm's own AUM, co-founders, edge and asset-class view |
+| `VERSION.json` | the as-of date and `single_scheme_cap_pct`, the concentration cap |
+
+`firm_profile.json` is what the introduction pages read. Without it those pages render **nothing**
+rather than inventing a credential, and that is the correct behaviour: an AUM figure or a
+co-founder's record is not something a deck should guess at.
+
+## Two caps, and they are not the same cap
+
+`single_scheme_cap_pct` in `VERSION.json` applies to ANY holding as a share of the WHOLE book and is
+what fires a Trim. The IPS row "A single listed security" is a different limit: directly-held shares
+only, measured against the EQUITY SLEEVE. Two populations, two denominators. Reading either as the
+other once reported a holding as comfortably inside a 15% cap while the trim engine was cutting it
+back to 10%.
+
+## Tax
+
+The tax page is computed from the exits the review actually recommends, and only where an invested
+figure is on file. The rate that decides a debt bill is **when the units were bought**: anything
+acquired on or after 1 April 2023 lost capital-gains treatment and is taxed at the holder's slab
+whatever the holding period. A platform workbook usually carries that split already, under a column
+named for "other income" units. Each family member's slab differs, so *whose* units are sold is as
+much a lever as which. Nothing the kit prints is a tax opinion and the page says so.
 
 ## What this kit does not contain
 

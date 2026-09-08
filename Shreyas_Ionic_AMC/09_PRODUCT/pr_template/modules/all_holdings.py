@@ -61,6 +61,15 @@ def render(deck, ctx, tier):
         return 0
     asof = ctx["client"]["as_of"]
     grand = float(ctx["totals"].get("grand_inr") or 0) or sum(r["v"] for r in rows)
+    # THE PLAIN-LANGUAGE DECK IS A CONVERSATION, NOT A REGISTER. This page lists every position,
+    # which on a family book is thirteen consecutive slides of small type in a deck whose whole
+    # design target is under twenty pages for a newer investor. The largest are shown, the tail is
+    # counted and valued in a line, and the complete list travels with the deck as the holdings
+    # workbook, which is the better place to read 227 rows anyway.
+    _cap_pages = 2 if reg == "simple" else None
+    _all_n, _all_v = len(rows), sum(r["v"] for r in rows)
+    if _cap_pages:
+        rows = rows[:PER * _cap_pages]
     pages = max(1, math.ceil(len(rows) / PER))
 
     cols = [("Holding", 0.34, "l"), ("What it is", 0.17, "l"), ("Asset class", 0.12, "l"),
@@ -91,6 +100,17 @@ def render(deck, ctx, tier):
                 ("pill", r["call"], r["call"]) if r["call"] in CALL_STYLE else r["call"],
             ])
         deck.table(s, ML, 2.02, UW, cols, body, rowh=0.27, fs=7.5, hfs=7)
+        _tail_n = _all_n - len(rows)
+        if _tail_n and p == pages - 1:
+            deck.source(s, "The %d largest of your %d holdings are shown here, Rs %s of Rs %s. "
+                           "The remaining %d, Rs %s between them, are listed in full in the "
+                           "holdings workbook that comes with this deck; every one of them counts "
+                           "in the totals and the weights on these pages."
+                           % (len(rows), _all_n, f"{sum(r['v'] for r in rows):,.0f}",
+                              f"{_all_v:,.0f}", _tail_n, f"{_all_v - sum(r['v'] for r in rows):,.0f}"))
+            deck.score_band(s)
+            n += 1
+            continue
         deck.source(s, "Weight is a share of the whole portfolio, funds and everything else "
                        "together. Risk and Liq are the two framework bands, H, M or L; a dash "
                        "means the framework does not place that holding. Score is the fund score "
