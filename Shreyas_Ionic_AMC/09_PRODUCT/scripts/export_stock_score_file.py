@@ -7,10 +7,23 @@ at all for a direct share, so every share in a client book rendered as No View. 
 actually called Sell. The Stock Scorecard 750 already holds those calls; they were simply never
 published in a shape the kit could read.
 
-THE CALL, and the order of precedence is the frozen method's, not this file's:
-  the analyst's own `your_recommendation` in pf_qual_<SYMBOL>.json wins wherever research exists,
-  the quant `recommendation_v3` stands where it does not,
-  and a name in neither is No View, which is the correct answer rather than a gap to fill.
+THE CALL, in strict order of precedence:
+
+  1. THE HOUSE VIEW wins wherever it carries the name, including where it says No View. It is the
+     firm's published position on a stock and the client-facing deck cannot contradict it. Against
+     the scorecard it disagrees on 97 of the 384 names both cover, and not in one direction: 59
+     the scorecard would sell it holds, 38 it would hold it sells. Shipping the scorecard's answer
+     put a Sell on Hindustan Aeronautics, Reliance, Bharat Dynamics, Thermax, Bajaj Auto and Vedanta
+     in a client deck while the house view held every one of them.
+  2. The analyst's own `your_recommendation` in pf_qual_<SYMBOL>.json, for a name the house view
+     does not cover.
+  3. The quant `recommendation_v3`, where there is no analyst research either.
+  4. No View, which is the correct answer for a name in none of them rather than a gap to fill.
+
+AND THE REASONING HAS TO FOLLOW THE CALL. Where the house view overrides the analyst, the analyst's
+rationale is arguing the OTHER case, so printing it under a house-view call would contradict the
+call it sits beneath. In that situation the rationale is dropped and the house view's own four
+attributes, operating margin, ROE, valuation and growth, carry the reasoning instead.
 
 The join key out of a client statement is the ISIN, so the symbol is resolved through the exchange's
 own ISIN master. Nothing here is matched by name.
@@ -35,6 +48,50 @@ VOCAB = {"sell": "Sell", "hold": "Hold", "trim": "Trim",
          "no recommendation": "No View", "": "No View"}
 
 
+HOUSE_VIEW_XLSX = os.path.join(os.path.expanduser("~"), "Downloads", "STOCK REVIEW FINAL.xlsx")
+
+
+def _house_view():
+    """The firm's published stock view, keyed on ISIN. Absent, this file falls back to the
+    scorecard and says so; the deck is then the scorecard's answer, not the house's."""
+    if not os.path.exists(HOUSE_VIEW_XLSX):
+        print("  NO HOUSE VIEW FILE at %s" % HOUSE_VIEW_XLSX)
+        print("  Calls will come from the scorecard alone. That is NOT the firm's published view.")
+        return {}
+    h = pd.read_excel(HOUSE_VIEW_XLSX)
+    h.columns = [str(c).strip() for c in h.columns]
+    out = {}
+    for _, r in h.iterrows():
+        isin = str(r.get("ISIN") or "").strip()
+        if len(isin) != 12:
+            continue
+        call = str(r.get("Views") or "").strip()
+        # the sheet mixes "Hold" and "HOLD"; they are the same call
+        call = VOCAB.get(call.lower(), call.title() if call else "No View")
+        out[isin] = {"call": call,
+                     "margin": str(r.get("Op. Margin %") or "").strip(),
+                     "roe": str(r.get("ROE") or "").strip(),
+                     "valuation": str(r.get("Valuations") or "").strip(),
+                     "growth": str(r.get("Growth") or "").strip(),
+                     "cap": str(r.get("Categorization as per SEBI Circular dated Oct 6, 2017")
+                                or "").strip()}
+    print("  house view : %d names read from %s" % (len(out), os.path.basename(HOUSE_VIEW_XLSX)))
+    return out
+
+
+def _hv_reason(hv):
+    """The house view's own four attributes, as a sentence. This is what carries the reasoning
+    wherever the house view overrides an analyst who argued the other way."""
+    bits = [("operating margin " + hv["margin"].lower()) if hv["margin"] else "",
+            ("ROE " + hv["roe"].lower()) if hv["roe"] else "",
+            ("valuation " + hv["valuation"].lower()) if hv["valuation"] else "",
+            (hv["growth"].lower()) if hv["growth"] else ""]
+    bits = [b for b in bits if b]
+    if not bits:
+        return "The firm's published view on this holding."
+    return "The firm's published view: " + ", ".join(bits) + "."
+
+
 def _analyst(sym):
     p = os.path.join(SC, "pf_qual_%s.json" % sym)
     if not os.path.exists(p):
@@ -51,6 +108,8 @@ def main(as_of="2026-07-26"):
     s2i = dict(zip(m["symbol"].astype(str).str.strip(), m["isin"].astype(str).str.strip()))
     s2n = dict(zip(m["symbol"].astype(str).str.strip(), m["company_name"].astype(str).str.strip()))
 
+    HV = _house_view()
+
     rows, no_isin = [], 0
     for _, r in q.iterrows():
         sym = str(r["symbol"]).strip()
@@ -59,8 +118,19 @@ def main(as_of="2026-07-26"):
             no_isin += 1
             continue
         a = _analyst(sym)
-        call = str(a.get("your_recommendation") or r.get("recommendation_v3") or "").strip()
-        call = VOCAB.get(call.lower(), call.title() if call else "No View")
+        hv = HV.get(isin)
+        _analyst_call = VOCAB.get(str(a.get("your_recommendation") or "").strip().lower(),
+                                  str(a.get("your_recommendation") or "").strip().title())
+        if hv is not None:
+            call, src = hv["call"], "House view"
+        elif a.get("your_recommendation"):
+            call, src = _analyst_call, "Analyst"
+        else:
+            call = str(r.get("recommendation_v3") or "").strip()
+            call = VOCAB.get(call.lower(), call.title() if call else "No View")
+            src = "Quant" if call != "No View" else "None"
+        # the reasoning must not argue against the call printed above it
+        _overridden = hv is not None and _analyst_call and _analyst_call != hv["call"]
         rows.append({
             "isin": isin,
             "symbol": sym,
@@ -70,14 +140,16 @@ def main(as_of="2026-07-26"):
             "score_3y": r.get("final_score_3y_v3"),
             "score_1y": r.get("final_score_1y_v3"),
             "call": call,
-            "call_source": ("Analyst" if a.get("your_recommendation") else
-                            ("Quant" if r.get("recommendation_v3") else "None")),
-            "growth_pct": a.get("expected_next_3y_growth_pct"),
-            "rationale": (a.get("recommendation_rationale") or a.get("summary") or "").strip(),
-            "negative_para": (a.get("negative_para") or "").strip(),
-            "positive_para": (a.get("positive_para") or "").strip(),
-            "reverse_dcf": (a.get("reverse_dcf_judgment") or "").strip(),
-            "summary": (a.get("summary") or "").strip(),
+            "call_source": src,
+            "house_cap": (hv or {}).get("cap", ""),
+            "growth_pct": (None if _overridden else a.get("expected_next_3y_growth_pct")),
+            "rationale": (_hv_reason(hv) if _overridden else
+                          (a.get("recommendation_rationale") or a.get("summary") or "").strip()
+                          or (_hv_reason(hv) if hv else "")),
+            "negative_para": ("" if _overridden else (a.get("negative_para") or "").strip()),
+            "positive_para": ("" if _overridden else (a.get("positive_para") or "").strip()),
+            "reverse_dcf": ("" if _overridden else (a.get("reverse_dcf_judgment") or "").strip()),
+            "summary": ("" if _overridden else (a.get("summary") or "").strip()),
         })
 
     D = pd.DataFrame(rows)

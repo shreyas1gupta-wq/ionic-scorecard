@@ -743,8 +743,15 @@ def main():
     # workbook against the deck would find Rs 224 crore missing and no explanation for it. The
     # unscored rows carry No View, which is the correct answer for them and not a reason to omit
     # them: they are still the client's money and they still count in every weight on every page.
+    # G STILL CONTAINS THE DIRECT SHARES. They were removed from `funds` and re-added to
+    # `equity_rows` with their own published call, so writing G alongside equity_rows listed every
+    # share TWICE: once as the No View the FUND score file has for it, and once with its real call.
+    # On this family that was 124 duplicated lines and Rs 2.43 crore of double-counted value in a
+    # workbook whose whole purpose is to reconcile. The deck itself was never wrong, because it
+    # reads the two lists the split produced; only this export read the pre-split frame.
+    _G_FUNDS = G[~G["isin"].isin(_share_isin)] if len(G) else G
     _G_ALL = pd.concat(
-        [G.assign(source="Scored scheme")] +
+        [_G_FUNDS.assign(source="Scored scheme")] +
         ([pd.DataFrame([{"isin": r.get("isin") or "", "scheme": r.get("name"),
                          "category": r.get("sub_category") or r.get("category") or "",
                          "call": r.get("rec") or "No View",
