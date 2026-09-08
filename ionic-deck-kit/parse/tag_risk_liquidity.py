@@ -148,6 +148,14 @@ def sub_for_fund(name, sebi_category):
     rather than a mandate (index funds, other ETFs), off what the vehicle actually tracks."""
     nm = str(name or "")
     cat = str(sebi_category or "").strip()
+    # THIS FUNCTION IS FOR SCHEMES. A direct share must never reach it, because every test below
+    # reads a COMPANY name as though it were a fund mandate: "STATE BANK OF INDIA" came back as a
+    # Thematic / Sectoral Fund on the strength of the word BANK, "NIPPON LIFE INDIA" would come back
+    # as an insurance theme, and a share so classified then carries a fund's risk band, lands in the
+    # satellite sleeve and counts against the thematic cap. Refuse it here so no caller can make
+    # that mistake, rather than relying on each caller to check first.
+    if cat.lower().startswith(("direct equity", "direct equities", "equity share")):
+        return None
     if LIQUID_RX.search(nm):
         return "Liquid Fund"
     if TARGET_MAT_RX.search(nm):

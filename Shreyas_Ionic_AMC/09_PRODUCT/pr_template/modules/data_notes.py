@@ -59,6 +59,17 @@ def render(deck, ctx, tier):
         # below was fixed for on 2026-08-02 -- a holding we have no view on going missing is worse
         # than one more slide. Under _NV_PER_PAGE rows, behaviour is unchanged.
         _NV_PER_PAGE = 6      # row heights grow with the reason text; 8 collided with the source line
+        # AND CAPPED. Pagination alone was the right fix for fifteen uncovered funds and the wrong
+        # one for a hundred and forty-four: a family holding direct shares carries a No View on
+        # every one of them, and the page became EIGHTEEN consecutive slides of "we have no view on
+        # this" in the middle of a client deck. The largest are named, because those are the ones
+        # worth a conversation, and the tail is counted and valued in a line rather than listed. The
+        # annexure still lists every holding, so nothing is hidden by this.
+        _NV_MAX_PAGES = 3
+        no_view = sorted(no_view, key=lambda e: -(e.get("value_inr") or 0))
+        _nv_cap = _NV_PER_PAGE * _NV_MAX_PAGES
+        nv_rest = no_view[_nv_cap:]
+        no_view = no_view[:_nv_cap]
         nv_pages = [no_view[i:i + _NV_PER_PAGE] for i in range(0, len(no_view), _NV_PER_PAGE)] \
             if no_view else []
         SRC = ("Suspended/insolvent status and fund launch dates verified against public "
@@ -79,6 +90,17 @@ def render(deck, ctx, tier):
                 deck.txt(s, ML, y, UW, 0.22, [(label, SANS, 9, AMBER, True, False, 60)])
                 y += 0.30
                 y = deck.table(s, ML, y, UW, cols, rows, rowh=rowh, fs=9, hfs=8) + 0.22
+                # the tail, counted rather than listed, on the last page of the table
+                if nv_rest and pg == len(nv_pages) - 1:
+                    _rest_v = sum(e.get("value_inr") or 0 for e in nv_rest)
+                    _line = (f"A further {len(nv_rest)} holdings carry no performance view, "
+                             + (f"Rs {_rest_v:,.0f} between them" if _rest_v else
+                                "each smaller than those above")
+                             + ". They are listed individually in the annexure, and every one of "
+                               "them counts in full in the totals, weights and concentration tests "
+                               "on these pages.")
+                    deck.txt(s, ML, y, UW, 0.44, [(_line, SERIF, 9, SLATE, False, True)], ls=1.05)
+                    y += 0.50
             deck.source(s, SRC)
             deck.score_band(s)
             n_slides += 1

@@ -272,6 +272,7 @@ def main():
                 return a.strip()
         return None
 
+    _bands_all, _mcap_all = RL.load_bands()
     funds = [dict(name=r.scheme, isin=r.isin,
                   category=RL.engine_category(
                       RL.sub_for_fund(r.scheme, r.category),
@@ -312,6 +313,31 @@ def main():
                   perf_flag=(r.call in ("Sell", "Trim", "Hold (watch)")))
              for r in G.itertuples()]
 
+    # A SHARE IS NOT A SCHEME, EVEN THOUGH BOTH CARRY AN ISIN. Everything with an ISIN arrives in G
+    # because that is the key the score file is published on, but a book held partly in direct
+    # equity then walked its shares into the FUND BOOK: on this family's 138 direct holdings that
+    # produced twenty-two pages headed "the fund book, scored" listing Bharat Dynamics and State
+    # Bank of India as though they were mutual-fund schemes. The framework already knows which is
+    # which, so the split is made on its answer rather than on a guess about the name.
+    # The ISIN itself says which it is, and says so exactly. India issues mutual-fund units under
+    # INF and company securities under INE, so no name, category or market-cap lookup is needed to
+    # tell a scheme from a share. Relying on the market-cap file instead left 35 of this family's
+    # 124 shares in the fund book, because that file carries the top 750 companies and the family
+    # holds smaller names than that; the ISIN prefix has no such gap.
+    _share_isin = set()
+    for r in G.itertuples():
+        isin = str(r.isin or "")
+        if isin.startswith("INF"):
+            continue                      # a mutual-fund unit, whatever its name reads like
+        _sub = RL.sub_for_fund(r.scheme, r.category)
+        if isin.startswith("INE") or str(_sub or "").startswith("Direct Equity"):
+            _share_isin.add(r.isin)
+    _shares = [f for f in funds if f["isin"] in _share_isin]
+    funds = [f for f in funds if f["isin"] not in _share_isin]
+    if _shares:
+        print(f"    {len(_shares)} of these are DIRECT SHARES, not schemes; they go to the equity "
+              f"pages rather than the fund book")
+
     # ---- 4a. the rest of the book, placed where the pages will find it -------------------------
     # Direct shares go into ctx["equity"] so concentration, holdings and sector pages count them as
     # the single-name risk they are. Everything else (AIF, private equity, PMS, REITs, a ULIP,
@@ -329,11 +355,33 @@ def main():
         _mgr = _amc(o["name"])
         if _mgr is None and o["sub_category"] in ("AIF", "Funds", "Private Equity"):
             _mgr = " ".join(str(o["name"]).split()[:2])
+        # A DISCRETIONARY MANDATE IS HELD, NOT UNSEEN. A PMS or an AIF has a manager the client has
+        # already appointed and a portfolio the desk has not been given, so the fund-quality
+        # framework cannot score it. That is a reason to withhold a SCORE, not to withhold a
+        # position: printing No View against a rupee-crore mandate reads to the client as "we have
+        # nothing to say about the largest single line in your book". The call is Hold, the
+        # rationale says exactly why it is a Hold and what would be needed to say more, and the
+        # holding counts in every weight, band and concentration test like any other.
+        _managed = str(o.get("sub_category") or "").strip().upper().startswith(("PMS", "AIF"))
+        _why = ("Held under a discretionary mandate. The manager's own holdings are not part of "
+                "this review, so the scheme-level framework does not score it; the position is "
+                "carried at full value in every allocation and concentration test on these pages."
+                if _managed else "")
         rec = dict(name=o["name"], value_inr=o["value"], weight_pct=round(w, 2),
                    asset_class=o["asset_class"], sub_category=o["sub_category"],
-                   amc=(_mgr or "-"),
-                   rec="No View", verdict="No View", sector=None, ionic_score=None)
+                   amc=(_mgr or "-"), structural_reason=_why,
+                   rec=("Hold" if _managed else "No View"),
+                   verdict=("Hold" if _managed else "No View"),
+                   sector=None, ionic_score=None)
         (equity_rows if _isdirect(o) else other_rows).append(rec)
+    # the ISIN-matched direct shares, in the shape the equity pages read
+    for f in _shares:
+        equity_rows.append(dict(
+            name=f["name"], isin=f["isin"], value_inr=f["value_inr"],
+            weight_pct=f["weight_pct"], asset_class=f.get("asset_class") or "Equity",
+            sub_category="Direct Equity", amc="-", sector=None, ionic_score=None,
+            structural_reason=f.get("structural_reason") or "",
+            rec=f.get("verdict") or "No View", verdict=f.get("verdict") or "No View"))
     equity_rows.sort(key=lambda r: -r["value_inr"])
     other_rows.sort(key=lambda r: -r["value_inr"])
 
@@ -370,7 +418,7 @@ def main():
     # Every holding, fund or not, gets a risk band and a liquidity band. This is what lets the book
     # be read as a portfolio rather than as a list of schemes: an AIF nobody scores still occupies a
     # cell on the grid and still counts against the illiquidity budget.
-    _bands, _mcap = RL.load_bands()
+    _bands, _mcap = _bands_all, _mcap_all
     if _bands:
         for f in funds:
             f["sebi_category"] = f.get("sebi_category") or ""
@@ -602,8 +650,15 @@ def main():
         "actions": [], "meeting_history": [], "goals": [], "chart_top_n": 6,
         "data_notes": {
             "suspended": [],
-            "no_view": [{"name": r.scheme, "category": r.category,
-                         "reason": "Outside the coverage of the firm's fund-quality frameworks."}
+            # value_inr so the page can rank them and count what it does not list: a book with a
+            # direct-equity sleeve carries a No View on every share, and naming the largest is the
+            # only version of this page a client will read.
+            "no_view": [{"name": r.scheme, "category": r.category, "value_inr": float(r.value),
+                         "reason": ("A share, not a scheme: the fund-quality framework scores "
+                                    "schemes against their own SEBI category, and a single company "
+                                    "is not in that population."
+                                    if str(r.isin).startswith("INE") else
+                                    "Outside the coverage of the firm's fund-quality frameworks.")}
                         for r in G[G["call"] == "No View"].itertuples()],
             "flags": ([f"Scores are as of {ver['as_of']}."] +
                       ([f"Rs {OTHER_VAL:,.0f}, {OTHER_VAL / GRAND * 100:.1f}% of the book, is held "

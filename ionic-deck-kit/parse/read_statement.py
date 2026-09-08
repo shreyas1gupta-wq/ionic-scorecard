@@ -20,8 +20,11 @@ import pandas as pd
 
 ISIN_RE = re.compile(r"^IN[A-Z0-9]\w{9}$")
 # header words we might see for the two numbers that matter, in rough order of preference
+# _pick takes the MOST SPECIFIC match, so the bare "value" sits last. Without it a statement whose
+# column is headed simply "Value" matched nothing at all and the row fell through to a
+# largest-number-wins fallback that returned the COST on every losing holding.
 VALUE_WORDS = ["market value", "current value", "closing value", "value (rs", "valuation",
-               "current amount", "market val", "amount"]
+               "current amount", "market val", "amount", "value"]
 COST_WORDS = ["invested", "purchase", "cost", "amount invested", "book value"]
 UNIT_WORDS = ["unit", "balance unit", "closing unit", "quantity"]
 # _pick takes the MOST SPECIFIC match, so the generic "name" sits last. Without it a sheet whose
@@ -244,9 +247,16 @@ def read_statement(path):
 
             val = _num(raw[c_val]) if c_val is not None else None
             if val is None:
-                # fall back to the largest number on the row, which is the market value in
-                # every layout seen so far
-                nums = [n for n in (_num(x) for x in raw) if n is not None and n > 0]
+                # THE LARGEST NUMBER ON THE ROW IS NOT THE VALUE. It is whichever of the value, the
+                # cost, the units and the NAV happens to be biggest, and on a losing holding that is
+                # the COST: a fund worth Rs 7.14 lakh against Rs 8.05 lakh invested was read at
+                # 8.05, and the family's book came out Rs 2.5 lakh too high with the error landing
+                # only on the positions that had lost money. Columns this parser has already
+                # identified as something else are excluded before the fallback runs, so a
+                # recognised cost or unit column can never be mistaken for the amount.
+                _skip = {c for c in (c_cost, c_unit) if c is not None}
+                nums = [n for j, x in enumerate(raw) if j not in _skip
+                        for n in (_num(x),) if n is not None and n > 0]
                 val = max(nums) if nums else None
             if val is None:
                 exc.append(dict(sheet=sheet, row=i + 1, reason="ISIN found but no value",
