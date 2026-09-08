@@ -130,6 +130,17 @@ def _moat(deck, F):
     return 1
 
 
+def _fit(text, n):
+    """A hard character bound, unlike clip_clause, which returns the whole string when there is no
+    clause boundary short enough. On a card this small that is the difference between a value
+    wrapping to a third line and landing on the label of the row below it."""
+    t = " ".join(str(text or "").split())
+    if len(t) <= n:
+        return t
+    cut = t[:n].rsplit(" ", 1)[0]
+    return cut.rstrip(" ,;:.") + "..."
+
+
 def _asset_view(deck, F):
     """Three asset classes to a page, in one full-height row.
 
@@ -141,37 +152,32 @@ def _asset_view(deck, F):
     if not rows:
         return 0
     src = F.get("asset_class_view_source")
-    pages = [rows[i:i + 3] for i in range(0, len(rows), 3)]
-    n = 0
-    for pi, chunk in enumerate(pages):
-        title = F.get("asset_class_view_heading", "Asset class view")
-        if len(pages) > 1:
-            title += "  (%d of %d)" % (pi + 1, len(pages))
-        s = deck.content(SECTION_NO, SECTION, F.get("asset_class_view_sub", ""), title)
-        cw = UW / 3
-        for i, a in enumerate(chunk):
-            x, y0 = ML + i * cw, 2.02
-            deck.rect(s, x + 0.06, y0, cw - 0.20, 4.30, fill=PANEL, round_=0.06)
-            col_st = STANCE_COLOR.get(str(a.get("stance", "")).upper(), NT2)
-            deck.rect(s, x + 0.06, y0, cw - 0.20, 0.05, fill=col_st)
-            deck.txt(s, x + 0.26, y0 + 0.20, cw - 0.58, 0.32,
-                     [(a.get("asset", ""), SANS, 13, NAVY, True)])
-            deck.txt(s, x + 0.26, y0 + 0.54, cw - 0.58, 0.24,
-                     [(a.get("stance", ""), SANS, 9, col_st, True, False, 70)])
-            deck.txt(s, x + 0.26, y0 + 0.86, cw - 0.58, 1.05,
-                     [(clip_clause(a.get("read", ""), 230), SERIF, 9, INK, False, True)], ls=1.06)
-            y = y0 + 2.02
-            for lab, val in (a.get("rows") or [])[:3]:
-                deck.txt(s, x + 0.26, y, cw - 0.58, 0.20,
-                         [(lab, SANS, 7.5, SLATE, True, False, 60)])
-                deck.txt(s, x + 0.26, y + 0.20, cw - 0.58, 0.52,
-                         [(clip_clause(val, 120), SERIF, 8.5, INK, False, True)], ls=1.02)
-                y += 0.74
-        deck.source(s, ("Source: %s. Positioning is the desk's published view and is reviewed on "
-                        "its own cadence, not per client." % src) if src else
-                       "The desk's published positioning, reviewed on its own cadence.")
-        n += 1
-    return n
+    s = deck.content(SECTION_NO, SECTION, F.get("asset_class_view_sub", ""),
+                     F.get("asset_class_view_heading", "Asset class view"))
+    cw = UW / 3
+    for i, a in enumerate(rows[:6]):
+        col, row = i % 3, i // 3
+        x, y0 = ML + col * cw, 1.92 + row * 2.42
+        deck.rect(s, x + 0.05, y0, cw - 0.18, 2.24, fill=PANEL, round_=0.05)
+        col_st = STANCE_COLOR.get(str(a.get("stance", "")).upper(), NT2)
+        deck.rect(s, x + 0.05, y0, cw - 0.18, 0.04, fill=col_st)
+        deck.txt(s, x + 0.22, y0 + 0.12, cw - 0.52, 0.24,
+                 [(a.get("asset", ""), SANS, 10.5, NAVY, True)])
+        deck.txt(s, x + 0.22, y0 + 0.38, cw - 0.52, 0.20,
+                 [(a.get("stance", ""), SANS, 7.5, col_st, True, False, 70)])
+        deck.txt(s, x + 0.22, y0 + 0.58, cw - 0.52, 0.50,
+                 [(_fit(a.get("read", ""), 120), SERIF, 7.5, INK, False, True)], ls=1.0)
+        y = y0 + 1.12
+        for lab, val in (a.get("rows") or [])[:3]:
+            deck.txt(s, x + 0.22, y, cw - 0.52, 0.15,
+                     [(lab, SANS, 6, SLATE, True, False, 60)])
+            deck.txt(s, x + 0.22, y + 0.14, cw - 0.52, 0.22,
+                     [(_fit(val, 62), SERIF, 7, INK, False, True)], ls=0.96)
+            y += 0.36
+    deck.source(s, ("Source: %s. Positioning is the desk's published view and is reviewed on "
+                    "its own cadence, not per client." % src) if src else
+                   "The desk's published positioning, reviewed on its own cadence.")
+    return 1
 
 
 def render(deck, ctx, tier):
