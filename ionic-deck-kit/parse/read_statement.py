@@ -19,6 +19,13 @@ import re
 import pandas as pd
 
 ISIN_RE = re.compile(r"^IN[A-Z0-9]\w{9}$")
+# AN ISIN WRITTEN INSIDE ANOTHER CELL. Some statements do not carry an ISIN column at all and
+# write the code into the security name: "7.26% GOI 2033 INE002A01018", "SBI Small Cap Fund
+# (INF200K01UP1)". Matched only in the anchored column, every one of those rows fell to the
+# no-ISIN path and came through as No View - which on a book of direct G-Secs and bonds is a
+# whole sleeve the review cannot call. This finds a code anywhere on the row, and only where
+# the anchored column found nothing, so it can never override a real ISIN column.
+ISIN_ANYWHERE = re.compile(r"\b(IN[A-Z0-9][A-Z0-9]{9})\b")
 # header words we might see for the two numbers that matter, in rough order of preference
 # _pick takes the MOST SPECIFIC match, so the bare "value" sits last. Without it a statement whose
 # column is headed simply "Value" matched nothing at all and the row fell through to a
@@ -216,6 +223,14 @@ def read_statement(path):
             cell = ("" if isin_col is None else
                     (str(raw[isin_col]).strip() if raw[isin_col] is not None else ""))
             joined = " ".join(_norm(x) for x in raw if x is not None)
+            if not ISIN_RE.match(cell):
+                # LOOK IN THE REST OF THE ROW BEFORE GIVING UP. Only when exactly one code is
+                # present: two codes on one row is a transaction or a lock-in line pairing two
+                # securities, and picking either would attach a call to the wrong holding.
+                _found = {m.group(1) for m in ISIN_ANYWHERE.finditer(
+                    " ".join(str(x) for x in raw if x is not None).upper())}
+                if len(_found) == 1:
+                    cell = _found.pop()
             if not ISIN_RE.match(cell):
                 # a row with money on it but no ISIN, sitting inside the data block, is worth flagging
                 if hrow is not None and i > hrow and any(_num(x) is not None and _num(x) > 1000

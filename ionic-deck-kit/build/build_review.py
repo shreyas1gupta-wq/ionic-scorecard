@@ -514,6 +514,17 @@ def main():
                 CC.clean(_t("negative_para") or _t("summary"), 320) if _call in ("Sell", "Trim")
                 else CC.clean(_t("summary") or _t("negative_para"), 320) if _call.startswith("Hold")
                 else "") or f.get("structural_reason") or "",
+            # THE EXCEPTIONAL CASE IS RECORDED, NOT INFERRED FROM ITS ABSENCE. The ladder puts a
+            # quality Sell below a score of 40; above it, a Sell needs the desk to have made the
+            # exceptional case. Where the call came from the HOUSE VIEW, the desk has made exactly
+            # that call, deliberately, over its own scorecard - on the current file 38 of the 42
+            # Sells at or above 40 are house-view calls. Leaving the field empty made the method
+            # gate report every one of them as an unexplained breach of the desk's own rule, which
+            # trains a reader to ignore the gate. An ANALYST Sell above the floor is left flagged:
+            # that one does need a written case, and the gate is right to ask for it.
+            exceptional_override=(_t("call_source").strip().lower() == "house view"
+                                  or None),
+            call_source=(_t("call_source") or None),
             rec=_call, verdict=_call))
     if _shares:
         print(f"    {_n_share_call} of {len(_shares)} direct shares carry a published call; "
@@ -1199,6 +1210,35 @@ def main():
     # failing at the very last step with a FileNotFoundError from the pptx writer.
     out_dir = os.path.join(KIT, "out")
     os.makedirs(out_dir, exist_ok=True)
+    # ---- THE METHOD GATE, on the ctx the deck is about to be built from --------------------
+    # check_method.py has existed since 2026-08-05, written because an audit of a shipped book
+    # found FIVE quality Sells on names the desk's own model scores as Hold, one of them at 4.27%
+    # of the book. It takes a ctx and checks the calls obey the ladder. Nothing ran it: it has a
+    # command line that takes a legacy data MODULE, and this pipeline does not have one, so on
+    # every build through this path the gate sat on disk and the deck shipped unchecked.
+    #
+    # It is ADVISORY here, not fatal, and deliberately so. A Sell above the score floor is
+    # legitimate where the analyst has made the exceptional case, and that case lives in a field
+    # this kit does not always carry. A finding is therefore something to READ before the deck
+    # goes out, and the run says so rather than either failing or staying silent.
+    try:
+        import check_method as CM
+        _mf = CM.check(ctx, verbose=False)
+        if _mf:
+            print("")
+            print(f"  METHOD GATE: {len(_mf)} finding(s). Each is a call that does not sit "
+                  f"where the ladder puts it. Read them before this goes out.")
+            for _f in _mf[:12]:
+                print(f"    [{_f.get('kind')}] {str(_f.get('sym'))[:16]:16s} "
+                      f"wt={_f.get('wt', 0):5.2f}%  {_f.get('msg')}")
+            if len(_mf) > 12:
+                print(f"    ... and {len(_mf) - 12} more")
+        else:
+            print("  method    : every call sits where the ladder puts it")
+    except Exception as _e:
+        print(f"  method    : the method gate could not run ({type(_e).__name__}: {_e}). "
+              f"That is a gate not run, not a deck that passed it.")
+
     deck, manifest = ENG.build(ctx, a.tier, verbose=True)
     safe = "".join(c for c in a.client if c.isalnum() or c in " _-").strip().replace(" ", "_")
     deck_path = os.path.join(out_dir, f"{safe}_Review_{a.tier}.pptx")
