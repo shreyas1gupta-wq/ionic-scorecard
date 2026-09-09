@@ -346,7 +346,9 @@ def main():
     if not _SS:
         SKIP.update(SKIP_WITHOUT_STOCK_SCORES)
 
-    _bands_all, _mcap_all = RL.load_bands()
+    # PASS THE PROFILE. The band file is one profile's sheet and says so in its own header; the
+    # loader now refuses to pass it off as another's silently.
+    _bands_all, _mcap_all = RL.load_bands(a.profile)
     funds = [dict(name=r.scheme, isin=r.isin,
                   category=RL.engine_category(
                       RL.sub_for_fund(r.scheme, r.category),
@@ -668,6 +670,40 @@ def main():
                 - sum(1 for f in _shares if str(f.get("verdict") or "") == c)
                 + sum(1 for r in equity_rows + other_rows
                       if str(r.get("rec") or r.get("verdict") or "") == c))
+
+    # ---- 3c-0. THE DESK'S OWN LAYER-1 GATES AND THE CHURN ARITHMETIC ---------------------------
+    # lib/mf_sell_gates.py has existed since 2026-08-05 and implements business rules the FM has
+    # already ruled on: the debt grandfather gate, the manual-override and avoid-list vetoes, the
+    # sell priority, and the churn percentage. Nothing in this pipeline called it, so ctx
+    # ["fund_churn"] arrived as {} on every build and the churn split -- the rule that exists to
+    # stop a client being handed thirty simultaneous actions -- could not fire on the one book it
+    # was written for.
+    #
+    # IT RUNS BEFORE THE CLIENT DIRECTIVE, DELIBERATELY. The gates are one-directional: a gate may
+    # veto a desk action back to Hold, never invent one. A client instruction is not a desk action
+    # and is not the gate's to veto, so the overlay is applied on top of a gated book rather than
+    # the gate being run over an overlaid one.
+    FUND_CHURN = {}
+    try:
+        # LOADED BY PATH, NOT BY PUTTING lib/ ON sys.path. lib/ and modules/ share file names --
+        # core_satellite.py and lookthrough.py exist in both -- so inserting lib/ at the front of
+        # sys.path made the engine import the library version of a slide module. The deck then
+        # wrote a duplicate slide part ("Duplicate name: ppt/slides/slide27.xml") and came out one
+        # page short, with no error anywhere. A shadowed import is the quietest failure in Python.
+        import importlib.util as _ilu
+        _spec = _ilu.spec_from_file_location(
+            "_ionic_mf_sell_gates", os.path.join(ENGINE, "lib", "mf_sell_gates.py"))
+        MFG = _ilu.module_from_spec(_spec)
+        _spec.loader.exec_module(MFG)
+        FUND_CHURN = MFG.apply_to(equity_rows, funds, ver.get("as_of")) or {}
+        print("    churn      : {:.1f}% of the book carries a desk action{}".format(
+            FUND_CHURN.get("pct", 0.0),
+            "; above the trigger, so the actions are grouped by priority"
+            if FUND_CHURN.get("split_required") else ""))
+    except Exception as _e:
+        print("    churn      : the sell-gate pass could not run ({}: {}). The churn split and "
+              "the Layer-1 vetoes are therefore NOT applied to this deck."
+              .format(type(_e).__name__, _e))
 
     # ---- 3d. what the CLIENT has asked for ------------------------------------------------------
     # A Sell on an Ionic page is the desk's verdict. A client asking to exit a sleeve is not that,
@@ -1081,7 +1117,10 @@ def main():
                     "Minimum liquid buffer, Priority 1 assets, 5% of the book at every review.",
                     "High Risk and Low Liquidity together may not exceed 30% of the book.",
                     "Uncalled commitments up to 25% of corpus, tracked outside NAV."]},
-        "funds": funds, "equity": equity_rows, "other": other_rows, "fund_churn": {},
+        "funds": funds, "equity": equity_rows, "other": other_rows,
+        # PUBLISHED BY THE GATE PASS, not left empty. {} here meant the churn split could never
+        # fire, on any book, however many actions it carried.
+        "fund_churn": FUND_CHURN,
         "profile": a.profile, "ips_generated": IPS,
         "totals": {"grand_inr": GRAND,
                    "eq_pct": round(EQ_VAL / GRAND * 100, 1) if GRAND else 0.0,

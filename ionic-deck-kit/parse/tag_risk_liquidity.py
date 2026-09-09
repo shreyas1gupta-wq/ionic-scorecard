@@ -152,10 +152,32 @@ def _load(name):
     return pd.read_csv(p, comment="#")
 
 
-def load_bands():
+# The profile the published band file was transcribed for. Its own header says so:
+# "Ionic Risk and Liquidity tagging framework, Aggressive profile bands."
+BANDS_PROFILE = "Aggressive"
+
+
+def load_bands(profile=None):
+    """The published bands, and a refusal to pass them off as another profile's.
+
+    THE FILE IS ONE PROFILE'S BANDS. The framework is profile-driven -- Aggressive, Moderate and
+    Conservative each have their own risk and liquidity treatment -- and what is published here is
+    the Aggressive sheet. Called without a profile the caller gets it, which is the behaviour every
+    build has had. Called WITH a different profile, the caller is told, loudly, once: a Moderate
+    client silently banded on Aggressive thresholds has their risk and liquidity page, their
+    lock-in test and their liquidity ladder all struck against limits that are not theirs, and
+    nothing on the deck says so. Inventing the other two profiles' numbers here would be worse
+    still; they are the desk's to publish.
+    """
     b = _load("risk_liquidity_bands.csv")
     if b is None:
         return {}, {}
+    if profile and str(profile).strip().lower() != BANDS_PROFILE.lower():
+        print("    WARNING: the published risk and liquidity bands are the %s profile's, and this "
+              "build is %s. Every risk band, liquidity band and days-to-cash below is therefore "
+              "the %s treatment applied to a %s client. Ask the desk to publish the %s sheet "
+              "before this deck goes out."
+              % (BANDS_PROFILE, profile, BANDS_PROFILE, profile, profile))
     b["sub_category"] = b["sub_category"].astype(str).str.strip()
     bands = {r["sub_category"]: r for _, r in b.iterrows()}
     m = _load("equity_mcap_bands.csv")

@@ -121,7 +121,14 @@ def main():
 
     # A MODULE THAT RAISES COSTS A WHOLE PAGE AND SAYS SO IN ONE LINE OF BUILD OUTPUT, which is
     # exactly the line a person running five commands by hand scrolls past. It is surfaced here.
-    skipped = re.findall(r"\[skip\] (\S+): (.+)", st["output"])
+    # TWO WAYS A PAGE GOES MISSING, and both used to leave one line in a long build log.
+    #   [skip] the module could not be imported at all
+    #   [ERR ] the module RAISED while drawing, so a half-drawn page was removed
+    # The second is the dangerous one: it fires on a book with one unusual field and nothing else
+    # complains. On this book a fund carrying holding_years=None cost the whole fund-actions page,
+    # and the only other trace was a zipfile warning about a duplicate slide part.
+    skipped = (re.findall(r"\[skip\] (\S+): (.+)", st["output"])
+               + re.findall(r"\[ERR \] (\S+): (.+)", st["output"]))
     if skipped:
         print("\n  PAGES THAT DID NOT RENDER:")
         for m, why in skipped:
@@ -212,7 +219,8 @@ def main():
                     "ips": os.path.join(out_dir, f"{safe}_IPS_{a.profile}.xlsx")},
         "pages_that_did_not_render": [{"module": m, "why": w} for m, w in skipped],
         "gates": findings,
-        "verdict": ("BLOCKED" if bad else "PASS" if not a.skip_gates else "UNCHECKED"),
+        "verdict": ("BLOCKED" if (bad or skipped)
+                    else "PASS" if not a.skip_gates else "UNCHECKED"),
         "steps": [{k: v for k, v in s.items() if k != "output"} for s in steps],
     }
     mpath = os.path.join(out_dir, f"{safe}_RUN.json")
@@ -227,6 +235,14 @@ def main():
     if a.skip_gates:
         print("\n  UNCHECKED: the gates were skipped. Do not send this.")
         return 0
+    # A LOST PAGE BLOCKS, ahead of any geometry finding. A geometry finding is a page laid out
+    # badly; a module that raised is a page the client will never see, and the deck around it
+    # looks entirely finished.
+    if skipped:
+        print(f"\n  BLOCKED: {len(skipped)} module(s) produced no page: "
+              f"{', '.join(m for m, _w in skipped)}. The deck around a missing page looks "
+              f"finished, which is why this fails the run rather than warning.")
+        return 1
     if bad:
         print(f"\n  BLOCKED: {len(bad)} generated page(s) carry a gate finding: "
               f"{', '.join(str(s) for s in bad)}.")

@@ -119,7 +119,13 @@ def render(deck, ctx, tier):
         _ORIGIN_TAG = {"performance": "performance", "concentration": "position size"}
         flags = ("  ·  ".join(FLAB.get(x, x[:9]) for x in f["flags"]) if f["flags"]
                  else _ORIGIN_TAG.get(f.get("action_origin"), "structural"))
-        if f.get("holding_years", 0) >= 5:
+        # `or 0`, NOT .get(k, 0). A default only fires when the key is ABSENT, and the sell-gate
+        # pass writes holding_years onto every fund -- as None where the statement carries no
+        # purchase date. So the default never applied, the comparison raised TypeError, and
+        # because this line sits AFTER deck.content() the engine had to remove a half-drawn page:
+        # the fund-actions page disappeared from the deck with a one-line [ERR ] in the build log
+        # and a zipfile "duplicate slide part" warning as the only other trace.
+        if (f.get("holding_years") or 0) >= 5:
             flags += f"  ·  HELD ~{f['holding_years']:.0f}Y, COSTLIER TO SWITCH"
         deck.txt(s, x + 0.18, y + 0.46, col_w - 0.3, 0.2, [(flags, "Bahnschrift", 7.5, vc, True, False, 30)])
         # clipped to the card's real capacity (2026-07-27: a real client's structural_reason

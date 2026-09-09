@@ -73,6 +73,39 @@ Every one of them passed all three QA gates.
 | a page printing 66% in its header and 62% in its own read line | asset class and look-through, neither named | both bases named |
 | the plain-language register promising "replace N weak funds with stronger, cheaper ones" | it was never swept when the other two were | no client Buy, in any register: saying it in simpler words makes it likelier to be believed, not smaller |
 
+## Gates and libraries that existed and were never called
+
+| what | how long it sat unused | what it cost |
+|---|---|---|
+| `check_method.py` | written 2026-08-05 after an audit found five quality Sells on names the model scores as Hold | its command line takes a legacy data *module*, and this pipeline has none, so every deck through this path shipped unchecked. It runs on the live ctx now |
+| `lib/mf_sell_gates.py` | the Layer-1 vetoes, sell priority and the churn arithmetic | `ctx["fund_churn"]` arrived as `{}` on every build, so the churn split - the rule that stops a client being handed thirty simultaneous actions - could not fire on any book |
+| `up_capture` / `down_capture` | read by four modules since the kit was written | published by nothing, so the equity fund page skipped its capture panel and the scorecards printed a dash |
+| the statement's `holder` column | present in every family statement | kept only as a *count*, so no page could say who the plan lands on |
+
+**The pattern is one thing:** a consumer with no producer, or a producer with no consumer. Neither
+errors. The page self-gates, renders nothing, and on a finished deck that is indistinguishable from
+a page the desk chose not to include. `qa/check_sync.py` now warns on a starved column, and
+`run_review.py` fails the run on a module that produced no page.
+
+## Two ways a page goes missing, and the quieter one
+
+`[skip]` is an import that failed. `[ERR ]` is a module that **raised while drawing**, so the engine
+had to remove a half-drawn page. The second is the dangerous one.
+
+On this book one fund carried `holding_years = None`, and `fund_actions.py` tested
+`f.get("holding_years", 0) >= 5`. **A `.get` default only fires when the key is ABSENT**, so `None`
+reached the comparison, `TypeError` was raised after `deck.content()` had already drawn the heading,
+and the whole fund-actions page was removed. The only other trace was a zipfile warning about a
+duplicate slide part. Use `(f.get(k) or 0)`, never `.get(k, 0)`, against anything a data layer can
+write as None.
+
+## A shadowed import is the quietest failure in Python
+
+`lib/` and `modules/` share file names — `core_satellite.py` and `lookthrough.py` exist in both. Put
+`lib/` at the front of `sys.path` and the engine imports the library version of a slide module.
+Load a library by explicit path (`importlib.util.spec_from_file_location`), never by pushing its
+directory onto `sys.path`.
+
 ## Process
 
 - **`\b` written through a bash heredoc becomes a literal backspace byte.** Four occurrences. Use

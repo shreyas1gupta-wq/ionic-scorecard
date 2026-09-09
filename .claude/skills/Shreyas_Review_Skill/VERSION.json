@@ -1,7 +1,7 @@
 {
   "skill": "Shreyas_Review_Skill",
-  "version": "v1.6",
-  "sequence": 7,
+  "version": "v1.7",
+  "sequence": 8,
   "released": "2026-09-08",
   "author": "Shreyas Gupta",
   "delivery_branch": "master",
@@ -15,6 +15,9 @@
     "Ionic_Portfolio_Review (the deep reference for the scoring chain itself)"
   ],
   "changes": [
+    "Wired three things that existed and were never called: check_method.py (on the live ctx), lib/mf_sell_gates.py (the Layer-1 vetoes and the churn arithmetic, which left fund_churn as {} on every build), and the profile argument to the risk/liquidity band loader, which now refuses to pass the Aggressive sheet off as a Moderate client's silently.",
+    "run_review.py fails the run on a module that produced NO page, ahead of any geometry finding: a geometry finding is a page laid out badly, a module that raised is a page the client will never see, and the deck around it looks finished.",
+    "references/08_do_not_regress.md: the consumer-with-no-producer pattern, the .get(k, 0) trap against a present-but-None value, and the shadowed-import trap between lib/ and modules/.",
     "modules/return_arithmetic.py: what a client's stated return ambition requires of the money that can actually move, once the part held in another member's name or locked into a product is set aside. Renders nothing without --target-return. Not a Buy and names no product; where the required rate passes 20% it says the number is not one this desk will present as achievable.",
     "references/09_subskills.md states the line this product does not cross: a proposed model portfolio with named products is a Buy, and the redeployment modules were cut permanently. Reversing a permanent cut is the Principal's call, not a build decision.",
     "modules/family_implementation.py: who holds what, and who the plan lands on. The statement's holder column was thrown away at the parse, so no page could say that this family's debt sale fell 35% on the member holding 24% of the money. Renders nothing on a single-holder book.",
