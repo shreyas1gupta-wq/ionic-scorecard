@@ -1,14 +1,14 @@
 ---
 name: Shreyas_Review_Skill
-description: The single operating manual for producing an Ionic Wealth portfolio-review deck end to end - statement in, client deck and holdings workbook out. Covers the deck kit (ionic-deck-kit), the two centrally published score files and their order of precedence, client-directive overlays, the lot-aware tax engine, risk and liquidity mapping, the grafted firm pages, and the QA gates. Use whenever an advisor hands over a CAS, CAMS, Kfintech, NSDL or platform holdings export and wants the standard review. Supersedes ionic-wealth-complete, ndpms-deck and the ionic-deck-kit SKILL; Ionic_Portfolio_Review remains the deep reference for the scoring chain itself. v1.0
+description: The single operating manual for producing an Ionic Wealth portfolio-review deck end to end - statement in, client deck and client workbook out. Covers the deck kit (ionic-deck-kit), the two centrally published score files and their order of precedence, client-directive overlays, the lot-aware tax engine, risk and liquidity mapping, the grafted firm pages, and the QA gates. Use whenever an advisor hands over a CAS, CAMS, Kfintech, NSDL or platform holdings export and wants the standard review. Supersedes ionic-wealth-complete, ndpms-deck and the ionic-deck-kit SKILL; Ionic_Portfolio_Review remains the deep reference for the scoring chain itself. v1.3
 ---
 
-<!-- SKILL: Shreyas_Review_Skill | VERSION: v1.0 | SEQUENCE: 1 -->
+<!-- SKILL: Shreyas_Review_Skill | VERSION: v1.3 | SEQUENCE: 4 -->
 
 # Shreyas Review Skill
 
-**One skill, one pipeline: a holdings statement goes in, a client-ready review deck and a
-reconciling holdings workbook come out.** Everything an advisor or an agent needs to produce the
+**One skill, one pipeline: a holdings statement goes in, a client-ready review deck, the
+client's own seven-sheet workbook and a reconciling frame come out.** Everything an advisor or an agent needs to produce the
 review the way this desk produces it is either in this file or in `references/`.
 
 > Check this copy is current before you rely on it:
@@ -92,13 +92,30 @@ the deck say **less**, never anything untrue:
 |---|---|---|
 | 1 | read the raw statements | `parse/read_statement.py` (called by the build) |
 | 2 | build one consolidated statement sheet | a per-client `extract.py` / `make_statement.py` |
-| 3 | build the deck, workbook and IPS | `build/build_review.py` |
+| 3 | build the deck, the reconciliation frame and the IPS | `build/build_review.py` |
 | 4 | graft the firm's introduction pages | `build/graft_firm_pages.py` |
-| 5 | QA gates | `check_geometry.py`, `check_geometry2.py`, `tellscan.py` |
-| 6 | **read the pages you changed** | no gate can see a page |
+| 5 | build the client's workbook | `build/build_client_workbook.py` |
+| 6 | QA gates | `check_geometry.py`, `check_geometry2.py`, `tellscan.py` |
+| 7 | **read the pages you changed** | no gate can see a page |
 
-Step 6 is not automatable and is not optional. Every defect in
+Step 7 is not automatable and is not optional. Every defect in
 `references/08_do_not_regress.md` passed all three gates.
+
+### Two workbooks, and only one of them goes out
+
+| file | what it is |
+|---|---|
+| `out/<Client>_Portfolio_Workbook.xlsx` | **the client's copy.** Seven sheets, formatted, calls colour-coded, internal vocabulary scrubbed |
+| `out/<Client>_Holdings.xlsx` | the raw frame the client copy is built from. It exists to reconcile against and is **not** a client artefact |
+
+The client reads the deck once and keeps the spreadsheet, so the spreadsheet is the artefact that
+has to survive scrutiny. `build/client_copy.py` is the one place a desk note becomes client copy:
+it strips the firm's epistemic tags, filenames and source citations, and names the model as the
+scorecard. On the current stock file **373 of 750 rationales** discussed the model by name, quoted
+its two horizon scores or cited the CSV a number came from — and the raw frame shipped them under a
+column headed "Why". `run_review.py` runs the client workbook every time, because left as a
+separate command it is a step somebody forgets, and forgetting it sends the raw dump.
+
 
 ---
 
@@ -229,13 +246,20 @@ read inside a chart image.
 
 ## 9. Deliverables
 
-| artefact | where |
-|---|---|
-| the deck | `out/<Client>_Review_<TIER>.pptx`, then the grafted `<Client>_Review_FINAL.pptx` |
-| the holdings workbook | `out/<Client>_Holdings.xlsx` - **every** holding, the call, the reason |
-| the IPS workbook | `out/<Client>_IPS_<Profile>.xlsx` |
-| unmatched rows | `out/<Client>_Holdings_Without_Scheme_Match.csv` |
+| artefact | where | goes to the client? |
+|---|---|---|
+| the deck | `out/<Client>_Review_<TIER>.pptx`, then the grafted `<Client>_Review_FINAL.pptx` | yes |
+| the client's workbook | `out/<Client>_Portfolio_Workbook.xlsx` - seven sheets, formatted, scrubbed | yes |
+| the reconciliation frame | `out/<Client>_Holdings.xlsx` - every holding, the call, the reason, raw | **no** |
+| the IPS workbook | `out/<Client>_IPS_<Profile>.xlsx` | on request |
+| unmatched rows | `out/<Client>_Holdings_Without_Scheme_Match.csv` | no, back to the RM |
+| the run manifest | `out/<Client>_RUN.json` - inputs, score-file dates, gate results | no |
 
-The workbook is a client artefact and obeys the same rules the slides do: no internal names, no raw
-field headings, and the same call on the same holding as the deck three feet away. They are built
-from the same objects for exactly that reason.
+The client's workbook obeys the same rules the slides do: no internal names, no raw field
+headings, and the same call on the same holding as the deck three feet away. Both are built from the
+same objects and in the same run for exactly that reason.
+
+The reconciliation frame is deliberately raw. It is what an advisor opens to check that 194 rows
+still sum to the number on the cover. Attaching it to a client email sends the desk's own working
+notes; `run_review.py` names the two differently in its console line and its manifest so the wrong
+one is harder to pick up.

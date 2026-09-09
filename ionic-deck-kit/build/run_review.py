@@ -131,6 +131,31 @@ def main():
               "pages. That is the honest outcome, not a failure: those pages are photographs and "
               "credentials and are never generated.")
 
+    # ---- 2b. the client's workbook -------------------------------------------------------
+    # THE CLIENT KEEPS THE SPREADSHEET. They read the deck once. build_review writes a raw frame
+    # beside it for reconciliation; build_client_workbook turns that into the formatted seven-sheet
+    # artefact that actually goes out, with the desk's internal vocabulary scrubbed by client_copy.
+    # Left as a separate command it was a step somebody would forget, and forgetting it means the
+    # client gets the raw dump -- raw field names as headings, and rationale text that names the
+    # firm's own model. So it runs here, every time, from the same inputs as the deck.
+    wb_raw = os.path.join(out_dir, f"{safe}_Holdings.xlsx")
+    wb_client = None
+    if os.path.exists(wb_raw):
+        cmd = [PY, os.path.join(HERE, "build_client_workbook.py"), a.statement,
+               "--client", a.client, "--holdings", wb_raw]
+        if a.directives:
+            cmd += ["--directives", a.directives]
+        if a.lots:
+            cmd += ["--lots", a.lots]
+        st = _run(cmd, "workbook")
+        steps.append(st)
+        print("\n" + st["output"].rstrip())
+        if st["rc"] != 0:
+            print("\n  WORKBOOK FAILED. The deck is built, but the only file beside it is the raw "
+                  "reconciliation frame, which is not a client artefact. Do not send it.")
+            return 2
+        wb_client = os.path.join(out_dir, f"{safe}_Portfolio_Workbook.xlsx")
+
     # ---- 3. gates -------------------------------------------------------------------------
     findings = {}
     if not a.skip_gates:
@@ -159,7 +184,13 @@ def main():
         "run_at": time.strftime("%Y-%m-%d %H:%M:%S"),
         "inputs": {"statement": a.statement, "directives": a.directives, "lots": a.lots,
                    "firm_deck": a.firm_deck},
-        "outputs": {"deck": deck, "workbook": os.path.join(out_dir, f"{safe}_Holdings.xlsx"),
+        # NAMED FOR WHAT THEY ARE. Two workbooks land in out/: the formatted seven-sheet one that
+        # goes to the client, and the raw frame it was built from, which exists to reconcile
+        # against and is not a client artefact. A manifest calling both "workbook" is how the
+        # wrong one gets attached to an email.
+        "outputs": {"deck": deck,
+                    "client_workbook": wb_client,
+                    "reconciliation_frame": os.path.join(out_dir, f"{safe}_Holdings.xlsx"),
                     "ips": os.path.join(out_dir, f"{safe}_IPS_{a.profile}.xlsx")},
         "pages_that_did_not_render": [{"module": m, "why": w} for m, w in skipped],
         "gates": findings,
@@ -171,6 +202,9 @@ def main():
         json.dump(manifest, fh, indent=2)
 
     print(f"\n  deck      : {deck}")
+    if wb_client:
+        print(f"  workbook  : {wb_client}   (the raw {safe}_Holdings.xlsx beside it "
+              f"reconciles; it is not the client's copy)")
     print(f"  manifest  : {os.path.basename(mpath)}")
     if a.skip_gates:
         print("\n  UNCHECKED: the gates were skipped. Do not send this.")
