@@ -210,6 +210,19 @@ def main():
               down_capture=("down_capture", "first"),
               capture_months=("capture_months", "first"),
               capture_ref=("capture_ref", "first")).reset_index())
+    # WHO OWNS EACH LINE. The statement carries a holder column and the aggregation threw it
+    # away, keeping only a count. On a FAMILY book that is the one fact the implementation page
+    # turns on: this family's debt sale falls 60% on the member whose book is 45% the size of the
+    # largest, and the review could not say so because the holder never left the parse.
+    _HOLD_BY_ISIN = {}
+    if "holder" in M.columns:
+        for _i, _g in M.groupby("isin"):
+            _by = _g.groupby(_g["holder"].astype(str).str.strip().str.title())["value"].sum()
+            _by = _by[_by > 0]
+            if len(_by):
+                _HOLD_BY_ISIN[str(_i)] = {k: float(v) for k, v in _by.items()}
+    G["holder"] = [", ".join(sorted((_HOLD_BY_ISIN.get(str(i)) or {}).keys()))
+                   for i in G["isin"]]
     G["_o"] = G["call"].map(ORDER).fillna(9)
     G = G.sort_values(["_o", "value"], ascending=[True, False]).drop(columns="_o")
     # ---- 3a. the rest of the book -----------------------------------------------------------
@@ -227,7 +240,8 @@ def main():
             OTH.append(dict(name=(getattr(r, "name", "") or "").strip() or "Unidentified holding",
                             value=float(v),
                             asset_class=(getattr(r, "asset_class", "") or "").strip() or "Other",
-                            sub_category=(getattr(r, "sub_category", "") or "").strip()))
+                            sub_category=(getattr(r, "sub_category", "") or "").strip(),
+                            holder=(getattr(r, "holder", "") or "").strip()))
 
     # THE DENOMINATOR IS THE WHOLE BOOK, not the part this kit can score. Holdings the parser could
     # not tie to a scheme still belong to the client, and a weight that ignores them is wrong in the
@@ -355,6 +369,11 @@ def main():
                   consistency=(None if pd.isna(r.consistency) else float(r.consistency)),
                   hit_rate=(None if pd.isna(r.hit_rate) else float(r.hit_rate)),
                   cons_months=(None if pd.isna(r.months) else int(r.months)),
+                  # WHOSE LINE IT IS, and the split where more than one member holds the same
+                  # scheme. The family page needs both: who to instruct, and how much of the
+                  # gain lands on which person's return.
+                  holder=getattr(r, "holder", "") or "",
+                  holder_split=dict(_HOLD_BY_ISIN.get(str(r.isin)) or {}),
                   structural_reason=r.rationale, bench_label="", exemplar="-",
                   hit3y=None, alpha_t=None, ter=None,
                   # PUBLISHED, not None. Four modules have read these fields since the kit was
@@ -431,6 +450,9 @@ def main():
                 if _managed else "")
         rec = dict(name=o["name"], value_inr=o["value"], weight_pct=round(w, 2),
                    asset_class=o["asset_class"], sub_category=o["sub_category"],
+                   holder=(o.get("holder") or ""),
+                   holder_split=({o["holder"].strip().title(): o["value"]}
+                                 if (o.get("holder") or "").strip() else {}),
                    amc=(_mgr or "-"), structural_reason=_why,
                    rec=("Hold" if _managed else "No View"),
                    verdict=("Hold" if _managed else "No View"),
@@ -460,6 +482,7 @@ def main():
             symbol=_t("symbol"), value_inr=f["value_inr"],
             weight_pct=f["weight_pct"], asset_class=f.get("asset_class") or "Equity",
             sub_category="Direct Equity", amc="-",
+            holder=f.get("holder") or "", holder_split=dict(f.get("holder_split") or {}),
             sector=(_t("sector") or None),
             ionic_score=_f("ionic_score"), score_3y=_f("score_3y"), score_1y=_f("score_1y"),
             growth_pct=_f("growth_pct"),
@@ -864,6 +887,91 @@ def main():
     _TRIM_VAL = sum(float(r.get("trim_value_inr") or 0.0) for r in _ALL_ROWS
                     if str(r.get("verdict") or r.get("rec") or "") == "Trim")
 
+    # ---- 3e. WHO OWNS WHAT, AND WHO THE PLAN LANDS ON --------------------------------------
+    # A family book is not one portfolio. The instruction "sell the debt" falls on whichever member
+    # happens to hold the debt, they pay the tax on their own return at their own slab, and it is
+    # their own defensive allocation that goes to zero. On this family the sale falls 60% on the
+    # member whose book is 45% the size of the largest, and the review could not say so because the
+    # holder column never left the parse.
+    #
+    # A HOLDER LABEL IS NOT ALWAYS A PERSON. "FAMILY" against a pooled deposit means the desk does
+    # not know whose it is, and that is a finding rather than a fourth member: it is the pool the
+    # rest of the plan leans on. It is reported separately and never averaged in.
+    _POOLED = {"family", "joint", "huf", "unattributed", "not stated", ""}
+
+    def _splits(r):
+        s = {k: v for k, v in (r.get("holder_split") or {}).items() if v}
+        if s:
+            return s
+        h = str(r.get("holder") or "").strip().title()
+        return {h: float(r.get("value_inr") or 0.0)} if h else {}
+
+    _MEM = {}
+    for _r in _ALL_ROWS:
+        _call = _call_of(_r)
+        _cls = str(_r.get("asset_class") or "Other").strip() or "Other"
+        for _who, _val in _splits(_r).items():
+            m = _MEM.setdefault(_who, {"name": _who, "value_inr": 0.0, "n_lines": 0,
+                                       "by_class": {}, "by_call": {},
+                                       "exit_inr": 0.0, "sell_inr": 0.0, "retain_inr": 0.0,
+                                       "def_moving_inr": 0.0, "def_retained_inr": 0.0,
+                                       "gain_known_inr": 0.0})
+            m["value_inr"] += _val
+            m["n_lines"] += 1
+            m["by_class"][_cls] = m["by_class"].get(_cls, 0.0) + _val
+            m["by_call"][_call] = m["by_call"].get(_call, 0.0) + _val
+            _is_def = _cls.strip().lower() in ("fixed income", "cash", "cash and equivalents")
+            if _call.startswith("Exit"):
+                m["exit_inr"] += _val
+                if _is_def:
+                    m["def_moving_inr"] += _val
+            elif _call == "Sell":
+                m["sell_inr"] += _val
+                if _is_def:
+                    m["def_moving_inr"] += _val
+            elif _call == "Retain":
+                m["retain_inr"] += _val
+                if _is_def:
+                    m["def_retained_inr"] += _val
+            _inv, _v = _r.get("cost_inr"), float(_r.get("value_inr") or 0.0)
+            if _call in ("Sell", "Trim", "Exit (client)") and _inv and _v > 0:
+                m["gain_known_inr"] += max(0.0, _val * (1.0 - float(_inv) / _v))
+
+    for m in _MEM.values():
+        m["share_pct"] = round(m["value_inr"] / GRAND * 100, 1) if GRAND else 0.0
+        m["moving_inr"] = m["exit_inr"] + m["sell_inr"]
+        m["moving_pct_of_own"] = (round(m["moving_inr"] / m["value_inr"] * 100, 1)
+                                  if m["value_inr"] else 0.0)
+        _def = sum(v for k, v in m["by_class"].items()
+                   if k.strip().lower() in ("fixed income", "cash", "cash and equivalents"))
+        m["defensive_inr"] = _def
+        m["defensive_pct"] = round(_def / m["value_inr"] * 100, 1) if m["value_inr"] else 0.0
+        # WHAT IS LEFT DEFENSIVE ONCE THE PLAN RUNS. Only the DEFENSIVE money being sold reduces
+        # it. Subtracting the whole programme, equity Sells included, reported every member at
+        # 0.0% defensive on a book where two of them keep most of their fixed income -- a number
+        # that is alarming, prominent, and wrong.
+        m["defensive_after_inr"] = max(0.0, _def - m["def_moving_inr"])
+        m["defensive_after_pct"] = (round(m["defensive_after_inr"]
+                                          / max(1.0, m["value_inr"] - m["moving_inr"]) * 100, 1))
+    _people = sorted([m for m in _MEM.values()
+                      if m["name"].strip().lower() not in _POOLED],
+                     key=lambda m: -m["value_inr"])
+    _pool = sorted([m for m in _MEM.values()
+                    if m["name"].strip().lower() in _POOLED],
+                   key=lambda m: -m["value_inr"])
+    _tot_move = sum(m["moving_inr"] for m in _MEM.values()) or 1.0
+    for m in _people + _pool:
+        m["share_of_plan_pct"] = round(m["moving_inr"] / _tot_move * 100, 1)
+    FAMILY = {"on_file": len(_MEM) > 1, "members": _people, "pooled": _pool,
+              "grand_inr": GRAND,
+              "n_named": len(_people),
+              "pooled_inr": sum(m["value_inr"] for m in _pool)}
+    if FAMILY["on_file"]:
+        print("    family     : " + " | ".join(
+            "{} Rs {:,.0f} ({:.0f}%)".format(m["name"], m["value_inr"], m["share_pct"])
+            for m in _people)
+            + (" | pooled Rs {:,.0f}".format(FAMILY["pooled_inr"]) if _pool else ""))
+
     # Every ISIN that carries a real call after the overlay, whatever the score file said.
     _CALLED_ISIN = {str(r.get("isin")) for r in _ALL_ROWS
                     if _call_of(r) not in ("No View", "")}
@@ -992,6 +1100,9 @@ def main():
         # shows one of these rows. Without it the deck printed "Exit (client)" against a quarter
         # of the book and never once said whose instruction it was or why.
         "client_directive": CLIENT_DIRECTIVE,
+        # WHO OWNS WHAT, AND WHO THE PLAN LANDS ON. Absent a holder column this is {} and the
+        # page renders nothing, which is right: a single-holder book has no family question.
+        "family_book": FAMILY,
         # The firm's own credentials, published centrally beside the calls. Absent, the
         # introduction pages render nothing at all rather than inventing an AUM.
         "firm": FIRM,

@@ -113,6 +113,10 @@ MODULES = [
     # nowhere by default.
     ("cost",               4, "Recommendations", False),
     ("tax_impact",         4, "Recommendations", True),
+    # A family book is not one portfolio. This page names who holds what and who the plan lands
+    # on, and it renders nothing on a single-holder book. It sits BEFORE priority actions, because
+    # the answer to "who signs this" belongs before the list of what to sign.
+    ("family_implementation", 4, "Recommendations", True),
     ("priority_actions",   4, "Recommendations", True),
     # growth_projection: MOVED from Annexure into Recommendations (Principal 2026-07-27,
     # permanent) — "if you follow our recommendations, here's where this could go" belongs
@@ -193,7 +197,9 @@ DIVIDER_TOC = {
         ("equity_book", "The book at a glance"), ("sell_list", "What we would sell"),
         ("hold_rationale", "What stays, and why")],
     4: [("house_view_fit", "House-view fit"), ("cost", "What you're paying today"),
-        ("tax_impact", "Tax impact"), ("priority_actions", "Your priority actions")],
+        ("tax_impact", "Tax impact"),
+        ("family_implementation", "Implementation across the family"),
+        ("priority_actions", "Your priority actions")],
     5: [("deployment", "Transition framework"), ("before_after", "Before and after"),
         ("spotlight_holdings", "Holding spotlights"), ("holdings_detail", "All holdings, scored"),
         ("sell_cards", "Sell rationale cards")],

@@ -1,7 +1,7 @@
 {
   "skill": "Shreyas_Review_Skill",
-  "version": "v1.4",
-  "sequence": 5,
+  "version": "v1.5",
+  "sequence": 6,
   "released": "2026-09-08",
   "author": "Shreyas Gupta",
   "delivery_branch": "master",
@@ -15,6 +15,7 @@
     "Ionic_Portfolio_Review (the deep reference for the scoring chain itself)"
   ],
   "changes": [
+    "modules/family_implementation.py: who holds what, and who the plan lands on. The statement's holder column was thrown away at the parse, so no page could say that this family's debt sale fell 35% on the member holding 24% of the money. Renders nothing on a single-holder book.",
     "references/09_subskills.md: the six other skills that touch this product, folded in. Carries the dual-framework fund Sell rule, the short-term method's four rulings and its material workbook bug, the look-through debt flags and tax-inertia rule, the mechanical layer's thresholds (asymmetric override bars, context-aware balance-sheet gate, commodity-cycle lens, single-group concentration at 20%, sector 20-25%, liquidity over 10 days, clutter under 0.25%), and the transfer-in floor of Rs 1 Cr per member and Rs 2.5 Cr per family.",
     "SKILL.md surfaces one discrepancy rather than resolving it: the published fund Sell is struck on one framework's two horizons, and the desk's rule needs two frameworks. That is a method question for the desk; the manual says to check both or get FM sign-off before a fund Sell goes out.",
     "run_review.py builds the CLIENT workbook too. Left as a separate command it was a step somebody forgets, and forgetting it attaches the raw reconciliation frame - raw field headings, and rationale text naming the firm own model - to a client email.",

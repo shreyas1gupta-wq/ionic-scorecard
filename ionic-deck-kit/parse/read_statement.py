@@ -240,6 +240,14 @@ def read_statement(path):
                                          if c_class is not None and raw[c_class] else ""),
                             sub_category=(str(raw[c_scat]).strip()
                                           if c_scat is not None and raw[c_scat] else ""),
+                            # THE HOLDER TRAVELS WITH THE ROW EVEN WITHOUT AN ISIN. A deposit, a
+                            # PPF account, a PMS mandate and a ULIP have no ISIN and are exactly
+                            # the lines a family holds in one member's name or in none. Dropping
+                            # the holder here left Rs 3.75 crore of this book attributed to
+                            # nobody, so the family page could not say whose defensive assets
+                            # the plan was about to spend.
+                            holder=(str(raw[c_hold]).strip()
+                                    if c_hold is not None and raw[c_hold] else ""),
                             value=ev, text=joined[:160]))
                 continue
             if _is_total_row(raw):

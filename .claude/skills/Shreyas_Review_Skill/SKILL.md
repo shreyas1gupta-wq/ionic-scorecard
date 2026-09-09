@@ -1,9 +1,9 @@
 ---
 name: Shreyas_Review_Skill
-description: The single operating manual for producing an Ionic Wealth portfolio-review deck end to end - statement in, client deck and client workbook out. Covers the deck kit (ionic-deck-kit), the two centrally published score files and their order of precedence, client-directive overlays, the lot-aware tax engine, risk and liquidity mapping, the grafted firm pages, and the QA gates. Use whenever an advisor hands over a CAS, CAMS, Kfintech, NSDL or platform holdings export and wants the standard review. Supersedes ionic-wealth-complete, ndpms-deck and the ionic-deck-kit SKILL; Ionic_Portfolio_Review remains the deep reference for the scoring chain itself. v1.4
+description: The single operating manual for producing an Ionic Wealth portfolio-review deck end to end - statement in, client deck and client workbook out. Covers the deck kit (ionic-deck-kit), the two centrally published score files and their order of precedence, client-directive overlays, the lot-aware tax engine, risk and liquidity mapping, the grafted firm pages, and the QA gates. Use whenever an advisor hands over a CAS, CAMS, Kfintech, NSDL or platform holdings export and wants the standard review. Supersedes ionic-wealth-complete, ndpms-deck and the ionic-deck-kit SKILL; Ionic_Portfolio_Review remains the deep reference for the scoring chain itself. v1.5
 ---
 
-<!-- SKILL: Shreyas_Review_Skill | VERSION: v1.4 | SEQUENCE: 5 -->
+<!-- SKILL: Shreyas_Review_Skill | VERSION: v1.5 | SEQUENCE: 6 -->
 
 # Shreyas Review Skill
 

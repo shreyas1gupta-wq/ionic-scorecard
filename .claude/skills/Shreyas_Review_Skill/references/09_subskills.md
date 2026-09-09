@@ -187,3 +187,33 @@ export_score_file.py   -> scores/ionic_scores_*.csv   (desk-side, gitignored)
 so `export_score_file.py` has nothing to read. With the score files but not the working data you can
 **build decks and read scores**; you cannot re-run the scoring chain or a backtest. Ask the desk to
 re-publish rather than trying to regenerate.
+
+---
+
+## 7. A family book is not one portfolio
+
+`modules/family_implementation.py`, rendered from `ctx["family_book"]`, and it renders **nothing**
+on a single-holder book.
+
+Every other page in the review treats the book as one thing. That is right for allocation and wrong
+for execution: an instruction to sell the fixed-income sleeve falls on whichever member holds it.
+That member signs it, realises the gain on **their own return at their own slab**, and it is their
+own defensive allocation that goes to zero — not the family's average. The Section 112A exemption is
+per person per year, so *whose* units are sold is as much a lever as which.
+
+On the reference book the sale fell on the member whose portfolio is 45% the size of the largest:
+she held 24% of the family's money and carried 35% of the selling. No page could say so, because the
+statement's holder column was thrown away at the parse.
+
+The page reports, per holder: value, share of the family, what is moving, what share of the whole
+plan that is, and **what defensive allocation is left afterwards** — where only the *defensive* money
+being sold reduces it. Subtracting the whole programme, equity Sells included, showed every member
+at 0.0% defensive on a book where two of them keep most of their fixed income: alarming, prominent
+and wrong. A member who never held a defensive asset also reads 0.0% afterwards and is deliberately
+**not** named among those the plan strips.
+
+**A pooled holding is never allocated to a member.** Where the statement says "FAMILY" against a
+deposit, the desk does not know whose it is, and guessing would credit a defensive buffer to someone
+who may not own it. The pool gets its own row marked *not attributable* and its own note, because on
+a book that is selling its fixed income the pool is what is left — which makes the split a
+precondition for the plan rather than a housekeeping item.
