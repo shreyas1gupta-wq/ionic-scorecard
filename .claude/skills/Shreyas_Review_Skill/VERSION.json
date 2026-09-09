@@ -1,7 +1,7 @@
 {
   "skill": "Shreyas_Review_Skill",
-  "version": "v1.7",
-  "sequence": 8,
+  "version": "v1.8",
+  "sequence": 9,
   "released": "2026-09-08",
   "author": "Shreyas Gupta",
   "delivery_branch": "master",
@@ -15,6 +15,12 @@
     "Ionic_Portfolio_Review (the deep reference for the scoring chain itself)"
   ],
   "changes": [
+    "check_version.py --update now fetches references/*.md as well as SKILL.md and VERSION.json. It copied only the two, so a recipient who updated got a current front page pointing at nine reference files they did not have. The list comes from reference_files in this manifest, so a future release can add a tenth without editing the script.",
+    "check_sync.py now fails on the SCORING METHOD being tracked in the public repo, not just the score files. Twelve such files were tracked and pushed; the gate listed only the kit's own filenames, which is why it never fired.",
+    "slidekit.fmt_score: one formatter, and a score of 0 reads \"<1\". A printed 0 reads as missing data and the desk forbids it; 0 is not missing (the fund score is the share of its own peer group a scheme beat, so 0 means it beat none) and blanking it would hide 52 rows, every one a Sell.",
+    "build_client_workbook.py prices a Trim on the trimmed SLICE. Priced on the full position, an over-cap holding's tax read several times the real bill.",
+    "allocation_house_view is no longer force-enabled by the kit. engine.py retired it on 2026-08-06 by Principal order (\"confirm delete, not just hide\") and a tier override was resurrecting it into finished client decks.",
+    "totals.mf_pct counts schemes only. It was struck on the pre-split frame, which still holds the direct shares, so the snapshot page told a client 67% of the book was held through funds where 46% is - the other 21 points being 124 directly held shares.",
     "Wired three things that existed and were never called: check_method.py (on the live ctx), lib/mf_sell_gates.py (the Layer-1 vetoes and the churn arithmetic, which left fund_churn as {} on every build), and the profile argument to the risk/liquidity band loader, which now refuses to pass the Aggressive sheet off as a Moderate client's silently.",
     "run_review.py fails the run on a module that produced NO page, ahead of any geometry finding: a geometry finding is a page laid out badly, a module that raised is a page the client will never see, and the deck around it looks finished.",
     "references/08_do_not_regress.md: the consumer-with-no-producer pattern, the .get(k, 0) trap against a present-but-None value, and the shadowed-import trap between lib/ and modules/.",
@@ -45,5 +51,16 @@
     "mf-nav-refresh (pointed at)",
     "transfer-in-review (the gate)",
     "agentic-fund-manager (every ruling)"
+  ],
+  "reference_files": [
+    "01_pipeline.md",
+    "02_calls_and_scoring.md",
+    "03_client_directives.md",
+    "04_tax.md",
+    "05_mapping.md",
+    "06_firm_pages.md",
+    "07_qa_gates.md",
+    "08_do_not_regress.md",
+    "09_subskills.md"
   ]
 }

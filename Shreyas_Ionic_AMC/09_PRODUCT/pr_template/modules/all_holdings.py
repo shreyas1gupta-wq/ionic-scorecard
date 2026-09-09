@@ -14,7 +14,7 @@ not score still appears, because it is still the client's money. Not reviewed is
 import math
 
 from slidekit import (NAVY, GOLD, INK, SLATE, SELL, HOLD, AMBER, SANS, SERIF, ML, UW, RX,
-                      short_name)
+                      short_name, fmt_score)
 
 PER = 16
 
@@ -99,7 +99,7 @@ def render(deck, ctx, tier):
                 f"{r['v']:,.0f}",
                 # A held position that rounds to 0.0% shows as under a tenth, not as nothing.
                 ("<0.1" if r["w"] < 0.05 and r["v"] > 0 else f"{r['w']:.1f}"),
-                "-" if r["score"] is None else f"{float(r['score']):.0f}",
+                fmt_score(r["score"]),
                 (r["rb"] or "-")[:1] if r["rb"] else "-",
                 (r["lb"] or "-")[:1] if r["lb"] else "-",
                 ("pill", r["call"], r["call"]) if r["call"] in CALL_STYLE else r["call"],

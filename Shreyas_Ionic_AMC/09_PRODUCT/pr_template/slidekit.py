@@ -137,6 +137,29 @@ REC_STYLE = {"Sell": (SELLBG, SELL), "Exit": (SELLBG, SELL), "Redeem-to-Direct":
              "Suspended": (RGBColor(0xE7, 0xE8, 0xEA), RGBColor(0x3A, 0x3F, 0x47))}
 
 
+def fmt_score(score):
+    """A score as a client should read it. One function, so every page agrees.
+
+    A PRINTED ZERO READS AS MISSING DATA, and the desk's instruction is that a 0 must never appear
+    on a client page. But 0 is not missing here: the fund score is the share of the scheme's own
+    peer group it has beaten, so 0.0 means it beat none of them - a real, computed, and rather
+    important number. On the current file that is 52 rows across 34 schemes, every one of them a
+    Sell. Blanking it would hide the finding; printing "0" invites the reader to think the cell
+    failed. So it reads "<1", which is true, computed and unambiguous.
+
+    None is genuinely absent and stays a dash.
+    """
+    if score is None:
+        return "-"
+    try:
+        v = float(score)
+    except (TypeError, ValueError):
+        return "-"
+    if v != v:                      # NaN
+        return "-"
+    return "<1" if v < 1.0 else "%.0f" % v
+
+
 class Deck:
     def __init__(self, logo_path=None, base=None):
         # base: an existing .pptx to build ON TOP OF, so hand-authored front-matter (the firm's
@@ -447,7 +470,8 @@ class Deck:
         if score is not None:
             self.rect(s, x, y, w * max(score, 0) / 100.0, 0.07, fill=NT1)
         self.rect(s, x + w * 0.40, y - 0.03, 0.012, 0.13, fill=INK)
-        self.txt(s, x + w + 0.07, y - 0.085, 0.45, 0.24, [((f"{score:.0f}" if score is not None else "-"), SANS, 9, INK, False)], anchor=MSO_ANCHOR.MIDDLE)
+        self.txt(s, x + w + 0.07, y - 0.085, 0.45, 0.24,
+                 [(fmt_score(score), SANS, 9, INK, False)], anchor=MSO_ANCHOR.MIDDLE)
 
     def callout(self, s, x, y, w, h, title, body, kind="note"):
         """Boxed callout. kind: note|warn|good|human."""

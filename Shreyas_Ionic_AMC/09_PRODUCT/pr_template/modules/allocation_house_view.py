@@ -60,7 +60,11 @@ def render(deck, ctx, tier):
         n = _named.get(k, k.lower())
         if abs(v) < 0.5:
             return f"{n} is on target"
-        return f"{n} is {abs(v):.0f} points {'over' if v > 0 else 'light'}"
+        # SINGULAR AT ONE POINT. "gold is 1 points light" shipped on a client deck. This module
+        # is retired (engine.py, FM #7) and is no longer built, but a retired module with a
+        # grammar defect in it is a landmine for whoever resurrects it.
+        _p = "point" if round(abs(v)) == 1 else "points"
+        return f"{n} is {abs(v):.0f} {_p} {'over' if v > 0 else 'light'}"
 
     _ranked = sorted(((k, v) for k, v in gap.items()), key=lambda kv: -abs(kv[1]))
     if not _ranked:

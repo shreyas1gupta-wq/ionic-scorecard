@@ -124,15 +124,42 @@ def do_update():
         print("REFUSING to update: your local SKILL.md has uncommitted edits.")
         print("  Commit or stash them first — an update would overwrite your changes.")
         return 3
+    # EVERY FILE, NOT JUST THE TWO. Most of the substance of this skill is in references/ -- the
+    # pipeline, where a call comes from, the client-directive overlay, the tax engine, mapping,
+    # the firm pages, what each QA gate cannot see, every defect the deck has shipped once, and
+    # the six folded-in subskills. Updating only SKILL.md and VERSION.json left a recipient with
+    # a current front page pointing at nine reference files they did not have, or worse, at stale
+    # ones from an earlier version. The reference list is read from the manifest in VERSION.json
+    # where there is one, so a future release can add a tenth file without editing this script.
+    REFS = ["01_pipeline.md", "02_calls_and_scoring.md", "03_client_directives.md", "04_tax.md",
+            "05_mapping.md", "06_firm_pages.md", "07_qa_gates.md", "08_do_not_regress.md",
+            "09_subskills.md"]
+    try:
+        _rv = json.loads(open(os.path.join(HERE, "VERSION.json"),
+                              encoding="utf-8-sig").read())
+        REFS = list(_rv.get("reference_files") or REFS)
+    except Exception:
+        pass
+    targets = [(REL_SKILL, os.path.join(HERE, "SKILL.md")),
+               (REL_VERSION, os.path.join(HERE, "VERSION.json"))]
+    for _r in REFS:
+        targets.append((f".claude/skills/{SKILL_NAME}/references/{_r}",
+                        os.path.join(HERE, "references", _r)))
+    os.makedirs(os.path.join(HERE, "references"), exist_ok=True)
     ok = False
-    for rel, dest in ((REL_SKILL, os.path.join(HERE, "SKILL.md")),
-                      (REL_VERSION, os.path.join(HERE, "VERSION.json"))):
+    for rel, dest in targets:
         rc, out, _ = _git("show", f"origin/{DELIVERY_BRANCH}:{rel}")
         if rc != 0 or not out:
             try:
                 with urllib.request.urlopen(REPO_RAW + rel, timeout=TIMEOUT) as r:  # noqa: S310
                     out = r.read().decode("utf-8")
             except (urllib.error.URLError, OSError) as e:
+                # A reference file the delivery branch no longer carries is not a failed update;
+                # aborting on it would leave the recipient half-updated, which is the one state
+                # worse than not updating at all.
+                if "/references/" in rel:
+                    print(f"  (skipped {os.path.basename(rel)}: not on the delivery branch)")
+                    continue
                 print(f"could not fetch {rel}: {type(e).__name__}")
                 return 4
         if os.path.exists(dest):

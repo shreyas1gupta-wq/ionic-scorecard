@@ -221,15 +221,37 @@ def check_git():
         warn("git", f"could not read the tree: {e}")
         return
 
+    # THE CALLS. What an advisor is handed.
     NEVER = ("ionic_scores_", "ionic_stock_scores_", "risk_liquidity_bands.csv",
              "equity_mcap_bands.csv", "desk_calls.csv")
-    bad = [f for f in set(staged) | set(tracked)
-           if any(n in f for n in NEVER) and "DEMO" not in f.upper()]
+    # THE METHOD. A different and larger exposure than the calls, and the one this gate was
+    # written to catch and did not: it listed only the kit's own filenames, so the scoring
+    # method, the per-name score table and the MF verdict sheet were tracked and pushed to a
+    # PUBLIC repository with nothing complaining. The standing rule is that the calls are fixed
+    # centrally and the METHOD, the workflow and the underlying data are not distributed at all.
+    METHOD = ("full750_scored", "portfolio_quant.csv", "EARNINGS_QUALITY.csv",
+              "QFRA1_all_categories.csv", "QFRA2_verdicts.csv", "QFRA2_current",
+              "HOW_WE_SCORE_STOCKS.md", "MF_SELL_METHOD_SPEC",
+              "FIVE_SIGNAL_AND_V3_SCORING_SPEC.md", "FROZEN_METHODOLOGY.md",
+              "export_score_file.py", "export_stock_score_file.py")
+    _all = set(staged) | set(tracked)
+    bad = [f for f in _all if any(n in f for n in NEVER) and "DEMO" not in f.upper()]
+    leak = [f for f in _all if any(n in f for n in METHOD)]
     if bad:
         fail("git", "these are tracked or staged in a PUBLIC repository and must not be: "
                     + ", ".join(sorted(bad)[:6]))
     else:
         ok("git", "no production score or band file is tracked")
+    if leak:
+        fail("git . method",
+             "%d file(s) describing HOW a score is computed, or carrying the per-name scores "
+             "themselves, are tracked in a PUBLIC repository: %s%s. Removing them from HEAD does "
+             "not unpublish them; the history needs a purge and the method needs a private home. "
+             "This gate listed only the kit's own filenames before, which is why it never fired."
+             % (len(leak), ", ".join(sorted(leak)[:5]),
+                " and %d more" % (len(leak) - 5) if len(leak) > 5 else ""))
+    else:
+        ok("git . method", "no scoring method or score table is tracked")
 
     for d in ("out/", "_charts/", "_CENTRAL/"):
         leaked = [f for f in tracked if ("/" + d) in ("/" + f) or f.startswith(d)]

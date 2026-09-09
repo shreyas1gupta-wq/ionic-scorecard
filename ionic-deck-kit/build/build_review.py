@@ -66,7 +66,12 @@ SKIP_WITHOUT_STOCK_SCORES = {"score_method", "book_scored", "equity_book", "sell
 # Pages that live in the library but sit in no tier by default, and which this review wants.
 # The tier override INTERSECTS optional_on with KEEP_ANNEX, so a module that is not already in some
 # tier's optional_on can only be switched on here. all_holdings is new and lives in no tier.
-EXTRA_ON = {"allocation_house_view", "all_holdings"}
+# allocation_house_view is NOT here. engine.py retired it on 2026-08-06 (Principal, FM #7,
+# "covered by the IPS page", and the reply file records "Confirm delete, not just hide"). This kit
+# re-enabled it downstream of the engine that retired it, so a page the Principal had explicitly
+# confirmed for deletion went out in a finished client deck. A tier override is not the place to
+# resurrect a retired page: if it should come back, it comes back in engine.py, on the record.
+EXTRA_ON = {"all_holdings"}
 # holdings_detail is the direct-equity annexure and needs a Stock Scorecard per name; all_holdings
 # replaces it here and covers funds, shares and everything else on the fields we do have.
 KEEP_ANNEX = {"all_holdings", "appendix"}
@@ -1124,7 +1129,13 @@ def main():
         "profile": a.profile, "ips_generated": IPS,
         "totals": {"grand_inr": GRAND,
                    "eq_pct": round(EQ_VAL / GRAND * 100, 1) if GRAND else 0.0,
-                   "mf_pct": round(FUNDS_VAL / GRAND * 100, 1) if GRAND else 0.0,
+                   # SCHEMES ONLY. FUNDS_VAL is the frame the score file joined, and at that
+                   # point it STILL CONTAINS the direct shares -- they are split out into
+                   # equity_rows afterwards. So this read 67.3% and the snapshot page said "67%
+                   # of the book held through funds" on a book where 46.2% is, the other 21
+                   # points being 124 directly held shares reported to the client as funds.
+                   "mf_pct": (round(sum(f["value_inr"] for f in funds) / GRAND * 100, 1)
+                              if GRAND else 0.0),
                    "fi_pct": round(FI_VAL / GRAND * 100, 1) if GRAND else 0.0,
                    "alt_pct": round(ALT_VAL / GRAND * 100, 1) if GRAND else 0.0,
                    "cash_pct": 0.0,
@@ -1342,6 +1353,14 @@ def main():
              "rationale": "Why", "asset_class": "Asset class", "value": "Value (Rs)",
              "invested": "Invested (Rs)", "folios": "Folios", "holders": "Holders",
              "score": "Fund score /100", "consistency": "Steadiness /100",
+             # Added when the capture columns began publishing. A raw field name as a column
+             # heading is exactly what this rename map exists to stop, and three of them shipped
+             # into the frame the client workbook is built from before anyone looked.
+             "up_capture": "Share of its category's rise (%)",
+             "down_capture": "Share of its category's fall (%)",
+             "capture_months": "Months behind the capture figures",
+             "capture_ref": "Capture measured against",
+             "holder": "Held by",
              "hit_rate": "Months ahead of peers (%)", "months": "Months of record",
              "weight_pct": "Weight (% of portfolio)", "trim_to_pct": "Trim to (% of portfolio)",
              "trim_value": "Trim amount (Rs)", "risk_band": "Risk band",

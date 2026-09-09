@@ -29,7 +29,7 @@ import matplotlib.pyplot as plt                                              # n
 from chart_lib import _fig, _save, SLATE, HAIR, PANEL, SELL as CSELL, SELLBG, \
     HOLD as CHOLD, HOLDBG                                                    # noqa: E402
 from slidekit import (NAVY, INK as PINK, SLATE as PSLATE, SELL, HOLD, AMBER, GOLD, SANS, SERIF,
-                      ML, RX, short_name)
+                      ML, RX, short_name, fmt_score)
 
 CAMBER = "#92400E"
 CGOLD = "#F2A93C"      # slidekit GOLD, byte-exact; chart_lib carries no counterpart          # matplotlib mirror of slidekit AMBER
@@ -366,7 +366,7 @@ def render(deck, ctx, tier):
     ranked = sorted(acting, key=lambda r: (-r["cons"], -r["value"]))
     shown = ranked[:5]
     names = _labels([r["name"] for r in shown], 22, dup_n=15)
-    body = [[nm, f"{r['score']:.0f}", f"{r['cons']:.0f}",
+    body = [[nm, fmt_score(r['score']), fmt_score(r['cons']),
              ("pill", r["call"], CALL_PILL.get(r["call"], r["call"]))]
             for r, nm in zip(shown, names)]
     if body:

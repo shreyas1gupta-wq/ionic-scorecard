@@ -190,7 +190,14 @@ def main():
             basis, gain = "Not in the CAS: demat holdings carry no purchase cost", None
         else:
             basis, gain = "Not supplied", None
-        px = TAXE.price({"name": d.get("Holding"), "value_inr": val, "cost_inr": inv or None,
+        # A TRIM SELLS A SLICE, NOT THE POSITION. Priced on the full value, a Trim's tax read
+        # as if the whole holding were being sold - on an over-cap position that is several times
+        # the real bill, in the direction a client would notice only after it was paid. The
+        # slice is what the trim engine sized and what the deck's own tax page uses.
+        _trim = float(d.get("Trim amount (Rs)") or 0)
+        _amt = _trim if (call == "Trim" and _trim > 0) else val
+        _cost = (inv * (_amt / val) if (inv > 0 and val > 0 and _amt < val) else (inv or None))
+        px = TAXE.price({"name": d.get("Holding"), "value_inr": _amt, "cost_inr": _cost,
                          "asset_class": d.get("Asset class"),
                          "sub_category": d.get("Category")}, LOTS)
         rows.append({
