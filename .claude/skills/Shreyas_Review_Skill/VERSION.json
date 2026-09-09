@@ -1,7 +1,7 @@
 {
   "skill": "Shreyas_Review_Skill",
-  "version": "v1.1",
-  "sequence": 2,
+  "version": "v1.2",
+  "sequence": 3,
   "released": "2026-09-08",
   "author": "Shreyas Gupta",
   "delivery_branch": "master",
@@ -15,6 +15,8 @@
     "Ionic_Portfolio_Review (the deep reference for the scoring chain itself)"
   ],
   "changes": [
+    "Capture ratios: export_score_file.py now publishes up_capture / down_capture / capture_months / capture_ref, computed from the same monthly NAV panel as the score against the scheme own SEBI-category peer average. Four modules had read those fields since the kit was written and got None on every build, so the equity fund page skipped its capture panel and the per-scheme scorecards printed a dash.",
+    "qa/check_sync.py warns on a STARVED column - one the deck reads and the published file does not carry. A self-gating page renders nothing, which on a finished deck is indistinguishable from a page the desk chose not to include.",
     "run_review.py: one command for build + graft + all three gates, exiting non-zero on any finding that lands on a generated page and writing out/<Client>_RUN.json so a deck can be traced back to its inputs and score-file dates.",
     "qa/check_sync.py: one command that says whether the score files, the band files, the concentration cap, the skill and the git tree actually agree. Run it before any client build.",
     "One skill for the whole review pipeline: statement in, deck and reconciling workbook out.",

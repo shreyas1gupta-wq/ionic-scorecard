@@ -71,6 +71,40 @@ score is the input; the Portfolio Review team sets the verdict.
 finished. It is context for the reader, never a verdict. A Sell sitting high on steadiness is a
 fund that is reliably behind.
 
+### Capture: how much of the category's rise, and how much of its fall
+
+`up_capture` and `down_capture`, published beside the score and computed the same way, from the same
+monthly NAV panel, keyed on the same ISIN.
+
+**The reference is the peer cohort, not an index.** The panel is AMFI NAV and carries no benchmark
+TRI, so the reference is the equal-weighted average of the scheme's own SEBI category. `capture_ref`
+travels with the numbers and says exactly that, and **every page that prints them prints the
+reference**. Read against peers, 100% means *took as much of the category's move as the average fund
+in it* — not *matched the index*. Those are different statistics and one must never be labelled as
+the other.
+
+Both legs need at least eight up-months and eight down-months or the scheme publishes nothing. A
+down-capture struck on one bad quarter is the kind of number a client acts on and should not.
+
+**These were read by four modules and published by nothing.** `funds_equity`, `funds_hybrid`,
+`scheme_scorecards` and `appendix` have asked for `up_capture` / `down_capture` since the kit was
+written and got `None` on every build, so the equity fund page skipped its capture panel entirely
+and the per-scheme scorecards printed a dash. That is the whole failure mode of an optional column:
+the page self-gates, renders nothing, and on a finished deck looks exactly like a page the desk chose
+not to include. `qa/check_sync.py` now warns when the published file carries no capture columns.
+
+### The full published schema
+
+| column | required | what starves without it |
+|---|---|---|
+| `isin`, `scheme`, `category`, `score`, `call`, `rationale` | yes | the build refuses |
+| `consistency`, `hit_rate`, `months` | no | the steadiness column on the fund book |
+| `up_capture`, `down_capture`, `capture_months`, `capture_ref` | no | the capture panel and the per-scheme scorecards |
+| `as_of` | yes | the date on the cover |
+
+Anything optional and absent makes the deck **smaller**, never wrong. Run `qa/check_sync.py` and
+read the warnings: each one names a page that is silently rendering nothing.
+
 ### Two plans, one scheme
 
 Direct and Regular are share classes of the same portfolio. They carry the same score and the same
