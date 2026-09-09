@@ -1,9 +1,9 @@
 ---
 name: Shreyas_Review_Skill
-description: The single operating manual for producing an Ionic Wealth portfolio-review deck end to end - statement in, client deck and client workbook out. Covers the deck kit (ionic-deck-kit), the two centrally published score files and their order of precedence, client-directive overlays, the lot-aware tax engine, risk and liquidity mapping, the grafted firm pages, and the QA gates. Use whenever an advisor hands over a CAS, CAMS, Kfintech, NSDL or platform holdings export and wants the standard review. Supersedes ionic-wealth-complete, ndpms-deck and the ionic-deck-kit SKILL; Ionic_Portfolio_Review remains the deep reference for the scoring chain itself. v1.3
+description: The single operating manual for producing an Ionic Wealth portfolio-review deck end to end - statement in, client deck and client workbook out. Covers the deck kit (ionic-deck-kit), the two centrally published score files and their order of precedence, client-directive overlays, the lot-aware tax engine, risk and liquidity mapping, the grafted firm pages, and the QA gates. Use whenever an advisor hands over a CAS, CAMS, Kfintech, NSDL or platform holdings export and wants the standard review. Supersedes ionic-wealth-complete, ndpms-deck and the ionic-deck-kit SKILL; Ionic_Portfolio_Review remains the deep reference for the scoring chain itself. v1.4
 ---
 
-<!-- SKILL: Shreyas_Review_Skill | VERSION: v1.3 | SEQUENCE: 4 -->
+<!-- SKILL: Shreyas_Review_Skill | VERSION: v1.4 | SEQUENCE: 5 -->
 
 # Shreyas Review Skill
 
@@ -165,10 +165,17 @@ credential. That is correct behaviour, not a bug.
 | `references/06_firm_pages.md` | the grafted introduction pages |
 | `references/07_qa_gates.md` | a gate fired, or you are about to trust one that cannot see |
 | `references/08_do_not_regress.md` | **read before changing any module.** Every defect this deck has shipped once |
+| `references/09_subskills.md` | the six other skills that touch this product, folded in: the dual-framework fund Sell rule, the short-term method's rulings, look-through flags, the mechanical portfolio layer's thresholds, and the transfer-in gate |
 
-For the scoring chain itself - how a stock score is computed, the frozen v3 layer, QFRA-1 and
-QFRA-2, the analyst research pass - `Ionic_Portfolio_Review` remains the deep reference. This skill
-consumes those outputs; it does not re-derive them.
+For the scoring chain itself - how a stock score is computed, the frozen v3 layer, the analyst
+research pass - `Ionic_Portfolio_Review` remains the deep reference, and the two framework reruns
+stay their own skills. This skill consumes those outputs; it does not re-derive them.
+
+**One rule from `09_subskills.md` is important enough to sit here too: a fund Sell goes to the
+client only when BOTH fund frameworks are independently at Sell, and a Buy on either side vetoes
+it.** The published Sell in `ionic_scores_*.csv` is struck on one framework's two horizons, which is
+not the same test. That discrepancy is a method question for the desk, not something to resolve in a
+build - so before a fund Sell goes out, check it against both frameworks or get FM sign-off.
 
 ---
 

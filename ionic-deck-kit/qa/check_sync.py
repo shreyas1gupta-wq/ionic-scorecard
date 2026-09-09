@@ -199,7 +199,7 @@ def check_skill():
         os.path.join("references", f) for f in (
             "01_pipeline.md", "02_calls_and_scoring.md", "03_client_directives.md",
             "04_tax.md", "05_mapping.md", "06_firm_pages.md", "07_qa_gates.md",
-            "08_do_not_regress.md")]
+            "08_do_not_regress.md", "09_subskills.md")]
     gone = [f for f in need if not os.path.exists(os.path.join(sk, f))]
     if gone:
         fail("Shreyas_Review_Skill", "incomplete: missing " + ", ".join(gone))
