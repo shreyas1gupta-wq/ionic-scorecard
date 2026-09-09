@@ -41,6 +41,7 @@ import tag_risk_liquidity as RL                                            # noq
 import ips_profiles as IPSP                                                # noqa: E402
 import build_ips as IPSB                                                   # noqa: E402
 import tax_engine as TAXE                                                  # noqa: E402
+import client_copy as CC                                                  # noqa: E402
 import engine as ENG                                                       # noqa: E402
 import tiers                                                               # noqa: E402
 
@@ -187,9 +188,13 @@ def main():
         print(f"    {len(miss)} scheme(s) absent from the score file, rendered as No View: {miss}")
 
     # ---- 3. one call per SCHEME, never per plan --------------------------------------------------
-    for _c in ("consistency", "hit_rate", "months"):
+    # An older score file simply has no consistency and no capture; every page that reads one of
+    # these self-gates and renders nothing rather than a blank column, so a missing column is a
+    # smaller deck and never a wrong one.
+    for _c in ("consistency", "hit_rate", "months",
+               "up_capture", "down_capture", "capture_months", "capture_ref"):
         if _c not in M.columns:
-            M[_c] = None          # an older score file simply has no consistency; the page self-gates
+            M[_c] = None
     if "asset_class" not in M.columns:
         M["asset_class"] = ""
     M["asset_class"] = M["asset_class"].fillna("").astype(str)
@@ -200,7 +205,11 @@ def main():
               score=("score", "first"),
               consistency=("consistency", "first"),
               hit_rate=("hit_rate", "first"),
-              months=("months", "first")).reset_index())
+              months=("months", "first"),
+              up_capture=("up_capture", "first"),
+              down_capture=("down_capture", "first"),
+              capture_months=("capture_months", "first"),
+              capture_ref=("capture_ref", "first")).reset_index())
     G["_o"] = G["call"].map(ORDER).fillna(9)
     G = G.sort_values(["_o", "value"], ascending=[True, False]).drop(columns="_o")
     # ---- 3a. the rest of the book -----------------------------------------------------------
@@ -347,7 +356,20 @@ def main():
                   hit_rate=(None if pd.isna(r.hit_rate) else float(r.hit_rate)),
                   cons_months=(None if pd.isna(r.months) else int(r.months)),
                   structural_reason=r.rationale, bench_label="", exemplar="-",
-                  hit3y=None, alpha_t=None, ter=None, up_capture=None, down_capture=None,
+                  hit3y=None, alpha_t=None, ter=None,
+                  # PUBLISHED, not None. Four modules have read these fields since the kit was
+                  # written -- the equity fund table, the hybrid page, the per-scheme scorecards
+                  # and the appendix methodology row -- and every one of them got None on every
+                  # build, so the equity page skipped its capture panel and the scorecards printed
+                  # a dash. The reference travels with the number: it is the scheme's own SEBI
+                  # category peer average, NOT an index, and any page printing it says so.
+                  up_capture=(None if pd.isna(getattr(r, "up_capture", None))
+                              else float(r.up_capture)),
+                  down_capture=(None if pd.isna(getattr(r, "down_capture", None))
+                                else float(r.down_capture)),
+                  capture_months=(None if pd.isna(getattr(r, "capture_months", None))
+                                  else int(r.capture_months)),
+                  capture_ref=(str(getattr(r, "capture_ref", "") or "").strip() or None),
                   max_dd=None, worst_1y=None, sortino=None, calmar=None, cagr3y=None,
                   bench_cagr3y=None, alpha_ann=None, info_ratio=None, r2=None, flags=[],
                   perf_flag=(r.call in ("Sell", "Trim", "Hold (watch)")))
@@ -441,10 +463,23 @@ def main():
             sector=(_t("sector") or None),
             ionic_score=_f("ionic_score"), score_3y=_f("score_3y"), score_1y=_f("score_1y"),
             growth_pct=_f("growth_pct"),
-            rationale=_t("rationale"), negative_para=_t("negative_para"),
-            positive=_t("positive_para"), reverse_dcf=_t("reverse_dcf"),
-            summary=_t("summary"), holding_years=None,
-            structural_reason=_t("rationale") or f.get("structural_reason") or "",
+            rationale=CC.clean(_t("rationale")),
+            negative_para=CC.clean(_t("negative_para")),
+            positive=CC.clean(_t("positive_para")),
+            reverse_dcf=CC.clean(_t("reverse_dcf")),
+            summary=CC.clean(_t("summary")), holding_years=None,
+            # THE REASON A CLIENT IS GIVEN, not the analyst's working note. `rationale` is written
+            # by the desk for the desk: on the current file 373 of 750 of them discuss the model
+            # by name, quote its two horizon scores and cite the file a number came from. Handing
+            # that over is both internal-vocabulary leakage and method disclosure, and the
+            # workbook was doing exactly that in a column headed "Why".
+            #
+            # A Sell is explained by the case against the name. A Hold is explained by what the
+            # business is and how it is trading. Neither needs the model described to the client.
+            structural_reason=(
+                CC.clean(_t("negative_para") or _t("summary"), 320) if _call in ("Sell", "Trim")
+                else CC.clean(_t("summary") or _t("negative_para"), 320) if _call.startswith("Hold")
+                else "") or f.get("structural_reason") or "",
             rec=_call, verdict=_call))
     if _shares:
         print(f"    {_n_share_call} of {len(_shares)} direct shares carry a published call; "
@@ -708,17 +743,17 @@ def main():
     # schemes on the sell list. Nothing that cannot be computed is given a number: money taxed at
     # the holder's own slab is carried through in rupees and said so.
     _LOTS = TAXE.load_lots(a.lots) if a.lots else {}
+    # THE HOLDER COUNT COMES FROM THE STATEMENT, NOT THE LOT FILE. The lot file covers only the
+    # schemes one platform holds, so on this family it saw two people where the book has three,
+    # and the deck and the workbook then applied a different Section 112A exemption to the same
+    # programme. The statement is the population both artefacts share.
+    _HOLDER_NAMES = TAXE.named_holders(H["holder"]) if "holder" in H.columns else set()
+    _N_HOLDERS = max(1, len(_HOLDER_NAMES))
     if _LOTS:
-        _holders = set()
-        for _v in _LOTS.values():
-            _holders |= set(_v.get("members") or [])
-        _N_HOLDERS = max(1, len(_holders))
         print(f"  lots      : {os.path.basename(a.lots)} -> {len(_LOTS)} schemes, "
-              f"{_N_HOLDERS} holder(s); short-term units Rs "
+              f"{_N_HOLDERS} named holder(s) in the statement; short-term units Rs "
               f"{sum(v['stcg_val'] for v in _LOTS.values()):,.0f}, post-Apr-2023 debt units Rs "
               f"{sum(v['other_val'] for v in _LOTS.values()):,.0f}")
-    else:
-        _N_HOLDERS = 1
 
     _TAX_ROWS, _GROSS, _LT, _ST, _SLAB = [], 0.0, 0.0, 0.0, 0.0
     _EQ_LT_GAIN, _n_priced, _no_basis, _UNDATED = 0.0, 0, 0, 0.0

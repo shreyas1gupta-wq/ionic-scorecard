@@ -68,6 +68,42 @@ def check_scores():
     fa = _asof(prod[-1])
     ok("fund scores", f"{os.path.basename(prod[-1])} as of {fa}")
 
+    # COLUMNS THE DECK READS. A column the deck asks for and the file does not carry does not
+    # error: the page self-gates and renders nothing, which looks on the finished deck exactly
+    # like a page the desk chose not to include. up_capture and down_capture were read by four
+    # modules from the day the kit was written and published by nothing, so the equity fund page
+    # skipped its capture panel on every build and the per-scheme scorecards printed a dash.
+    try:
+        import csv
+        with open(prod[-1], encoding="utf-8-sig", newline="") as fh:
+            cols = set(next(csv.reader(fh)))
+    except Exception as e:
+        warn("fund score columns", f"could not read the header: {e}")
+        cols = set()
+    REQUIRED = {"isin", "scheme", "category", "score", "call", "rationale"}
+    OPTIONAL = {
+        "consistency": "the steadiness column on the fund book",
+        "hit_rate": "months-ahead-of-peers",
+        "months": "the length of record behind the score",
+        "up_capture": "the capture panel on the equity fund page and the per-scheme scorecards",
+        "down_capture": "the capture panel on the equity fund page and the per-scheme scorecards",
+        "capture_ref": "the reference a capture ratio is struck against, which must be printed "
+                       "beside it - a ratio with no stated reference reads as against an index",
+    }
+    if cols:
+        gone = sorted(REQUIRED - cols)
+        if gone:
+            fail("fund score columns", "missing " + ", ".join(gone))
+        starved = sorted(k for k in OPTIONAL if k not in cols)
+        if starved:
+            warn("fund score columns",
+                 "the file carries no " + ", ".join(starved) +
+                 ". The pages that read them render nothing, which on a finished deck is "
+                 "indistinguishable from a page the desk chose not to include. Re-publish with "
+                 "09_PRODUCT/scripts/export_score_file.py to fill them.")
+        else:
+            ok("fund score columns", "every column the deck reads is present")
+
     if not stocks:
         warn("stock scores", "no ionic_stock_scores_*.csv. Every direct share carries No View and "
                              "the equity-book pages are skipped.")

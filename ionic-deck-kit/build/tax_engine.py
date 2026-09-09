@@ -117,6 +117,25 @@ def _match(lots, name):
     return hits[0] if len(hits) == 1 else None
 
 
+def named_holders(series):
+    """The distinct NAMED INDIVIDUALS in a holder column.
+
+    The Section 112A exemption is per PERSON per year, so the count has to be people. A statement's
+    holder column also carries labels that are not people - "Family", "Joint", a blank - and a
+    joint holding arrives as one string naming two. Counting rows, or counting distinct strings,
+    gives a different exemption in the deck and in the workbook for the same book, and a client
+    comparing the two finds them Rs 31,250 apart with nothing to explain it.
+    """
+    NOT_A_PERSON = {"family", "joint", "huf", "not stated", "nan", ""}
+    out = set()
+    for v in series:
+        for part in str(v or "").replace("&", ",").replace("/", ",").split(","):
+            p = " ".join(part.split()).strip().title()
+            if p and p.lower() not in NOT_A_PERSON:
+                out.add(p)
+    return out
+
+
 def is_equity_oriented(asset_class, sub_category, name):
     a = str(asset_class or "").strip().lower()
     sub = str(sub_category or "")
