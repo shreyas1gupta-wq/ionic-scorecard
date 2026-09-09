@@ -38,7 +38,12 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SKILL_NAME = "Shreyas_Review_Skill"
 REL_SKILL = f".claude/skills/{SKILL_NAME}/SKILL.md"
 REL_VERSION = f".claude/skills/{SKILL_NAME}/VERSION.json"
-DELIVERY_BRANCH = "master"
+# THE BRANCH THIS SKILL IS ACTUALLY ON. It declared master and lived on demo/deck-kit, so the
+# self-update returned 404 for every recipient -- a version check that always says "unknown" is
+# worse than none, because it trains the reader to ignore it. Naming the real branch makes the
+# check work today. When the work lands on master, change this line in the same commit as the
+# merge, never before it: the manifest must never claim a branch it is not on.
+DELIVERY_BRANCH = os.environ.get("IONIC_SKILL_BRANCH", "demo/deck-kit")
 REPO_RAW = ("https://raw.githubusercontent.com/shreyas1gupta-wq/ionic-scorecard/"
             f"{DELIVERY_BRANCH}/")
 TIMEOUT = 20

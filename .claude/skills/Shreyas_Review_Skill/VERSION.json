@@ -4,7 +4,7 @@
   "sequence": 9,
   "released": "2026-09-08",
   "author": "Shreyas Gupta",
-  "delivery_branch": "master",
+  "delivery_branch": "demo/deck-kit",
   "repo": "https://github.com/shreyas1gupta-wq/ionic-scorecard",
   "supersedes": [
     "ionic-wealth-complete",
@@ -15,6 +15,7 @@
     "Ionic_Portfolio_Review (the deep reference for the scoring chain itself)"
   ],
   "changes": [
+    "The delivery branch is demo/deck-kit, which is where this skill actually is. It declared master and was never on it, so check_version returned unknown for every recipient. Merging to master is a separate decision and this line changes in the same commit as that merge, never before it.",
     "check_version.py --update now fetches references/*.md as well as SKILL.md and VERSION.json. It copied only the two, so a recipient who updated got a current front page pointing at nine reference files they did not have. The list comes from reference_files in this manifest, so a future release can add a tenth without editing the script.",
     "check_sync.py now fails on the SCORING METHOD being tracked in the public repo, not just the score files. Twelve such files were tracked and pushed; the gate listed only the kit's own filenames, which is why it never fired.",
     "slidekit.fmt_score: one formatter, and a score of 0 reads \"<1\". A printed 0 reads as missing data and the desk forbids it; 0 is not missing (the fund score is the share of its own peer group a scheme beat, so 0 means it beat none) and blanking it would hide 52 rows, every one a Sell.",
