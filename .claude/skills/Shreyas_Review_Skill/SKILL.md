@@ -16,6 +16,12 @@ review the way this desk produces it is either in this file or in `references/`.
 > python check_version.py
 > ```
 > A skill dropped into `.claude/skills/` is a *copy* and does not track the repository.
+> `--update` fetches SKILL.md, VERSION.json **and** all nine `references/*.md`.
+>
+> **Run it from inside a clone.** The delivery branch is `demo/deck-kit`
+> (`IONIC_SKILL_BRANCH` overrides it), and the `git` path reads it correctly. The standalone HTTPS
+> fallback times out on this office network — verified, an SSL handshake timeout through the
+> corporate proxy, not a missing file. A loose copy on a home connection will resolve it.
 
 ---
 
