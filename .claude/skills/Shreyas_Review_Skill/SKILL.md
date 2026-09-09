@@ -1,9 +1,9 @@
 ---
 name: Shreyas_Review_Skill
-description: The single operating manual for producing an Ionic Wealth portfolio-review deck end to end - statement in, client deck and client workbook out. Covers the deck kit (ionic-deck-kit), the two centrally published score files and their order of precedence, client-directive overlays, the lot-aware tax engine, risk and liquidity mapping, the grafted firm pages, and the QA gates. Use whenever an advisor hands over a CAS, CAMS, Kfintech, NSDL or platform holdings export and wants the standard review. Supersedes ionic-wealth-complete, ndpms-deck and the ionic-deck-kit SKILL; Ionic_Portfolio_Review remains the deep reference for the scoring chain itself. v1.5
+description: The single operating manual for producing an Ionic Wealth portfolio-review deck end to end - statement in, client deck and client workbook out. Covers the deck kit (ionic-deck-kit), the two centrally published score files and their order of precedence, client-directive overlays, the lot-aware tax engine, risk and liquidity mapping, the grafted firm pages, and the QA gates. Use whenever an advisor hands over a CAS, CAMS, Kfintech, NSDL or platform holdings export and wants the standard review. Supersedes ionic-wealth-complete, ndpms-deck and the ionic-deck-kit SKILL; Ionic_Portfolio_Review remains the deep reference for the scoring chain itself. v1.6
 ---
 
-<!-- SKILL: Shreyas_Review_Skill | VERSION: v1.5 | SEQUENCE: 6 -->
+<!-- SKILL: Shreyas_Review_Skill | VERSION: v1.6 | SEQUENCE: 7 -->
 
 # Shreyas Review Skill
 
@@ -63,7 +63,7 @@ PYTHONIOENCODING=utf-8 "$PY" build/run_review.py \
     --tier HNI_DEEP \
     --directives "C:/tmp/<client>/client_directives.json" \
     --lots "C:/tmp/<client>/tax_lots_raw.csv" \
-    --firm-deck "<a deck carrying the firm's introduction pages>"
+    --firm-deck "<a deck carrying the firm's introduction pages>"     --target-return 15 --target-return-high 18
 ```
 
 `run_review.py` runs `build_review.py`, then `graft_firm_pages.py`, then all three QA gates. It
@@ -83,6 +83,7 @@ the deck say **less**, never anything untrue:
 | `--lots` | prices a gain only where the statement carries a cost, cannot tell short-term from long, and says so on the page |
 | `--directives` | shows only the desk's own calls |
 | `--firm-deck` | ships without the introduction pages rather than with invented credentials |
+| `--target-return` | the "what your target requires" page does not render at all - a target nobody stated is one this desk invented |
 
 `--skip-gates` exists for iterating. A deck built with it prints UNCHECKED and does not go out.
 

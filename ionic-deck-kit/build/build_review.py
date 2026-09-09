@@ -98,6 +98,17 @@ def main():
     ap.add_argument("--directives", default=None,
                     help="a JSON file of CLIENT instructions, applied on top of the desk's "
                          "published calls and labelled separately from them.")
+    # THE CLIENT'S OWN RETURN AMBITION, if they have stated one. Given, the deck can show what
+    # that number REQUIRES of the growth sleeve once the part of the book that cannot move is set
+    # aside. Not given, the page does not render: a target nobody stated is a target this desk
+    # invented, and the arithmetic built on it would be presented as the client's own.
+    ap.add_argument("--target-return", default=None, type=float,
+                    help="the client's stated return ambition, in %% a year (e.g. 15). Where a "
+                         "range was stated, pass the LOW end and --target-return-high for the top.")
+    ap.add_argument("--target-return-high", default=None, type=float)
+    ap.add_argument("--defensive-yield", default=6.5, type=float,
+                    help="the assumed yield on the fixed-income and cash sleeve, in %% a year. A "
+                         "disclosed assumption, printed on the page, never presented as a fact.")
     ap.add_argument("--lots", default=None,
                     help="a capital-gains LOT file (CSV) carrying LTCG / STCG / other-income "
                          "units per scheme. Without it the tax page can only price a gain where "
@@ -1103,6 +1114,22 @@ def main():
         # WHO OWNS WHAT, AND WHO THE PLAN LANDS ON. Absent a holder column this is {} and the
         # page renders nothing, which is right: a single-holder book has no family question.
         "family_book": FAMILY,
+        # WHAT THE CLIENT'S OWN TARGET REQUIRES. Empty unless a target was passed on the command
+        # line, and the page renders nothing when it is empty.
+        "return_target": ({
+            "low_pct": a.target_return,
+            "high_pct": a.target_return_high,
+            "defensive_yield_pct": a.defensive_yield,
+            "defensive_pct_now": round(FI_VAL / GRAND * 100, 1) if GRAND else 0.0,
+            "growth_pct_now": round((GRAND - FI_VAL) / GRAND * 100, 1) if GRAND else 0.0,
+            # The part of the book that cannot carry the mandate: money in another member's name
+            # plus anything the client has been told cannot be redeemed on request. Both are
+            # facts about this book, not judgements about it.
+            "immovable_inr": (
+                sum(m["value_inr"] for m in (FAMILY.get("pooled") or []))
+                + sum(float(r.get("value_inr") or 0.0) for r in _ALL_ROWS
+                      if _call_of(r) == "Retain")),
+        } if a.target_return else {}),
         # The firm's own credentials, published centrally beside the calls. Absent, the
         # introduction pages render nothing at all rather than inventing an AUM.
         "firm": FIRM,

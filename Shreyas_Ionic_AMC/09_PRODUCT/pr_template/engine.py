@@ -116,6 +116,9 @@ MODULES = [
     # A family book is not one portfolio. This page names who holds what and who the plan lands
     # on, and it renders nothing on a single-holder book. It sits BEFORE priority actions, because
     # the answer to "who signs this" belongs before the list of what to sign.
+    # What the client's own stated return ambition requires of the money that can move. Renders
+    # nothing unless a target was passed: a target nobody stated is one this desk invented.
+    ("return_arithmetic",  4, "Recommendations", True),
     ("family_implementation", 4, "Recommendations", True),
     ("priority_actions",   4, "Recommendations", True),
     # growth_projection: MOVED from Annexure into Recommendations (Principal 2026-07-27,
@@ -198,6 +201,7 @@ DIVIDER_TOC = {
         ("hold_rationale", "What stays, and why")],
     4: [("house_view_fit", "House-view fit"), ("cost", "What you're paying today"),
         ("tax_impact", "Tax impact"),
+        ("return_arithmetic", "What your target requires"),
         ("family_implementation", "Implementation across the family"),
         ("priority_actions", "Your priority actions")],
     5: [("deployment", "Transition framework"), ("before_after", "Before and after"),

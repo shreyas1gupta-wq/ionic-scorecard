@@ -71,6 +71,16 @@ def main():
     ap.add_argument("--lots", default=None,
                     help="a capital-gains lot file (CSV). Without it the tax page cannot tell a "
                          "short-term unit from a long-term one and says so.")
+    # PASSED STRAIGHT THROUGH. A flag the runner does not know about is a flag nobody can use
+    # from the one command the skill tells them to run, so the runner has to carry every input
+    # build_review takes.
+    ap.add_argument("--target-return", default=None, type=float,
+                    help="the client's stated return ambition, %% a year. Without it the "
+                         "\"what your target requires\" page does not render.")
+    ap.add_argument("--target-return-high", default=None, type=float)
+    ap.add_argument("--defensive-yield", default=None, type=float,
+                    help="assumed yield on the fixed-income and cash sleeve, %% a year "
+                         "(default 6.5, printed on the page as the desk's assumption)")
     ap.add_argument("--firm-deck", default=None,
                     help="a reference deck to lift the firm's introduction pages from. Omitted, "
                          "the deck ships without them rather than with invented ones.")
@@ -96,6 +106,12 @@ def main():
         cmd += ["--directives", a.directives]
     if a.lots:
         cmd += ["--lots", a.lots]
+    if a.target_return:
+        cmd += ["--target-return", str(a.target_return)]
+    if a.target_return_high:
+        cmd += ["--target-return-high", str(a.target_return_high)]
+    if a.defensive_yield:
+        cmd += ["--defensive-yield", str(a.defensive_yield)]
     st = _run(cmd, "build")
     steps.append(st)
     print(st["output"].rstrip())
@@ -183,7 +199,9 @@ def main():
         "client": a.client, "tier": a.tier, "profile": a.profile,
         "run_at": time.strftime("%Y-%m-%d %H:%M:%S"),
         "inputs": {"statement": a.statement, "directives": a.directives, "lots": a.lots,
-                   "firm_deck": a.firm_deck},
+                   "firm_deck": a.firm_deck, "target_return": a.target_return,
+                   "target_return_high": a.target_return_high,
+                   "defensive_yield": a.defensive_yield},
         # NAMED FOR WHAT THEY ARE. Two workbooks land in out/: the formatted seven-sheet one that
         # goes to the client, and the raw frame it was built from, which exists to reconcile
         # against and is not a client artefact. A manifest calling both "workbook" is how the

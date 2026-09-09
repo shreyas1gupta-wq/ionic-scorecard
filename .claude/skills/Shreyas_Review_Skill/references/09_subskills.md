@@ -217,3 +217,38 @@ deposit, the desk does not know whose it is, and guessing would credit a defensi
 who may not own it. The pool gets its own row marked *not attributable* and its own note, because on
 a book that is selling its fixed income the pool is what is left — which makes the split a
 precondition for the plan rather than a housekeeping item.
+
+---
+
+## 8. What a stated target requires, and what this deck will not do
+
+`modules/return_arithmetic.py`, from `ctx["return_target"]`, and it renders **nothing** without
+`--target-return`. A target nobody stated is a target this desk invented, and every figure built on
+it would then be presented to the client as their own number.
+
+It runs the arithmetic the *other* way from the growth-projection page. That page asks what this book
+might do, from this book's holdings. This one starts from the number the client named, sets aside the
+part of the book that cannot carry the mandate — money in another member's name, plus anything the
+client has been told cannot be redeemed on request — and says what the rest would have to compound
+at. A constraint, not a forecast.
+
+**It is not a Buy and names no product.** Where the required rate passes 20% it says the number is
+not one this desk will present as achievable, and that the ambition is reachable on the part of the
+book that can actually be invested for it. Restating a target as unreachable is the opposite of a
+solicitation.
+
+The defensive sleeve's yield is an **assumption**, passed in with `--defensive-yield` (6.5% by
+default), printed on the page, and attributed to the desk rather than to any statement.
+
+### The line this product does not cross
+
+A **proposed model portfolio with named products** is a Buy recommendation, and two standing rules
+forbid it: no client Buy is ever issued, and the `deployment` / `opportunity_set` /
+`annex_mcap_migration` / `annex_liquidity_ladder` / `annex_returns_quilt` modules were cut
+permanently (2026-07-28) as sell-biased or redeployment-implying. They remain in the library,
+rendered nowhere.
+
+So where an advisor's brief asks for a proposed allocation, this deck delivers the half that is not
+a solicitation — the constraint arithmetic, the house-view fit, and what the plan frees — and the
+proposal itself is a separate conversation with the desk. **Do not enable those modules to satisfy a
+brief.** Reversing a permanent cut is the Principal's call, not a build decision.
