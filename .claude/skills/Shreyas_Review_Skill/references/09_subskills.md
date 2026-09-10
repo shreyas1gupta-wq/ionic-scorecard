@@ -16,30 +16,52 @@ named here rather than duplicated.
 
 ---
 
-## 1. A fund Sell needs BOTH frameworks to agree
+## 1. How a fund Sell originates: ORIGINATE-AND-VETO
 
-**The desk's rule (Principal, wording corrected 2026-07-26):** a fund Sell or Exit goes to the
-client **only when both frameworks are independently at Sell.** A Buy or a high score on *either*
-side **vetoes** the Sell.
+**This section previously said "a fund Sell goes to the client only when both frameworks are
+independently at Sell". That rule cannot fire.** The long-term framework has **no Sell verdict at
+all** — its verdicts are Active / Index-core and it can only ever veto — so a test requiring both
+to be at Sell is unsatisfiable, and a reader applying it loosely would fire on the wrong pair. The
+rule as ruled (Principal, 2026-08-04, options A+B+C) and as implemented in `merge_calls()` is:
 
-- one says Sell, the other Hold → **Hold**
-- both Hold → Hold
-- structural actions (Redeem-to-Direct, a mandate switch) are **exempt** — they are plan and
-  category facts, not performance calls
+| framework | role |
+|---|---|
+| **short-term** (`qfra1-rerun`, capture-ratio) | **originates.** The only one with a Sell verdict, and the only one with a replayed backtest |
+| **long-term** (`qfra2-rerun`, SIP) | **vetoes.** A CALIBRE **A or B** grade blocks the Sell → Hold, and raises a CONTRADICTION. C and D do not veto. It can never originate a Sell |
+| neither has coverage | Hold, with a gap note |
 
-The older wording, "both non-Hold", is wrong and must not be used: it is satisfied by one side Buy
-and the other Sell, which is exactly the silent contradiction the rule exists to prevent.
+**A contradiction must reach a human.** `merge_calls()` returns it as a string precisely so it is
+never silently resolved. Structural actions — Redeem-to-Direct, a mandate switch — are exempt from
+the whole mechanism: they are plan and category facts, not performance calls.
 
-**Coverage gap, verified:** the long-term framework covers focused and value/contra categories that
-the short-term dashboard has no sheet for. In those two categories a Sell is *necessarily*
-single-framework, needs explicit FM sign-off, and must be labelled as such.
+**Coverage gap, verified:** the long-term framework covers focused and value/contra categories the
+short-term dashboard has no sheet for. There a Sell is necessarily single-framework, needs explicit
+FM sign-off, and must be labelled as such.
 
-> **A live discrepancy, flagged rather than fixed.** `export_score_file.py` issues a Sell on the
-> percentile rule — bottom third of the scheme's own category on **both horizons** of one method.
-> That is two horizons of one framework, not two frameworks. Whether a published Sell therefore
-> satisfies the dual-framework rule is a **method question for the desk**, and calls are fixed
-> centrally, so this manual does not resolve it. If you are about to send a fund Sell, check it
-> against both frameworks or get FM sign-off. Do not quietly reinterpret either rule.
+### The honest reading of the Sell backtest
+
+Measured 2026-08-04 over 906 formations, 2012-2024, all six category sheets. **Do not overstate
+it:**
+
+- **Buy** cohort, Apr/Oct pooled: median +2.59%, hit 66% — robust
+- **Sell** cohort, Apr/Oct pooled: median −0.57%, hit **49.3%** — a coin flip
+
+The replay is strong on the buy leg and weak on the sell leg. That is a reason to keep the veto and
+the FM sign-off, and a reason never to present a fund Sell to a client as backtested.
+
+### THE DECK KIT USES A THIRD RULE, and you should know which one you are looking at
+
+`ionic-deck-kit` reads `ionic_scores_*.csv`, which `export_score_file.py` produces on the
+**percentile rule**: Sell where the scheme sits in the bottom third of its own SEBI category on
+**both** the three-year and five-year horizons, Hold otherwise, with a desk ruling in
+`desk_calls.csv` overriding everything. That is neither originate-and-veto nor a two-framework
+test — it is one method over two horizons.
+
+So the firm currently has **two live fund-call paths**: the adapter path (originate-and-veto, used
+by the legacy hand-written-context builds) and the exporter path (percentile, used by every deck
+this kit produces). They can disagree on the same fund. Which is correct is a **method question for
+the desk**, and calls are fixed centrally, so this manual does not resolve it. Before a fund Sell
+goes out, know which path produced it, and get FM sign-off where the two would differ.
 
 ---
 

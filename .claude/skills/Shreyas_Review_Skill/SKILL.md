@@ -1,9 +1,9 @@
 ---
 name: Shreyas_Review_Skill
-description: The single operating manual for producing an Ionic Wealth portfolio-review deck end to end - statement in, client deck and client workbook out. Covers the deck kit (ionic-deck-kit), the two centrally published score files and their order of precedence, client-directive overlays, the lot-aware tax engine, risk and liquidity mapping, the grafted firm pages, and the QA gates. Use whenever an advisor hands over a CAS, CAMS, Kfintech, NSDL or platform holdings export and wants the standard review. Supersedes ionic-wealth-complete, ndpms-deck and the ionic-deck-kit SKILL; Ionic_Portfolio_Review remains the deep reference for the scoring chain itself. v1.8
+description: The single operating manual for producing an Ionic Wealth portfolio-review deck end to end - statement in, client deck and client workbook out. Covers the deck kit (ionic-deck-kit), the two centrally published score files and their order of precedence, client-directive overlays, the lot-aware tax engine, risk and liquidity mapping, the grafted firm pages, and the QA gates. Use whenever an advisor hands over a CAS, CAMS, Kfintech, NSDL or platform holdings export and wants the standard review. Supersedes ionic-wealth-complete, ndpms-deck and the ionic-deck-kit SKILL; Ionic_Portfolio_Review remains the deep reference for the scoring chain itself. v1.9
 ---
 
-<!-- SKILL: Shreyas_Review_Skill | VERSION: v1.8 | SEQUENCE: 9 -->
+<!-- SKILL: Shreyas_Review_Skill | VERSION: v1.9 | SEQUENCE: 10 -->
 
 # Shreyas Review Skill
 
@@ -192,11 +192,20 @@ For the scoring chain itself - how a stock score is computed, the frozen v3 laye
 research pass - `Ionic_Portfolio_Review` remains the deep reference, and the two framework reruns
 stay their own skills. This skill consumes those outputs; it does not re-derive them.
 
-**One rule from `09_subskills.md` is important enough to sit here too: a fund Sell goes to the
-client only when BOTH fund frameworks are independently at Sell, and a Buy on either side vetoes
-it.** The published Sell in `ionic_scores_*.csv` is struck on one framework's two horizons, which is
-not the same test. That discrepancy is a method question for the desk, not something to resolve in a
-build - so before a fund Sell goes out, check it against both frameworks or get FM sign-off.
+**One thing from `09_subskills.md` is important enough to sit here too: there are two live
+fund-call paths in this firm and they can disagree on the same fund.**
+
+- the **adapter path** is ORIGINATE-AND-VETO: the short-term capture framework originates a Sell,
+  the long-term framework can only veto one (a CALIBRE A or B grade blocks it and raises a
+  contradiction, which must reach a human). The long-term framework has **no Sell verdict at all**.
+- the **exporter path**, which is what **this kit reads**, is the percentile rule: Sell where the
+  scheme is in the bottom third of its own SEBI category on **both** horizons.
+
+An earlier version of this line said a Sell needs "both frameworks independently at Sell". That
+test can never fire, because one of the two has no Sell verdict to give. Which path is correct is a
+method question for the desk and calls are fixed centrally, so this manual does not resolve it:
+know which path produced the Sell in front of you, and get FM sign-off where the two would differ.
+And do not present a fund Sell as backtested — on the 906-formation replay the sell leg hits 49.3%.
 
 ---
 

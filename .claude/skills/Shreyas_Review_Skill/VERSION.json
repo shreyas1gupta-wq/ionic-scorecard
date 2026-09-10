@@ -1,7 +1,7 @@
 {
   "skill": "Shreyas_Review_Skill",
-  "version": "v1.8",
-  "sequence": 9,
+  "version": "v1.9",
+  "sequence": 10,
   "released": "2026-09-08",
   "author": "Shreyas Gupta",
   "delivery_branch": "demo/deck-kit",
@@ -15,6 +15,9 @@
     "Ionic_Portfolio_Review (the deep reference for the scoring chain itself)"
   ],
   "changes": [
+    "CORRECTION, and the most consequential one in this skill: the fund-Sell rule as written in v1.4-v1.8 (\"both frameworks independently at Sell\") CAN NEVER FIRE - the long-term framework has no Sell verdict at all. The ruled and implemented rule is ORIGINATE-AND-VETO: the short-term capture framework originates, the long-term one vetoes on a CALIBRE A or B grade and raises a contradiction that must reach a human. The deck kit uses a THIRD path, the exporter's percentile rule, and the two can disagree on the same fund; the manual now says so instead of asserting a test nobody can apply.",
+    "The Sell backtest is stated honestly: 906 formations, buy leg hits 66%, sell leg hits 49.3%. Never present a fund Sell as backtested.",
+    "Tier table replaced with measured page counts and the reason they vary (book size, not tier).",
     "The delivery branch is demo/deck-kit, which is where this skill actually is. It declared master and was never on it, so check_version returned unknown for every recipient. Merging to master is a separate decision and this line changes in the same commit as that merge, never before it.",
     "check_version.py --update now fetches references/*.md as well as SKILL.md and VERSION.json. It copied only the two, so a recipient who updated got a current front page pointing at nine reference files they did not have. The list comes from reference_files in this manifest, so a future release can add a tenth without editing the script.",
     "check_sync.py now fails on the SCORING METHOD being tracked in the public repo, not just the score files. Twelve such files were tracked and pushed; the gate listed only the kit's own filenames, which is why it never fired.",
