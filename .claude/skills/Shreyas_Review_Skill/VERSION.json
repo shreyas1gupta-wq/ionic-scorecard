@@ -1,7 +1,7 @@
 {
   "skill": "Shreyas_Review_Skill",
-  "version": "v1.9",
-  "sequence": 10,
+  "version": "v2.0",
+  "sequence": 11,
   "released": "2026-09-08",
   "author": "Shreyas Gupta",
   "delivery_branch": "demo/deck-kit",
@@ -15,6 +15,7 @@
     "Ionic_Portfolio_Review (the deep reference for the scoring chain itself)"
   ],
   "changes": [
+    "references/08_do_not_regress.md gains three sections from the 170-ask audit: the seven claims the deck made about itself and could not support, why a tier that does not change the deck is not a tier, and why the documented command must be tested on the fixture shipped beside it.",
     "CORRECTION, and the most consequential one in this skill: the fund-Sell rule as written in v1.4-v1.8 (\"both frameworks independently at Sell\") CAN NEVER FIRE - the long-term framework has no Sell verdict at all. The ruled and implemented rule is ORIGINATE-AND-VETO: the short-term capture framework originates, the long-term one vetoes on a CALIBRE A or B grade and raises a contradiction that must reach a human. The deck kit uses a THIRD path, the exporter's percentile rule, and the two can disagree on the same fund; the manual now says so instead of asserting a test nobody can apply.",
     "The Sell backtest is stated honestly: 906 formations, buy leg hits 66%, sell leg hits 49.3%. Never present a fund Sell as backtested.",
     "Tier table replaced with measured page counts and the reason they vary (book size, not tier).",

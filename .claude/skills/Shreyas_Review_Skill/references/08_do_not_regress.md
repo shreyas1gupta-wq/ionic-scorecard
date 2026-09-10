@@ -116,3 +116,47 @@ directory onto `sys.path`.
   client artefact are gitignored and stay that way.
 - **A client's real name never enters a public repo**, in code, in a commit message, or in a
   changelog entry describing the scrub.
+
+---
+
+## Claims the deck made and could not support
+
+Not one of these was a wrong number. Each was a sentence the deck printed about itself, on every
+build, that nothing in the pipeline backed.
+
+| what it said | what was true |
+|---|---|
+| "each call here carries a named reviewer's sign-off" and "every call passed a human review", rotated across a third of every deck's pages | no field records a reviewer or a review. Both deleted from the rotation |
+| "Direct-plan NAV against **total-return** benchmarks" in the always-on disclaimer | no TRI series is obtainable from the desk's sources. Every index level here is price-return, and the fund score is struck against the scheme's own category peers |
+| "Two frameworks today" over a page explaining originate-and-veto | this kit's Sells come off the percentile rule. `ctx["fund_call_method"]` now says which path produced the calls and the page prints that one |
+| "35 funds under one of the two checks", counted from the SEBI category | counted from whether a **score exists** now. A fund the score file has no score for was reported as covered, under a footer reading "coverage counted from this book's own holdings, not assumed" |
+| "a company is not in that population" on the coverage page | said in a deck that scored 113 single companies three pages earlier. It is outside the direct-equity universe the desk scores, which is a different and checkable statement |
+| "What stays, and why" promising one read per name | `analyst_read` is read by two pages and set by nothing, so all 99 Holds rendered a blank line |
+| a positive case under a red SELL pill: "operating margin strong, ROE strong, valuation reasonable, growth" | 9 of 160 Sell rows in the score file carry a case with no adverse attribute in it. The exporter emits only what leans with the call; the deck refuses an all-favourable recital under a Sell whatever the file says |
+
+**The lesson is one thing:** a sentence about process is a claim, and a claim needs a field behind
+it. If nothing in the pipeline can be pointed at, the sentence does not go on the page.
+
+## A tier that does not change the deck is not a tier
+
+`optional_on` was intersected with a two-name allow-list, so `HNI_DEEP`'s seventeen annexure
+modules collapsed to two and `HNI_DEEP` and `STANDARD` built the **same 60-page deck**. Three tiers
+that differed only in register, against a manual promising three different lengths.
+
+Modules that need data no statement carries are named in `DROP_ANNEX` **with the field each one
+needs**, verified by running them: each raises on its missing key *after* drawing its heading, which
+costs the whole page. Everything else is offered to the tier and self-gates.
+
+And page count is set by the **book**, not the tier: 64 / 62 / 34 on a 194-holding book, 37 / 37 /
+26 on a 20-holding one. Do not put a page count in a manual without saying what book it was
+measured on.
+
+## The documented command has to work on the fixture shipped beside it
+
+`build_client_workbook.py` did its own `pd.read_excel` and indexed a column literally named
+`"Asset Name"`. Running the one command the skill documents, on the kit's own
+`fixtures/demo_statement.xlsx`, built the deck and then died at `rc=2`. Half the delivered product,
+gone on any statement whose columns are named differently — which is the normal case, and the whole
+reason `parse/read_statement.py` finds its columns by vocabulary.
+
+**Test the documented path on the shipped fixture.** It is the only test that catches this class.
