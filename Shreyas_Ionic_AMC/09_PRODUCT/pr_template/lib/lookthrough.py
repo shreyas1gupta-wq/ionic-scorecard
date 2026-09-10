@@ -174,7 +174,18 @@ def full_lookthrough_mix(ctx):
             fund_others_w += w * others / 100.0
         else:
             cat = f.get("category")
-            if cat in _EQUITY_FUND_CATS:
+            # THE FUND'S OWN ASSET CLASS OUTRANKS ITS COARSE CATEGORY. engine_category files a
+            # gold ETF and a gold fund-of-fund as "passive", which is true of how they are run and
+            # false about what they hold, and "passive" is in the equity set -- so Rs 41.9 lakh of
+            # gold was counted as look-through EQUITY. Two pages of one deck then disagreed on the
+            # headline allocation by 3.66 points, with no way for a reader to tell which was
+            # right. Alternates is alternates however the sleeve is managed.
+            _ac = str(f.get("asset_class") or "").strip().lower()
+            if _ac == "alternates":
+                fund_others_w += w
+            elif _ac == "fixed income" and cat not in _DEBT_FUND_CATS:
+                fund_debt_w += w
+            elif cat in _EQUITY_FUND_CATS:
                 fund_eq_w += w
             elif cat in _DEBT_FUND_CATS:
                 fund_debt_w += w

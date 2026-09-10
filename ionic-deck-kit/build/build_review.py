@@ -1268,9 +1268,17 @@ def main():
             # holdings "with no performance view" -- the reader is told in one breath that the
             # money is moving and in the next that nobody has looked at it.
             "no_view": [{"name": r.scheme, "category": r.category, "value_inr": float(r.value),
-                         "reason": ("A share, not a scheme: the fund-quality framework scores "
-                                    "schemes against their own SEBI category, and a single company "
-                                    "is not in that population."
+                         # A DECK THAT SCORED 113 COMPANIES THREE PAGES EARLIER cannot tell the
+                         # client a company is outside the scored population because it is a
+                         # company. It is outside because it is not in the direct-equity universe
+                         # the desk scores, which is a different and checkable statement -- and
+                         # naming the fund framework here turned a deliberate house No View into
+                         # what reads like a coverage failure.
+                         "reason": ("Not in the direct-equity universe the desk scores. The "
+                                    "fund-quality framework ranks a scheme against its own SEBI "
+                                    "category and cannot score a single company; the stock "
+                                    "scorecard covers the largest names by market capitalisation "
+                                    "and this one is outside it."
                                     if str(r.isin).startswith("INE") else
                                     "Outside the coverage of the firm's fund-quality frameworks.")}
                         for r in G[G["call"] == "No View"].itertuples()
