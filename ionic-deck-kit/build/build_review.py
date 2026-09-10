@@ -1197,6 +1197,11 @@ def main():
         # inline in this file, which meant the house view was whatever the build script happened to
         # say that day and two advisors could send two different ones in the same week. It now comes
         # from scores/house_view.json alongside the calls, on the desk's own cadence.
+        # WHICH FUND-CALL PATH PRODUCED THESE CALLS. The firm has two, and the methodology page
+        # was describing the other one -- originate-and-veto over a book whose Sells came off the
+        # percentile rule. A page that explains a mechanism which did not produce the calls three
+        # pages later is a contradiction a client cannot see and an FM can.
+        "fund_call_method": "percentile",
         "house_view": HV,
         # WHAT THE CLIENT HAS ASKED FOR, in the client's own terms, carried to every page that
         # shows one of these rows. Without it the deck printed "Exit (client)" against a quarter
