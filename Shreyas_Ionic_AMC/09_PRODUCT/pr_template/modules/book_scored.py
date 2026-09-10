@@ -187,7 +187,12 @@ def render(deck, ctx, tier):
                 row.append(("dot", None if fill is None else F.to_rgb(fill),
                             DOT_SIMPLE if simple else 0.15))
         else:
-            row.append(clip_clause(e.get("analyst_read", ""), 58))
+            # analyst_read is set by nothing in this pipeline; read the same chain the Hold
+            # page reads so the column carries a reason rather than a blank.
+            row.append(clip_clause(
+                next((str(e.get(k) or "").strip() for k in
+                      ("analyst_read", "client_case", "structural_reason", "rationale", "summary")
+                      if str(e.get(k) or "").strip()), ""), 58))
         rows.append(row)
     ty = deck.table(s, ML, 2.98, UW, cols, rows, rowh=ROWH, fs=9, hfs=8, maxrows=nrows)
 

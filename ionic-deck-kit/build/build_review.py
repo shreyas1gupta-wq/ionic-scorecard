@@ -75,6 +75,26 @@ EXTRA_ON = {"all_holdings"}
 # holdings_detail is the direct-equity annexure and needs a Stock Scorecard per name; all_holdings
 # replaces it here and covers funds, shares and everything else on the fields we do have.
 KEEP_ANNEX = {"all_holdings", "appendix"}
+# Annexure modules that need data this pipeline structurally cannot supply, whatever the client.
+# Everything NOT listed here is offered to the tier and self-gates if it has nothing to say.
+#   holdings_detail   a per-name Stock Scorecard row set the score file does not carry
+#   scheme_overlap_full / fund_overlap   fund holdings lists; a NAV panel cannot produce them
+#   annex_correlation / scheme_correlation / annex_beta_ladder / annex_risk_contribution
+#                     a per-holding return series, which no holdings statement carries
+#   annex_income_ladder   coupon and maturity per instrument
+#   annex_goal_mapping    goals, which arrive from the advisor and not from a statement
+#   spotlight_holdings    needs `conviction`, an analyst field
+#   sell_cards            needs `pit_date`, the point-in-time date of the analyst note
+#   scheme_scorecards     needs the per-scheme risk battery (sortino, calmar, max_dd)
+#   annex_valuation_bands needs `pe` per name
+# Verified by running them: each raises on the missing key AFTER drawing its heading, which costs
+# the whole page and leaves one [ERR ] line in the build log. A module that cannot work on this
+# pipeline's data belongs on this list, not in the tier asking hopefully.
+DROP_ANNEX = {"holdings_detail", "scheme_overlap_full", "fund_overlap",
+              "annex_correlation", "scheme_correlation", "annex_beta_ladder",
+              "annex_risk_contribution", "annex_income_ladder", "annex_goal_mapping",
+              "spotlight_holdings", "sell_cards", "scheme_scorecards",
+              "annex_valuation_bands"}
 
 
 def latest_score_file():
@@ -314,7 +334,17 @@ def main():
     def _get(name):
         t = _orig(name)
         t["skip_core"] = set(t.get("skip_core", set())) | SKIP
-        t["optional_on"] = (set(t["optional_on"]) & KEEP_ANNEX) | EXTRA_ON
+        # LET THE TIER ASK, AND LET EACH MODULE ANSWER. This intersected every tier's optional set
+        # with a two-name allow-list, so HNI_DEEP's seventeen annexure modules collapsed to two and
+        # HNI_DEEP and STANDARD built the SAME 60-page deck -- three tiers that differ only in
+        # register, against a manual promising ~60-65, ~38-40 and ~19-23 pages.
+        #
+        # The allow-list existed because most annexure modules need a per-name Stock Scorecard the
+        # kit did not have. It has one now, and every module in this engine already self-gates:
+        # the probe pass runs the whole deck once and discards it precisely so a module with
+        # nothing to say can return 0. DROP_ANNEX keeps only the ones that need data no statement
+        # pipeline can supply, and everything else is asked and answers for itself.
+        t["optional_on"] = (set(t["optional_on"]) - DROP_ANNEX) | EXTRA_ON
         return t
 
     tiers.get = _get

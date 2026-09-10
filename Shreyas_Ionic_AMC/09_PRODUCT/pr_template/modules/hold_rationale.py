@@ -24,13 +24,33 @@ def _clip(txt, n):
     return clip_clause(txt, n)
 
 
+def _read_text(e, n):
+    """The one-line read on a Hold, from whatever field the data layer filled.
+
+    `analyst_read` is read here and by book_scored, and set by NOTHING in this pipeline. So the
+    only page in the deck that explains the Hold calls explained none of them: every read line
+    rendered blank, under a lead and a footer that each promise one per name. The Sell page had
+    the same defect on a different field name and was fixed by reading the whole chain; this is
+    that chain, in the order that leans WITH a Hold - the desk's own reason first, the summary of
+    what the business is next, and the analyst's negative paragraph LAST, because on a Hold that
+    paragraph is the case the desk considered and set aside.
+    """
+    for k in ("analyst_read", "client_case", "structural_reason", "rationale", "summary",
+              "positive", "reverse_dcf"):
+        v = str(e.get(k) or "").strip()
+        if v:
+            return clip_clause(v, n)
+    return "Held on the desk's published call; the note is on file with the analyst desk."
+
+
 def _entry(deck, s, x, y, w, e, read_len):
     """One holding: name + score bar on line 1, one-line read on line 2."""
     deck.txt(s, x, y, w - 1.5, 0.24,
              [(e["name"], SANS, 10.5, INK, True), ("   " + f"{e['weight_pct']:.2f}%", SANS, 9, SLATE, False)],
              anchor=MSO_ANCHOR.MIDDLE)
     deck.score_bar(s, x + w - 1.30, y + 0.05, e.get("ionic_score"), w=0.75)
-    deck.txt(s, x, y + 0.245, w, 0.22, [(_clip(e.get("analyst_read", ""), read_len), SERIF, 9, SLATE, False, True)])
+    deck.txt(s, x, y + 0.245, w, 0.22,
+             [(_read_text(e, read_len), SERIF, 9, SLATE, False, True)])
     deck.rule(s, x, y + 0.475, w, HAIR, 0.006)
 
 

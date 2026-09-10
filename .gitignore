@@ -134,3 +134,9 @@ _*.py
 vf_*.py
 qc_*.py
 rl_*.py
+
+# A DATA-FRESHNESS ACKNOWLEDGEMENT IS PER-MACHINE STATE, NOT SOURCE. The tracked copy held an ack
+# recorded on 2026-08-06 for a different, synthetic deck, naming a person as the reviewer and
+# carrying a local absolute path -- in a PUBLIC repository. A stale attestation is read as covering
+# whatever deck is in front of the reader.
+check_freshness_last_ack.json

@@ -129,14 +129,27 @@ separate command it is a step somebody forgets, and forgetting it sends the raw 
 
 ## 2. Tiers
 
-| tier | audience | slides | register |
+| tier | audience | register | annexure |
 |---|---|---|---|
-| `HNI_DEEP` | family office / sophisticated HNI | ~60-65 | technical, full annexure |
-| `STANDARD` | typical NDPMS client | ~38-40 | professional |
-| `RM_SIMPLE` | RM-led or newer investor | ~19-23 | plain language, larger type |
+| `HNI_DEEP` | family office / sophisticated HNI | technical, full methodology | everything the data supports |
+| `STANDARD` | typical NDPMS client | professional, accessible | before/after, growth projection, appendix |
+| `RM_SIMPLE` | RM-led or newer investor | plain language, larger type | none |
 
-Build the tier the advisor asked for. Do not ship `HNI_DEEP` to an RM meeting because it is more
-thorough; the registers are different documents, not different lengths.
+**Page count is set by the book, not by the tier.** Measured on this pipeline: a 194-holding family
+book builds 64 / 62 / 34 pages; a 20-holding book builds 37 / 37 / 26. The fund book, the equity
+book and the holdings annexure all paginate with the number of holdings, so a large book in
+`STANDARD` is longer than a small one in `HNI_DEEP`. An older version of this table promised
+"~60-65 / ~38-40 / ~19-23"; those were the legacy hand-written-context decks and they are not what
+this pipeline produces.
+
+**The registers are different documents, not different lengths.** Build the tier the advisor asked
+for; do not ship `HNI_DEEP` to an RM meeting because it is more thorough.
+
+Some annexure modules need data no holdings statement carries - a per-name Stock Scorecard row, a
+per-holding return series, coupon and maturity, the client's goals. Those are named in
+`DROP_ANNEX` in `build_review.py` with the field each one needs, and they are not offered to any
+tier. Everything else is offered and **self-gates**: the engine builds the deck once and discards
+it, so a module with nothing to say returns 0 and its page simply does not appear.
 
 ---
 

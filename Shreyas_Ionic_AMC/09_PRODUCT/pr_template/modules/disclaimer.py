@@ -18,8 +18,14 @@ _BASE = ("This document is a review of existing holdings prepared for the named 
         "is executed until the client authorises it. The Ionic Score is a quantitative input reviewed "
         "by the Portfolio Review team; it is not a guarantee of future performance. Tax characterisations "
         "are indicative · confirm with the client's tax adviser before dealing. Mutual-fund evaluation "
-        "uses Direct-plan NAV against total-return benchmarks, point-in-time. Past performance is not "
-        "indicative of future results.")
+        # NOT "total-return benchmarks". The desk checked (DATA_QUALITY_RULES, 2026-08-06): no TRI
+        # series is obtainable from the sources it has, so every index level in this pipeline is
+        # price-return, and the fund score is struck against the scheme's own SEBI-category peer
+        # average rather than an index at all. This sentence claimed a basis on every deck the kit
+        # has ever produced, and a disclaimer is the last place a deck should be inaccurate.
+        "uses Direct-plan NAV against the scheme's own SEBI-category peer group, point-in-time; "
+        "where an index level is shown it is price-return, not total-return. Past performance is "
+        "not indicative of future results.")
 _DEMO_SUFFIX = (" This is a synthetic demonstration document; the ABXY Family is "
                "fictional and no content constitutes advice on a real portfolio.")
 _REAL_SUFFIX = (" This review is prepared for the named client's actual holdings as supplied to the "

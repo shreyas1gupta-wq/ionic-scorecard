@@ -79,16 +79,50 @@ def _house_view():
     return out
 
 
-def _hv_reason(hv):
-    """The house view's own four attributes, as a sentence. This is what carries the reasoning
-    wherever the house view overrides an analyst who argued the other way."""
-    bits = [("operating margin " + hv["margin"].lower()) if hv["margin"] else "",
-            ("ROE " + hv["roe"].lower()) if hv["roe"] else "",
-            ("valuation " + hv["valuation"].lower()) if hv["valuation"] else "",
-            (hv["growth"].lower()) if hv["growth"] else ""]
-    bits = [b for b in bits if b]
+# WORDS THAT LEAN. An attribute reads as an argument for holding or against it, and which side a
+# word falls on decides whether the sentence built from it supports the call above it.
+_FAVOURABLE = ("strong", "excellent", "high", "good", "reasonable", "attractive", "cheap",
+               "undervalued", "growth", "improving", "expanding")
+_ADVERSE = ("weak", "poor", "low", "declining", "falling", "expensive", "rich", "stretched",
+            "overvalued", "lacks growth", "no growth", "deteriorating", "compressing")
+
+
+def _leans(text):
+    """+1 favourable, -1 adverse, 0 neutral. Longest match wins, so "lacks growth" beats "growth"."""
+    low = " " + str(text or "").lower() + " "
+    hits = [(len(w), -1) for w in _ADVERSE if w in low] +            [(len(w), +1) for w in _FAVOURABLE if w in low]
+    return max(hits)[1] if hits else 0
+
+
+def _hv_reason(hv, call=""):
+    """The house view's own four attributes, as a sentence that LEANS WITH THE CALL.
+
+    This carries the reasoning wherever the house view overrides an analyst who argued the other
+    way, and it was building the sentence out of all four attributes regardless of what they said.
+    On the current file that put "operating margin strong, ROE strong, valuation reasonable,
+    growth" underneath a red SELL pill on four of fourteen Sell rows in a client deck. A client
+    either disbelieves the call or disbelieves the page, and either way the deck has argued against
+    itself in the one place it had to be persuasive.
+
+    So on a Sell the sentence carries the adverse attributes only. Where the house view records
+    none, the honest sentence is that the call is a published view and the attributes do not
+    explain it -- not a recital of the favourable ones.
+    """
+    pairs = [("operating margin " + hv["margin"].lower()) if hv["margin"] else "",
+             ("ROE " + hv["roe"].lower()) if hv["roe"] else "",
+             ("valuation " + hv["valuation"].lower()) if hv["valuation"] else "",
+             (hv["growth"].lower()) if hv["growth"] else ""]
+    bits = [b for b in pairs if b]
     if not bits:
         return "The firm's published view on this holding."
+    _sell = str(call or "").strip().lower() in ("sell", "trim")
+    if _sell:
+        adverse = [b for b in bits if _leans(b) < 0]
+        if adverse:
+            return ("The firm's published view, on which this call rests: "
+                    + ", ".join(adverse) + ".")
+        return ("A published call of the firm's, held despite the fundamentals reading "
+                "adequately: " + ", ".join(bits) + ". The desk's reasoning is on file.")
     return "The firm's published view: " + ", ".join(bits) + "."
 
 
@@ -143,9 +177,9 @@ def main(as_of="2026-07-26"):
             "call_source": src,
             "house_cap": (hv or {}).get("cap", ""),
             "growth_pct": (None if _overridden else a.get("expected_next_3y_growth_pct")),
-            "rationale": (_hv_reason(hv) if _overridden else
+            "rationale": (_hv_reason(hv, call) if _overridden else
                           (a.get("recommendation_rationale") or a.get("summary") or "").strip()
-                          or (_hv_reason(hv) if hv else "")),
+                          or (_hv_reason(hv, call) if hv else "")),
             "negative_para": ("" if _overridden else (a.get("negative_para") or "").strip()),
             "positive_para": ("" if _overridden else (a.get("positive_para") or "").strip()),
             "reverse_dcf": ("" if _overridden else (a.get("reverse_dcf_judgment") or "").strip()),

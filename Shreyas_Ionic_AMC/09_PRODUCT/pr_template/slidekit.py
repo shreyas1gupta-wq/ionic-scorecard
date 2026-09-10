@@ -585,11 +585,14 @@ class Deck:
         self.txt(s, x + 0.20, y - 0.03, RX - x - 0.35, 0.22,
                  [("SCOPE  ", SANS, 7.5, SLATE, True, False, 80), (text, SERIF, 8.5, INK, False, True)], wrap=False)
 
+    # TWO OF THESE FOUR ASSERTED A RECORD NOBODY KEEPS. "each call here carries a named
+    # reviewer's sign-off" and "every call passed a human review" are claims about process, printed
+    # on a third of the pages of a client deck, and no field in this pipeline records a reviewer or
+    # a review. The two that survive say what is actually true and checkable: the score is an input
+    # and the desk sets the verdict. Do not put a claim in this rotation that no data backs.
     _BAND_VARIANTS = (
         "The Ionic Score flags candidates; the Portfolio Review team confirms every call.",
-        "Scores flag, people decide: each call here carries a named reviewer's sign-off.",
         "The score is the starting point; the final word on every name belongs to the desk.",
-        "Numbers shortlist, judgment decides: every call passed a human review.",
     )
 
     def score_band(self, s, y=6.9):

@@ -274,9 +274,11 @@ def render(deck, ctx, tier):
         _sub = ("%d holdings in the %s sleeve, on your instruction, not on a view of ours."
                 % (_n_ce, _where))
         if reg == "simple":
-            _sub = ((CD.get("instruction") or "").rstrip(".") + ". ") if CD.get("instruction") else ""
-            _sub += ("%d holding%s, because you asked us to, not because we think they are weak."
-                     % (_n_ce, "" if _n_ce == 1 else "s"))
+            # THE PLAIN REGISTER HAS LESS ROOM, NOT MORE. Repeating the instruction verbatim here
+            # overran the row by 0.31in and landed on the row below it. The instruction is on the
+            # mandate page in full; this row says what is happening and why.
+            _sub = ("%d holdings, because you asked us to, not because we think they are weak."
+                    % _n_ce)
         # THE HOLDINGS THAT CANNOT GO, with the reason each carries. Three of them appeared in the
         # annexure as a bare word, "Retain", with the fund-coverage boilerplate against them in the
         # workbook: neither the right sentence nor, as an explanation of why a holding is kept, a
@@ -285,8 +287,9 @@ def render(deck, ctx, tier):
             # NAMED HERE, REASONED IN THE NOTES. Three written reasons do not fit the two lines
             # this row is laid into -- they overflowed it by 0.28in and landed on the row below --
             # so the row names them and the coverage notes carry the reason for each in full.
-            _sub += (" %d cannot be redeemed on request; the reason for each is in the coverage "
-                     "notes." % len(CD["retains"]))
+            _sub += ((" %d cannot be redeemed on request." % len(CD["retains"])) if reg == "simple"
+                     else (" %d cannot be redeemed on request; the reason for each is in the "
+                           "coverage notes." % len(CD["retains"])))
         rows = [("At your instruction: exit the fixed-income sleeve"
                  if reg != "simple" else "The change you asked for", _sub,
                  "On authorisation")] + rows

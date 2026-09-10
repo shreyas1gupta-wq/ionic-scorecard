@@ -86,6 +86,13 @@ def main():
                          "the deck ships without them rather than with invented ones.")
     ap.add_argument("--firm-pages", default="2-6")
     ap.add_argument("--out", default=None, help="where to write the finished deck")
+    ap.add_argument("--ignore-sync", action="store_true",
+                    help="build even though check_sync failed. Every FAIL it raises is something "
+                         "that reaches a client page or a public repository; use this only when "
+                         "you can say which one does not apply and why.")
+    ap.add_argument("--allow-demo", action="store_true",
+                    help="finish the run even though the scores are the invented demo file. For "
+                         "testing the pipeline only; the deck it produces is not sendable.")
     ap.add_argument("--skip-gates", action="store_true",
                     help="build only. Use when iterating; never for anything that goes out.")
     a = ap.parse_args()
@@ -98,6 +105,21 @@ def main():
 
     steps = []
     print(f"\n  {a.client}  .  {a.tier}  .  {a.profile}\n")
+
+    # ---- 0. is this installation in sync? ---------------------------------------------------
+    # THE ONLY GATE THAT RETURNS BLOCKED WAS NOT RUN BY THE ONE DOCUMENTED COMMAND. The skill said
+    # "run check_sync first", which means it ran when somebody remembered. A starved column, a
+    # missing band file, a demo score file, or the scoring method tracked in a public repo would
+    # all pass straight through into a finished deck. It runs first, here, every time.
+    st = _run([PY, os.path.join(KIT, "qa", "check_sync.py")], "sync")
+    steps.append(st)
+    print(st["output"].rstrip())
+    if st["rc"] != 0 and not a.ignore_sync:
+        print("\n  STOPPED before building: this installation is not in sync. Every FAIL above "
+              "would put a wrong number on a client page or publish something that cannot be "
+              "unpublished. Fix them, or pass --ignore-sync if you can say which one does not "
+              "apply to this run and why.")
+        return 4
 
     # ---- 1. build -------------------------------------------------------------------------
     cmd = [PY, os.path.join(HERE, "build_review.py"), a.statement,
@@ -118,6 +140,18 @@ def main():
     if st["rc"] != 0:
         print("\n  BUILD FAILED. Nothing further was run.")
         return 2
+
+    # AN INVENTED-SCORES RUN MUST NOT FINISH QUIETLY. build_review prints a banner and carries on,
+    # which is right for someone iterating on a layout and wrong for the one command the skill
+    # documents. A fresh clone has only the DEMO score file, so a colleague following the manual on
+    # a real statement got a complete, gate-passing, entirely invented deck and exit code 0. The
+    # deck is left on disk to look at; the run says plainly that it cannot go out.
+    if "INVENTED demo data" in st["output"] and not a.allow_demo:
+        print("\n  STOPPED: this run used the DEMO score file, so every call in it is invented.")
+        print("  The deck is on disk if you need to look at a layout, and it cannot go to a "
+              "client at any price. Ask the desk for the current score file, or pass "
+              "--allow-demo if you are deliberately testing the pipeline.")
+        return 3
 
     # A MODULE THAT RAISES COSTS A WHOLE PAGE AND SAYS SO IN ONE LINE OF BUILD OUTPUT, which is
     # exactly the line a person running five commands by hand scrolls past. It is surfaced here.

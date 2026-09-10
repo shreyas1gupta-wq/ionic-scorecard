@@ -136,18 +136,33 @@ def main():
     a = ap.parse_args()
 
     H = pd.read_excel(a.holdings)
-    src = pd.read_excel(a.statement)
-    src = src[src["Asset Name"].astype(str).str.strip().str.lower() != "grand total"]
+
+    # READ THE STATEMENT THE WAY THE DECK READS IT. This did its own pd.read_excel and then
+    # indexed a column literally named "Asset Name", so it worked on exactly one client's sheet
+    # and raised KeyError on every other layout -- including the kit's own fixture. Running the
+    # one command the skill documents, on the fixture shipped beside it, built the deck and then
+    # died at rc=2. Half the delivered product, gone on any statement whose columns are named
+    # differently, which is the normal case: the whole point of parse/read_statement.py is that
+    # it finds its columns by VOCABULARY rather than by name.
+    sys.path.insert(0, os.path.join(os.path.dirname(HERE), "parse"))
+    from read_statement import read_statement                            # noqa: E402
+    _S, _E, _n = read_statement(a.statement)
 
     # WHO HOLDS WHAT. The deck frame carries a COUNT of holders; a client wants the names, and on a
     # family book whose slabs differ the name is what decides the tax on an exit.
     by_isin, by_name = {}, {}
-    for r in src.itertuples():
-        who = str(getattr(r, "Holder", "") or "").strip().title()
+    _holder_rows = []
+    if len(_S):
+        _holder_rows += _S[["isin", "scheme", "holder"]].to_dict("records")
+    if len(_E) and "holder" in _E.columns:
+        _holder_rows += [{"isin": "", "scheme": r.get("name", ""), "holder": r.get("holder", "")}
+                         for r in _E.to_dict("records")]
+    for r in _holder_rows:
+        who = str(r.get("holder") or "").strip().title()
         if not who:
             continue
-        i = str(getattr(r, "ISIN", "") or "").strip()
-        n = str(getattr(r, "_1", "") or getattr(r, "Asset Name", "") or "").strip().lower()
+        i = str(r.get("isin") or "").strip()
+        n = str(r.get("scheme") or "").strip().lower()
         if i and i.lower() not in ("nan", ""):
             by_isin.setdefault(i, set()).add(who)
         if n:
@@ -418,7 +433,8 @@ def main():
     # a rupee on a number the client will compare.
     # THE SAME POPULATION THE DECK COUNTS: every named individual in the statement, not the
     # holders of the action rows alone and not the labels that are not people.
-    N_HOLDERS = max(1, len(TAXE.named_holders(src["Holder"])))
+    N_HOLDERS = max(1, len(TAXE.named_holders(
+        [r.get("holder") for r in _holder_rows])))
     _eq_gain = sum((x["_ltcg"] / TAXE.EQUITY_LTCG) for x in act
                    if x["_ltcg"] and TAXE.is_equity_oriented(x.get("Asset class"),
                                                              x.get("Category"),

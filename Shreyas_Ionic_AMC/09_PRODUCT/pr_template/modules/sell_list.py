@@ -41,9 +41,43 @@ def _case_text(e, n=118):
     for k in ("client_case", "negative", "negative_para", "binding_trigger", "summary",
               "rationale", "structural_reason"):
         v = str(e.get(k) or "").strip()
-        if v:
-            return clip_clause(v, n)
-    return "The full case is on the analyst's rationale page for this name."
+        if not v:
+            continue
+        # A CASE THAT ARGUES AGAINST THE CALL ABOVE IT IS WORSE THAN NO CASE. The house-view
+        # rationale is built from four attributes, and where all four read well it produced
+        # "operating margin strong, ROE strong, valuation reasonable, growth" directly beneath a
+        # red SELL pill - four of fourteen rows on one client deck. A reader either disbelieves
+        # the call or disbelieves the page. The exporter now emits only the attributes that lean
+        # with the call; this is the guard for a score file published before it did.
+        if _all_favourable(v):
+            continue
+        return clip_clause(v, n)
+    return ("A published call of the firm's; the attributes on file do not carry it and the "
+            "desk's reasoning is held with the analyst.")
+
+
+# Words that read as an argument FOR holding. A sentence made only of these cannot be the case
+# against a name.
+_FAVOURABLE = ("strong", "excellent", "high", "good", "reasonable", "attractive", "cheap",
+               "undervalued", "improving", "expanding", "growth")
+_ADVERSE = ("weak", "poor", "low", "declining", "falling", "expensive", "rich", "stretched",
+            "overvalued", "lacks growth", "no growth", "deteriorating", "compressing", "loss",
+            "concern", "risk", "pressure", "slowdown", "downgrade")
+
+
+def _all_favourable(text):
+    """True when a short attribute recital contains no adverse word at all.
+
+    Bounded to SHORT text on purpose. A long analyst paragraph will contain favourable words while
+    still making the case against a name - that is what a balanced note reads like - and dropping
+    it would lose the real reasoning. This only catches the machine-built recital.
+    """
+    low = " " + str(text or "").lower() + " "
+    if len(low) > 190:
+        return False
+    if any(w in low for w in _ADVERSE):
+        return False
+    return any(w in low for w in _FAVOURABLE)
 
 
 def render(deck, ctx, tier):
