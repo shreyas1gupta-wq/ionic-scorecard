@@ -253,6 +253,16 @@ def main():
                     if any(f"'slide': {s}," in line or f"slide {s}:" in line for s in ours):
                         print("      " + line.strip()[:150])
 
+    # ---- 3b. is this the deck the desk's standard actually is? -----------------------------
+    # The three gates above ask whether the pages are laid out correctly. None of them asks
+    # whether the right PAGES are there. "Make it look like the sample" stayed an opinion until
+    # the sample's page order became a file, so this reports present / missing / out-of-order
+    # against it. It never fails the run: several standard pages need an input this pipeline is
+    # not given, and absent-for-want-of-an-input is an honest state, not a defect.
+    st = _run([PY, os.path.join(KIT, "qa", "check_structure.py"), deck], "structure")
+    steps.append(st)
+    print("\n" + st["output"].rstrip())
+
     # ---- 4. manifest ----------------------------------------------------------------------
     bad = sorted({s for f in findings.values() for s in f["generated_pages"]})
     manifest = {

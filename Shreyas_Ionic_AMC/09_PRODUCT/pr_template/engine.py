@@ -108,6 +108,10 @@ MODULES = [
     ("sell_list",          3, "The Equity Book", True),
     ("hold_rationale",     3, "The Equity Book", True),
     ("_div4",              4, "Recommendations", True),
+    # THE PAGE THE STANDARD DECK OPENS ITS RECOMMENDATIONS WITH. Every holding mapped to an
+    # action, footing to the number on the cover -- the one page on which a client can satisfy
+    # themselves that nothing was left out. It goes FIRST in the section, before the detail.
+    ("recommendation_snapshot", 4, "Recommendations", True),
     ("house_view_fit",     4, "Recommendations", True),
     # cost: CUT permanently (Principal 2026-07-27) — module stays in the library, renders
     # nowhere by default.
@@ -199,7 +203,8 @@ DIVIDER_TOC = {
     3: [("score_method", "How we score every stock"), ("book_scored", "The book, scored"),
         ("equity_book", "The book at a glance"), ("sell_list", "What we would sell"),
         ("hold_rationale", "What stays, and why")],
-    4: [("house_view_fit", "House-view fit"), ("cost", "What you're paying today"),
+    4: [("recommendation_snapshot", "Recommendation snapshot"),
+        ("house_view_fit", "House-view fit"), ("cost", "What you're paying today"),
         ("tax_impact", "Tax impact"),
         ("return_arithmetic", "What your target requires"),
         ("family_implementation", "Implementation across the family"),

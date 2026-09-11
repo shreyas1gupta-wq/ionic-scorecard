@@ -1,0 +1,236 @@
+{
+  "_what_this_is": "The page order of the desk's own standard portfolio review, read off the reference deck (Portfolio Review AUTOMATED SAMPLE.pptx, 34 slides) rather than invented. check_structure.py compares a built deck against this and reports what is missing, so 'as per the sample' is a test rather than an opinion. Every entry names the module that produces the page, or says what is needed to produce it.",
+  "reference": "Portfolio Review AUTOMATED SAMPLE.pptx",
+  "as_of": "2026-09-11",
+  "pages": [
+    {
+      "n": 1,
+      "title": "Cover",
+      "module": "cover",
+      "match": [
+        "Portfolio Review"
+      ],
+      "first_slide": true,
+      "_note": "slide 1 by definition; its header carries the logo lockup, not a title"
+    },
+    {
+      "n": 2,
+      "title": "Section divider",
+      "module": "_div",
+      "optional": true
+    },
+    {
+      "n": 3,
+      "title": "Overview - About the Client",
+      "module": "ips_seven_aspects",
+      "match": [
+        "client circumstance",
+        "about the client",
+        "your circumstances"
+      ],
+      "needs": "client circumstances, from the advisor's intake. The reference page is prose about the family, the mandate and the objective. A BLANK version of this page must never ship: skip it instead."
+    },
+    {
+      "n": 4,
+      "title": "Our Approach",
+      "module": "mandate_method",
+      "match": [
+        "mandate",
+        "approach"
+      ]
+    },
+    {
+      "n": 5,
+      "title": "Asset Class - Current View",
+      "module": "firm_intro",
+      "match": [
+        "asset class",
+        "house view"
+      ],
+      "needs": "the desk's monthly AssetX publication. It changes every month, so the run must be given the current one rather than carrying a stale page forward."
+    },
+    {
+      "n": 6,
+      "title": "Portfolio Snapshot",
+      "module": "snapshot",
+      "match": [
+        "snapshot"
+      ]
+    },
+    {
+      "n": 7,
+      "title": "Asset Allocation and Market-Cap Split",
+      "module": "mcap_positioning",
+      "match": [
+        "market-cap",
+        "market cap",
+        "allocation"
+      ]
+    },
+    {
+      "n": 8,
+      "title": "Portfolio Contours: Investment Policy Statement",
+      "module": "ips_summary",
+      "match": [
+        "investment policy",
+        "portfolio contours",
+        "policy statement"
+      ]
+    },
+    {
+      "n": 9,
+      "title": "Concentration Analysis",
+      "module": "concentration_risk",
+      "match": [
+        "concentration"
+      ]
+    },
+    {
+      "n": 10,
+      "title": "Liquidity and Lock-in Profile",
+      "module": "risk_liquidity",
+      "match": [
+        "liquidity"
+      ]
+    },
+    {
+      "n": 11,
+      "title": "Gap Analysis",
+      "module": "gap_analysis",
+      "match": [
+        "gap analysis",
+        "where the portfolio departs"
+      ]
+    },
+    {
+      "n": 12,
+      "title": "How We Evaluate, and What Each Action Means",
+      "module": "mf_methodology",
+      "match": [
+        "how we assess",
+        "how we evaluate",
+        "how we score"
+      ]
+    },
+    {
+      "n": 13,
+      "title": "Fund tables by category",
+      "module": "fund_book_scored",
+      "match": [
+        "the fund book",
+        "equity mutual funds",
+        "hybrid funds",
+        "debt funds"
+      ]
+    },
+    {
+      "n": 17,
+      "title": "Direct Equity - Portfolio Analysis",
+      "module": "equity_book",
+      "match": [
+        "the book at a glance",
+        "direct equity",
+        "the book, scored"
+      ]
+    },
+    {
+      "n": 18,
+      "title": "Direct Equity - Reduce, Sell and No View",
+      "module": "sell_list",
+      "match": [
+        "what we would sell",
+        "reduce, sell"
+      ]
+    },
+    {
+      "n": 19,
+      "title": "Direct Equity - Hold",
+      "module": "hold_rationale",
+      "match": [
+        "what stays",
+        "direct equity - hold"
+      ]
+    },
+    {
+      "n": 20,
+      "title": "Fixed income by instrument",
+      "module": "funds_debt",
+      "match": [
+        "fixed income",
+        "debt funds",
+        "bonds"
+      ]
+    },
+    {
+      "n": 23,
+      "title": "Alternates, AIFs and Unlisted Holdings",
+      "module": "alternates_book",
+      "match": [
+        "alternates",
+        "aif",
+        "unlisted"
+      ],
+      "needs": "nothing new on this pipeline: PMS, AIF, ULIP, REIT and InvIT rows are already carried with a call. The page is simply not written yet."
+    },
+    {
+      "n": 26,
+      "title": "Recommendation Snapshot",
+      "module": "recommendation_snapshot",
+      "match": [
+        "recommendation snapshot",
+        "every holding mapped"
+      ]
+    },
+    {
+      "n": 27,
+      "title": "Tax Impact of the Recommendations",
+      "module": "tax_impact",
+      "match": [
+        "tax impact"
+      ]
+    },
+    {
+      "n": 28,
+      "title": "Redeployment Strategy",
+      "module": "redeployment_strategy",
+      "match": [
+        "redeployment",
+        "where the proceeds go"
+      ],
+      "needs": "the desk's approved product list. The destination column names products, which is a Buy recommendation and outside what this review issues; the before-and-after half of the page (market-cap ratio, international share, fund count) is computable and is not a solicitation."
+    },
+    {
+      "n": 29,
+      "title": "Section divider: Product Brief",
+      "module": "_div",
+      "optional": true
+    },
+    {
+      "n": 30,
+      "title": "Ionic product pages",
+      "module": "product_brief",
+      "match": [
+        "portfolio solutions",
+        "product brief"
+      ],
+      "needs": "the firm's own product content, published centrally beside firm_profile.json. Absent it, the pages must not render rather than be invented."
+    },
+    {
+      "n": 33,
+      "title": "Thank you",
+      "module": "thank_you",
+      "match": [
+        "thank you"
+      ],
+      "needs": "nothing. A closing page."
+    },
+    {
+      "n": 34,
+      "title": "Disclaimer",
+      "module": "disclaimer",
+      "match": [
+        "disclaimer"
+      ]
+    }
+  ]
+}
