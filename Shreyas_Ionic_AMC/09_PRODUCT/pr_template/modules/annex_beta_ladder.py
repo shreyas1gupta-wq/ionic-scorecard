@@ -4,7 +4,7 @@ tail flagged. Betas are sector-keyed synthetic estimates [ILLUSTRATIVE] with a d
 per-name offset, pending a real regression on price history."""
 import hashlib
 import chart_ext_b as CB
-from slidekit import ML, UW, RX, SELL, SERIF, SLATE
+from slidekit import ML, UW, RX, SELL, SERIF, SLATE, SANS
 
 LABELS = {
     "hni":    ("Volatility ladder", "Which holdings amplify the market, and by how much"),
@@ -70,7 +70,7 @@ def render(deck, ctx, tier):
     kick = f"THE HIGH-BETA TAIL · {tail_wt:.1f}% OF BOOK"
     if len(hi_tail) > len(shown):
         kick += f" · TOP {len(shown)} OF {len(hi_tail)}"
-    deck.txt(s, tx, 1.86, tw, 0.22, [(kick, "Bahnschrift", 9, SELL, True, False, 60)])
+    deck.txt(s, tx, 1.86, tw, 0.22, [(kick, SANS, 9, SELL, True, False, 60)])
     deck.table(s, tx, 2.14, tw, cols, rows, rowh=0.26, fs=8.5, hfs=7)
 
     if book_beta < 0.85:

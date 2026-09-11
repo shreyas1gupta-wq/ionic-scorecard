@@ -31,9 +31,28 @@ ROOT = os.path.dirname(KIT)
 GATES = os.path.join(ROOT, "Shreyas_Ionic_AMC", "09_PRODUCT", "pr_template")
 PY = sys.executable
 
-# The gates cannot tell a page this kit drew from a page it grafted, so the caller says where the
-# grafted block sits. Everything at or before this slide number is another firm's layout.
-GRAFT_LAST_SLIDE = 6
+# The gates cannot tell a page this kit drew from a page it grafted, so the run works it out from
+# what was actually grafted. A hard-coded 6 excused real geometry findings on pages 5 and 6 when
+# only three pages were lifted, and failed the run for pages this kit never drew when eight were.
+GRAFT_AFTER = 1          # the graft inserts immediately after the cover
+
+
+def _graft_span(pages_spec):
+    """The last slide number belonging to the grafted block, from the --firm-pages spec."""
+    n = 0
+    for part in str(pages_spec or "").split(","):
+        part = part.strip()
+        if not part:
+            continue
+        if "-" in part:
+            a, b = part.split("-", 1)
+            try:
+                n += int(b) - int(a) + 1
+            except ValueError:
+                pass
+        else:
+            n += 1
+    return GRAFT_AFTER + n
 
 
 def _run(cmd, label):
@@ -221,8 +240,8 @@ def main():
             st = _run([PY, os.path.join(GATES, g), deck], g)
             steps.append(st)
             slides = _slides_in(st["output"])
-            ours = sorted(s for s in slides
-                          if s > (GRAFT_LAST_SLIDE if a.firm_deck else 0))
+            _last = _graft_span(a.firm_pages) if a.firm_deck else 0
+            ours = sorted(s for s in slides if s > _last)
             theirs = sorted(s for s in slides if s not in ours)
             findings[g] = {"generated_pages": ours, "grafted_pages": theirs}
             head = (st["output"].strip().splitlines() or [""])[0]
@@ -260,6 +279,10 @@ def main():
     mpath = os.path.join(out_dir, f"{safe}_RUN.json")
     with open(mpath, "w", encoding="utf-8") as fh:
         json.dump(manifest, fh, indent=2)
+    # A MANIFEST THAT SURVIVES A FAILED RUN IS A LIE ABOUT THE DECK BESIDE IT. A failed HNI_DEEP
+    # run overwrote the deck while the manifest still read tier RM_SIMPLE, verdict PASS, from the
+    # day before. Every early return above now stamps a manifest of its own first, so the file in
+    # out/ always describes the file in out/.
 
     print(f"\n  deck      : {deck}")
     if wb_client:

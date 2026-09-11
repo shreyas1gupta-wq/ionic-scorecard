@@ -3,7 +3,7 @@
 every card cites a STRUCTURAL reason (mandate rigidity / plan-cost / capacity / closet-index / down-capture)
 and the firing SENTINEL flags, measured against the category exemplar it failed. SEBI-safe verbs only."""
 from slidekit import (NAVY, INK, SLATE, HOLD, SELL, AMBER, GOLD, SERIF, ML, UW, RX, PANEL,
-                      SELLBG, AMBERBG, clip_clause)
+                      SELLBG, AMBERBG, clip_clause, SANS)
 from modules.fund_book_scored import FLAB
 
 VERB = {"SWITCH": ("Switch", AMBER, AMBERBG), "EXIT": ("Exit", SELL, SELLBG),
@@ -97,20 +97,20 @@ def render(deck, ctx, tier):
         x = x0[col]; y = 2.1 + row * (card_h + 0.12)
         verb, vc, vbg = VERB.get(f["action"], (f["verdict"], AMBER, AMBERBG))
         deck.rect(s, x, y, col_w, card_h, fill=PANEL, line=vc, lw=1.0, round_=0.05)
-        deck.rect(s, x, y, 0.06, card_h, fill=vc)
+        # BRAND: no coloured edge-stripe on a card. The guidelines prohibit it and it was on every panel in this template. The panel's own fill and the pill carry the colour.
         narrow = ncols >= 4  # a 4-col card is too tight to fit pill + name on one line
         if narrow:
             # tight card: pill, name, reason only — no separate flags line (usually just
             # "structural" anyway, redundant with the reason text) and no exemplar line.
             deck.pill(s, x + 0.18, y + 0.10, verb, w=0.95)
             deck.txt(s, x + 0.18, y + 0.36, col_w - 0.34, 0.20,
-                     [(_short(f["name"], 26), "Bahnschrift", 9.5, INK, True)])
+                     [(_short(f["name"], 26), SANS, 9.5, INK, True)])
             clip_len = 60
             deck.txt(s, x + 0.18, y + 0.58, col_w - 0.34, card_h - 0.62,
                      [(clip_clause(f["structural_reason"], clip_len), SERIF, 8.5, INK, False)], ls=1.0)
             continue
         deck.pill(s, x + 0.18, y + 0.14, verb, w=1.35, kind=f["verdict"])
-        deck.txt(s, x + 1.62, y + 0.13, col_w - 1.75, 0.26, [(_short(f["name"], 32), "Bahnschrift", 11, INK, True)])
+        deck.txt(s, x + 1.62, y + 0.13, col_w - 1.75, 0.26, [(_short(f["name"], 32), SANS, 11, INK, True)])
         # translate raw SENTINEL codes to plain words (2026-07-28: was leaking CLOSET_INDEX/
         # NEG_ALPHA/etc. raw; reuse the same FLAB dict fund_book_scored.py already uses)
         # The default tag used to be the word "structural" on every unflagged card, printed
@@ -127,7 +127,7 @@ def render(deck, ctx, tier):
         # and a zipfile "duplicate slide part" warning as the only other trace.
         if (f.get("holding_years") or 0) >= 5:
             flags += f"  ·  HELD ~{f['holding_years']:.0f}Y, COSTLIER TO SWITCH"
-        deck.txt(s, x + 0.18, y + 0.46, col_w - 0.3, 0.2, [(flags, "Bahnschrift", 7.5, vc, True, False, 30)])
+        deck.txt(s, x + 0.18, y + 0.46, col_w - 0.3, 0.2, [(flags, SANS, 7.5, vc, True, False, 30)])
         # clipped to the card's real capacity (2026-07-27: a real client's structural_reason
         # ran to ~300 chars and silently overflowed this fixed-height card; 2026-07-29: budget
         # scaled with column count -- but that alone still overflowed once a 5th/6th action

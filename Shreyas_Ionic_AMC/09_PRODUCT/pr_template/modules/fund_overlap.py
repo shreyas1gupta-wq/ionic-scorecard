@@ -2,7 +2,7 @@
 """fund_overlap (F17), 'Where you're duplicating exposure'. Renamed from the ambiguous v8 'fund overlap'.
 Panel A: funds duplicating each other. Panel B: stocks held BOTH directly AND via funds (double-paying
 an active fee to re-buy what you already own). Headline: X% of AUM re-buys direct holdings at Y bps."""
-from slidekit import NAVY, INK, SLATE, HOLD, SELL, AMBER, GOLD, SERIF, ML, UW, RX, PANEL
+from slidekit import NAVY, INK, SLATE, HOLD, SELL, AMBER, GOLD, SERIF, ML, UW, RX, PANEL, SANS
 
 LABELS = {
     "hni":    ("Where you're duplicating exposure", "Two schemes, one bet, and stocks you already own directly"),
@@ -28,7 +28,7 @@ def render(deck, ctx, tier):
     ], y=1.85)
 
     # Panel B — fund-vs-direct double-pay table (the decision-relevant one, stays core)
-    deck.txt(s, ML, 3.15, UW, 0.3, [("STOCKS HELD BOTH DIRECTLY AND INSIDE YOUR FUNDS", "Bahnschrift", 10, NAVY, True, False, 40)])
+    deck.txt(s, ML, 3.15, UW, 0.3, [("STOCKS HELD BOTH DIRECTLY AND INSIDE YOUR FUNDS", SANS, 10, NAVY, True, False, 40)])
     cols = [("Stock", 0.34, "l"), ("Held directly", 0.18, "r"), ("Via funds (look-through)", 0.26, "r"),
             ("In # funds", 0.14, "c"), ("Combined", 0.14, "r")]
     rows = []

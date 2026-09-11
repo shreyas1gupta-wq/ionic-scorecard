@@ -26,6 +26,23 @@ from pptx import Presentation
 DEFAULT_PAGES = "2-6"        # one-based, as a reader of the reference deck would name them
 AFTER = 1                    # insert after the cover
 
+# Strings that belong to a different Ionic entity, and the one this deck is for. A review produced
+# by Ionic Wealth cannot carry Ionic Asset's name on one of its pages.
+#
+# NOT "AssetX". That is the desk's monthly publication and the source line "Source: Ionic AssetX,
+# June 2026" is correct as written -- renaming it would break a real citation. So the match is
+# word-bounded and excludes a following X, which is why this is a regex and not a substring.
+import re as _re2
+ENTITY_RX = (
+    (_re2.compile(r"IONIC ASSET(?!X)"), "IONIC WEALTH"),
+    (_re2.compile(r"Ionic Asset(?!X)"), "Ionic Wealth"),
+)
+# The approved face. Any run this script rewrites is set to it.
+BRAND_FACE = "Reddit Sans"
+# The internal classification stamp has no place on a client document.
+TAG_FIX = (("Classified as Internal", "Private & Confidential"),
+           ("CLASSIFIED AS INTERNAL", "PRIVATE & CONFIDENTIAL"))
+
 
 def _blank_layout(prs):
     """The emptiest layout available, so nothing inherits a placeholder we did not ask for."""
@@ -216,9 +233,48 @@ def main(src=None, tgt=None, out=None, pages=None):
                          % (src.slide_width / 914400, src.slide_height / 914400,
                             tgt.slide_width / 914400, tgt.slide_height / 914400))
 
+    # Read BEFORE the graft: the second-cover test needs both identities, and the rename pass
+    # further down needs the same answers.
+    who, asof = _target_identity(tgt)
+    src_who, src_asof = _source_identity(src)
+
     layout = _blank_layout(tgt)
     n_pics_before = 0
     added, missing_total = [], 0
+
+    # A SECOND COVER IS NOT A FIRM PAGE. The reference deck opens with its own title page, and
+    # grafting it after this deck's cover gave the client two covers carrying the same name, the
+    # same tagline and two different dates -- the first thing a brand review flagged. A page whose
+    # whole content is the client, a date and a strapline is a cover, and this deck already has one.
+    # A TITLE PAGE IS RECOGNISED BY WHAT IT SAYS, NOT BY WHAT IT CONTAINS. It has a logo and a
+    # rule on it like any cover, so testing for "no pictures" never fires. What makes it a cover is
+    # that its whole text is a name, a date and a strapline -- it carries no table, no chart, and
+    # nothing a reader would call content.
+    def _is_second_cover(sl):
+        runs = [" ".join(sh.text_frame.text.split()) for sh in sl.shapes
+                if sh.has_text_frame and sh.text_frame.text.strip()]
+        if not runs or len(runs) > 4:
+            return False
+        body = " ".join(runs)
+        if any(sh.has_table or sh.has_chart for sh in sl.shapes):
+            return False
+        if len(body) > 170:
+            return False
+        # it names a client and an as-of date, which is what a cover is for
+        return bool(_ASOF_RX.search(body)) and (
+            bool(src_who and src_who.lower() in body.lower())
+            or bool(who and who.lower() in body.lower()))
+
+    _skipped = []
+    for idx in list(PAGES):
+        if _is_second_cover(src.slides[idx]):
+            _skipped.append(idx + 1)
+    if _skipped:
+        PAGES = tuple(i for i in PAGES if (i + 1) not in _skipped)
+        print("  skipped page(s) %s of the reference deck: a title page naming the client and a "
+              "date is a second cover, and this deck already has one."
+              % ", ".join(str(x) for x in _skipped))
+
     for idx in PAGES:
         s = src.slides[idx]
         n_pics_before += sum(1 for sh in s.shapes if sh.shape_type == 13)
@@ -241,8 +297,6 @@ def main(src=None, tgt=None, out=None, pages=None):
     # is not optional and not a manual step afterwards: the target's own cover is read for who this
     # deck is for, and every grafted slide is rewritten to match. Run text is edited in place so
     # the typography survives.
-    who, asof = _target_identity(tgt)
-    src_who, src_asof = _source_identity(src)
     renamed = 0
     for i in range(AFTER, AFTER + len(PAGES)):
         for sh in tgt.slides[i].shapes:
@@ -256,8 +310,30 @@ def main(src=None, tgt=None, out=None, pages=None):
                         t = t.replace(src_who, who)
                     if src_asof and asof:
                         t = t.replace(src_asof, asof)
+                    # THE ENTITY, TOO. The reference deck's asset-class page is headed IONIC
+                    # ASSET; this is an Ionic Wealth review. They are separate entities, and
+                    # carrying one entity's name onto the other's client document is the same
+                    # class of error as carrying another client's name -- it just looks less
+                    # obviously wrong. A brand review caught it, not this script, so the script
+                    # normalises it now.
+                    for _rx, _good in ENTITY_RX:
+                        t = _rx.sub(_good, t)
+                    # ONE CONFIDENTIALITY TAG ON A DECK, NOT TWO. The reference pages are stamped
+                    # "Classified as Internal", the kit's fifty-eight say "Private & Confidential",
+                    # and a client-facing deck must not carry the internal one at all.
+                    for _bad, _good in TAG_FIX:
+                        if _bad in t:
+                            t = t.replace(_bad, _good)
                     if t != t0:
                         run.text = t
+                        # A RUN WE REWRITE KEEPS THE SOURCE'S FONT, and the source deck's
+                        # confidentiality stamp is set in Calibri. Replacing the words left two
+                        # Calibri runs in a deck whose brand review had just counted every
+                        # off-brand face. If this script writes the text, it sets the face.
+                        try:
+                            run.font.name = BRAND_FACE
+                        except Exception:
+                            pass
                         renamed += 1
     if src_who and not renamed:
         print("  WARNING: the reference client name %r was not found on the grafted slides; "

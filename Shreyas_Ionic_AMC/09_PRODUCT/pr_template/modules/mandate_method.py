@@ -100,7 +100,7 @@ def render(deck, ctx, tier):
     # benchmark record — plain client language
     by = 4.00
     deck.rect(s, rx, by, rw, 1.70, fill=PANEL, round_=0.04)
-    deck.rect(s, rx, by, 0.06, 1.70, fill=NAVY)
+    # BRAND: no coloured edge-stripe on a card. The guidelines prohibit it and it was on every panel in this template. The panel's own fill and the pill carry the colour.
     deck.txt(s, rx + 0.20, by + 0.14, rw - 0.4, 0.24, [("HOW WE MEASURE PROGRESS", SANS, 9.5, NAVY, True, False, 60)])
     # Indexed with [] these four keys made a client page hostage to the desk's own wording: rename
     # one stance in house_view.json and this module raises, and a raise here used to take the whole

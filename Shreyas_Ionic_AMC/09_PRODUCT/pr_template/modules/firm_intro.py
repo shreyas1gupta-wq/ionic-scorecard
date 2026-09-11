@@ -51,7 +51,7 @@ def _highlights(deck, F):
         for i, st in enumerate(stats):
             x = ML + i * cw
             deck.rect(s, x + 0.05, 2.05, cw - 0.18, 1.30, fill=PANEL, round_=0.05)
-            deck.rect(s, x + 0.05, 2.05, cw - 0.18, 0.045, fill=GOLD)
+            # BRAND: no coloured edge-stripe on a card. The guidelines prohibit it and it was on every panel in this template. The panel's own fill and the pill carry the colour.
             deck.txt(s, x + 0.22, 2.24, cw - 0.5, 0.46,
                      [(st.get("figure", ""), SANS, 23, NAVY, True)])
             deck.txt(s, x + 0.22, 2.74, cw - 0.5, 0.30,
@@ -90,7 +90,7 @@ def _founders(deck, F):
     for i, p in enumerate(fo):
         x = ML + i * cw
         deck.rect(s, x + 0.06, 2.00, cw - 0.20, 3.55, fill=PANEL, round_=0.06)
-        deck.rect(s, x + 0.06, 2.00, cw - 0.20, 0.045, fill=NAVY)
+        # BRAND: no coloured edge-stripe on a card. The guidelines prohibit it and it was on every panel in this template. The panel's own fill and the pill carry the colour.
         deck.txt(s, x + 0.26, 2.24, cw - 0.6, 0.34, [(p.get("name", ""), SANS, 14, NAVY, True)])
         deck.txt(s, x + 0.26, 2.60, cw - 0.6, 0.26,
                  [(p.get("title", ""), SANS, 9.5, GOLD, True, False, 40)])
@@ -118,7 +118,7 @@ def _moat(deck, F):
         col, row = i % 2, i // 2
         x, y0 = ML + col * cw, 2.02 + row * 2.42
         deck.rect(s, x + 0.05, y0, cw - 0.20, 2.22, fill=PANEL, round_=0.05)
-        deck.rect(s, x + 0.05, y0, 0.05, 2.22, fill=GOLD)
+        # BRAND: no coloured edge-stripe on a card. The guidelines prohibit it and it was on every panel in this template. The panel's own fill and the pill carry the colour.
         deck.txt(s, x + 0.28, y0 + 0.18, cw - 0.6, 0.30,
                  [(b.get("title", ""), SANS, 12.5, NAVY, True)])
         y = y0 + 0.58
@@ -160,7 +160,7 @@ def _asset_view(deck, F):
         x, y0 = ML + col * cw, 1.92 + row * 2.42
         deck.rect(s, x + 0.05, y0, cw - 0.18, 2.24, fill=PANEL, round_=0.05)
         col_st = STANCE_COLOR.get(str(a.get("stance", "")).upper(), NT2)
-        deck.rect(s, x + 0.05, y0, cw - 0.18, 0.04, fill=col_st)
+        # BRAND: no coloured edge-stripe on a card. The guidelines prohibit it and it was on every panel in this template. The panel's own fill and the pill carry the colour.
         deck.txt(s, x + 0.22, y0 + 0.12, cw - 0.52, 0.24,
                  [(a.get("asset", ""), SANS, 10.5, NAVY, True)])
         deck.txt(s, x + 0.22, y0 + 0.38, cw - 0.52, 0.20,

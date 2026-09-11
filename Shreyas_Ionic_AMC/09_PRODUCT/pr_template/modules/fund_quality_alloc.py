@@ -5,7 +5,7 @@ Quadrants: over+low = trim-then-exit (top priority); over+high = trim to target,
 under+high = retain/redeployment target; under+low = switch the vehicle."""
 import charts as CH
 from chart_lib import SELL as CC_SELL, HOLD as CC_HOLD, GOLD as CC_GOLD, NT2 as CC_NT2
-from slidekit import NAVY, INK, SLATE, HOLD, SELL, AMBER, SERIF, ML, UW, RX
+from slidekit import NAVY, INK, SLATE, HOLD, SELL, AMBER, SERIF, ML, UW, RX, SANS
 
 LABELS = {
     "hni":    ("Fund quality × allocation", "Two questions at once: is it good, and do we own the right amount?"),
@@ -52,12 +52,12 @@ def render(deck, ctx, tier):
         ("Under-sized · low quality", "Switch the vehicle", AMBER, under_low),
     ]
     y = 2.05
-    deck.txt(s, tx, y, tw, 0.3, [("WHAT EACH QUADRANT MEANS", "Bahnschrift", 9, SLATE, True, False, 80)]); y += 0.4
+    deck.txt(s, tx, y, tw, 0.3, [("WHAT EACH QUADRANT MEANS", SANS, 9, SLATE, True, False, 80)]); y += 0.4
     for head, action, col, members in rows:
         names = ", ".join(_short(m["name"], 18) for m in members) if members else "none today"
         deck.rect(s, tx, y, tw, 0.86, fill=None, line=col, lw=1.0, round_=0.06)
         deck.rect(s, tx, y, 0.05, 0.86, fill=col)
-        deck.txt(s, tx + 0.16, y + 0.10, tw - 0.3, 0.24, [(head, "Bahnschrift", 9.5, col, True)])
+        deck.txt(s, tx + 0.16, y + 0.10, tw - 0.3, 0.24, [(head, SANS, 9.5, col, True)])
         deck.txt(s, tx + 0.16, y + 0.34, tw - 0.3, 0.24, [(action, SERIF, 10, INK, False, True)])
         deck.txt(s, tx + 0.16, y + 0.58, tw - 0.3, 0.24, [(names, SERIF, 8.5, SLATE, False)])
         y += 0.98

@@ -390,7 +390,13 @@ def main():
                       str(getattr(r, "asset_class", "") or "")),
                   plan="",
                   amc=(_amc(r.scheme) or "-"),
-                  asset_class=(str(getattr(r, "asset_class", "") or "").strip() or "Equity"),
+                  # A BLANK ASSET CLASS IS NOT EQUITY. Defaulting it there is a fabrication in
+                  # the direction that flatters the book: it lands in the equity band, the equity
+                  # sleeve and the look-through, and nothing on any page says the class was
+                  # unknown. "Unclassified" is carried through every weight exactly the same way
+                  # and is reported as what it is.
+                  asset_class=(str(getattr(r, "asset_class", "") or "").strip()
+                               or "Unclassified"),
                   sebi_category=r.category,
                   value_inr=float(r.value), cost_inr=float(r.invested or r.value),
                   unrealised_pnl=float((r.value or 0) - (r.invested or r.value or 0)),
@@ -528,6 +534,8 @@ def main():
         equity_rows.append(dict(
             name=(_t("company") or f["name"]), isin=f["isin"],
             symbol=_t("symbol"), value_inr=f["value_inr"],
+            # A DIRECT SHARE IS EQUITY BY DEFINITION -- this row exists because the ISIN carries
+            # an INE prefix -- so the default here is the one place it is a fact and not a guess.
             weight_pct=f["weight_pct"], asset_class=f.get("asset_class") or "Equity",
             sub_category="Direct Equity", amc="-",
             holder=f.get("holder") or "", holder_split=dict(f.get("holder_split") or {}),

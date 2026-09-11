@@ -19,17 +19,28 @@ try:
 except Exception:
     _PILImage = None
 
-# ---- brand ----
-NAVYD = RGBColor(0x10, 0x19, 0x7A); NAVY = RGBColor(0x1B, 0x27, 0xA3)
-NT1 = RGBColor(0x4A, 0x57, 0xC4); NT2 = RGBColor(0x8C, 0x95, 0xDE); NT3 = RGBColor(0xC9, 0xCE, 0xF0)
-GOLD = RGBColor(0xF2, 0xA9, 0x3C); ORANGE = GOLD
-INK = RGBColor(0x16, 0x23, 0x3B); SLATE = RGBColor(0x6B, 0x72, 0x80)
-HAIR = RGBColor(0xE5, 0xE7, 0xEB); TRACK = RGBColor(0xEE, 0xEF, 0xF7)
+# ---- brand -----------------------------------------------------------------------------------
+# THE IONIC DESIGN SYSTEM, and nothing else. A brand review of a shipped deck counted 2,205 runs in
+# Georgia and 1,527 in Bahnschrift -- neither an approved face -- and 2,455 uses of #16233B against
+# a brand navy of #1A1C5E / #242BA1. The deck read as though it had been built from a different
+# template, which it had. Every token below is the approved one, so it is fixed at source rather
+# than corrected deck by deck.
+#
+# THE TYPEFACE IS REDDIT SANS AND IT IS NOT INSTALLED ON THIS BUILD MACHINE. That is fine and
+# deliberate: the font NAME is what travels in the .pptx, and the machines that open the deck have
+# it. It does mean the geometry gates estimate against metrics this machine cannot render, so a
+# fitted box is re-checked on a machine that has the face before a redesign is trusted.
+NAVYD = RGBColor(0x1A, 0x1C, 0x5E)      # deep navy, brand
+NAVY = RGBColor(0x24, 0x2B, 0xA1)       # primary blue, brand
+NT1 = RGBColor(0x4A, 0x51, 0xB8); NT2 = RGBColor(0x8C, 0x91, 0xD6); NT3 = RGBColor(0xC9, 0xCB, 0xEC)
+GOLD = RGBColor(0xFF, 0xB4, 0x32); ORANGE = GOLD
+INK = RGBColor(0x1A, 0x1A, 0x1A); SLATE = RGBColor(0x5C, 0x64, 0x78)
+HAIR = RGBColor(0xD9, 0xD9, 0xD9); TRACK = RGBColor(0xEC, 0xEC, 0xF4)
 PANEL = RGBColor(0xF5, 0xF6, 0xFC); WHITE = RGBColor(0xFF, 0xFF, 0xFF)
-SELL = RGBColor(0xE0, 0x40, 0x2F); SELLBG = RGBColor(0xFB, 0xE3, 0xE0)
-HOLD = RGBColor(0x1E, 0x9E, 0x6A); HOLDBG = RGBColor(0xE0, 0xF2, 0xEA)
-AMBER = RGBColor(0x92, 0x40, 0x0E); AMBERBG = RGBColor(0xFB, 0xEF, 0xDC)
-SERIF = "Georgia"; SANS = "Bahnschrift"
+SELL = RGBColor(0xFF, 0x5F, 0x49); SELLBG = RGBColor(0xFF, 0xE7, 0xE3)
+HOLD = RGBColor(0x08, 0xAF, 0x5C); HOLDBG = RGBColor(0xDF, 0xF5, 0xE9)
+AMBER = RGBColor(0x8A, 0x5A, 0x00); AMBERBG = RGBColor(0xFF, 0xF1, 0xDA)
+SERIF = "Reddit Sans"; SANS = "Reddit Sans SemiBold"
 CW, CH = 13.333, 7.5
 ML, MR = 0.92, 0.92
 RX = CW - MR; UW = RX - ML
@@ -386,8 +397,15 @@ class Deck:
             self.rect(s, 9.35 + 0.20 * k, 0.56, 0.15, 0.022, fill=col)
 
     @staticmethod
-    def _fit(text, base_pt, box_in, char_w_per_pt=0.0079, floor=14):
-        """Shrink a header font so the line NEVER wraps into content below it."""
+    def _fit(text, base_pt, box_in, char_w_per_pt=0.0096, floor=11):
+        """Shrink a header font so the line NEVER wraps into content below it.
+
+        char_w_per_pt is the FACE's average character width per point. It was 0.0079, which is
+        Bahnschrift; Reddit Sans SemiBold is wider, so every header was fitted against a face
+        narrower than the one it renders in and the longest titles wrapped into the scope tag
+        below them. The floor drops with it: a title that needs 11pt to stay on one line is
+        better than a title that wraps into the body.
+        """
         need = len(text) * base_pt * char_w_per_pt
         if need <= box_in:
             return base_pt
@@ -401,11 +419,29 @@ class Deck:
         s = self.slide(WHITE)
         self.logo(s); self.classified(s)
         if section_name: self.marker(s, section_no, section_name)
-        self.txt(s, ML, 0.46, 7.5, 0.55, [(eyebrow, SANS, self._fit(eyebrow, 26, 7.4), NAVY, True)])
-        self.txt(s, ML, 1.04, 10.6, 0.45, [(title, SANS, self._fit(title, 17.5, 10.5), ORANGE, True)])
-        self.rule(s, ML, 1.54, UW, NAVY, 0.024)
+        # THE EYEBROW BOX IS SIZED TO ITS OWN TYPE, not to a constant. It was 0.55in tall against
+        # a 26pt line, which fitted Bahnschrift and overlaps the title in Reddit Sans by 47% on
+        # any page whose eyebrow runs long. The box follows the fitted point size.
+        # THE EYEBROW IS A KICKER, NOT A SECOND HEADLINE. At 26pt it was nearly the size of the
+        # title under it, and in Reddit Sans its rendered height ran into that title on any page
+        # whose eyebrow is long. 18pt keeps the hierarchy the reference decks use - small label,
+        # large title - and leaves the pair clear of each other at every length.
+        # THE HEADER BLOCK LIVES ABOVE 1.55in, WHICH IS WHERE THE SCOPE TAG STARTS. The old
+        # layout had a decorative rule at 1.54 holding the two apart; with the rule gone (the
+        # brand guidelines prohibit it) the spacing has to do that work, so the pair is pulled up
+        # and each box is sized to its own type rather than to a constant that fitted the old face.
+        _esz = self._fit(eyebrow, 17, 7.4)
+        self.txt(s, ML, 0.44, 7.5, max(0.30, _esz / 72.0 * 1.25),
+                 [(eyebrow, SANS, _esz, NAVY, True)])
+        # Two lines of room, whose bottom still clears the scope tag at 1.62. A header that
+        # wraps is fine; a header that wraps INTO the body is not, which is what _fit prevents.
+        self.txt(s, ML, 0.90, 10.6, 0.62, [(title, SANS, self._fit(title, 18, 10.5), NAVYD, True)])
+        # NO TITLE UNDERLINE. The brand guidelines prohibit the decorative rule under a heading
+        # and the coloured edge-stripe on a card; both were in this template on every page. The
+        # separation is carried by space and by type weight instead, which is what the guidelines
+        # ask for. Do not put the rule back.
         if standfirst:
-            self.txt(s, ML, 1.60, UW, 0.24, [(standfirst, SERIF, 11, SLATE, False, True)])
+            self.txt(s, ML, 1.58, UW, 0.24, [(standfirst, SERIF, 11, SLATE, False, True)])
         self.footer(s)
         return s
 
@@ -442,7 +478,13 @@ class Deck:
                 pages = [pages]
             y = 5.45
             for label in pages[:5]:
-                self.txt(s, ML, y, 8.0, 0.24, [(str(label), SANS, 9.5, NT3, False, False, 40)])
+                # WIDE ENOUGH FOR THE LONGEST PAGE TITLE IN THE SECTION. At 8.0in a title like
+                # "Hybrid funds . return-for-risk, drawdown, worst year" clipped by 0.28in once
+                # the face changed; the divider has the whole left column to give it.
+                # wrap left ON: wrap=False makes the effective extent the whole unwrapped
+                # string, which on a 10.4in box runs under the divider's flow art.
+                self.txt(s, ML, y, 6.2, 0.24,
+                         [(str(label), SANS, 8.5, NT3, False, False, 30)])
                 y += 0.30
         return s
 
@@ -573,7 +615,7 @@ class Deck:
         never spill: over-long scopes drop whole ' · ' segments (keeping the as-of tail)
         rather than truncating mid-word."""
         x = ML if x is None else x
-        budget = int((RX - x - 0.55) / (0.0102 * 8.5)) - 8
+        budget = int((RX - x - 0.55) / (0.0092 * 8.5)) - 8   # Reddit Sans, 8.5pt
         if len(text) > budget and " · " in text:
             parts = text.split(" · ")
             while len(parts) > 2 and len(" · ".join(parts)) > budget:

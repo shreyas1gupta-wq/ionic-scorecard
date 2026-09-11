@@ -45,12 +45,14 @@ def _read_text(e, n):
 
 def _entry(deck, s, x, y, w, e, read_len):
     """One holding: name + score bar on line 1, one-line read on line 2."""
-    deck.txt(s, x, y, w - 1.5, 0.24,
-             [(e["name"], SANS, 10.5, INK, True), ("   " + f"{e['weight_pct']:.2f}%", SANS, 9, SLATE, False)],
+    deck.txt(s, x, y - 0.02, w - 1.5, 0.22,
+             [(e["name"], SANS, 9.5, INK, True),
+              ("   " + f"{e['weight_pct']:.2f}%", SANS, 8.5, SLATE, False)],
              anchor=MSO_ANCHOR.MIDDLE)
     deck.score_bar(s, x + w - 1.30, y + 0.05, e.get("ionic_score"), w=0.75)
-    deck.txt(s, x, y + 0.245, w, 0.22,
-             [(_read_text(e, read_len), SERIF, 9, SLATE, False, True)])
+    # 0.245 put the read line inside the name line's rendered height once the face changed.
+    deck.txt(s, x, y + 0.27, w, 0.22,
+             [(_read_text(e, read_len), SERIF, 8.5, SLATE, False, True)])
     deck.rule(s, x, y + 0.475, w, HAIR, 0.006)
 
 

@@ -322,7 +322,7 @@ def render(deck, ctx, tier):
     # authorisation band, with the signature blank beside it (v7 p.29: the deck gets signed)
     bw = UW - 3.95
     deck.rect(s, ML, 6.1, bw, 0.46, fill=AMBERBG, round_=0.06)
-    deck.rect(s, ML, 6.1, 0.06, 0.46, fill=GOLD)
+    # BRAND: no coloured edge-stripe on a card. The guidelines prohibit it and it was on every panel in this template. The panel's own fill and the pill carry the colour.
     deck.txt(s, ML + 0.22, 6.1, bw - 0.4, 0.46,
              [("AUTHORISATION   ", SANS, 8.5, AMBER, True, False, 60), (L["auth"], SERIF, 9.5, INK, False)],
              anchor=MSO_ANCHOR.MIDDLE, ls=1.0)

@@ -17,7 +17,7 @@ def _short(name, n=30):
 
 def _rule_card(deck, s, x, y, w, h, num, rule, why, violators, action_text, action_kind, simple):
     deck.rect(s, x, y, w, h, fill=PANEL, round_=0.03)
-    deck.rect(s, x, y, 0.06, h, fill=GOLD)
+    # BRAND: no coloured edge-stripe on a card. The guidelines prohibit it and it was on every panel in this template. The panel's own fill and the pill carry the colour.
     ix = x + 0.24
     iw = w - 0.44
     deck.txt(s, ix, y + 0.16, iw, 0.2, [(f"RULE {num}", SANS, 9, GOLD, True, False, 120)])

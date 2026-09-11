@@ -109,9 +109,14 @@ def render(deck, ctx, tier):
         no_view = no_view[:_nv_cap]
         nv_pages = [no_view[i:i + _NV_PER_PAGE] for i in range(0, len(no_view), _NV_PER_PAGE)] \
             if no_view else []
-        SRC = ("Suspended/insolvent status and fund launch dates verified against public "
-               "listing/exchange records at the time of this review; re-confirm before any "
-               "client communication that depends on them.")
+        # NOT "verified against public listing/exchange records". Nothing in this pipeline
+        # queries an exchange or a listing record; the status on these rows is whatever the
+        # statement and the score file carry. A source line asserting a verification the code
+        # cannot perform is the same defect as the reviewer sign-off and the total-return
+        # benchmark: a claim with no field behind it.
+        SRC = ("Status and category as the client's statement and the desk's score file record "
+               "them. This review does not query exchange or listing records; confirm any "
+               "suspension, delisting or launch date independently before it affects a decision.")
         cols = [("Holding", 0.30, "l"), ("Category", 0.20, "l"), ("Why no view", 0.50, "l")]
         for pg, chunk in enumerate(nv_pages or [None]):
             if pg > 0:

@@ -13,7 +13,12 @@ from pptx import Presentation
 IN = 914400.0
 SW, SH = 13.333, 7.5
 # rough average char width in inches per pt of font size
-CHAR_W = {"Georgia": 0.0102, "Bahnschrift": 0.0075}
+# Per-character width in inches at 1pt, by face. Reddit Sans is a humanist sans, a little narrower
+# than Georgia and a little wider than Bahnschrift; the two old faces stay so an older deck still
+# measures. A face not listed here falls back to the widest, which errs toward flagging.
+CHAR_W = {"Georgia": 0.0102, "Bahnschrift": 0.0075,
+          "Reddit Sans": 0.0092, "Reddit Sans SemiBold": 0.0096,
+          "Reddit Sans Medium": 0.0094}
 DEF_W = 0.0088
 
 

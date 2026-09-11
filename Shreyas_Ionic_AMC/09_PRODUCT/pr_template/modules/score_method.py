@@ -54,8 +54,8 @@ def _recipe(deck, s, y):
     def leg(x, eyebrow, sub, pct, dark=False):
         bg = NAVY if dark else PANEL
         deck.rect(s, x, y, bw, h, fill=bg, line=(None if dark else HAIR), round_=0.06)
-        if not dark:
-            deck.rect(s, x, y, 0.06, h, fill=GOLD)
+        # BRAND: no coloured edge-stripe on a card. The guidelines prohibit it, and it was on
+        # every panel in this template. The panel's own fill carries the separation.
         ec = WHITE if dark else NAVY
         sc = NT3 if dark else SLATE
         deck.txt(s, x + 0.20, y + 0.11, bw - 1.0, 0.26,
